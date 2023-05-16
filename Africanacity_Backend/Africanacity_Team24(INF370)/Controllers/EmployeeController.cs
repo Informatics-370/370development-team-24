@@ -18,6 +18,8 @@ namespace Africanacity_Team24_INF370_.Controllers
             _Repository = Repository;
         }
 
+        // Get all employees, from the database
+
         [HttpGet]
         [Route("GetAllEmployees")]
         public async Task<IActionResult> GetAllEmployees()
@@ -33,6 +35,9 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
 
         }
+
+        // Get an employee via their EmployeeId
+
         [HttpGet]
         [Route("GetEmployee/{EmployeeId}")]
         public async Task<IActionResult> GetEmployeeAsync(int EmployeeId)
@@ -50,6 +55,8 @@ namespace Africanacity_Team24_INF370_.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support");
             }
         }
+
+        // Add Employee
 
         [HttpPost]
         [Route("AddEmployee")]
@@ -69,6 +76,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
             return Ok(employee);
         }
+        //Update Employee
 
         [HttpPut]
         [Route("UpdateEmployee/{EmployeeId}")]
@@ -98,6 +106,7 @@ namespace Africanacity_Team24_INF370_.Controllers
             return BadRequest("Your request is invalid.");
         }
 
+        // Delete Employee
         [HttpDelete]
         [Route("DeleteEmployee/{EmployeeId}")]
         public async Task<IActionResult> DeleteCourse(int EmployeeId)
@@ -119,7 +128,27 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
             return BadRequest("Your request is invalid.");
         }
+
+            // Search Filter
+        //    [HttpGet]
+        //    public async Task<ActionResult<IEnumerable<Employee>>> Get()
+        //    {
+        //        return await _context.Employee.ToListAsync();
+        //    }
+
+        //    // GET: api/YourController/search
+        //    [HttpGet("search")]
+        //    public async Task<ActionResult<IEnumerable<YourModel>>> Search(string searchTerm)
+        //    {
+        //        var filteredData = await _context.YourModels
+        //            .Where(m => m.Name.Contains(searchTerm))
+        //            .ToListAsync();
+
+        //        return filteredData;
+        //    }
+        //}
+
     }
 
 }
-}
+
