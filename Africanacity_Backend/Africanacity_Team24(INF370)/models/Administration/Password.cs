@@ -15,7 +15,5 @@ namespace Africanacity_Team24_INF370_.models.Administration
 		public string Dataset { get; set; } = string.Empty;
 
 
-		public List<User> Users { get; set; } = new List<User>();
-
 	}
 }

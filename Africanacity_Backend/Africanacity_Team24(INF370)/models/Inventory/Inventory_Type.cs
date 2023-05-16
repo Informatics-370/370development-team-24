@@ -14,5 +14,6 @@ namespace Africanacity_Team24_INF370_.models.Inventory
 		[MaxLength(100)]
 		public string Description { get; set; } = string.Empty;
 
+		public List<Inventory_Item> Inventorys { get; set; } = new List<Inventory_Item>();
 	}
 }
