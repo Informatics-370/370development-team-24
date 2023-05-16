@@ -19,8 +19,19 @@ namespace Africanacity_Team24_INF370_.models
             return await query.ToArrayAsync();
         }
 
-		//Saving changes
-		public async Task<bool>SaveChangesAsync()
+        public async Task<Employee_Role[]> GetAllEmployeeRolesAsync()
+        {
+            IQueryable<Employee_Role> query = _appDbContext.Employee_Roles;
+            return await query.ToArrayAsync();
+        }
+        public async Task<Employee_Role> GetEmployeeRoleAsync(int Employee_RoleId)
+        {
+            IQueryable<Employee_Role> query = _appDbContext.Employee_Roles.Where(r => r.Employee_RoleId == Employee_RoleId);
+            return await query.FirstOrDefaultAsync();
+        }
+
+        //Saving changes
+        public async Task<bool>SaveChangesAsync()
 		{
 			return await _appDbContext.SaveChangesAsync() > 0;	
 		}
