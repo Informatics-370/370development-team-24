@@ -1,7 +1,7 @@
 ﻿using Africanacity_Team24_INF370_.models;
 using Microsoft.AspNetCore.Mvc;
 using Africanacity_Team24_INF370_.models.Restraurant;
-
+using Africanacity_Team24_INF370_.View_Models;
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
@@ -56,6 +56,73 @@ namespace Africanacity_Team24_INF370_.Controllers
             {
                 return StatusCode(500, "Internal Server Error. Please contact support");
             }
+        }
+
+        [HttpPost]
+        [Route("AddMenuItem")]
+        public async Task<IActionResult> AddMenuItem(MenuItemViewModel menuItemViewModel)
+        {
+            var menuItem = new MenuItem { Name = menuItemViewModel.Name, Description = menuItemViewModel.Description};
+
+            try
+            {
+                _repository.Add(menuItem);
+                await _repository.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return BadRequest("Invalid transaction");
+            }
+
+            return Ok(menuItem);
+        }
+
+        [HttpPut]
+        [Route("EditMenuItem/{menuItemId}")]
+        public async Task<ActionResult<MenuItemViewModel>> EditMenuItem(int MenuItemId, MenuItemViewModel menuItemViewModel)
+        {
+            try
+            {
+                var existingMeal = await _repository.GetMenuItemAsync(MenuItemId);
+                if (existingMeal == null) return NotFound($"The course does not exist");
+
+                existingMeal.Name = menuItemViewModel.Name;
+                existingMeal.Description = menuItemViewModel.Description;
+                
+
+
+                if (await _repository.SaveChangesAsync())
+                {
+                    return Ok(existingMeal);
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+            return BadRequest("Your request is invalid.");
+        }
+
+        [HttpDelete]
+        [Route("DeleteMenuItem/{MenuItemId}")]
+        public async Task<IActionResult> DeleteMenuItem(int MenuItemId)
+        {
+            try
+            {
+                var existingMeal = await _repository.GetMenuItemAsync(MenuItemId);
+
+                if (existingMeal == null) return NotFound($"The course does not exist");
+
+                _repository.Delete(existingMeal);
+
+                if (await _repository.SaveChangesAsync()) return Ok(existingMeal);
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+            return BadRequest("Your request is invalid.");
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿using Africanacity_Team24_INF370_.models.Administration;
 using Africanacity_Team24_INF370_.models.Restraurant;
+using Africanacity_Team24_INF370_.View_Models;
 
 namespace Africanacity_Team24_INF370_.models
 {
@@ -20,6 +21,12 @@ namespace Africanacity_Team24_INF370_.models
         Task<MenuItem[]> GetAllMenuItemAsync();
 
         Task<MenuItem> GetMenuItemAsync(int MenuItemId);
+
+        Task<int> EditMenuItemAsync(int MenuItemId, MenuItemViewModel menuItem);
+
+       
+        void DeleteMenuItem<T>(T entity) where T : class;
+        void AddMenuItem<T>(T entity) where T : class;
 
 
         // DRINK ITEM TYPE
