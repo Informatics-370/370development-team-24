@@ -31,7 +31,7 @@ namespace Africanacity_Team24_INF370_.Controllers
         {
             try
             {
-                var results = await _repository.GetAllMenuItemsAsync();
+                var results = await _repository.GetAllMenuItemAsync();
                 return Ok(results);
             }
             catch (Exception)
