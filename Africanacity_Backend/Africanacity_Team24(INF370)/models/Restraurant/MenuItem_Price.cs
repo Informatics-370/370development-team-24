@@ -11,7 +11,5 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
 		[DisplayFormat(DataFormatString = "{0:0.00}")]
 		public decimal Amount { get; set; }
 
-		public List<MenuItem> MenuItems { get; set; } = new List<MenuItem>();
-
 	}
 }
