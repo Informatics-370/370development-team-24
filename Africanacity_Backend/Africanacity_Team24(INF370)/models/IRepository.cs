@@ -5,12 +5,14 @@ namespace Africanacity_Team24_INF370_.models
 {
     public interface IRepository
     {
-        Task<Employee[]> GetAllEmployeesAsync();
-        
-        /* Review entities here*/
+
         void Add<T>(T entity) where T : class;
         void Delete<T>(T entity) where T : class;
         Task<bool> SaveChangesAsync();
+
+        //EMPLOYEE
+        Task<Employee[]> GetAllEmployeesAsync();
+        Task<Employee> GetEmployeeAsync(int Employeeid);
 
         // FOOD TYPE
         Task<Food_Type[]> GetAllFoodTypesAsync();

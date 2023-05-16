@@ -13,14 +13,21 @@ namespace Africanacity_Team24_INF370_.models
             _appDbContext = appDbContext;
         }
 
+        // EMPLOYEES
         public async Task<Employee[]> GetAllEmployeesAsync()
         {
             IQueryable<Employee> query = _appDbContext.Employees;
             return await query.ToArrayAsync();
         }
+        public async Task<Employee> GetEmployeeAsync(int EmployeeId)
+        {
+            IQueryable<Employee> query = _appDbContext.Employees.Where(c => c.EmployeeId == EmployeeId);
+            return await query.FirstOrDefaultAsync();
+        }
 
-		//Saving changes
-		public async Task<bool>SaveChangesAsync()
+
+        //Saving changes
+        public async Task<bool>SaveChangesAsync()
 		{
 			return await _appDbContext.SaveChangesAsync() > 0;	
 		}
@@ -44,6 +51,8 @@ namespace Africanacity_Team24_INF370_.models
 			IQueryable<Food_Type> query = _appDbContext.Food_Types.Where(f => f.FoodTypeId == FoodTypeId);
 			return await query.FirstOrDefaultAsync();
 		}
+
+
 
         //DRINK ITEM TYPE
         public async Task<Drink_Type[]> GetAllDrinkTypesAsync()
