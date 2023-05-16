@@ -16,6 +16,12 @@ namespace Africanacity_Team24_INF370_.models
         Task<Food_Type[]> GetAllFoodTypesAsync();
         Task<Food_Type> GetFoodTypeAsync(int FoodTypeId);
 
+        //MENU ITEM 
+        Task<MenuItem[]> GetAllMenuItemsAsync();
+
+        Task<MenuItem> GetMenuItemAsync(int MenuItemId);
+
+
         // DRINK ITEM TYPE
         Task<Drink_Type[]> GetAllDrinkTypesAsync();
         Task<Drink_Type> GetDrinkTypeAsync(int Drink_TypeId);
