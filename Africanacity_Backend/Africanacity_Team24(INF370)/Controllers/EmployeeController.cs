@@ -98,6 +98,28 @@ namespace Africanacity_Team24_INF370_.Controllers
             return BadRequest("Your request is invalid.");
         }
 
+        [HttpDelete]
+        [Route("DeleteEmployee/{EmployeeId}")]
+        public async Task<IActionResult> DeleteCourse(int EmployeeId)
+        {
+            try
+            {
+                var currentEmployee = await _Repository.GetEmployeeAsync(EmployeeId);
 
+                if (currentEmployee == null) return NotFound($"The course does not exist");
+
+                _Repository.Delete(currentEmployee);
+
+                if (await _Repository.SaveChangesAsync()) return Ok(currentEmployee);
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+            return BadRequest("Your request is invalid.");
+        }
     }
+
+}
 }
