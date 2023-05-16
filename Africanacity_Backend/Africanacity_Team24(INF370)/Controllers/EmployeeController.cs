@@ -55,7 +55,7 @@ namespace Africanacity_Team24_INF370_.Controllers
         [Route("AddEmployee")]
         public async Task<IActionResult> AddEmployee(EmployeeViewModel evm)
         {
-            var employee = new Employee { EmployeeId = evm.EmployeeId};
+            var employee = new Employee { EmployeeId = evm.EmployeeId, FirstName = evm.Name, Surname = evm.Surname, Email_Address = evm.Email_Address, PhoneNumber = evm.PhoneNumber, Physical_Address = evm.Physical_Address };
 
             try
             {
@@ -68,6 +68,34 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
 
             return Ok(employee);
+        }
+
+        [HttpPut]
+        [Route("UpdateEmployee/{EmployeeId}")]
+        public async Task<ActionResult<EmployeeViewModel>> EditCourse(int EmployeeId, EmployeeViewModel employeeModel)
+        {
+            try
+            {
+                var currentEmployee = await _Repository.GetEmployeeAsync(EmployeeId);
+                if (currentEmployee == null) return NotFound($"The course does not exist");
+
+                currentEmployee.EmployeeId = employeeModel.EmployeeId;
+                currentEmployee.FirstName = employeeModel.Name;
+                currentEmployee.Surname = employeeModel.Surname;
+                currentEmployee.Email_Address = employeeModel.Email_Address;
+                currentEmployee.PhoneNumber = employeeModel.PhoneNumber;
+                currentEmployee.Physical_Address = employeeModel.Physical_Address;
+
+                if (await _Repository.SaveChangesAsync())
+                {
+                    return Ok(currentEmployee);
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+            return BadRequest("Your request is invalid.");
         }
 
 
