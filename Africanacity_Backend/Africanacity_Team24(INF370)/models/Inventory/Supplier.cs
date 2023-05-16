@@ -29,9 +29,6 @@ namespace Africanacity_Team24_INF370_.models.Inventory
 		[StringLength(10)]
 		public string PhoneNumber { get; set; } = string.Empty;
 
-		public List<Supplier_Type> Supplier_Types { get; set; } = new List<Supplier_Type>();
-
-		public List<Administrator> Administrators { get; set; } = new List<Administrator>();
 		public List<Inventory_Item> Inventory_Items { get; set; } = new List<Inventory_Item>();
 	}
 }

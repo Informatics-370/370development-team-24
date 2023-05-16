@@ -10,6 +10,6 @@ namespace Africanacity_Team24_INF370_.models.Administration
 
 		[MaxLength(50)]
 		public string Name { get; set; } = string.Empty;
-
+		public List<Help> Helps { get; set; } = new List<Help>();
 	}
 }
