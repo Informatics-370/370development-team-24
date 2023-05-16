@@ -15,10 +15,6 @@ namespace Africanacity_Team24_INF370_.models.Booking
 
 		public DateTime End_Time { get; set; }
 
-		public List<Administrator> Administrators { get; set; } = new List<Administrator>();
-
-		public List<Schedule_Status> Schedule_Statuses { get; set; } = new List<Schedule_Status>();
-
 		public List<Entertainer> Entertainers { get; set; } = new List<Entertainer>();
 	}
 }

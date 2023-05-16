@@ -1,4 +1,5 @@
 ﻿using Africanacity_Team24_INF370_.models.Administration;
+using Africanacity_Team24_INF370_.models.Booking;
 using System.ComponentModel.DataAnnotations;
 
 namespace Africanacity_Team24_INF370_.models.Admin
@@ -10,9 +11,11 @@ namespace Africanacity_Team24_INF370_.models.Admin
 
 		[MaxLength(15)]
 		public string Username { get; set; } = string.Empty;
+		public List<Employee> Employees { get; set; } = new List<Employee>();
+		public List<Entertainer> Entertainers { get; set; } = new List<Entertainer>();
 
-		public List<User_Role> User_Roles { get; set; } = new List<User_Role>();
+		public List<Password> Passwords { get; set; } = new List<Password>();
+		public List<Administrator> Administrators { get; set; } = new List<Administrator>();
 
-		public List<Title> Titles { get; set; } = new List<Title>();
 	}
 }
