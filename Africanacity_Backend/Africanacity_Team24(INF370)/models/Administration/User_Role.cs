@@ -16,5 +16,6 @@ namespace Africanacity_Team24_INF370_.models.Administration
 
 		public List<Access> Accesses { get; set; } = new List<Access>();
 
+		public List<User> Users { get; set; } = new List<User>();
 	}
 }
