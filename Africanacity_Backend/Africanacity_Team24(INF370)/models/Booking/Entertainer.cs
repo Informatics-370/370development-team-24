@@ -22,7 +22,7 @@ namespace Africanacity_Team24_INF370_.models.Booking
 		[StringLength(10)]
 		public string PhoneNumber { get; set; } = string.Empty;
 
-		public List<User> Users { get; set; } = new List<User>();
+		public List<Bookings> Booking { get; set; } = new List<Bookings>();
 
 		public List<Entertainment_Type> Entertainment_Types { get; set; } = new List<Entertainment_Type>();
 		public List<Schedule> Schedules { get; set; } = new List<Schedule>();

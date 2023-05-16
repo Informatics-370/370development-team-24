@@ -10,6 +10,5 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
 
 		public int Amount { get; set; }
 
-		public List<Drink> Drinks { get; set; } = new List<Drink>();
 	}
 }

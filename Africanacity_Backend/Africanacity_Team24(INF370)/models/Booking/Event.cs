@@ -12,7 +12,5 @@ namespace Africanacity_Team24_INF370_.models.Booking
 		[MaxLength(50)]
 		public string Name { get; set; } = string.Empty;
 
-		public List<Administrator> Administrators { get; set; } = new List<Administrator>();
-
 	}
 }

@@ -14,9 +14,5 @@ namespace Africanacity_Team24_INF370_.models.Admin
 		[MaxLength(100)]
 		public string Description { get; set; } = string.Empty;
 
-
-		public List<Help_Category> Help_Categories { get; set; } = new List<Help_Category>();
-
-		public List<Administrator> Administrators { get; set; } = new List<Administrator>();
 	}
 }
