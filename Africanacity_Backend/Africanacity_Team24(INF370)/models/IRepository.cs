@@ -25,8 +25,7 @@ namespace Africanacity_Team24_INF370_.models
         Task<int> EditMenuItemAsync(int MenuItemId, MenuItemViewModel menuItem);
 
        
-        void DeleteMenuItem<T>(T entity) where T : class;
-        void AddMenuItem<T>(T entity) where T : class;
+       
 
 
         // DRINK ITEM TYPE
