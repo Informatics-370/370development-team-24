@@ -1,0 +1,16 @@
+table{
+    padding-top: 60px;
+}
+.form-control {
+    
+    background-color: rgba(250, 246, 246, 0.966);
+    border-radius: 8px;
+    border-color: black;
+}
+.input-group{
+    width: 400px;
+    
+}
+.btn{
+    border-color: black;
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { EmployeeService } from '../services/employee.service';
 import { Employee } from '../shared/employee';
@@ -33,6 +33,14 @@ export class ViewEmployeesComponent {
     this.employeeservice.DeleteEmployee(EmployeeId).subscribe(result => {
       window.location.reload();
       });
+    }
+
+    searchTerm: string = '';
+
+    @Output() searchClicked: EventEmitter<string> = new EventEmitter<string>();
+
+    search(searchTerm: string) {
+      this.searchClicked.emit(searchTerm);
     }
 
 
