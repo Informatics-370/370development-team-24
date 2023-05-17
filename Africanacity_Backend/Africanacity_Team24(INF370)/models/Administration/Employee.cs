@@ -23,5 +23,7 @@ namespace Africanacity_Team24_INF370_.models.Administration
 		public string PhoneNumber { get; set; } = string.Empty;
 
 		public List<Order> Orders { get; set; } = new List<Order>();
+
+		//public Employee_Role Employee_Role { get; set; }
 	}
 }

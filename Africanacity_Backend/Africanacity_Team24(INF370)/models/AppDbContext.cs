@@ -81,12 +81,33 @@ namespace Africanacity_Team24_INF370_.models
 							   FirstName = "Vanessa",
 							   Email_Address = "VanessaJames@gmial.com",
 							   PhysicalAddress = "404 Jacob Street",
-							   City = "Pretoria",
-							   State = "Gauteng",
-							   PostalCode = "0181",
 							   PhoneNumber = "0847541236"
 
 						   });
+            modelBuilder.Entity<Employee>()
+                         .HasData(
+                         new
+                         {
+                             EmployeeId = 2,
+                             Surname = "Hello",
+                             FirstName = "Goodbye",
+                             Email_Address = "HelloGoodBye@gmial.com",
+                             PhysicalAddress = "404 Scare Street",
+                             PhoneNumber = "0842341236"
+
+                         });
+            modelBuilder.Entity<Employee>()
+                         .HasData(
+                         new
+                         {
+                             EmployeeId = 3,
+                             Surname = "Happy",
+                             FirstName = "Sad",
+                             Email_Address = "HappySad@gmial.com",
+                             PhysicalAddress = "404 Fluffy Street",
+                             PhoneNumber = "0212378798"
+
+                         });
             // For the Access_UserRole M2M payload (Uncomment code below and run migration to generate tables)
             modelBuilder.Entity<Access>()
 			    .HasMany(t => t.User_Roles)

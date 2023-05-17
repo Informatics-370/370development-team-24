@@ -14,6 +14,12 @@ import { ForgotPasswordComponent } from './login/forgot-password/forgot-password
 import { UpdatePasswordComponent } from './login/update-password/update-password.component';
 import { MaterialModule } from './shared/material.modules';
 import { OtpComponent } from './login/otp/otp.component';
+import { AddHelpComponent } from './administration/Help Management/add-help/add-help.component';
+import { ViewHelpListComponent } from './administration/Help Management/view-help-list/view-help-list.component';
+import { AddEmployeeComponent } from './administration/Employees/add-employee/add-employee.component';
+import { ViewEmployeesComponent } from './administration/Employees/view-employees/view-employees.component';
+import { EditEmployeeComponent } from './administration/Employees/view-employees/edit-employee/edit-employee.component';
+import { EditHelpComponent } from './administration/Help Management/view-help-list/edit-help/edit-help.component';
 
 
 
@@ -28,9 +34,11 @@ import { OtpComponent } from './login/otp/otp.component';
     LoginComponent,
     OtpComponent,
     ForgotPasswordComponent, 
-    UpdatePasswordComponent, 
-   
-    HomeComponent
+    UpdatePasswordComponent,  
+    AddEmployeeComponent, 
+    ViewEmployeesComponent, 
+    AddHelpComponent, 
+    ViewHelpListComponent, EditEmployeeComponent, EditHelpComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,7 @@
 ﻿using Africanacity_Team24_INF370_.models;
 using Africanacity_Team24_INF370_.models.Administration;
+using Africanacity_Team24_INF370_.models.Restraurant;
+using Africanacity_Team24_INF370_.View_Models;
 using Africanacity_Team24_INF370_.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
@@ -46,7 +48,7 @@ namespace Africanacity_Team24_INF370_.Controllers
             {
                 var result = await _Repository.GetEmployeeAsync(EmployeeId);
 
-                if (result == null) return NotFound("Course does not exist. You need to create it first");
+                if (result == null) return NotFound("Employee does not exist. You need to create an employee first");
 
                 return Ok(result);
             }
@@ -60,9 +62,9 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         [HttpPost]
         [Route("AddEmployee")]
-        public async Task<IActionResult> AddEmployee(EmployeeViewModel evm)
+        public async Task<IActionResult> AddDrinkType(EmployeeViewModel evm)
         {
-            var employee = new Employee { EmployeeId = evm.EmployeeId, FirstName = evm.Name, Surname = evm.Surname, Email_Address = evm.Email_Address, PhoneNumber = evm.PhoneNumber, Physical_Address = evm.Physical_Address };
+            var employee = new Employee { FirstName = evm.Name };
 
             try
             {
@@ -71,28 +73,30 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
             catch (Exception)
             {
-                return BadRequest("Invalid transaction");
+                // fix error message
+                return BadRequest("Invalid Transaction");
             }
 
             return Ok(employee);
         }
+
         //Update Employee
 
         [HttpPut]
-        [Route("UpdateEmployee/{EmployeeId}")]
-        public async Task<ActionResult<EmployeeViewModel>> EditCourse(int EmployeeId, EmployeeViewModel employeeModel)
+        [Route("EditEmployee/{EmployeeId}")]
+        public async Task<ActionResult<EmployeeViewModel>> EditEmployee(int EmployeeId, EmployeeViewModel evm)
         {
             try
             {
                 var currentEmployee = await _Repository.GetEmployeeAsync(EmployeeId);
-                if (currentEmployee == null) return NotFound($"The course does not exist");
+                if (currentEmployee == null) return NotFound($"The emloyee does not exist");
 
-                currentEmployee.EmployeeId = employeeModel.EmployeeId;
-                currentEmployee.FirstName = employeeModel.Name;
-                currentEmployee.Surname = employeeModel.Surname;
-                currentEmployee.Email_Address = employeeModel.Email_Address;
-                currentEmployee.PhoneNumber = employeeModel.PhoneNumber;
-                currentEmployee.Physical_Address = employeeModel.Physical_Address;
+                currentEmployee.EmployeeId = evm.EmployeeId;
+                currentEmployee.FirstName = evm.Name;
+                currentEmployee.Surname = evm.Surname;
+                currentEmployee.Email_Address = evm.Email_Address;
+                currentEmployee.PhoneNumber = evm.PhoneNumber;
+                currentEmployee.Physical_Address = evm.Physical_Address;
 
                 if (await _Repository.SaveChangesAsync())
                 {
@@ -115,7 +119,7 @@ namespace Africanacity_Team24_INF370_.Controllers
             {
                 var currentEmployee = await _Repository.GetEmployeeAsync(EmployeeId);
 
-                if (currentEmployee == null) return NotFound($"The course does not exist");
+                if (currentEmployee == null) return NotFound($"The employee does not exist");
 
                 _Repository.Delete(currentEmployee);
 
