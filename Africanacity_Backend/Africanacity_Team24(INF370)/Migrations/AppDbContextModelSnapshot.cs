@@ -284,7 +284,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         new
                         {
                             EmployeeId = 1,
-                            Email_Address = "VanessaJames@gmial.com",
+                            Email_Address = "VanessaJames@gmail.com",
                             FirstName = "Vanessa",
                             PhoneNumber = "0847541236",
                             Physical_Address = "404 Jacob Street",
@@ -293,7 +293,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         new
                         {
                             EmployeeId = 2,
-                            Email_Address = "SerenaWilliams@gmial.com",
+                            Email_Address = "SerenaWilliams@gmail.com",
                             FirstName = "Serena",
                             PhoneNumber = "0842341236",
                             Physical_Address = "132 Harriet Street",
