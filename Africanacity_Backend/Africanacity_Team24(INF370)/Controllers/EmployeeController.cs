@@ -62,9 +62,9 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         [HttpPost]
         [Route("AddEmployee")]
-        public async Task<IActionResult> AddDrinkType(EmployeeViewModel evm)
+        public async Task<IActionResult> AddEmployee(EmployeeViewModel evm)
         {
-            var employee = new Employee { FirstName = evm.Name };
+            var employee = new Employee { FirstName = evm.FirstName, Surname = evm.Surname, Email_Address = evm.Email_Address, Physical_Address = evm.Physical_Address, PhoneNumber = evm.PhoneNumber };
 
             try
             {
@@ -91,8 +91,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                 var currentEmployee = await _Repository.GetEmployeeAsync(EmployeeId);
                 if (currentEmployee == null) return NotFound($"The emloyee does not exist");
 
-                currentEmployee.EmployeeId = evm.EmployeeId;
-                currentEmployee.FirstName = evm.Name;
+                currentEmployee.FirstName = evm.FirstName;
                 currentEmployee.Surname = evm.Surname;
                 currentEmployee.Email_Address = evm.Email_Address;
                 currentEmployee.PhoneNumber = evm.PhoneNumber;
@@ -113,7 +112,7 @@ namespace Africanacity_Team24_INF370_.Controllers
         // Delete Employee
         [HttpDelete]
         [Route("DeleteEmployee/{EmployeeId}")]
-        public async Task<IActionResult> DeleteCourse(int EmployeeId)
+        public async Task<IActionResult> DeleteEmployee(int EmployeeId)
         {
             try
             {

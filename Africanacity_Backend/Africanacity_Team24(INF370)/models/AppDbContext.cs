@@ -79,8 +79,8 @@ namespace Africanacity_Team24_INF370_.models
 							   EmployeeId = 1,
 							   Surname = "James",
 							   FirstName = "Vanessa",
-							   Email_Address = "VanessaJames@gmial.com",
-							   PhysicalAddress = "404 Jacob Street",
+							   Email_Address = "VanessaJames@gmail.com",
+							   Physical_Address = "404 Jacob Street",
 							   PhoneNumber = "0847541236"
 
 						   });
@@ -89,10 +89,10 @@ namespace Africanacity_Team24_INF370_.models
                          new
                          {
                              EmployeeId = 2,
-                             Surname = "Hello",
-                             FirstName = "Goodbye",
-                             Email_Address = "HelloGoodBye@gmial.com",
-                             PhysicalAddress = "404 Scare Street",
+                             Surname = "Williams",
+                             FirstName = "Serena",
+                             Email_Address = "SerenaWilliams@gmail.com",
+                             Physical_Address = "132 Harriet Street",
                              PhoneNumber = "0842341236"
 
                          });
@@ -101,13 +101,127 @@ namespace Africanacity_Team24_INF370_.models
                          new
                          {
                              EmployeeId = 3,
-                             Surname = "Happy",
-                             FirstName = "Sad",
-                             Email_Address = "HappySad@gmial.com",
-                             PhysicalAddress = "404 Fluffy Street",
+                             Surname = "Elba",
+                             FirstName = "Edris",
+                             Email_Address = "EdrisElba@gmail.com",
+                             Physical_Address = "245 homelyn Street",
                              PhoneNumber = "0212378798"
 
                          });
+            modelBuilder.Entity<Employee>()
+                        .HasData(
+                        new
+                        {
+                            EmployeeId = 4,
+                            Surname = "Nyongo",
+                            FirstName = "Lupita",
+                            Email_Address = "NyongoLupita@gmail.com",
+                            Physical_Address = "254 Summer Street",
+                            PhoneNumber = "0455783475"
+
+                        });
+            modelBuilder.Entity<Employee>()
+                        .HasData(
+                        new
+                        {
+                            EmployeeId = 5,
+                            Surname = "Jackson",
+                            FirstName = "Micheal",
+                            Email_Address = "MicheaJackson@gmail.com",
+                            Physical_Address = "567 Winter Street",
+                            PhoneNumber = "0874567836"
+
+                        });
+            modelBuilder.Entity<Employee>()
+                        .HasData(
+                        new
+                        {
+                            EmployeeId = 6,
+                            Surname = "Kim",
+                            FirstName = "Taehyung",
+                            Email_Address = "TaehyungKim@gmial.com",
+                            Physical_Address = "345 Shallow  Street",
+                            PhoneNumber = "0874562134"
+
+                        });
+            modelBuilder.Entity<Employee>()
+                        .HasData(
+                        new
+                        {
+                            EmployeeId = 7,
+                            Surname = "Coleman",
+                            FirstName = "Zendaya",
+                            Email_Address = "ZendayaColeman@gmail.com",
+                            Physical_Address = "243 Super Street ",
+                            PhoneNumber = "0212378798"
+
+                        });
+            modelBuilder.Entity<Employee>()
+                        .HasData(
+                        new
+                        {
+                            EmployeeId = 8,
+                            Surname = "Federal",
+                            FirstName = "Roger",
+                            Email_Address = "RogerFederal@gmail.com",
+                            Physical_Address = "987 Wall Street",
+                            PhoneNumber = "0612346487"
+
+                        });
+            modelBuilder.Entity<Employee>()
+                        .HasData(
+                        new
+                        {
+                            EmployeeId = 9,
+                            Surname = "Lopez",
+                            FirstName = "Jennifer",
+                            Email_Address = "JenniferLOpez@gmail.com",
+                            Physical_Address = "967 Ballard Street",
+                            PhoneNumber = "0874834576"
+
+                        });
+            modelBuilder.Entity<Employee>()
+                        .HasData(
+                        new
+                        {
+                            EmployeeId = 10,
+                            Surname = "Boseman",
+                            FirstName = "Chadwick",
+                            Email_Address = "ChadwickBoseman@gmail.com",
+                            Physical_Address = "483 Alien Street",
+                            PhoneNumber = "0923456789"
+
+                        });
+            // Create Seed Data For the Help Q&A Table:
+
+            modelBuilder.Entity<Help>()
+                        .HasData(
+                        new
+                        {
+                            HelpId = 1,
+                            Name = "What food does MMINO Restaurant serve?",
+                            Description = "MMINO Restaurant serves various types of cuisine, and ensure that they cater for all dietry preferneces."
+                        });
+            modelBuilder.Entity<Help>()
+                       .HasData(
+                       new
+                       {
+                           HelpId = 2,
+                           Name = "Where is MMINO Restaurant?",
+                           Description = "MMINO Restaurant is located in Hatfield,Pretoria. 1005 Arcadia Street"
+                       });
+            modelBuilder.Entity<Help>()
+                      .HasData(
+                      new
+                      {
+                          HelpId = 3,
+                          Name = "How how do you book for a live entertainment slot?",
+                          Description = "You can book for a live entertainment slot, by creating an account and then following the steps thereafter."
+                      });
+
+
+
+
             // For the Access_UserRole M2M payload (Uncomment code below and run migration to generate tables)
             modelBuilder.Entity<Access>()
 			    .HasMany(t => t.User_Roles)

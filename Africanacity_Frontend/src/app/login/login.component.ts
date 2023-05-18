@@ -14,10 +14,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 
 export class LoginComponent implements OnInit {
+
   hide = true;
   loginFormGroup: FormGroup = this.fb.group({
     UserName: ['', [Validators.required, Validators.email]],
     Password: ['', Validators.required],
+
   })
 
   isLoading:boolean = false

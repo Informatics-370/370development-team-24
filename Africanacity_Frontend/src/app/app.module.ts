@@ -24,6 +24,7 @@ import { EditHelpComponent } from './administration/Help Management/view-help-li
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +40,8 @@ import { EditHelpComponent } from './administration/Help Management/view-help-li
     ViewEmployeesComponent, 
     AddHelpComponent, 
     ViewHelpListComponent, EditEmployeeComponent, EditHelpComponent
+
+    
   ],
   imports: [
     BrowserModule,

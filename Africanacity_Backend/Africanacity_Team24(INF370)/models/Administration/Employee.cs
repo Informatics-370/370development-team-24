@@ -17,7 +17,7 @@ namespace Africanacity_Team24_INF370_.models.Administration
 
 		[MaxLength(50)]
 		public string? Email_Address { get; set; }
-		public string? Physical_Address { get; set; }
+		public string? Physical_Address { get; set; } = string.Empty.ToString();
 
 		[StringLength(10)]
 		public string PhoneNumber { get; set; } = string.Empty;

@@ -31,7 +31,7 @@ export class EmployeeService {
     .pipe(map(result => result))
   }
 
-  AddEmployee(employee: ViewEmployeesComponent)
+  AddEmployee(employee: Employee)
   {
     return this.httpClient.post(`${this.apiUrl}Employee/AddEmpoyee`, employee, this.httpOptions)
   }

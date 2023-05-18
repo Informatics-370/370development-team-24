@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./add-help.component.css']
 })
 export class AddHelpComponent {
+  password: string = '';
+  showPassword: boolean = false;
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 
 }

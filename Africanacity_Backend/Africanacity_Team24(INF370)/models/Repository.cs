@@ -1,5 +1,7 @@
-﻿using Africanacity_Team24_INF370_.models.Administration;
+﻿using Africanacity_Team24_INF370_.models.Admin;
+using Africanacity_Team24_INF370_.models.Administration;
 ﻿using Africanacity_Team24_INF370_.models.Restraurant;
+using Africanacity_Team24_INF370_.ViewModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace Africanacity_Team24_INF370_.models
@@ -21,9 +23,26 @@ namespace Africanacity_Team24_INF370_.models
         }
         public async Task<Employee> GetEmployeeAsync(int EmployeeId)
         {
-            IQueryable<Employee> query = _appDbContext.Employees.Where(c => c.EmployeeId == EmployeeId);
+            IQueryable<Employee> query = _appDbContext.Employees.Where(e => e.EmployeeId == EmployeeId);
             return await query.FirstOrDefaultAsync();
         }
+
+        //HELP 
+        public async Task<Help[]> GetAlHelpAsync()
+        {
+            IQueryable<Help> query = _appDbContext.Helps;
+            return await query.ToArrayAsync();
+        }
+        public async Task<Help> GetHelpAsync(int HelpId)
+        {
+            IQueryable<Help> query = _appDbContext.Helps.Where(h => h.HelpId == HelpId);
+            return await query.FirstOrDefaultAsync();
+        }
+        public Task<Help[]> GetAllHelpAsync()
+        {
+            throw new NotImplementedException();
+        }
+
 
 
         //Saving changes
@@ -77,5 +96,7 @@ namespace Africanacity_Team24_INF370_.models
             IQueryable<MenuItem_Category> query = _appDbContext.MenuItem_Categories.Where(m => m.Menu_CategoryId == Menu_CategoryId);
             return await query.FirstOrDefaultAsync();
         }
+
+       
     }
 }

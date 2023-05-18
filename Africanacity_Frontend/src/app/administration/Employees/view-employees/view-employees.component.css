@@ -11,6 +11,19 @@ table{
     width: 400px;
     
 }
-.btn{
-    border-color: black;
+
+
+.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-child(odd)>th {
+  background-color: lightgrey;
+  color: white;
+}
+button{
+    border-radius: 99px;
+}
+.table-striped{
+    padding-top: 200px;
+}
+.thead{
+    background-color: darkgrey;
 }
