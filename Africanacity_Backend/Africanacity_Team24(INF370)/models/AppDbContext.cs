@@ -87,6 +87,27 @@ namespace Africanacity_Team24_INF370_.models
 							   PhoneNumber = "0847541236"
 
 						   });
+			//create seed data for menu type
+            modelBuilder.Entity<Menu_Type>()
+                          .HasData(
+                          new
+                          {
+                              Menu_TypeId = 1,
+                              Name = "Breakfast"
+                              
+
+                          });
+            modelBuilder.Entity<Menu_Type>()
+                         .HasData(
+                         new
+                         {
+                             Menu_TypeId = 2,
+                             Name = "All Day"
+
+
+                         });
+
+
             // For the Access_UserRole M2M payload (Uncomment code below and run migration to generate tables)
             modelBuilder.Entity<Access>()
 			    .HasMany(t => t.User_Roles)
