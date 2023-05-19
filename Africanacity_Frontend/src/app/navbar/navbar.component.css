@@ -30,7 +30,7 @@ navbar-brand{
 
 /* Style the sidenav links and the dropdown button */
 
-/* .sidenav a, .dropdown-btn {
+.sidenav a, .dropdown-btn {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 20px;
@@ -45,9 +45,9 @@ navbar-brand{
 }
 
 /* On mouse-over */
-/* .sidenav a:hover, .dropdown-btn:hover {
+/*.sidenav a:hover, .dropdown-btn:hover {
   color: #a41fdd;
-} */
+} 
 
 /* Main content */
 /* .main {

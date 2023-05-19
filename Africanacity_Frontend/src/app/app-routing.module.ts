@@ -4,6 +4,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { OtpComponent } from './login/otp/otp.component';
 import { RegisterComponent } from './login/register/register.component';
+import { MenuTypesComponent } from './administration/menu-types/menu-types.component';//for menu types page
+
 
 // routing for pages
 
@@ -13,6 +15,7 @@ import { MenuComponent } from './administration/menu/menu.component'; // for men
 const routes: Routes = [
   { path: 'home', component: HomeComponent }, // for home page
   { path: 'menu', component: MenuComponent }, // for menu page
+  { path: 'menu-types', component: MenuTypesComponent }, // for menu page
   {
     path: '',
     component: NavbarComponent
@@ -34,7 +37,8 @@ const routes: Routes = [
    component:RegisterComponent
   },
   {path: '', 
-  redirectTo: 'login', pathMatch:'full'}
+  redirectTo: 'login', pathMatch:'full'},
+  
 ];
 
 @NgModule({

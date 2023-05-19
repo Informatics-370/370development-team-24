@@ -5,6 +5,7 @@ import { map, Observable } from 'rxjs';
 import { LoginUser } from '../shared/login-user';
 import { RegisterUser } from '../shared/register-user';
 import { User } from '../shared/user';
+import { MenuTypes } from '../shared/menu-types'; //Menu Types
 
 @Injectable({
   providedIn: 'root'
@@ -33,4 +34,11 @@ export class DataService {
   ValidateOtp(user: User){
     return this.httpClient.post(`${this.apiUrl}Authentication/Otp`, user, this.httpOptions)
   }
+
+  //Menu Types
+  GetMenuTypes(): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}MenuTypes/GetAllMenuTypes`)
+    .pipe(map(result => result));
+  }
+
 }
