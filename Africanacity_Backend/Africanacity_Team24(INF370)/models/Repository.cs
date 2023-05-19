@@ -105,5 +105,13 @@ namespace Africanacity_Team24_INF370_.models
         }
 
 
+        //MENU TYPES//
+        public async Task<Menu_Type[]> GetAllMenuTypesAsync()
+        {
+            IQueryable<Menu_Type> query = _appDbContext.Menu_Types;
+            return await query.ToArrayAsync();
+        }
+
+
     }
 }

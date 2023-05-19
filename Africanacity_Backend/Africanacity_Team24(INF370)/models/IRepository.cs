@@ -1,6 +1,7 @@
 ﻿using Africanacity_Team24_INF370_.models.Administration;
 using Africanacity_Team24_INF370_.models.Restraurant;
 using Africanacity_Team24_INF370_.View_Models;
+using System.Threading.Tasks;
 
 namespace Africanacity_Team24_INF370_.models
 {
@@ -24,8 +25,9 @@ namespace Africanacity_Team24_INF370_.models
 
         Task<int> EditMenuItemAsync(int MenuItemId, MenuItemViewModel menuItem);
 
-       
-       
+
+        //MENU Types//
+        Task<Menu_Type[]> GetAllMenuTypesAsync();
 
 
         // DRINK ITEM TYPE
