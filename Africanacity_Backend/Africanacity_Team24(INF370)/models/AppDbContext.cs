@@ -194,30 +194,30 @@ namespace Africanacity_Team24_INF370_.models
                         });
             // Create Seed Data For the Help Q&A Table:
 
-            //modelBuilder.Entity<Help>()
-            //            .HasData(
-            //            new
-            //            {
-            //                HelpId = 1,
-            //                Name = "What food does MMINO Restaurant serve?",
-            //                Description = "MMINO Restaurant serves various types of cuisine, and ensure that they cater for all dietry preferneces."
-            //            });
-            //modelBuilder.Entity<Help>()
-            //           .HasData(
-            //           new
-            //           {
-            //               HelpId = 2,
-            //               Name = "Where is MMINO Restaurant?",
-            //               Description = "MMINO Restaurant is located in Hatfield,Pretoria. 1005 Arcadia Street"
-            //           });
-            //modelBuilder.Entity<Help>()
-            //          .HasData(
-            //          new
-            //          {
-            //              HelpId = 3,
-            //              Name = "How how do you book for a live entertainment slot?",
-            //              Description = "You can book for a live entertainment slot, by creating an account and then following the steps thereafter."
-            //          });
+            modelBuilder.Entity<Help>()
+                        .HasData(
+                        new
+                        {
+                            HelpId = 1,
+                            Name = "What food does MMINO Restaurant serve?",
+                            Description = "MMINO Restaurant serves various types of cuisines"
+                        });
+            modelBuilder.Entity<Help>()
+                       .HasData(
+                       new
+                       {
+                           HelpId = 2,
+                           Name = "Where is MMINO Restaurant?",
+                           Description = "MMINO Restaurant is located in Hatfield,Pretoria. 1005 Arcadia Street"
+                       });
+            modelBuilder.Entity<Help>()
+                      .HasData(
+                      new
+                      {
+                          HelpId = 3,
+                          Name = "How how do you book for a live entertainment slot?",
+                          Description = "You can book for a live entertainment on the website."
+                      });
 
 
 

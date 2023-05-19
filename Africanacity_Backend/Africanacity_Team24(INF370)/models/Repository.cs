@@ -10,6 +10,8 @@ namespace Africanacity_Team24_INF370_.models
 	{
 		private readonly AppDbContext _appDbContext;
 
+        public object EmployeeViewModel => throw new NotImplementedException();
+
         public Repository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
@@ -21,9 +23,9 @@ namespace Africanacity_Team24_INF370_.models
             IQueryable<Employee> query = _appDbContext.Employees;
             return await query.ToArrayAsync();
         }
-        public async Task<Employee> GetEmployeeAsync(int EmployeeId)
+        public async Task<Employee> GetEmployeeAsync(int employeeId)
         {
-            IQueryable<Employee> query = _appDbContext.Employees.Where(e => e.EmployeeId == EmployeeId);
+            IQueryable<Employee> query = _appDbContext.Employees.Where(e => e.EmployeeId == employeeId);
             return await query.FirstOrDefaultAsync();
         }
 

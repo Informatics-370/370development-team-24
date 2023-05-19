@@ -29,8 +29,8 @@ export class ViewEmployeesComponent {
     })
   }
 
-  DeleteEmployee(EmployeeId: Number){
-    this.employeeservice.DeleteEmployee(EmployeeId).subscribe(result => {
+  deleteEmployee(employeeId: Number){
+    this.employeeservice.deleteEmployee(employeeId).subscribe(result => {
       window.location.reload();
       });
     }

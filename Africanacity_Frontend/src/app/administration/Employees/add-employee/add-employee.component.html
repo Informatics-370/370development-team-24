@@ -1,57 +1,67 @@
 
-<!-- <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-2">
-            <app-navbar></app-navbar>
-        </div>
-    <div class="col-md-10 order-md-1">
-        <h3 style="text-align: center;">Add Employee</h3>
-        <div class="card col-md-6">
-            <div class="card-header" style="text-align: center;">Add Employee</div>
-            <div class="card-body">
-            </div>
-            <div class="card-footer">
-                <button class="btn btn-success" style="margin-right: 1em;">Add</button>
-                <button class="btn btn-danger">Cancel</button>
-            </div>
-          </div>
-    </div>
-    </div>
-</div>  -->
-
-<!-- <h4>Add Course</h4>
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-md-2">
+          <app-navbar></app-navbar>
+      </div>
+  <div class="col-md-10 order-md-2">
+<h4 style="text-align: center;">Add Employee </h4>
 <hr>
 <div class="container">
 <div class="row">  
-<form [formGroup]="AddEmployeeForm" class="form-horizontal"  (ngSubmit)="onSubmit()">
+<form [formGroup]="employeeForm" class="form-horizontal"  (ngSubmit)="onSubmit()">
     <div class="form-group">
-        <label class=" col-sm-1" for="Surname">Surname:</label>
-        <div class="col-sm-6">
-          <input class="form-control" id="Surname" placeholder="Enter Surname" [required]="true" formControlName="Surname">
+        <label class=" col-md-4" for="surname">Surname:</label>
+        <div class="col-md-8">
+          <input class="form-control" placeholder="Enter Surname" [required]="true" name="surname" formControlName="surname">
         </div>
     </div>
+
+  
     <div class="form-group">
-        <label class="col-sm-1" for="FirstName">First Name:</label>
+      <span>
+        <label class="col-sm-1" for="firstName">First Name:</label>
         <div class="col-sm-6">
-          <input class="form-control" id="FirstName" placeholder="Enter First Name" [required]="true" formControlName="FirstName">
+          <input class="form-control"  placeholder="Enter First Name" [required]="true" name="firstName" formControlName="firstName">
+        </div>
+      </span>
+    </div>
+   
+
+    <div class="form-group">
+      <label class="col-sm-1" for="email_Address">Email Address:</label>
+      <div class="col-sm-6">
+        <input class="form-control" type="text" placeholder="xxxxx@gmail.com" [required]="true" name="email_Address" formControlName="email_Address">
+      </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-1" for="physical_Address">Physical Address:</label>
+    <div class="col-sm-6">
+      <input class="form-control" type="text" id="physical_Address" placeholder="Enter Address" name="physical_Address" [required]="true" formControlName="physical_Address">
+    </div>
+</div>
+
+    <div class="form-group">
+        <label class="col-sm-2" for="phoneNumber">Phone Number:</label>
+        <div class="col-sm-6">
+          <input class="form-control" type="text"  placeholder="Enter 10-digit number" [required]="true" name="phoneNumber" formControlName="phoneNumber">
         </div>
     </div>
-    <div class="form-group">
-        <label class="col-sm-1" for="Email_Address">Email:</label>
-        <div class="col-sm-6">
-          <textarea class="form-control" type="text" id="Email_Address" placeholder="xxxxx@gmail.com" [required]="true" formControlName="Email_Address"></textarea>
-        </div>
-    </div>
-    
+
     <div class="form-group">
       <div class="col-sm-offset-1 col-sm-6">
-        <button style="margin-right:1em;" type="submit" [disabled]="!AddEmployeeForm.valid" class="btn btn-sm btn-default">Submit</button>
-        <button type="button" class="btn btn-sm btn-warning" (click)="cancel()">Cancel</button>
+        <button style="margin-right:1em;" type="submit" [disabled]="!employeeForm.valid" class="btn btn-sm btn-success">Add</button>
+        <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button>
       </div>
     </div>
   </form>
   </div>
-</div> -->
+</div> 
+  </div>
+  </div>
+</div>
 
 
- 
+
+  

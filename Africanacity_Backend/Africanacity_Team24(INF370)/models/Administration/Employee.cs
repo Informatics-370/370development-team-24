@@ -10,19 +10,19 @@ namespace Africanacity_Team24_INF370_.models.Administration
 		public int EmployeeId { get; set; }
 
 		[MaxLength(50)]
-		public string Surname { get; set; } = string.Empty;
+		public string Surname { get; set; } = string.Empty.ToString();
 
-		[MaxLength(50)]
-		public string FirstName { get; set; } = string.Empty;
+        [MaxLength(50)]
+		public string FirstName { get; set; } = string.Empty.ToString();
 
 		[MaxLength(50)]
 		public string? Email_Address { get; set; }
 		public string? Physical_Address { get; set; } = string.Empty.ToString();
 
 		[StringLength(10)]
-		public string PhoneNumber { get; set; } = string.Empty;
+		public string PhoneNumber { get; set; } = string.Empty.ToString();
 
-		public List<Order> Orders { get; set; } = new List<Order>();
+        public List<Order> Orders { get; set; } = new List<Order>();
 
 		//public Employee_Role Employee_Role { get; set; }
 	}

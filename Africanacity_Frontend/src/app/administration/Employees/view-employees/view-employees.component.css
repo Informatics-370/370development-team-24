@@ -20,6 +20,7 @@ table{
 }
 button{
     border-radius: 99px;
+    border-color: black;
 }
 .table-striped{
     padding-top: 200px;

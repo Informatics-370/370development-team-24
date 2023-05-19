@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EmployeeService } from '../services/employee.service';
-
-
+import { Employee } from '../shared/employee';
 
 @Component({
   selector: 'app-add-employee',
@@ -12,29 +11,71 @@ import { EmployeeService } from '../services/employee.service';
 })
 export class AddEmployeeComponent implements OnInit {
 
-   AddEmployeeForm = new FormGroup({
-     Surname: new FormControl(''),
-     FirstName: new FormControl(''),
-     Email_Address: new FormControl(''),
-     Physical_Address: new FormControl(''),
-     PhoneNumber: new FormControl('')
+   constructor(private employeeservice: EmployeeService, private router: Router) { }
+
+     employeeForm: FormGroup = new FormGroup({
+       surname: new FormControl('',[Validators.required]),
+       firstName: new FormControl('',[Validators.required]),
+       email_Address: new FormControl('',[Validators.required]),
+       physical_Address: new FormControl('',[Validators.required]),
+       phoneNumber: new FormControl('',[Validators.required])
     
-   })
+     })
 
-  constructor(private employeeservice: EmployeeService, private router: Router) { }
-
-  ngOnInit(): void {
+    ngOnInit(): void {
     
-  }
+    }
 
-  cancel(){
-    this.router.navigate(['/home'])
-  }
+    cancel(){
+      this.router.navigate(['/home'])
+    }
+  
+       onSubmit(){
 
-  //  onSubmit(){
-  //    this.employeeservice.AddEmployee(this.AddEmployeeForm.value).subscribe(result => {
-  //          this.router.navigate(['/view-employees'])
-  //    })
-  //  }
+        let employee = new Employee();
+        employee.surname = this.employeeForm.value.surname;
+        employee.firstName = this.employeeForm.value.firstName;
+        employee.email_Address = this.employeeForm.value.email_Address;
+        employee.physical_Address = this.employeeForm.value.physical_Address;
+        employee.phoneNumber = this.employeeForm.value.phoneNumber;
+            this.employeeservice.AddEmployee(employee).subscribe(result => {
+                  this.router.navigate(['/view-employees'])
+            })
+    
+     this.employeeservice.AddEmployee(employee).subscribe((res:any) => {
 
+      if(res.statusCode == 200)
+      {
+        this.router.navigate(['/'])
+      }
+      else
+      {
+        alert(res.message);
+      }
+     });
+         }
+
+  
+    // employeeForm = new FormGroup(
+    //   {
+    //     surname: new FormControl(''),
+    //     firstName: new FormControl(''),
+    //     email_Address: new FormControl(''),
+    //     physical_Address: new FormControl(''),
+    //     phoneNumber: new FormControl('')
+    //   })
+  
+  
+    // ngOnInit(): void {
+    // }
+  
+    // cancel(){
+    //   this.router.navigate(['/home'])
+    // }
+  
+    //  onSubmit(){
+    //    this.epmloyeeservice.AddEmployee(this.employeeForm.value).subscribe(result => {
+    //          this.router.navigate(['/view-employee'])
+    //    })
+    //  }
 }

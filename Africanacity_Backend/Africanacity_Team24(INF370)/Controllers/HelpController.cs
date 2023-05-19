@@ -42,11 +42,11 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         [HttpGet]
         [Route("GetHelp/{HelpId}")]
-        public async Task<IActionResult> GetHelpAsync(int HelpId)
+        public async Task<IActionResult> GetHelpAsync(int helpId)
         {
             try
             {
-                var result = await _Repository.GetHelpAsync(HelpId);
+                var result = await _Repository.GetHelpAsync(helpId);
 
                 if (result == null) return NotFound("Employee does not exist. You need to create an employee first");
 
@@ -84,11 +84,11 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         [HttpPut]
         [Route("EditHelp/{HelpId}")]
-        public async Task<ActionResult<HelpViewModel>> EditHelp(int HelpId, HelpViewModel hvm)
+        public async Task<ActionResult<HelpViewModel>> EditHelp(int helpId, HelpViewModel hvm)
         {
             try
             {
-                var currentHelp = await _Repository.GetHelpAsync(HelpId);
+                var currentHelp = await _Repository.GetHelpAsync(helpId);
                 if (currentHelp == null) return NotFound($"The Help does not exist");
 
                 currentHelp.Name = hvm.Name;
@@ -109,11 +109,11 @@ namespace Africanacity_Team24_INF370_.Controllers
         // Delete Help
         [HttpDelete]
         [Route("DeleteHelp/{HelpId}")]
-        public async Task<IActionResult> DeleteHelp(int HelpId)
+        public async Task<IActionResult> DeleteHelp(int helpId)
         {
             try
             {
-                var currentHelp = await _Repository.GetHelpAsync(HelpId);
+                var currentHelp = await _Repository.GetHelpAsync(helpId);
 
                 if (currentHelp == null) return NotFound($"The Help Q&A does not exist");
 

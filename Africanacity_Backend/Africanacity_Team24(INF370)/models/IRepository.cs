@@ -7,6 +7,7 @@ namespace Africanacity_Team24_INF370_.models
 {
     public interface IRepository
     {
+        object EmployeeViewModel { get; }
 
         void Add<T>(T entity) where T : class;
         void Delete<T>(T entity) where T : class;

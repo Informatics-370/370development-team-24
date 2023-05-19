@@ -4,12 +4,13 @@ using Africanacity_Team24_INF370_.models.Restraurant;
 using Africanacity_Team24_INF370_.View_Models;
 using Africanacity_Team24_INF370_.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[Controller]")]
     [ApiController]
     public class EmployeeController : ControllerBase
     {
@@ -19,6 +20,8 @@ namespace Africanacity_Team24_INF370_.Controllers
         {
             _Repository = Repository;
         }
+
+       
 
         // Get all employees, from the database
 
@@ -42,11 +45,11 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         [HttpGet]
         [Route("GetEmployee/{EmployeeId}")]
-        public async Task<IActionResult> GetEmployeeAsync(int EmployeeId)
+        public async Task<IActionResult> GetEmployeeAsync(int employeeId)
         {
             try
             {
-                var result = await _Repository.GetEmployeeAsync(EmployeeId);
+                var result = await _Repository.GetEmployeeAsync(employeeId);
 
                 if (result == null) return NotFound("Employee does not exist. You need to create an employee first");
 
@@ -78,17 +81,18 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
 
             return Ok(employee);
+
         }
 
         //Update Employee
 
         [HttpPut]
         [Route("EditEmployee/{EmployeeId}")]
-        public async Task<ActionResult<EmployeeViewModel>> EditEmployee(int EmployeeId, EmployeeViewModel evm)
+        public async Task<ActionResult<EmployeeViewModel>> EditEmployee(int employeeId, EmployeeViewModel evm)
         {
             try
             {
-                var currentEmployee = await _Repository.GetEmployeeAsync(EmployeeId);
+                var currentEmployee = await _Repository.GetEmployeeAsync(employeeId);
                 if (currentEmployee == null) return NotFound($"The emloyee does not exist");
 
                 currentEmployee.FirstName = evm.FirstName;
@@ -112,11 +116,11 @@ namespace Africanacity_Team24_INF370_.Controllers
         // Delete Employee
         [HttpDelete]
         [Route("DeleteEmployee/{EmployeeId}")]
-        public async Task<IActionResult> DeleteEmployee(int EmployeeId)
+        public async Task<IActionResult> DeleteEmployee(int employeeId)
         {
             try
             {
-                var currentEmployee = await _Repository.GetEmployeeAsync(EmployeeId);
+                var currentEmployee = await _Repository.GetEmployeeAsync(employeeId);
 
                 if (currentEmployee == null) return NotFound($"The employee does not exist");
 
@@ -132,26 +136,33 @@ namespace Africanacity_Team24_INF370_.Controllers
             return BadRequest("Your request is invalid.");
         }
 
-            // Search Filter
-        //    [HttpGet]
-        //    public async Task<ActionResult<IEnumerable<Employee>>> Get()
+        // Search Filter
+        //[HttpGet]
+        //public IActionResult Get(string h, string filter)
+        //{
+        //    var query = _Repository.EmployeeViewModel.AsQueryable();
+
+        //    // Apply search keyword filter
+        //    if (!string.IsNullOrEmpty(h))
         //    {
-        //        return await _context.Employee.ToListAsync();
+        //        query = query.Where(x => x.Name.Contains(h));
         //    }
 
-        //    // GET: api/YourController/search
-        //    [HttpGet("search")]
-        //    public async Task<ActionResult<IEnumerable<YourModel>>> Search(string searchTerm)
+        //    // Apply additional filters based on your requirements
+        //    if (!string.IsNullOrEmpty(filter))
         //    {
-        //        var filteredData = await _context.YourModels
-        //            .Where(m => m.Name.Contains(searchTerm))
-        //            .ToListAsync();
-
-        //        return filteredData;
+        //        query = query.Where(x => x.Category == filter);
         //    }
+
+        //    // Perform sorting
+        //    query = query.OrderBy(x => x.Name);
+
+        //    var results = query.ToList();
+        //    return Ok(results);
         //}
+    }
 
     }
 
-}
+
 
