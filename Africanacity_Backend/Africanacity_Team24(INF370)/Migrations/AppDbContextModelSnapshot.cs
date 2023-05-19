@@ -912,6 +912,18 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasKey("Menu_TypeId");
 
                     b.ToTable("Menu_Types");
+
+                    b.HasData(
+                        new
+                        {
+                            Menu_TypeId = 1,
+                            Name = "Breakfast"
+                        },
+                        new
+                        {
+                            Menu_TypeId = 2,
+                            Name = "All Day"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.MenuItem", b =>

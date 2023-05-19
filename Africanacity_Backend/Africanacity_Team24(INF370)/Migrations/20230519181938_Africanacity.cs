@@ -992,6 +992,16 @@ namespace Africanacity_Team24_INF370_.Migrations
                 columns: new[] { "EmployeeId", "Email_Address", "Employee_RoleId", "FirstName", "PhoneNumber", "Physical_Address", "Surname", "UserId" },
                 values: new object[] { 1, "VanessaJames@gmial.com", null, "Vanessa", "0847541236", null, "James", null });
 
+            migrationBuilder.InsertData(
+                table: "Menu_Types",
+                columns: new[] { "Menu_TypeId", "Name" },
+                values: new object[] { 1, "Breakfast" });
+
+            migrationBuilder.InsertData(
+                table: "Menu_Types",
+                columns: new[] { "Menu_TypeId", "Name" },
+                values: new object[] { 2, "All Day" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Access_UserRoles_User_RolesUser_RoleId",
                 table: "Access_UserRoles",
