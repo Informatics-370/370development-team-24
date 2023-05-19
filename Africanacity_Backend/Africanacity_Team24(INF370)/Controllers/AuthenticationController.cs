@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Africanacity_Team24_INF370_.models;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +16,8 @@ using System.Net.Mail;
 using Africanacity_Team24_INF370_.models.Login;
 using Africanacity_Team24_INF370_.ViewModel;
 using Africanacity_Team24_INF370_.View_Models;
+using System.Security.Claims;
+using System.Text;
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
@@ -22,92 +28,104 @@ namespace Africanacity_Team24_INF370_.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IUserClaimsPrincipalFactory<AppUser> _claimsPrincipalFactory;
-        private static Dictionary<string, TwoFactorCode> _twoFactorCodeDictionary
+		private readonly IConfiguration _configuration;
+		private static Dictionary<string, TwoFactorCode> _twoFactorCodeDictionary
             = new Dictionary<string, TwoFactorCode>();
 
-        public AuthenticationController(UserManager<AppUser> userManager, IUserClaimsPrincipalFactory<AppUser> claimsPrincipalFactory)
-        {
-            _userManager = userManager;
-            _claimsPrincipalFactory = claimsPrincipalFactory;
-        }
+		public AuthenticationController(UserManager<AppUser> userManager, IUserClaimsPrincipalFactory<AppUser> claimsPrincipalFactory, IConfiguration configuration, IRepository repository)
 
-        [HttpPost]
-        [Route("Register")]
-        public async Task<ActionResult> Register(RegisterModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = await _userManager.FindByNameAsync(model.UserName);
+		{
+			_userManager = userManager;
+			_claimsPrincipalFactory = claimsPrincipalFactory;
+			_configuration = configuration;
+		}
 
-                if (user == null)
-                {
-                    user = new AppUser
-                    {
-                        Id = Guid.NewGuid().ToString(), //uniqueness
-                        UserName = model.UserName, //switch Email addresses to be our UserName
-                        Email = model.UserName //switch Email addresses to be our UserName
-                    };
+		[HttpPost]
+		[Route("Register")]
+		public async Task<IActionResult> Register(UserViewModel uvm)
+		{
+			var user = await _userManager.FindByIdAsync(uvm.userName);
 
-                    var result = await _userManager.CreateAsync(user, model.Password);
+			if (user == null)
+			{
+				user = new AppUser
+				{
+					Id = Guid.NewGuid().ToString(),
+					UserName = uvm.userName,
+					Email = uvm.userName
+				};
 
-                    if (result.Errors.Count() > 0)
-                    {
-                        return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
-                    }
-                }
-                else
-                {
-                    return StatusCode(StatusCodes.Status403Forbidden, "User account already exists.");
-                }
-            }
+				var result = await _userManager.CreateAsync(user, uvm.password);
 
-            return Ok();
+				if (result.Errors.Count() > 0) return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+			}
+			else
+			{
+				return Forbid("Account already exists.");
+			}
 
-        }
+			return Ok();
+		}
 
-        [HttpPost]
-        [Route("Login")]
-        public async Task<ActionResult> Login(LoginModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = await _userManager.FindByNameAsync(model.UserName);
+		[HttpPost]
+		[Route("Login")]
+		public async Task<ActionResult> Login(UserViewModel uvm)
+		{
+			var user = await _userManager.FindByNameAsync(uvm.userName);
 
-                if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
-                {
-                    try
-                    {
-                        var principal = await _claimsPrincipalFactory.CreateAsync(user);
-                        await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, principal);
+			if (user != null && await _userManager.CheckPasswordAsync(user, uvm.password))
+			{
+				try
+				{
+					//var principal = await _claimsPrincipalFactory.CreateAsync(user);
+					//await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, principal);
+					return GenerateJWTToken(user);
+				}
+				catch (Exception)
+				{
+					return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+				}
+			}
+			else
+			{
+				return NotFound("Does not exist");
+			}
 
-                        // 2 Step Verification
-                        var otp = GenerateTwoFactorCodeFor(user.UserName);
+			//var loggedInUser = new UserViewModel { EmailAddress = uvm.EmailAddress, Password = uvm.Password };
 
-                        var fromEmailAddress = "youremailaddresstosendtheemail"; // you must add your own provided email
-                        var subject = "System Log in";
-                        var message = $"Enter the following OTP: {otp}";
-                        var toEmailAddress = user.Email;
+			//return Ok(loggedInUser);
+		}
 
-                        // Sending email
-                        await SendEmail(fromEmailAddress, subject, message, toEmailAddress);
-                    }
-                    catch (Exception)
-                    {
-                        return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
-                    }
-                }
-                else
-                {
-                    return StatusCode(StatusCodes.Status404NotFound, "Invalid user credentials.");
-                }
-            }
+		[HttpGet]
+		private ActionResult GenerateJWTToken(AppUser user)
+		{
+			// Create JWT Token
+			var claims = new[]
+			{
+				new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+				new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+				new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName)
+			};
 
-            var loggedInUser = new UserViewModel { userName = model.UserName };
+			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"]));
+			var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            return Ok(loggedInUser);
-        }
+			var token = new JwtSecurityToken(
+				_configuration["Tokens:Issuer"],
+				_configuration["Tokens:Audience"],
+				claims,
+				signingCredentials: credentials,
+				expires: DateTime.UtcNow.AddHours(3)
+			);
 
-        [HttpGet]
+			return Created("", new
+			{
+				token = new JwtSecurityTokenHandler().WriteToken(token),
+				user = user.UserName
+			});
+		}
+
+	[HttpGet]
         public async Task<IActionResult> Logout()
         {
 
@@ -118,7 +136,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         [HttpPost]
         [Route("Otp")]
-        public IActionResult VerifyOTP(UserViewModel user)
+        public IActionResult VerifyOTP(OtpModel user)
         {
             var validOtp = VerifyTwoFactorCodeFor(user.userName, user.otp);
 

@@ -16,7 +16,8 @@ export class OtpComponent implements OnInit {
 
   user: User = {
     userName: '',
-    otp: ''
+    otp: '',
+    password: ''
   }
 
   constructor(private router: Router, private dataService: DataService, private fb: FormBuilder, private snackBar: MatSnackBar) { }
@@ -35,12 +36,12 @@ export class OtpComponent implements OnInit {
 
       this.dataService.ValidateOtp(this.user).subscribe(() => {
         this.otpFormGroup.reset();
-        this.router.navigate(['../login'])
+        this.router.navigate(['../forgot-password'])
       }, (response: HttpErrorResponse) => {
         if (response.status === 400) {
           this.snackBar.open(response.error, 'X', { duration: 5000 });
         }
       })
     }
-  }
+   }
 }
