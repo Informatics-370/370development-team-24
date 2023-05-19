@@ -14,6 +14,9 @@ import { ForgotPasswordComponent } from './login/forgot-password/forgot-password
 import { UpdatePasswordComponent } from './login/update-password/update-password.component';
 import { MaterialModule } from './shared/material.modules';
 import { OtpComponent } from './login/otp/otp.component';
+import { AddEmployeeRoleComponent } from './add-employee-role/add-employee-role.component';
+import { EmployeeRoleComponent } from './EmployeeRole/employee-role/employee-role.component';
+import { EditEmployeeRoleComponent } from './EmployeeRole/edit-employee-role/edit-employee-role.component';
 
 
 
@@ -30,7 +33,7 @@ import { OtpComponent } from './login/otp/otp.component';
     ForgotPasswordComponent, 
     UpdatePasswordComponent, 
    
-    HomeComponent
+    HomeComponent, AddEmployeeRoleComponent, EmployeeRoleComponent, EditEmployeeRoleComponent
   ],
   imports: [
     BrowserModule,
