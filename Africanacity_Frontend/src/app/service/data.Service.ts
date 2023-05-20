@@ -36,9 +36,17 @@ export class DataService {
   }
 
   //Menu Types
+
+  //Create
+  AddCourse(menuType: MenuTypes){
+    return this.httpClient.post(`${this.apiUrl}Course/AddCourse`,course);
+  }
+
   GetAllMenuTypes(): Observable<any>{
     return this.httpClient.get(`${this.apiUrl}MenuType/GetAllMenuTypes`)
     .pipe(map(result => result));
   }
+
+
 
 }
