@@ -111,7 +111,31 @@ namespace Africanacity_Team24_INF370_.models
             IQueryable<Menu_Type> query = _appDbContext.Menu_Types;
             return await query.ToArrayAsync();
         }
+        public async Task<Menu_Type> GetMenuTypeAsync(int Menu_TypeId)
+        {
+            IQueryable<Menu_Type> query = _appDbContext.Menu_Types.Where(c => c.Menu_TypeId == Menu_TypeId);
+            return await query.FirstOrDefaultAsync();
+        }
 
+
+        public async Task<int> EditMenuTypeAsync(int Menu_TypeId, MenuTypeViewModel menuTypeViewModel)
+        {
+            int code = 200; ;
+            //Find the module in the database
+            Menu_Type findModule = await _appDbContext.Menu_Types.Where(x => x.Menu_TypeId == Menu_TypeId).FirstOrDefaultAsync();
+            if (findModule == null)
+            {
+                code = 404;
+            }
+            else
+            {
+                findModule.Name = menuTypeViewModel.Name;
+                
+                _appDbContext.Menu_Types.Update(findModule);
+                await _appDbContext.SaveChangesAsync();
+            }
+            return code;
+        }
 
     }
 }

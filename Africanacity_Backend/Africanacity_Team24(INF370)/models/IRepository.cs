@@ -28,6 +28,9 @@ namespace Africanacity_Team24_INF370_.models
 
         //MENU Types//
         Task<Menu_Type[]> GetAllMenuTypesAsync();
+        Task<Menu_Type> GetMenuTypeAsync(int Menu_TypeId);
+
+        Task<int> EditMenuTypeAsync(int Menu_TypeId, MenuTypeViewModel menuTypeViewModel);
 
 
         // DRINK ITEM TYPE
@@ -37,5 +40,6 @@ namespace Africanacity_Team24_INF370_.models
         // MENU ITEM CATEGORY
         Task<MenuItem_Category[]> GetAllMenuItemCategoriesAsync();
         Task<MenuItem_Category> GetMenuItemCategoryAsync(int Menu_CategoryId);
+
     }
 }
