@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'menu', component: MenuComponent }, // for menu page
   { path: 'menu-types', component: MenuTypesComponent }, // for menu page
   { path: 'add-menu-type', component: AddMenuTypeComponent}, //add menu type page
-  { path: 'edit-menu-type', component: EditMenuTypeComponent}, // edit menu type page
+  { path: 'edit-menu-type/:id', component: EditMenuTypeComponent}, // edit menu type page
   {
     path: '',
     component: NavbarComponent

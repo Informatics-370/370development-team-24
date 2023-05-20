@@ -13,8 +13,8 @@
         <tr *ngFor="let item of menuTypes">
             <td>{{item.menu_TypeId}}</td>
             <td>{{ item.name }}</td>
-            <td><button type="button" class="btn btn-info">Edit</button></td>
-            <td><button type="button" class="btn btn-danger">Delete</button></td>
+            <td><button type="button" class="btn btn-info" [routerLink]="['/edit-menu-type', item.menu_TypeId]">Edit</button></td>
+            <td><button type="button" class="btn btn-danger" (click)="deleteMenuType(item.menu_TypeId)">Delete</button></td>
           </tr>
       </tbody>
     </table>

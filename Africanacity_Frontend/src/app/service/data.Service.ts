@@ -37,7 +37,7 @@ export class DataService {
 
   /***************Menu Types************/
 
-  //Create
+  //Create menu type
   AddMenuType(menuType: MenuTypes){
     return this.httpClient.post(`${this.apiUrl}MenuType/AddMenuType`,menuType);
   }
@@ -47,6 +47,25 @@ export class DataService {
     .pipe(map(result => result));
   }
 
+
+  //Edit menu type
+  GetMenuTypeById(menu_TypeId: Number): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}MenuType/GetMenuType/${menu_TypeId}`);
+  }
+
+  
+        //Update function
+  EditMenuType(Menu_TypeId:Number, menuType:MenuTypes){
+    //send put request to update a single course
+    // return this.httpClient.put(this.apiUrl + 'MenuType/EditMenuType/' + menu_TypeId,menuType);
+    return this.httpClient.put(`${this.apiUrl}MenuType/EditMenuType/${Menu_TypeId}`, menuType, this.httpOptions);
+    console.log();
+  }
+
+  //Delete Menu type
+  deleteMenuType(menu_TypeId: Number){
+    return this.httpClient.delete<string>(`${this.apiUrl}MenuType/DeleteMenuType` + "/" + menu_TypeId, this.httpOptions)
+  }
 
 
 }

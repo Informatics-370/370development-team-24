@@ -13,9 +13,11 @@
             </div>
       
             <div class="btn-group" role="group" aria-label="Basic example">
-                <button (click)="addNewMenuType()" [disabled]="addMenuTypeForm.invalid" class="btn btn-primary" type="button">
-                    {{menu_typeId==0 || menu_typeId==null ?'Save':'Update'}}</button><br><br>
-                <button class="btn btn-warning" type="button" href="./add-menu-type.component.html">Cancel </button>
+                <button (click)="openDialog()" [disabled]="addMenuTypeForm.invalid" class="btn btn-primary" type="button">
+                    {{menu_typeId==0 || menu_typeId==null ?'Add':'Update'}}</button><br><br>
+                    <!--button mat-raised-button (click)="openDialog('0ms','0ms')" [disabled]="addMenuTypeForm.invalid" class="btn btn-primary" type="button">
+                        {{menu_typeId==0 || menu_typeId==null ?'Save':'Update'}}</button><br><br-->
+                <button class="btn btn-warning" type="button"  [routerLink]="['/menu-types']">Cancel </button>
             </div>
         
 
@@ -23,4 +25,7 @@
             {{addMenuTypeForm.value |json}}
        
     </form>
+    <!--app-confirmation-dialog></app-confirmation-dialog-->
+    <div class="toast-container"></div>
 </div>
+

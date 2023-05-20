@@ -17,6 +17,8 @@ import { OtpComponent } from './login/otp/otp.component';
 import { MenuTypesComponent } from './administration/menu-types/menu-types.component';
 import { AddMenuTypeComponent } from './administration/menu-types/add-menu-type/add-menu-type.component';
 import { EditMenuTypeComponent } from './administration/menu-types/edit-menu-type/edit-menu-type.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ConfirmationDialogComponent } from './administration/menu-types/add-menu-type/confirmation-dialog/confirmation-dialog.component';
 
 
 
@@ -34,7 +36,7 @@ import { EditMenuTypeComponent } from './administration/menu-types/edit-menu-typ
     UpdatePasswordComponent, 
    
    
-    HomeComponent, MenuTypesComponent, AddMenuTypeComponent, EditMenuTypeComponent
+    HomeComponent, MenuTypesComponent, AddMenuTypeComponent, EditMenuTypeComponent, ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +45,8 @@ import { EditMenuTypeComponent } from './administration/menu-types/edit-menu-typ
     FormsModule, 
     ReactiveFormsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent],
