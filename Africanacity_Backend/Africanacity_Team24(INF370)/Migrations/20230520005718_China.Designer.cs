@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Africanacity_Team24_INF370_.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230517171324_Ntando")]
-    partial class Ntando
+    [Migration("20230520005718_China")]
+    partial class China
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

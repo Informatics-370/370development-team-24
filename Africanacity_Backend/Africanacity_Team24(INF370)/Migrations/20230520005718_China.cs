@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Africanacity_Team24_INF370_.Migrations
 {
-    public partial class Ntando : Migration
+    public partial class China : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

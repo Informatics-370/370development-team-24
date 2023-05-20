@@ -2,15 +2,10 @@
 using Africanacity_Team24_INF370_.models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
 using System.Net.Mail;
 using Africanacity_Team24_INF370_.models.Login;
@@ -18,6 +13,8 @@ using Africanacity_Team24_INF370_.ViewModel;
 using Africanacity_Team24_INF370_.View_Models;
 using System.Security.Claims;
 using System.Text;
+using MimeKit;
+using MailKit.Security;
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
@@ -134,9 +131,53 @@ namespace Africanacity_Team24_INF370_.Controllers
             return Ok("Successfully logged out");
         }
 
-        [HttpPost]
+
+		[HttpPost]
+		[Route("Forgotpassword")]
+		public async Task<ActionResult> ForgotPassword(ForgotpasswordModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				var user = await _userManager.FindByNameAsync(model.userName);
+
+				if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+				{
+					try
+					{
+						var principal = await _claimsPrincipalFactory.CreateAsync(user);
+						await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, principal);
+
+						// 2 Step Verification
+						var otp = GenerateTwoFactorCodeFor(user.UserName);
+
+						var fromEmailAddress = "youremailaddresstosendtheemail"; // you must add your own provided email
+						var subject = "System Log in";
+						var message = $"Enter the following OTP: {otp}";
+						var toEmailAddress = user.Email;
+
+						// Sending email
+						await SendEmail(fromEmailAddress, subject, message, toEmailAddress);
+					}
+					catch (Exception)
+					{
+						return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+					}
+				}
+				else
+				{
+					return StatusCode(StatusCodes.Status404NotFound, "Invalid user credentials.");
+				}
+			}
+
+			var loggedInUser = new UserViewModel { userName = model.userName };
+
+			return Ok(loggedInUser);
+		}
+
+
+		[HttpPost]
         [Route("Otp")]
-        public IActionResult VerifyOTP(OtpModel user)
+        public IActionResult VerifyOTP(	OtpModel user)
         {
             var validOtp = VerifyTwoFactorCodeFor(user.userName, user.otp);
 

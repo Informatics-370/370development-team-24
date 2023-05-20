@@ -30,6 +30,11 @@ export class DataService {
     let user = new UserCredentials
     return this.httpClient.post<User>(`${this.apiUrl}Authentication/Login`, loginUser, this.httpOptions)
   }
+
+   ChangePassword(loginUser: LoginUser){
+    let user = new UserCredentials
+    return this.httpClient.post<User>(`${this.apiUrl}Authentication/Forgotpassword`, loginUser, this.httpOptions)
+  }
   
 
   ValidateOtp(user: User){

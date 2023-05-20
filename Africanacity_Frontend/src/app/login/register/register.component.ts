@@ -17,6 +17,8 @@ interface Title {
 })
 export class RegisterComponent implements OnInit {
   password: string = '';
+  Confirmpassword: string = '';
+  passwordsMatch: boolean=false;
   visablePassword: boolean = false;
   hide = false;
 
@@ -39,7 +41,17 @@ export class RegisterComponent implements OnInit {
     PhoneNumber: ['', [Validators.required, Validators.maxLength(10)]],
     Password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]],
     ConfirmPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]],
-  })
+  }, { validators: this.passwordMatchValidator })
+  
+  passwordMatchValidator(formGroup: FormGroup) {
+    const Password = formGroup.get('Password')?.value;
+    const ConfirmPassword = formGroup.get('ConfirmPassword')?.value;
+
+    if (Password !== ConfirmPassword) {
+      return { 'mismatch': true };
+    }
+    return null;
+  }
 
   constructor(private router: Router, 
     private dataService: DataService, 
@@ -51,11 +63,18 @@ export class RegisterComponent implements OnInit {
 
   RegisterUser(){
 
+    if (this.registerFormGroup.valid) {
+      this.snackBar.open(`Registered successfully`, 'X', {duration: 5000});
+      
+    } else {
+      this.snackBar.open(`New password and confirm password do not match`, 'X', {duration: 5000});
+    }
+    this.passwordsMatch=this.password === this.Confirmpassword
     if(this.registerFormGroup.valid)
     {
       this.dataService.RegisterUser(this.registerFormGroup.value).subscribe(() => {
         this.registerFormGroup.reset();
-        this.router.navigate(['']).then((navigated: boolean) => {
+        this.router.navigate(['/login']).then((navigated: boolean) => {
           if(navigated) {
             this.snackBar.open(`Registered successfully`, 'X', {duration: 5000});
           }
