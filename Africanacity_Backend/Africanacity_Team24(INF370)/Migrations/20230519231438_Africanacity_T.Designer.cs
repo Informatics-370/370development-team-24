@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Africanacity_Team24_INF370_.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230516022127_Africanacity")]
-    partial class Africanacity
+    [Migration("20230519231438_Africanacity_T")]
+    partial class Africanacity_T
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -294,6 +294,20 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasKey("Employee_RoleId");
 
                     b.ToTable("Employee_Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Employee_RoleId = 1,
+                            Description = "The waiter serves the customers and takes orders",
+                            Name = "Waiter"
+                        },
+                        new
+                        {
+                            Employee_RoleId = 2,
+                            Description = "The chef prepares the meals and notifies the waiter of ready orders.",
+                            Name = "Chef"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Help_Category", b =>

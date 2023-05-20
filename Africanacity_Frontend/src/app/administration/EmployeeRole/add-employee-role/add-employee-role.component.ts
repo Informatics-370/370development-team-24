@@ -1,5 +1,5 @@
 import { Component,OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/service/data.Service';
 import { Employee_Role } from 'src/app/shared/EmployeeRole';
@@ -11,15 +11,16 @@ import { Employee_Role } from 'src/app/shared/EmployeeRole';
 })
 export class AddEmployeeRoleComponent implements OnInit {
 
-  employeeroleForm = new FormGroup(
+  employeeroleForm:FormGroup = new FormGroup(
     {
         
-        Name: new FormControl(''),
-        Description: new FormControl(''),
-        EmployeeId: new FormControl(0)
-    })
+        Name: new FormControl('',[Validators.required]),
+        Description: new FormControl('',[Validators.required]),
+        EmployeeId: new FormControl(0,[Validators.required])
+   })
   
-    constructor(private dataService: DataService, private router: Router) { }
+    constructor(private dataService: DataService, private router: Router) {
+     }
   
     ngOnInit(): void {
     }
@@ -29,8 +30,16 @@ export class AddEmployeeRoleComponent implements OnInit {
     }
   
     onSubmit(){
-      this.dataService.addEmployeeRole(this.employeeroleForm.value).subscribe(result => {
-            this.router.navigate(['/employeerole'])
-      })
+      //this.dataService.addEmployeeRole(this.employeeroleForm.value).subscribe(result => {
+            //this.router.navigate(['/employeerole'])
+      //})
+      let employeerole = new Employee_Role();
+      employeerole.Name = this.employeeroleForm.value.Name;
+      employeerole.Description = this.employeeroleForm.value.Description;
+      employeerole.EmployeeId = this.employeeroleForm.value.EmployeeId;
+       this.dataService.addEmployeeRole(employeerole).subscribe(result => {
+        this.router.navigate(['/employeerole'])
+       })
+
     }
 }

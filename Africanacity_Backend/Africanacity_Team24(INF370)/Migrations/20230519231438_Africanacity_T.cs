@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Africanacity_Team24_INF370_.Migrations
 {
-    public partial class Africanacity : Migration
+    public partial class Africanacity_T : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -986,6 +986,16 @@ namespace Africanacity_Team24_INF370_.Migrations
                         principalColumn: "OrderId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Employee_Roles",
+                columns: new[] { "Employee_RoleId", "Description", "Name" },
+                values: new object[] { 1, "The waiter serves the customers and takes orders", "Waiter" });
+
+            migrationBuilder.InsertData(
+                table: "Employee_Roles",
+                columns: new[] { "Employee_RoleId", "Description", "Name" },
+                values: new object[] { 2, "The chef prepares the meals and notifies the waiter of ready orders.", "Chef" });
 
             migrationBuilder.InsertData(
                 table: "Employees",

@@ -1,1 +1,32 @@
-<p>add-employee-role works!</p>
+<h4>Create Employee Role</h4>
+<hr>
+<div class="container">
+    <div class="row">
+        <form [formGroup]="employeeroleForm" class="form-horizontal"  (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label class=" col-sm-1" for="Name">Name:</label>
+                <div class="col-sm-6">
+                  <input class="form-control" id="name" placeholder="Enter name" [required]="true" formControlName="Name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1" for="Description">Description:</label>
+                <div class="col-sm-6">
+                    <textarea class="form-control" type="text" id="description" placeholder="Provide description" [required]="true" formControlName="Description"></textarea>
+                </div>
+            </div>
+            <select class="form-group">
+                <label class="col-sm-1" for="EmployeeId">Employee Id:</label>
+                <div class="col-sm-6">
+                  <option *ngFor="let value of employeerole.value" [value]="value.EmployeeId">{{value.EmployeeId}}</option>
+                </div>
+            </select>
+            <div class="form-group">
+              <div class="col-sm-offset-1 col-sm-6">
+                <button style="margin-right:1em;" type="submit" [disabled]="!courseForm.valid" class="btn btn-sm btn-default">Add</button>
+                <button type="button" class="btn btn-sm btn-warning" (click)="cancel()">Cancel</button>
+              </div>
+            </div>
+          </form>
+    </div>
+</div>
