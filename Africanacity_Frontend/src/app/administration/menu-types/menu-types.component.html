@@ -1,17 +1,19 @@
 <!--MENU TYPES PAGE-->
-<div class="container">           
+<div class="container">  
+  
+  <button type="button" class="btn btn-info">New Menu Type</button>
     <table class="table">
       <thead>
         <tr>
-          <th>Id</th>
+          <th>ID</th>
           <th>Name</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of menuTypes">
-            <td>{{item.menuTypeId}}</td>
+            <td>{{item.menu_TypeId}}</td>
             <td>{{ item.name }}</td>
-            <td><button type="button" class="btn btn-info">Edit</button>
+            <td><button type="button" class="btn btn-info">Edit</button></td>
             <td><button type="button" class="btn btn-danger">Delete</button></td>
           </tr>
       </tbody>

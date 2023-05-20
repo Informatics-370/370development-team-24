@@ -14,14 +14,14 @@ export class MenuTypesComponent implements OnInit{
   constructor(private dataService: DataService, private router: Router){}
    
   ngOnInit(): void{
-    this.GetMenuTypes()
+    this.GetAllMenuTypes()
     console.log(this.menuTypes)
   }
 
   //get all the menu types
-  GetMenuTypes()
+  GetAllMenuTypes()
   {
-    this.dataService.GetMenuTypes().subscribe(result => {
+    this.dataService.GetAllMenuTypes().subscribe(result => {
       let typesList:any[] = result
       typesList.forEach((element) => {
         this.menuTypes.push(element)

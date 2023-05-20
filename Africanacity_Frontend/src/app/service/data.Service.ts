@@ -12,7 +12,7 @@ import { MenuTypes } from '../shared/menu-types'; //Menu Types
 })
 export class DataService {
 
-  apiUrl = 'https://localhost:7258/swagger/index.html'
+  apiUrl = 'http://localhost:49991/api/'
 
   httpOptions ={
     headers: new HttpHeaders({
@@ -36,8 +36,8 @@ export class DataService {
   }
 
   //Menu Types
-  GetMenuTypes(): Observable<any>{
-    return this.httpClient.get(`${this.apiUrl}MenuTypes/GetAllMenuTypes`)
+  GetAllMenuTypes(): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}MenuType/GetAllMenuTypes`)
     .pipe(map(result => result));
   }
 

@@ -1,4 +1,4 @@
 export class MenuTypes{
-    menuTypeId: Number = 0;
+    menu_TypeId!: Number;
     name: String = "";
 }
