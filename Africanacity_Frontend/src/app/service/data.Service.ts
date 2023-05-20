@@ -21,22 +21,25 @@ export class DataService {
 
   constructor(private httpClient: HttpClient) {   
   }
-
+// Register user
   RegisterUser(registerUser: LoginUser){
     return this.httpClient.post(`${this.apiUrl}Authentication/Register`, registerUser, this.httpOptions)
   }
 
+  //Login user
   LoginUser(loginUser: LoginUser){
     let user = new UserCredentials
     return this.httpClient.post<User>(`${this.apiUrl}Authentication/Login`, loginUser, this.httpOptions)
   }
 
+
+//Change user password
    ChangePassword(loginUser: LoginUser){
     let user = new UserCredentials
     return this.httpClient.post<User>(`${this.apiUrl}Authentication/Forgotpassword`, loginUser, this.httpOptions)
   }
   
-
+// Generate otp 
   ValidateOtp(user: User){
     return this.httpClient.post(`${this.apiUrl}Authentication/Otp`, user, this.httpOptions)
   }

@@ -22,23 +22,23 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
-  {
-    path: 'otp',
+  { // otp path
+    path: 'otp',  
    component: OtpComponent
-  },
-  {
+  }, 
+  { // register path
     path: 'register', 
     component: RegisterComponent
-  },
-  {
+  }, 
+  { // updatepassword path
     path: 'update-password',
     component: UpdatePasswordComponent
-  },
-  {
+  }, 
+  { // forgotpassword path
     path: 'forgot-password',
     component: ForgotPasswordComponent
-  },
-  {
+  }, 
+  {  //resetpassword path
     path: 'reset-password',
     component: ResetPasswordComponent
   },

@@ -84,7 +84,7 @@ export class RegisterComponent implements OnInit {
           this.snackBar.open(response.error, 'X', {duration: 5000});
         }
         if (response.status === 500){
-          this.snackBar.open(response.error, 'X', {duration: 5000});
+          this.snackBar.open('Inavild email address', 'X', {duration: 5000});
         }
       })
     }

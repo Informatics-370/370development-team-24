@@ -5,8 +5,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/service/data.Service';
 
-
-
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
@@ -19,17 +17,20 @@ export class ForgotPasswordComponent {
   })
   isLoading:boolean = false
 
-  constructor(private router: Router, private dataService: DataService, private fb: FormBuilder, private snackBar: MatSnackBar) { }
+  constructor(private router: Router, 
+    private dataService: DataService, 
+    private fb: FormBuilder, 
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
 
-  ChangePassword(){
+  LoginUser(){
     if(this.loginFormGroup.valid)
     {
       this.isLoading = true
 
-      this.dataService.ChangePassword(this.loginFormGroup.value).subscribe(result => {
+      this.dataService.LoginUser(this.loginFormGroup.value).subscribe(result => {
         localStorage.setItem('User', JSON.stringify(result))
         this.loginFormGroup.reset();
         this.router.navigate(['otp']).then((navigated: boolean) => {
