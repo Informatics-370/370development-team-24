@@ -35,11 +35,11 @@ export class DataService {
     return this.httpClient.post(`${this.apiUrl}Authentication/Otp`, user, this.httpOptions)
   }
 
-  //Menu Types
+  /***************Menu Types************/
 
   //Create
-  AddCourse(menuType: MenuTypes){
-    return this.httpClient.post(`${this.apiUrl}Course/AddCourse`,course);
+  AddMenuType(menuType: MenuTypes){
+    return this.httpClient.post(`${this.apiUrl}MenuType/AddMenuType`,menuType);
   }
 
   GetAllMenuTypes(): Observable<any>{

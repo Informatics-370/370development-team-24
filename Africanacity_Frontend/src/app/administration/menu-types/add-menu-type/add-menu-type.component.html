@@ -1,1 +1,26 @@
-<p>add-menu-type works!</p>
+<h1>Add Menu Types</h1>
+<div class="container-md">
+    <form [formGroup]="addMenuTypeForm" autocomplete="off">
+        
+            <label for="name" class="form-label">Name</label>
+            <div class="input-group has-validation">
+                <input type="text" #name [ngClass]="{'form-control': true, 'is-invalid': addMenuTypeForm.get('name')?.invalid &&
+                (addMenuTypeForm.get('name')?.dirty || addMenuTypeForm.get('name')?.touched)}" id="name" name="name"
+                    formControlName="name" placeholder="Name">
+                <div class="invalid-feedback">
+                    This field is required.
+                </div>
+            </div>
+      
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button (click)="addNewMenuType()" [disabled]="addMenuTypeForm.invalid" class="btn btn-primary" type="button">
+                    {{menu_typeId==0 || menu_typeId==null ?'Save':'Update'}}</button><br><br>
+                <button class="btn btn-warning" type="button" href="./add-menu-type.component.html">Cancel </button>
+            </div>
+        
+
+       
+            {{addMenuTypeForm.value |json}}
+       
+    </form>
+</div>

@@ -16,6 +16,7 @@ import { MaterialModule } from './shared/material.modules';
 import { OtpComponent } from './login/otp/otp.component';
 import { MenuTypesComponent } from './administration/menu-types/menu-types.component';
 import { AddMenuTypeComponent } from './administration/menu-types/add-menu-type/add-menu-type.component';
+import { EditMenuTypeComponent } from './administration/menu-types/edit-menu-type/edit-menu-type.component';
 
 
 
@@ -33,7 +34,7 @@ import { AddMenuTypeComponent } from './administration/menu-types/add-menu-type/
     UpdatePasswordComponent, 
    
    
-    HomeComponent, MenuTypesComponent, AddMenuTypeComponent
+    HomeComponent, MenuTypesComponent, AddMenuTypeComponent, EditMenuTypeComponent
   ],
   imports: [
     BrowserModule,

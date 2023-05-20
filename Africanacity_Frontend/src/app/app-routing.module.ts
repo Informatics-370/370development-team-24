@@ -11,11 +11,15 @@ import { MenuTypesComponent } from './administration/menu-types/menu-types.compo
 
 import { HomeComponent } from './administration/home/home.component'; // for home page
 import { MenuComponent } from './administration/menu/menu.component'; // for menu page
+import { AddMenuTypeComponent } from './administration/menu-types/add-menu-type/add-menu-type.component';
+import { EditMenuTypeComponent } from './administration/menu-types/edit-menu-type/edit-menu-type.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent }, // for home page
   { path: 'menu', component: MenuComponent }, // for menu page
   { path: 'menu-types', component: MenuTypesComponent }, // for menu page
+  { path: 'add-menu-type', component: AddMenuTypeComponent}, //add menu type page
+  { path: 'edit-menu-type', component: EditMenuTypeComponent}, // edit menu type page
   {
     path: '',
     component: NavbarComponent
