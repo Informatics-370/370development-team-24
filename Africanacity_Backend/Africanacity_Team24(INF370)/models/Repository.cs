@@ -30,20 +30,17 @@ namespace Africanacity_Team24_INF370_.models
         }
 
         //HELP 
-        public async Task<Help[]> GetAlHelpAsync()
+        public async Task<Help[]> GetAllHelpAsync()
         {
             IQueryable<Help> query = _appDbContext.Helps;
             return await query.ToArrayAsync();
         }
-        public async Task<Help> GetHelpAsync(int HelpId)
+        public async Task<Help> GetHelpAsync(int helpId)
         {
-            IQueryable<Help> query = _appDbContext.Helps.Where(h => h.HelpId == HelpId);
+            IQueryable<Help> query = _appDbContext.Helps.Where(h => h.HelpId == helpId);
             return await query.FirstOrDefaultAsync();
         }
-        public Task<Help[]> GetAllHelpAsync()
-        {
-            throw new NotImplementedException();
-        }
+        
 
 
 

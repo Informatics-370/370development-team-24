@@ -21,10 +21,8 @@ import { ViewEmployeesComponent } from './administration/Employees/view-employee
 import { EditEmployeeComponent } from './administration/Employees/view-employees/edit-employee/edit-employee.component';
 import { EditHelpComponent } from './administration/Help Management/view-help-list/edit-help/edit-help.component';
 import { NotificationDialogComponent } from './administration/Employees/notification-dialog/notification-dialog.component';
-
-
-
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -41,6 +39,7 @@ import { NotificationDialogComponent } from './administration/Employees/notifica
     ViewEmployeesComponent, 
     AddHelpComponent, 
     ViewHelpListComponent, EditEmployeeComponent, EditHelpComponent, NotificationDialogComponent
+   
 
     
   ],
@@ -51,7 +50,11 @@ import { NotificationDialogComponent } from './administration/Employees/notifica
     FormsModule, 
     ReactiveFormsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    MatSnackBarModule,
+    Ng2SearchPipeModule
+    
+    
   ],
   providers: [],
   bootstrap: [AppComponent],

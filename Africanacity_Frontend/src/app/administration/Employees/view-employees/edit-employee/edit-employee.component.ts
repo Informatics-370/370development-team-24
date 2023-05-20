@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { EmployeeService } from '../../services/employee.service';
+import { EmployeeService } from '../../../../service/employee.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Employee } from '../../shared/employee';
+import { Employee } from '../../../../shared/employee';
 
 @Component({
   selector: 'app-edit-employee',
@@ -10,26 +10,32 @@ import { Employee } from '../../shared/employee';
   styleUrls: ['./edit-employee.component.css']
 })
 export class EditEmployeeComponent {
-  constructor(private employeeservice:EmployeeService, private router : Router , private activated:ActivatedRoute) { }
+  constructor(
+    private employeeservice:EmployeeService, 
+    private router : Router , 
+    private activated:ActivatedRoute) { }
 
   editEmployee: Employee = new Employee();
 
   updateEmployeeForm: FormGroup = new FormGroup({
-    name: new FormControl('',[Validators.required]),
-    duration: new FormControl('',[Validators.required]),
-    description: new FormControl('',[Validators.required])
+    surname: new FormControl('',[Validators.required]),
+    firstName: new FormControl('',[Validators.required]),
+    email_Address: new FormControl('',[Validators.required]),
+    physical_Address: new FormControl('',[Validators.required]),
+    phoneNumber: new FormControl('',[Validators.required])
   })
+  
 
   ngOnInit(): void {
 
     this.activated.params.subscribe(params => { 
-      this.employeeservice.getEmployee(params['Id']).subscribe(res => { 
+      this.employeeservice.getEmployee(params['id']).subscribe(res => { 
       this.editEmployee = res as Employee;
 
       this.updateEmployeeForm.controls['surname'].setValue(this.editEmployee.surname);
-      this.updateEmployeeForm.controls['firstname'].setValue(this.editEmployee.firstName);
+      this.updateEmployeeForm.controls['firstName'].setValue(this.editEmployee.firstName);
       this.updateEmployeeForm.controls['email_Address'].setValue(this.editEmployee.email_Address);
-      this.updateEmployeeForm.controls['physical_Address'].setValue(this.editEmployee.phoneNumber);
+      this.updateEmployeeForm.controls['physical_Address'].setValue(this.editEmployee.physical_Address);
       this.updateEmployeeForm.controls['phoneNumber'].setValue(this.editEmployee.phoneNumber);
       })
  
@@ -39,7 +45,6 @@ export class EditEmployeeComponent {
   cancel(){
     this.router.navigate(['/view-employees'])
   }
-
 
   updateEmployee()
   {
@@ -51,11 +56,11 @@ export class EditEmployeeComponent {
     employee.phoneNumber = this.updateEmployeeForm.value.phoneNumber;
 
 
-   this.employeeservice.editEmployee(this.editEmployee.employeeId,employee).subscribe((response:any) => {
+   this.employeeservice.EditEmployee(this.editEmployee.employeeId,employee).subscribe((response:any) => {
 
     if(response.statusCode == 200)
     {
-      this.router.navigate(['view-employees'])
+      this.router.navigate(['/view-employees'])
     }
     else
     {

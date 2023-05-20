@@ -15,10 +15,12 @@ namespace Africanacity_Team24_INF370_.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly IRepository _Repository;
+        private readonly AppDbContext _appDBContext;
 
-        public EmployeeController(IRepository Repository)
+        public EmployeeController(IRepository Repository, AppDbContext context)
         {
             _Repository = Repository;
+            _appDBContext = context;
         }
 
        
@@ -40,11 +42,24 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
 
         }
+        [HttpGet]
+        public ActionResult<IEnumerable<Employee>> GetAllEmployees(string searchQuery)
+        {
+            var employeesQuery = _appDBContext.Employees.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                employeesQuery = employeesQuery.Where(e => e.FirstName.Contains(searchQuery));
+            }
+
+            var employees = employeesQuery.ToList();
+            return Ok(employees);
+        }
 
         // Get an employee via their EmployeeId
 
         [HttpGet]
-        [Route("GetEmployee/{EmployeeId}")]
+        [Route("GetEmployee/{employeeId}")]
         public async Task<IActionResult> GetEmployeeAsync(int employeeId)
         {
             try
@@ -87,13 +102,13 @@ namespace Africanacity_Team24_INF370_.Controllers
         //Update Employee
 
         [HttpPut]
-        [Route("EditEmployee/{EmployeeId}")]
+        [Route("EditEmployee/{employeeId}")]
         public async Task<ActionResult<EmployeeViewModel>> EditEmployee(int employeeId, EmployeeViewModel evm)
         {
             try
             {
                 var currentEmployee = await _Repository.GetEmployeeAsync(employeeId);
-                if (currentEmployee == null) return NotFound($"The emloyee does not exist");
+                if (currentEmployee == null) return NotFound($"The employee does not exist");
 
                 currentEmployee.FirstName = evm.FirstName;
                 currentEmployee.Surname = evm.Surname;
@@ -115,7 +130,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         // Delete Employee
         [HttpDelete]
-        [Route("DeleteEmployee/{EmployeeId}")]
+        [Route("DeleteEmployee/{employeeId}")]
         public async Task<IActionResult> DeleteEmployee(int employeeId)
         {
             try

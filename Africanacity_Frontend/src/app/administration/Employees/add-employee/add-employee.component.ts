@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { EmployeeService } from '../services/employee.service';
-import { Employee } from '../shared/employee';
+import { EmployeeService } from '../../../service/employee.service';
+import { Employee } from '../../../shared/employee';
+import { EmailService } from 'src/app/service/email.service';
+
 
 @Component({
   selector: 'app-add-employee',
@@ -11,7 +13,9 @@ import { Employee } from '../shared/employee';
 })
 export class AddEmployeeComponent implements OnInit {
 
-   constructor(private employeeservice: EmployeeService, private router: Router) { }
+  
+
+   constructor(private employeeservice: EmployeeService, emailservice: EmailService,  private router: Router) { }
 
      employeeForm: FormGroup = new FormGroup({
        surname: new FormControl('',[Validators.required]),
@@ -54,28 +58,4 @@ export class AddEmployeeComponent implements OnInit {
       }
      });
          }
-
-  
-    // employeeForm = new FormGroup(
-    //   {
-    //     surname: new FormControl(''),
-    //     firstName: new FormControl(''),
-    //     email_Address: new FormControl(''),
-    //     physical_Address: new FormControl(''),
-    //     phoneNumber: new FormControl('')
-    //   })
-  
-  
-    // ngOnInit(): void {
-    // }
-  
-    // cancel(){
-    //   this.router.navigate(['/home'])
-    // }
-  
-    //  onSubmit(){
-    //    this.epmloyeeservice.AddEmployee(this.employeeForm.value).subscribe(result => {
-    //          this.router.navigate(['/view-employee'])
-    //    })
-    //  }
 }

@@ -21,15 +21,11 @@ const routes: Routes = [
   { path: 'menu', component: MenuComponent }, // for menu page
   { path: 'add-employee', component: AddEmployeeComponent }, // for add employee page
   { path: 'view-employees', component: ViewEmployeesComponent }, // for view employees page
-  { path: 'edit-employee', component: EditEmployeeComponent }, // for edit employee page
+  { path: 'edit-employee/:id', component: EditEmployeeComponent }, // for edit employee page
   { path: 'add-help', component: AddHelpComponent }, // for add help page
   { path: 'view-help-list', component: ViewHelpListComponent }, // for view help list page 
-  { path: 'edit-help', component: EditHelpComponent }, // for edit help page
+  { path: 'edit-help/:id', component: EditHelpComponent }, // for edit help page
 
-  {
-    path: '',
-    component: HomeComponent
-  },
   {
     path: 'navbar',
     component: NavbarComponent
@@ -47,7 +43,7 @@ const routes: Routes = [
    component:RegisterComponent
   },
   {path: '', 
-  redirectTo: 'login', pathMatch:'full'}
+  redirectTo: 'home', pathMatch:'full'}
 ];
 
 @NgModule({

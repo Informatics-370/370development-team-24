@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
-import { EmployeeService } from 'src/app/administration/Employees/services/employee.service';
-import { Help } from 'src/app/administration/Employees/shared/help';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { EmployeeService } from 'src/app/service/employee.service';
+import { Help } from 'src/app/shared/help';
 
 @Component({
   selector: 'app-edit-help',
@@ -10,47 +10,53 @@ import { Help } from 'src/app/administration/Employees/shared/help';
   styleUrls: ['./edit-help.component.css']
 })
 export class EditHelpComponent {
+  constructor(
+    private employeeservice:EmployeeService, 
+    private router : Router , 
+    private activated:ActivatedRoute) { }
 
-  // helpForm = new FormGroup(
-  //   {
-  //       Name: new FormControl(''),
-  //       Description: new FormControl(''),
-  //   })
+  editHelp: Help = new Help();
 
-  // help:any
-  // data: any;
-  // activated: any;
-  // constructor(private employeeservice: EmployeeService, private router: Router, private route:ActivatedRoute) { }
-
-  // ngOnInit(): void {
-  //    this.employeeservice.getEmployee(+this.route.snapshot.params['Id']).subscribe(result => {
-  //      this.help = result
-  //      this.helpForm.patchValue({
-  //        Name: this.help.Name,
-  //        Description: this.help.Description
-  //      });
-  //  })
-  // }
-
-  // OnUpdate()
-  // {
-  //   let help = new Help();
-  //   help.name = this.helpForm.value.Name!;
-  //   help.firstName = this.helpForm.value.FirstName!;
+  helpForm: FormGroup = new FormGroup({
+    name: new FormControl('',[Validators.required]),
+    description: new FormControl('',[Validators.required]),
+  })
   
 
-  //  this.data.editEmployee(this.employee.employeeId,employee).subscribe((response:any) => {
+  ngOnInit(): void {
 
-  //   if(response.statusCode == 200)
-  //   {
-  //     this.router.navigate(['view-employees'])
-  //   }
-  //   else
-  //   {
-  //     alert(response.message);
-  //   }
-  //  });
+    this.activated.params.subscribe(params => { 
+      this.employeeservice.getHelp(params['id']).subscribe(res => { 
+      this.editHelp = res as Help;
 
-  // }
-  // 
+      this.helpForm.controls['name'].setValue(this.editHelp.name);
+      this.helpForm.controls['description'].setValue(this.editHelp.description);
+     
+      })
+ 
+     })
+  }
+
+  cancel(){
+    this.router.navigate(['/view-help-list'])
+  }
+
+  updateHelp()
+  {
+    let help = new Help();
+    help.name = this.helpForm.value.name;
+    help.description = this.helpForm.value.description;
+   this.employeeservice.editHelp(this.editHelp.helpId,help).subscribe((response:any) => {
+
+    if(response.statusCode == 200)
+    {
+      this.router.navigate(['/view-help-list'])
+    }
+    else
+    {
+      alert(response.message);
+    }
+   });
+
+  }
 }

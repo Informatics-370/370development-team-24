@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, Subject } from 'rxjs';
-import { ViewEmployeesComponent } from '../view-employees/view-employees.component';
+import { ViewEmployeesComponent } from '../administration/Employees/view-employees/view-employees.component';
 import { Help } from '../shared/help';
 import { Employee } from '../shared/employee';
 
@@ -29,15 +29,11 @@ export class EmployeeService {
     .pipe(map(result => result))
   }
 
-  getAllEmployees(): Observable<any>{
+  GetAllEmployees(): Observable<any>{
     return this.httpClient.get(`${this.apiUrl}Employee/GetAllEmployees`)
     .pipe(map(result => result))
   }
 
-    // AddEmployee(employee: Employee)
-    // {
-    //   return this.httpClient.post(this.apiUrl + `Employee/AddEmpoyee`, employee)
-    // }
 
   AddEmployee(employee: Employee)
   {
@@ -50,37 +46,40 @@ export class EmployeeService {
     return this.httpClient.delete<string>(`${this.apiUrl}Employee/DeleteEmployee` + "/" + employeeId, this.httpOptions)
   }
 
-  editEmployee(employeeId: number, employee: Employee)
-  {
-    return this.httpClient.put(`${this.apiUrl}Employee/EditEmployee/${employeeId}`,employee, this.httpOptions)
-  }
+  EditEmployee(employeeId: number, employee: Employee)
+   {
+     return this.httpClient.put(`${this.apiUrl}Employee/EditEmployee/${employeeId}`,employee, this.httpOptions)
+   }
+
+  
+
 
   /* For Help Function */
 
   
-  getHelp(HelpId: number) {
-    return this.httpClient.get(`${this.apiUrl}Help/GetHelp` + "/" + HelpId)
+  getHelp(helpId: Number) {
+    return this.httpClient.get(`${this.apiUrl}Controller/GetHelp` + "/" + helpId)
     .pipe(map(result => result))
   }
 
-  getAllHelp(): Observable<any>{
-    return this.httpClient.get(`${this.apiUrl}Help/GetAllHelp`)
+  GetAllHelp(): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}Controller/GetAllHelp`)
     .pipe(map(result => result))
   }
 
-  addHelp(help: Help)
+  AddHelp(help: Help)
   {
-    return this.httpClient.post(`${this.apiUrl}Help/AddHelp`, help, this.httpOptions)
+    return this.httpClient.post(`${this.apiUrl}Controller/AddHelp`, help, this.httpOptions)
   }
 
-  deleteHelp(HelpId: Number)
+  deleteHelp(helpId: Number)
   {
-    return this.httpClient.delete<string>(`${this.apiUrl}Help/DeleteHelp` + "/" + HelpId, this.httpOptions)
+    return this.httpClient.delete<string>(`${this.apiUrl}Controller/DeleteHelp` + "/" + helpId, this.httpOptions)
   }
 
-  editHelp(HelpId: Number, help: Help)
+  editHelp(helpId: Number, help: Help)
   {
-    return this.httpClient.put(`${this.apiUrl}Help/EditHelp/${HelpId}`,help, this.httpOptions)
+    return this.httpClient.put(`${this.apiUrl}Controller/EditHelp/${helpId}`,help, this.httpOptions)
   }
 
 }

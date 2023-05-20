@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Africanacity_Team24_INF370_.Controllers
 {
 
-    [Route("api/Help")]
+    [Route("api/Controller")]
     [ApiController]
     public class HelpController : ControllerBase
     {
@@ -41,7 +41,7 @@ namespace Africanacity_Team24_INF370_.Controllers
         // Get a help Q&A via their HelpId
 
         [HttpGet]
-        [Route("GetHelp/{HelpId}")]
+        [Route("GetHelp/{helpId}")]
         public async Task<IActionResult> GetHelpAsync(int helpId)
         {
             try
@@ -83,7 +83,7 @@ namespace Africanacity_Team24_INF370_.Controllers
         //Update Help
 
         [HttpPut]
-        [Route("EditHelp/{HelpId}")]
+        [Route("EditHelp/{helpId}")]
         public async Task<ActionResult<HelpViewModel>> EditHelp(int helpId, HelpViewModel hvm)
         {
             try
@@ -108,7 +108,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         // Delete Help
         [HttpDelete]
-        [Route("DeleteHelp/{HelpId}")]
+        [Route("DeleteHelp/{helpId}")]
         public async Task<IActionResult> DeleteHelp(int helpId)
         {
             try

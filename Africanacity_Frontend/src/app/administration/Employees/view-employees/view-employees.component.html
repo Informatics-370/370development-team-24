@@ -32,7 +32,7 @@
             <td>{{employee.physical_Address}}</td> 
             <td>{{employee.phoneNumber}}</td> 
             <td>
-                <button style="margin-right: 1em;" [routerLink]="['/edit-employee', employee.employeeId]" type="button" class="btn btn-sm btn-primary" ><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
+                <button type="button" class="btn btn-info"  [routerLink]="['/edit-employee', employee.employeeId]"><i class="fa fa-pencil" aria-hidden="true"></i>Edit</button>
                 <button type="button" class="btn btn-sm btn-danger" (click)="deleteEmployee(employee.employeeId)" ><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
             </td>
         </tr> 

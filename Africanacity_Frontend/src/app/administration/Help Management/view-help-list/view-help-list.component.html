@@ -14,20 +14,20 @@
     
     <table class="table table-striped table-hover"> 
         <thead >
-    
+
                 <th scope="col">ID</th> 
                 <th scope="col">Name</th> 
                 <th scope="col">Description</th>
                 <th scope="col"></th>
         </thead> 
         <tbody> 
-            <tr *ngFor="let help of help"> 
-                <td>{{help.helpId}}</td> 
+            <tr *ngFor="let help of helps"> 
+                <td>{{help.helpId}}</td>
                 <td>{{help.name}}</td> 
                 <td>{{help.description}}</td> 
                 <td>
-                    <button style="margin-right: 1em;" [routerLink]="['/edit-employee', help.helpId]" type="button" class="btn btn-sm btn-primary" ><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
-                    <button type="button" class="btn btn-sm btn-danger" (click)="DeleteHelp(help.helpId)" ><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                    <button style="margin-right: 1em;" [routerLink]="['/edit-help', help.helpId]" type="button" class="btn btn-sm btn-primary" ><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
+                    <button type="button" class="btn btn-sm btn-danger" (click)="deleteHelp(help.helpId)" ><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
                 </td>
             </tr> 
         </tbody>  

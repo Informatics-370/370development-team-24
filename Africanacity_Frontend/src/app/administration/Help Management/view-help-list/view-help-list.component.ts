@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { Help } from '../../Employees/shared/help';
+import { Help } from '../../../shared/help';
 import { Router } from '@angular/router';
-import { EmployeeService } from '../../Employees/services/employee.service';
+import { EmployeeService } from '../../../service/employee.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-view-help-list',
@@ -10,26 +12,26 @@ import { EmployeeService } from '../../Employees/services/employee.service';
 })
 export class ViewHelpListComponent {
 
-  help:Help[] = []
+  helps:Help[] = []
 
   constructor(private employeeservice: EmployeeService, private router: Router){}
   
   ngOnInit(): void{
-    this.getAllHelp()
+    this.GetAllHelp()
   }
 
-  getAllHelp()
+  GetAllHelp()
   {
-    this.employeeservice.getAllHelp().subscribe(result => {
+    this.employeeservice.GetAllHelp().subscribe(result => {
       let helpList:any[] = result
       helpList.forEach((element) => {
-        this.help.push(element)
+        this.helps.push(element)
       });
     })
   }
 
-  DeleteHelp(HelpId: Number){
-    this.employeeservice.deleteHelp(HelpId).subscribe(result => {
+  deleteHelp(helpId: Number){
+    this.employeeservice.deleteHelp(helpId).subscribe(result => {
       window.location.reload();
       });
     }
