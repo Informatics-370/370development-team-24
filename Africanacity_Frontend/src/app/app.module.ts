@@ -14,6 +14,7 @@ import { ForgotPasswordComponent } from './login/forgot-password/forgot-password
 import { UpdatePasswordComponent } from './login/update-password/update-password.component';
 import { MaterialModule } from './shared/material.modules';
 import { OtpComponent } from './login/otp/otp.component';
+import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
 
 
 
@@ -30,7 +31,7 @@ import { OtpComponent } from './login/otp/otp.component';
     ForgotPasswordComponent, 
     UpdatePasswordComponent, 
    
-    HomeComponent
+    HomeComponent, ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
