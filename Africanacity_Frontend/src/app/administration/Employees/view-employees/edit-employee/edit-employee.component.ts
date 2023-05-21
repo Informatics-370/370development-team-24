@@ -61,6 +61,7 @@ export class EditEmployeeComponent {
     if(response.statusCode == 200)
     {
       this.router.navigate(['/view-employees'])
+      window.location.reload();
     }
     else
     {

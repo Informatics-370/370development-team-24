@@ -12,8 +12,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './view-employees.component.html',
   template: `
   <button (click)="deleteItem()">Delete</button>
-  <button (click)="cancel()">cCancel</button>
-
 `,
 
 
