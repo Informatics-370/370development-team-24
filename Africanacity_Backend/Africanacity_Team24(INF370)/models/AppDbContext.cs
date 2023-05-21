@@ -211,8 +211,8 @@ namespace Africanacity_Team24_INF370_.models
                              MenuItemId = 1,
 							 Name = "Chicken Feast",
 							 Description ="Two larger chicken burger, 6 pcs nuggets, two large fries",
-							 FoodTypeId = 1,
-							 Menu_CategoryId =3,
+                             Food_TypeFoodTypeId = 1,
+							 CategoryMenu_CategoryId =3,
 
 
                            });
@@ -225,8 +225,8 @@ namespace Africanacity_Team24_INF370_.models
                                MenuItemId = 2,
                                Name = "The Braai feast",
                                Description = "Pap, boerewors an Tbone steak",
-                               FoodTypeId = 2,
-                               Menu_CategoryId = 3,
+                               Food_TypeFoodTypeId = 2,
+                               CategoryMenu_CategoryId= 3,
 
 
                            });
@@ -238,8 +238,8 @@ namespace Africanacity_Team24_INF370_.models
                               MenuItemId = 3,
                               Name = "Chilli cheese poppers",
                               Description = "Mozarella stuffe cheese balls",
-                              FoodTypeId = 3,
-                              Menu_CategoryId = 2,
+                              Food_TypeFoodTypeId = 3,
+                              CategoryMenu_CategoryId = 2,
 
 
                           });
@@ -250,8 +250,8 @@ namespace Africanacity_Team24_INF370_.models
                               MenuItemId = 4,
                               Name = "Mexican salad",
                               Description = "A green salad with salsa mix",
-                              FoodTypeId = 4,
-                              Menu_CategoryId = 5,
+                              Food_TypeFoodTypeId = 4,
+                              CategoryMenu_CategoryId = 5,
 
 
                           });
@@ -262,8 +262,8 @@ namespace Africanacity_Team24_INF370_.models
                               MenuItemId = 5,
                               Name = "Blueberry cheescake",
                               Description = "Delicious cheesecake with blueberry sauce topping",
-                              FoodTypeId = 3,
-                              Menu_CategoryId = 4,
+                              Food_TypeFoodTypeId = 3,
+                              CategoryMenu_CategoryId = 4,
 
 
                           });
