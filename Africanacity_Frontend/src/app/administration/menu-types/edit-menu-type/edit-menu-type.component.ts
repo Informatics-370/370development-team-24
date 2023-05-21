@@ -3,19 +3,26 @@ import { DataService } from 'src/app/service/data.Service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuTypes } from 'src/app/shared/menu-types';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
+import { ConfirmationDialogComponent } from '../add-menu-type/confirmation-dialog/confirmation-dialog.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 
 @Component({
   selector: 'app-edit-menu-type',
   templateUrl: './edit-menu-type.component.html',
-  styleUrls: ['./edit-menu-type.component.css']
+  styleUrls: ['./edit-menu-type.component.css'],
+  
 })
 export class EditMenuTypeComponent implements OnInit{
+  
 
   // menu_TypeId!: number;
  
 
-  constructor(private dataService:DataService, private activated:ActivatedRoute,  private router : Router,) { }
+  constructor(private dataService:DataService, private activated:ActivatedRoute,  private router : Router,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,) { }
 
   MenuTypes: MenuTypes = new MenuTypes();
 
@@ -52,7 +59,16 @@ export class EditMenuTypeComponent implements OnInit{
     
     
    });
+   this.showSuccessMessage('Menu Type edited successfully!');
 
+  }
+
+  showSuccessMessage(message: string): void {
+    const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(message, 'Ok', {
+      duration: 3000, // Duration in milliseconds
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom'
+    });
   }
 
 }

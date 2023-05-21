@@ -8,8 +8,8 @@
                 (editMenuTypeForm.get('name')?.dirty || editMenuTypeForm.get('name')?.touched)}" Menu_TypeId="name" name="name"
                     formControlName="name" placeholder="Name" style="width: 300px"><br>
         </div>
-       
-        <button type="submit" class="btn btn-basic" [disabled]="!editMenuTypeForm.valid">Edit</button>
+        
+        <button type="submit" class="btn btn-basic" [disabled]="!editMenuTypeForm.valid" (click)="editMenuType()">Edit</button>
         <button type="button" class="btn btn-warning" style="margin-left: 2px;" [routerLink]="['/menu-types']">Cancel</button>
         
     </form>

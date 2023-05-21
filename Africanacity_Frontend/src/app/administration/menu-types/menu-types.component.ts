@@ -5,11 +5,12 @@ import {Router} from '@angular/router';
 import { EditMenuTypeComponent } from './edit-menu-type/edit-menu-type.component';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmationDialogComponent } from './add-menu-type/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-menu-types',
   templateUrl: './menu-types.component.html',
-  template: `<button (click)="deleteItem()">Delete</button>`,
+  /*template: `<button (click)="deleteItem()">Delete</button>`,*/
   
   styleUrls: ['./menu-types.component.css']
 })
