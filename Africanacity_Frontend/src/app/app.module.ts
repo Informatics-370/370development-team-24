@@ -17,6 +17,16 @@ import { OtpComponent } from './login/otp/otp.component';
 import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
 
 
+import { AddHelpComponent } from './administration/Help Management/add-help/add-help.component';
+import { ViewHelpListComponent } from './administration/Help Management/view-help-list/view-help-list.component';
+import { AddEmployeeComponent } from './administration/Employees/add-employee/add-employee.component';
+import { ViewEmployeesComponent } from './administration/Employees/view-employees/view-employees.component';
+import { EditEmployeeComponent } from './administration/Employees/view-employees/edit-employee/edit-employee.component';
+import { EditHelpComponent } from './administration/Help Management/view-help-list/edit-help/edit-help.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { MatSelectModule } from '@angular/material/select';
+import { NotificationDialogComponent } from './administration/Employees/notification-dialog/notification-dialog.component';
 
 
 @NgModule({
@@ -29,9 +39,15 @@ import { ResetPasswordComponent } from './login/reset-password/reset-password.co
     LoginComponent,
     OtpComponent,
     ForgotPasswordComponent, 
-    UpdatePasswordComponent, 
+    UpdatePasswordComponent,  
+    AddEmployeeComponent, 
+    ViewEmployeesComponent, 
+    AddHelpComponent, 
+    ViewHelpListComponent, EditEmployeeComponent, EditHelpComponent, NotificationDialogComponent,
    
     HomeComponent, ResetPasswordComponent
+
+    
   ],
   imports: [
     BrowserModule,
@@ -40,7 +56,13 @@ import { ResetPasswordComponent } from './login/reset-password/reset-password.co
     FormsModule, 
     ReactiveFormsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    MatSnackBarModule,
+    Ng2SearchPipeModule,
+    MatSelectModule
+
+    
+    
   ],
   providers: [],
   bootstrap: [AppComponent],

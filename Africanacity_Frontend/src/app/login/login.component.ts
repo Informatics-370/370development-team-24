@@ -17,9 +17,12 @@ export class LoginComponent implements OnInit {
   password: string = '';
   visablePassword: boolean = false;
   hide = false;
+
+
   loginFormGroup: FormGroup = this.fb.group({
     UserName: ['', [Validators.required, Validators.email]],
     Password: ['', Validators.required],
+
   })
 
   PasswordVisibility(){

@@ -1,5 +1,7 @@
-﻿using Africanacity_Team24_INF370_.models.Administration;
+﻿using Africanacity_Team24_INF370_.models.Admin;
+using Africanacity_Team24_INF370_.models.Administration;
 ﻿using Africanacity_Team24_INF370_.models.Restraurant;
+using Africanacity_Team24_INF370_.ViewModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace Africanacity_Team24_INF370_.models
@@ -8,19 +10,42 @@ namespace Africanacity_Team24_INF370_.models
 	{
 		private readonly AppDbContext _appDbContext;
 
+        public object EmployeeViewModel => throw new NotImplementedException();
+
         public Repository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
         }
 
+        // EMPLOYEES
         public async Task<Employee[]> GetAllEmployeesAsync()
         {
             IQueryable<Employee> query = _appDbContext.Employees;
             return await query.ToArrayAsync();
         }
+        public async Task<Employee> GetEmployeeAsync(int employeeId)
+        {
+            IQueryable<Employee> query = _appDbContext.Employees.Where(e => e.EmployeeId == employeeId);
+            return await query.FirstOrDefaultAsync();
+        }
 
-		//Saving changes
-		public async Task<bool>SaveChangesAsync()
+        //HELP 
+        public async Task<Help[]> GetAllHelpAsync()
+        {
+            IQueryable<Help> query = _appDbContext.Helps;
+            return await query.ToArrayAsync();
+        }
+        public async Task<Help> GetHelpAsync(int helpId)
+        {
+            IQueryable<Help> query = _appDbContext.Helps.Where(h => h.HelpId == helpId);
+            return await query.FirstOrDefaultAsync();
+        }
+        
+
+
+
+        //Saving changes
+        public async Task<bool>SaveChangesAsync()
 		{
 			return await _appDbContext.SaveChangesAsync() > 0;	
 		}
@@ -45,6 +70,8 @@ namespace Africanacity_Team24_INF370_.models
 			return await query.FirstOrDefaultAsync();
 		}
 
+
+
         //DRINK ITEM TYPE
         public async Task<Drink_Type[]> GetAllDrinkTypesAsync()
         {
@@ -68,5 +95,7 @@ namespace Africanacity_Team24_INF370_.models
             IQueryable<MenuItem_Category> query = _appDbContext.MenuItem_Categories.Where(m => m.Menu_CategoryId == Menu_CategoryId);
             return await query.FirstOrDefaultAsync();
         }
+
+       
     }
 }

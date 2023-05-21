@@ -19,7 +19,7 @@ export class NavbarComponent {
 
   selectOption(option: string): void {
     this.selectedOption = option;
-    this.showDropdown = false;
+    this.showDropdown = true;
     // Perform any other actions based on the selected option
   }
 

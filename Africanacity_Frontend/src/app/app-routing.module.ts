@@ -11,8 +11,23 @@ import { ResetPasswordComponent } from './login/reset-password/reset-password.co
 
 import { HomeComponent } from './administration/home/home.component'; // for home page
 import { MenuComponent } from './administration/menu/menu.component'; // for menu page
+import { AddEmployeeComponent } from './administration/Employees/add-employee/add-employee.component'; // for add employee page
+import { ViewEmployeesComponent } from './administration/Employees/view-employees/view-employees.component';
+import { AddHelpComponent } from './administration/Help Management/add-help/add-help.component';
+import { ViewHelpListComponent } from './administration/Help Management/view-help-list/view-help-list.component';
+import { EditEmployeeComponent } from './administration/Employees/view-employees/edit-employee/edit-employee.component';
+import { EditHelpComponent } from './administration/Help Management/view-help-list/edit-help/edit-help.component';
 
 const routes: Routes = [
+  { path: 'home', component: HomeComponent }, // for home page
+  { path: 'menu', component: MenuComponent }, // for menu page
+  { path: 'add-employee', component: AddEmployeeComponent }, // for add employee page
+  { path: 'view-employees', component: ViewEmployeesComponent }, // for view employees page
+  { path: 'edit-employee/:id', component: EditEmployeeComponent }, // for edit employee page
+  { path: 'add-help', component: AddHelpComponent }, // for add help page
+  { path: 'view-help-list', component: ViewHelpListComponent }, // for view help list page 
+  { path: 'edit-help/:id', component: EditHelpComponent }, // for edit help page
+
   {
     path: 'navbar',
     component: NavbarComponent
@@ -51,7 +66,7 @@ const routes: Routes = [
     component: MenuComponent 
   }, 
   {path: '', 
-  redirectTo: 'login', pathMatch:'full'}
+  redirectTo: 'home', pathMatch:'full'}
 ];
 
 @NgModule({

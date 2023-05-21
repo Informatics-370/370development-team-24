@@ -53,6 +53,26 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasIndex("Help_CategoryId");
 
                     b.ToTable("Helps");
+
+                    b.HasData(
+                        new
+                        {
+                            HelpId = 1,
+                            Description = "MMINO Restaurant serves various types of cuisines",
+                            Name = "What food does MMINO Restaurant serve?"
+                        },
+                        new
+                        {
+                            HelpId = 2,
+                            Description = "MMINO Restaurant is located in Hatfield,Pretoria. 1005 Arcadia Street",
+                            Name = "Where is MMINO Restaurant?"
+                        },
+                        new
+                        {
+                            HelpId = 3,
+                            Description = "You can book for a live entertainment on the website.",
+                            Name = "How how do you book for a live entertainment slot?"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Admin.Title", b =>
@@ -264,10 +284,92 @@ namespace Africanacity_Team24_INF370_.Migrations
                         new
                         {
                             EmployeeId = 1,
-                            Email_Address = "VanessaJames@gmial.com",
+                            Email_Address = "VanessaJames@gmail.com",
                             FirstName = "Vanessa",
                             PhoneNumber = "0847541236",
+                            Physical_Address = "404 Jacob Street",
                             Surname = "James"
+                        },
+                        new
+                        {
+                            EmployeeId = 2,
+                            Email_Address = "SerenaWilliams@gmail.com",
+                            FirstName = "Serena",
+                            PhoneNumber = "0842341236",
+                            Physical_Address = "132 Harriet Street",
+                            Surname = "Williams"
+                        },
+                        new
+                        {
+                            EmployeeId = 3,
+                            Email_Address = "EdrisElba@gmail.com",
+                            FirstName = "Edris",
+                            PhoneNumber = "0212378798",
+                            Physical_Address = "245 homelyn Street",
+                            Surname = "Elba"
+                        },
+                        new
+                        {
+                            EmployeeId = 4,
+                            Email_Address = "NyongoLupita@gmail.com",
+                            FirstName = "Lupita",
+                            PhoneNumber = "0455783475",
+                            Physical_Address = "254 Summer Street",
+                            Surname = "Nyongo"
+                        },
+                        new
+                        {
+                            EmployeeId = 5,
+                            Email_Address = "MicheaJackson@gmail.com",
+                            FirstName = "Micheal",
+                            PhoneNumber = "0874567836",
+                            Physical_Address = "567 Winter Street",
+                            Surname = "Jackson"
+                        },
+                        new
+                        {
+                            EmployeeId = 6,
+                            Email_Address = "TaehyungKim@gmial.com",
+                            FirstName = "Taehyung",
+                            PhoneNumber = "0874562134",
+                            Physical_Address = "345 Shallow  Street",
+                            Surname = "Kim"
+                        },
+                        new
+                        {
+                            EmployeeId = 7,
+                            Email_Address = "ZendayaColeman@gmail.com",
+                            FirstName = "Zendaya",
+                            PhoneNumber = "0212378798",
+                            Physical_Address = "243 Super Street ",
+                            Surname = "Coleman"
+                        },
+                        new
+                        {
+                            EmployeeId = 8,
+                            Email_Address = "RogerFederal@gmail.com",
+                            FirstName = "Roger",
+                            PhoneNumber = "0612346487",
+                            Physical_Address = "987 Wall Street",
+                            Surname = "Federal"
+                        },
+                        new
+                        {
+                            EmployeeId = 9,
+                            Email_Address = "JenniferLOpez@gmail.com",
+                            FirstName = "Jennifer",
+                            PhoneNumber = "0874834576",
+                            Physical_Address = "967 Ballard Street",
+                            Surname = "Lopez"
+                        },
+                        new
+                        {
+                            EmployeeId = 10,
+                            Email_Address = "ChadwickBoseman@gmail.com",
+                            FirstName = "Chadwick",
+                            PhoneNumber = "0923456789",
+                            Physical_Address = "483 Alien Street",
+                            Surname = "Boseman"
                         });
                 });
 
