@@ -45,11 +45,11 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         [HttpGet]
         [Route("GetMenuItem/{MenuItemId}")]
-        public async Task<IActionResult> GetMenuItemAsync(int MenuItemId)
+        public async Task<IActionResult> GetMenuItemAsync(int MenuItem_Id)
         {
             try
             {
-                var result = await _repository.GetMenuItemAsync(MenuItemId);
+                var result = await _repository.GetMenuItemAsync(MenuItem_Id);
 
                 if (result == null) return NotFound("Menu Item does not exist");
 
@@ -65,7 +65,7 @@ namespace Africanacity_Team24_INF370_.Controllers
         [Route("AddMenuItem")]
         public async Task<IActionResult> AddMenuItem(MenuItemViewModel menuItemViewModel)
         {
-            var menuItem = new MenuItem { Name = menuItemViewModel.Name, Description = menuItemViewModel.Description};
+            var menuItem = new MenuItem {ID = menuItemViewModel.MenuItemId, Name = menuItemViewModel.Name, Description = menuItemViewModel.Description, };
 
             try
             {
