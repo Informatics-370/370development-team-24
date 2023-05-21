@@ -65,7 +65,7 @@ namespace Africanacity_Team24_INF370_.Controllers
         [Route("AddMenuItem")]
         public async Task<IActionResult> AddMenuItem(MenuItemViewModel menuItemViewModel)
         {
-            var menuItem = new MenuItem {ID = menuItemViewModel.MenuItemId, Name = menuItemViewModel.Name, Description = menuItemViewModel.Description, };
+            var menuItem = new MenuItem {MenuItemId = menuItemViewModel.MenuItemId, Name = menuItemViewModel.Name, Description = menuItemViewModel.Description, };
 
             try
             {
