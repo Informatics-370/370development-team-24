@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { OtpComponent } from './login/otp/otp.component';
 import { RegisterComponent } from './login/register/register.component';
 import { MenuTypesComponent } from './administration/menu-types/menu-types.component';//for menu types page
+import { MenuitemsComponent } from './administration/menuitems/menuitems.component';
 
 
 // routing for pages
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'menu-types', component: MenuTypesComponent }, // for menu page
   { path: 'add-menu-type', component: AddMenuTypeComponent}, //add menu type page
   { path: 'edit-menu-type/:id', component: EditMenuTypeComponent}, // edit menu type page
+  { path: 'menuitems', component: MenuitemsComponent},//For the menu item page
   {
     path: '',
     component: NavbarComponent

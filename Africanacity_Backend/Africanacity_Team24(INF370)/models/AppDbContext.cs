@@ -213,6 +213,7 @@ namespace Africanacity_Team24_INF370_.models
 							 Description ="Two larger chicken burger, 6 pcs nuggets, two large fries",
                              Food_TypeFoodTypeId = 1,
 							 CategoryMenu_CategoryId =3,
+                             Menu_TypeId = 2,
 
 
                            });
@@ -227,6 +228,7 @@ namespace Africanacity_Team24_INF370_.models
                                Description = "Pap, boerewors an Tbone steak",
                                Food_TypeFoodTypeId = 2,
                                CategoryMenu_CategoryId= 3,
+                               Menu_TypeId = 2,
 
 
                            });
@@ -240,6 +242,7 @@ namespace Africanacity_Team24_INF370_.models
                               Description = "Mozarella stuffe cheese balls",
                               Food_TypeFoodTypeId = 3,
                               CategoryMenu_CategoryId = 2,
+                              Menu_TypeId = 2,
 
 
                           });
@@ -252,6 +255,7 @@ namespace Africanacity_Team24_INF370_.models
                               Description = "A green salad with salsa mix",
                               Food_TypeFoodTypeId = 4,
                               CategoryMenu_CategoryId = 5,
+                              Menu_TypeId = 2,
 
 
                           });
@@ -264,6 +268,7 @@ namespace Africanacity_Team24_INF370_.models
                               Description = "Delicious cheesecake with blueberry sauce topping",
                               Food_TypeFoodTypeId = 3,
                               CategoryMenu_CategoryId = 4,
+                              Menu_TypeId = 2,
 
 
                           });

@@ -6,6 +6,9 @@ import { EditMenuTypeComponent } from './edit-menu-type/edit-menu-type.component
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmationDialogComponent } from './add-menu-type/confirmation-dialog/confirmation-dialog.component';
+import { MenuItem } from 'src/app/shared/menu-item';
+import { FoodType } from 'src/app/shared/food-type';
+import { MenuItemCategory } from 'src/app/shared/menu-item-category';
 
 @Component({
   selector: 'app-menu-types',
@@ -16,6 +19,8 @@ import { ConfirmationDialogComponent } from './add-menu-type/confirmation-dialog
 })
 export class MenuTypesComponent implements OnInit{
   menuTypes:MenuTypes[] = []
+
+
 
   constructor(private dataService: DataService, 
     private router: Router,
@@ -42,6 +47,7 @@ export class MenuTypesComponent implements OnInit{
    
   ngOnInit(): void{
     this.GetAllMenuTypes()
+    
     console.log(this.menuTypes)
   }
 
@@ -64,10 +70,8 @@ export class MenuTypesComponent implements OnInit{
     });
   }
 
-  //Edit menu type
-  //  EditMenuType(menu_TypeId:Number)
-  //  {
-  //    this.router.navigate(['/edit-menu-type',menu_TypeId]);
-  //  }
+
+
+
 
 }

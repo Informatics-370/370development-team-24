@@ -22,6 +22,8 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
 		public Food_Type Food_Type { get; set; }
 		public MenuItem_Category Category { get; set; }
 
+		public Menu_Type Menu_Type { get; set; }
+
 
        
     }

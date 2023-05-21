@@ -1,0 +1,19 @@
+<table>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>FoodType</th>
+      <th>MenuType</th>
+      <th>MenuCategory</th>
+    </tr>
+    <tr *ngFor="let menuItem of menuItems">
+      <td>{{ menuItem.menuItem_Id }}</td>
+      <td>{{ menuItem.name }}</td>
+      <td>{{ menuItem.description }}</td>
+      <td>{{ menuItem.foodType }}</td>
+      <!--td>{{ menuItem.menuType }}</td-->
+      <td>{{ menuItem.category }}</td>
+    </tr>
+  </table>
+  

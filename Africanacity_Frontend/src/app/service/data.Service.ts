@@ -6,6 +6,7 @@ import { LoginUser } from '../shared/login-user';
 import { RegisterUser } from '../shared/register-user';
 import { User } from '../shared/user';
 import { MenuTypes } from '../shared/menu-types'; //Menu Types
+import { MenuItem } from '../shared/menu-item';
 
 @Injectable({
   providedIn: 'root'
@@ -67,5 +68,45 @@ export class DataService {
     return this.httpClient.delete<string>(`${this.apiUrl}MenuType/DeleteMenuType` + "/" + menu_TypeId, this.httpOptions)
   }
 
+
+
+  /********************************MENU ITEM******************************/
+  //GET MENU ITEMS
+  GetAllMenuItems(): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}MenuItems/GetAllMenuItems`)
+    .pipe(map(result => result));
+  }
+
+
+  //fetch menu item food
+  GetMenuItemById(menu_ItemId: Number): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}MenuItems/GetMenuItems/${menu_ItemId}`);
+  }
+
+
+  /******************FOOD TYPE**************/
+
+  GetAllFoodTypes(): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}FoodType/GetAllFoodTypes`)
+    .pipe(map(result => result));
+  }
+
+
+  // fetch food type name
+  GetFoodTypeById(foodType_Id: Number): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}FoodType/GetFoodType/${foodType_Id}`);
+  }
+
+  /********** MENU CATEGORY***************/
+  GetAllMenuItemCategories(): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}MenuItem_Category/GetAllMenuItemCategories`)
+    .pipe(map(result => result));
+  }
+
+
+  // fetch food type name
+  GetMenuItemCategoryById(category_Id: Number): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}MenuItem_Category/GetMenuItemCategory/${category_Id}`);
+  }
 
 }

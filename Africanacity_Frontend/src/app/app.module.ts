@@ -19,6 +19,8 @@ import { AddMenuTypeComponent } from './administration/menu-types/add-menu-type/
 import { EditMenuTypeComponent } from './administration/menu-types/edit-menu-type/edit-menu-type.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ConfirmationDialogComponent } from './administration/menu-types/add-menu-type/confirmation-dialog/confirmation-dialog.component';
+import { MenuitemsComponent } from './administration/menuitems/menuitems.component';
+import { DataService } from './service/data.Service';
 
 
 
@@ -36,7 +38,7 @@ import { ConfirmationDialogComponent } from './administration/menu-types/add-men
     UpdatePasswordComponent, 
    
    
-    HomeComponent, MenuTypesComponent, AddMenuTypeComponent, EditMenuTypeComponent, ConfirmationDialogComponent
+    HomeComponent, MenuTypesComponent, AddMenuTypeComponent, EditMenuTypeComponent, ConfirmationDialogComponent, MenuitemsComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +50,7 @@ import { ConfirmationDialogComponent } from './administration/menu-types/add-men
     MaterialModule,
     MatSnackBarModule
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
