@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/service/data.Service';
 import { Employee_Role } from 'src/app/shared/EmployeeRole';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-employee-role',
@@ -11,35 +12,43 @@ import { Employee_Role } from 'src/app/shared/EmployeeRole';
 })
 export class AddEmployeeRoleComponent implements OnInit {
 
-  employeeroleForm:FormGroup = new FormGroup(
-    {
-        
-        Name: new FormControl('',[Validators.required]),
-        Description: new FormControl('',[Validators.required]),
-        EmployeeId: new FormControl(0,[Validators.required])
-   })
+
   
-    constructor(private dataService: DataService, private router: Router) {
-     }
+    constructor(private dataService: DataService, private router: Router, 
+      private activated: ActivatedRoute,
+      private snackBar: MatSnackBar) {}
+
+     employeeroleForm: FormGroup = new FormGroup({
+      name: new FormControl('',[Validators.required]),
+      description: new FormControl('',[Validators.required])
+     })
   
     ngOnInit(): void {
     }
   
     cancel(){
-      this.router.navigate(['/employeerole'])
+      this.router.navigate(['/employee-role'])
     }
   
     onSubmit(){
-      //this.dataService.addEmployeeRole(this.employeeroleForm.value).subscribe(result => {
-            //this.router.navigate(['/employeerole'])
-      //})
-      let employeerole = new Employee_Role();
-      employeerole.Name = this.employeeroleForm.value.Name;
-      employeerole.Description = this.employeeroleForm.value.Description;
-      employeerole.EmployeeId = this.employeeroleForm.value.EmployeeId;
-       this.dataService.addEmployeeRole(employeerole).subscribe(result => {
-        this.router.navigate(['/employeerole'])
-       })
 
+      let employeeRole = new Employee_Role();
+      employeeRole.name = this.employeeroleForm.value.name;
+      employeeRole.description = this.employeeroleForm.value.description;
+     
+       this.dataService.AddEmployeeRole(employeeRole).subscribe(result => {
+        this.router.navigate(['/employee-role'])
+       });
+
+       this.showSuccessMessage('Employee Role has been successfully created');
+
+    }
+    // Success notification
+    showSuccessMessage(message:string) : void {
+      const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(message, 'Ok', {
+        duration: 3000, // Duration in milliseconds
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom'
+      });
     }
 }

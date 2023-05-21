@@ -13,7 +13,7 @@ import { Employee_Role} from '../shared/EmployeeRole';
 })
 export class DataService {
 
-  apiUrl = 'https://localhost:7258/swagger/index.html'
+  apiUrl = 'http://localhost:61433/api/'
 
   httpOptions ={
     headers: new HttpHeaders({
@@ -37,29 +37,30 @@ export class DataService {
   }
 
   //Code Related to employee role
-  getEmployeeRole(Employee_RoleId: number) {
-    return this.httpClient.get(`${this.apiUrl}EmployeeRole/GetEmployeeRole` + "/" + Employee_RoleId)
+  GetEmployeeRole(employee_RoleId: number) {
+    return this.httpClient.get(`${this.apiUrl}EmployeeRole/GetEmployeeRole` + "/" + employee_RoleId)
     .pipe(map(result => result))
   }
 
-  getEmployeeRoles(): Observable<any>{
+  GetAllEmployeeRoles(): Observable<any>{
     return this.httpClient.get(`${this.apiUrl}EmployeeRole/GetAllEmployeeRoles`)
-    .pipe(map(result => result))
+    .pipe(map(results => results))
+    
   }
 
-  addEmployeeRole(EmployeeRole: Employee_Role)
+  AddEmployeeRole(employeeRole: Employee_Role)
   {
-    return this.httpClient.post(`${this.apiUrl}EmployeeRole/AddEmployeeRole`, EmployeeRole, this.httpOptions)
+    return this.httpClient.post(`${this.apiUrl}EmployeeRole/AddEmployeeRole`, employeeRole, this.httpOptions)
   }
 
-  deleteEmployeeRole(Employee_RoleId: Number)
+  DeleteEmployeeRole(employee_RoleId: Number)
   {
-    return this.httpClient.delete<string>(`${this.apiUrl}EmployeeRole/DeleteEmployeeRole` + "/" + Employee_RoleId, this.httpOptions)
+    return this.httpClient.delete<string>(`${this.apiUrl}EmployeeRole/DeleteEmployeeRole` + "/" + employee_RoleId, this.httpOptions)
   }
 
-  editEmployeeRole(Employee_RoleId: number, EmployeeRole: Employee_Role)
+  EditEmployeeRole(employee_RoleId: number, employeeRole: Employee_Role)
   {
-    return this.httpClient.put(`${this.apiUrl}EmployeeRole/EditEmployeeRole/${Employee_RoleId}`,EmployeeRole, this.httpOptions)
+    return this.httpClient.put(`${this.apiUrl}EmployeeRole/EditEmployeeRole/${employee_RoleId}`,employeeRole, this.httpOptions)
   }
 
 }

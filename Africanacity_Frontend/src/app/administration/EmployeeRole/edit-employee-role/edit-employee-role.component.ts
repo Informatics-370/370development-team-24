@@ -9,46 +9,43 @@ import { Employee_Role } from 'src/app/shared/EmployeeRole';
   templateUrl: './edit-employee-role.component.html',
   styleUrls: ['./edit-employee-role.component.css']
 })
-export class EditEmployeeRoleComponent{
+export class EditEmployeeRoleComponent implements OnInit{
 
  
-  constructor(private dataService: DataService, private router: Router, private route:ActivatedRoute) { }
+constructor(private dataService: DataService, 
+  private router: Router, 
+  private activated:ActivatedRoute) { }
 
   editEmployeeRole: Employee_Role = new Employee_Role();
 
   updateEmployeeRoleForm: FormGroup = new FormGroup({
-     Name: new FormControl('',[Validators.required]),
-    Description: new FormControl('',[Validators.required]),
-    EmployeeId : new FormControl (0,[Validators.required])
+     name: new FormControl('',[Validators.required]),
+     description: new FormControl('',[Validators.required])
   })
 
   ngOnInit(): void {
-    this.dataService.getEmployeeRole(+this.route.snapshot.params['id']).subscribe(result => {
+    this.activated.params.subscribe(params =>{
+    this.dataService.GetEmployeeRole(params['id']).subscribe(result =>{
       this.editEmployeeRole = result as Employee_Role;
-       
-      this.updateEmployeeRoleForm.controls['Name'].setValue('');
-      this.updateEmployeeRoleForm.controls['Description'].setValue('');
-      this.updateEmployeeRoleForm.controls['EmployeeId'].setValue(this.editEmployeeRole.EmployeeId);
-  })
+      this.updateEmployeeRoleForm.controls['name'].setValue(this.editEmployeeRole.name);
+      this.updateEmployeeRoleForm.controls['description'].setValue(this.editEmployeeRole.description);
+    })
+    })
+
   }
 
   cancel(){
-    this.router.navigate(['/employeerole'])
+    this.router.navigate(['/employee-role'])
   }
 
   onSubmit(){
-    let employeerole = new Employee_Role();
-    employeerole.Name = this.updateEmployeeRoleForm.value.Name;
-    employeerole.Description = this.updateEmployeeRoleForm.value.Description;
-    employeerole.EmployeeId = this.updateEmployeeRoleForm.value.EmployeeId;
+    let employeeRole = new Employee_Role();
+    employeeRole.name = this.updateEmployeeRoleForm.value.name;
+    employeeRole.description = this.updateEmployeeRoleForm.value.description;
 
-    this.dataService.editEmployeeRole(this.editEmployeeRole.Employee_RoleId,employeerole).subscribe((result:any) =>{
-      if(result.statusCode == 200){
-        this.router.navigate(['/employeerole'])
-      }
-      else{
-        alert(result.message);
-      }
+    this.dataService.EditEmployeeRole(this.editEmployeeRole.employee_RoleId,employeeRole).subscribe((result:any) => {
+
+    this.router.navigate(['employee-role'])
     });
   }
 

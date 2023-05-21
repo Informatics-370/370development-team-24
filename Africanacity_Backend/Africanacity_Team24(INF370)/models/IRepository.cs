@@ -6,7 +6,10 @@ namespace Africanacity_Team24_INF370_.models
 {
     public interface IRepository
     {
+       
+
         Task<Employee[]> GetAllEmployeesAsync();
+        //employee role
         Task<Employee_Role[]> GetAllEmployeeRolesAsync();
         Task <Employee_Role> GetEmployeeRoleAsync(int Employee_RoleId);
 

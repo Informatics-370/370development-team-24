@@ -6,7 +6,7 @@ using Africanacity_Team24_INF370_.View_Models;
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
-        [Route("api/[controller]")]
+        [Route("api/[Controller]")]
         [ApiController]
       public class EmployeeRoleController : ControllerBase
       {
@@ -16,7 +16,7 @@ namespace Africanacity_Team24_INF370_.Controllers
             {
                 _Repository = Repository;
             }
-
+             // read all employee roles in database
             [HttpGet]
             [Route("GetAllEmployeeRoles")]
             public async Task<IActionResult> GetAllEmployeeRoles()
@@ -31,16 +31,16 @@ namespace Africanacity_Team24_INF370_.Controllers
                     return StatusCode(500, "Internal Server Error. Please contact support.");
                 }
             }
-
+            // read employee role via employee_roleId
             [HttpGet]
-            [Route("GetEmployeeRole/{Employee_RoleId}")]
-            public async Task<IActionResult> GetEmployeeRoleAsync(int Employee_RoleId)
+            [Route("GetEmployeeRole/{employee_RoleId}")]
+            public async Task<IActionResult> GetEmployeeRoleAsync(int employee_RoleId)
             {
                 try
                 {
-                    var result = await _Repository.GetEmployeeRoleAsync(Employee_RoleId);
+                    var result = await _Repository.GetEmployeeRoleAsync(employee_RoleId);
 
-                    if (result == null) return NotFound("Employee Role does not exist. You need to create it first");
+                    if (result == null) return NotFound("Employee Role does not exist. You need to create a new employee role first");
 
                     return Ok(result);
                 }
@@ -50,15 +50,16 @@ namespace Africanacity_Team24_INF370_.Controllers
                 }
             }
 
+           // create employee role
            [HttpPost]
            [Route("AddEmployeeRole")]
            public async Task<IActionResult> AddEmployeeRole(EmployeeRoleViewModel cvm)
            {
-             var Employee_Role = new Employee_Role { Employee_RoleId = cvm.Employee_RoleId, Name = cvm.Name, Description = cvm.Description };
+             var EmployeeRole = new Employee_Role { Name = cvm.Name, Description = cvm.Description };
 
              try
              {
-                _Repository.Add(Employee_Role);
+                _Repository.Add(EmployeeRole);
                 await _Repository.SaveChangesAsync();
              }
              catch (Exception)
@@ -66,19 +67,19 @@ namespace Africanacity_Team24_INF370_.Controllers
                 return BadRequest("Invalid operation");
              }
 
-              return Ok(Employee_Role);
+              return Ok(EmployeeRole);
            }
-
+            // update employee role
            [HttpPut]
-           [Route("EditEmployeeRole/{Employee_RoleId}")]
-           public async Task<ActionResult<EmployeeRoleViewModel>> EditEmployeeRole(int Employee_RoleId, EmployeeRoleViewModel employeeRoleModel)
+           [Route("EditEmployeeRole/{employee_RoleId}")]
+           public async Task<ActionResult<EmployeeRoleViewModel>> EditEmployeeRole(int employee_RoleId, EmployeeRoleViewModel employeeRoleModel)
            {
               try
               {
-                var existingEmployeeRole = await _Repository.GetEmployeeRoleAsync(Employee_RoleId);
+                var existingEmployeeRole = await _Repository.GetEmployeeRoleAsync(employee_RoleId);
                 if (existingEmployeeRole == null) return NotFound($"The employee role does not exist");
 
-                existingEmployeeRole.Employee_RoleId = employeeRoleModel.Employee_RoleId;
+                //existingEmployeeRole.Employee_RoleId = employeeRoleModel.Employee_RoleId;
                 existingEmployeeRole.Name = employeeRoleModel.Name;
                 existingEmployeeRole.Description = employeeRoleModel.Description;
 
@@ -94,13 +95,14 @@ namespace Africanacity_Team24_INF370_.Controllers
              return BadRequest("Your request is invalid.");
            }
 
+            //Delete Employee role
             [HttpDelete]
-            [Route("DeleteEmployeeRole/{Employee_RoleId}")]
-            public async Task<IActionResult> DeleteEmployeeRole(int Employee_RoleId)
+            [Route("DeleteEmployeeRole/{employee_RoleId}")]
+            public async Task<IActionResult> DeleteEmployeeRole(int employee_RoleId)
             {
                 try
                 {
-                  var existingEmployeeRole = await _Repository.GetEmployeeRoleAsync(Employee_RoleId);
+                  var existingEmployeeRole = await _Repository.GetEmployeeRoleAsync(employee_RoleId);
 
                   if (existingEmployeeRole == null) return NotFound($"The employee role does not exist");
 
