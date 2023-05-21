@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MenuItem } from 'src/app/shared/menu-item';
 import { FoodType } from 'src/app/shared/food-type';
 import { MenuItemCategory } from 'src/app/shared/menu-item-category';
-import {take } from 'rxjs/operators';
+import {map, take } from 'rxjs/operators';
 
 
 @Component({
@@ -20,10 +20,12 @@ import {take } from 'rxjs/operators';
 })
 export class MenuitemsComponent {
 
-  menuItems: MenuItem[] = []
+  menuItems: MenuItem[]=[]
   foodTypes: FoodType[] = []
   menuCategories: MenuItemCategory [] = []
   menuTypes:MenuTypes[] = []
+  httpClient: any;
+  apiUrl: any;
 
   constructor(private dataService: DataService, 
     private router: Router,
@@ -54,12 +56,100 @@ GetAllMenuItems() {
   this.dataService.GetAllMenuItems().subscribe(result => {
     let menuItemList:any[] = result
     menuItemList.forEach((element) => {
-      this.menuItems.push(element)
+      this.menuItems.push(element);
+      
+      
     });
   })
 }
 
+/*GetAllMenuItems(): void {
+  this.http.get<MenuItem[]>('/MenuItems/GetAllMenuItems').subscribe(
+    (response) => {
+      this.menuItems = response;
+      this.loadAssociatedNames();
+    },
+    (error) => {
+      console.error('Failed to fetch menu items:', error);
+    }
+  );
+}*/
 
+/*loadAssociatedNames(): void {
+  for (const menuItem of this.menuItems) {
+    this.GetAllFoodTypes();
+    this.GetAllMenuItemCategories;
+    this.GetAllMenuTypes();
+  }
+}*/
+
+/*loadMenuTypeName(menuItem: MenuTypes): void {
+  this.http.get<any>(`api/MenuType/GetAllMenuTypes${menuItem.name}`).subscribe(
+    (response) => {
+      menuItem.name = response.name;
+    },
+    (error) => {
+      console.error('Failed to fetch menu type name:', error);
+    }
+  );
+}*/
+
+GetAllFoodTypes() {
+  this.dataService.GetAllFoodTypes().subscribe(result => {
+    let foodItemList:any[] = result
+    foodItemList.forEach((element) => {
+      this.foodTypes.push(element);
+      
+      
+    });
+  })
+}
+
+GetAllMenuItemCategories() {
+  this.dataService.GetAllMenuItemCategories().subscribe(result => {
+    let menuCategoryItemList:any[] = result
+    menuCategoryItemList.forEach((element) => {
+      this.menuCategories.push(element);
+      
+      
+    });
+  })
+}
+
+GetAllMenuTypes() {
+  this.dataService.GetAllMenuTypes().subscribe(result => {
+    let menuTypeItemList:any[] = result
+    menuTypeItemList.forEach((element) => {
+      this.menuTypes.push(element);
+      
+      
+    });
+  })
+}
+
+/*loadMenuCategoryName(menuItem: MenuItem): void {
+  this.http.get<any>(`api/MenuItem_Category/GetAllMenuItemCategories${menuItem.name}`).subscribe(
+    (response) => {
+      menuItem.menuCategoryName = response.name;
+    },
+    (error) => {
+      console.error('Failed to fetch menu category name:', error);
+    }
+  );
+}*/
+
+
+/*loadFoodTypeName(menuItem: MenuItem): void {
+  this.http.get<any>(`api/foodTypeController/GetAllFoodTypes${menuItem.name}`).subscribe(
+    (response) => {
+      menuItem.foodTypeName = response.name;
+    },
+    (error) => {
+      console.error('Failed to fetch food type name:', error);
+    }
+  );
+}
+*/
 
 // ...
 

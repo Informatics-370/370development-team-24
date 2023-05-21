@@ -211,8 +211,9 @@ namespace Africanacity_Team24_INF370_.models
                              MenuItemId = 1,
 							 Name = "Chicken Feast",
 							 Description ="Two larger chicken burger, 6 pcs nuggets, two large fries",
-                             Food_TypeFoodTypeId = 1,
-							 CategoryMenu_CategoryId =3,
+                             FoodTypeId = 1,
+							 Menu_CategoryId =3,
+                             CategoryMenu_CategoryId = 3,
                              Menu_TypeId = 2,
 
 
@@ -226,8 +227,9 @@ namespace Africanacity_Team24_INF370_.models
                                MenuItemId = 2,
                                Name = "The Braai feast",
                                Description = "Pap, boerewors an Tbone steak",
-                               Food_TypeFoodTypeId = 2,
-                               CategoryMenu_CategoryId= 3,
+                               FoodTypeId = 2,
+                               Menu_CategoryId= 3,
+                               CategoryMenu_CategoryId = 3,
                                Menu_TypeId = 2,
 
 
@@ -240,7 +242,8 @@ namespace Africanacity_Team24_INF370_.models
                               MenuItemId = 3,
                               Name = "Chilli cheese poppers",
                               Description = "Mozarella stuffe cheese balls",
-                              Food_TypeFoodTypeId = 3,
+                              FoodTypeId = 3,
+                              Menu_CategoryId = 2,
                               CategoryMenu_CategoryId = 2,
                               Menu_TypeId = 2,
 
@@ -253,7 +256,8 @@ namespace Africanacity_Team24_INF370_.models
                               MenuItemId = 4,
                               Name = "Mexican salad",
                               Description = "A green salad with salsa mix",
-                              Food_TypeFoodTypeId = 4,
+                              FoodTypeId = 4,
+                              Menu_CategoryId = 5,
                               CategoryMenu_CategoryId = 5,
                               Menu_TypeId = 2,
 
@@ -266,12 +270,29 @@ namespace Africanacity_Team24_INF370_.models
                               MenuItemId = 5,
                               Name = "Blueberry cheescake",
                               Description = "Delicious cheesecake with blueberry sauce topping",
-                              Food_TypeFoodTypeId = 3,
+                              FoodTypeId = 3,
+                              Menu_CategoryId = 4,
                               CategoryMenu_CategoryId = 4,
                               Menu_TypeId = 2,
 
 
                           });
+
+            //Many to many with MenuItem
+                         modelBuilder.Entity<MenuItem>()
+                        .HasOne(m => m.Menu_Type)
+                        .WithMany()
+                        .HasForeignKey(m => m.Menu_TypeId);
+
+                        modelBuilder.Entity<MenuItem>()
+                        .HasOne(m => m.MenuItem_Category)
+                        .WithMany()
+                        .HasForeignKey(m => m.Menu_CategoryId);
+
+                        modelBuilder.Entity<MenuItem>()
+                        .HasOne(m => m.Food_Type)
+                        .WithMany()
+                        .HasForeignKey(m => m.FoodTypeId);
 
             // For the Access_UserRole M2M payload (Uncomment code below and run migration to generate tables)
             modelBuilder.Entity<Access>()

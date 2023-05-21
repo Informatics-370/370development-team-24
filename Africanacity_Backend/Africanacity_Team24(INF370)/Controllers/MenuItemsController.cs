@@ -49,16 +49,22 @@ namespace Africanacity_Team24_INF370_.Controllers
         {
             try
             {
-                var result = await _repository.GetMenuItemAsync(MenuItem_Id);
+                var menuItem = _repository.GetMenuItemAsync(MenuItem_Id);
 
-                if (result == null) return NotFound("Menu Item does not exist");
+                if (menuItem == null)
+                {
+                    return NotFound();
+                }
 
-                return Ok(result);
+                return Ok(menuItem);
             }
+           
             catch (Exception)
             {
                 return StatusCode(500, "Internal Server Error. Please contact support");
             }
+
+            
         }
 
         [HttpPost]

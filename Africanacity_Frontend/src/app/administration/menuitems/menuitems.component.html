@@ -11,9 +11,9 @@
       <td>{{ menuItem.menuItem_Id }}</td>
       <td>{{ menuItem.name }}</td>
       <td>{{ menuItem.description }}</td>
-      <td>{{ menuItem.foodType }}</td>
-      <!--td>{{ menuItem.menuType }}</td-->
-      <td>{{ menuItem.category }}</td>
+      <td *ngFor="let menuFoodType of foodTypes">{{ menuFoodType.name}}</td>
+      <td *ngFor="let menuType of menuTypes">{{ menuType.name }}</td>
+      <td *ngFor="let menuCat of menuCategories">{{ menuCat.name }}</td>
     </tr>
   </table>
   
