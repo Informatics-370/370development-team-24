@@ -4,6 +4,8 @@ using Africanacity_Team24_INF370_.models.Restraurant;
 using Africanacity_Team24_INF370_.View_Models;
 using Africanacity_Team24_INF370_.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 
@@ -23,7 +25,7 @@ namespace Africanacity_Team24_INF370_.Controllers
             _appDBContext = context;
         }
 
-       
+
 
         // Get all employees, from the database
 
@@ -42,22 +44,7 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
 
         }
-        [HttpGet]
-        public ActionResult<IEnumerable<Employee>> GetAllEmployees(string searchQuery)
-        {
-            var employeesQuery = _appDBContext.Employees.AsQueryable();
-
-            if (!string.IsNullOrEmpty(searchQuery))
-            {
-                employeesQuery = employeesQuery.Where(e => e.FirstName.Contains(searchQuery));
-            }
-
-            var employees = employeesQuery.ToList();
-            return Ok(employees);
-        }
-
-        // Get an employee via their EmployeeId
-
+   
         [HttpGet]
         [Route("GetEmployee/{employeeId}")]
         public async Task<IActionResult> GetEmployeeAsync(int employeeId)
@@ -151,33 +138,40 @@ namespace Africanacity_Team24_INF370_.Controllers
             return BadRequest("Your request is invalid.");
         }
 
-        // Search Filter
-        //[HttpGet]
-        //public IActionResult Get(string h, string filter)
-        //{
-        //    var query = _Repository.EmployeeViewModel.AsQueryable();
+        [HttpGet("search")]
+        public ActionResult<IEnumerable<Employee>> Search(string searchTerm)
+        {
+            var Employee = _appDBContext.Employees
+                .Where(f => f.FirstName.Contains(searchTerm))
+                .ToList();
 
-        //    // Apply search keyword filter
-        //    if (!string.IsNullOrEmpty(h))
-        //    {
-        //        query = query.Where(x => x.Name.Contains(h));
-        //    }
+            return Ok(Employee);
+        }
 
-        //    // Apply additional filters based on your requirements
-        //    if (!string.IsNullOrEmpty(filter))
-        //    {
-        //        query = query.Where(x => x.Category == filter);
-        //    }
+        //Email Verification
 
-        //    // Perform sorting
-        //    query = query.OrderBy(x => x.Name);
+        [HttpPost]
+        public IActionResult CheckEmail([FromBody] Emails emailModel)
+        {
+            string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
 
-        //    var results = query.ToList();
-        //    return Ok(results);
-        //}
+            if (Regex.IsMatch(emailModel.Email, emailPattern))
+            {
+                return Ok(new { message = "Email matches the pattern." });
+            }
+            else
+            {
+                return BadRequest(new { message = "Invalid email format." });
+            }
+        }
+
     }
 
+    public class Emails
+    {
+        public string Email { get; set; }
     }
+}
 
 
 

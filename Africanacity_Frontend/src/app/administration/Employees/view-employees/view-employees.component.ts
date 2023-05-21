@@ -19,10 +19,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ViewEmployeesComponent {
   employees:Employee[] = []
-  filteredEmployees!: Employee[];
-  searchQuery!: string;
+  searchTerm!: string;
+  Employee!: Employee[];
 
-  constructor(private employeeservice: EmployeeService, private router: Router, private http: HttpClient, private snackBar: MatSnackBar){}
+  constructor(private employeeservice: EmployeeService, private router: Router, private httpClient: HttpClient, private snackBar: MatSnackBar){}
   
 
   deleteItem(): void {
@@ -68,12 +68,21 @@ export class ViewEmployeesComponent {
 
 
 
-    searchTerm: string = '';
+    // searchTerm: string = '';
 
-    @Output() searchClicked: EventEmitter<string> = new EventEmitter<string>();
+    // @Output() searchClicked: EventEmitter<string> = new EventEmitter<string>();
 
-    search(searchTerm: string) {
-      this.searchClicked.emit(searchTerm);
+    // search(searchTerm: string) {
+    //   this.searchClicked.emit(searchTerm);
+    // }
+    search(): void {
+      if (this.searchTerm) {
+        this.employeeservice.searchFunctions(this.searchTerm)
+          .subscribe(Employee => this.Employee = Employee);
+      } else {
+        this.Employee = [];
+      }
     }
+
 }
 

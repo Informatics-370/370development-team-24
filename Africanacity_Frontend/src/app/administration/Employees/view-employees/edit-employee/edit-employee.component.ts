@@ -3,6 +3,9 @@ import { EmployeeService } from '../../../../service/employee.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Employee } from '../../../../shared/employee';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-edit-employee',
@@ -13,7 +16,9 @@ export class EditEmployeeComponent {
   constructor(
     private employeeservice:EmployeeService, 
     private router : Router , 
-    private activated:ActivatedRoute) { }
+    private activated:ActivatedRoute,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar) { }
 
   editEmployee: Employee = new Employee();
 
@@ -65,10 +70,19 @@ export class EditEmployeeComponent {
     }
     else
     {
-      alert(response.message);
+
     }
    });
 
+   this.showSuccessMessage('Employee Informartion updated successfully!');
+
+  }
+  showSuccessMessage(message: string): void {
+    const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(message, 'Ok', {
+      duration: 3000, // Duration in milliseconds
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom'
+    });
   }
 }
 

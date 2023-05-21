@@ -6,10 +6,16 @@
 <div class="col-md-10 order-md-1">
 <h3 style="text-align: center;">Employee Listing </h3>
 <div class="input-group">
-    <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchTerm">
+    <!-- <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchTerm">
         <button class="btn" (click)="search(searchTerm)">
             <i class="fa fa-search" aria-hidden="true"></i>
-          </button>
+          </button> -->
+          <input type="text" [(ngModel)]="searchTerm" placeholder="Search functions..."><i class="fa fa-search" onclick="search()"></i>
+<ul>        <!--(input)="search()"-->
+  <li *ngFor="let func of Employee">{{ func.firstName }}</li>
+</ul>
+
+          
   </div>
 
 <table class="table table-striped table-hover"> 

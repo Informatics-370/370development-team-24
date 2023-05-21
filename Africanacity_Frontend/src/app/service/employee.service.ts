@@ -12,6 +12,9 @@ import { Employee } from '../shared/employee';
 export class EmployeeService {
 
   apiUrl = 'http://localhost:49991/api/'
+  // private apiURL = 'http://localhost:49991/api/Employee';
+  // private apiUrl = 'http://localhost:5000/api/email';
+
 
   httpOptions ={
     headers: new HttpHeaders({
@@ -21,6 +24,18 @@ export class EmployeeService {
 
   constructor(private httpClient: HttpClient) { 
   }
+  checkEmail(email: string) {
+    return this.httpClient.post<any>(`${this.apiUrl}`, { email });
+  }
+  
+  //  searchFunctions(searchTerm: string): Observable<Employee[]> {
+  //    return this.httpClient.get<Employee[]>(`${this.apiUrl}Employee/search=${searchTerm}`);}
+  searchFunctions(searchTerm: string){
+    return this.httpClient.get<Employee[]>(`${this.apiUrl}Employee/search`+ "/" + searchTerm)
+    .pipe(map(result => result))
+  }
+
+  
 
 
 /* For Employee Function */
@@ -51,9 +66,8 @@ export class EmployeeService {
      return this.httpClient.put(`${this.apiUrl}Employee/EditEmployee/${employeeId}`,employee, this.httpOptions)
    }
 
-  
-
-
+ 
+   
   /* For Help Function */
 
   

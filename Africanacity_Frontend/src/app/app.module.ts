@@ -20,9 +20,11 @@ import { AddEmployeeComponent } from './administration/Employees/add-employee/ad
 import { ViewEmployeesComponent } from './administration/Employees/view-employees/view-employees.component';
 import { EditEmployeeComponent } from './administration/Employees/view-employees/edit-employee/edit-employee.component';
 import { EditHelpComponent } from './administration/Help Management/view-help-list/edit-help/edit-help.component';
-import { NotificationDialogComponent } from './administration/Employees/notification-dialog/notification-dialog.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { MatSelectModule } from '@angular/material/select';
+import { NotificationDialogComponent } from './administration/Employees/notification-dialog/notification-dialog.component';
+
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     HttpClientModule,
     MaterialModule,
     MatSnackBarModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    MatSelectModule
+
     
     
   ],

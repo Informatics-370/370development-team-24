@@ -16,11 +16,30 @@
             <input class="form-control" placeholder="Enter Question" [required]="true" name="name" formControlName="name">
           </div>
       </div>
+
       <div class="form-group">
           <label class="col-sm-1" for="description">Answer:</label>
           <div class="col-sm-6">
             <input class="form-control"  placeholder="Enter Answer" [required]="true" name="description" formControlName="description">
           </div>
+          <div class="form-group">
+            <label class="col-sm-2">Employee Role:</label>
+            <div class="col-sm-6">
+              <div class="form-control" type="">
+                <mat-form-field>
+                  <mat-label>Select a name</mat-label>
+                  <mat-select>
+                    <mat-option *ngFor="let catergoryName of Category" [value]="catergoryName">
+                      {{ catergoryName }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+        </div>
+
+
+
       </div>
       <div class="form-group">
         <div class="col-sm-offset-1 col-sm-6">
