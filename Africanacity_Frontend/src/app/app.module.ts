@@ -15,6 +15,9 @@ import { UpdatePasswordComponent } from './login/update-password/update-password
 import { MaterialModule } from './shared/material.modules';
 import { OtpComponent } from './login/otp/otp.component';
 import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
+import { AddEmployeeRoleComponent } from './administration/EmployeeRole/add-employee-role/add-employee-role.component';
+import { EmployeeRoleComponent } from './administration/EmployeeRole/employee-role/employee-role.component';
+import { EditEmployeeRoleComponent } from './administration/EmployeeRole/edit-employee-role/edit-employee-role.component';
 
 
 import { AddHelpComponent } from './administration/Help Management/add-help/add-help.component';
@@ -45,9 +48,10 @@ import { NotificationDialogComponent } from './administration/Employees/notifica
     AddHelpComponent, 
     ViewHelpListComponent, EditEmployeeComponent, EditHelpComponent, NotificationDialogComponent,
    
-    HomeComponent, ResetPasswordComponent
+    HomeComponent, ResetPasswordComponent,
 
     
+    AddEmployeeRoleComponent, EmployeeRoleComponent, EditEmployeeRoleComponent
   ],
   imports: [
     BrowserModule,

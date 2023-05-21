@@ -32,7 +32,7 @@
       <label class="col-sm-1" for="email_Address">Email Address:</label>
       <div class="col-sm-6">
         <input class="form-control" type="text" placeholder="xxxxx@gmail.com" [required]="true" name="email_Address" formControlName="email_Address">
-        <button (click)="checkEmail()">Check Email</button>
+        <!--button (click)="checkEmail()">Check Email</button-->
 
         <div *ngIf="message" class="message">
           {{ message }}

@@ -222,6 +222,26 @@ namespace Africanacity_Team24_INF370_.models
 
 
 
+            // Create Seed Data For The Employee Role Table:
+            modelBuilder.Entity<Employee_Role>()
+                           .HasData(
+                           new
+                           {
+                               Employee_RoleId = 1,
+                               Name = "Waiter",
+							   Description = "The waiter serves the customers and takes orders"
+
+                           });
+
+            modelBuilder.Entity<Employee_Role>()
+                          .HasData(
+                          new
+                          {
+                              Employee_RoleId = 2,
+                              Name = "Chef",
+                              Description = "The chef prepares the meals and notifies the waiter of ready orders."
+
+                          });
             // For the Access_UserRole M2M payload (Uncomment code below and run migration to generate tables)
             modelBuilder.Entity<Access>()
 			    .HasMany(t => t.User_Roles)

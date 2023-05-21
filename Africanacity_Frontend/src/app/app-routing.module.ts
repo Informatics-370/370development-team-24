@@ -7,6 +7,11 @@ import { UpdatePasswordComponent } from './login/update-password/update-password
 import { RegisterComponent } from './login/register/register.component';
 import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
+import { EditEmployeeRoleComponent } from './administration/EmployeeRole/edit-employee-role/edit-employee-role.component';
+import { AddEmployeeRoleComponent } from './administration/EmployeeRole/add-employee-role/add-employee-role.component';
+import { EmployeeRoleComponent } from './administration/EmployeeRole/employee-role/employee-role.component';
+
+
 // routing for pages
 
 import { HomeComponent } from './administration/home/home.component'; // for home page
@@ -28,6 +33,16 @@ const routes: Routes = [
   { path: 'view-help-list', component: ViewHelpListComponent }, // for view help list page 
   { path: 'edit-help/:id', component: EditHelpComponent }, // for edit help page
 
+  { path: 'add-employee-role', component: AddEmployeeRoleComponent },// for add employee role
+  { path: 'edit-employee-role/:id', component: EditEmployeeRoleComponent },//for edit employee role
+  { path: 'employee-role', component: EmployeeRoleComponent },// for view employee role
+  {
+    path: 'employee-role',
+    component: EmployeeRoleComponent
+  },
+
+  // open on this page
+  { path: '', component: EmployeeRoleComponent },
   {
     path: 'navbar',
     component: NavbarComponent

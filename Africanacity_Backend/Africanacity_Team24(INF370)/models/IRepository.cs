@@ -1,4 +1,5 @@
 ﻿using Africanacity_Team24_INF370_.models.Admin;
+﻿using Africanacity_Team24_INF370_.Controllers;
 using Africanacity_Team24_INF370_.models.Administration;
 using Africanacity_Team24_INF370_.models.Restraurant;
 using Africanacity_Team24_INF370_.ViewModel;
@@ -9,6 +10,14 @@ namespace Africanacity_Team24_INF370_.models
     {
         object EmployeeViewModel { get; }
 
+       
+
+        Task<Employee[]> GetAllEmployeesAsync();
+        //employee role
+        Task<Employee_Role[]> GetAllEmployeeRolesAsync();
+        Task <Employee_Role> GetEmployeeRoleAsync(int Employee_RoleId);
+
+        /* Review entities here*/
         void Add<T>(T entity) where T : class;
         void Delete<T>(T entity) where T : class;
         Task<bool> SaveChangesAsync();
