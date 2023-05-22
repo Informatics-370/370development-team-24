@@ -34,6 +34,14 @@ import { EditHelpComponent } from './administration/Help Management/view-help-li
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { MatSelectModule } from '@angular/material/select';
 import { NotificationDialogComponent } from './administration/Employees/notification-dialog/notification-dialog.component';
+import { FoodTypeComponent } from './administration/Food Type/view-food-type/food-type.component';
+import { MenuItemCategoryComponent } from './administration/Menu Item Category/view-menu-item-category/menu-item-category.component';
+import { EditFoodTypeComponent } from './administration/Food Type/edit-food-type/edit-food-type.component';
+import { CreateFoodTypeComponent } from './administration/Food Type/create-food-type/create-food-type.component';
+import { EditMenuItemCategoryComponent } from './administration/Menu Item Category/edit-menu-item-category/edit-menu-item-category/edit-menu-item-category.component';
+import { CreateMenuItemCategoryComponent } from './administration/Menu Item Category/create-menu-item-category/create-menu-item-category/create-menu-item-category.component';
+
+
 
 
 @NgModule({
@@ -62,7 +70,14 @@ import { NotificationDialogComponent } from './administration/Employees/notifica
    AddMenuTypeComponent, 
    EditMenuTypeComponent, 
    ConfirmationDialogComponent, 
-   MenuitemsComponent
+   MenuitemsComponent,
+    UpdatePasswordComponent, 
+  FoodTypeComponent, 
+  MenuItemCategoryComponent, 
+  EditFoodTypeComponent,
+   CreateFoodTypeComponent, 
+   EditMenuItemCategoryComponent, 
+   CreateMenuItemCategoryComponent
   ],
   imports: [
     BrowserModule,

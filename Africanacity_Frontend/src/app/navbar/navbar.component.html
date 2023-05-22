@@ -19,17 +19,19 @@
       </ul>
     </li>
     <li>
-      <a href="#"> <i class="fa fa-fw fa-folder"></i>Menu Management <i class="fa fa-sort-desc" aria-hidden="true"></i></a>
+      <a href="#"> <i class="fa fa-fw fa-folder"></i> Menu Management <i class="fa fa-sort-desc" aria-hidden="true"></i></a>
       <ul class="dropdown">
-        <li><a href="#"><i class="fa fa-circle-o" aria-hidden="true"></i> Menu Items</a></li>
-        <li><a href="#"><i class="fa fa-circle-o" aria-hidden="true"></i> Menu Types</a></li>
+        <li><a href="#">Food Items</a></li>
+        <li><a href="#">Menu Types</a></li>
+        <li><a [routerLink]="'/menu-item-category'"><i class="fa fa-circle-o" aria-hidden="true"></i>Menu Item Category</a></li>
+        <li><a [routerLink]="'/view-food-type'"><i class="fa fa-circle-o" aria-hidden="true"></i>Food Types</a></li>
       </ul>
     </li>
     <li>
       <a href="#"> <i class="fa fa-fw fa-glass"></i> Drink Management <i class="fa fa-sort-desc" aria-hidden="true"></i></a>
       <ul class="dropdown">
-        <li><a href="#"><i class="fa fa-circle-o" aria-hidden="true"></i> Drink Items</a></li>
-        <li><a href="#"><i class="fa fa-circle-o" aria-hidden="true"></i> Drink Types</a></li>
+        <li><a href="#"> <i class="fa fa-circle-o" aria-hidden="true"></i>Drink Items</a></li>
+        <li><a href="./administration/drinkType"> <i class="fa fa-circle-o" aria-hidden="true"></i>Drink Types</a></li>
       </ul>
     </li>
     <li>

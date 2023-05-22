@@ -1,7 +1,9 @@
 export class FoodType{
     foodTypeId!: number;
-    name!: String;
+    name!: string;
     description!: string;
     foodTypeName: any;
     
+    // name!: string;
+    // description!: string;
 }

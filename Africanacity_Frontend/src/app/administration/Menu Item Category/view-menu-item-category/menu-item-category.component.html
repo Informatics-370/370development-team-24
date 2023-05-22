@@ -1,0 +1,53 @@
+<div class="container-fluid">
+    <!-- navbar -->
+    <div class="row">
+            <div class="col-md-2">
+                <app-navbar></app-navbar>
+            </div>
+    
+    
+        <div class="col-md-10">
+            <!-- heading -->
+            <div>
+                <h1 class="heading">Menu Item Categories</h1>
+            </div>
+        
+            <div class="container-fluid">
+                <!-- search bar-->
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search menu item category"> <!-- [(ngModel)]="searchQuery" (input)="search()"-->
+                    <button class="btn" onclick="search(searchTerm)">
+                        <i class="fa fa-search" aria-hidden="true">  Search</i>
+                    </button>
+                </div> <br />
+
+                <span style="align-content: right;">
+                    <button [routerLink]="'/create-menu-item-category'">New</button>
+                </span>
+
+                <!--table-->
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of menuItemCategories"> 
+                            <td> {{ item.MenuItemCategoryId }} </td>
+                            <td> {{ item.name }} </td>
+                            <td> {{ item.description }} </td>
+                            <!-- edit and delete buttons -->
+                            <td><i [routerLink]="['/edit-menu-item-category', item.MenuItemCategoryId]" class="fa fa-pencil" aria-hidden="true"></i></td>
+                            <td><i onclick="DeleteMenuItemCategory(item.MenuItemCategoryId)" class="fa fa-trash" aria-hidden="true"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

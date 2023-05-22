@@ -1,18 +1,21 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, Observable, Subject } from 'rxjs';
 import { LoginUser } from '../shared/login-user';
 import { RegisterUser } from '../shared/register-user';
 import { User } from '../shared/user';
 import { Employee_Role} from '../shared/EmployeeRole';
 import { MenuTypes } from '../shared/menu-types'; //Menu Types
 import { MenuItem } from '../shared/menu-item';
+import { FoodType } from '../shared/food-type';
+import { MenuItemCategory } from '../shared/menu-item-category';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+  
 
   apiUrl = 'https://localhost:7258/api/'
 
@@ -128,10 +131,10 @@ export class DataService {
 
   /******************FOOD TYPE**************/
 
-  GetAllFoodTypes(): Observable<any>{
-    return this.httpClient.get(`${this.apiUrl}FoodType/GetAllFoodTypes`)
-    .pipe(map(result => result));
-  }
+  // GetAllFoodTypes(): Observable<any>{
+  //   return this.httpClient.get(`${this.apiUrl}FoodType/GetAllFoodTypes`)
+  //   .pipe(map(result => result));
+  // }
 
 
   // fetch food type name
@@ -140,15 +143,63 @@ export class DataService {
   }
 
   /********** MENU CATEGORY***************/
-  GetAllMenuItemCategories(): Observable<any>{
-    return this.httpClient.get(`${this.apiUrl}MenuItem_Category/GetAllMenuItemCategories`)
-    .pipe(map(result => result));
-  }
-
+  // GetAllMenuItemCategories(): Observable<any>{
+  //   return this.httpClient.get(`${this.apiUrl}MenuItem_Category/GetAllMenuItemCategories`)
+  //   .pipe(map(result => result));
+  // }
 
   // fetch food type name
   GetMenuItemCategoryById(menuItemCategory_Id: Number): Observable<any>{
     return this.httpClient.get(`${this.apiUrl}MenuItem_Category/GetMenuItemCategory/${menuItemCategory_Id}`);
+  }
+  // food type
+  GetAllFoodTypes(): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}foodTypeController/GetAllFoodTypes`).pipe(map(result => result)) 
+  }
+
+  GetFoodType(foodTypeId: number)
+  {
+    return this.httpClient.get(`${this.apiUrl}foodTypeController/GetFoodType` + "/" + foodTypeId).pipe(map(result => result))
+  }
+
+  AddFoodType(foodType : FoodType)
+  {
+    return this.httpClient.post(`${this.apiUrl}foodTypeController/AddFoodType`, foodType, this.httpOptions)
+  }
+
+  EditFoodType(foodTypeId: number, foodType: FoodType)
+  {
+    return this.httpClient.put(`${this.apiUrl}foodTypeController/EditFoodType/${foodTypeId}`, foodType, this.httpOptions)
+  }
+
+  DeleteFoodType(foodTypeId: number)
+  {
+    return this.httpClient.delete<string>(`${this.apiUrl}foodTypeController/DeleteFoodType` + "/" + foodTypeId, this.httpOptions)
+  }
+
+  // menu item category
+  GetAllMenuItemCategories(): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}MenuItemCategoryController/GetAllMenuItemCategories`).pipe(map(result => result)) 
+  }
+
+  GetMenuItemCategory(MenuItemCategoryId: number)
+  {
+    return this.httpClient.get(`${this.apiUrl}MenuItemCategoryController/GetMenuItemCategory` + "/" + MenuItemCategoryId).pipe(map(result => result))
+  }
+
+  AddMenuItemCategory(menuItemCategory : MenuItemCategory)
+  {
+    return this.httpClient.post(`${this.apiUrl}MenuItemCategoryController/AddMenuItemCategory`, menuItemCategory, this.httpOptions)
+  }
+
+  EditMenuItemCategory(MenuItemCategoryId: number, menuItemCategory: MenuItemCategory)
+  {
+    return this.httpClient.put(`${this.apiUrl}MenuItemCategoryController/EditMenuItemCategory/${MenuItemCategoryId}`, menuItemCategory, this.httpOptions)
+  }
+
+  DeleteMenuItemCategory(MenuItemCategoryId: number)
+  {
+    return this.httpClient.delete<string>(`${this.apiUrl}MenuItemCategoryController/DeleteMenuItemCategory` + "/" + MenuItemCategoryId, this.httpOptions)
   }
 
 }

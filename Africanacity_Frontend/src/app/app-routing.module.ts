@@ -26,24 +26,42 @@ import { EditEmployeeComponent } from './administration/Employees/view-employees
 import { EditHelpComponent } from './administration/Help Management/view-help-list/edit-help/edit-help.component';
 import { AddMenuTypeComponent } from './administration/menu-types/add-menu-type/add-menu-type.component';
 import { EditMenuTypeComponent } from './administration/menu-types/edit-menu-type/edit-menu-type.component';
+import { FoodTypeComponent } from './administration/Food Type/view-food-type/food-type.component'; // for food type page
+import { MenuItemCategoryComponent } from './administration/Menu Item Category/view-menu-item-category/menu-item-category.component'; // for menu item category page
+import { EditFoodTypeComponent } from './administration/Food Type/edit-food-type/edit-food-type.component';
+import { CreateFoodTypeComponent } from './administration/Food Type/create-food-type/create-food-type.component';
+//import { EditMenuItemCategoryComponent } from './administration/Menu Item Category/edit-menu-item-category/edit-menu-item-category.component';
+//import { CreateMenuItemCategoryComponent } from './administration/Menu Item Category/create-menu-item-category/create-menu-item-category.component';
 
 const routes: Routes = [
+  // to open the app to open on this specific page
+
   { path: 'home', component: HomeComponent }, // for home page
   { path: 'menu', component: MenuComponent }, // for menu page
   { path: 'add-employee', component: AddEmployeeComponent }, // for add employee page
+  {path: 'edit-employe/:id', component: EditEmployeeComponent},//Edit employee
   { path: 'view-employees', component: ViewEmployeesComponent }, // for view employees page
   { path: 'add-help', component: AddHelpComponent }, // for add help page
   { path: 'view-help-list', component: ViewHelpListComponent }, // for view help list page 
   { path: 'edit-help/:id', component: EditHelpComponent }, // for edit help page
-
+  {path: 'edit-menu-type/ :id', component: EditMenuTypeComponent},//edit menu type 
   { path: 'add-employee-role', component: AddEmployeeRoleComponent },// for add employee role
   { path: 'edit-employee-role/:id', component: EditEmployeeRoleComponent },//for edit employee role
   { path: 'employee-role', component: EmployeeRoleComponent },// for view employee role
   { path: 'menu-types', component: MenuTypesComponent }, // for menu page
   { path: 'add-menu-type', component: AddMenuTypeComponent}, //add menu type page
   { path: 'menuitems', component: MenuitemsComponent},//For the menu item page
+  {path: 'employee-role',component: EmployeeRoleComponent },
+  { path: 'food-type', component: FoodTypeComponent }, // for foodType page
+  { path: 'menu-item-category', component: MenuItemCategoryComponent }, // for Menu Item Category page
+  { path: 'edit-food-type/:id', component: EditFoodTypeComponent }, // for edit food type
+  { path: 'create-food-type', component: CreateFoodTypeComponent },
+  { path: 'edit-menu-item-category/:id', component: EditFoodTypeComponent }, // for edit Menu Item Category page
+  { path: 'create-menu-item-category', component: CreateFoodTypeComponent },
+    
   {
-    path: 'employee-role',
+    path: '',
+    component: FoodTypeComponent
   },
 
   // open on this page
@@ -88,6 +106,8 @@ const routes: Routes = [
   {path: '', 
   redirectTo: 'login', pathMatch:'full'},
   
+  // /*{path: '', 
+  // redirectTo: 'login', pathMatch:'full'}*/
 ];
 
 @NgModule({
