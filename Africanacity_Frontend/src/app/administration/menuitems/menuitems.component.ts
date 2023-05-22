@@ -97,7 +97,7 @@ loadAssociatedNames(): void {
 getFoodTypeName(foodTypeId: number): void {
   this.dataService.GetFoodTypeById(foodTypeId).subscribe(
     (foodType) => {
-      const foundFoodType = this.foodTypes.find((ft) => ft.foodTypeId === foodType.foodTypeId);
+      const foundFoodType = this.foodTypes.find((ft) => ft.foodTypeId == foodType.foodTypeId);
       if (foundFoodType) {
         foundFoodType.name = foodType.name;
       } else {
@@ -113,7 +113,7 @@ getFoodTypeName(foodTypeId: number): void {
 getMenuItemCategoryName(categoryId: number): void {
   this.dataService.GetMenuItemCategoryById(categoryId).subscribe(
     (menuItemCategory) => {
-      const foundCategory = this.menuCategories.find((mc) => mc.menuItemCategory_Id === menuItemCategory.category_Id);
+      const foundCategory = this.menuCategories.find((mc) => mc.menuItemCategory_Id == menuItemCategory.category_Id);
       if (foundCategory) {
         foundCategory.name = menuItemCategory.name;
       } else {
@@ -129,7 +129,7 @@ getMenuItemCategoryName(categoryId: number): void {
 getMenuTypeName(menuTypeId: number): void {
   this.dataService.GetMenuTypeById(menuTypeId).subscribe(
     (menuType) => {
-      const foundMenuType = this.menuTypes.find((mt) => mt.menu_TypeId === menuType.menu_TypeId);
+      const foundMenuType = this.menuTypes.find((mt) => mt.menu_TypeId == menuType.menu_TypeId);
       if (foundMenuType) {
         foundMenuType.name = menuType.name;
       } else {
@@ -141,6 +141,31 @@ getMenuTypeName(menuTypeId: number): void {
     }
   );
 }
+
+deleteItem(): void{
+ 
+  const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete the menu type?','Delete',{
+      duration: 5000,
+    });
+
+    confirmationSnackBar.onAction().subscribe(() => {
+      this.deleteItemFromServer();
+      window.location.reload();
+    })
+
+  }
+
+  deleteItemFromServer(): void{
+    this.deleteMenuItem;
+  }
+
+
+deleteMenuItem(menu_ItemId: Number){
+  this.dataService.deleteMenuType(menu_ItemId).subscribe(result => {
+    this.deleteItem();
+  });
+}
+ 
 
 /*loadMenuCategoryName(menuItem: MenuItem): void {
   this.http.get<any>(`api/MenuItem_Category/GetAllMenuItemCategories${menuItem.name}`).subscribe(

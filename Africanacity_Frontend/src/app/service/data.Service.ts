@@ -83,6 +83,11 @@ export class DataService {
     return this.httpClient.get(`${this.apiUrl}MenuItems/GetMenuItem/${menu_ItemId}`);
   }
 
+  /*Delete Menu type*/
+  deleteMenuItem(menu_ItemId: Number){
+    return this.httpClient.delete<string>(`${this.apiUrl}MenuItems/DeleteMenuItem` + "/" + menu_ItemId, this.httpOptions)
+  }
+
 
   /******************FOOD TYPE**************/
 
