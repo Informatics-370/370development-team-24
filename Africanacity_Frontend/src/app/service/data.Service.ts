@@ -80,7 +80,7 @@ export class DataService {
 
   //fetch menu item food
   GetMenuItemById(menu_ItemId: Number): Observable<any>{
-    return this.httpClient.get(`${this.apiUrl}MenuItems/GetMenuItems/${menu_ItemId}`);
+    return this.httpClient.get(`${this.apiUrl}MenuItems/GetMenuItem/${menu_ItemId}`);
   }
 
 
@@ -93,8 +93,8 @@ export class DataService {
 
 
   // fetch food type name
-  GetFoodTypeById(foodType_Id: Number): Observable<any>{
-    return this.httpClient.get(`${this.apiUrl}FoodType/GetFoodType/${foodType_Id}`);
+  GetFoodTypeById(foodTypeId: Number): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}foodTypeController/GetFoodType/${foodTypeId}`);
   }
 
   /********** MENU CATEGORY***************/
@@ -105,8 +105,8 @@ export class DataService {
 
 
   // fetch food type name
-  GetMenuItemCategoryById(category_Id: Number): Observable<any>{
-    return this.httpClient.get(`${this.apiUrl}MenuItem_Category/GetMenuItemCategory/${category_Id}`);
+  GetMenuItemCategoryById(menuItemCategory_Id: Number): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}MenuItem_Category/GetMenuItemCategory/${menuItemCategory_Id}`);
   }
 
 }
