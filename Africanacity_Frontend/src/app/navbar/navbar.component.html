@@ -95,17 +95,19 @@
       </ul>
     </li>
     <li>
-      <a href="#"> <i class="fa fa-fw fa-folder"></i>Menu Management</a>
+      <a href="#"> <i class="fa fa-fw fa-folder"></i> Menu Management</a>
       <ul class="dropdown">
-        <li><a href="#">Menu Items</a></li>
+        <li><a href="#">Food Items</a></li>
         <li><a href="#">Menu Types</a></li>
+        <li><a [routerLink]="'/menu-item-category'">Menu Item Category</a></li>
+        <li><a [routerLink]="'/view-food-type'">Food Types</a></li>
       </ul>
     </li>
     <li>
       <a href="#"> <i class="fa fa-fw fa-glass"></i> Drink Management</a>
       <ul class="dropdown">
         <li><a href="#">Drink Items</a></li>
-        <li><a href="#">Drink Types</a></li>
+        <li><a href="./administration/drinkType">Drink Types</a></li>
       </ul>
     </li>
     <li>
@@ -113,13 +115,6 @@
       <ul class="dropdown">
         <li><a href="#">Food</a></li>
         <li><a href="#">Drinks</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#"> <i class="fa fa-fw fa-users"></i> Supplier Management</a>
-      <ul class="dropdown">
-        <li><a href="#">Add Supplier</a></li>
-        <li><a href="#">View Supplier's</a></li>
       </ul>
     </li>
     <li>

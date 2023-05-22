@@ -14,6 +14,12 @@ import { ForgotPasswordComponent } from './login/forgot-password/forgot-password
 import { UpdatePasswordComponent } from './login/update-password/update-password.component';
 import { MaterialModule } from './shared/material.modules';
 import { OtpComponent } from './login/otp/otp.component';
+import { FoodTypeComponent } from './administration/Food Type/view-food-type/food-type.component';
+import { MenuItemCategoryComponent } from './administration/Menu Item Category/view-menu-item-category/menu-item-category.component';
+import { EditFoodTypeComponent } from './administration/Food Type/edit-food-type/edit-food-type.component';
+import { CreateFoodTypeComponent } from './administration/Food Type/create-food-type/create-food-type.component';
+import { EditMenuItemCategoryComponent } from './administration/Menu Item Category/edit-menu-item-category/edit-menu-item-category/edit-menu-item-category.component';
+import { CreateMenuItemCategoryComponent } from './administration/Menu Item Category/create-menu-item-category/create-menu-item-category/create-menu-item-category.component';
 
 
 
@@ -30,7 +36,7 @@ import { OtpComponent } from './login/otp/otp.component';
     ForgotPasswordComponent, 
     UpdatePasswordComponent, 
    
-    HomeComponent
+    HomeComponent, FoodTypeComponent, MenuItemCategoryComponent, EditFoodTypeComponent, CreateFoodTypeComponent, EditMenuItemCategoryComponent, CreateMenuItemCategoryComponent
   ],
   imports: [
     BrowserModule,
