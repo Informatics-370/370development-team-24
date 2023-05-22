@@ -10,6 +10,8 @@ import { ResetPasswordComponent } from './login/reset-password/reset-password.co
 import { EditEmployeeRoleComponent } from './administration/EmployeeRole/edit-employee-role/edit-employee-role.component';
 import { AddEmployeeRoleComponent } from './administration/EmployeeRole/add-employee-role/add-employee-role.component';
 import { EmployeeRoleComponent } from './administration/EmployeeRole/employee-role/employee-role.component';
+import { MenuTypesComponent } from './administration/menu-types/menu-types.component';//for menu types page
+import { MenuitemsComponent } from './administration/menuitems/menuitems.component';
 
 
 // routing for pages
@@ -22,13 +24,14 @@ import { AddHelpComponent } from './administration/Help Management/add-help/add-
 import { ViewHelpListComponent } from './administration/Help Management/view-help-list/view-help-list.component';
 import { EditEmployeeComponent } from './administration/Employees/view-employees/edit-employee/edit-employee.component';
 import { EditHelpComponent } from './administration/Help Management/view-help-list/edit-help/edit-help.component';
+import { AddMenuTypeComponent } from './administration/menu-types/add-menu-type/add-menu-type.component';
+import { EditMenuTypeComponent } from './administration/menu-types/edit-menu-type/edit-menu-type.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent }, // for home page
   { path: 'menu', component: MenuComponent }, // for menu page
   { path: 'add-employee', component: AddEmployeeComponent }, // for add employee page
   { path: 'view-employees', component: ViewEmployeesComponent }, // for view employees page
-  { path: 'edit-employee/:id', component: EditEmployeeComponent }, // for edit employee page
   { path: 'add-help', component: AddHelpComponent }, // for add help page
   { path: 'view-help-list', component: ViewHelpListComponent }, // for view help list page 
   { path: 'edit-help/:id', component: EditHelpComponent }, // for edit help page
@@ -36,9 +39,11 @@ const routes: Routes = [
   { path: 'add-employee-role', component: AddEmployeeRoleComponent },// for add employee role
   { path: 'edit-employee-role/:id', component: EditEmployeeRoleComponent },//for edit employee role
   { path: 'employee-role', component: EmployeeRoleComponent },// for view employee role
+  { path: 'menu-types', component: MenuTypesComponent }, // for menu page
+  { path: 'add-menu-type', component: AddMenuTypeComponent}, //add menu type page
+  { path: 'menuitems', component: MenuitemsComponent},//For the menu item page
   {
     path: 'employee-role',
-    component: EmployeeRoleComponent
   },
 
   // open on this page
@@ -81,7 +86,8 @@ const routes: Routes = [
     component: MenuComponent 
   }, 
   {path: '', 
-  redirectTo: 'home', pathMatch:'full'}
+  redirectTo: 'login', pathMatch:'full'},
+  
 ];
 
 @NgModule({

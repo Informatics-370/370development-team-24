@@ -242,6 +242,213 @@ namespace Africanacity_Team24_INF370_.models
                               Description = "The chef prepares the meals and notifies the waiter of ready orders."
 
                           });
+			//create seed data for menu type
+            modelBuilder.Entity<Menu_Type>()
+                          .HasData(
+                          new
+                          {
+                              Menu_TypeId = 1,
+                              Name = "Breakfast"
+                              
+
+                          });
+            modelBuilder.Entity<Menu_Type>()
+                         .HasData(
+                         new
+                         {
+                             Menu_TypeId = 2,
+                             Name = "All Day"
+
+
+                         });
+
+            
+            // Create Seed Data For the FoodType Table:
+            modelBuilder.Entity<Food_Type>()
+                           .HasData(
+                           new
+                           {
+                               FoodTypeId = 1,
+                               Name = "Chicken",
+                               Description = "Meals consisting of chicken"
+                              
+                           });
+
+            modelBuilder.Entity<Food_Type>()
+                .HasData(
+                new
+                {
+                    FoodTypeId = 2,
+                    Name = "Beef",
+                    Description = "Meals consisting of beef",
+                });
+
+            modelBuilder.Entity<Food_Type>()
+                .HasData(
+                new
+                {
+                    FoodTypeId = 3,
+                    Name = "Vegetarian",
+                    Description = "Meals suitable for vegetarians"
+
+                });
+
+            modelBuilder.Entity<Food_Type>()
+                .HasData(
+                new
+                {
+                    FoodTypeId = 4,
+                    Name = "Vegan",
+                    Description = "Meals suitable for Vegans"
+
+                });
+
+            
+            // Create Seed Data For the Menu Category Table:
+            modelBuilder.Entity<MenuItem_Category>()
+                           .HasData(
+                           new
+                           {
+                               Menu_CategoryId = 1,
+                               Name = "Breakfast",
+                               Description = "Meals between 7am to 12pm"
+
+                           });
+
+            modelBuilder.Entity<MenuItem_Category>()
+                 .HasData(
+                 new
+                 {
+                     Menu_CategoryId = 2,
+                     Name = "Starter",
+                     Description = "Appetisers"
+
+                 });
+
+            modelBuilder.Entity<MenuItem_Category>()
+                          .HasData(
+                          new
+                          {
+                              Menu_CategoryId = 3,
+                              Name = "Main",
+                              Description = "Big and Filling meals",
+
+                          });
+
+            modelBuilder.Entity<MenuItem_Category>()
+                          .HasData(
+                          new
+                          {
+                              Menu_CategoryId = 4,
+                              Name = "Dessert",
+                              Description = "Special things for those with a sweet tooth"
+
+                          });
+
+            modelBuilder.Entity<MenuItem_Category>()
+                          .HasData(
+                          new
+                          {
+                              Menu_CategoryId = 5,
+                              Name = "Light Meals",
+                              Description = "For those hungry but not hungry"
+
+                          });
+
+
+
+            
+            // Create Seed Data For the MenuItem Table:
+            modelBuilder.Entity<MenuItem>()
+                           .HasData(
+                           new
+                           {
+                             MenuItemId = 1,
+							 Name = "Chicken Feast",
+							 Description ="Two larger chicken burger, 6 pcs nuggets, two large fries",
+                             FoodTypeId = 1,
+							 Menu_CategoryId =3,
+                             CategoryMenu_CategoryId = 3,
+                             Menu_TypeId = 2,
+
+
+                           });
+
+            // Create Seed Data For the MenuItem Table:
+            modelBuilder.Entity<MenuItem>()
+                           .HasData(
+                           new
+                           {
+                               MenuItemId = 2,
+                               Name = "The Braai feast",
+                               Description = "Pap, boerewors an Tbone steak",
+                               FoodTypeId = 2,
+                               Menu_CategoryId= 3,
+                               CategoryMenu_CategoryId = 3,
+                               Menu_TypeId = 2,
+
+
+                           });
+
+            modelBuilder.Entity<MenuItem>()
+                          .HasData(
+                          new
+                          {
+                              MenuItemId = 3,
+                              Name = "Chilli cheese poppers",
+                              Description = "Mozarella stuffe cheese balls",
+                              FoodTypeId = 3,
+                              Menu_CategoryId = 2,
+                              CategoryMenu_CategoryId = 2,
+                              Menu_TypeId = 2,
+
+
+                          });
+            modelBuilder.Entity<MenuItem>()
+                          .HasData(
+                          new
+                          {
+                              MenuItemId = 4,
+                              Name = "Mexican salad",
+                              Description = "A green salad with salsa mix",
+                              FoodTypeId = 4,
+                              Menu_CategoryId = 5,
+                              CategoryMenu_CategoryId = 5,
+                              Menu_TypeId = 2,
+
+
+                          });
+            modelBuilder.Entity<MenuItem>()
+                          .HasData(
+                          new
+                          {
+                              MenuItemId = 5,
+                              Name = "Blueberry cheescake",
+                              Description = "Delicious cheesecake with blueberry sauce topping",
+                              FoodTypeId = 3,
+                              Menu_CategoryId = 4,
+                              CategoryMenu_CategoryId = 4,
+                              Menu_TypeId = 2,
+
+
+                          });
+
+            //Many to many with MenuItem
+                         modelBuilder.Entity<MenuItem>()
+                        .HasOne(m => m.Menu_Type)
+                        .WithMany()
+                        .HasForeignKey(m => m.Menu_TypeId);
+
+                        modelBuilder.Entity<MenuItem>()
+                        .HasOne(m => m.MenuItem_Category)
+                        .WithMany()
+                        .HasForeignKey(m => m.Menu_CategoryId);
+
+                        modelBuilder.Entity<MenuItem>()
+                        .HasOne(m => m.Food_Type)
+                        .WithMany()
+                        .HasForeignKey(m => m.FoodTypeId);
+
             // For the Access_UserRole M2M payload (Uncomment code below and run migration to generate tables)
             modelBuilder.Entity<Access>()
 			    .HasMany(t => t.User_Roles)

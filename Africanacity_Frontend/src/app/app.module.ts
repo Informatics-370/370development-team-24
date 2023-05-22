@@ -18,15 +18,19 @@ import { ResetPasswordComponent } from './login/reset-password/reset-password.co
 import { AddEmployeeRoleComponent } from './administration/EmployeeRole/add-employee-role/add-employee-role.component';
 import { EmployeeRoleComponent } from './administration/EmployeeRole/employee-role/employee-role.component';
 import { EditEmployeeRoleComponent } from './administration/EmployeeRole/edit-employee-role/edit-employee-role.component';
-
-
+import { MenuTypesComponent } from './administration/menu-types/menu-types.component';
+import { AddMenuTypeComponent } from './administration/menu-types/add-menu-type/add-menu-type.component';
+import { EditMenuTypeComponent } from './administration/menu-types/edit-menu-type/edit-menu-type.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ConfirmationDialogComponent } from './administration/menu-types/add-menu-type/confirmation-dialog/confirmation-dialog.component';
+import { MenuitemsComponent } from './administration/menuitems/menuitems.component';
+import { DataService } from './service/data.Service';
 import { AddHelpComponent } from './administration/Help Management/add-help/add-help.component';
 import { ViewHelpListComponent } from './administration/Help Management/view-help-list/view-help-list.component';
 import { AddEmployeeComponent } from './administration/Employees/add-employee/add-employee.component';
 import { ViewEmployeesComponent } from './administration/Employees/view-employees/view-employees.component';
 import { EditEmployeeComponent } from './administration/Employees/view-employees/edit-employee/edit-employee.component';
 import { EditHelpComponent } from './administration/Help Management/view-help-list/edit-help/edit-help.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { MatSelectModule } from '@angular/material/select';
 import { NotificationDialogComponent } from './administration/Employees/notification-dialog/notification-dialog.component';
@@ -46,12 +50,19 @@ import { NotificationDialogComponent } from './administration/Employees/notifica
     AddEmployeeComponent, 
     ViewEmployeesComponent, 
     AddHelpComponent, 
-    ViewHelpListComponent, EditEmployeeComponent, EditHelpComponent, NotificationDialogComponent,
-   
-    HomeComponent, ResetPasswordComponent,
-
-    
-    AddEmployeeRoleComponent, EmployeeRoleComponent, EditEmployeeRoleComponent
+    ViewHelpListComponent,
+     EditEmployeeComponent, 
+     EditHelpComponent, 
+     NotificationDialogComponent,
+    ResetPasswordComponent,
+    AddEmployeeRoleComponent, 
+    EmployeeRoleComponent, 
+    EditEmployeeRoleComponent,
+   MenuTypesComponent, 
+   AddMenuTypeComponent, 
+   EditMenuTypeComponent, 
+   ConfirmationDialogComponent, 
+   MenuitemsComponent
   ],
   imports: [
     BrowserModule,
@@ -61,14 +72,11 @@ import { NotificationDialogComponent } from './administration/Employees/notifica
     ReactiveFormsModule,
     HttpClientModule,
     MaterialModule,
-    MatSnackBarModule,
     Ng2SearchPipeModule,
-    MatSelectModule
-
-    
-    
+    MatSelectModule,
+    MatSnackBarModule
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
