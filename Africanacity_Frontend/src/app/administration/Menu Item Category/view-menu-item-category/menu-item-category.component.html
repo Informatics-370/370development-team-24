@@ -49,8 +49,9 @@
                             <td> {{ item.name }} </td>
                             <td> {{ item.description }} </td>
                             <!-- edit and delete buttons -->
-                            <td> <button style="margin-right: 1em;" type="button" [routerLink]="['/edit-menu-item-category', item.menu_CategoryId]" class="btn btn-sm btn-info"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
-                                <button type="button" class="btn btn-sm btn-danger" (click)="DeleteMenuItemCategory(item.menu_CategoryId)"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button></td>
+                            <td> 
+                            <button type="button" [routerLink]="['/edit-menu-item-category', item.menu_CategoryId]" class="btn btn-sm btn-info"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
+                            <button type="button" class="btn btn-sm btn-danger" (click)="DeleteMenuItemCategory(item.menu_CategoryId)"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button></td>
                            
                         </tr>
                     </tbody>
