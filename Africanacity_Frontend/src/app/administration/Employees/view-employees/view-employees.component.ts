@@ -22,12 +22,16 @@ export class ViewEmployeesComponent {
   searchTerm!: string;
   Employee!: Employee[];
 
-  constructor(private employeeservice: EmployeeService, private router: Router, private httpClient: HttpClient, private snackBar: MatSnackBar){}
+  constructor(private employeeservice: EmployeeService, 
+    private router: Router, 
+    private httpClient: HttpClient, 
+    private snackBar: MatSnackBar){}
   
 
   deleteItem(): void {
     const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete this item?', 'Delete Cancel',{
       duration: 5000, // Display duration in milliseconds
+
     });
 
     

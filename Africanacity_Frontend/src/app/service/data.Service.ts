@@ -17,7 +17,7 @@ import { MenuItemCategory } from '../shared/menu-item-category';
 export class DataService {
   
 
-  apiUrl = 'https://localhost:7258/api/'
+  apiUrl = 'https://localhost:5116/api/'
 
   httpOptions ={
     headers: new HttpHeaders({
@@ -138,9 +138,9 @@ export class DataService {
 
 
   // fetch food type name
-  GetFoodTypeById(foodTypeId: Number): Observable<any>{
-    return this.httpClient.get(`${this.apiUrl}foodTypeController/GetFoodType/${foodTypeId}`);
-  }
+  // GetFoodTypeById(foodTypeId: Number): Observable<any>{
+  //   return this.httpClient.get(`${this.apiUrl}foodTypeController/GetFoodType/${foodTypeId}`);
+  // }
 
   /********** MENU CATEGORY***************/
   // GetAllMenuItemCategories(): Observable<any>{
@@ -149,9 +149,9 @@ export class DataService {
   // }
 
   // fetch food type name
-  GetMenuItemCategoryById(menuItemCategory_Id: Number): Observable<any>{
-    return this.httpClient.get(`${this.apiUrl}MenuItem_Category/GetMenuItemCategory/${menuItemCategory_Id}`);
-  }
+  // GetMenuItemCategoryById(menuItemCategory_Id: Number): Observable<any>{
+  //   return this.httpClient.get(`${this.apiUrl}MenuItem_Category/GetMenuItemCategory/${menuItemCategory_Id}`);
+  // }
   // food type
   GetAllFoodTypes(): Observable<any>{
     return this.httpClient.get(`${this.apiUrl}foodTypeController/GetAllFoodTypes`).pipe(map(result => result)) 
@@ -179,27 +179,29 @@ export class DataService {
 
   // menu item category
   GetAllMenuItemCategories(): Observable<any>{
-    return this.httpClient.get(`${this.apiUrl}MenuItemCategoryController/GetAllMenuItemCategories`).pipe(map(result => result)) 
+    return this.httpClient.get(`${this.apiUrl}MenuItem_Category/GetAllMenuItemCategories`).pipe(map(result => result)) 
   }
 
-  GetMenuItemCategory(MenuItemCategoryId: number)
+  GetMenuItemCategory(menu_CategoryId: number)
   {
-    return this.httpClient.get(`${this.apiUrl}MenuItemCategoryController/GetMenuItemCategory` + "/" + MenuItemCategoryId).pipe(map(result => result))
+    return this.httpClient.get(`${this.apiUrl}MenuItem_Category/GetMenuItemCategory/${menu_CategoryId}`);
+    //return this.httpClient.get(`${this.apiUrl}MenuItem_Category/GetMenuItemCategory` + "/" + Menu_CategoryId) //.pipe(map(result => result))
   }
 
   AddMenuItemCategory(menuItemCategory : MenuItemCategory)
   {
-    return this.httpClient.post(`${this.apiUrl}MenuItemCategoryController/AddMenuItemCategory`, menuItemCategory, this.httpOptions)
+    return this.httpClient.post(`${this.apiUrl}MenuItem_Category/AddMenuItemCategory`, menuItemCategory, this.httpOptions)
   }
 
-  EditMenuItemCategory(MenuItemCategoryId: number, menuItemCategory: MenuItemCategory)
+  EditMenuItemCategory(menu_CategoryId: number, menuItemCategory: MenuItemCategory)
   {
-    return this.httpClient.put(`${this.apiUrl}MenuItemCategoryController/EditMenuItemCategory/${MenuItemCategoryId}`, menuItemCategory, this.httpOptions)
+    return this.httpClient.put(`${this.apiUrl}MenuItem_Category/EditMenuItemCategory/${menu_CategoryId}`, menuItemCategory, this.httpOptions)
   }
 
-  DeleteMenuItemCategory(MenuItemCategoryId: number)
+  DeleteMenuItemCategory(menu_CategoryId: number)
   {
-    return this.httpClient.delete<string>(`${this.apiUrl}MenuItemCategoryController/DeleteMenuItemCategory` + "/" + MenuItemCategoryId, this.httpOptions)
+    //return this.httpClient.delete<string>(`${this.apiUrl}MenuItem_Category/DeleteMenuItemCategory` + "/" + Menu_CategoryId, this.httpOptions)
+    return this.httpClient.delete<string>(`${this.apiUrl}MenuItem_Category/DeleteMenuItemCategory` + "/" + menu_CategoryId, this.httpOptions)
   }
 
 }

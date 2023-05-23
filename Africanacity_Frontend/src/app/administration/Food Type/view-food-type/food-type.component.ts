@@ -22,6 +22,11 @@ export class FoodTypeComponent {
 
   deleteItem(): void {
     const confirmationSnackBar = this.snackbar.open('Are you sure you want to delete this item?', 'Cancel Delete', {duration: 5000,})
+    
+    confirmationSnackBar.onAction().subscribe(() => {
+      this.deleteItemFromServer();
+      window.location.reload();
+    });
   }
 
   ngOnInit(): void {
@@ -32,10 +37,7 @@ export class FoodTypeComponent {
     this.DeleteFoodType;
   }
 
-  // confirmationSnackBar.onAction().subscribe(() => {
-  //   this.deleteItemFromServer();
-  //   window.location.reload();
-  // });
+ 
 
 
   GetAllFoodTypes()

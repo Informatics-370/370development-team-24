@@ -75,8 +75,8 @@ h4{
   }
 
   .topnav {
-    position: sticky;
     position: -webkit-sticky;
+    position: sticky;
     height: 70px;
     left: 0px;
     right: 0px;

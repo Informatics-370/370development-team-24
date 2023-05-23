@@ -12,9 +12,6 @@ namespace Africanacity_Team24_INF370_.models
     {
         object EmployeeViewModel { get; }
 
-       
-
-        Task<Employee[]> GetAllEmployeesAsync();
         //employee role
         Task<Employee_Role[]> GetAllEmployeeRolesAsync();
         Task <Employee_Role> GetEmployeeRoleAsync(int Employee_RoleId);
@@ -41,7 +38,7 @@ namespace Africanacity_Team24_INF370_.models
         Task<Food_Type> GetFoodTypeAsync(int FoodTypeId);
 
         //MENU ITEM 
-        Task<MenuItem[]> GetAllMenuItemAsync();
+        Task<MenuItem[]> GetAllMenuItemsAsync();
 
         Task<MenuItem> GetMenuItemAsync(int MenuItemId);
 

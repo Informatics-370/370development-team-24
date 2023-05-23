@@ -111,12 +111,12 @@ export class AddEmployeeComponent implements OnInit {
       
       }
      });
-     this.showSuccessMessage('Employee added successfully!');
+     this.showSuccessMessage('Enter valid phone number!');
          }
 
          showSuccessMessage(message: string): void {
           const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(message, 'Ok', {
-            duration: 3000, // Duration in milliseconds
+            duration: 5000, // Duration in milliseconds
             horizontalPosition: 'center',
             verticalPosition: 'bottom'
           });

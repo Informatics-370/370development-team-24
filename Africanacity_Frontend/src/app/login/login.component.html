@@ -1,3 +1,7 @@
+<!-- <mat-toolbar style=" background-color: rgb(165, 113, 207); ;" class="center">
+  <img src="../../assets/Nav_image/Africanacity.png" alt="" width="40" height="40" style="margin-left: 50%;"class="d-inline-block align-text-top">
+  Africanacity
+</mat-toolbar> -->
  <div class="container" >
     <mat-card class="box" *ngIf="!isLoading">
      
@@ -24,7 +28,7 @@
         <mat-card-actions>
         <button mat-raised-button color="primary" (click)="LoginUser()"> Log in </button><br>
         </mat-card-actions>
-        <div><a routerLink="../forgot-password">Forgot Password?</a></div><br>
+        <div><a [routerLink]="['../forgot-password']">Forgot Password?</a></div><br>
         <div>Change Password? <a routerLink="../update-password"> here</a></div><br>
         <div>Don't have an account? Register <a routerLink="../register"> here</a></div>
       </form>

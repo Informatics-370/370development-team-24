@@ -6,7 +6,7 @@ import { DataService } from 'src/app/service/data.Service';
 import { FoodType } from 'src/app/shared/food-type';
 import { ActivatedRoute} from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-//import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component'
+import { ConfirmationDialogComponent } from 'src/app/administration/menu-types/add-menu-type/confirmation-dialog/confirmation-dialog.component'
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar'
 
 @Component({
@@ -15,13 +15,13 @@ import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar'
   styleUrls: ['./create-food-type.component.css']
 })
 export class CreateFoodTypeComponent {
+  @ViewChild('toastContainer', { read: ViewContainerRef })
+  toastContainer!: ViewContainerRef;
   FoodTypeId: number = 0;
   AddFoodTypeForm!: FormGroup;
-  @ViewChild('toastContainer', { read: ViewContainerRef })
-  toastCOntainer!: ViewContainerRef;
 
   constructor(private dataService: DataService, 
-    private route: ActivatedRoute, 
+    private router: Router, 
     private dialog: MatDialog, 
     private snackBar: MatSnackBar, 
     private fb: FormBuilder) 
@@ -35,6 +35,20 @@ export class CreateFoodTypeComponent {
         description: ['', [Validators.required]] 
       })
     }
+  }
+    //confirmation dialog method
+    openDialog():void{
+      const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
+        width: '250px',
+        data: 'Add New Menu Type?'
+      });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'Yes'){
+        this.AddFoodType();
+        
+      }
+    })
   }
 
   ngOnInit(): void {}
@@ -63,26 +77,11 @@ export class CreateFoodTypeComponent {
       horizontalPosition: 'center',
       verticalPosition: 'bottom'
     });
-  }
+  
   
     snackBarRef.afterDismissed().subscribe(() => {
       this.toastContainer.clear();
     });
-
-  //confirmation dialog method
-  openDialog():void{
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
-      width: '250px',
-      data: 'Add New Menu Type?'
-    });
   }
-
-
-  dialogRef.afterClosed().subscribe(result => {
-    if(result == 'Yes'){
-      this.addNewMenuType();
-      
-    }
-  })
 
 }

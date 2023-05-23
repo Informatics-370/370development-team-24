@@ -11,14 +11,14 @@
   <div class="row">  
   <form [formGroup]="helpForm" class="form-horizontal"  (ngSubmit)="onSubmit()">
       <div class="form-group">
-          <label class=" col-sm-1" for="name">Question:</label>
+          <label class=" col-sm-1" style="font-weight: bold;" for="name">Question:</label>
           <div class="col-sm-6">
-            <input class="form-control" placeholder="Enter Question" [required]="true" name="name" formControlName="name">
+            <input class="form-control"  placeholder="Enter Question" [required]="true" name="name" formControlName="name">
           </div>
       </div>
 
       <div class="form-group">
-          <label class="col-sm-1" for="description">Answer:</label>
+          <label class="col-sm-1"  style="font-weight: bold;" for="description">Answer:</label>
           <div class="col-sm-6">
             <input class="form-control"  placeholder="Enter Answer" [required]="true" name="description" formControlName="description">
           </div>
