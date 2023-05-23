@@ -5,7 +5,7 @@ import { DataService } from 'src/app/service/data.Service';
 import { MenuItemCategory } from 'src/app/shared/menu-item-category';
 import { ActivatedRoute, Router} from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialogComponent } from 'src/app/administration/menu-types/add-menu-type/confirmation-dialog/confirmation-dialog.component'
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 
 @Component({

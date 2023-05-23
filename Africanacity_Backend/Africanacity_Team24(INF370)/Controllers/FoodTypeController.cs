@@ -104,7 +104,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         // Delete food type
         [HttpDelete]
-        [Route("DeleteFoodType/{FoodTypeId}")]
+        [Route("DeleteFoodType/{foodTypeId}")]
         public async Task<IActionResult> DeleteFoodType(int foodTypeId)
         {
             try

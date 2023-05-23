@@ -11,7 +11,7 @@ import { MenuItemCategory } from 'src/app/shared/menu-item-category';
   styleUrls: ['./menu-item-category.component.css']
 })
 export class MenuItemCategoryComponent {
-  menuItemCategories: MenuItemCategory[] = [];
+  menuItemCategories: MenuItemCategory[] = []
 
   constructor(private dataService: DataService, 
     private router: Router, 
@@ -19,15 +19,20 @@ export class MenuItemCategoryComponent {
     private snackbar: MatSnackBar) {}
 
     deleteItem(): void {
-    const confirmationSnackBar = this.snackbar.open('Are you sure you want to delete this item?', 'Cancel Delete', {duration: 5000,})
-  }
-
-  ngOnInit(): void {
-    this.GetAllMenuItemCategories();
+    const confirmationSnackBar = this.snackbar.open('Are you sure you want to delete this item?', 'Cancel Delete', {duration: 5000,});
+    confirmationSnackBar.onAction().subscribe(() => {
+      // Perform the deletion action here
+      this.deleteItemFromServer();
+      window.location.reload();
+    });
   }
 
   deleteItemFromServer(): void {
     this.DeleteMenuItemCategory;
+  }
+
+  ngOnInit(): void {
+    this.GetAllMenuItemCategories();
   }
 
   GetAllMenuItemCategories()
@@ -41,9 +46,9 @@ export class MenuItemCategoryComponent {
   
   }
 
-  DeleteMenuItemCategory(MenuItemCategoryId: number)
+  DeleteMenuItemCategory(menu_CategoryId: number)
   {
-    this.dataService.DeleteFoodType(MenuItemCategoryId).subscribe(result => {
+    this.dataService.DeleteMenuItemCategory(menu_CategoryId).subscribe(result => {
         this.deleteItem();
       });
   }

@@ -111,7 +111,7 @@ namespace Africanacity_Team24_INF370_.models
 
        
         //Menu Item
-        public async Task<MenuItem[]> GetAllMenuItemAsync()
+        public async Task<MenuItem[]> GetAllMenuItemsAsync()
         {
             IQueryable<MenuItem> query = _appDbContext.MenuItems;
             return await query.ToArrayAsync();

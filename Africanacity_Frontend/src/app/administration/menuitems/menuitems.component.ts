@@ -2,11 +2,8 @@ import { Component, OnInit} from '@angular/core';
 import { DataService } from 'src/app/service/data.Service';
 import { MenuTypes } from 'src/app/shared/menu-types';
 import {Router} from '@angular/router';
-
-
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 import { MenuItem } from 'src/app/shared/menu-item';
 import { FoodType } from 'src/app/shared/food-type';
 import { MenuItemCategory } from 'src/app/shared/menu-item-category';
@@ -21,9 +18,9 @@ import {map, take } from 'rxjs/operators';
 export class MenuitemsComponent {
 
   menuItems: MenuItem[]=[]
-  foodTypes: FoodType[] = []
-  menuCategories: MenuItemCategory [] = []
-  menuTypes:MenuTypes[] = []
+  // foodTypes: FoodType[] = []
+  // menuCategories: MenuItemCategory [] = []
+  // menuTypes:MenuTypes[] = []
   httpClient: any;
   apiUrl: any;
 
@@ -44,7 +41,7 @@ GetAllMenuItems() {
   this.dataService.GetAllMenuItems().subscribe(
     (menuItems) => {
       this.menuItems = menuItems;
-      this.loadAssociatedNames();
+      // this.loadAssociatedNames();
     },
     (error) => {
       console.error(error);
@@ -75,13 +72,13 @@ GetAllMenuItems() {
   );
 }*/
 
-loadAssociatedNames(): void {
-  for (const menuItem of this.menuItems) {
-    this.getFoodTypeName(menuItem.foodTypeId);
-    this.getMenuItemCategoryName(menuItem.menuItemCategory_Id);
-    this.getFoodTypeName(menuItem.menu_TypeId);
-  }
-}
+// loadAssociatedNames(): void {
+//   for (const menuItem of this.menuItems) {
+//     this.getFoodTypeName(menuItem.foodTypeId);
+//     this.getMenuItemCategoryName(menuItem.menuItemCategory_Id);
+//     this.getFoodTypeName(menuItem.menu_TypeId);
+//   }
+// }
 
 /*loadMenuTypeName(menuItem: MenuTypes): void {
   this.http.get<any>(`api/MenuType/GetAllMenuTypes${menuItem.name}`).subscribe(
@@ -94,53 +91,53 @@ loadAssociatedNames(): void {
   );
 }*/
 
-getFoodTypeName(foodTypeId: number): void {
-  this.dataService.GetFoodTypeById(foodTypeId).subscribe(
-    (foodType) => {
-      const foundFoodType = this.foodTypes.find((ft) => ft.foodTypeId == foodType.foodTypeId);
-      if (foundFoodType) {
-        foundFoodType.name = foodType.name;
-      } else {
-        this.foodTypes.push(foodType);
-      }
-    },
-    (error) => {
-      console.error('Failed to fetch food type name:', error);
-    }
-  );
-}
+// getFoodTypeName(foodTypeId: number): void {
+//   this.dataService.GetFoodTypeById(foodTypeId).subscribe(
+//     (foodType) => {
+//       const foundFoodType = this.foodTypes.find((ft) => ft.foodTypeId == foodType.foodTypeId);
+//       if (foundFoodType) {
+//         foundFoodType.name = foodType.name;
+//       } else {
+//         this.foodTypes.push(foodType);
+//       }
+//     },
+//     (error) => {
+//       console.error('Failed to fetch food type name:', error);
+//     }
+//   );
+// }
 
-getMenuItemCategoryName(categoryId: number): void {
-  this.dataService.GetMenuItemCategoryById(categoryId).subscribe(
-    (menuItemCategory) => {
-      const foundCategory = this.menuCategories.find((mc) => mc.menuItemCategory_Id == menuItemCategory.category_Id);
-      if (foundCategory) {
-        foundCategory.name = menuItemCategory.name;
-      } else {
-        this.menuCategories.push(menuItemCategory);
-      }
-    },
-    (error) => {
-      console.error('Failed to fetch menu category name:', error);
-    }
-  );
-}
+// getMenuItemCategoryName(categoryId: number): void {
+//   this.dataService.GetMenuItemCategoryById(categoryId).subscribe(
+//     (menuItemCategory) => {
+//       const foundCategory = this.menuCategories.find((mc) => mc.MenuItemCategoryId == menuItemCategory.category_Id);
+//       if (foundCategory) {
+//         foundCategory.name = menuItemCategory.name;
+//       } else {
+//         this.menuCategories.push(menuItemCategory);
+//       }
+//     },
+//     (error) => {
+//       console.error('Failed to fetch menu category name:', error);
+//     }
+//   );
+// }
 
-getMenuTypeName(menuTypeId: number): void {
-  this.dataService.GetMenuTypeById(menuTypeId).subscribe(
-    (menuType) => {
-      const foundMenuType = this.menuTypes.find((mt) => mt.menu_TypeId == menuType.menu_TypeId);
-      if (foundMenuType) {
-        foundMenuType.name = menuType.name;
-      } else {
-        this.menuTypes.push(menuType);
-      }
-    },
-    (error) => {
-      console.error('Failed to fetch menu type name:', error);
-    }
-  );
-}
+// getMenuTypeName(menuTypeId: number): void {
+//   this.dataService.GetMenuTypeById(menuTypeId).subscribe(
+//     (menuType) => {
+//       const foundMenuType = this.menuTypes.find((mt) => mt.menu_TypeId == menuType.menu_TypeId);
+//       if (foundMenuType) {
+//         foundMenuType.name = menuType.name;
+//       } else {
+//         this.menuTypes.push(menuType);
+//       }
+//     },
+//     (error) => {
+//       console.error('Failed to fetch menu type name:', error);
+//     }
+//   );
+// }
 
 deleteItem(): void{
  

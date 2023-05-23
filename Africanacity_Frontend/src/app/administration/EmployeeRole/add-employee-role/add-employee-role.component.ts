@@ -40,7 +40,7 @@ export class AddEmployeeRoleComponent implements OnInit {
         this.router.navigate(['/employee-role'])
        });
 
-       this.showSuccessMessage('Employee Role has been successfully created');
+       this.showSuccessMessage('Employee Role Added successfully');
 
     }
     // Success notification

@@ -5,9 +5,9 @@ export interface MenuItem {
     foodTypeName:String;//new property for name
     menuTypeName:String;//new property for name
     menuCategoryName:String;//new property for name
-    foodTypeId: number;
-    menu_TypeId: number;
-    menuItemCategory_Id: number;
+    // foodTypeId: number;
+    // menu_TypeId: number;
+    // menuItemCategory_Id: number;
 }
 
 /*export class MenuItem

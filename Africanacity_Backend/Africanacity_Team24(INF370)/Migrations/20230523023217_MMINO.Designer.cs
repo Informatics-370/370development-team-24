@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Africanacity_Team24_INF370_.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230520005718_China")]
-    partial class China
+    [Migration("20230523023217_MMINO")]
+    partial class MMINO
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -55,6 +55,26 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasIndex("Help_CategoryId");
 
                     b.ToTable("Helps");
+
+                    b.HasData(
+                        new
+                        {
+                            HelpId = 1,
+                            Description = "MMINO Restaurant serves various types of cuisines",
+                            Name = "What food does MMINO Restaurant serve?"
+                        },
+                        new
+                        {
+                            HelpId = 2,
+                            Description = "MMINO Restaurant is located in Hatfield,Pretoria. 1005 Arcadia Street",
+                            Name = "Where is MMINO Restaurant?"
+                        },
+                        new
+                        {
+                            HelpId = 3,
+                            Description = "You can book for a live entertainment on the website.",
+                            Name = "How how do you book for a live entertainment slot?"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Admin.Title", b =>
@@ -266,10 +286,92 @@ namespace Africanacity_Team24_INF370_.Migrations
                         new
                         {
                             EmployeeId = 1,
-                            Email_Address = "VanessaJames@gmial.com",
+                            Email_Address = "VanessaJames@gmail.com",
                             FirstName = "Vanessa",
                             PhoneNumber = "0847541236",
+                            Physical_Address = "404 Jacob Street",
                             Surname = "James"
+                        },
+                        new
+                        {
+                            EmployeeId = 2,
+                            Email_Address = "SerenaWilliams@gmail.com",
+                            FirstName = "Serena",
+                            PhoneNumber = "0842341236",
+                            Physical_Address = "132 Harriet Street",
+                            Surname = "Williams"
+                        },
+                        new
+                        {
+                            EmployeeId = 3,
+                            Email_Address = "EdrisElba@gmail.com",
+                            FirstName = "Edris",
+                            PhoneNumber = "0212378798",
+                            Physical_Address = "245 homelyn Street",
+                            Surname = "Elba"
+                        },
+                        new
+                        {
+                            EmployeeId = 4,
+                            Email_Address = "NyongoLupita@gmail.com",
+                            FirstName = "Lupita",
+                            PhoneNumber = "0455783475",
+                            Physical_Address = "254 Summer Street",
+                            Surname = "Nyongo"
+                        },
+                        new
+                        {
+                            EmployeeId = 5,
+                            Email_Address = "MicheaJackson@gmail.com",
+                            FirstName = "Micheal",
+                            PhoneNumber = "0874567836",
+                            Physical_Address = "567 Winter Street",
+                            Surname = "Jackson"
+                        },
+                        new
+                        {
+                            EmployeeId = 6,
+                            Email_Address = "TaehyungKim@gmial.com",
+                            FirstName = "Taehyung",
+                            PhoneNumber = "0874562134",
+                            Physical_Address = "345 Shallow  Street",
+                            Surname = "Kim"
+                        },
+                        new
+                        {
+                            EmployeeId = 7,
+                            Email_Address = "ZendayaColeman@gmail.com",
+                            FirstName = "Zendaya",
+                            PhoneNumber = "0212378798",
+                            Physical_Address = "243 Super Street ",
+                            Surname = "Coleman"
+                        },
+                        new
+                        {
+                            EmployeeId = 8,
+                            Email_Address = "RogerFederal@gmail.com",
+                            FirstName = "Roger",
+                            PhoneNumber = "0612346487",
+                            Physical_Address = "987 Wall Street",
+                            Surname = "Federal"
+                        },
+                        new
+                        {
+                            EmployeeId = 9,
+                            Email_Address = "JenniferLOpez@gmail.com",
+                            FirstName = "Jennifer",
+                            PhoneNumber = "0874834576",
+                            Physical_Address = "967 Ballard Street",
+                            Surname = "Lopez"
+                        },
+                        new
+                        {
+                            EmployeeId = 10,
+                            Email_Address = "ChadwickBoseman@gmail.com",
+                            FirstName = "Chadwick",
+                            PhoneNumber = "0923456789",
+                            Physical_Address = "483 Alien Street",
+                            Surname = "Boseman"
                         });
                 });
 
@@ -294,6 +396,20 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasKey("Employee_RoleId");
 
                     b.ToTable("Employee_Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Employee_RoleId = 1,
+                            Description = "The waiter serves the customers and takes orders",
+                            Name = "Waiter"
+                        },
+                        new
+                        {
+                            Employee_RoleId = 2,
+                            Description = "The chef prepares the meals and notifies the waiter of ready orders.",
+                            Name = "Chef"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Help_Category", b =>
@@ -896,6 +1012,32 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasKey("FoodTypeId");
 
                     b.ToTable("Food_Types");
+
+                    b.HasData(
+                        new
+                        {
+                            FoodTypeId = 1,
+                            Description = "Meals consisting of chicken",
+                            Name = "Chicken"
+                        },
+                        new
+                        {
+                            FoodTypeId = 2,
+                            Description = "Meals consisting of beef",
+                            Name = "Beef"
+                        },
+                        new
+                        {
+                            FoodTypeId = 3,
+                            Description = "Meals suitable for vegetarians",
+                            Name = "Vegetarian"
+                        },
+                        new
+                        {
+                            FoodTypeId = 4,
+                            Description = "Meals suitable for Vegans",
+                            Name = "Vegan"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Menu_Type", b =>
@@ -914,6 +1056,18 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasKey("Menu_TypeId");
 
                     b.ToTable("Menu_Types");
+
+                    b.HasData(
+                        new
+                        {
+                            Menu_TypeId = 1,
+                            Name = "Breakfast"
+                        },
+                        new
+                        {
+                            Menu_TypeId = 2,
+                            Name = "All Day"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.MenuItem", b =>
@@ -929,13 +1083,22 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int?>("Food_TypeFoodTypeId")
+                    b.Property<int>("FoodTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Food_TypeFoodTypeId1")
                         .HasColumnType("int");
 
                     b.Property<int?>("MenuItem_CategoryMenu_CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Menu_TypeId")
+                    b.Property<int>("Menu_CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Menu_TypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Menu_TypeId1")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -945,13 +1108,66 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     b.HasKey("MenuItemId");
 
-                    b.HasIndex("Food_TypeFoodTypeId");
+                    b.HasIndex("FoodTypeId");
+
+                    b.HasIndex("Food_TypeFoodTypeId1");
 
                     b.HasIndex("MenuItem_CategoryMenu_CategoryId");
 
+                    b.HasIndex("Menu_CategoryId");
+
                     b.HasIndex("Menu_TypeId");
 
+                    b.HasIndex("Menu_TypeId1");
+
                     b.ToTable("MenuItems");
+
+                    b.HasData(
+                        new
+                        {
+                            MenuItemId = 1,
+                            Description = "Two larger chicken burger, 6 pcs nuggets, two large fries",
+                            FoodTypeId = 1,
+                            Menu_CategoryId = 3,
+                            Menu_TypeId = 2,
+                            Name = "Chicken Feast"
+                        },
+                        new
+                        {
+                            MenuItemId = 2,
+                            Description = "Pap, boerewors an Tbone steak",
+                            FoodTypeId = 2,
+                            Menu_CategoryId = 3,
+                            Menu_TypeId = 2,
+                            Name = "The Braai feast"
+                        },
+                        new
+                        {
+                            MenuItemId = 3,
+                            Description = "Mozarella stuffe cheese balls",
+                            FoodTypeId = 3,
+                            Menu_CategoryId = 2,
+                            Menu_TypeId = 2,
+                            Name = "Chilli cheese poppers"
+                        },
+                        new
+                        {
+                            MenuItemId = 4,
+                            Description = "A green salad with salsa mix",
+                            FoodTypeId = 4,
+                            Menu_CategoryId = 5,
+                            Menu_TypeId = 2,
+                            Name = "Mexican salad"
+                        },
+                        new
+                        {
+                            MenuItemId = 5,
+                            Description = "Delicious cheesecake with blueberry sauce topping",
+                            FoodTypeId = 3,
+                            Menu_CategoryId = 4,
+                            Menu_TypeId = 2,
+                            Name = "Blueberry cheescake"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.MenuItem_Category", b =>
@@ -975,6 +1191,38 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasKey("Menu_CategoryId");
 
                     b.ToTable("MenuItem_Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Menu_CategoryId = 1,
+                            Description = "Meals between 7am to 12pm",
+                            Name = "Breakfast"
+                        },
+                        new
+                        {
+                            Menu_CategoryId = 2,
+                            Description = "Appetisers",
+                            Name = "Starter"
+                        },
+                        new
+                        {
+                            Menu_CategoryId = 3,
+                            Description = "Big and Filling meals",
+                            Name = "Main"
+                        },
+                        new
+                        {
+                            Menu_CategoryId = 4,
+                            Description = "Special things for those with a sweet tooth",
+                            Name = "Dessert"
+                        },
+                        new
+                        {
+                            Menu_CategoryId = 5,
+                            Description = "For those hungry but not hungry",
+                            Name = "Light Meals"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.MenuItem_Price", b =>
@@ -988,12 +1236,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("MenuItemId")
-                        .HasColumnType("int");
-
                     b.HasKey("MenuItem_PriceId");
-
-                    b.HasIndex("MenuItemId");
 
                     b.ToTable("MenuItem_Prices");
                 });
@@ -1473,24 +1716,41 @@ namespace Africanacity_Team24_INF370_.Migrations
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.MenuItem", b =>
                 {
+                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.Food_Type", "Food_Type")
+                        .WithMany()
+                        .HasForeignKey("FoodTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.Food_Type", null)
                         .WithMany("MenuItems")
-                        .HasForeignKey("Food_TypeFoodTypeId");
+                        .HasForeignKey("Food_TypeFoodTypeId1");
 
                     b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.MenuItem_Category", null)
                         .WithMany("MenuItems")
                         .HasForeignKey("MenuItem_CategoryMenu_CategoryId");
 
+                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.MenuItem_Category", "MenuItem_Category")
+                        .WithMany()
+                        .HasForeignKey("Menu_CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.Menu_Type", "Menu_Type")
+                        .WithMany()
+                        .HasForeignKey("Menu_TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.Menu_Type", null)
                         .WithMany("MenuItems")
-                        .HasForeignKey("Menu_TypeId");
-                });
+                        .HasForeignKey("Menu_TypeId1");
 
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.MenuItem_Price", b =>
-                {
-                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.MenuItem", null)
-                        .WithMany("MenuItem_Prices")
-                        .HasForeignKey("MenuItemId");
+                    b.Navigation("Food_Type");
+
+                    b.Navigation("MenuItem_Category");
+
+                    b.Navigation("Menu_Type");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Order", b =>
@@ -1694,11 +1954,6 @@ namespace Africanacity_Team24_INF370_.Migrations
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Menu_Type", b =>
                 {
                     b.Navigation("MenuItems");
-                });
-
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.MenuItem", b =>
-                {
-                    b.Navigation("MenuItem_Prices");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.MenuItem_Category", b =>

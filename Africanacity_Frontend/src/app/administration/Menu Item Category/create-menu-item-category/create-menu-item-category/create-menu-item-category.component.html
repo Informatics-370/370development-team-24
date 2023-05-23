@@ -14,13 +14,13 @@
                 <div class="row">  
                     <form [formGroup]="AddMenuItemCategoryForm" class="form-horizontal" (ngSubmit)="AddMenuItemCategory()">
                         <div class="form-group">
-                            <label class="col-sm-3 label" for="name">Menu Item Category Name:</label>
+                            <label class="col-sm-3 label" style="font-weight: bold;" for="name">Menu Item Category Name:</label>
                             <div class="col-sm-4">
                                 <input class="form-control" id="name" placeholder="Enter Name" [required]="true" formControlName="name">
                             </div>
                         </div> <br />
                         <div class="form-group">
-                            <label class="col-sm-3 label" for="description">Menu Item Category Description:</label>
+                            <label class="col-sm-3 label" style="font-weight: bold;" for="description">Menu Item Category Description:</label>
                             <div class="col-sm-4">
                                 <input class="form-control" id="description" placeholder="Enter Description" [required]="true" formControlName="description">
                             </div>

@@ -34,7 +34,7 @@ namespace Africanacity_Team24_INF370_.Controllers
         {
             try
             {
-                var results = await _repository.GetAllMenuItemAsync();
+                var results = await _repository.GetAllMenuItemsAsync();
                 return Ok(results);
             }
             catch (Exception)
@@ -45,11 +45,11 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         [HttpGet]
         [Route("GetMenuItem/{MenuItemId}")]
-        public async Task<IActionResult> GetMenuItemAsync(int MenuItem_Id)
+        public async Task<IActionResult> GetMenuItemAsync(int MenuItemId)
         {
             try
             {
-                var menuItem = _repository.GetMenuItemAsync(MenuItem_Id);
+                var menuItem = await _repository.GetMenuItemAsync(MenuItemId);
 
                 if (menuItem == null)
                 {
@@ -93,7 +93,7 @@ namespace Africanacity_Team24_INF370_.Controllers
             try
             {
                 var existingMeal = await _repository.GetMenuItemAsync(MenuItemId);
-                if (existingMeal == null) return NotFound($"The course does not exist");
+                if (existingMeal == null) return NotFound($"The menu item does not exist");
 
                 existingMeal.Name = menuItemViewModel.Name;
                 existingMeal.Description = menuItemViewModel.Description;
@@ -120,7 +120,7 @@ namespace Africanacity_Team24_INF370_.Controllers
             {
                 var existingMeal = await _repository.GetMenuItemAsync(MenuItemId);
 
-                if (existingMeal == null) return NotFound($"The course does not exist");
+                if (existingMeal == null) return NotFound($"The menu item does not exist");
 
                 _repository.Delete(existingMeal);
 

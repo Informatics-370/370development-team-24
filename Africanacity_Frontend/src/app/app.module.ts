@@ -3,7 +3,6 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './administration/home/home.component';
-import { MenuComponent } from './administration/menu/menu.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -48,7 +47,6 @@ import { CreateMenuItemCategoryComponent } from './administration/Menu Item Cate
   declarations: [
     AppComponent,
     HomeComponent,
-    MenuComponent,
     NavbarComponent,
     RegisterComponent,
     LoginComponent,

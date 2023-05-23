@@ -11,7 +11,7 @@ import { Employee } from '../shared/employee';
 })
 export class EmployeeService {
 
-  apiUrl = 'http://localhost:49991/api/'
+  apiUrl = 'https://localhost:5116/api/'
   // private apiURL = 'http://localhost:49991/api/Employee';
   // private apiUrl = 'http://localhost:5000/api/email';
 

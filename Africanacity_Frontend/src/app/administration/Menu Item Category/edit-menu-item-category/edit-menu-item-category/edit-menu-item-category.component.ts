@@ -25,7 +25,7 @@ export class EditMenuItemCategoryComponent {
   ngOnInit(): void {
 
     this.activated.params.subscribe(params => { 
-      this.dataService.GetFoodType(params['id']).subscribe(res => { 
+      this.dataService.GetMenuItemCategory(params['id']).subscribe(res => { 
         this.editMenuItemCategory = res as MenuItemCategory;
 
         this.updateMenuItemCategoryForm.controls['name'].setValue(this.editMenuItemCategory.name);
@@ -54,9 +54,7 @@ export class EditMenuItemCategoryComponent {
     menuItemCategory.name = this.updateMenuItemCategoryForm.value.name;
     menuItemCategory.description = this.updateMenuItemCategoryForm.value.description;
     
-
-
-    this.dataService.EditMenuItemCategory(this.editMenuItemCategory.MenuItemCategoryId, menuItemCategory).subscribe((response:any) => {
+    this.dataService.EditMenuItemCategory(this.editMenuItemCategory.menu_CategoryId, menuItemCategory).subscribe((response:any) => {
 
       if(response.statusCode == 200)
       {

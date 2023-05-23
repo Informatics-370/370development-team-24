@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Africanacity_Team24_INF370_.Migrations
 {
-    public partial class China : Migration
+    public partial class MMINO : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -182,6 +182,19 @@ namespace Africanacity_Team24_INF370_.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MenuItem_Categories", x => x.Menu_CategoryId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MenuItem_Prices",
+                columns: table => new
+                {
+                    MenuItem_PriceId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MenuItem_Prices", x => x.MenuItem_PriceId);
                 });
 
             migrationBuilder.CreateTable(
@@ -425,23 +438,44 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Food_TypeFoodTypeId = table.Column<int>(type: "int", nullable: true),
+                    Menu_TypeId = table.Column<int>(type: "int", nullable: false),
+                    Menu_CategoryId = table.Column<int>(type: "int", nullable: false),
+                    FoodTypeId = table.Column<int>(type: "int", nullable: false),
+                    Food_TypeFoodTypeId1 = table.Column<int>(type: "int", nullable: true),
                     MenuItem_CategoryMenu_CategoryId = table.Column<int>(type: "int", nullable: true),
-                    Menu_TypeId = table.Column<int>(type: "int", nullable: true)
+                    Menu_TypeId1 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MenuItems", x => x.MenuItemId);
                     table.ForeignKey(
-                        name: "FK_MenuItems_Food_Types_Food_TypeFoodTypeId",
-                        column: x => x.Food_TypeFoodTypeId,
+                        name: "FK_MenuItems_Food_Types_Food_TypeFoodTypeId1",
+                        column: x => x.Food_TypeFoodTypeId1,
                         principalTable: "Food_Types",
                         principalColumn: "FoodTypeId");
+                    table.ForeignKey(
+                        name: "FK_MenuItems_Food_Types_FoodTypeId",
+                        column: x => x.FoodTypeId,
+                        principalTable: "Food_Types",
+                        principalColumn: "FoodTypeId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_MenuItems_Menu_Types_Menu_TypeId",
                         column: x => x.Menu_TypeId,
                         principalTable: "Menu_Types",
+                        principalColumn: "Menu_TypeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MenuItems_Menu_Types_Menu_TypeId1",
+                        column: x => x.Menu_TypeId1,
+                        principalTable: "Menu_Types",
                         principalColumn: "Menu_TypeId");
+                    table.ForeignKey(
+                        name: "FK_MenuItems_MenuItem_Categories_Menu_CategoryId",
+                        column: x => x.Menu_CategoryId,
+                        principalTable: "MenuItem_Categories",
+                        principalColumn: "Menu_CategoryId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_MenuItems_MenuItem_Categories_MenuItem_CategoryMenu_CategoryId",
                         column: x => x.MenuItem_CategoryMenu_CategoryId,
@@ -534,25 +568,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                         column: x => x.DrinkId,
                         principalTable: "Drinks",
                         principalColumn: "DrinkId");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MenuItem_Prices",
-                columns: table => new
-                {
-                    MenuItem_PriceId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    MenuItemId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MenuItem_Prices", x => x.MenuItem_PriceId);
-                    table.ForeignKey(
-                        name: "FK_MenuItem_Prices_MenuItems_MenuItemId",
-                        column: x => x.MenuItemId,
-                        principalTable: "MenuItems",
-                        principalColumn: "MenuItemId");
                 });
 
             migrationBuilder.CreateTable(
@@ -988,9 +1003,84 @@ namespace Africanacity_Team24_INF370_.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Employee_Roles",
+                columns: new[] { "Employee_RoleId", "Description", "Name" },
+                values: new object[,]
+                {
+                    { 1, "The waiter serves the customers and takes orders", "Waiter" },
+                    { 2, "The chef prepares the meals and notifies the waiter of ready orders.", "Chef" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Employees",
                 columns: new[] { "EmployeeId", "Email_Address", "Employee_RoleId", "FirstName", "PhoneNumber", "Physical_Address", "Surname", "UserId" },
-                values: new object[] { 1, "VanessaJames@gmial.com", null, "Vanessa", "0847541236", null, "James", null });
+                values: new object[,]
+                {
+                    { 1, "VanessaJames@gmail.com", null, "Vanessa", "0847541236", "404 Jacob Street", "James", null },
+                    { 2, "SerenaWilliams@gmail.com", null, "Serena", "0842341236", "132 Harriet Street", "Williams", null },
+                    { 3, "EdrisElba@gmail.com", null, "Edris", "0212378798", "245 homelyn Street", "Elba", null },
+                    { 4, "NyongoLupita@gmail.com", null, "Lupita", "0455783475", "254 Summer Street", "Nyongo", null },
+                    { 5, "MicheaJackson@gmail.com", null, "Micheal", "0874567836", "567 Winter Street", "Jackson", null },
+                    { 6, "TaehyungKim@gmial.com", null, "Taehyung", "0874562134", "345 Shallow  Street", "Kim", null },
+                    { 7, "ZendayaColeman@gmail.com", null, "Zendaya", "0212378798", "243 Super Street ", "Coleman", null },
+                    { 8, "RogerFederal@gmail.com", null, "Roger", "0612346487", "987 Wall Street", "Federal", null },
+                    { 9, "JenniferLOpez@gmail.com", null, "Jennifer", "0874834576", "967 Ballard Street", "Lopez", null },
+                    { 10, "ChadwickBoseman@gmail.com", null, "Chadwick", "0923456789", "483 Alien Street", "Boseman", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Food_Types",
+                columns: new[] { "FoodTypeId", "Description", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Meals consisting of chicken", "Chicken" },
+                    { 2, "Meals consisting of beef", "Beef" },
+                    { 3, "Meals suitable for vegetarians", "Vegetarian" },
+                    { 4, "Meals suitable for Vegans", "Vegan" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Helps",
+                columns: new[] { "HelpId", "AdministratorId", "Description", "Help_CategoryId", "Name" },
+                values: new object[,]
+                {
+                    { 1, null, "MMINO Restaurant serves various types of cuisines", null, "What food does MMINO Restaurant serve?" },
+                    { 2, null, "MMINO Restaurant is located in Hatfield,Pretoria. 1005 Arcadia Street", null, "Where is MMINO Restaurant?" },
+                    { 3, null, "You can book for a live entertainment on the website.", null, "How how do you book for a live entertainment slot?" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "MenuItem_Categories",
+                columns: new[] { "Menu_CategoryId", "Description", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Meals between 7am to 12pm", "Breakfast" },
+                    { 2, "Appetisers", "Starter" },
+                    { 3, "Big and Filling meals", "Main" },
+                    { 4, "Special things for those with a sweet tooth", "Dessert" },
+                    { 5, "For those hungry but not hungry", "Light Meals" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Menu_Types",
+                columns: new[] { "Menu_TypeId", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Breakfast" },
+                    { 2, "All Day" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "MenuItems",
+                columns: new[] { "MenuItemId", "Description", "FoodTypeId", "Food_TypeFoodTypeId1", "MenuItem_CategoryMenu_CategoryId", "Menu_CategoryId", "Menu_TypeId", "Menu_TypeId1", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Two larger chicken burger, 6 pcs nuggets, two large fries", 1, null, null, 3, 2, null, "Chicken Feast" },
+                    { 2, "Pap, boerewors an Tbone steak", 2, null, null, 3, 2, null, "The Braai feast" },
+                    { 3, "Mozarella stuffe cheese balls", 3, null, null, 2, 2, null, "Chilli cheese poppers" },
+                    { 4, "A green salad with salsa mix", 4, null, null, 5, 2, null, "Mexican salad" },
+                    { 5, "Delicious cheesecake with blueberry sauce topping", 3, null, null, 4, 2, null, "Blueberry cheescake" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Access_UserRoles_User_RolesUser_RoleId",
@@ -1117,19 +1207,29 @@ namespace Africanacity_Team24_INF370_.Migrations
                 column: "Inventory_TypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MenuItem_Prices_MenuItemId",
-                table: "MenuItem_Prices",
-                column: "MenuItemId");
+                name: "IX_MenuItems_Food_TypeFoodTypeId1",
+                table: "MenuItems",
+                column: "Food_TypeFoodTypeId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MenuItems_Food_TypeFoodTypeId",
+                name: "IX_MenuItems_FoodTypeId",
                 table: "MenuItems",
-                column: "Food_TypeFoodTypeId");
+                column: "FoodTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MenuItems_Menu_CategoryId",
+                table: "MenuItems",
+                column: "Menu_CategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MenuItems_Menu_TypeId",
                 table: "MenuItems",
                 column: "Menu_TypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MenuItems_Menu_TypeId1",
+                table: "MenuItems",
+                column: "Menu_TypeId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MenuItems_MenuItem_CategoryMenu_CategoryId",

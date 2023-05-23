@@ -4,7 +4,7 @@
 //     description: string;
  
 export class MenuItemCategory{
-    MenuItemCategoryId!: number;
+    menu_CategoryId!: number;
     name!: string;
     description!: string;
     menuCategoryName: any;
