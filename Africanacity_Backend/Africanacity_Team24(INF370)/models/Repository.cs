@@ -4,6 +4,7 @@ using Africanacity_Team24_INF370_.models.Administration;
 using Africanacity_Team24_INF370_.ViewModel;
 using Africanacity_Team24_INF370_.View_Models;
 using Microsoft.EntityFrameworkCore;
+using Africanacity_Team24_INF370_.models.Inventory;
 
 namespace Africanacity_Team24_INF370_.models
 {
@@ -175,6 +176,14 @@ namespace Africanacity_Team24_INF370_.models
                 await _appDbContext.SaveChangesAsync();
             }
             return code;
+        }
+
+        //SUPPLIER
+
+        public async Task<Supplier[]> GetAllSuppliersAsync()
+        {
+            IQueryable<Supplier> query = _appDbContext.Suppliers;
+            return await query.ToArrayAsync();
         }
 
     }

@@ -5,6 +5,7 @@ using Africanacity_Team24_INF370_.models.Restraurant;
 using Africanacity_Team24_INF370_.ViewModel;
 using Africanacity_Team24_INF370_.View_Models;
 using System.Threading.Tasks;
+using Africanacity_Team24_INF370_.models.Inventory;
 
 namespace Africanacity_Team24_INF370_.models
 {
@@ -59,7 +60,11 @@ namespace Africanacity_Team24_INF370_.models
         // MENU ITEM CATEGORY
         Task<MenuItem_Category[]> GetAllMenuItemCategoriesAsync();
         Task<MenuItem_Category> GetMenuItemCategoryAsync(int Menu_CategoryId);
-        
+
+        //SUPPLIER
+        Task<Supplier[]> GetAllSuppliersAsync();
+        Task<Supplier> GetSupplierAsync(int SupplierId);
+
 
     }
 }
