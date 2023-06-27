@@ -2,11 +2,10 @@
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
+    [Route("api/[Controller]")]
+    [ApiController]
     public class SupplierTypeController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+     
     }
 }
