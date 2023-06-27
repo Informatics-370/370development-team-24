@@ -1,5 +1,6 @@
 ﻿using Africanacity_Team24_INF370_.models;
 using Africanacity_Team24_INF370_.models.Administration;
+using Africanacity_Team24_INF370_.models.Inventory;
 using Africanacity_Team24_INF370_.models.Restraurant;
 using Africanacity_Team24_INF370_.View_Models;
 using Africanacity_Team24_INF370_.ViewModel;
@@ -61,13 +62,13 @@ namespace Africanacity_Team24_INF370_.Controllers
                 }
             }
 
-            // Add Employee
+            // Add Supplier
 
             [HttpPost]
             [Route("AddSupplier")]
             public async Task<IActionResult> AddSupplier(SupplierViewModel svm)
             {
-                var supplier = new Employee { FirstName = svm.FirstName, Surname = evm.Surname, Email_Address = evm.Email_Address, Physical_Address = evm.Physical_Address, PhoneNumber = evm.PhoneNumber };
+                var supplier = new Supplier { FirstName = svm.Name, Email_Address = svm.Email_Address, Physical_Address = svm.Physical_Address, PhoneNumber = svm.PhoneNumber };
 
                 try
                 {
@@ -84,26 +85,25 @@ namespace Africanacity_Team24_INF370_.Controllers
 
             }
 
-            //Update Employee
+            //Update Supplier
 
             [HttpPut]
-            [Route("EditEmployee/{employeeId}")]
-            public async Task<ActionResult<EmployeeViewModel>> EditEmployee(int employeeId, EmployeeViewModel evm)
+            [Route("EditSupplier/{supplierId}")]
+            public async Task<ActionResult<SupplierViewModel>> EditSupplier(int supplierId, SupplierViewModel svm)
             {
                 try
                 {
-                    var currentEmployee = await _Repository.GetEmployeeAsync(employeeId);
-                    if (currentEmployee == null) return NotFound($"The employee does not exist");
+                    var currentSupplier = await _Repository.GetSupplierAsync(supplierId);
+                    if (currentSupplier == null) return NotFound($"The supplier does not exist");
 
-                    currentEmployee.FirstName = evm.FirstName;
-                    currentEmployee.Surname = evm.Surname;
-                    currentEmployee.Email_Address = evm.Email_Address;
-                    currentEmployee.PhoneNumber = evm.PhoneNumber;
-                    currentEmployee.Physical_Address = evm.Physical_Address;
+                    currentSupplier.FirstName = svm.Name;
+                    currentSupplier.Email_Address = svm.Email_Address;
+                    currentSupplier.PhoneNumber = svm.PhoneNumber;
+                    currentSupplier.Physical_Address = svm.Physical_Address;
 
                     if (await _Repository.SaveChangesAsync())
                     {
-                        return Ok(currentEmployee);
+                        return Ok(currentSupplier);
                     }
                 }
                 catch (Exception)
@@ -113,20 +113,20 @@ namespace Africanacity_Team24_INF370_.Controllers
                 return BadRequest("Your request is invalid.");
             }
 
-            // Delete Employee
+            // Delete Supplier
             [HttpDelete]
-            [Route("DeleteEmployee/{employeeId}")]
-            public async Task<IActionResult> DeleteEmployee(int employeeId)
+            [Route("DeleteSupplier/{supplierId}")]
+            public async Task<IActionResult> DeleteSupplier(int supplierId)
             {
                 try
                 {
-                    var currentEmployee = await _Repository.GetEmployeeAsync(employeeId);
+                    var currentSupplier = await _Repository.GetSupplierAsync(supplierId);
 
-                    if (currentEmployee == null) return NotFound($"The employee does not exist");
+                    if (currentSupplier == null) return NotFound($"The employee does not exist");
 
-                    _Repository.Delete(currentEmployee);
+                    _Repository.Delete(currentSupplier);
 
-                    if (await _Repository.SaveChangesAsync()) return Ok(currentEmployee);
+                    if (await _Repository.SaveChangesAsync()) return Ok(currentSupplier);
 
                 }
                 catch (Exception)
@@ -137,13 +137,13 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
 
             [HttpGet("search")]
-            public ActionResult<IEnumerable<Employee>> Search(string searchTerm)
+            public ActionResult<IEnumerable<Supplier>> Search(string searchTerm)
             {
-                var Employee = _appDBContext.Employees
+                var Supplier = _appDBContext.Employees
                     .Where(f => f.FirstName.Contains(searchTerm))
                     .ToList();
 
-                return Ok(Employee);
+                return Ok(Supplier);
             }
 
             //Email Verification
