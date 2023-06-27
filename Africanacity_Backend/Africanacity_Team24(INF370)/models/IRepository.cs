@@ -65,6 +65,9 @@ namespace Africanacity_Team24_INF370_.models
         Task<Supplier[]> GetAllSuppliersAsync();
         Task<Supplier> GetSupplierAsync(int SupplierId);
 
+        //SUPPLIER_TYPE
+        Task<Supplier_Type[]> GetAllSupplierTypesAsync();
+        Task<Supplier_Type> GetSupplierTypeAsync(int Supplier_TypeId);
 
     }
 }

@@ -186,5 +186,27 @@ namespace Africanacity_Team24_INF370_.models
             return await query.ToArrayAsync();
         }
 
+        public async Task<Supplier> GetSupplierAsync(int supplierId)
+        {
+            IQueryable<Supplier> query = _appDbContext.Suppliers.Where(s => s.SupplierId == supplierId);
+            return await query.FirstOrDefaultAsync();
+        }
+
+        //SUUPLIER TYPES
+
+        public async Task<Supplier_Type[]> GetAllSupplierTypesAsync()
+        {
+            IQueryable<Supplier_Type> query = _appDbContext.Supplier_Types;
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<Supplier_Type> GetSupplierTypeAsync(int supplier_TypeId)
+        {
+            IQueryable<Supplier_Type> query = _appDbContext.Supplier_Types.Where(s => s.Supplier_TypeId == supplier_TypeId);
+            return await query.FirstOrDefaultAsync();
+        }
+
+
+
     }
 }
