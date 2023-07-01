@@ -21,7 +21,7 @@ namespace Africanacity_Team24_INF370_.Controllers
         //getting a list of the table menu items
 
         [HttpGet]
-        [Route("MenuItemsListing")]
+        [Route("MenuItemListing")]
         public async Task<ActionResult> MenuItemListing()
         {
             try

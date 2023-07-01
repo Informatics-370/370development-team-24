@@ -109,11 +109,12 @@ namespace Africanacity_Team24_INF370_.models
             return await query.FirstOrDefaultAsync();
         }
 
-       
+
         //Menu Item
         public async Task<MenuItem[]> GetAllMenuItemsAsync()
         {
-            IQueryable<MenuItem> query = _appDbContext.MenuItems;
+            IQueryable<MenuItem> query = _appDbContext.MenuItems.Include(p => p.Menu_Type).Include(p => p.Food_Type).Include(p => p.MenuItem_Category);
+
             return await query.ToArrayAsync();
         }
 

@@ -17,7 +17,7 @@ import { MenuItemCategory } from '../shared/menu-item-category';
 export class DataService {
   
 
-  apiUrl = 'https://localhost:5116/api/'
+  apiUrl = 'https://localhost:49991/api/'
 
   httpOptions ={
     headers: new HttpHeaders({
@@ -112,9 +112,9 @@ export class DataService {
 
   /********************************MENU ITEM******************************/
   //GET MENU ITEMS
-  GetAllMenuItems(): Observable<any>{
-    return this.httpClient.get(`${this.apiUrl}MenuItems/GetAllMenuItems`)
-    .pipe(map(result => result));
+  GetAllMenuItems() {
+    return this.httpClient.get(`${this.apiUrl}MenuItems/MenuItemListing`)
+    .pipe(map(result => result))
   }
 
 

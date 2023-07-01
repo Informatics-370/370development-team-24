@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { AfterViewInit, Component, OnInit} from '@angular/core';
 import { DataService } from 'src/app/service/data.Service';
 import { MenuTypes } from 'src/app/shared/menu-types';
 import {Router} from '@angular/router';
@@ -8,6 +8,8 @@ import { MenuItem } from 'src/app/shared/menu-item';
 import { FoodType } from 'src/app/shared/food-type';
 import { MenuItemCategory } from 'src/app/shared/menu-item-category';
 import {map, take } from 'rxjs/operators';
+import { MatTableDataSource } from '@angular/material/table';
+
 
 
 @Component({
@@ -15,29 +17,26 @@ import {map, take } from 'rxjs/operators';
   templateUrl: './menuitems.component.html',
   styleUrls: ['./menuitems.component.css']
 })
-export class MenuitemsComponent {
+export class MenuitemsComponent implements OnInit{
 
-  menuItems: MenuItem[]=[]
-  // foodTypes: FoodType[] = []
-  // menuCategories: MenuItemCategory [] = []
-  // menuTypes:MenuTypes[] = []
+  displayedColumns: string[] = ['name', 'description', 'menuTypeName','foodTypeName', 'menuCategoryName'];
+  menuItems:MenuItem[] = [];
+  
+  dataSource = new MatTableDataSource <MenuItem>();
+  snackBar: any;
+  constructor(private dataService: DataService) { }
   httpClient: any;
   apiUrl: any;
 
-  constructor(private dataService: DataService, 
-    private router: Router,
-    private http: HttpClient,
-    private snackBar: MatSnackBar){}
 
     ngOnInit(): void{
-   
-      this.GetAllMenuItems()
-      console.log(this.menuItems)
+  
+      this.dataService.GetAllMenuItems().subscribe((menuItems:any) => {this.dataSource.data = menuItems})
     }
 
   /*************************** MENU ITEM ************/
 /**Get all menu items** */
-GetAllMenuItems() {
+/*GetAllMenuItems() {
   this.dataService.GetAllMenuItems().subscribe(
     (menuItems) => {
       this.menuItems = menuItems;
@@ -47,7 +46,7 @@ GetAllMenuItems() {
       console.error(error);
     }
   );
-}
+}*/
 
 /*GetAllMenuItems() {
   this.dataService.GetAllMenuItems().subscribe(result => {
@@ -164,29 +163,10 @@ deleteMenuItem(menu_ItemId: Number){
 }
  
 
-/*loadMenuCategoryName(menuItem: MenuItem): void {
-  this.http.get<any>(`api/MenuItem_Category/GetAllMenuItemCategories${menuItem.name}`).subscribe(
-    (response) => {
-      menuItem.menuCategoryName = response.name;
-    },
-    (error) => {
-      console.error('Failed to fetch menu category name:', error);
-    }
-  );
-}*/
 
 
-/*loadFoodTypeName(menuItem: MenuItem): void {
-  this.http.get<any>(`api/foodTypeController/GetAllFoodTypes${menuItem.name}`).subscribe(
-    (response) => {
-      menuItem.foodTypeName = response.name;
-    },
-    (error) => {
-      console.error('Failed to fetch food type name:', error);
-    }
-  );
-}
-*/
+
+
 
 // ...
 
@@ -227,17 +207,6 @@ deleteMenuItem(menu_ItemId: Number){
   }
 }*/
 
-/*populateColumnNames() {
-  for (const menuItem of this.menuItems) {
-    if (menuItem.foodType && menuItem.foodType.name) {
-      menuItem.foodType.name = menuItem.foodType.name;
-    }
-
-    if (menuItem.category && menuItem.category.name) {
-      menuItem.category.name = menuItem.category.name;
-    }
-  }
-}*/
 
 
 

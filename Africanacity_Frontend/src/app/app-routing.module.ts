@@ -35,7 +35,7 @@ import { EditMenuItemCategoryComponent } from './administration/Menu Item Catego
 const routes: Routes = [
   // to open the app to open on this specific page
   // open on this page
-  { path: '', component: LoginComponent },
+  { path: '', component: HomeComponent },
   { path: 'add-employee', component: AddEmployeeComponent }, // for add employee page
   { path: 'edit-employee/:id', component: EditEmployeeComponent},//Edit employee
   { path: 'view-employees', component: ViewEmployeesComponent }, // for view employees page
@@ -64,7 +64,7 @@ const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent }, // forgotpassword path
   { path: 'reset-password',component: ResetPasswordComponent }, //resetpassword path
   { path: 'home', component: HomeComponent }, // for home page
-  {path: '', redirectTo: 'login', pathMatch:'full'},
+  {path: '', redirectTo: 'home', pathMatch:'full'},
   
 ];
 

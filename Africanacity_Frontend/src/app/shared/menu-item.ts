@@ -2,12 +2,11 @@ export interface MenuItem {
     menuItem_Id: Number;
     name:String;
     description: String;
-    foodTypeName:String;//new property for name
-    menuTypeName:String;//new property for name
-    menuCategoryName:String;//new property for name
-    // foodTypeId: number;
-    // menu_TypeId: number;
-    // menuItemCategory_Id: number;
+    foodTypeName:string;//new property for name
+    menuTypeName:string;//new property for name
+    menuCategoryName:string;//new property for name
+    isDeleted:false;
+   
 }
 
 /*export class MenuItem
