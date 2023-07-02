@@ -35,7 +35,7 @@ import { EditMenuItemCategoryComponent } from './administration/Menu Item Catego
 const routes: Routes = [
   // to open the app to open on this specific page
   // open on this page
-  { path: '', component: LoginComponent },
+  { path: '', component: ViewEmployeesComponent },
   { path: 'add-employee', component: AddEmployeeComponent }, // for add employee page
   { path: 'edit-employee/:id', component: EditEmployeeComponent},//Edit employee
   { path: 'view-employees', component: ViewEmployeesComponent }, // for view employees page

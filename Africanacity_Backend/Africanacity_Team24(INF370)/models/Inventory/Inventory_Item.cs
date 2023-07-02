@@ -16,5 +16,7 @@ namespace Africanacity_Team24_INF370_.models.Inventory
 		public string Description { get; set; } = string.Empty;
 
 		public List<Supplier> Suppliers { get; set; } = new List<Supplier>();
-	}
+
+        public Inventory_Type Inventory_Type { get; set; }
+    }
 }

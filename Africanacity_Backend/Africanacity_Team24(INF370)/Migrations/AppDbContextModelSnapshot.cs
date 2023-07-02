@@ -728,7 +728,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int?>("Inventory_TypeId")
+                    b.Property<int>("Inventory_TypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -779,14 +779,11 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<int?>("AdministratorId")
                         .HasColumnType("int");
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email_Address")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -799,21 +796,8 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<string>("Physical_Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PostalCode")
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)");
-
-                    b.Property<string>("State")
-                        .HasMaxLength(2)
-                        .HasColumnType("nvarchar(2)");
-
-                    b.Property<int?>("Supplier_TypeId")
+                    b.Property<int>("Supplier_TypeId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("SupplierId");
 
@@ -1667,9 +1651,13 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .WithMany("Inventorys")
                         .HasForeignKey("AdministratorId");
 
-                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.Inventory_Type", null)
+                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.Inventory_Type", "Inventory_Type")
                         .WithMany("Inventorys")
-                        .HasForeignKey("Inventory_TypeId");
+                        .HasForeignKey("Inventory_TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Inventory_Type");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier", b =>
@@ -1678,9 +1666,13 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .WithMany("Suppliers")
                         .HasForeignKey("AdministratorId");
 
-                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.Supplier_Type", null)
+                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.Supplier_Type", "Supplier_Type")
                         .WithMany("Suppliers")
-                        .HasForeignKey("Supplier_TypeId");
+                        .HasForeignKey("Supplier_TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Supplier_Type");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier_InventoryItem", b =>

@@ -433,8 +433,13 @@ namespace Africanacity_Team24_INF370_.models
 
                           });
 
+            //Create Seed Data for the supplier table:
+
+
+
+ 
             //Many to many with MenuItem
-                         modelBuilder.Entity<MenuItem>()
+            modelBuilder.Entity<MenuItem>()
                         .HasOne(m => m.Menu_Type)
                         .WithMany()
                         .HasForeignKey(m => m.Menu_TypeId);

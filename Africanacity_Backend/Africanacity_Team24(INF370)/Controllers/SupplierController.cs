@@ -1,7 +1,5 @@
 ﻿using Africanacity_Team24_INF370_.models;
-using Africanacity_Team24_INF370_.models.Administration;
 using Africanacity_Team24_INF370_.models.Inventory;
-using Africanacity_Team24_INF370_.models.Restraurant;
 using Africanacity_Team24_INF370_.View_Models;
 using Africanacity_Team24_INF370_.ViewModel;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +33,16 @@ namespace Africanacity_Team24_INF370_.Controllers
                 try
                 {
                     var results = await _Repository.GetAllSuppliersAsync();
-                    return Ok(results);
+                dynamic suppliers = results.Select(s => new
+                {
+                    s.SupplierId,
+                    s.Name,
+                    SupplierTypeName = s.Supplier_Type.Name,
+                    s.Email_Address,
+                    s.Physical_Address
+                });
+
+                    return Ok(suppliers);
                 }
                 catch (Exception)
                 {
@@ -52,7 +59,8 @@ namespace Africanacity_Team24_INF370_.Controllers
                 {
                     var result = await _Repository.GetSupplierAsync(supplierId);
 
-                    if (result == null) return NotFound("Employee does not exist. You need to create an employee first");
+
+                    if (result == null) return NotFound("Supplier does not exist. You need to create an Supplier first");
 
                     return Ok(result);
                 }
@@ -68,7 +76,7 @@ namespace Africanacity_Team24_INF370_.Controllers
             [Route("AddSupplier")]
             public async Task<IActionResult> AddSupplier(SupplierViewModel svm)
             {
-                var supplier = new Supplier { FirstName = svm.Name, Email_Address = svm.Email_Address, Physical_Address = svm.Physical_Address, PhoneNumber = svm.PhoneNumber };
+                var supplier = new Supplier {Name = svm.Name, Email_Address = svm.Email_Address, Physical_Address = svm.Physical_Address, PhoneNumber = svm.PhoneNumber };
 
                 try
                 {
@@ -96,7 +104,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                     var currentSupplier = await _Repository.GetSupplierAsync(supplierId);
                     if (currentSupplier == null) return NotFound($"The supplier does not exist");
 
-                    currentSupplier.FirstName = svm.Name;
+                    currentSupplier.Name = svm.Name;
                     currentSupplier.Email_Address = svm.Email_Address;
                     currentSupplier.PhoneNumber = svm.PhoneNumber;
                     currentSupplier.Physical_Address = svm.Physical_Address;

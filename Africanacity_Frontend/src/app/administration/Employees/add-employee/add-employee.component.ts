@@ -50,16 +50,16 @@ export class AddEmployeeComponent implements OnInit {
      })
   //EmailVerification
 
-  checkEmail() {
-    this.employeeservice.checkEmail(this.email).subscribe(
-      (response) => {
-        this.message = response.message;
-      },
-      (error) => {
-        console.error('Error checking email:', error);
-      }
-    );
-  }
+  // checkEmail() {
+  //   this.employeeservice.checkEmail(this.email).subscribe(
+  //     (response) => {
+  //       this.message = response.message;
+  //     },
+  //     (error) => {
+  //       console.error('Error checking email:', error);
+  //     }
+  //   );
+  // }
 
 
      Roles: string[] = ['Driver', 'Administrator', 'Waiter'];
@@ -99,6 +99,17 @@ export class AddEmployeeComponent implements OnInit {
             this.employeeservice.AddEmployee(employee).subscribe(result => {
                   this.router.navigate(['/view-employees'])
             })
+            // checkEmail() {
+            //   this.employeeservice.checkEmail(this.email).subscribe(
+            //     (response) => {
+            //       this.message = response.message;
+            //     },
+            //     (error) => {
+            //       console.error('Error checking email:', error);
+            //     }
+            //   );
+            // }
+          
     
      this.employeeservice.AddEmployee(employee).subscribe((res:any) => {
 
@@ -111,12 +122,12 @@ export class AddEmployeeComponent implements OnInit {
       
       }
      });
-     this.showSuccessMessage('Enter valid phone number!');
+     this.showSuccessMessage('Employee added successfully!');
          }
 
          showSuccessMessage(message: string): void {
           const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(message, 'Ok', {
-            duration: 5000, // Duration in milliseconds
+            duration: 3000, // Duration in milliseconds
             horizontalPosition: 'center',
             verticalPosition: 'bottom'
           });

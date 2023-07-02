@@ -21,17 +21,14 @@ export class ViewEmployeesComponent {
   employees:Employee[] = []
   searchTerm!: string;
   Employee!: Employee[];
+  filteredEmployees: Employee[] = [];
 
-  constructor(private employeeservice: EmployeeService, 
-    private router: Router, 
-    private httpClient: HttpClient, 
-    private snackBar: MatSnackBar){}
+  constructor(private employeeservice: EmployeeService, private router: Router, private httpClient: HttpClient, private snackBar: MatSnackBar){}
   
 
   deleteItem(): void {
     const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete this item?', 'Delete Cancel',{
       duration: 5000, // Display duration in milliseconds
-
     });
 
     
@@ -79,12 +76,13 @@ export class ViewEmployeesComponent {
     // search(searchTerm: string) {
     //   this.searchClicked.emit(searchTerm);
     // }
-    search(): void {
+    search() {
       if (this.searchTerm) {
-        this.employeeservice.searchFunctions(this.searchTerm)
-          .subscribe(Employee => this.Employee = Employee);
+        this.filteredEmployees = this.employees.filter(employee =>
+          employee.firstName.toLowerCase().includes(this.searchTerm.toLowerCase())
+        );
       } else {
-        this.Employee = [];
+        this.filteredEmployees = this.employees;
       }
     }
 

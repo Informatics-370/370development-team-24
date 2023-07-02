@@ -21,7 +21,7 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
 
-        // Get all suppliers, from the database
+        // Get all suppliers types, from the database
 
         [HttpGet]
         [Route("GetAllSupplierTypes")]
@@ -40,12 +40,12 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
         [HttpGet]
-        [Route("GetSupplierType/{supplier_TypeId}")]
-        public async Task<IActionResult> GetSupplierTypeAsync(int supplier_TypeId)
+        [Route("GetSupplierType/{supplier_typeId}")]
+        public async Task<IActionResult> GetSupplierTypeAsync(int supplier_typeId)
         {
             try
             {
-                var result = await _Repository.GetSupplierAsync(supplier_TypeId);
+                var result = await _Repository.GetSupplierAsync(supplier_typeId);
 
                 if (result == null) return NotFound("Supplier does not exist. You need to create an Supplier first");
 
@@ -83,12 +83,12 @@ namespace Africanacity_Team24_INF370_.Controllers
         //Update SupplierType
 
         [HttpPut]
-        [Route("EditSupplierType/{supplier_TypeId}")]
-        public async Task<ActionResult<SupplierTypeViewModel>> EditSupplierType(int supplier_TypeId, SupplierTypeViewModel stvm)
+        [Route("EditSupplierType/{supplier_typeId}")]
+        public async Task<ActionResult<SupplierTypeViewModel>> EditSupplierType(int supplier_typeId, SupplierTypeViewModel stvm)
         {
             try
             {
-                var currentSupplierType = await _Repository.GetSupplierTypeAsync(supplier_TypeId);
+                var currentSupplierType = await _Repository.GetSupplierTypeAsync(supplier_typeId);
                 if (currentSupplierType == null) return NotFound($"The supplier does not exist");
 
                 currentSupplierType.Name = stvm.Name;
@@ -108,7 +108,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         // Delete SupplierType
         [HttpDelete]
-        [Route("DeleteSupplierType/{supplier_TypeId}")]
+        [Route("DeleteSupplierType/{supplier_typeId}")]
         public async Task<IActionResult> DeleteSupplierType(int suppiler_TypeId)
         {
             try
@@ -139,24 +139,7 @@ namespace Africanacity_Team24_INF370_.Controllers
             return Ok(Supplier_Type);
         }
 
-        //Email Verification
-
-        [HttpPost]
-        public IActionResult CheckEmail([FromBody] Emails emailModel)
-        {
-            string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
-
-            if (Regex.IsMatch(emailModel.Email, emailPattern))
-            {
-                return Ok(new { message = "Email matches the pattern." });
-            }
-            else
-            {
-                return BadRequest(new { message = "Invalid email format." });
-            }
-        }
-
     }
 
 }
-}
+
