@@ -2,9 +2,9 @@ export class MenuItem {
     menuItemId!: number;
     name!:String;
     description!: String;
-    foodTypeName!:string;//new property for name
-    menuTypeName!:string;//new property for name
-    menuCategoryName!:string;//new property for name
+    foodTypeId!:number;//new property for name
+    menuTypeId!:number;//new property for name
+    menuCategoryId!:number;//new property for name
     isDeleted!:false;
    
 }

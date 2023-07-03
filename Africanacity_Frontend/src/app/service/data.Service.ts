@@ -135,8 +135,8 @@ export class DataService {
 
 
   //edit menu item
-  editMenuItem(menuItemId: number, menuItem: MenuItem): Observable<MenuItem> {
-    return this.httpClient.put<MenuItem>(`${this.apiUrl}MenuItems/EditMenuItem/${menuItemId}`, menuItem);
+  editMenuItem(MenuItemId: number, menuItem: MenuItem): Observable<MenuItem> {
+    return this.httpClient.put<MenuItem>(`${this.apiUrl}MenuItems/EditMenuItem/${MenuItemId}`, menuItem,this.httpOptions);
   }
 
 

@@ -128,7 +128,7 @@ namespace Africanacity_Team24_INF370_.Controllers
     
 
     [HttpPut]
-        [Route("EditMenuItem/{menuItemId}")]
+        [Route("EditMenuItem/{MenuItemId}")]
         public async Task<ActionResult<MenuItemViewModel>> EditMenuItem(int MenuItemId, [FromBody] MenuItemViewModel menuItemViewModel)
         {
             try
@@ -138,9 +138,9 @@ namespace Africanacity_Team24_INF370_.Controllers
 
                 existingMeal.Name = menuItemViewModel.Name;
                 existingMeal.Description = menuItemViewModel.Description;
-                existingMeal.Menu_TypeId = menuItemViewModel.Menu_Type;
-                existingMeal.FoodTypeId = menuItemViewModel.Food_Type;
-                existingMeal.Menu_CategoryId = menuItemViewModel.Category;
+                existingMeal.Menu_TypeId = menuItemViewModel.MenuTypeId;
+                existingMeal.FoodTypeId = menuItemViewModel.FoodTypeId;
+                existingMeal.Menu_CategoryId = menuItemViewModel.MenuCategoryId;
                 
 
 

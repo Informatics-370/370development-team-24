@@ -7,9 +7,9 @@ namespace Africanacity_Team24_INF370_.View_Models
         public int MenuItemId { get; set; } 
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public int Food_Type { get; set; }
-        public int Menu_Type { get; set; }
-        public int Category { get; set; } 
+        public int FoodTypeId { get; set; }
+        public int MenuTypeId { get; set; }
+        public int MenuCategoryId { get; set; } 
 
       
 

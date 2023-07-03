@@ -16,13 +16,14 @@ import { MenuItem } from 'src/app/shared/menu-item';
 export class EditMenuItemComponent implements OnInit {
  
   menuItemId!: number;
-  menuItem!: MenuItem;
+  menuItem: MenuItem = new MenuItem();
   menuTypes!: MenuTypes[];
   foodTypes!: FoodType[];
   menuCategory!: MenuItemCategory[];
 
 
-  constructor(private route: ActivatedRoute, private dataService: DataService){}
+  constructor(private route: ActivatedRoute, private dataService: DataService,private router: Router,
+    private snackBar: MatSnackBar){}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -40,39 +41,85 @@ export class EditMenuItemComponent implements OnInit {
 
 
   //get a menu item
-  getAMenuItem(): void {
-    this.dataService.GetMenuItemById(this.menuItemId)
-      .subscribe(menuItem => this.menuItem = menuItem);
+  getAMenuItem() {
+    this.dataService.GetMenuItemById(this.menuItemId).subscribe(
+      response => {
+        this.menuItem = response;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   //get the menu types
-  getMenuTypes(): void {
-    this.dataService.GetAllMenuTypes()
-      .subscribe(menuTypes => this.menuTypes = menuTypes);
+  getMenuTypes() {
+    this.dataService.GetAllMenuTypes().subscribe(
+      response => {
+        this.menuTypes = response;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   //get the foodtypes
 
-  getFoodTypes(): void {
-    this.dataService.GetAllFoodTypes()
-      .subscribe(foodTypes => this.foodTypes = foodTypes);
+  getFoodTypes() {
+    this.dataService.GetAllFoodTypes().subscribe(
+      response => {
+        this.foodTypes = response;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   //get the food categories
-  getMenuCategories(): void {
-    this.dataService.GetAllMenuItemCategories()
-      .subscribe(menuCategory => this.menuCategory = menuCategory);
+  getMenuCategories() {
+    this.dataService.GetAllMenuItemCategories().subscribe(
+      response => {
+        this.menuCategory = response;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   //save the changes 
-  saveMenuItem(): void {
-    this.dataService.editMenuItem(this.menuItemId, this.menuItem)
-      .subscribe(() => {
-        // Handle successful edit, such as displaying a success message
-      }, error => {
-        // Handle error, such as displaying an error message
-      });
+  saveMenuItem() {
+    this.dataService.editMenuItem(this.menuItemId, this.menuItem).subscribe(
+      response => {
+        console.log('Menu item updated successfully.');
+        this.showSnackBar('Menu item updated successfully.');
+      },
+      error => {
+        console.log(error);
+        this.showSnackBar('Error updating menu item. Please try again.');
+      }
+    );
   }
 
+ 
+
+//pop up message
+showSnackBar(message: string){
+  const snackBarRef = this.snackBar.open(message, 'Close', {
+    duration: 3000, // Duration in milliseconds
+    horizontalPosition: 'center',
+    verticalPosition: 'bottom'
+  });
+
+  snackBarRef.onAction().subscribe(() => {
+    // Navigate to the  menu item page
+    this.router.navigate(['/menuitems']);
+  });
+}
+
+  
 
 }
+
