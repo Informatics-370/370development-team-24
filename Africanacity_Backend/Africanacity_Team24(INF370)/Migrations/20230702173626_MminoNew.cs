@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Africanacity_Team24_INF370_.Migrations
 {
-    public partial class MMINO : Migration
+    public partial class MminoNew : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -177,11 +177,17 @@ namespace Africanacity_Team24_INF370_.Migrations
                     Menu_CategoryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    MenuItem_CategoryMenu_CategoryId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MenuItem_Categories", x => x.Menu_CategoryId);
+                    table.ForeignKey(
+                        name: "FK_MenuItem_Categories_MenuItem_Categories_MenuItem_CategoryMenu_CategoryId",
+                        column: x => x.MenuItem_CategoryMenu_CategoryId,
+                        principalTable: "MenuItem_Categories",
+                        principalColumn: "Menu_CategoryId");
                 });
 
             migrationBuilder.CreateTable(
@@ -442,7 +448,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                     Menu_CategoryId = table.Column<int>(type: "int", nullable: false),
                     FoodTypeId = table.Column<int>(type: "int", nullable: false),
                     Food_TypeFoodTypeId1 = table.Column<int>(type: "int", nullable: true),
-                    MenuItem_CategoryMenu_CategoryId = table.Column<int>(type: "int", nullable: true),
                     Menu_TypeId1 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -476,11 +481,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                         principalTable: "MenuItem_Categories",
                         principalColumn: "Menu_CategoryId",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MenuItems_MenuItem_Categories_MenuItem_CategoryMenu_CategoryId",
-                        column: x => x.MenuItem_CategoryMenu_CategoryId,
-                        principalTable: "MenuItem_Categories",
-                        principalColumn: "Menu_CategoryId");
                 });
 
             migrationBuilder.CreateTable(
@@ -1051,14 +1051,14 @@ namespace Africanacity_Team24_INF370_.Migrations
 
             migrationBuilder.InsertData(
                 table: "MenuItem_Categories",
-                columns: new[] { "Menu_CategoryId", "Description", "Name" },
+                columns: new[] { "Menu_CategoryId", "Description", "MenuItem_CategoryMenu_CategoryId", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Meals between 7am to 12pm", "Breakfast" },
-                    { 2, "Appetisers", "Starter" },
-                    { 3, "Big and Filling meals", "Main" },
-                    { 4, "Special things for those with a sweet tooth", "Dessert" },
-                    { 5, "For those hungry but not hungry", "Light Meals" }
+                    { 1, "Meals between 7am to 12pm", null, "Breakfast" },
+                    { 2, "Appetisers", null, "Starter" },
+                    { 3, "Big and Filling meals", null, "Main" },
+                    { 4, "Special things for those with a sweet tooth", null, "Dessert" },
+                    { 5, "For those hungry but not hungry", null, "Light Meals" }
                 });
 
             migrationBuilder.InsertData(
@@ -1072,14 +1072,14 @@ namespace Africanacity_Team24_INF370_.Migrations
 
             migrationBuilder.InsertData(
                 table: "MenuItems",
-                columns: new[] { "MenuItemId", "Description", "FoodTypeId", "Food_TypeFoodTypeId1", "MenuItem_CategoryMenu_CategoryId", "Menu_CategoryId", "Menu_TypeId", "Menu_TypeId1", "Name" },
+                columns: new[] { "MenuItemId", "Description", "FoodTypeId", "Food_TypeFoodTypeId1", "Menu_CategoryId", "Menu_TypeId", "Menu_TypeId1", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Two larger chicken burger, 6 pcs nuggets, two large fries", 1, null, null, 3, 2, null, "Chicken Feast" },
-                    { 2, "Pap, boerewors an Tbone steak", 2, null, null, 3, 2, null, "The Braai feast" },
-                    { 3, "Mozarella stuffe cheese balls", 3, null, null, 2, 2, null, "Chilli cheese poppers" },
-                    { 4, "A green salad with salsa mix", 4, null, null, 5, 2, null, "Mexican salad" },
-                    { 5, "Delicious cheesecake with blueberry sauce topping", 3, null, null, 4, 2, null, "Blueberry cheescake" }
+                    { 1, "Two larger chicken burger, 6 pcs nuggets, two large fries", 1, null, 3, 2, null, "Chicken Feast" },
+                    { 2, "Pap, boerewors an Tbone steak", 2, null, 3, 2, null, "The Braai feast" },
+                    { 3, "Mozarella stuffe cheese balls", 3, null, 2, 2, null, "Chilli cheese poppers" },
+                    { 4, "A green salad with salsa mix", 4, null, 5, 2, null, "Mexican salad" },
+                    { 5, "Delicious cheesecake with blueberry sauce topping", 3, null, 4, 2, null, "Blueberry cheescake" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -1207,6 +1207,11 @@ namespace Africanacity_Team24_INF370_.Migrations
                 column: "Inventory_TypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MenuItem_Categories_MenuItem_CategoryMenu_CategoryId",
+                table: "MenuItem_Categories",
+                column: "MenuItem_CategoryMenu_CategoryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_MenuItems_Food_TypeFoodTypeId1",
                 table: "MenuItems",
                 column: "Food_TypeFoodTypeId1");
@@ -1230,11 +1235,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                 name: "IX_MenuItems_Menu_TypeId1",
                 table: "MenuItems",
                 column: "Menu_TypeId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MenuItems_MenuItem_CategoryMenu_CategoryId",
-                table: "MenuItems",
-                column: "MenuItem_CategoryMenu_CategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Order_Drinks_OrdersOrderId",

@@ -39,6 +39,8 @@ import { EditFoodTypeComponent } from './administration/Food Type/edit-food-type
 import { CreateFoodTypeComponent } from './administration/Food Type/create-food-type/create-food-type.component';
 import { EditMenuItemCategoryComponent } from './administration/Menu Item Category/edit-menu-item-category/edit-menu-item-category/edit-menu-item-category.component';
 import { CreateMenuItemCategoryComponent } from './administration/Menu Item Category/create-menu-item-category/create-menu-item-category/create-menu-item-category.component';
+import { AddMenuItemComponent } from './administration/menuitems/add-menu-item/add-menu-item.component';
+import { EditMenuItemComponent } from './administration/menuitems/edit-menu-item/edit-menu-item.component';
 
 
 
@@ -75,7 +77,7 @@ import { CreateMenuItemCategoryComponent } from './administration/Menu Item Cate
   EditFoodTypeComponent,
    CreateFoodTypeComponent, 
    EditMenuItemCategoryComponent, 
-   CreateMenuItemCategoryComponent
+   CreateMenuItemCategoryComponent, AddMenuItemComponent, EditMenuItemComponent
   ],
   imports: [
     BrowserModule,

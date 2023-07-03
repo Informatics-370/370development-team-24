@@ -89,11 +89,26 @@ namespace Africanacity_Team24_INF370_.Controllers
             
         }
 
+        //adding a menu item
         [HttpPost]
         [Route("AddMenuItem")]
-        public async Task<IActionResult> AddMenuItem(MenuItemViewModel menuItemViewModel)
+        public async Task<IActionResult> AddMenuItem(IFormCollection formData)
         {
-            var menuItem = new MenuItem {MenuItemId = menuItemViewModel.MenuItemId, Name = menuItemViewModel.Name, Description = menuItemViewModel.Description, };
+            // Implementation goes here
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var menuItem = new MenuItem
+            {
+                Name = formData["name"],
+                Description = formData["description"],
+                Menu_TypeId = Convert.ToInt32(formData["menuType"]),
+                FoodTypeId = Convert.ToInt32(formData["foodType"]),
+                Menu_CategoryId = Convert.ToInt32(formData["menuCategory"]),
+            };
 
             try
             {
@@ -108,9 +123,13 @@ namespace Africanacity_Team24_INF370_.Controllers
             return Ok(menuItem);
         }
 
-        [HttpPut]
+
+
+    
+
+    [HttpPut]
         [Route("EditMenuItem/{menuItemId}")]
-        public async Task<ActionResult<MenuItemViewModel>> EditMenuItem(int MenuItemId, MenuItemViewModel menuItemViewModel)
+        public async Task<ActionResult<MenuItemViewModel>> EditMenuItem(int MenuItemId, [FromBody] MenuItemViewModel menuItemViewModel)
         {
             try
             {
@@ -119,6 +138,9 @@ namespace Africanacity_Team24_INF370_.Controllers
 
                 existingMeal.Name = menuItemViewModel.Name;
                 existingMeal.Description = menuItemViewModel.Description;
+                existingMeal.Menu_TypeId = menuItemViewModel.Menu_Type;
+                existingMeal.FoodTypeId = menuItemViewModel.Food_Type;
+                existingMeal.Menu_CategoryId = menuItemViewModel.Category;
                 
 
 

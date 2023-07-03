@@ -19,12 +19,12 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class MenuitemsComponent implements OnInit{
 
-  displayedColumns: string[] = ['name', 'description', 'menuTypeName','foodTypeName', 'menuCategoryName'];
+  displayedColumns: string[] = ['name', 'description', 'menuTypeName','foodTypeName', 'menuCategoryName', 'actions', 'edit'];
   menuItems:MenuItem[] = [];
   
   dataSource = new MatTableDataSource <MenuItem>();
   snackBar: any;
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private router: Router) { }
   httpClient: any;
   apiUrl: any;
 
@@ -34,113 +34,10 @@ export class MenuitemsComponent implements OnInit{
       this.dataService.GetAllMenuItems().subscribe((menuItems:any) => {this.dataSource.data = menuItems})
     }
 
-  /*************************** MENU ITEM ************/
-/**Get all menu items** */
-/*GetAllMenuItems() {
-  this.dataService.GetAllMenuItems().subscribe(
-    (menuItems) => {
-      this.menuItems = menuItems;
-      // this.loadAssociatedNames();
-    },
-    (error) => {
-      console.error(error);
-    }
-  );
-}*/
-
-/*GetAllMenuItems() {
-  this.dataService.GetAllMenuItems().subscribe(result => {
-    let menuItemList:any[] = result
-    menuItemList.forEach((element) => {
-      this.menuItems.push(element);
-      
-      
-    });
-  })
-}*/
-
-/*GetAllMenuItems(): void {
-  this.http.get<MenuItem[]>('/MenuItems/GetAllMenuItems').subscribe(
-    (response) => {
-      this.menuItems = response;
-      this.loadAssociatedNames();
-    },
-    (error) => {
-      console.error('Failed to fetch menu items:', error);
-    }
-  );
-}*/
-
-// loadAssociatedNames(): void {
-//   for (const menuItem of this.menuItems) {
-//     this.getFoodTypeName(menuItem.foodTypeId);
-//     this.getMenuItemCategoryName(menuItem.menuItemCategory_Id);
-//     this.getFoodTypeName(menuItem.menu_TypeId);
-//   }
-// }
-
-/*loadMenuTypeName(menuItem: MenuTypes): void {
-  this.http.get<any>(`api/MenuType/GetAllMenuTypes${menuItem.name}`).subscribe(
-    (response) => {
-      menuItem.name = response.name;
-    },
-    (error) => {
-      console.error('Failed to fetch menu type name:', error);
-    }
-  );
-}*/
-
-// getFoodTypeName(foodTypeId: number): void {
-//   this.dataService.GetFoodTypeById(foodTypeId).subscribe(
-//     (foodType) => {
-//       const foundFoodType = this.foodTypes.find((ft) => ft.foodTypeId == foodType.foodTypeId);
-//       if (foundFoodType) {
-//         foundFoodType.name = foodType.name;
-//       } else {
-//         this.foodTypes.push(foodType);
-//       }
-//     },
-//     (error) => {
-//       console.error('Failed to fetch food type name:', error);
-//     }
-//   );
-// }
-
-// getMenuItemCategoryName(categoryId: number): void {
-//   this.dataService.GetMenuItemCategoryById(categoryId).subscribe(
-//     (menuItemCategory) => {
-//       const foundCategory = this.menuCategories.find((mc) => mc.MenuItemCategoryId == menuItemCategory.category_Id);
-//       if (foundCategory) {
-//         foundCategory.name = menuItemCategory.name;
-//       } else {
-//         this.menuCategories.push(menuItemCategory);
-//       }
-//     },
-//     (error) => {
-//       console.error('Failed to fetch menu category name:', error);
-//     }
-//   );
-// }
-
-// getMenuTypeName(menuTypeId: number): void {
-//   this.dataService.GetMenuTypeById(menuTypeId).subscribe(
-//     (menuType) => {
-//       const foundMenuType = this.menuTypes.find((mt) => mt.menu_TypeId == menuType.menu_TypeId);
-//       if (foundMenuType) {
-//         foundMenuType.name = menuType.name;
-//       } else {
-//         this.menuTypes.push(menuType);
-//       }
-//     },
-//     (error) => {
-//       console.error('Failed to fetch menu type name:', error);
-//     }
-//   );
-// }
 
 deleteItem(): void{
  
-  const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete the menu type?','Delete',{
+  const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete the menu item?','Delete',{
       duration: 5000,
     });
 
@@ -152,60 +49,28 @@ deleteItem(): void{
   }
 
   deleteItemFromServer(): void{
-    this.deleteMenuItem;
-  }
-
-
-deleteMenuItem(menu_ItemId: Number){
-  this.dataService.deleteMenuType(menu_ItemId).subscribe(result => {
     this.deleteItem();
-  });
-}
- 
-
-
-
-
-
-
-// ...
-
-/*populateColumnNames() {
-  for (const menuItem of this.menuItems) {
-    this.dataService.GetFoodTypeById(menuItem.foodType_Id)
-      .pipe(take(1))
-      .subscribe({
-        next: (foodTypeName) => {
-          menuItem.foodTypeName = foodTypeName;
-        },
-        error: (error) => {
-          console.error(error);
-        }
-      });
-
-    this.dataService.GetMenuItemCategoryById(menuItem.menuCategory_Id)
-      .pipe(take(1))
-      .subscribe({
-        next: (menuCategoryName) => {
-          menuItem.menuCategoryName = menuCategoryName;
-        },
-        error: (error) => {
-          console.error(error);
-        }
-      });
-
-    this.dataService.GetMenuTypeById(menuItem.menu_TypeId)
-      .pipe(take(1))
-      .subscribe({
-        next: (menuTypeName) => {
-          menuItem.menuTypeName = menuTypeName;
-        },
-        error: (error) => {
-          console.error(error);
-        }
-      });
+    
+    
   }
-}*/
+
+
+deleteMenuItem(menuItemId: number){
+  this.dataService.deleteMenuItem(menuItemId).subscribe(result => {
+    this.deleteItem();
+  },
+  error =>{
+    console.error('Error deleting menu items', error);
+  }
+  );
+}
+
+//edit menu item html link
+editMenuItem(menuItemId: number): void {
+  this.router.navigate(['/edit-menu-item', menuItemId]);
+}
+
+ 
 
 
 

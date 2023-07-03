@@ -29,6 +29,8 @@ import { EditFoodTypeComponent } from './administration/Food Type/edit-food-type
 import { CreateFoodTypeComponent } from './administration/Food Type/create-food-type/create-food-type.component';
 import { CreateMenuItemCategoryComponent } from './administration/Menu Item Category/create-menu-item-category/create-menu-item-category/create-menu-item-category.component';
 import { EditMenuItemCategoryComponent } from './administration/Menu Item Category/edit-menu-item-category/edit-menu-item-category/edit-menu-item-category.component';
+import { AddMenuItemComponent } from './administration/menuitems/add-menu-item/add-menu-item.component';//add menu item page
+import { EditMenuItemComponent } from './administration/menuitems/edit-menu-item/edit-menu-item.component';//edit menu item page
 //import { EditMenuItemCategoryComponent } from './administration/Menu Item Category/edit-menu-item-category/edit-menu-item-category.component';
 //import { CreateMenuItemCategoryComponent } from './administration/Menu Item Category/create-menu-item-category/create-menu-item-category.component';
 
@@ -49,6 +51,8 @@ const routes: Routes = [
   { path: 'menu-types', component: MenuTypesComponent }, // for menu page
   { path: 'add-menu-type', component: AddMenuTypeComponent}, //add menu type page
   { path: 'menuitems', component: MenuitemsComponent},//For the menu item page
+  { path: 'add-menu-item',component:AddMenuItemComponent},//for add menu item page
+  { path: 'edit-menu-item/:id', component:EditMenuItemComponent}, // for edit menu item page
   { path: 'employee-role',component: EmployeeRoleComponent },
   { path: 'food-type', component: FoodTypeComponent }, // for foodType page
   { path: 'menu-item-category', component: MenuItemCategoryComponent }, // for Menu Item Category page

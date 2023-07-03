@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Africanacity_Team24_INF370_.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230523023217_MMINO")]
-    partial class MMINO
+    [Migration("20230702173626_MminoNew")]
+    partial class MminoNew
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1089,9 +1089,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<int?>("Food_TypeFoodTypeId1")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MenuItem_CategoryMenu_CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Menu_CategoryId")
                         .HasColumnType("int");
 
@@ -1111,8 +1108,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasIndex("FoodTypeId");
 
                     b.HasIndex("Food_TypeFoodTypeId1");
-
-                    b.HasIndex("MenuItem_CategoryMenu_CategoryId");
 
                     b.HasIndex("Menu_CategoryId");
 
@@ -1183,12 +1178,17 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int?>("MenuItem_CategoryMenu_CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Menu_CategoryId");
+
+                    b.HasIndex("MenuItem_CategoryMenu_CategoryId");
 
                     b.ToTable("MenuItem_Categories");
 
@@ -1726,10 +1726,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .WithMany("MenuItems")
                         .HasForeignKey("Food_TypeFoodTypeId1");
 
-                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.MenuItem_Category", null)
-                        .WithMany("MenuItems")
-                        .HasForeignKey("MenuItem_CategoryMenu_CategoryId");
-
                     b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.MenuItem_Category", "MenuItem_Category")
                         .WithMany()
                         .HasForeignKey("Menu_CategoryId")
@@ -1751,6 +1747,13 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Navigation("MenuItem_Category");
 
                     b.Navigation("Menu_Type");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.MenuItem_Category", b =>
+                {
+                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.MenuItem_Category", null)
+                        .WithMany("MenuItems")
+                        .HasForeignKey("MenuItem_CategoryMenu_CategoryId");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Order", b =>

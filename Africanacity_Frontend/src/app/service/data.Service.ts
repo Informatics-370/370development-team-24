@@ -119,14 +119,28 @@ export class DataService {
 
 
   //fetch menu item food
-  GetMenuItemById(menu_ItemId: Number): Observable<any>{
-    return this.httpClient.get(`${this.apiUrl}MenuItems/GetMenuItem/${menu_ItemId}`);
+  GetMenuItemById(menuItemId: Number): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}MenuItems/GetMenuItem/${menuItemId}`);
   }
 
-  /*Delete Menu type*/
-  deleteMenuItem(menu_ItemId: Number){
-    return this.httpClient.delete<string>(`${this.apiUrl}MenuItems/DeleteMenuItem` + "/" + menu_ItemId, this.httpOptions)
+  /*Delete Menu item*/
+  deleteMenuItem(menuItemId: number){
+    return this.httpClient.delete<string>(`${this.apiUrl}MenuItems/DeleteMenuItem` + "/" + menuItemId, this.httpOptions)
   }
+
+  //add a new menu item
+  addMenuItem(file:FormData){
+    return this.httpClient.post(`${this.apiUrl}MenuItems/AddMenuItem`, file)
+  }
+
+
+  //edit menu item
+  editMenuItem(menuItemId: number, menuItem: MenuItem): Observable<MenuItem> {
+    return this.httpClient.put<MenuItem>(`${this.apiUrl}MenuItems/EditMenuItem/${menuItemId}`, menuItem);
+  }
+
+
+
 
 
   /******************FOOD TYPE**************/

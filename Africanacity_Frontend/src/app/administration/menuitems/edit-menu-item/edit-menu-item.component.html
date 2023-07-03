@@ -1,0 +1,41 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>Edit Menu Item</mat-card-title>
+    </mat-card-header>
+  
+    <mat-card-content>
+      <form (ngSubmit)="saveMenuItem()">
+        <mat-form-field>
+          <input matInput placeholder="Name" [(ngModel)]="menuItem.name" name="name" required>
+        </mat-form-field><br>
+  
+        <mat-form-field>
+          <textarea matInput placeholder="description" [(ngModel)]="menuItem.description" name="description" required></textarea>
+        </mat-form-field><br>
+  
+        <mat-form-field>
+          <mat-label>Menu Type</mat-label>
+          <mat-select [(ngModel)]="menuItem.menuTypeName" name="menu_Type" required>
+            <mat-option *ngFor="let menuType of menuTypes" [value]="menuType.menu_TypeId">{{ menuType.name }}</mat-option>
+          </mat-select>
+        </mat-form-field><br>
+  
+        <mat-form-field>
+          <mat-label>Food Type</mat-label>
+          <mat-select [(ngModel)]="menuItem.foodTypeName" name="food_Type" required>
+            <mat-option *ngFor="let foodType of foodTypes" [value]="foodType.foodTypeId">{{ foodType.name }}</mat-option>
+          </mat-select>
+        </mat-form-field><br>
+  
+        <mat-form-field>
+          <mat-label>Menu Category</mat-label>
+          <mat-select [(ngModel)]="menuItem.menuCategoryName" name="category" required>
+            <mat-option *ngFor="let menuCategory of menuCategory" [value]="menuCategory.menu_CategoryId">{{ menuCategory.name }}</mat-option>
+          </mat-select>
+        </mat-form-field><br>
+  
+        <button mat-raised-button color="primary" type="submit">Save</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  
