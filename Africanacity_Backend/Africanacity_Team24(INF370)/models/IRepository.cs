@@ -23,5 +23,13 @@ namespace Africanacity_Team24_INF370_.models
         // MENU ITEM CATEGORY
         Task<MenuItem_Category[]> GetAllMenuItemCategoriesAsync();
         Task<MenuItem_Category> GetMenuItemCategoryAsync(int Menu_CategoryId);
+
+		//User
+		//Task<User> ViewProfileAsync(int UserId);
+		//Task<User[]> ViewProfilesAsync();
+		Task<User> ViewProfileAsync(int UserId);
+
+		Task<User> GetUserProfile(string UserId);
+	
     }
 }

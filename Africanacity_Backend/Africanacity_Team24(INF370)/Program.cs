@@ -10,6 +10,7 @@ using System.Text;
 using Africanacity_Team24_INF370_.models.Login;
 using Africanacity_Team24_INF370_.models.Admin;
 using System;
+using Africanacity_Team24_INF370_.EmailService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,6 +62,7 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 	options.Password.RequireLowercase = false;
 	options.Password.RequireNonAlphanumeric = false;
 	options.Password.RequireDigit = true;
+	options.Password.RequiredLength = 8;
 	options.User.RequireUniqueEmail = true;
 })
 .AddEntityFrameworkStores<AppDbContext>()
@@ -85,7 +87,9 @@ builder.Services.Configure<DataProtectionTokenProviderOptions>(options => option
 builder.Services.AddDbContext<AppDbContext>(options =>
 			 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<IRepository, Repository>();
+
+builder.Services.AddScoped<IRepository, Repository >();
+builder.Services.AddScoped < IEmailService, EmailService>();
 
 var app = builder.Build();
 

@@ -9,7 +9,7 @@ using Africanacity_Team24_INF370_.models.Inventory;
 using Africanacity_Team24_INF370_.models.Restraurant;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Africanacity_Team24_INF370_.models.Login;
-using Africanacity_Team24_INF370_.View_Models;
+using Africanacity_Team24_INF370_.models;
 
 namespace Africanacity_Team24_INF370_.models
 {
@@ -68,8 +68,11 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<Payment> Payments { get; set; }
 		public DbSet<Payment_Method> Payment_Methods { get; set; }
 		public DbSet<Table_Number> Table_Numbers { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+
+			modelBuilder.Entity<User>().ToTable("Users");
 			base.OnModelCreating(modelBuilder);
             // Create Seed Data For the Employee Table:
             modelBuilder.Entity<Employee>()

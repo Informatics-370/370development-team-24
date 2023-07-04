@@ -84,9 +84,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<int?>("TitleId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("User_RoleId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(15)
@@ -96,9 +93,7 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     b.HasIndex("TitleId");
 
-                    b.HasIndex("User_RoleId");
-
-                    b.ToTable("Users");
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Access", b =>
@@ -1150,6 +1145,71 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.ToTable("Table_Numbers");
                 });
 
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ContactNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhysicalAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RefreshTokenExpiryTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ResetPasswordToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ResetPasswordTokenExpiry")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("User_RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("User_RoleId");
+
+                    b.ToTable("Users", (string)null);
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -1299,10 +1359,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasOne("Africanacity_Team24_INF370_.models.Admin.Title", null)
                         .WithMany("Users")
                         .HasForeignKey("TitleId");
-
-                    b.HasOne("Africanacity_Team24_INF370_.models.Administration.User_Role", null)
-                        .WithMany("Users")
-                        .HasForeignKey("User_RoleId");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Access_UserRole", b =>
@@ -1545,6 +1601,13 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.Payment_Method", null)
                         .WithMany("Payment_Methods")
                         .HasForeignKey("Payment_MethodId");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.User", b =>
+                {
+                    b.HasOne("Africanacity_Team24_INF370_.models.Administration.User_Role", null)
+                        .WithMany("Users")
+                        .HasForeignKey("User_RoleId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

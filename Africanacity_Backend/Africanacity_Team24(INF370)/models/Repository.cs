@@ -68,5 +68,44 @@ namespace Africanacity_Team24_INF370_.models
             IQueryable<MenuItem_Category> query = _appDbContext.MenuItem_Categories.Where(m => m.Menu_CategoryId == Menu_CategoryId);
             return await query.FirstOrDefaultAsync();
         }
-    }
+
+		//User
+		//public async Task<User[]> ViewProfilesAsync()
+		//{
+		//	IQueryable<User> query = _appDbContext.Users;
+		//	return await query.ToArrayAsync();
+		//}
+		//public async Task<User> ViewProfileAsync(int UserId)
+		//{
+		//	IQueryable<User> query = _appDbContext.Users.Where(u => u.Id == UserId);
+		//	return await query.FirstOrDefaultAsync();
+		//}
+		public async Task<User> ViewProfileAsync(int UserId)
+		{
+			IQueryable<User> query = _appDbContext.Users.Where(u => u.Id == UserId);
+			return await query.FirstOrDefaultAsync();
+		}
+
+		public async Task<User> GetUserProfile(string UserId)
+		{
+			// Fetch the user profile details from the database or any other data source
+			var user = await _appDbContext.Users.FindAsync(UserId);
+
+			// Map the user entity to a DTO or view model object
+			var userProfile = new User
+			{
+				FirstName = user.FirstName,
+				LastName = user.LastName,
+				ContactNumber = user.ContactNumber,
+				PhysicalAddress = user.PhysicalAddress,
+				Email = user.Email,
+				Username = user.Username
+				// Add other user properties as needed
+			};
+
+			return userProfile;
+		}
+
+
+	}
 }
