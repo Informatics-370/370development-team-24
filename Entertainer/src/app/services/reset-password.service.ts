@@ -8,7 +8,7 @@ import { ResetPassword } from '../models/reset-password.model';
 })
 export class ResetPasswordService {
 
-  private baseUrl: string = 'https://localhost:49991/api/Authentication';
+  private baseUrl: string = 'https://localhost:49991/api/User';
     constructor(private http: HttpClient) 
     { }
 

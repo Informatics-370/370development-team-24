@@ -7,7 +7,7 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiService {
-  private baseUrl: string = 'https://localhost:49991/api/Authentication';
+  private baseUrl: string = 'https://localhost:49991/api/User';
   private localStorageKey = 'currentUser';
   constructor(private http: HttpClient) {}
 
