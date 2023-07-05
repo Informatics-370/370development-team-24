@@ -143,7 +143,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 			var tokenDescriptor = new SecurityTokenDescriptor
 			{
 				Subject = identity,
-				Expires = DateTime.Now.AddSeconds(10),
+				Expires = DateTime.Now.AddSeconds(15),
 				SigningCredentials = credentials
 			};
 			var token = jwtTokenHandler.CreateToken(tokenDescriptor);

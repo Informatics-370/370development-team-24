@@ -37,6 +37,7 @@ export class AuthService {
   getToken(){
     return localStorage.getItem('token')
   }
+  
   getRefreshToken(){
     return localStorage.getItem('refreshToken')
   }
