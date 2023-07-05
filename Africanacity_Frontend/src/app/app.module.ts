@@ -39,7 +39,6 @@ import { EditFoodTypeComponent } from './administration/Food Type/edit-food-type
 import { CreateFoodTypeComponent } from './administration/Food Type/create-food-type/create-food-type.component';
 import { EditMenuItemCategoryComponent } from './administration/Menu Item Category/edit-menu-item-category/edit-menu-item-category/edit-menu-item-category.component';
 import { CreateMenuItemCategoryComponent } from './administration/Menu Item Category/create-menu-item-category/create-menu-item-category/create-menu-item-category.component';
-import { InventoryManagementComponent } from './administration/inventory-management/inventory-management.component';
 import { AddInventoryitemComponent } from './administration/Inventory Management/Inventory Items/add-inventoryitem/add-inventoryitem.component';
 import { ViewInventoryitemsComponent } from './administration/Inventory Management/Inventory Items/view-inventoryitems/view-inventoryitems.component';
 import { AddInventorytypesComponent } from './administration/Inventory Management/Inventory Types/add-inventorytypes/add-inventorytypes.component';
@@ -84,7 +83,7 @@ import { ViewSuppliersComponent } from './administration/Supplier Management/Sup
   EditFoodTypeComponent,
    CreateFoodTypeComponent, 
    EditMenuItemCategoryComponent, 
-   CreateMenuItemCategoryComponent, InventoryManagementComponent, AddInventoryitemComponent, ViewInventoryitemsComponent, AddInventorytypesComponent, ViewInventorytypesComponent, AddSuppliertypeComponent, ViewSuppliertypesComponent, AddSupplierComponent, ViewSuppliersComponent
+   CreateMenuItemCategoryComponent, AddInventoryitemComponent, ViewInventoryitemsComponent, AddInventorytypesComponent, ViewInventorytypesComponent, AddSuppliertypeComponent, ViewSuppliertypesComponent, AddSupplierComponent, ViewSuppliersComponent
   ],
   imports: [
     BrowserModule,
