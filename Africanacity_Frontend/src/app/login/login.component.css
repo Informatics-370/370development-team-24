@@ -1,16 +1,91 @@
-.example-container .mat-form-field + .mat-form-field {
-    margin-left: 8px;
+/* .icon-size{
+    font-size: 50px;
+    height:30%;
+    width: 30%;
+} */
+
+a{
+    left:50px;
+}
+
+label{
+    margin-right: 6px;
+}
+.header{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.container{
+    margin-top: 15%;
+    border: 1px black;
+    background-color: beige;
+    padding:20px;
+    width: 400px;
+    position: center;
+    box-shadow: 0ex;
+    
+    
+    
+}
+
+.btn{
+    background-color: rgb(107, 239, 239);
+    color:black;
+    border: 1px solid;
+    width: 350px;
+    border-color:white;
+    height: 50px;
+}
+
+.form-control.ng-touched.ng-invalid{
+    border:2px solid red
+
+}
+
+.form-control.ng-touched.ng-valid{
+    border:2px solid green
+}
+
+input{
+    border:none;
+    border-bottom: 2px solid black;
+    width: 350px;
+    margin-bottom: 0px;
+    outline:none;
+}
+
+input[required]:placeholder-shown {
+   background-color: red;
+
+}
+
+h4{
+    margin-left: 0%;
+    color: black;
+}
+
+.navHeader{
+    position: absolute;
+    width: 157px;
+    height: 63px;
+    left: 0px;
+    top: 0px;
+  }
+
+  .topnav {
+    position: -webkit-sticky;
+    position: sticky;
+    height: 70px;
+    left: 0px;
+    right: 0px;
+    top: 0;
+    background: rgb(107, 239, 239);
+    z-index: 1000 !important;
+    overflow: default;
+    max-width: 100%;
+    margin: 0 0 0 0;
+    margin: auto;
   }
   
-  .example-right-align {
-    text-align: right;
-  }
-  
-  input.example-right-align::-webkit-outer-spin-button,
-  input.example-right-align::-webkit-inner-spin-button {
-    display: none;
-  }
-  
-  input.example-right-align {
-    -moz-appearance: textfield;
-  }

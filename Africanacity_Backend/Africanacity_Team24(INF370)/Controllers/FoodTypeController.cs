@@ -38,12 +38,12 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         //getting food type using id
         [HttpGet]
-        [Route("GetFoodType/{FoodTypeId}")]
-        public async Task<ActionResult> GetFoodType(int FoodTypeId)
+        [Route("GetFoodType/{foodTypeId}")]
+        public async Task<ActionResult> GetFoodType(int foodTypeId)
         {
             try
             {
-                var foodtypes = await _repository.GetFoodTypeAsync(FoodTypeId);
+                var foodtypes = await _repository.GetFoodTypeAsync(foodTypeId);
                 if (foodtypes == null) return NotFound("Food type does not exist.");
                 return Ok(foodtypes);
             }
@@ -77,12 +77,12 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         // Edit food type
         [HttpPut]
-        [Route("EditFoodType/{FoodTypeId}")]
-        public async Task<ActionResult<FoodTypeViewModel>> EditFoodType(int FoodTypeId, FoodTypeViewModel ftvm)
+        [Route("EditFoodType/{foodTypeId}")]
+        public async Task<ActionResult<FoodTypeViewModel>> EditFoodType(int foodTypeId, FoodTypeViewModel ftvm)
         {
             try
             {
-                var existingFoodType = await _repository.GetFoodTypeAsync(FoodTypeId);
+                var existingFoodType = await _repository.GetFoodTypeAsync(foodTypeId);
 
                 // fix error message
                 if (existingFoodType == null) return NotFound($"The food type does not exist");
@@ -104,12 +104,12 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         // Delete food type
         [HttpDelete]
-        [Route("DeleteFoodType/{FoodTypeId}")]
-        public async Task<IActionResult> DeleteFoodType(int FoodTypeId)
+        [Route("DeleteFoodType/{foodTypeId}")]
+        public async Task<IActionResult> DeleteFoodType(int foodTypeId)
         {
             try
             {
-                var existingFoodType = await _repository.GetFoodTypeAsync(FoodTypeId);
+                var existingFoodType = await _repository.GetFoodTypeAsync(foodTypeId);
 
                 // fix error message
                 if (existingFoodType == null) return NotFound($"The food type does not exist");

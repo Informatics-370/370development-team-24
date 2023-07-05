@@ -7,7 +7,7 @@ using Africanacity_Team24_INF370_.View_Models;
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
-    [Route("api/MenuItem_Category")]
+    [Route("api/[controller]")]
     [ApiController]
     public class MenuItem_CategoryController : ControllerBase
     {
@@ -41,12 +41,12 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
         // GET api/<MenuItem_CategoryController>/5
-        [HttpGet("GetMenuItemCategory/{Menu_CategoryId}")]
-        public async Task<ActionResult> GetMenuItemCategoryAsync(int Menu_CategoryId)
+        [HttpGet("GetMenuItemCategory/{menu_CategoryId}")]
+        public async Task<ActionResult> GetMenuItemCategoryAsync(int menu_CategoryId)
         {
             try
             {
-                var menuItemCat = await _repository.GetMenuItemCategoryAsync(Menu_CategoryId);
+                var menuItemCat = await _repository.GetMenuItemCategoryAsync(menu_CategoryId);
                 if (menuItemCat == null) return NotFound("Food type does not exist.");
                 return Ok(menuItemCat);
             }
@@ -68,7 +68,7 @@ namespace Africanacity_Team24_INF370_.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AddMenuItemCategory(MenuItem_CategoryViewModel micvm)
         {
-            var menuItem_Category = new MenuItem_Category { Menu_CategoryId = micvm.Menu_CategoryId, Name = micvm.Name, Description = micvm.Description };
+            var menuItem_Category = new MenuItem_Category { Name = micvm.Name, Description = micvm.Description };
 
             try
             {
@@ -83,58 +83,93 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
 
             return Ok(menuItem_Category);
+
         }
 
         // Edit menu item category
         [HttpPut]
-        [Route("EditMenuItemCategory/{Menu_CategoryId}")]
-        public async Task<ActionResult<MenuItem_CategoryViewModel>> EditMenuItemCategory(int Menu_CategoryId, MenuItem_CategoryViewModel micvm)
+        [Route("EditMenuItemCategory/{menu_CategoryId}")]
+        public async Task<ActionResult<MenuItem_CategoryViewModel>> EditMenuItemCategory(int menu_CategoryId, MenuItem_CategoryViewModel micvm)
         {
+            //try
+            //{
+            //    var existingMenuItem_Category = await _repository.GetMenuItemCategoryAsync(Menu_CategoryId);
+
+            //    // fix error message
+            //    if (existingMenuItem_Category == null) return NotFound($"The drink type does not exist");
+
+            //    existingMenuItem_Category.Name = micvm.Name;
+
+            //    if (await _repository.SaveChangesAsync())
+            //    {
+            //        return Ok(existingMenuItem_Category);
+            //    }
+            //}
+            //catch (Exception)
+            //{
+            //    return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+            //}
+            //return BadRequest("Your request is invalid");
             try
             {
-                var existingMenuItem_Category = await _repository.GetMenuItemCategoryAsync(Menu_CategoryId);
+                var existingCourse = await _repository.GetMenuItemCategoryAsync(menu_CategoryId);
+                if (existingCourse == null) return NotFound($"The menu item category does not exist");
 
-                // fix error message
-                if (existingMenuItem_Category == null) return NotFound($"The drink type does not exist");
-
-                existingMenuItem_Category.Name = micvm.Name;
+                existingCourse.Name = micvm.Name;
+                existingCourse.Description = micvm.Description;
 
                 if (await _repository.SaveChangesAsync())
                 {
-                    return Ok(existingMenuItem_Category);
+                    return Ok(existingCourse);
                 }
             }
             catch (Exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+                return StatusCode(500, "Internal Server Error. Please contact support.");
             }
-            return BadRequest("Your request is invalid");
+            return BadRequest("Your request is invalid.");
         }
 
         // Delete menu item category
         [HttpDelete]
-        [Route("DeleteMenuItemCategory/{Menu_CategoryId}")]
-        public async Task<IActionResult> DeleteMenuItemCategory(int Menu_CategoryId)
+        [Route("DeleteMenuItemCategory/{menu_CategoryId}")]
+        public async Task<IActionResult> DeleteMenuItemCategory(int menu_CategoryId)
         {
-            try
-            {
-                var existingMenuItem_Category = await _repository.GetMenuItemCategoryAsync(Menu_CategoryId);
+            //try
+            //{
+                //    var existingMenuItem_Category = await _repository.GetMenuItemCategoryAsync(Menu_CategoryId);
 
-                // fix error message
-                if (existingMenuItem_Category == null) return NotFound($"The food type does not exist");
+                //    // fix error message
+                //    if (existingMenuItem_Category == null) return NotFound($"The food type does not exist");
 
-                _repository.Delete(existingMenuItem_Category);
+                //    _repository.Delete(existingMenuItem_Category);
 
-                if (await _repository.SaveChangesAsync())
+                //    if (await _repository.SaveChangesAsync())
+                //    {
+                //        return Ok(existingMenuItem_Category);
+                //    }
+                //}
+                //catch (Exception)
+                //{
+                //    return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+                //}
+                //return BadRequest("Your request is invalid
+                try
                 {
-                    return Ok(existingMenuItem_Category);
+                    var existingCourse = await _repository.GetMenuItemCategoryAsync(menu_CategoryId);
+
+                    if (existingCourse == null) return NotFound($"The menu item category does not exist");
+
+                    _repository.Delete(existingCourse);
+
+                    if (await _repository.SaveChangesAsync()) return Ok(existingCourse);
+
                 }
+                catch (Exception)
+                {
+                    return StatusCode(500, "Internal Server Error. Please contact support.");
+                }
+                return BadRequest("Your request is invalid.");
             }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
-            }
-            return BadRequest("Your request is invalid");
-        }
     }
 }

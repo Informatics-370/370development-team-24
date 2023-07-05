@@ -1,0 +1,40 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <app-navbar></app-navbar>
+        </div>
+
+        <div class="col-md-10 order-md-1">
+            <!-- heading -->
+            <div>
+                <h1 class="heading">Create Menu Item Category</h1>
+            </div>  
+
+            <div class="container edit-form">
+                <div class="row">  
+                    <form [formGroup]="AddMenuItemCategoryForm" class="form-horizontal" (ngSubmit)="AddMenuItemCategory()">
+                        <div class="form-group">
+                            <label class="col-sm-3 label" style="font-weight: bold;" for="name">Menu Item Category Name:</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="name" placeholder="Enter Name" [required]="true" formControlName="name">
+                            </div>
+                        </div> <br />
+                        <div class="form-group">
+                            <label class="col-sm-3 label" style="font-weight: bold;" for="description">Menu Item Category Description:</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="description" placeholder="Enter Description" [required]="true" formControlName="description">
+                            </div>
+                        </div> <br />
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-1 col-sm-6">
+                                <button style="margin-right:1em;" type="submit" [disabled]="!AddMenuItemCategoryForm.valid" class="btn btn-sm btn-success">Confirm</button>
+                                <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>

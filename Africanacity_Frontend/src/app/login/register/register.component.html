@@ -1,36 +1,67 @@
-<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+<div class="login-wrapper container" fxLayout="row" fxLayoutAlign="center center">
     <mat-card class="box">
       <mat-card-header>
-        <mat-card-title>Register</mat-card-title>
+        <mat-card-title> MMINO </mat-card-title>
+        <img mat-card-avatar src="../../assets/Nav_image/Africanacity.png" alt="" width="40" height="40" class="d-inline-block align-text-top">
+        <mat-card-subtitle>Register </mat-card-subtitle>
       </mat-card-header>
       <form class="form" [formGroup]="registerFormGroup">
         <mat-card-content>
-          <mat-form-field class="full-width">
-            <mat-label>Email Address</mat-label>
-            <input matInput placeholder="Enter a valid Email address" formControlName="UserName">
+          <mat-form-field>
+            <mat-label>Title</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let title of titles" [value]="title.value">
+                {{title.viewValue}}
+              </mat-option>
+            </mat-select>
           </mat-form-field><br>
-          <mat-form-field class="full-width">
+          <mat-form-field class="full-width" floatLabel="always">
             <mat-label>Name</mat-label>
           <input  matInput placeholder="Enter your name" formControlName="Name">
-        </mat-form-field><br>
+        </mat-form-field>
         <mat-form-field class="full-width">
-            <mat-label>Surname</mat-label>
+            <mat-label>Surname</mat-label> 
           <input matInput placeholder="Enter your surname" formControlName="Surname">
         </mat-form-field><br>
+        <mat-form-field >
+          <mat-label>Email Address</mat-label>
+          <input matInput placeholder="Enter a valid Email address" formControlName="UserName">
+        </mat-form-field>
         <mat-form-field class="full-width">
             <mat-label>Phone Number</mat-label>
           <input matInput placeholder="Enter a valid Phone Number" formControlName="PhoneNumber">
         </mat-form-field><br>
+        <mat-form-field class="full-width">
+          <mat-label>Physical Address </mat-label>
+          <textarea matInput placeholder="Enter your address" formControlName="PhysicalAddress"></textarea>
+    
+      </mat-form-field><br>
           <mat-form-field class="full-width">
-              <mat-label>Password</mat-label>
-            <input type="password" matInput placeholder="Enter between 8 to 16 characters" formControlName="Password">
+            <mat-label>Password </mat-label>
+            <!-- <input type="password" matInput placeholder="Enter your password" formControlName="Password"> -->
+            <input matInput [type]="visablePassword ? 'text' : 'password'" name="Password" [(ngModel)]="password" formControlName="Password">
+            <mat-icon matSuffix (click)="PasswordVisibility()">
+              {{visablePassword? 'visibility_off' : 'visibility' }}
+            </mat-icon>
           </mat-form-field><br>
-          <mat-form-field class="full-width">
-            <mat-label>Confirm Password</mat-label>
-          <input type="password" matInput placeholder="Enter between 8 to 16 characters" formControlName="ConfirmPassword">
+        <mat-form-field class="full-width">
+          <mat-label>Confirm Password </mat-label>
+          <!-- <input type="password" matInput placeholder="Enter your password" formControlName="Password"> -->
+          <input matInput [type]="visablePassword ? 'text' : 'password'"  name="Confirmpassword" [(ngModel)]="Confirmpassword" formControlName="ConfirmPassword">
+          <mat-icon matSuffix (click)="PasswordVisibility()">
+            {{visablePassword? 'visibility_off' : 'visibility' }}
+          </mat-icon>
         </mat-form-field>
+        <div *ngIf="registerFormGroup.get('ConfirmPassword')?.errors?.['mismatch'] && registerFormGroup.get('ConfirmPassword')?.dirty">
+          Passwords do not match.
+        </div>
+      
         </mat-card-content>
-        <button mat-stroked-button color="primary" class="btn-block" (click)="RegisterUser()">Register</button>
+        <button style="margin-right:1em;" mat-raised-button color="primary" class="btn-block" (click)="RegisterUser()">Register</button>
+        <button mat-raised-button color="warn" class="btn-block" routerLink="../login">Cancel</button>
+    
       </form>
+      <p *nglf="passwordsMatch">Password match</p>
+      <p *nglf="!passwordsMatch">Password do not match</p>
     </mat-card>
-  </div>
+  </div> 

@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Africanacity_Backend",
+    "\\Africanacity_Backend\\Africanacity_Team24(INF370)",
+    "\\Africanacity_Backend\\Africanacity_Team24(INF370)\\models"
   ],
-  "SelectedNode": "\\Africanacity_Team24(INF370).sln",
+  "SelectedNode": "\\Africanacity_Backend\\Africanacity_Team24(INF370)\\appsettings.json",
   "PreviewInSolutionExplorer": false
 }

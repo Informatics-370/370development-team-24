@@ -9,7 +9,8 @@ namespace Africanacity_Team24_INF370_.models.Login
     public class LoginModel
     {
         [Required]
-        public string UserName { get; set; }
+		[DataType(DataType.EmailAddress)]
+		public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
