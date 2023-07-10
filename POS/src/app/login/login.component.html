@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-no-padding ion-align-items-center">
+  <ion-card>
+    <ion-img src="../../assets/images/Africanacity.png" class="card-image"></ion-img>
+    <ion-card-header>
+      <ion-card-title>Login</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Username</ion-label>
+        <ion-input type="UserName"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="Password"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="full" color="primary" (click)="LoginUser()">Login</ion-button>
+
+  <p> Don't have an account?<ion-router-link routerLink="/register" routerDirection="forward">
+    
+    Register here
+  </ion-router-link></p>
+</ion-grid>
+</ion-content>
