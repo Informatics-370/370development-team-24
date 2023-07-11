@@ -1,3 +1,43 @@
-<p>
-  register works!
-</p>
+<ion-content>
+  <ion-grid class="login-wrapper" justify-content-center align-items-center>
+    <ion-card class="box">
+      <ion-card-header>
+        <ion-card-title>MMINO</ion-card-title>
+        <ion-avatar slot="start">
+          <img src="../../assets/images/Africanacity.png" alt="" width="40" height="40" class="d-inline-block align-text-top">
+        </ion-avatar>
+        <ion-card-subtitle>Register</ion-card-subtitle>
+      </ion-card-header>
+      <form class="form" [formGroup]="registerFormGroup">
+        <ion-card-content>
+          <ion-item>
+            <ion-label>Email Address</ion-label>
+            <ion-input placeholder="Enter a valid Email address" formControlName="UserName"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Password</ion-label>
+            <ion-input [type]="visiblePassword ? 'text' : 'password'" name="Password" [(ngModel)]="Password" formControlName="Password"></ion-input>
+            <ion-icon slot="end" (click)="PasswordVisibility()">
+              {{ visiblePassword ? 'visibility-off' : 'visibility' }}
+            </ion-icon>
+          </ion-item>
+          <ion-item>
+            <ion-label>Confirm Password</ion-label>
+            <ion-input [type]="visiblePassword ? 'text' : 'password'" name="Confirmpassword" [(ngModel)]="ConfirmPassword" formControlName="ConfirmPassword"></ion-input>
+            <ion-icon slot="end" (click)="PasswordVisibility()">
+              {{ visiblePassword ? 'visibility-off' : 'visibility' }}
+            </ion-icon>
+          </ion-item>
+          <div *ngIf="registerFormGroup.get('ConfirmPassword')?.errors?.['mismatch'] && registerFormGroup.get('ConfirmPassword')?.dirty">
+            Passwords do not match.
+          </div>
+        </ion-card-content>
+        <ion-button expand="full" color="primary" (click)="RegisterUser()">Register</ion-button>
+        <ion-button expand="full" color="warn" routerLink="../login">Cancel</ion-button>
+      </form>
+      <p *ngIf="passwordsMatch">Password match</p>
+      <p *ngIf="!passwordsMatch">Password do not match</p>
+    </ion-card>
+  </ion-grid>
+</ion-content>
+

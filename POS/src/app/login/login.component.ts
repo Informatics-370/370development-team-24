@@ -10,7 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent  implements OnInit {
 
@@ -48,8 +48,9 @@ export class LoginComponent  implements OnInit {
 
       this.mainService.LoginUser(this.loginForm.value).subscribe(result => {
         localStorage.setItem('User', JSON.stringify(result))
+        console.log('User added');
         this.loginForm.reset();
-        this.router.navigate(['home']).then((navigated: boolean) => {
+        this.router.navigate(['./home']).then((navigated: boolean) => {
           if(navigated) {
             this.snackBar.open(`Login successful.`, 'X', {duration: 10000});
           }
@@ -64,6 +65,8 @@ export class LoginComponent  implements OnInit {
         }
       })
     }
+
+    console.log(this.loginForm.valid)
   }
 
 }
