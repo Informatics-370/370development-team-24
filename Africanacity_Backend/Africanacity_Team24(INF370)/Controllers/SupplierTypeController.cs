@@ -45,9 +45,9 @@ namespace Africanacity_Team24_INF370_.Controllers
         {
             try
             {
-                var result = await _Repository.GetSupplierAsync(supplier_typeId);
+                var result = await _Repository.GetSupplierTypeAsync(supplier_typeId);
 
-                if (result == null) return NotFound("Supplier does not exist. You need to create an Supplier first");
+                if (result == null) return NotFound("Supplier Type does not exist. You need to create an Supplier first");
 
                 return Ok(result);
             }
@@ -61,7 +61,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         [HttpPost]
         [Route("AddSupplierType")]
-        public async Task<IActionResult> AddSupplier(SupplierTypeViewModel stvm)
+        public async Task<IActionResult> AddSupplierType(SupplierTypeViewModel stvm)
         {
             var suppliertype = new Supplier_Type { Name = stvm.Name, Description = stvm.Description};
 

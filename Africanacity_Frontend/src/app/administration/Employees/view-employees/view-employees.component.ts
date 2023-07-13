@@ -1,9 +1,9 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { EmployeeService } from '../../../service/employee.service';
-import { Employee } from '../../../shared/employee';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Employee } from 'src/app/shared/employee';
+import { EmployeeService } from 'src/app/service/employee.service';
 
 
 
@@ -20,7 +20,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ViewEmployeesComponent {
   employees:Employee[] = []
   searchTerm!: string;
-  Employee!: Employee[];
+  // Employee!: Employee[];
   filteredEmployees: Employee[] = [];
 
   constructor(private employeeservice: EmployeeService, private router: Router, private httpClient: HttpClient, private snackBar: MatSnackBar){}
@@ -49,25 +49,25 @@ export class ViewEmployeesComponent {
 
   ngOnInit(): void{
     this.GetAllEmployees()
+    console.log(this.employees)
   }
 
-   GetAllEmployees()
-   {
-     this.employeeservice.GetAllEmployees().subscribe(result => {
-       let employeeList:any[] = result
-       employeeList.forEach((element) => {
-         this.employees.push(element)
-         
-       });
-     })
-   }
+  GetAllEmployees()
+  {
+    this.employeeservice.GetAllEmployees().subscribe(result => {
+      let employeeList:any[] = result
+      employeeList.forEach((element) => {
+        this.employees.push(element)
+        
+      });
+    })
+  }
+
    deleteEmployee(employeeId: Number){
     this.employeeservice.deleteEmployee(employeeId).subscribe(result => {
       this.deleteItem();
       });
     }
-
-
 
     // searchTerm: string = '';
 

@@ -14,5 +14,7 @@
    email_Address! : string;
    physical_Address! : string;
    phoneNumber! : string;
+   employeerole! : number;
+   employeeRole! : string;
  }
 

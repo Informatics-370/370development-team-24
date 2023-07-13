@@ -29,6 +29,8 @@ import { EditFoodTypeComponent } from './administration/Food Type/edit-food-type
 import { CreateFoodTypeComponent } from './administration/Food Type/create-food-type/create-food-type.component';
 import { CreateMenuItemCategoryComponent } from './administration/Menu Item Category/create-menu-item-category/create-menu-item-category/create-menu-item-category.component';
 import { EditMenuItemCategoryComponent } from './administration/Menu Item Category/edit-menu-item-category/edit-menu-item-category/edit-menu-item-category.component';
+import { ViewSuppliersComponent } from './administration/Supplier Management/Suppliers/view-suppliers/view-suppliers.component';
+import { EditSupplierComponent } from './administration/Supplier Management/Suppliers/edit-supplier/edit-supplier.component';
 //import { EditMenuItemCategoryComponent } from './administration/Menu Item Category/edit-menu-item-category/edit-menu-item-category.component';
 //import { CreateMenuItemCategoryComponent } from './administration/Menu Item Category/create-menu-item-category/create-menu-item-category.component';
 
@@ -64,6 +66,8 @@ const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent }, // forgotpassword path
   { path: 'reset-password',component: ResetPasswordComponent }, //resetpassword path
   { path: 'home', component: HomeComponent }, // for home page
+  {path:'view-suppliers', component: ViewSuppliersComponent}, // for View Suppliers
+  {path: 'edit-supplier/:id', component: EditSupplierComponent},
   {path: '', redirectTo: 'login', pathMatch:'full'},
   
 ];

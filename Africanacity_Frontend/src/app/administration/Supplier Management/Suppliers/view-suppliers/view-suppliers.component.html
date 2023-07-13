@@ -1,1 +1,101 @@
-<p>view-suppliers works!</p>
+<!-- <div class="container-fluid">
+  <div class="row">
+      <div class="col-md-2">
+          <app-navbar></app-navbar>
+      </div>
+  <div class="col-md-10 order-md-1">
+      <h4 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 25px;">Supplier Listing</h4>
+
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field>
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Search Columns" #input>
+          </mat-form-field>
+          <table mat-table [dataSource]="dataSource" matSort>
+
+              <ng-container matColumnDef="supplierID">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                  <td mat-cell *matCellDef="let suppliers"> {{suppliers.supplierID}} </td>
+                </ng-container>
+
+              <ng-container matColumnDef="supplierName">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                  <td mat-cell *matCellDef="let suppliers"> {{suppliers.supplierName}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="supplierType">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
+                  <td mat-cell *matCellDef="let suppliers"> {{suppliers.supplierType}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="supplierEmail">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Email Address </th>
+                  <td mat-cell *matCellDef="let suppliers"> {{suppliers.supplierEmail}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="supplierNumber">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone Number </th>
+                  <td mat-cell *matCellDef="let suppliers"> {{suppliers.supplierNumber}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="supplierAddress">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Physical Address </th>
+                  <td mat-cell *matCellDef="let suppliers"> {{suppliers.supplierAddress}} </td>
+                </ng-container>
+          </table>
+          <app-supplier-table [supplierList]="suppliers"></app-supplier-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+   -->
+
+   <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <app-navbar></app-navbar>
+        </div>
+    <div class="col-md-10 order-md-1">
+    <h3 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px; font-weight: bolder;">Employee Listing </h3>
+    <!-- <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search"> 
+        <button class="btn">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </button>
+      </div>  -->
+      <label>Filter</label>
+      <input type="text" class="form-control" (input)="applyFilter($event)" placeholder="Search Columns">
+
+    <table class="table table-striped table-hover table-container outlined-table">
+        <thead class="tableColor">
+
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Email</th>
+                <th scope="col">Cell</th>
+                <th scope="col">Address</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let supplier of filteredsuppliers">
+                <td>{{supplier.supplierId}}</td>
+                <td>{{supplier.supplierName}}</td>
+                <td>{{supplier.supplierTypeName}}</td>
+                <td>{{supplier.supplierEmail}}</td>
+                <td>{{supplier.supplierNumber}}</td>
+                <td>{{supplier.supplierAddress}}</td>
+                
+                  <td> <i class="fa fa-pencil" [routerLink]="['/edit-supplier', supplier.supplierId]" aria-hidden="true"></i></td>
+                  <td><i class="fa fa-trash"  (click)="DeleteSupplier(supplier.supplierId)" aria-hidden="true"></i></td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    </div>
+
+
+

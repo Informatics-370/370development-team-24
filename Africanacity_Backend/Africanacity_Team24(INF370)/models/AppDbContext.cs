@@ -433,11 +433,111 @@ namespace Africanacity_Team24_INF370_.models
 
                           });
 
-            //Create Seed Data for the supplier table:
+            //Create Seed Data for the Supplier Type table:
+            modelBuilder.Entity<Supplier_Type>()
+              .HasData(
+              new
+              {
+                  Supplier_TypeId = 1,
+                  Name = "Alcohol",
+                  Description = "For Alcohol Suppliers",
+          
+              });
+              modelBuilder.Entity<Supplier_Type>()
+              .HasData(
+              new
+              {
+                  Supplier_TypeId = 2,
+                  Name = "Meat and Poultry",
+                  Description = "Suppliers who sell meat and poultry",
+          
+              });
+              modelBuilder.Entity<Supplier_Type>()
+              .HasData(
+              new
+              {
+                  Supplier_TypeId = 3,
+                  Name = "General",
+                 Description = "Stores that sell all types",
+          
+              });
+              modelBuilder.Entity<Supplier_Type>()
+              .HasData(
+              new
+              {
+                  Supplier_TypeId = 4,
+                  Name = "Bakery",
+                  Description = "Stores that supplier baking ingrediants",
+          
+              });
+
+            // Seed data for supplier
+
+            modelBuilder.Entity<Supplier>()
+              .HasData(
+              new
+              {
+                  SupplierId = 1,
+                  Name = "Checkers",
+                  Email_Address = "checkers@gmail.com",
+                  Supplier_TypeId = 3,
+                  PhoneNumber = "0122345654",
+                  Physical_Address = "416 Kirkness St, Arcadia",
+                 
+              });
+             modelBuilder.Entity<Supplier>()
+              .HasData(
+              new
+              {
+                  SupplierId = 2,
+                  Name = "Pick `n Pay",
+                  Email_Address = "pnp@gmail.com",
+                  Supplier_TypeId = 3,
+                  PhoneNumber = "0110456543",
+                  Physical_Address = "Hatfield Plaza 1122 Burnett Street",
+                 
+              });
+             modelBuilder.Entity<Supplier>()
+              .HasData(
+              new
+              {
+                  SupplierId = 3,
+                  Name = "Liquor Rack",
+                  Email_Address = "liquorRack@gmail.com",
+                  Supplier_TypeId = 1,
+                  PhoneNumber = "0656781230",
+                  Physical_Address = "Hatfield Plaza 1145 Burnett Street",
+
+              });
+             modelBuilder.Entity<Supplier>()
+              .HasData(
+              new
+              {
+                  SupplierId = 4,
+                  Name = "BakerMan",
+                  Email_Address = "bakerMan@gmail.com",
+                  Supplier_TypeId = 4,
+                  PhoneNumber = "0714567890",
+                  Physical_Address = "HillCrest Boulevard 110 Lynnwood",
+                 
+              });
+              modelBuilder.Entity<Supplier>()
+              .HasData(
+            new
+            {
+                  SupplierId = 5,
+                  Name = "Mr Jacks Butcher",
+                  Email_Address = "MJButcher@gmail.com",
+                  Supplier_TypeId = 2,
+                  PhoneNumber = "0865045674",
+                  Physical_Address = "143 Atterbury Street",
+                 
+              });
 
 
 
- 
+
+
             //Many to many with MenuItem
             modelBuilder.Entity<MenuItem>()
                         .HasOne(m => m.Menu_Type)
@@ -453,6 +553,7 @@ namespace Africanacity_Team24_INF370_.models
                         .HasOne(m => m.Food_Type)
                         .WithMany()
                         .HasForeignKey(m => m.FoodTypeId);
+
 
             // For the Access_UserRole M2M payload (Uncomment code below and run migration to generate tables)
             modelBuilder.Entity<Access>()

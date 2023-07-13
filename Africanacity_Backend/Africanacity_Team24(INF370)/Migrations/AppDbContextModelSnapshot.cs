@@ -806,6 +806,53 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasIndex("Supplier_TypeId");
 
                     b.ToTable("Suppliers");
+
+                    b.HasData(
+                        new
+                        {
+                            SupplierId = 1,
+                            Email_Address = "checkers@gmail.com",
+                            Name = "Checkers",
+                            PhoneNumber = "0122345654",
+                            Physical_Address = "416 Kirkness St, Arcadia",
+                            Supplier_TypeId = 3
+                        },
+                        new
+                        {
+                            SupplierId = 2,
+                            Email_Address = "pnp@gmail.com",
+                            Name = "Pick `n Pay",
+                            PhoneNumber = "0110456543",
+                            Physical_Address = "Hatfield Plaza 1122 Burnett Street",
+                            Supplier_TypeId = 3
+                        },
+                        new
+                        {
+                            SupplierId = 3,
+                            Email_Address = "liquorRack@gmail.com",
+                            Name = "Liquor Rack",
+                            PhoneNumber = "0656781230",
+                            Physical_Address = "Hatfield Plaza 1145 Burnett Street",
+                            Supplier_TypeId = 1
+                        },
+                        new
+                        {
+                            SupplierId = 4,
+                            Email_Address = "bakerMan@gmail.com",
+                            Name = "BakerMan",
+                            PhoneNumber = "0714567890",
+                            Physical_Address = "HillCrest Boulevard 110 Lynnwood",
+                            Supplier_TypeId = 4
+                        },
+                        new
+                        {
+                            SupplierId = 5,
+                            Email_Address = "MJButcher@gmail.com",
+                            Name = "Mr Jacks Butcher",
+                            PhoneNumber = "0865045674",
+                            Physical_Address = "143 Atterbury Street",
+                            Supplier_TypeId = 2
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier_InventoryItem", b =>
@@ -844,6 +891,32 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasKey("Supplier_TypeId");
 
                     b.ToTable("Supplier_Types");
+
+                    b.HasData(
+                        new
+                        {
+                            Supplier_TypeId = 1,
+                            Description = "For Alcohol Suppliers",
+                            Name = "Alcohol"
+                        },
+                        new
+                        {
+                            Supplier_TypeId = 2,
+                            Description = "Suppliers who sell meat and poultry",
+                            Name = "Meat and Poultry"
+                        },
+                        new
+                        {
+                            Supplier_TypeId = 3,
+                            Description = "Stores that sell all types",
+                            Name = "General"
+                        },
+                        new
+                        {
+                            Supplier_TypeId = 4,
+                            Description = "Stores that supplier baking ingrediants",
+                            Name = "Bakery"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Login.AppUser", b =>

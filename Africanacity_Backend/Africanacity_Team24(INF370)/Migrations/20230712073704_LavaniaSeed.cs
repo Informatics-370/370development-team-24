@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Africanacity_Team24_INF370_.Migrations
 {
-    public partial class MMINO : Migration
+    public partial class LavaniaSeed : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -741,8 +741,8 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    AdministratorId = table.Column<int>(type: "int", nullable: true),
-                    Inventory_TypeId = table.Column<int>(type: "int", nullable: true)
+                    Inventory_TypeId = table.Column<int>(type: "int", nullable: false),
+                    AdministratorId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -756,7 +756,8 @@ namespace Africanacity_Team24_INF370_.Migrations
                         name: "FK_Inventory_Items_Inventory_Types_Inventory_TypeId",
                         column: x => x.Inventory_TypeId,
                         principalTable: "Inventory_Types",
-                        principalColumn: "Inventory_TypeId");
+                        principalColumn: "Inventory_TypeId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -792,16 +793,12 @@ namespace Africanacity_Team24_INF370_.Migrations
                 {
                     SupplierId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Surname = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Email_Address = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Physical_Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    State = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: true),
-                    PostalCode = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    AdministratorId = table.Column<int>(type: "int", nullable: true),
-                    Supplier_TypeId = table.Column<int>(type: "int", nullable: true)
+                    Supplier_TypeId = table.Column<int>(type: "int", nullable: false),
+                    AdministratorId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -815,7 +812,8 @@ namespace Africanacity_Team24_INF370_.Migrations
                         name: "FK_Suppliers_Supplier_Types_Supplier_TypeId",
                         column: x => x.Supplier_TypeId,
                         principalTable: "Supplier_Types",
-                        principalColumn: "Supplier_TypeId");
+                        principalColumn: "Supplier_TypeId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -1071,6 +1069,17 @@ namespace Africanacity_Team24_INF370_.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Supplier_Types",
+                columns: new[] { "Supplier_TypeId", "Description", "Name" },
+                values: new object[,]
+                {
+                    { 1, "For Alcohol Suppliers", "Alcohol" },
+                    { 2, "Suppliers who sell meat and poultry", "Meat and Poultry" },
+                    { 3, "Stores that sell all types", "General" },
+                    { 4, "Stores that supplier baking ingrediants", "Bakery" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "MenuItems",
                 columns: new[] { "MenuItemId", "Description", "FoodTypeId", "Food_TypeFoodTypeId1", "MenuItem_CategoryMenu_CategoryId", "Menu_CategoryId", "Menu_TypeId", "Menu_TypeId1", "Name" },
                 values: new object[,]
@@ -1080,6 +1089,18 @@ namespace Africanacity_Team24_INF370_.Migrations
                     { 3, "Mozarella stuffe cheese balls", 3, null, null, 2, 2, null, "Chilli cheese poppers" },
                     { 4, "A green salad with salsa mix", 4, null, null, 5, 2, null, "Mexican salad" },
                     { 5, "Delicious cheesecake with blueberry sauce topping", 3, null, null, 4, 2, null, "Blueberry cheescake" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Suppliers",
+                columns: new[] { "SupplierId", "AdministratorId", "Email_Address", "Name", "PhoneNumber", "Physical_Address", "Supplier_TypeId" },
+                values: new object[,]
+                {
+                    { 1, null, "checkers@gmail.com", "Checkers", "0122345654", "416 Kirkness St, Arcadia", 3 },
+                    { 2, null, "pnp@gmail.com", "Pick `n Pay", "0110456543", "Hatfield Plaza 1122 Burnett Street", 3 },
+                    { 3, null, "liquorRack@gmail.com", "Liquor Rack", "0656781230", "Hatfield Plaza 1145 Burnett Street", 1 },
+                    { 4, null, "bakerMan@gmail.com", "BakerMan", "0714567890", "HillCrest Boulevard 110 Lynnwood", 4 },
+                    { 5, null, "MJButcher@gmail.com", "Mr Jacks Butcher", "0865045674", "143 Atterbury Street", 2 }
                 });
 
             migrationBuilder.CreateIndex(

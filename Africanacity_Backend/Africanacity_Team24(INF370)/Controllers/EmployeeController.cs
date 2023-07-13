@@ -44,7 +44,47 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
 
         }
-   
+
+
+        //[HttpGet]
+        //[Route("GetAllEmployees")]
+        //public async Task<ActionResult<dynamic>> GetAllEmployees()
+        //{
+        //    try
+        //    {
+        //        List<dynamic> employeeTable = new List<dynamic>();
+
+        //        var results = await _Repository.GetAllEmployeesAsync();
+
+
+        //        dynamic employeeList = results.OrderByDescending(e => e.FirstName).Select(e => new
+        //        {
+        //            EmployeeName = e.FirstName
+        //                    ,
+        //            EmployeeSurname = e.Surname
+        //                    ,
+        //            EmployeeRole = e.Employee_Role.Name
+        //                    ,
+        //            EmployeeEmailAddress = e.Email_Address
+        //                    ,
+        //            EmployeePhoneNumber = e.PhoneNumber,
+
+        //            EmployeePhysicalAddress = e.Physical_Address
+
+        //        })
+        //                    .Take(10);
+
+
+        //        employeeTable.Add(employeeList);
+
+        //        return employeeTable;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+        //    }
+        //}
+
         [HttpGet]
         [Route("GetEmployee/{employeeId}")]
         public async Task<IActionResult> GetEmployeeAsync(int employeeId)

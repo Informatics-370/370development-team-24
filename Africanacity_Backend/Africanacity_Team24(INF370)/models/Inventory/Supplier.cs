@@ -1,5 +1,6 @@
 ﻿using Africanacity_Team24_INF370_.models.Admin;
 using Africanacity_Team24_INF370_.models.Administration;
+using Africanacity_Team24_INF370_.models.Restraurant;
 using System.ComponentModel.DataAnnotations;
 
 namespace Africanacity_Team24_INF370_.models.Inventory
@@ -19,10 +20,14 @@ namespace Africanacity_Team24_INF370_.models.Inventory
 		[StringLength(10)]
 		public string PhoneNumber { get; set; } = string.Empty;
 
+		//public int Supplier_TypeId { get; set; }
+
 		public List<Inventory_Item> Inventory_Items { get; set; } = new List<Inventory_Item>();
 
-		// Connecting the SuppliertypeModel
+        public int Supplier_TypeId { get; set; }
 
-		public Supplier_Type Supplier_Type { get; set; }
-	}
+        // Connecting the SuppliertypeModel
+
+        public Supplier_Type Supplier_Type { get; set; }
+    }
 }

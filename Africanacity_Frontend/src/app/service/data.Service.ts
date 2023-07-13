@@ -1,14 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { HttpClientModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, Subject } from 'rxjs';
-import { LoginUser } from '../shared/login-user';
-import { RegisterUser } from '../shared/register-user';
 import { User } from '../shared/user';
 import { Employee_Role} from '../shared/EmployeeRole';
 import { MenuTypes } from '../shared/menu-types'; //Menu Types
 import { MenuItem } from '../shared/menu-item';
 import { FoodType } from '../shared/food-type';
+import { LoginUser } from '../shared/login-user';
 import { MenuItemCategory } from '../shared/menu-item-category';
 
 @Injectable({
@@ -17,7 +15,7 @@ import { MenuItemCategory } from '../shared/menu-item-category';
 export class DataService {
   
 
-  apiUrl = 'https://localhost:49991/api/'
+  apiUrl = 'http://localhost:49991/api/'
 
   httpOptions ={
     headers: new HttpHeaders({

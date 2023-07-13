@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, Subject } from 'rxjs';
-import { ViewEmployeesComponent } from '../administration/Employees/view-employees/view-employees.component';
 import { Help } from '../shared/help';
 import { Employee } from '../shared/employee';
+
 
 
 @Injectable({
@@ -11,9 +11,8 @@ import { Employee } from '../shared/employee';
 })
 export class EmployeeService {
 
-  apiUrl = 'https://localhost:49991/api/'
-  // private apiURL = 'http://localhost:49991/api/Employee';
-  // private apiUrl = 'http://localhost:5000/api/email';
+  apiUrl = 'http://localhost:49991/api/'
+
 
 
   httpOptions ={

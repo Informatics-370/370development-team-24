@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -6,7 +6,7 @@ import { HomeComponent } from './administration/home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './login/register/register.component';
 import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
@@ -47,7 +47,10 @@ import { AddSuppliertypeComponent } from './administration/Supplier Management/S
 import { ViewSuppliertypesComponent } from './administration/Supplier Management/Supplier Types/view-suppliertypes/view-suppliertypes.component';
 import { AddSupplierComponent } from './administration/Supplier Management/Suppliers/add-supplier/add-supplier.component';
 import { ViewSuppliersComponent } from './administration/Supplier Management/Suppliers/view-suppliers/view-suppliers.component';
-
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { EditSupplierComponent } from './administration/Supplier Management/Suppliers/edit-supplier/edit-supplier.component';
 
 
 
@@ -83,7 +86,7 @@ import { ViewSuppliersComponent } from './administration/Supplier Management/Sup
   EditFoodTypeComponent,
    CreateFoodTypeComponent, 
    EditMenuItemCategoryComponent, 
-   CreateMenuItemCategoryComponent, AddInventoryitemComponent, ViewInventoryitemsComponent, AddInventorytypesComponent, ViewInventorytypesComponent, AddSuppliertypeComponent, ViewSuppliertypesComponent, AddSupplierComponent, ViewSuppliersComponent
+   CreateMenuItemCategoryComponent, AddInventoryitemComponent, ViewInventoryitemsComponent, AddInventorytypesComponent, ViewInventorytypesComponent, AddSuppliertypeComponent, ViewSuppliertypesComponent, AddSupplierComponent, ViewSuppliersComponent, EditSupplierComponent
   ],
   imports: [
     BrowserModule,
@@ -95,7 +98,9 @@ import { ViewSuppliersComponent } from './administration/Supplier Management/Sup
     MaterialModule,
     Ng2SearchPipeModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatIconModule
+
   ],
   providers: [DataService],
   bootstrap: [AppComponent],

@@ -24,34 +24,85 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
 
 
-            // Get all suppliers, from the database
+        // Get all suppliers, from the database
 
-            [HttpGet]
-            [Route("GetAllSuppliers")]
-            public async Task<IActionResult> GetAllSuppliers()
+        //[HttpGet]
+        //[Route("GetAllSuppliers")]
+        //public async Task<IActionResult> GetAllSuppliers()
+        //{
+        //    try
+        //    {
+        //        var results = await _Repository.GetAllSuppliersAsync();
+        //    dynamic suppliers = results.Select(s => new
+        //    {
+        //        s.SupplierId,
+        //        s.Name,
+        //        SupplierTypeName = s.Supplier_Type.Name,
+        //        s.Email_Address,
+        //        s.Physical_Address
+        //    });
+
+        //        return Ok(suppliers);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return StatusCode(500, "Internal Server Error. Please contact support.");
+        //    }
+
+        //}
+        [HttpGet]
+        [Route("GetAllSuppliers")]
+        public async Task<ActionResult> GetAllSuppliers()
+        {
+            try
             {
-                try
-                {
-                    var results = await _Repository.GetAllSuppliersAsync();
+
+                var results = await _Repository.GetAllSuppliersAsync();
+
+
                 dynamic suppliers = results.Select(s => new
                 {
-                    s.SupplierId,
-                    s.Name,
+                    SupplierId = s.SupplierId,
+
+                    SupplierName = s.Name,
+
                     SupplierTypeName = s.Supplier_Type.Name,
-                    s.Email_Address,
-                    s.Physical_Address
+                      
+                    //SupplierTypeId = s.Supplier_TypeId,
+
+                    SupplierNumber = s.PhoneNumber,
+
+                    SupplierEmail = s.Email_Address,
+
+                    SupplierAddress = s.Physical_Address
+
                 });
+                         
+                return Ok(suppliers);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+            }
+         }
 
-                    return Ok(suppliers);
-                }
-                catch (Exception)
-                {
-                    return StatusCode(500, "Internal Server Error. Please contact support.");
-                }
-
+        [HttpGet]
+        [Route("GetAllSupplierTypes")]
+        public async Task<IActionResult> GetAllSupplierTypes()
+        {
+            try
+            {
+                var results = await _Repository.GetAllSupplierTypesAsync();
+                return Ok(results);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
             }
 
-            [HttpGet]
+        }
+
+        [HttpGet]
             [Route("GetSupplier/{supplierId}")]
             public async Task<IActionResult> GetSupplierAsync(int supplierId)
             {
@@ -106,6 +157,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
                     currentSupplier.Name = svm.Name;
                     currentSupplier.Email_Address = svm.Email_Address;
+                    currentSupplier.Name = svm.SupplierTypeName;
                     currentSupplier.PhoneNumber = svm.PhoneNumber;
                     currentSupplier.Physical_Address = svm.Physical_Address;
 
@@ -130,7 +182,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                 {
                     var currentSupplier = await _Repository.GetSupplierAsync(supplierId);
 
-                    if (currentSupplier == null) return NotFound($"The employee does not exist");
+                    if (currentSupplier == null) return NotFound($"The supplier does not exist");
 
                     _Repository.Delete(currentSupplier);
 
@@ -144,15 +196,6 @@ namespace Africanacity_Team24_INF370_.Controllers
                 return BadRequest("Your request is invalid.");
             }
 
-            [HttpGet("search")]
-            public ActionResult<IEnumerable<Supplier>> Search(string searchTerm)
-            {
-                var Supplier = _appDBContext.Employees
-                    .Where(f => f.FirstName.Contains(searchTerm))
-                    .ToList();
-
-                return Ok(Supplier);
-            }
 
             //Email Verification
 

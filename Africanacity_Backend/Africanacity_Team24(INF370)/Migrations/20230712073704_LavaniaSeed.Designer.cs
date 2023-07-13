@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Africanacity_Team24_INF370_.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230523023217_MMINO")]
-    partial class MMINO
+    [Migration("20230712073704_LavaniaSeed")]
+    partial class LavaniaSeed
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -730,7 +730,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int?>("Inventory_TypeId")
+                    b.Property<int>("Inventory_TypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -781,14 +781,11 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<int?>("AdministratorId")
                         .HasColumnType("int");
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email_Address")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -801,21 +798,8 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<string>("Physical_Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PostalCode")
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)");
-
-                    b.Property<string>("State")
-                        .HasMaxLength(2)
-                        .HasColumnType("nvarchar(2)");
-
-                    b.Property<int?>("Supplier_TypeId")
+                    b.Property<int>("Supplier_TypeId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("SupplierId");
 
@@ -824,6 +808,53 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasIndex("Supplier_TypeId");
 
                     b.ToTable("Suppliers");
+
+                    b.HasData(
+                        new
+                        {
+                            SupplierId = 1,
+                            Email_Address = "checkers@gmail.com",
+                            Name = "Checkers",
+                            PhoneNumber = "0122345654",
+                            Physical_Address = "416 Kirkness St, Arcadia",
+                            Supplier_TypeId = 3
+                        },
+                        new
+                        {
+                            SupplierId = 2,
+                            Email_Address = "pnp@gmail.com",
+                            Name = "Pick `n Pay",
+                            PhoneNumber = "0110456543",
+                            Physical_Address = "Hatfield Plaza 1122 Burnett Street",
+                            Supplier_TypeId = 3
+                        },
+                        new
+                        {
+                            SupplierId = 3,
+                            Email_Address = "liquorRack@gmail.com",
+                            Name = "Liquor Rack",
+                            PhoneNumber = "0656781230",
+                            Physical_Address = "Hatfield Plaza 1145 Burnett Street",
+                            Supplier_TypeId = 1
+                        },
+                        new
+                        {
+                            SupplierId = 4,
+                            Email_Address = "bakerMan@gmail.com",
+                            Name = "BakerMan",
+                            PhoneNumber = "0714567890",
+                            Physical_Address = "HillCrest Boulevard 110 Lynnwood",
+                            Supplier_TypeId = 4
+                        },
+                        new
+                        {
+                            SupplierId = 5,
+                            Email_Address = "MJButcher@gmail.com",
+                            Name = "Mr Jacks Butcher",
+                            PhoneNumber = "0865045674",
+                            Physical_Address = "143 Atterbury Street",
+                            Supplier_TypeId = 2
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier_InventoryItem", b =>
@@ -862,6 +893,32 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasKey("Supplier_TypeId");
 
                     b.ToTable("Supplier_Types");
+
+                    b.HasData(
+                        new
+                        {
+                            Supplier_TypeId = 1,
+                            Description = "For Alcohol Suppliers",
+                            Name = "Alcohol"
+                        },
+                        new
+                        {
+                            Supplier_TypeId = 2,
+                            Description = "Suppliers who sell meat and poultry",
+                            Name = "Meat and Poultry"
+                        },
+                        new
+                        {
+                            Supplier_TypeId = 3,
+                            Description = "Stores that sell all types",
+                            Name = "General"
+                        },
+                        new
+                        {
+                            Supplier_TypeId = 4,
+                            Description = "Stores that supplier baking ingrediants",
+                            Name = "Bakery"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Login.AppUser", b =>
@@ -1669,9 +1726,13 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .WithMany("Inventorys")
                         .HasForeignKey("AdministratorId");
 
-                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.Inventory_Type", null)
+                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.Inventory_Type", "Inventory_Type")
                         .WithMany("Inventorys")
-                        .HasForeignKey("Inventory_TypeId");
+                        .HasForeignKey("Inventory_TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Inventory_Type");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier", b =>
@@ -1680,9 +1741,13 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .WithMany("Suppliers")
                         .HasForeignKey("AdministratorId");
 
-                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.Supplier_Type", null)
+                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.Supplier_Type", "Supplier_Type")
                         .WithMany("Suppliers")
-                        .HasForeignKey("Supplier_TypeId");
+                        .HasForeignKey("Supplier_TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Supplier_Type");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier_InventoryItem", b =>

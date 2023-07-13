@@ -182,7 +182,8 @@ namespace Africanacity_Team24_INF370_.models
 
         public async Task<Supplier[]> GetAllSuppliersAsync()
         {
-            IQueryable<Supplier> query = _appDbContext.Suppliers;
+            IQueryable<Supplier> query = _appDbContext.Suppliers.Include(p => p.Supplier_Type);
+
             return await query.ToArrayAsync();
         }
 
