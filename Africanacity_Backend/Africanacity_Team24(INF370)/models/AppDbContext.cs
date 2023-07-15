@@ -65,6 +65,8 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<Order_Drink> Order_Drinks { get; set; }
 		public DbSet<Order_MenuItem> Order_MenuItems { get; set; }
 		public DbSet<Order_Status> Order_Statuses { get; set; }
+           
+        public DbSet<OrderType> OrderTypes { get; set; }
 		public DbSet<Payment> Payments { get; set; }
 		public DbSet<Payment_Method> Payment_Methods { get; set; }
 		public DbSet<Table_Number> Table_Numbers { get; set; }
@@ -432,9 +434,29 @@ namespace Africanacity_Team24_INF370_.models
 
 
                           });
+            //create seed data for order type
+            modelBuilder.Entity<OrderType>()
+                          .HasData(
+                          new
+                          {
+                              OrderType_ID = 1,
+                              Name = "Sit-In",
+
+
+                          });
+            modelBuilder.Entity<OrderType>()
+                          .HasData(
+                          new
+                          {
+                              OrderType_ID = 2,
+                              Name = "Takeaway",
+
+
+                          });
+
 
             //Many to many with MenuItem
-                         modelBuilder.Entity<MenuItem>()
+            modelBuilder.Entity<MenuItem>()
                         .HasOne(m => m.Menu_Type)
                         .WithMany()
                         .HasForeignKey(m => m.Menu_TypeId);

@@ -1338,6 +1338,36 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.ToTable("Order_Statuses");
                 });
 
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.OrderType", b =>
+                {
+                    b.Property<int>("OrderType_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderType_ID"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("OrderType_ID");
+
+                    b.ToTable("OrderTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            OrderType_ID = 1,
+                            Name = "Sit-In"
+                        },
+                        new
+                        {
+                            OrderType_ID = 2,
+                            Name = "Takeaway"
+                        });
+                });
+
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Payment", b =>
                 {
                     b.Property<int>("PaymentId")

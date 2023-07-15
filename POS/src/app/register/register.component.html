@@ -1,12 +1,18 @@
-<ion-content>
+<ion-header class="register-content">
+  <ion-toolbar>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="register-content">
   <ion-grid class="login-wrapper" justify-content-center align-items-center>
     <ion-card class="box">
       <ion-card-header>
-        <ion-card-title>MMINO</ion-card-title>
-        <ion-avatar slot="start">
-          <img src="../../assets/images/Africanacity.png" alt="" width="40" height="40" class="d-inline-block align-text-top">
-        </ion-avatar>
-        <ion-card-subtitle>Register</ion-card-subtitle>
+        
+       
+          <img src="../../assets/images/Africanacity.png" alt="" class="card-image">
+        
+        <ion-card-subtitle class="card-title">Register</ion-card-subtitle>
       </ion-card-header>
       <form class="form" [formGroup]="registerFormGroup">
         <ion-card-content>
@@ -40,4 +46,3 @@
     </ion-card>
   </ion-grid>
 </ion-content>
-

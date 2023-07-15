@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Africanacity_Team24_INF370_.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230702173626_MminoNew")]
-    partial class MminoNew
+    [Migration("20230715185628_Mmino")]
+    partial class Mmino
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1338,6 +1338,36 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasKey("Order_StatusId");
 
                     b.ToTable("Order_Statuses");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.OrderType", b =>
+                {
+                    b.Property<int>("OrderType_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderType_ID"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("OrderType_ID");
+
+                    b.ToTable("OrderTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            OrderType_ID = 1,
+                            Name = "Sit-In"
+                        },
+                        new
+                        {
+                            OrderType_ID = 2,
+                            Name = "Takeaway"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Payment", b =>

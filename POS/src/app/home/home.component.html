@@ -1,3 +1,18 @@
-<p>
-  home works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Restaurant Management System</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="home-container">
+    <h2>Welcome to the Restaurant Management!</h2>
+    <div class="button-container">
+      <ion-button expand="full" color="primary" *ngFor="let orderType of orderTypes">
+        <ion-icon name="restaurant-outline" slot="start"></ion-icon>
+        {{ orderType.name }}
+      </ion-button>
+    </div>
+  </div>
+</ion-content>
+

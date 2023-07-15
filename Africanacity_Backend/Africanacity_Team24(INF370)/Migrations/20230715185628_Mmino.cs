@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Africanacity_Team24_INF370_.Migrations
 {
-    public partial class MminoNew : Migration
+    public partial class Mmino : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -215,6 +215,19 @@ namespace Africanacity_Team24_INF370_.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Order_Statuses", x => x.Order_StatusId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderTypes",
+                columns: table => new
+                {
+                    OrderType_ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderTypes", x => x.OrderType_ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -1071,6 +1084,15 @@ namespace Africanacity_Team24_INF370_.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "OrderTypes",
+                columns: new[] { "OrderType_ID", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Sit-In" },
+                    { 2, "Takeaway" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "MenuItems",
                 columns: new[] { "MenuItemId", "Description", "FoodTypeId", "Food_TypeFoodTypeId1", "Menu_CategoryId", "Menu_TypeId", "Menu_TypeId1", "Name" },
                 values: new object[,]
@@ -1361,6 +1383,9 @@ namespace Africanacity_Team24_INF370_.Migrations
 
             migrationBuilder.DropTable(
                 name: "Order_MenuItems");
+
+            migrationBuilder.DropTable(
+                name: "OrderTypes");
 
             migrationBuilder.DropTable(
                 name: "Passwords");
