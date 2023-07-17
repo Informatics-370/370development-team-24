@@ -372,6 +372,7 @@ namespace Africanacity_Team24_INF370_.models
 							 Menu_CategoryId =3,
                              CategoryMenu_CategoryId = 3,
                              Menu_TypeId = 2,
+                             MenuItem_PriceId = 2,
 
 
                            });
@@ -388,6 +389,7 @@ namespace Africanacity_Team24_INF370_.models
                                Menu_CategoryId= 3,
                                CategoryMenu_CategoryId = 3,
                                Menu_TypeId = 2,
+                               MenuItem_PriceId = 5,
 
 
                            });
@@ -403,6 +405,7 @@ namespace Africanacity_Team24_INF370_.models
                               Menu_CategoryId = 2,
                               CategoryMenu_CategoryId = 2,
                               Menu_TypeId = 2,
+                              MenuItem_PriceId = 3,
 
 
                           });
@@ -417,6 +420,7 @@ namespace Africanacity_Team24_INF370_.models
                               Menu_CategoryId = 5,
                               CategoryMenu_CategoryId = 5,
                               Menu_TypeId = 2,
+                              MenuItem_PriceId = 1,
 
 
                           });
@@ -425,15 +429,61 @@ namespace Africanacity_Team24_INF370_.models
                           new
                           {
                               MenuItemId = 5,
-                              Name = "Blueberry cheescake",
+                              Name = "Blueberry cheescake slice",
                               Description = "Delicious cheesecake with blueberry sauce topping",
                               FoodTypeId = 3,
                               Menu_CategoryId = 4,
                               CategoryMenu_CategoryId = 4,
                               Menu_TypeId = 2,
+                              MenuItem_PriceId = 6,
 
 
                           });
+
+            //create seed data for MENU ITEM PRICE
+            modelBuilder.Entity<MenuItem_Price>()
+                         .HasData(
+                         new
+                         {
+                             MenuItem_PriceId = 1,
+                             Amount = 50.00,
+                         });
+            modelBuilder.Entity<MenuItem_Price>()
+                        .HasData(
+                        new
+                        {
+                            MenuItem_PriceId = 2,
+                            Amount = 105.00,
+                        });
+            modelBuilder.Entity<MenuItem_Price>()
+                        .HasData(
+                        new
+                        {
+                            MenuItem_PriceId = 3,
+                            Amount = 35.00,
+                        });
+            modelBuilder.Entity<MenuItem_Price>()
+                        .HasData(
+                        new
+                        {
+                            MenuItem_PriceId = 4,
+                            Amount = 10.00,
+                        });
+            modelBuilder.Entity<MenuItem_Price>()
+                        .HasData(
+                        new
+                        {
+                            MenuItem_PriceId = 5,
+                            Amount = 200.00,
+                        });
+            modelBuilder.Entity<MenuItem_Price>()
+                        .HasData(
+                        new
+                        {
+                            MenuItem_PriceId = 6,
+                            Amount = 45.00,
+                        });
+
             //create seed data for order type
             modelBuilder.Entity<OrderType>()
                           .HasData(

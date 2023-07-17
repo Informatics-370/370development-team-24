@@ -178,5 +178,38 @@ namespace Africanacity_Team24_INF370_.models
             return code;
         }
 
+        //Menu Item Prices
+        
+        public async Task<MenuItem_Price[]> GetAllMenuItemPricesAsync()
+        {
+            IQueryable<MenuItem_Price> query = _appDbContext.MenuItem_Prices;
+            return await query.ToArrayAsync();
+        }
+        public async Task<MenuItem_Price> GetAMenuItemPriceAsync(int MenuItem_PriceId)
+        {
+            IQueryable<MenuItem_Price> query = _appDbContext.MenuItem_Prices.Where(c => c.MenuItem_PriceId == MenuItem_PriceId);
+            return await query.FirstOrDefaultAsync();
+        }
+
+
+        public async Task<int> EditMenuItemPriceAsync(int MenuItem_PriceId, MenuItemPriceViewModel menuItemPriceViewModel)
+        {
+            int code = 200; ;
+            //Find the module in the database
+            MenuItem_Price findModule = await _appDbContext.MenuItem_Prices.Where(x => x.MenuItem_PriceId == MenuItem_PriceId).FirstOrDefaultAsync();
+            if (findModule == null)
+            {
+                code = 404;
+            }
+            else
+            {
+                findModule.Amount = menuItemPriceViewModel.Amount;
+
+                _appDbContext.MenuItem_Prices.Update(findModule);
+                await _appDbContext.SaveChangesAsync();
+            }
+            return code;
+        }
+
     }
 }
