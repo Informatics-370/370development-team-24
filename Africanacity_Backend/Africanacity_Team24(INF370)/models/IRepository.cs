@@ -58,6 +58,13 @@ namespace Africanacity_Team24_INF370_.models
         Task<int> EditMenuItemPriceAsync(int MenuItem_PriceId, MenuItemPriceViewModel menuItemPriceViewModel);
 
 
+
+        //DRINK ITEM
+        Task<Drink[]> GetAllDrinksAsync();
+        Task<Drink> GetDrinkItemAsync(int DrinkId);
+
+     
+
         // DRINK ITEM TYPE
         Task<Drink_Type[]> GetAllDrinkTypesAsync();
         Task<Drink_Type> GetDrinkTypeAsync(int Drink_TypeId);
