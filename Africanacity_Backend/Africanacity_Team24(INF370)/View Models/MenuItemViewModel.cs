@@ -11,7 +11,7 @@ namespace Africanacity_Team24_INF370_.View_Models
         public int MenuTypeId { get; set; }
         public int MenuCategoryId { get; set; } 
 
-        public int MenuItem_PriceId { get; set; }
+      
 
       
 

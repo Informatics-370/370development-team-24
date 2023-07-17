@@ -370,9 +370,7 @@ namespace Africanacity_Team24_INF370_.models
 							 Description ="Two larger chicken burger, 6 pcs nuggets, two large fries",
                              FoodTypeId = 1,
 							 Menu_CategoryId =3,
-                             CategoryMenu_CategoryId = 3,
                              Menu_TypeId = 2,
-                             MenuItem_PriceId = 2,
 
 
                            });
@@ -387,9 +385,8 @@ namespace Africanacity_Team24_INF370_.models
                                Description = "Pap, boerewors an Tbone steak",
                                FoodTypeId = 2,
                                Menu_CategoryId= 3,
-                               CategoryMenu_CategoryId = 3,
                                Menu_TypeId = 2,
-                               MenuItem_PriceId = 5,
+                              
 
 
                            });
@@ -403,9 +400,8 @@ namespace Africanacity_Team24_INF370_.models
                               Description = "Mozarella stuffe cheese balls",
                               FoodTypeId = 3,
                               Menu_CategoryId = 2,
-                              CategoryMenu_CategoryId = 2,
                               Menu_TypeId = 2,
-                              MenuItem_PriceId = 3,
+                              
 
 
                           });
@@ -418,9 +414,8 @@ namespace Africanacity_Team24_INF370_.models
                               Description = "A green salad with salsa mix",
                               FoodTypeId = 4,
                               Menu_CategoryId = 5,
-                              CategoryMenu_CategoryId = 5,
                               Menu_TypeId = 2,
-                              MenuItem_PriceId = 1,
+                              
 
 
                           });
@@ -433,12 +428,9 @@ namespace Africanacity_Team24_INF370_.models
                               Description = "Delicious cheesecake with blueberry sauce topping",
                               FoodTypeId = 3,
                               Menu_CategoryId = 4,
-                              CategoryMenu_CategoryId = 4,
                               Menu_TypeId = 2,
-                              MenuItem_PriceId = 6,
-
-
                           });
+
 
             //create seed data for MENU ITEM PRICE
             modelBuilder.Entity<MenuItem_Price>()
@@ -446,43 +438,43 @@ namespace Africanacity_Team24_INF370_.models
                          new
                          {
                              MenuItem_PriceId = 1,
-                             Amount = 50.00,
-                         });
+                             MenuItemId = 5,
+                             Amount = 50.50m
+                         }) ;
             modelBuilder.Entity<MenuItem_Price>()
                         .HasData(
                         new
                         {
                             MenuItem_PriceId = 2,
-                            Amount = 105.00,
+                            MenuItemId = 1,
+                            Amount = 105.35m
                         });
             modelBuilder.Entity<MenuItem_Price>()
                         .HasData(
                         new
                         {
                             MenuItem_PriceId = 3,
-                            Amount = 35.00,
+                            MenuItemId = 4,
+                            Amount = 35.10m
                         });
-            modelBuilder.Entity<MenuItem_Price>()
-                        .HasData(
-                        new
-                        {
-                            MenuItem_PriceId = 4,
-                            Amount = 10.00,
-                        });
+
             modelBuilder.Entity<MenuItem_Price>()
                         .HasData(
                         new
                         {
                             MenuItem_PriceId = 5,
-                            Amount = 200.00,
+                            MenuItemId = 2,
+                            Amount = 200.50m
                         });
             modelBuilder.Entity<MenuItem_Price>()
                         .HasData(
                         new
                         {
                             MenuItem_PriceId = 6,
-                            Amount = 45.00,
+                            MenuItemId = 3,
+                            Amount = 45.50m
                         });
+
 
             //create seed data for order type
             modelBuilder.Entity<OrderType>()
@@ -520,6 +512,7 @@ namespace Africanacity_Team24_INF370_.models
                         .HasOne(m => m.Food_Type)
                         .WithMany()
                         .HasForeignKey(m => m.FoodTypeId);
+
 
             // For the Access_UserRole M2M payload (Uncomment code below and run migration to generate tables)
             modelBuilder.Entity<Access>()

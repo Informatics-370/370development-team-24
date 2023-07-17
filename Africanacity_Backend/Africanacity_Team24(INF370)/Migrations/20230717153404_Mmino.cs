@@ -196,6 +196,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                 {
                     MenuItem_PriceId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    MenuItemId = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
@@ -1075,6 +1076,18 @@ namespace Africanacity_Team24_INF370_.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "MenuItem_Prices",
+                columns: new[] { "MenuItem_PriceId", "Amount", "MenuItemId" },
+                values: new object[,]
+                {
+                    { 1, 50.50m, 5 },
+                    { 2, 105.35m, 1 },
+                    { 3, 35.10m, 4 },
+                    { 5, 200.50m, 2 },
+                    { 6, 45.50m, 3 }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Menu_Types",
                 columns: new[] { "Menu_TypeId", "Name" },
                 values: new object[,]
@@ -1101,7 +1114,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                     { 2, "Pap, boerewors an Tbone steak", 2, null, 3, 2, null, "The Braai feast" },
                     { 3, "Mozarella stuffe cheese balls", 3, null, 2, 2, null, "Chilli cheese poppers" },
                     { 4, "A green salad with salsa mix", 4, null, 5, 2, null, "Mexican salad" },
-                    { 5, "Delicious cheesecake with blueberry sauce topping", 3, null, 4, 2, null, "Blueberry cheescake" }
+                    { 5, "Delicious cheesecake with blueberry sauce topping", 3, null, 4, 2, null, "Blueberry cheescake slice" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Africanacity_Team24_INF370_.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230715185628_Mmino")]
+    [Migration("20230717153404_Mmino")]
     partial class Mmino
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1161,7 +1161,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                             FoodTypeId = 3,
                             Menu_CategoryId = 4,
                             Menu_TypeId = 2,
-                            Name = "Blueberry cheescake"
+                            Name = "Blueberry cheescake slice"
                         });
                 });
 
@@ -1236,9 +1236,44 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("MenuItemId")
+                        .HasColumnType("int");
+
                     b.HasKey("MenuItem_PriceId");
 
                     b.ToTable("MenuItem_Prices");
+
+                    b.HasData(
+                        new
+                        {
+                            MenuItem_PriceId = 1,
+                            Amount = 50.50m,
+                            MenuItemId = 5
+                        },
+                        new
+                        {
+                            MenuItem_PriceId = 2,
+                            Amount = 105.35m,
+                            MenuItemId = 1
+                        },
+                        new
+                        {
+                            MenuItem_PriceId = 3,
+                            Amount = 35.10m,
+                            MenuItemId = 4
+                        },
+                        new
+                        {
+                            MenuItem_PriceId = 5,
+                            Amount = 200.50m,
+                            MenuItemId = 2
+                        },
+                        new
+                        {
+                            MenuItem_PriceId = 6,
+                            Amount = 45.50m,
+                            MenuItemId = 3
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Order", b =>
