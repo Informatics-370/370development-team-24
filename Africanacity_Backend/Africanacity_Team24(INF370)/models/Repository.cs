@@ -107,7 +107,21 @@ namespace Africanacity_Team24_INF370_.models
         {
             IQueryable<Drink> query = _appDbContext.Drinks.Where(d => d.DrinkId == DrinkId);
             return await query.FirstOrDefaultAsync();
+
         }
+
+        //DRINK ITEM PRICES
+        public async Task<Drink_Price[]> GetAllDrinkItemPricesAsync()
+        {
+            IQueryable<Drink_Price> query = _appDbContext.Drink_Prices;
+            return await query.ToArrayAsync();
+        }
+        public async Task<Drink_Price> GetADrinkItemPriceAsync(int Drink_PriceId)
+        {
+            IQueryable<Drink_Price> query = _appDbContext.Drink_Prices.Where(c => c.Drink_PriceId == Drink_PriceId);
+            return await query.FirstOrDefaultAsync();
+        }
+
 
         //MENU ITEM CATEGORY
         public async Task<MenuItem_Category[]> GetAllMenuItemCategoriesAsync()

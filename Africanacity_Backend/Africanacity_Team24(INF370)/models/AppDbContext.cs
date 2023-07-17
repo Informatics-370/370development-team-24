@@ -475,6 +475,136 @@ namespace Africanacity_Team24_INF370_.models
                             Amount = 45.50m
                         });
 
+            // Create Seed Data For the Drink type Table:
+            modelBuilder.Entity<Drink_Type>()
+                           .HasData(
+                           new
+                           {
+                               Drink_TypeId = 1,
+                               Name = "Alcohol",
+
+                           });
+            modelBuilder.Entity<Drink_Type>()
+                           .HasData(
+                           new
+                           {
+                               Drink_TypeId = 2,
+                               Name = "Non-Alcohol",
+
+                           });
+
+            // Create Seed Data For the Drink Table:
+            modelBuilder.Entity<Drink>()
+                           .HasData(
+                           new
+                           {
+                               DrinkId = 1,
+                               Name = "Margarita",
+                               Drink_TypeId = 1,
+
+                           });
+
+            modelBuilder.Entity<Drink>()
+                          .HasData(
+                          new
+                          {
+                              DrinkId = 2,
+                              Name = "Strawberry Daiquri",
+                              Drink_TypeId = 1,
+
+                          });
+            modelBuilder.Entity<Drink>()
+                          .HasData(
+                          new
+                          {
+                              DrinkId = 3,
+                              Name = "Blood Mary",
+                              Drink_TypeId = 1,
+
+                          });
+            modelBuilder.Entity<Drink>()
+                          .HasData(
+                          new
+                          {
+                              DrinkId = 4,
+                              Name = "Virgin Mojito",
+                              Drink_TypeId = 2,
+
+                          });
+            modelBuilder.Entity<Drink>()
+                          .HasData(
+                          new
+                          {
+                              DrinkId = 5,
+                              Name = "Cappuccino",
+                              Drink_TypeId = 2,
+
+                          });
+            modelBuilder.Entity<Drink>()
+                          .HasData(
+                          new
+                          {
+                              DrinkId = 6,
+                              Name = "Frozen lemonade",
+                              Drink_TypeId = 2,
+
+                          });
+
+            //create seed data drink prices 
+            modelBuilder.Entity<Drink_Price>()
+                        .HasData(
+                        new
+                        {
+                            Drink_PriceId = 1,
+                            Amount = 55m,
+                            DrinkId = 1,
+
+                        });
+            modelBuilder.Entity<Drink_Price>()
+                       .HasData(
+                       new
+                       {
+                           Drink_PriceId = 2,
+                           Amount = 75m,
+                           DrinkId = 2,
+
+                       });
+            modelBuilder.Entity<Drink_Price>()
+                       .HasData(
+                       new
+                       {
+                           Drink_PriceId = 3,
+                           Amount = 99m,
+                           DrinkId = 3,
+
+                       });
+            modelBuilder.Entity<Drink_Price>()
+                       .HasData(
+                       new
+                       {
+                           Drink_PriceId = 4,
+                           Amount = 45m,
+                           DrinkId = 4,
+
+                       });
+            modelBuilder.Entity<Drink_Price>()
+                       .HasData(
+                       new
+                       {
+                           Drink_PriceId = 5,
+                           Amount = 65m,
+                           DrinkId = 5,
+
+                       });
+            modelBuilder.Entity<Drink_Price>()
+                       .HasData(
+                       new
+                       {
+                           Drink_PriceId = 6,
+                           Amount = 100m,
+                           DrinkId = 6,
+
+                       });
 
             //create seed data for order type
             modelBuilder.Entity<OrderType>()
