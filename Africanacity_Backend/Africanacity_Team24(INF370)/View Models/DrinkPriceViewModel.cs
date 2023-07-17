@@ -4,7 +4,7 @@
     {
         public int Drink_PriceId { get; set; }
 
-        public int Amount { get; set; }
+        public decimal Amount { get; set; }
 
         public int DrinkId { get; set; }
     }
