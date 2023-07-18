@@ -4,6 +4,9 @@ export interface MenuItem {
     name: string;
     price: number;
     menuTypeId: number;
+    foodTypeId: number;
+    menuCategoryId: number;
+
     // Add other necessary properties
   }
   
