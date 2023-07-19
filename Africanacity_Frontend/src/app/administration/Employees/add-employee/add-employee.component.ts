@@ -7,6 +7,8 @@ import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { EmployeeService } from 'src/app/service/employee.service';
 import { Employee } from 'src/app/shared/employee';
 import { NotificationDialogComponent } from '../notification-dialog/notification-dialog.component';
+import { Employee_Role } from 'src/app/shared/EmployeeRole';
+import { DataService } from 'src/app/service/data.Service';
 
 
 
@@ -34,107 +36,59 @@ styles: [`
 
 })
 export class AddEmployeeComponent implements OnInit {
-  @ViewChild('toastContainer', { read: ViewContainerRef })
-  toastContainer!: ViewContainerRef;
-  email!: string;
-  message!: string;
+  employeeRoleData:Employee_Role[]=[]
+  toastContainer: any;
 
-   constructor(private employeeservice: EmployeeService, emailservice: EmailService,  private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar) { }
+  constructor(private employeeservice: EmployeeService, private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar, dataService: DataService) { }
 
-     employeeForm: FormGroup = new FormGroup({
-       surname: new FormControl('',[Validators.required]),
-       firstName: new FormControl('',[Validators.required]),
-       email_Address: new FormControl('',[Validators.required]),
-       physical_Address: new FormControl('',[Validators.required]),
-       phoneNumber: new FormControl('',[Validators.required])
-    
-     })
-  //EmailVerification
+  employeeForm: FormGroup = new FormGroup({
+    surname: new FormControl('',[Validators.required]),
+    firstName: new FormControl('',[Validators.required]),
+    employeeRole: new FormControl([Validators.required]),
+    email_Address: new FormControl('',[Validators.required]),
+    physical_Address: new FormControl('',[Validators.required]),
+    phoneNumber: new FormControl('',[Validators.required])
 
-  // checkEmail() {
-  //   this.employeeservice.checkEmail(this.email).subscribe(
-  //     (response) => {
-  //       this.message = response.message;
-  //     },
-  //     (error) => {
-  //       console.error('Error checking email:', error);
-  //     }
-  //   );
-  // }
+  })
 
+  ngOnInit(): void {
+    this.GetAllEmployeeRoles()
+  }
 
-     Roles: string[] = ['Driver', 'Administrator', 'Waiter'];
+  cancel(){
+    this.router.navigate(['/view-employees'])
+  }
 
-     // Display Notifcations
-
-     openDialog():void{
-      const dialogRef = this.dialog.open(NotificationDialogComponent,{
-        width: '250px',
-        data: 'Add new Employee?'
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
-        if(result == 'Yes'){
-          this.onSubmit();
-        }
-      })
-    }
-    
-
-    ngOnInit(): void {
-    
-    }
-
-    cancel(){
-      this.router.navigate(['/home'])
-    }
-  
-       onSubmit(){
-
-        let employee = new Employee();
-        employee.surname = this.employeeForm.value.surname;
-        employee.firstName = this.employeeForm.value.firstName;
-        employee.email_Address = this.employeeForm.value.email_Address;
-        employee.physical_Address = this.employeeForm.value.physical_Address;
-        employee.phoneNumber = this.employeeForm.value.phoneNumber;
-            this.employeeservice.AddEmployee(employee).subscribe(result => {
-                  this.router.navigate(['/view-employees'])
-            })
-            // checkEmail() {
-            //   this.employeeservice.checkEmail(this.email).subscribe(
-            //     (response) => {
-            //       this.message = response.message;
-            //     },
-            //     (error) => {
-            //       console.error('Error checking email:', error);
-            //     }
-            //   );
-            // }
-          
-    
-     this.employeeservice.AddEmployee(employee).subscribe((res:any) => {
-
-      if(res.statusCode == 200)
-      {
-        this.router.navigate(['/'])
-      }
-      else
-      {
-      
-      }
+  GetAllEmployeeRoles(){
+    this.employeeservice.GetAllEmployeeRoles().subscribe(result => {
+      let employeeRoleList:any[] = result
+      employeeRoleList.forEach((element) => {
+        this.employeeRoleData.push(element)
      });
-     this.showSuccessMessage('Employee added successfully!');
-         }
+    });
+  }
 
-         showSuccessMessage(message: string): void {
-          const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(message, 'Ok', {
-            duration: 3000, // Duration in milliseconds
-            horizontalPosition: 'center',
-            verticalPosition: 'bottom'
-          });
-        
-            snackBarRef.afterDismissed().subscribe(() => {
-            this.toastContainer.clear();
-          });
-}
+  onSubmit() {
+   if (this.employeeForm.invalid) {
+     return;
+   }
+ 
+   let employee = new Employee();
+   employee.surname = this.employeeForm.value.surname;
+   employee.firstName = this.employeeForm.value.firstName;
+   employee.employeeRole = this.employeeForm.value.employeeRole;
+   employee.email_Address = this.employeeForm.value.email_Address;
+   employee.physical_Address = this.employeeForm.value.physical_Address;
+   employee.phoneNumber = this.employeeForm.value.phoneNumber;
+ 
+   this.employeeservice.AddEmployee(employee).subscribe(result => {
+     this.router.navigate(['/view-employees'])
+});
+ 
+   this.snackBar.open(
+     this.employeeForm.get('firstName' + 'surname')!.value + ` created successfully`,
+     'X',
+     { duration: 5000 }
+   );
+ }
 }

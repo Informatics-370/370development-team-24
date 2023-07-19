@@ -21,6 +21,16 @@
           <input class="form-control" id="firstName" placeholder="Enter First Name" [required]="true" formControlName="firstName">
         </div>
     </div>
+
+    <div class="form-group">
+      <label class="col-md-1" style="font-weight: bold;" for="employeeRoleName">Supplier Type</label>
+      <div class="col-md-6">
+        <select class="form-control" id="employeeRoleName" formControlName="employeeRole">
+          <option *ngFor="let item of employeeRolesData" [value]="item.employee_RoleId">{{ item.name }}</option>
+        </select>
+      </div>
+    </div>
+
     <div class="form-group">
       <label class="col-sm-1" style="font-weight: bold;" for="email_Address">Email Address:</label>
       <div class="col-sm-6">

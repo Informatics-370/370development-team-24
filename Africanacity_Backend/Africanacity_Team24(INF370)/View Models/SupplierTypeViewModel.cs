@@ -2,7 +2,7 @@
 {
     public class SupplierTypeViewModel
     {
-        public int Supplier_TypeId { get; set; }
+        public int Supplier_typeId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 

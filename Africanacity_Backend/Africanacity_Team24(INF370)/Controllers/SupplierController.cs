@@ -1,4 +1,5 @@
 ﻿using Africanacity_Team24_INF370_.models;
+using Africanacity_Team24_INF370_.models.Administration;
 using Africanacity_Team24_INF370_.models.Inventory;
 using Africanacity_Team24_INF370_.View_Models;
 using Africanacity_Team24_INF370_.ViewModel;
@@ -23,33 +24,6 @@ namespace Africanacity_Team24_INF370_.Controllers
                 _appDBContext = context;
             }
 
-
-        // Get all suppliers, from the database
-
-        //[HttpGet]
-        //[Route("GetAllSuppliers")]
-        //public async Task<IActionResult> GetAllSuppliers()
-        //{
-        //    try
-        //    {
-        //        var results = await _Repository.GetAllSuppliersAsync();
-        //    dynamic suppliers = results.Select(s => new
-        //    {
-        //        s.SupplierId,
-        //        s.Name,
-        //        SupplierTypeName = s.Supplier_Type.Name,
-        //        s.Email_Address,
-        //        s.Physical_Address
-        //    });
-
-        //        return Ok(suppliers);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return StatusCode(500, "Internal Server Error. Please contact support.");
-        //    }
-
-        //}
         [HttpGet]
         [Route("GetAllSuppliers")]
         public async Task<ActionResult> GetAllSuppliers()
@@ -62,19 +36,19 @@ namespace Africanacity_Team24_INF370_.Controllers
 
                 dynamic suppliers = results.Select(s => new
                 {
-                    SupplierId = s.SupplierId,
+                    s.SupplierId,
 
-                    SupplierName = s.Name,
+                    s.SupplierName,
 
                     SupplierTypeName = s.Supplier_Type.Name,
                       
                     //SupplierTypeId = s.Supplier_TypeId,
 
-                    SupplierNumber = s.PhoneNumber,
+                    s.PhoneNumber,
 
-                    SupplierEmail = s.Email_Address,
+                    s.Email_Address,
 
-                    SupplierAddress = s.Physical_Address
+                    s.Physical_Address
 
                 });
                          
@@ -102,7 +76,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         }
 
-        [HttpGet]
+            [HttpGet]
             [Route("GetSupplier/{supplierId}")]
             public async Task<IActionResult> GetSupplierAsync(int supplierId)
             {
@@ -121,32 +95,40 @@ namespace Africanacity_Team24_INF370_.Controllers
                 }
             }
 
-            // Add Supplier
+        // Add Supplier
 
-            [HttpPost]
-            [Route("AddSupplier")]
-            public async Task<IActionResult> AddSupplier(SupplierViewModel svm)
+        [HttpPost]
+        [Route("AddSupplier")]
+        public async Task<IActionResult> AddSupplier(SupplierViewModel svm)
+        {
+            var supplier = new Supplier { 
+                SupplierName = svm.SupplierName, 
+                Supplier_TypeId = Convert.ToInt32(svm.SupplierType),
+                Email_Address = svm.Email_Address,
+                PhoneNumber = svm.PhoneNumber,
+                Physical_Address = svm.Physical_Address
+                };
+
+            try
             {
-                var supplier = new Supplier {Name = svm.Name, Email_Address = svm.Email_Address, Physical_Address = svm.Physical_Address, PhoneNumber = svm.PhoneNumber };
-
-                try
-                {
-                    _Repository.Add(supplier);
-                    await _Repository.SaveChangesAsync();
-                }
-                catch (Exception)
-                {
-                    // fix error message
-                    return BadRequest("Invalid Transaction");
-                }
-
-                return Ok(supplier);
-
+                _Repository.Add(supplier);
+                await _Repository.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                // fix error message
+                return BadRequest("Invalid Transaction");
             }
 
-            //Update Supplier
+            return Ok(supplier);
 
-            [HttpPut]
+        }
+
+
+
+        //Update Supplier
+
+        [HttpPut]
             [Route("EditSupplier/{supplierId}")]
             public async Task<ActionResult<SupplierViewModel>> EditSupplier(int supplierId, SupplierViewModel svm)
             {
@@ -155,9 +137,9 @@ namespace Africanacity_Team24_INF370_.Controllers
                     var currentSupplier = await _Repository.GetSupplierAsync(supplierId);
                     if (currentSupplier == null) return NotFound($"The supplier does not exist");
 
-                    currentSupplier.Name = svm.Name;
+                    currentSupplier.SupplierName = svm.SupplierName;
                     currentSupplier.Email_Address = svm.Email_Address;
-                    currentSupplier.Name = svm.SupplierTypeName;
+                    currentSupplier.Supplier_TypeId = Convert.ToInt32(svm.SupplierType);
                     currentSupplier.PhoneNumber = svm.PhoneNumber;
                     currentSupplier.Physical_Address = svm.Physical_Address;
 
@@ -196,24 +178,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                 return BadRequest("Your request is invalid.");
             }
 
-
-            //Email Verification
-
-            [HttpPost]
-            public IActionResult CheckEmail([FromBody] Emails emailModel)
-            {
-                string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
-
-                if (Regex.IsMatch(emailModel.Email, emailPattern))
-                {
-                    return Ok(new { message = "Email matches the pattern." });
-                }
-                else
-                {
-                    return BadRequest(new { message = "Invalid email format." });
-                }
-            }
-
+   
         }
 
       

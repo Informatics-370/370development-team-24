@@ -5,6 +5,7 @@ using Africanacity_Team24_INF370_.ViewModel;
 using Africanacity_Team24_INF370_.View_Models;
 using Microsoft.EntityFrameworkCore;
 using Africanacity_Team24_INF370_.models.Inventory;
+using System.Linq;
 
 namespace Africanacity_Team24_INF370_.models
 {
@@ -22,7 +23,8 @@ namespace Africanacity_Team24_INF370_.models
         // EMPLOYEES
         public async Task<Employee[]> GetAllEmployeesAsync()
         {
-            IQueryable<Employee> query = _appDbContext.Employees;
+            IQueryable<Employee> query = _appDbContext.Employees.Include(e => e.Employee_Role);
+
             return await query.ToArrayAsync();
         }
         public async Task<Employee> GetEmployeeAsync(int employeeId)
@@ -182,7 +184,7 @@ namespace Africanacity_Team24_INF370_.models
 
         public async Task<Supplier[]> GetAllSuppliersAsync()
         {
-            IQueryable<Supplier> query = _appDbContext.Suppliers.Include(p => p.Supplier_Type);
+            IQueryable<Supplier> query = _appDbContext.Suppliers.Include(s => s.Supplier_Type);
 
             return await query.ToArrayAsync();
         }
@@ -201,9 +203,9 @@ namespace Africanacity_Team24_INF370_.models
             return await query.ToArrayAsync();
         }
 
-        public async Task<Supplier_Type> GetSupplierTypeAsync(int supplier_typeId)
+        public async Task<Supplier_Type> GetSupplierTypeAsync(int supplier_TypeId)
         {
-            IQueryable<Supplier_Type> query = _appDbContext.Supplier_Types.Where(s => s.Supplier_TypeId == supplier_typeId);
+            IQueryable<Supplier_Type> query = _appDbContext.Supplier_Types.Where(s => s.Supplier_TypeId == supplier_TypeId);
             return await query.FirstOrDefaultAsync();
         }
 
@@ -211,13 +213,15 @@ namespace Africanacity_Team24_INF370_.models
 
         public async Task<Inventory_Item[]> GetAllInventoryItemsAsync()
         {
-            IQueryable<Inventory_Item> query = _appDbContext.Inventory_Items;
+            IQueryable<Inventory_Item> query = _appDbContext.Inventory_Items.Include(i => i.Inventory_Type);
+
             return await query.ToArrayAsync();
         }
 
-        public async Task<Inventory_Item> GetInventoryItemAsync(int inventory_itemId)
+
+        public async Task<Inventory_Item> GetInventoryItemAsync(int inventory_ItemId)
         {
-            IQueryable<Inventory_Item> query = _appDbContext.Inventory_Items.Where(i => i.Inventory_ItemId == inventory_itemId);
+            IQueryable<Inventory_Item> query = _appDbContext.Inventory_Items.Where(i => i.Inventory_ItemId == inventory_ItemId);
             return await query.FirstOrDefaultAsync();
         }
 
@@ -228,12 +232,17 @@ namespace Africanacity_Team24_INF370_.models
             return await query.ToArrayAsync();
         }
 
-        public async Task<Inventory_Type> GetInventoryTypeAsync(int inventory_typeId)
+        public async Task<Inventory_Type> GetInventoryTypeAsync(int inventory_TypeId)
         {
-            IQueryable<Inventory_Type> query = _appDbContext.Inventory_Types.Where(i => i.Inventory_TypeId == inventory_typeId);
+            IQueryable<Inventory_Type> query = _appDbContext.Inventory_Types.Where(i => i.Inventory_TypeId == inventory_TypeId);
             return await query.FirstOrDefaultAsync();
         }
 
+        public async Task<Inventory_Item[]> GetInventoryItemsByTypeAsync(int inventory_TypeId)
+        {
+            IQueryable<Inventory_Item> query = _appDbContext.Inventory_Items.Where(i => i.Inventory_TypeId == inventory_TypeId);
+            return await query.ToArrayAsync();
+        }
 
 
     }

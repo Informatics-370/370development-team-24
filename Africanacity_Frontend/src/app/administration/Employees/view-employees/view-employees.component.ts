@@ -18,23 +18,21 @@ import { EmployeeService } from 'src/app/service/employee.service';
   styleUrls: ['./view-employees.component.css']
 })
 export class ViewEmployeesComponent {
-  employees:Employee[] = []
-  searchTerm!: string;
-  // Employee!: Employee[];
-  filteredEmployees: Employee[] = [];
-
-  constructor(private employeeservice: EmployeeService, private router: Router, private httpClient: HttpClient, private snackBar: MatSnackBar){}
+  employees: Employee[] = []
+  filteredemployees: Employee[] = [];
   
+  constructor(private employeeservice: EmployeeService, private snackBar: MatSnackBar, private httpClient: HttpClient, private router: Router){}
 
   deleteItem(): void {
-    const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete this item?', 'Delete Cancel',{
+    const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete this employee?', 'Delete, Cancel',{
       duration: 5000, // Display duration in milliseconds
+
     });
 
     
-    // cancel(){
-    //   this.router.navigate(['/home'])
-    // }
+    //  cancel(){
+    //    this.router.navigate(['/home'])
+    //  }
   
 
     confirmationSnackBar.onAction().subscribe(() => {
@@ -43,13 +41,18 @@ export class ViewEmployeesComponent {
       window.location.reload();
     });
   }
-  deleteItemFromServer(): void {
-    this.deleteEmployee;
-  }
 
-  ngOnInit(): void{
+deleteItemFromServer(): void {
+  this.DeleteEmployee;
+}
+
+  ngOnInit(): void {
     this.GetAllEmployees()
     console.log(this.employees)
+
+    this.filteredemployees= this.employees
+    console.log(this.filteredemployees)
+
   }
 
   GetAllEmployees()
@@ -63,28 +66,29 @@ export class ViewEmployeesComponent {
     })
   }
 
-   deleteEmployee(employeeId: Number){
-    this.employeeservice.deleteEmployee(employeeId).subscribe(result => {
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+  
+    this.filteredemployees = this.employees.filter(employee => {
+      const column2Value = employee.firstName.toLowerCase() || employee.firstName.toUpperCase();
+      const column3Value = employee.surname.toLowerCase();
+      const column4Value = employee.email_Address.toLowerCase();
+      const column5Value = employee.physical_Address.toLowerCase();
+      const column6Value = employee.employeeRoleName.toLowerCase();
+  
+      return column2Value.includes(filterValue) || 
+      column3Value.includes(filterValue) ||
+      column4Value.includes(filterValue) ||
+      column5Value.includes(filterValue) ||
+      column6Value.includes(filterValue);
+    });
+  }
+
+
+  DeleteEmployee(employeeId: Number){
+    this.employeeservice.DeleteEmployee(employeeId).subscribe(result => {
       this.deleteItem();
       });
     }
-
-    // searchTerm: string = '';
-
-    // @Output() searchClicked: EventEmitter<string> = new EventEmitter<string>();
-
-    // search(searchTerm: string) {
-    //   this.searchClicked.emit(searchTerm);
-    // }
-    search() {
-      if (this.searchTerm) {
-        this.filteredEmployees = this.employees.filter(employee =>
-          employee.firstName.toLowerCase().includes(this.searchTerm.toLowerCase())
-        );
-      } else {
-        this.filteredEmployees = this.employees;
-      }
-    }
-
 }
 

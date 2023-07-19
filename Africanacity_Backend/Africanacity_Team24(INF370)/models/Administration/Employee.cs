@@ -1,6 +1,7 @@
 ﻿using Africanacity_Team24_INF370_.models.Admin;
 using System.ComponentModel.DataAnnotations;
 using Africanacity_Team24_INF370_.models.Restraurant;
+using Africanacity_Team24_INF370_.models.Inventory;
 
 namespace Africanacity_Team24_INF370_.models.Administration
 {
@@ -22,10 +23,12 @@ namespace Africanacity_Team24_INF370_.models.Administration
 		[StringLength(10)]
 		public string PhoneNumber { get; set; } = string.Empty.ToString();
 
-		//public int EmployeeRoleId { get; set; }
+		public int Employee_RoleId { get; set; }
 
         public List<Order> Orders { get; set; } = new List<Order>();
 
-		//public Employee_Role Employee_Role { get; set; }
-	}
+        public Employee_Role Employee_Role { get; set; }
+
+
+    }
 }

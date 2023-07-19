@@ -38,12 +38,12 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
         [HttpGet]
-        [Route("GetInventoryType/{inventory_typeId}")]
-        public async Task<IActionResult> GetSupplierTypeAsync(int inventory_typeId)
+        [Route("GetInventoryType/{inventory_TypeId}")]
+        public async Task<IActionResult> GetInventoryTypeAsync(int inventory_TypeId)
         {
             try
             {
-                var result = await _Repository.GetSupplierAsync(inventory_typeId);
+                var result = await _Repository.GetInventoryTypeAsync(inventory_TypeId);
 
                 if (result == null) return NotFound("Inventory Type does not exist. You need to create an Inventory Type first");
 
@@ -81,12 +81,12 @@ namespace Africanacity_Team24_INF370_.Controllers
         //Update InventoryType
 
         [HttpPut]
-        [Route("EditInvetroyType/{inventory_typeId}")]
-        public async Task<ActionResult<InventoryTypeViewModel>> EditInventoryType(int inventory_typeId, InventoryTypeViewModel itvm)
+        [Route("EditInvetroyType/{inventory_TypeId}")]
+        public async Task<ActionResult<InventoryTypeViewModel>> EditInventoryType(int inventory_TypeId, InventoryTypeViewModel itvm)
         {
             try
             {
-                var currentInventoryType = await _Repository.GetInventoryTypeAsync(inventory_typeId);
+                var currentInventoryType = await _Repository.GetInventoryTypeAsync(inventory_TypeId);
                 if (currentInventoryType == null) return NotFound($"The inventory type does not exist");
 
                 currentInventoryType.Name = itvm.Name;
@@ -106,12 +106,12 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         // Delete InventoryType
         [HttpDelete]
-        [Route("DeleteInventoryType/{inventory_typeId}")]
-        public async Task<IActionResult> DeleteSupplierType(int inventory_typeId)
+        [Route("DeleteInventoryType/{inventory_TypeId}")]
+        public async Task<IActionResult> DeleteSupplierType(int inventory_TypeId)
         {
             try
             {
-                var currentInventoryType = await _Repository.GetInventoryTypeAsync(inventory_typeId);
+                var currentInventoryType = await _Repository.GetInventoryTypeAsync(inventory_TypeId);
 
                 if (currentInventoryType == null) return NotFound($"The inventory type does not exist");
 
@@ -127,15 +127,6 @@ namespace Africanacity_Team24_INF370_.Controllers
             return BadRequest("Your request is invalid.");
         }
 
-        [HttpGet("search")]
-        public ActionResult<IEnumerable<Inventory_Type>> Search(string searchTerm)
-        {
-            var Inventory_Type = _appDBContext.Inventory_Items
-                .Where(n => n.Name.Contains(searchTerm))
-                .ToList();
-
-            return Ok(Inventory_Type);
-        }
 
     }
 

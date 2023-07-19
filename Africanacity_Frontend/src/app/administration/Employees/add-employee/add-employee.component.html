@@ -12,7 +12,7 @@
 <form [formGroup]="employeeForm" class="form-horizontal"  (ngSubmit)="onSubmit()">
     <div class="form-group">
         <label class=" col-md-1" style="font-weight: bold;" for="surname">Surname:</label>
-        <div class="col-md-8">
+        <div class="col-md-6">
           <input class="form-control" placeholder="Enter Surname" [required]="true" name="surname" formControlName="surname">
         </div>
     </div>
@@ -26,6 +26,17 @@
         </div>
       </span>
     </div>
+
+    
+    <div class="form-group">
+      <label class="col-md-1" style="font-weight: bold;" for="employeeRole">Employee Role</label>
+      <div class="col-md-6">
+      <select class="form-control" id="employeeRole" formControlName="employeeRole">
+        <option *ngFor="let item of employeeRoleData" [value]="item.employee_RoleId">{{ item.name }}</option>
+      </select>
+    </div>
+    </div>
+    
    
 
     <div class="form-group">
@@ -33,10 +44,6 @@
       <div class="col-sm-6">
         <input class="form-control" type="text" placeholder="xxxxx@gmail.com" [required]="true" name="email_Address" formControlName="email_Address">
         <!--button (click)="checkEmail()">Check Email</button-->
-
-        <div *ngIf="message" class="message">
-          {{ message }}
-        </div>
       </div>
   </div>
 
@@ -53,23 +60,7 @@
           <input class="form-control" type="text"  placeholder="Enter 10-digit number" [required]="true" name="phoneNumber" formControlName="phoneNumber">
         </div>
     </div>
-
-    <!-- <div class="form-group">
-      <label class="col-sm-2" style="font-weight: bold;">Employee Role:</label>
-      <div class="col-sm-6">
-        <div class="form-control" type="">
-          <mat-form-field>
-            <mat-label>Select a name</mat-label>
-            <mat-select>
-              <mat-option *ngFor="let name of Roles" [value]="name">
-                {{ name }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-  </div> -->
-
+    
     <div class="form-group">
       <div class="col-sm-offset-1 col-sm-6">
         <button style="margin-right:1em;" type="submit" [disabled]="!employeeForm.valid" class="btn btn-sm btn-success">Add</button>

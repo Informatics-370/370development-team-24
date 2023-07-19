@@ -48,6 +48,11 @@ export class EmployeeService {
     .pipe(map(result => result))
   }
 
+  GetAllEmployeeRoles(): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}EmployeeRole/GetAllEmployeeRoles`)
+    .pipe(map(results => results))
+    
+  }
 
   AddEmployee(employee: Employee)
   {
@@ -55,7 +60,7 @@ export class EmployeeService {
   }
 
 
-  deleteEmployee(employeeId: Number)
+  DeleteEmployee(employeeId: Number)
   {
     return this.httpClient.delete<string>(`${this.apiUrl}Employee/DeleteEmployee` + "/" + employeeId, this.httpOptions)
   }

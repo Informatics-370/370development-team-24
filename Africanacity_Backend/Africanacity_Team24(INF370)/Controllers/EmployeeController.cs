@@ -1,5 +1,6 @@
 ﻿using Africanacity_Team24_INF370_.models;
 using Africanacity_Team24_INF370_.models.Administration;
+using Africanacity_Team24_INF370_.models.Inventory;
 using Africanacity_Team24_INF370_.models.Restraurant;
 using Africanacity_Team24_INF370_.View_Models;
 using Africanacity_Team24_INF370_.ViewModel;
@@ -31,59 +32,40 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         [HttpGet]
         [Route("GetAllEmployees")]
-        public async Task<IActionResult> GetAllEmployees()
+        public async Task<ActionResult> GetAllEmployees()
         {
             try
             {
+
                 var results = await _Repository.GetAllEmployeesAsync();
-                return Ok(results);
+
+
+                dynamic employees = results.Select(e => new
+                {
+                    e.EmployeeId,
+
+                    e.Surname,
+
+                    e.FirstName,
+
+                    EmployeeRoleName = e.Employee_Role.Name,
+
+                    e.PhoneNumber,
+
+                    e.Email_Address,
+
+                    e.Physical_Address
+
+                });
+
+                return Ok(employees);
             }
             catch (Exception)
             {
-                return StatusCode(500, "Internal Server Error. Please contact support.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
             }
-
         }
 
-
-        //[HttpGet]
-        //[Route("GetAllEmployees")]
-        //public async Task<ActionResult<dynamic>> GetAllEmployees()
-        //{
-        //    try
-        //    {
-        //        List<dynamic> employeeTable = new List<dynamic>();
-
-        //        var results = await _Repository.GetAllEmployeesAsync();
-
-
-        //        dynamic employeeList = results.OrderByDescending(e => e.FirstName).Select(e => new
-        //        {
-        //            EmployeeName = e.FirstName
-        //                    ,
-        //            EmployeeSurname = e.Surname
-        //                    ,
-        //            EmployeeRole = e.Employee_Role.Name
-        //                    ,
-        //            EmployeeEmailAddress = e.Email_Address
-        //                    ,
-        //            EmployeePhoneNumber = e.PhoneNumber,
-
-        //            EmployeePhysicalAddress = e.Physical_Address
-
-        //        })
-        //                    .Take(10);
-
-
-        //        employeeTable.Add(employeeList);
-
-        //        return employeeTable;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
-        //    }
-        //}
 
         [HttpGet]
         [Route("GetEmployee/{employeeId}")]
@@ -109,7 +91,15 @@ namespace Africanacity_Team24_INF370_.Controllers
         [Route("AddEmployee")]
         public async Task<IActionResult> AddEmployee(EmployeeViewModel evm)
         {
-            var employee = new Employee { FirstName = evm.FirstName, Surname = evm.Surname, Email_Address = evm.Email_Address, Physical_Address = evm.Physical_Address, PhoneNumber = evm.PhoneNumber };
+            var employee = new Employee
+            {
+                Surname = evm.Surname,
+                FirstName = evm.FirstName,
+                Employee_RoleId = Convert.ToInt32(evm.EmployeeRole),
+                Email_Address = evm.Email_Address,
+                PhoneNumber = evm.PhoneNumber,
+                Physical_Address = evm.Physical_Address
+            };
 
             try
             {
@@ -134,18 +124,19 @@ namespace Africanacity_Team24_INF370_.Controllers
         {
             try
             {
-                var currentEmployee = await _Repository.GetEmployeeAsync(employeeId);
-                if (currentEmployee == null) return NotFound($"The employee does not exist");
+                var currentEmpoyee = await _Repository.GetEmployeeAsync(employeeId);
+                if (currentEmpoyee == null) return NotFound($"The employee does not exist");
 
-                currentEmployee.FirstName = evm.FirstName;
-                currentEmployee.Surname = evm.Surname;
-                currentEmployee.Email_Address = evm.Email_Address;
-                currentEmployee.PhoneNumber = evm.PhoneNumber;
-                currentEmployee.Physical_Address = evm.Physical_Address;
+                currentEmpoyee.Surname = evm.Surname;
+                currentEmpoyee.FirstName = evm.FirstName;
+                currentEmpoyee.Email_Address = evm.Email_Address;
+                currentEmpoyee.Employee_RoleId = Convert.ToInt32(evm.EmployeeRole);
+                currentEmpoyee.PhoneNumber = evm.PhoneNumber;
+                currentEmpoyee.Physical_Address = evm.Physical_Address;
 
                 if (await _Repository.SaveChangesAsync())
                 {
-                    return Ok(currentEmployee);
+                    return Ok(currentEmpoyee);
                 }
             }
             catch (Exception)
@@ -178,38 +169,6 @@ namespace Africanacity_Team24_INF370_.Controllers
             return BadRequest("Your request is invalid.");
         }
 
-        [HttpGet("search")]
-        public ActionResult<IEnumerable<Employee>> Search(string searchTerm)
-        {
-            var Employee = _appDBContext.Employees
-                .Where(f => f.FirstName.Contains(searchTerm))
-                .ToList();
-
-            return Ok(Employee);
-        }
-
-        //Email Verification
-
-        [HttpPost]
-        public IActionResult CheckEmail([FromBody] Emails emailModel)
-        {
-            string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
-
-            if (Regex.IsMatch(emailModel.Email, emailPattern))
-            {
-                return Ok(new { message = "Email matches the pattern." });
-            }
-            else
-            {
-                return BadRequest(new { message = "Invalid email format." });
-            }
-        }
-
-    }
-
-    public class Emails
-    {
-        public string Email { get; set; }
     }
 }
 

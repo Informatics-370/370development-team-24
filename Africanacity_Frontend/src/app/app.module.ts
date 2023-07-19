@@ -51,6 +51,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { EditSupplierComponent } from './administration/Supplier Management/Suppliers/edit-supplier/edit-supplier.component';
+import { EditSuppliertypeComponent } from './administration/Supplier Management/Supplier Types/edit-suppliertype/edit-suppliertype.component';
+import { EditIntventorytypeComponent } from './administration/Inventory Management/Inventory Types/edit-intventorytype/edit-intventorytype.component';
+import { EditInventoryitemComponent } from './administration/Inventory Management/Inventory Items/edit-inventoryitem/edit-inventoryitem.component';
+import { SelectedInventorytypeComponent } from './administration/Inventory Management/Inventory Items/view-inventoryitems/selected-inventorytype/selected-inventorytype.component';
 
 
 
@@ -86,7 +90,7 @@ import { EditSupplierComponent } from './administration/Supplier Management/Supp
   EditFoodTypeComponent,
    CreateFoodTypeComponent, 
    EditMenuItemCategoryComponent, 
-   CreateMenuItemCategoryComponent, AddInventoryitemComponent, ViewInventoryitemsComponent, AddInventorytypesComponent, ViewInventorytypesComponent, AddSuppliertypeComponent, ViewSuppliertypesComponent, AddSupplierComponent, ViewSuppliersComponent, EditSupplierComponent
+   CreateMenuItemCategoryComponent, AddInventoryitemComponent, ViewInventoryitemsComponent, AddInventorytypesComponent, ViewInventorytypesComponent, AddSuppliertypeComponent, ViewSuppliertypesComponent, AddSupplierComponent, ViewSuppliersComponent, EditSupplierComponent, EditSuppliertypeComponent, EditIntventorytypeComponent, EditInventoryitemComponent, SelectedInventorytypeComponent
   ],
   imports: [
     BrowserModule,

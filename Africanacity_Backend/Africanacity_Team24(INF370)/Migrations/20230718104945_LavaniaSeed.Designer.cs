@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Africanacity_Team24_INF370_.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230712073704_LavaniaSeed")]
+    [Migration("20230718104945_LavaniaSeed")]
     partial class LavaniaSeed
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -250,7 +250,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("Employee_RoleId")
+                    b.Property<int>("Employee_RoleId")
                         .HasColumnType("int");
 
                     b.Property<string>("FirstName")
@@ -287,6 +287,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             EmployeeId = 1,
                             Email_Address = "VanessaJames@gmail.com",
+                            Employee_RoleId = 1,
                             FirstName = "Vanessa",
                             PhoneNumber = "0847541236",
                             Physical_Address = "404 Jacob Street",
@@ -296,6 +297,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             EmployeeId = 2,
                             Email_Address = "SerenaWilliams@gmail.com",
+                            Employee_RoleId = 2,
                             FirstName = "Serena",
                             PhoneNumber = "0842341236",
                             Physical_Address = "132 Harriet Street",
@@ -305,6 +307,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             EmployeeId = 3,
                             Email_Address = "EdrisElba@gmail.com",
+                            Employee_RoleId = 1,
                             FirstName = "Edris",
                             PhoneNumber = "0212378798",
                             Physical_Address = "245 homelyn Street",
@@ -314,6 +317,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             EmployeeId = 4,
                             Email_Address = "NyongoLupita@gmail.com",
+                            Employee_RoleId = 2,
                             FirstName = "Lupita",
                             PhoneNumber = "0455783475",
                             Physical_Address = "254 Summer Street",
@@ -323,6 +327,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             EmployeeId = 5,
                             Email_Address = "MicheaJackson@gmail.com",
+                            Employee_RoleId = 2,
                             FirstName = "Micheal",
                             PhoneNumber = "0874567836",
                             Physical_Address = "567 Winter Street",
@@ -332,6 +337,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             EmployeeId = 6,
                             Email_Address = "TaehyungKim@gmial.com",
+                            Employee_RoleId = 1,
                             FirstName = "Taehyung",
                             PhoneNumber = "0874562134",
                             Physical_Address = "345 Shallow  Street",
@@ -341,6 +347,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             EmployeeId = 7,
                             Email_Address = "ZendayaColeman@gmail.com",
+                            Employee_RoleId = 1,
                             FirstName = "Zendaya",
                             PhoneNumber = "0212378798",
                             Physical_Address = "243 Super Street ",
@@ -350,6 +357,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             EmployeeId = 8,
                             Email_Address = "RogerFederal@gmail.com",
+                            Employee_RoleId = 1,
                             FirstName = "Roger",
                             PhoneNumber = "0612346487",
                             Physical_Address = "987 Wall Street",
@@ -359,6 +367,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             EmployeeId = 9,
                             Email_Address = "JenniferLOpez@gmail.com",
+                            Employee_RoleId = 2,
                             FirstName = "Jennifer",
                             PhoneNumber = "0874834576",
                             Physical_Address = "967 Ballard Street",
@@ -368,6 +377,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             EmployeeId = 10,
                             Email_Address = "ChadwickBoseman@gmail.com",
+                            Employee_RoleId = 2,
                             FirstName = "Chadwick",
                             PhoneNumber = "0923456789",
                             Physical_Address = "483 Alien Street",
@@ -733,7 +743,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<int>("Inventory_TypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("ItemName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -745,6 +755,78 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasIndex("Inventory_TypeId");
 
                     b.ToTable("Inventory_Items");
+
+                    b.HasData(
+                        new
+                        {
+                            Inventory_ItemId = 1,
+                            Description = "Freshly produced",
+                            Inventory_TypeId = 1,
+                            ItemName = "Lettuce"
+                        },
+                        new
+                        {
+                            Inventory_ItemId = 2,
+                            Description = "Used for all chicken dishes",
+                            Inventory_TypeId = 1,
+                            ItemName = "Chicken"
+                        },
+                        new
+                        {
+                            Inventory_ItemId = 3,
+                            Description = "Needs to be cooked well",
+                            Inventory_TypeId = 1,
+                            ItemName = "Mogodu"
+                        },
+                        new
+                        {
+                            Inventory_ItemId = 4,
+                            Description = "Served in all drinks with the gin recipie",
+                            Inventory_TypeId = 3,
+                            ItemName = "Gin"
+                        },
+                        new
+                        {
+                            Inventory_ItemId = 5,
+                            Description = "To Quench your Thirst",
+                            Inventory_TypeId = 2,
+                            ItemName = "Coke"
+                        },
+                        new
+                        {
+                            Inventory_ItemId = 6,
+                            Description = "For those who like no taste",
+                            Inventory_TypeId = 2,
+                            ItemName = "Sarkling Water"
+                        },
+                        new
+                        {
+                            Inventory_ItemId = 7,
+                            Description = "Many different types served",
+                            Inventory_TypeId = 3,
+                            ItemName = "Beer"
+                        },
+                        new
+                        {
+                            Inventory_ItemId = 8,
+                            Description = "One of the starches served with each dish",
+                            Inventory_TypeId = 1,
+                            ItemName = "Rice"
+                        },
+                        new
+                        {
+                            Inventory_ItemId = 9,
+                            Description = "One of the starches served with each dish",
+                            Inventory_TypeId = 1,
+                            ItemName = "Maize Meal"
+                        },
+                        new
+                        {
+                            Inventory_ItemId = 10,
+                            Description = "For those who do not like fizz",
+                            Inventory_TypeId = 2,
+                            ItemName = "Apple Juice"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Inventory_Type", b =>
@@ -768,6 +850,26 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasKey("Inventory_TypeId");
 
                     b.ToTable("Inventory_Types");
+
+                    b.HasData(
+                        new
+                        {
+                            Inventory_TypeId = 1,
+                            Description = "For all food inventory items",
+                            Name = "Food"
+                        },
+                        new
+                        {
+                            Inventory_TypeId = 2,
+                            Description = "For all Non-Alcoholic Drink inventory items",
+                            Name = "Non-Alcoholic Drinks"
+                        },
+                        new
+                        {
+                            Inventory_TypeId = 3,
+                            Description = "For all Alcoholic Drink inventory items",
+                            Name = "Alcoholic Drinks"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier", b =>
@@ -785,11 +887,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasMaxLength(10)
@@ -797,6 +894,11 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     b.Property<string>("Physical_Address")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SupplierName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("Supplier_TypeId")
                         .HasColumnType("int");
@@ -814,45 +916,45 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             SupplierId = 1,
                             Email_Address = "checkers@gmail.com",
-                            Name = "Checkers",
                             PhoneNumber = "0122345654",
                             Physical_Address = "416 Kirkness St, Arcadia",
+                            SupplierName = "Checkers",
                             Supplier_TypeId = 3
                         },
                         new
                         {
                             SupplierId = 2,
                             Email_Address = "pnp@gmail.com",
-                            Name = "Pick `n Pay",
                             PhoneNumber = "0110456543",
                             Physical_Address = "Hatfield Plaza 1122 Burnett Street",
+                            SupplierName = "Pick `n Pay",
                             Supplier_TypeId = 3
                         },
                         new
                         {
                             SupplierId = 3,
                             Email_Address = "liquorRack@gmail.com",
-                            Name = "Liquor Rack",
                             PhoneNumber = "0656781230",
                             Physical_Address = "Hatfield Plaza 1145 Burnett Street",
+                            SupplierName = "Liquor Rack",
                             Supplier_TypeId = 1
                         },
                         new
                         {
                             SupplierId = 4,
                             Email_Address = "bakerMan@gmail.com",
-                            Name = "BakerMan",
                             PhoneNumber = "0714567890",
                             Physical_Address = "HillCrest Boulevard 110 Lynnwood",
+                            SupplierName = "BakerMan",
                             Supplier_TypeId = 4
                         },
                         new
                         {
                             SupplierId = 5,
                             Email_Address = "MJButcher@gmail.com",
-                            Name = "Mr Jacks Butcher",
                             PhoneNumber = "0865045674",
                             Physical_Address = "143 Atterbury Street",
+                            SupplierName = "Mr Jacks Butcher",
                             Supplier_TypeId = 2
                         });
                 });
@@ -1069,32 +1171,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasKey("FoodTypeId");
 
                     b.ToTable("Food_Types");
-
-                    b.HasData(
-                        new
-                        {
-                            FoodTypeId = 1,
-                            Description = "Meals consisting of chicken",
-                            Name = "Chicken"
-                        },
-                        new
-                        {
-                            FoodTypeId = 2,
-                            Description = "Meals consisting of beef",
-                            Name = "Beef"
-                        },
-                        new
-                        {
-                            FoodTypeId = 3,
-                            Description = "Meals suitable for vegetarians",
-                            Name = "Vegetarian"
-                        },
-                        new
-                        {
-                            FoodTypeId = 4,
-                            Description = "Meals suitable for Vegans",
-                            Name = "Vegan"
-                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Menu_Type", b =>
@@ -1113,18 +1189,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasKey("Menu_TypeId");
 
                     b.ToTable("Menu_Types");
-
-                    b.HasData(
-                        new
-                        {
-                            Menu_TypeId = 1,
-                            Name = "Breakfast"
-                        },
-                        new
-                        {
-                            Menu_TypeId = 2,
-                            Name = "All Day"
-                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.MenuItem", b =>
@@ -1143,19 +1207,16 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<int>("FoodTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Food_TypeFoodTypeId1")
+                    b.Property<int>("Food_TypeFoodTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MenuItem_CategoryMenu_CategoryId")
+                    b.Property<int>("MenuItem_CategoryMenu_CategoryId")
                         .HasColumnType("int");
 
                     b.Property<int>("Menu_CategoryId")
                         .HasColumnType("int");
 
                     b.Property<int>("Menu_TypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Menu_TypeId1")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -1165,66 +1226,13 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     b.HasKey("MenuItemId");
 
-                    b.HasIndex("FoodTypeId");
-
-                    b.HasIndex("Food_TypeFoodTypeId1");
+                    b.HasIndex("Food_TypeFoodTypeId");
 
                     b.HasIndex("MenuItem_CategoryMenu_CategoryId");
 
-                    b.HasIndex("Menu_CategoryId");
-
                     b.HasIndex("Menu_TypeId");
 
-                    b.HasIndex("Menu_TypeId1");
-
                     b.ToTable("MenuItems");
-
-                    b.HasData(
-                        new
-                        {
-                            MenuItemId = 1,
-                            Description = "Two larger chicken burger, 6 pcs nuggets, two large fries",
-                            FoodTypeId = 1,
-                            Menu_CategoryId = 3,
-                            Menu_TypeId = 2,
-                            Name = "Chicken Feast"
-                        },
-                        new
-                        {
-                            MenuItemId = 2,
-                            Description = "Pap, boerewors an Tbone steak",
-                            FoodTypeId = 2,
-                            Menu_CategoryId = 3,
-                            Menu_TypeId = 2,
-                            Name = "The Braai feast"
-                        },
-                        new
-                        {
-                            MenuItemId = 3,
-                            Description = "Mozarella stuffe cheese balls",
-                            FoodTypeId = 3,
-                            Menu_CategoryId = 2,
-                            Menu_TypeId = 2,
-                            Name = "Chilli cheese poppers"
-                        },
-                        new
-                        {
-                            MenuItemId = 4,
-                            Description = "A green salad with salsa mix",
-                            FoodTypeId = 4,
-                            Menu_CategoryId = 5,
-                            Menu_TypeId = 2,
-                            Name = "Mexican salad"
-                        },
-                        new
-                        {
-                            MenuItemId = 5,
-                            Description = "Delicious cheesecake with blueberry sauce topping",
-                            FoodTypeId = 3,
-                            Menu_CategoryId = 4,
-                            Menu_TypeId = 2,
-                            Name = "Blueberry cheescake"
-                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.MenuItem_Category", b =>
@@ -1248,38 +1256,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasKey("Menu_CategoryId");
 
                     b.ToTable("MenuItem_Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Menu_CategoryId = 1,
-                            Description = "Meals between 7am to 12pm",
-                            Name = "Breakfast"
-                        },
-                        new
-                        {
-                            Menu_CategoryId = 2,
-                            Description = "Appetisers",
-                            Name = "Starter"
-                        },
-                        new
-                        {
-                            Menu_CategoryId = 3,
-                            Description = "Big and Filling meals",
-                            Name = "Main"
-                        },
-                        new
-                        {
-                            Menu_CategoryId = 4,
-                            Description = "Special things for those with a sweet tooth",
-                            Name = "Dessert"
-                        },
-                        new
-                        {
-                            Menu_CategoryId = 5,
-                            Description = "For those hungry but not hungry",
-                            Name = "Light Meals"
-                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.MenuItem_Price", b =>
@@ -1638,13 +1614,17 @@ namespace Africanacity_Team24_INF370_.Migrations
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Employee", b =>
                 {
-                    b.HasOne("Africanacity_Team24_INF370_.models.Administration.Employee_Role", null)
+                    b.HasOne("Africanacity_Team24_INF370_.models.Administration.Employee_Role", "Employee_Role")
                         .WithMany("Employees")
-                        .HasForeignKey("Employee_RoleId");
+                        .HasForeignKey("Employee_RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Africanacity_Team24_INF370_.models.Admin.User", null)
                         .WithMany("Employees")
                         .HasForeignKey("UserId");
+
+                    b.Navigation("Employee_Role");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Password", b =>
@@ -1727,7 +1707,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasForeignKey("AdministratorId");
 
                     b.HasOne("Africanacity_Team24_INF370_.models.Inventory.Inventory_Type", "Inventory_Type")
-                        .WithMany("Inventorys")
+                        .WithMany("Inventory_Items")
                         .HasForeignKey("Inventory_TypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1782,34 +1762,22 @@ namespace Africanacity_Team24_INF370_.Migrations
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.MenuItem", b =>
                 {
                     b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.Food_Type", "Food_Type")
-                        .WithMany()
-                        .HasForeignKey("FoodTypeId")
+                        .WithMany("MenuItems")
+                        .HasForeignKey("Food_TypeFoodTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.Food_Type", null)
-                        .WithMany("MenuItems")
-                        .HasForeignKey("Food_TypeFoodTypeId1");
-
-                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.MenuItem_Category", null)
-                        .WithMany("MenuItems")
-                        .HasForeignKey("MenuItem_CategoryMenu_CategoryId");
-
                     b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.MenuItem_Category", "MenuItem_Category")
-                        .WithMany()
-                        .HasForeignKey("Menu_CategoryId")
+                        .WithMany("MenuItems")
+                        .HasForeignKey("MenuItem_CategoryMenu_CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.Menu_Type", "Menu_Type")
-                        .WithMany()
+                        .WithMany("MenuItems")
                         .HasForeignKey("Menu_TypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.Menu_Type", null)
-                        .WithMany("MenuItems")
-                        .HasForeignKey("Menu_TypeId1");
 
                     b.Navigation("Food_Type");
 
@@ -1993,7 +1961,7 @@ namespace Africanacity_Team24_INF370_.Migrations
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Inventory_Type", b =>
                 {
-                    b.Navigation("Inventorys");
+                    b.Navigation("Inventory_Items");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier_Type", b =>

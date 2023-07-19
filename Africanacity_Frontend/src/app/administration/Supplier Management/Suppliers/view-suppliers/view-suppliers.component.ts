@@ -5,8 +5,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SupplierService } from 'src/app/service/supplier.service';
-import { Supplier } from 'src/app/shared/supplier';
 import { Router } from '@angular/router';
+import { Supplier } from 'src/app/shared/supplier';
+
+
 
 @Component({
   selector: 'app-view-suppliers',
@@ -71,7 +73,7 @@ deleteItemFromServer(): void {
     const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
   
     this.filteredsuppliers = this.suppliers.filter(supplier => {
-      const column2Value = supplier.supplierName.toLowerCase();
+      const column2Value = supplier.supplierName.toLowerCase() || supplier.supplierName.toUpperCase();
       const column3Value = supplier.supplierTypeName.toLowerCase();
   
       return column2Value.includes(filterValue) || column3Value.includes(filterValue);

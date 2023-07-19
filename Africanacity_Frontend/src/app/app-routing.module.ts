@@ -31,6 +31,17 @@ import { CreateMenuItemCategoryComponent } from './administration/Menu Item Cate
 import { EditMenuItemCategoryComponent } from './administration/Menu Item Category/edit-menu-item-category/edit-menu-item-category/edit-menu-item-category.component';
 import { ViewSuppliersComponent } from './administration/Supplier Management/Suppliers/view-suppliers/view-suppliers.component';
 import { EditSupplierComponent } from './administration/Supplier Management/Suppliers/edit-supplier/edit-supplier.component';
+import { AddSupplierComponent } from './administration/Supplier Management/Suppliers/add-supplier/add-supplier.component';
+import { ViewSuppliertypesComponent } from './administration/Supplier Management/Supplier Types/view-suppliertypes/view-suppliertypes.component';
+import { AddSuppliertypeComponent } from './administration/Supplier Management/Supplier Types/add-suppliertype/add-suppliertype.component';
+import { EditSuppliertypeComponent } from './administration/Supplier Management/Supplier Types/edit-suppliertype/edit-suppliertype.component';
+import { ViewInventorytypesComponent } from './administration/Inventory Management/Inventory Types/view-inventorytypes/view-inventorytypes.component';
+import { AddInventorytypesComponent } from './administration/Inventory Management/Inventory Types/add-inventorytypes/add-inventorytypes.component';
+import { EditIntventorytypeComponent } from './administration/Inventory Management/Inventory Types/edit-intventorytype/edit-intventorytype.component';
+import { ViewInventoryitemsComponent } from './administration/Inventory Management/Inventory Items/view-inventoryitems/view-inventoryitems.component';
+import { AddInventoryitemComponent } from './administration/Inventory Management/Inventory Items/add-inventoryitem/add-inventoryitem.component';
+import { EditInventoryitemComponent } from './administration/Inventory Management/Inventory Items/edit-inventoryitem/edit-inventoryitem.component';
+import { SelectedInventorytypeComponent } from './administration/Inventory Management/Inventory Items/view-inventoryitems/selected-inventorytype/selected-inventorytype.component';
 //import { EditMenuItemCategoryComponent } from './administration/Menu Item Category/edit-menu-item-category/edit-menu-item-category.component';
 //import { CreateMenuItemCategoryComponent } from './administration/Menu Item Category/create-menu-item-category/create-menu-item-category.component';
 
@@ -68,6 +79,17 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent }, // for home page
   {path:'view-suppliers', component: ViewSuppliersComponent}, // for View Suppliers
   {path: 'edit-supplier/:id', component: EditSupplierComponent},
+  {path: 'add-supplier', component:AddSupplierComponent},
+  {path:'view-suppliertypes', component: ViewSuppliertypesComponent},
+  {path: 'add-suppliertype', component: AddSuppliertypeComponent},
+  {path: 'edit-suppliertype/:id', component: EditSuppliertypeComponent},
+  {path: 'view-inventorytypes', component: ViewInventorytypesComponent},
+  {path: 'add-inventorytypes', component: AddInventorytypesComponent},
+  {path: 'edit-inventorytype/:id', component: EditIntventorytypeComponent},
+  {path: 'view-inventoryitems/:typeId', component: ViewInventoryitemsComponent},
+  {path: 'add-inventoryitem', component: AddInventoryitemComponent},
+  {path: 'edit-inventoryitem/:id', component: EditInventoryitemComponent},
+  {path: 'selected-inventorytype', component: SelectedInventorytypeComponent},
   {path: '', redirectTo: 'login', pathMatch:'full'},
   
 ];

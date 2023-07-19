@@ -441,21 +441,15 @@ namespace Africanacity_Team24_INF370_.Migrations
                     Menu_TypeId = table.Column<int>(type: "int", nullable: false),
                     Menu_CategoryId = table.Column<int>(type: "int", nullable: false),
                     FoodTypeId = table.Column<int>(type: "int", nullable: false),
-                    Food_TypeFoodTypeId1 = table.Column<int>(type: "int", nullable: true),
-                    MenuItem_CategoryMenu_CategoryId = table.Column<int>(type: "int", nullable: true),
-                    Menu_TypeId1 = table.Column<int>(type: "int", nullable: true)
+                    MenuItem_CategoryMenu_CategoryId = table.Column<int>(type: "int", nullable: false),
+                    Food_TypeFoodTypeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MenuItems", x => x.MenuItemId);
                     table.ForeignKey(
-                        name: "FK_MenuItems_Food_Types_Food_TypeFoodTypeId1",
-                        column: x => x.Food_TypeFoodTypeId1,
-                        principalTable: "Food_Types",
-                        principalColumn: "FoodTypeId");
-                    table.ForeignKey(
-                        name: "FK_MenuItems_Food_Types_FoodTypeId",
-                        column: x => x.FoodTypeId,
+                        name: "FK_MenuItems_Food_Types_Food_TypeFoodTypeId",
+                        column: x => x.Food_TypeFoodTypeId,
                         principalTable: "Food_Types",
                         principalColumn: "FoodTypeId",
                         onDelete: ReferentialAction.Cascade);
@@ -466,21 +460,11 @@ namespace Africanacity_Team24_INF370_.Migrations
                         principalColumn: "Menu_TypeId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MenuItems_Menu_Types_Menu_TypeId1",
-                        column: x => x.Menu_TypeId1,
-                        principalTable: "Menu_Types",
-                        principalColumn: "Menu_TypeId");
-                    table.ForeignKey(
-                        name: "FK_MenuItems_MenuItem_Categories_Menu_CategoryId",
-                        column: x => x.Menu_CategoryId,
-                        principalTable: "MenuItem_Categories",
-                        principalColumn: "Menu_CategoryId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_MenuItems_MenuItem_Categories_MenuItem_CategoryMenu_CategoryId",
                         column: x => x.MenuItem_CategoryMenu_CategoryId,
                         principalTable: "MenuItem_Categories",
-                        principalColumn: "Menu_CategoryId");
+                        principalColumn: "Menu_CategoryId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -604,7 +588,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                     Email_Address = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Physical_Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    Employee_RoleId = table.Column<int>(type: "int", nullable: true),
+                    Employee_RoleId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -614,7 +598,8 @@ namespace Africanacity_Team24_INF370_.Migrations
                         name: "FK_Employees_Employee_Roles_Employee_RoleId",
                         column: x => x.Employee_RoleId,
                         principalTable: "Employee_Roles",
-                        principalColumn: "Employee_RoleId");
+                        principalColumn: "Employee_RoleId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Employees_Users_UserId",
                         column: x => x.UserId,
@@ -739,7 +724,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                 {
                     Inventory_ItemId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    ItemName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Inventory_TypeId = table.Column<int>(type: "int", nullable: false),
                     AdministratorId = table.Column<int>(type: "int", nullable: true)
@@ -793,7 +778,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                 {
                     SupplierId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    SupplierName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Email_Address = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Physical_Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
@@ -1010,34 +995,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Employees",
-                columns: new[] { "EmployeeId", "Email_Address", "Employee_RoleId", "FirstName", "PhoneNumber", "Physical_Address", "Surname", "UserId" },
-                values: new object[,]
-                {
-                    { 1, "VanessaJames@gmail.com", null, "Vanessa", "0847541236", "404 Jacob Street", "James", null },
-                    { 2, "SerenaWilliams@gmail.com", null, "Serena", "0842341236", "132 Harriet Street", "Williams", null },
-                    { 3, "EdrisElba@gmail.com", null, "Edris", "0212378798", "245 homelyn Street", "Elba", null },
-                    { 4, "NyongoLupita@gmail.com", null, "Lupita", "0455783475", "254 Summer Street", "Nyongo", null },
-                    { 5, "MicheaJackson@gmail.com", null, "Micheal", "0874567836", "567 Winter Street", "Jackson", null },
-                    { 6, "TaehyungKim@gmial.com", null, "Taehyung", "0874562134", "345 Shallow  Street", "Kim", null },
-                    { 7, "ZendayaColeman@gmail.com", null, "Zendaya", "0212378798", "243 Super Street ", "Coleman", null },
-                    { 8, "RogerFederal@gmail.com", null, "Roger", "0612346487", "987 Wall Street", "Federal", null },
-                    { 9, "JenniferLOpez@gmail.com", null, "Jennifer", "0874834576", "967 Ballard Street", "Lopez", null },
-                    { 10, "ChadwickBoseman@gmail.com", null, "Chadwick", "0923456789", "483 Alien Street", "Boseman", null }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Food_Types",
-                columns: new[] { "FoodTypeId", "Description", "Name" },
-                values: new object[,]
-                {
-                    { 1, "Meals consisting of chicken", "Chicken" },
-                    { 2, "Meals consisting of beef", "Beef" },
-                    { 3, "Meals suitable for vegetarians", "Vegetarian" },
-                    { 4, "Meals suitable for Vegans", "Vegan" }
-                });
-
-            migrationBuilder.InsertData(
                 table: "Helps",
                 columns: new[] { "HelpId", "AdministratorId", "Description", "Help_CategoryId", "Name" },
                 values: new object[,]
@@ -1048,24 +1005,13 @@ namespace Africanacity_Team24_INF370_.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "MenuItem_Categories",
-                columns: new[] { "Menu_CategoryId", "Description", "Name" },
+                table: "Inventory_Types",
+                columns: new[] { "Inventory_TypeId", "Description", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Meals between 7am to 12pm", "Breakfast" },
-                    { 2, "Appetisers", "Starter" },
-                    { 3, "Big and Filling meals", "Main" },
-                    { 4, "Special things for those with a sweet tooth", "Dessert" },
-                    { 5, "For those hungry but not hungry", "Light Meals" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Menu_Types",
-                columns: new[] { "Menu_TypeId", "Name" },
-                values: new object[,]
-                {
-                    { 1, "Breakfast" },
-                    { 2, "All Day" }
+                    { 1, "For all food inventory items", "Food" },
+                    { 2, "For all Non-Alcoholic Drink inventory items", "Non-Alcoholic Drinks" },
+                    { 3, "For all Alcoholic Drink inventory items", "Alcoholic Drinks" }
                 });
 
             migrationBuilder.InsertData(
@@ -1080,27 +1026,49 @@ namespace Africanacity_Team24_INF370_.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "MenuItems",
-                columns: new[] { "MenuItemId", "Description", "FoodTypeId", "Food_TypeFoodTypeId1", "MenuItem_CategoryMenu_CategoryId", "Menu_CategoryId", "Menu_TypeId", "Menu_TypeId1", "Name" },
+                table: "Employees",
+                columns: new[] { "EmployeeId", "Email_Address", "Employee_RoleId", "FirstName", "PhoneNumber", "Physical_Address", "Surname", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "Two larger chicken burger, 6 pcs nuggets, two large fries", 1, null, null, 3, 2, null, "Chicken Feast" },
-                    { 2, "Pap, boerewors an Tbone steak", 2, null, null, 3, 2, null, "The Braai feast" },
-                    { 3, "Mozarella stuffe cheese balls", 3, null, null, 2, 2, null, "Chilli cheese poppers" },
-                    { 4, "A green salad with salsa mix", 4, null, null, 5, 2, null, "Mexican salad" },
-                    { 5, "Delicious cheesecake with blueberry sauce topping", 3, null, null, 4, 2, null, "Blueberry cheescake" }
+                    { 1, "VanessaJames@gmail.com", 1, "Vanessa", "0847541236", "404 Jacob Street", "James", null },
+                    { 2, "SerenaWilliams@gmail.com", 2, "Serena", "0842341236", "132 Harriet Street", "Williams", null },
+                    { 3, "EdrisElba@gmail.com", 1, "Edris", "0212378798", "245 homelyn Street", "Elba", null },
+                    { 4, "NyongoLupita@gmail.com", 2, "Lupita", "0455783475", "254 Summer Street", "Nyongo", null },
+                    { 5, "MicheaJackson@gmail.com", 2, "Micheal", "0874567836", "567 Winter Street", "Jackson", null },
+                    { 6, "TaehyungKim@gmial.com", 1, "Taehyung", "0874562134", "345 Shallow  Street", "Kim", null },
+                    { 7, "ZendayaColeman@gmail.com", 1, "Zendaya", "0212378798", "243 Super Street ", "Coleman", null },
+                    { 8, "RogerFederal@gmail.com", 1, "Roger", "0612346487", "987 Wall Street", "Federal", null },
+                    { 9, "JenniferLOpez@gmail.com", 2, "Jennifer", "0874834576", "967 Ballard Street", "Lopez", null },
+                    { 10, "ChadwickBoseman@gmail.com", 2, "Chadwick", "0923456789", "483 Alien Street", "Boseman", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Inventory_Items",
+                columns: new[] { "Inventory_ItemId", "AdministratorId", "Description", "Inventory_TypeId", "ItemName" },
+                values: new object[,]
+                {
+                    { 1, null, "Freshly produced", 1, "Lettuce" },
+                    { 2, null, "Used for all chicken dishes", 1, "Chicken" },
+                    { 3, null, "Needs to be cooked well", 1, "Mogodu" },
+                    { 4, null, "Served in all drinks with the gin recipie", 3, "Gin" },
+                    { 5, null, "To Quench your Thirst", 2, "Coke" },
+                    { 6, null, "For those who like no taste", 2, "Sarkling Water" },
+                    { 7, null, "Many different types served", 3, "Beer" },
+                    { 8, null, "One of the starches served with each dish", 1, "Rice" },
+                    { 9, null, "One of the starches served with each dish", 1, "Maize Meal" },
+                    { 10, null, "For those who do not like fizz", 2, "Apple Juice" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Suppliers",
-                columns: new[] { "SupplierId", "AdministratorId", "Email_Address", "Name", "PhoneNumber", "Physical_Address", "Supplier_TypeId" },
+                columns: new[] { "SupplierId", "AdministratorId", "Email_Address", "PhoneNumber", "Physical_Address", "SupplierName", "Supplier_TypeId" },
                 values: new object[,]
                 {
-                    { 1, null, "checkers@gmail.com", "Checkers", "0122345654", "416 Kirkness St, Arcadia", 3 },
-                    { 2, null, "pnp@gmail.com", "Pick `n Pay", "0110456543", "Hatfield Plaza 1122 Burnett Street", 3 },
-                    { 3, null, "liquorRack@gmail.com", "Liquor Rack", "0656781230", "Hatfield Plaza 1145 Burnett Street", 1 },
-                    { 4, null, "bakerMan@gmail.com", "BakerMan", "0714567890", "HillCrest Boulevard 110 Lynnwood", 4 },
-                    { 5, null, "MJButcher@gmail.com", "Mr Jacks Butcher", "0865045674", "143 Atterbury Street", 2 }
+                    { 1, null, "checkers@gmail.com", "0122345654", "416 Kirkness St, Arcadia", "Checkers", 3 },
+                    { 2, null, "pnp@gmail.com", "0110456543", "Hatfield Plaza 1122 Burnett Street", "Pick `n Pay", 3 },
+                    { 3, null, "liquorRack@gmail.com", "0656781230", "Hatfield Plaza 1145 Burnett Street", "Liquor Rack", 1 },
+                    { 4, null, "bakerMan@gmail.com", "0714567890", "HillCrest Boulevard 110 Lynnwood", "BakerMan", 4 },
+                    { 5, null, "MJButcher@gmail.com", "0865045674", "143 Atterbury Street", "Mr Jacks Butcher", 2 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -1228,29 +1196,14 @@ namespace Africanacity_Team24_INF370_.Migrations
                 column: "Inventory_TypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MenuItems_Food_TypeFoodTypeId1",
+                name: "IX_MenuItems_Food_TypeFoodTypeId",
                 table: "MenuItems",
-                column: "Food_TypeFoodTypeId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MenuItems_FoodTypeId",
-                table: "MenuItems",
-                column: "FoodTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MenuItems_Menu_CategoryId",
-                table: "MenuItems",
-                column: "Menu_CategoryId");
+                column: "Food_TypeFoodTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MenuItems_Menu_TypeId",
                 table: "MenuItems",
                 column: "Menu_TypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MenuItems_Menu_TypeId1",
-                table: "MenuItems",
-                column: "Menu_TypeId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MenuItems_MenuItem_CategoryMenu_CategoryId",

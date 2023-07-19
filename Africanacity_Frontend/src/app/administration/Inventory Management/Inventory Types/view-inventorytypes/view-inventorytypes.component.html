@@ -1,1 +1,45 @@
-<p>view-inventorytypes works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <app-navbar></app-navbar>
+        </div>
+    <div class="col-md-10 order-md-1">
+        
+<h3 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-weight: bolder; font-size: 50px;">Inventory Type Listing</h3>
+
+  <div class="input-group">
+    <div class="search-bar">
+    <input type="text" class="form-control" (input)="applyFilter($event)" placeholder="Search Columns">
+    </div>
+  <div class="addButton">
+    <i class="fa fa-plus-circle fa-3x" aria-hidden="true" [routerLink]="'/add-inventorytypes'"></i>
+  </div> 
+    </div>
+<table class="table table-striped table-hover outlined-table table-container"> 
+    <thead class="tableColor"> 
+        <tr> 
+            <th scope="col">ID</th> 
+            <th scope="col">Inventory Type</th> 
+            <th scope="col">Description</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            
+            </tr> 
+    </thead> 
+    <tbody> 
+        <tr *ngFor="let inventorytype of filteredInventoryTypes"> 
+            <td>{{inventorytype.inventory_TypeId}}</td> 
+            <td>{{inventorytype.name}}</td> 
+            <td>{{inventorytype.description}}</td> 
+            
+            <td> <i class="fa fa-pencil" [routerLink]="['../edit-inventorytype', inventorytype.inventory_TypeId]" aria-hidden="true"></i></td>
+            <td><i class="fa fa-trash"  (click)="DeleteInventoryType(inventorytype.inventory_TypeId)" aria-hidden="true"></i></td>
+        </tr> 
+    </tbody> 
+</table>
+    </div>
+    </div>
+</div>
+
+
+

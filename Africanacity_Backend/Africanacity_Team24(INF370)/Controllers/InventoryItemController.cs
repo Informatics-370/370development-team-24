@@ -24,29 +24,44 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         // Get all inventory items, from the database
 
+
         [HttpGet]
         [Route("GetAllInventoryItems")]
-        public async Task<IActionResult> GetAllInventoryItems()
+        public async Task<ActionResult> GetAllInventoryItems()
         {
             try
             {
+
                 var results = await _Repository.GetAllInventoryItemsAsync();
-                return Ok(results);
+
+
+                dynamic inventoryitems = results.Select(i => new
+                {
+                    i.Inventory_ItemId,
+
+                    i.ItemName,
+
+                    InventoryTypeName = i.Inventory_Type.Name,
+
+                    i.Description
+
+                });
+
+                return Ok(inventoryitems);
             }
             catch (Exception)
             {
-                return StatusCode(500, "Internal Server Error. Please contact support.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
             }
-
         }
 
         [HttpGet]
-        [Route("GetInventoryItem/{inventory_itemId}")]
-        public async Task<IActionResult> GetInventoryItemAsync(int inventory_itemId)
+        [Route("GetInventoryItem/{inventory_ItemId}")]
+        public async Task<IActionResult> GetInventoryItemAsync(int inventory_ItemId)
         {
             try
             {
-                var result = await _Repository.GetInventoryItemAsync(inventory_itemId);
+                var result = await _Repository.GetInventoryItemAsync(inventory_ItemId);
 
                 if (result == null) return NotFound("Inventory Item does not exist. You need to create an Inventory Item first");
 
@@ -64,11 +79,16 @@ namespace Africanacity_Team24_INF370_.Controllers
         [Route("AddInventoryItem")]
         public async Task<IActionResult> AddInventoryItem(InventoryViewModel ivm)
         {
-            var inventory_item = new Inventory_Item { Name = ivm.Name, Description = ivm.Description };
+            var inventoryitem = new Inventory_Item
+            {
+                ItemName = ivm.ItemName,
+                Inventory_TypeId = Convert.ToInt32(ivm.InventoryType),
+                Description = ivm.Description
+            };
 
             try
             {
-                _Repository.Add(inventory_item);
+                _Repository.Add(inventoryitem);
                 await _Repository.SaveChangesAsync();
             }
             catch (Exception)
@@ -77,27 +97,27 @@ namespace Africanacity_Team24_INF370_.Controllers
                 return BadRequest("Invalid Transaction");
             }
 
-            return Ok(inventory_item);
+            return Ok(inventoryitem);
 
         }
 
         //Update Inventory Item
-
         [HttpPut]
         [Route("EditInventoryItem/{inventory_ItemId}")]
-        public async Task<ActionResult<InventoryViewModel>> EditSupplier(int inventory_itemId, InventoryViewModel ivm)
+        public async Task<ActionResult<InventoryViewModel>> EditInventoryItem(int inventory_ItemId, InventoryViewModel ivm)
         {
             try
             {
-                var currentInventoryItem = await _Repository.GetInventoryItemAsync(inventory_itemId);
-                if (currentInventoryItem == null) return NotFound($"The inventory item does not exist");
+                var currentItem = await _Repository.GetInventoryItemAsync(inventory_ItemId);
+                if (currentItem == null) return NotFound($"The inventory item does not exist");
 
-                currentInventoryItem.Name = ivm.Name;
-                currentInventoryItem.Description = ivm.Description;
-
+                currentItem.ItemName = ivm.ItemName;
+                currentItem.Description = ivm.Description;
+                currentItem.Inventory_TypeId = Convert.ToInt32(ivm.InventoryType);
+             
                 if (await _Repository.SaveChangesAsync())
                 {
-                    return Ok(currentInventoryItem);
+                    return Ok(currentItem);
                 }
             }
             catch (Exception)
@@ -109,18 +129,18 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         // Delete Supplier
         [HttpDelete]
-        [Route("DeleteInventoryItem/{inventory_itemId}")]
-        public async Task<IActionResult> DeleteInventoryItem(int inventory_itemId)
+        [Route("DeleteInventoryItem/{inventory_ItemId}")]
+        public async Task<IActionResult> DeleteInventoryItem(int inventory_ItemId)
         {
             try
             {
-                var currentInventoryItem = await _Repository.GetInventoryItemAsync(inventory_itemId);
+                var currentItem = await _Repository.GetInventoryItemAsync(inventory_ItemId);
 
-                if (currentInventoryItem == null) return NotFound($"The inventory item does not exist");
+                if (currentItem == null) return NotFound($"The inventory item does not exist");
 
-                _Repository.Delete(currentInventoryItem);
+                _Repository.Delete(currentItem);
 
-                if (await _Repository.SaveChangesAsync()) return Ok(currentInventoryItem);
+                if (await _Repository.SaveChangesAsync()) return Ok(currentItem);
 
             }
             catch (Exception)
@@ -130,17 +150,20 @@ namespace Africanacity_Team24_INF370_.Controllers
             return BadRequest("Your request is invalid.");
         }
 
-        [HttpGet("search")]
-        public ActionResult<IEnumerable<Inventory_Item>> Search(string searchTerm)
+
+        [HttpGet("items/{inventory_TypeId}")]
+        public async Task<IActionResult> GetInventoryItemsByType(int inventory_TypeId)
         {
-            var Inventory_Item = _appDBContext.Inventory_Items
-                .Where(n => n.Name.Contains(searchTerm))
-                .ToList();
-
-            return Ok(Inventory_Item);
+            try
+            {
+                var itemsOfType = await _Repository.GetInventoryItemsByTypeAsync(inventory_TypeId);
+                return Ok(itemsOfType);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
         }
-
-
 
     }
 }

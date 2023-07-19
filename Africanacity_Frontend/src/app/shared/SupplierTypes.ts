@@ -1,4 +1,6 @@
-export interface SupplierType {
-    supplier_typeId: number;
-    SupplierTypeName: string;
+export class SupplierType {
+    supplier_TypeId!: number;
+    name!: string;
+    description!: string;
+
 }
