@@ -1248,6 +1248,33 @@ namespace Africanacity_Team24_INF370_.Migrations
                             Menu_CategoryId = 4,
                             Menu_TypeId = 2,
                             Name = "Blueberry cheescake slice"
+                        },
+                        new
+                        {
+                            MenuItemId = 6,
+                            Description = "Delicious everyday english breakfast with eggs and bacon",
+                            FoodTypeId = 1,
+                            Menu_CategoryId = 1,
+                            Menu_TypeId = 1,
+                            Name = "English Breakfast"
+                        },
+                        new
+                        {
+                            MenuItemId = 7,
+                            Description = "Smoothy bowl with blueberries, almond milk and honey",
+                            FoodTypeId = 4,
+                            Menu_CategoryId = 1,
+                            Menu_TypeId = 1,
+                            Name = "Blueberry smoothy bowl"
+                        },
+                        new
+                        {
+                            MenuItemId = 8,
+                            Description = "A toasted panini sandwich with beef sausages, tomatos and cheese",
+                            FoodTypeId = 2,
+                            Menu_CategoryId = 1,
+                            Menu_TypeId = 1,
+                            Name = "Toatsed beef panini sandwich"
                         });
                 });
 

@@ -55,7 +55,7 @@ export class MainService {
 
   //Get Menu Item
   GetAllMenuItems() {
-    return this.httpClient.get(`${this.apiUrl}MenuItems/MenuItemListing`)
+    return this.httpClient.get(`${this.apiUrl}MenuItems/GetAllMenuItems`)
     .pipe(map(result => result))
   }
 

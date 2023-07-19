@@ -430,6 +430,40 @@ namespace Africanacity_Team24_INF370_.models
                               Menu_CategoryId = 4,
                               Menu_TypeId = 2,
                           });
+            modelBuilder.Entity<MenuItem>()
+                         .HasData(
+                         new
+                         {
+                             MenuItemId = 6,
+                             Name = "English Breakfast",
+                             Description = "Delicious everyday english breakfast with eggs and bacon",
+                             FoodTypeId = 1,
+                             Menu_CategoryId = 1,
+                             Menu_TypeId = 1,
+                         });
+            modelBuilder.Entity<MenuItem>()
+                         .HasData(
+                         new
+                         {
+                             MenuItemId = 7,
+                             Name = "Blueberry smoothy bowl",
+                             Description = "Smoothy bowl with blueberries, almond milk and honey",
+                             FoodTypeId = 4,
+                             Menu_CategoryId = 1,
+                             Menu_TypeId = 1,
+                         });
+            modelBuilder.Entity<MenuItem>()
+                        .HasData(
+                        new
+                        {
+                            MenuItemId = 8,
+                            Name = "Toatsed beef panini sandwich",
+                            Description = "A toasted panini sandwich with beef sausages, tomatos and cheese",
+                            FoodTypeId = 2,
+                            Menu_CategoryId = 1,
+                            Menu_TypeId = 1,
+                        });
+
 
 
             //create seed data for MENU ITEM PRICE

@@ -16,10 +16,12 @@ export class OrderComponent  implements OnInit {
   filteredMenuItems: MenuItem[] = [];
   orderedItems: MenuItem[] = [];
   menuType: MenuType[] = [];
+  menuPrices: MenuItemPrice[]=[];
 
   drinkItems: Drink[] = [];
   filteredDrinkItems: Drink[] = [];
   orderedDrinks: Drink[] = [];
+  drinkPrices: DrinkPrice[]= [];
 
   constructor(private mainService: MainService) { }
 
@@ -44,9 +46,10 @@ export class OrderComponent  implements OnInit {
       this.filteredMenuItems = this.menuItems;
     } else {
       this.filteredMenuItems = this.menuItems.filter(
-        (item) => item.menu_TypeId === menuType
+        (item) => item.menu_TypeId=== menuType
       );
     }
+    
   }
 
 
@@ -73,6 +76,18 @@ export class OrderComponent  implements OnInit {
   //to submit to kitchen screen function
    submitOrder() {
     // TODO: Implement submitting order to the kitchen
+  }
+
+  //
+  // Get menu item price by ID
+  getMenuItemPrice(menuItemId: number): number {
+    const menuItemPrice = this.menuPrices.find((amount) => amount.menuItemId === menuItemId);
+    return menuItemPrice ? menuItemPrice.amount : 0;
+  }
+
+  getDrinkItemPrice(drinkId: number): number {
+    const drinkItemPrice = this.drinkPrices.find((amount) => amount.drinkId === drinkId);
+    return drinkItemPrice ? drinkItemPrice.amount : 0;
   }
 
 }

@@ -1138,7 +1138,10 @@ namespace Africanacity_Team24_INF370_.Migrations
                     { 2, "Pap, boerewors an Tbone steak", 2, null, 3, 2, null, "The Braai feast" },
                     { 3, "Mozarella stuffe cheese balls", 3, null, 2, 2, null, "Chilli cheese poppers" },
                     { 4, "A green salad with salsa mix", 4, null, 5, 2, null, "Mexican salad" },
-                    { 5, "Delicious cheesecake with blueberry sauce topping", 3, null, 4, 2, null, "Blueberry cheescake slice" }
+                    { 5, "Delicious cheesecake with blueberry sauce topping", 3, null, 4, 2, null, "Blueberry cheescake slice" },
+                    { 6, "Delicious everyday english breakfast with eggs and bacon", 1, null, 1, 1, null, "English Breakfast" },
+                    { 7, "Smoothy bowl with blueberries, almond milk and honey", 4, null, 1, 1, null, "Blueberry smoothy bowl" },
+                    { 8, "A toasted panini sandwich with beef sausages, tomatos and cheese", 2, null, 1, 1, null, "Toatsed beef panini sandwich" }
                 });
 
             migrationBuilder.InsertData(

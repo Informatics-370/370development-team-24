@@ -1,11 +1,12 @@
 // menu-item.model.ts
 export interface MenuItem {
-    id: number;
+    menuItemId: number;
     name: string;
-    price: number;
+    description: string;
     menu_TypeId: number;
     foodTypeId: number;
     menuCategoryId: number;
+    price: number;
 
     // Add other necessary properties
   }
