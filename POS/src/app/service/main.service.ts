@@ -47,6 +47,12 @@ export class MainService {
     .pipe(map(result => result));
   }
 
+  GetMenuTypeById(menu_TypeId: Number): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}MenuType/GetMenuType/${menu_TypeId}`);
+  }
+
+
+
   //Get Menu Item
   GetAllMenuItems() {
     return this.httpClient.get(`${this.apiUrl}MenuItems/MenuItemListing`)
@@ -83,6 +89,11 @@ export class MainService {
   GetAllDrinkTypes() {
     return this.httpClient.get(`${this.apiUrl}drinkTypeController/GetAllDrinkTypes`)
     .pipe(map(result => result))
+  }
+
+  //get a drink type
+  GetDrinkTypeById(drink_TypeId: Number): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}drinkTypeController/GetDrinkType/${drink_TypeId}`);
   }
 
 

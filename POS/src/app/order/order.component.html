@@ -1,3 +1,84 @@
-<p>
-  order works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Order</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="3">
+        <!-- Side Navigation Bar for Menu Items -->
+        <ion-list>
+          <ion-item button (click)="filterMenuItems(1)">Breakfast</ion-item>
+          <ion-item button (click)="filterMenuItems(2)">All Day</ion-item>
+
+          <!-- Add more menu types as needed -->
+        </ion-list>
+      </ion-col>
+
+      <ion-col size="6">
+        <!-- Menu Item Listing -->
+        <ion-card *ngFor="let menuItem of filteredMenuItems">
+          <ion-card-header>
+            <ion-card-title>{{ menuItem.name }}</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <p>Price: {{ menuItem.price }}</p>
+            <ion-button (click)="addToMenuItemOrder(menuItem)">Add to Order</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="3">
+        <!-- Order Summary for Menu Items -->
+        <h2>Order Summary - Menu Items</h2>
+        <ion-list>
+          <ion-item *ngFor="let orderedItem of orderedItems">
+            {{ orderedItem.name }} - {{ orderedItem.price }}
+          </ion-item>
+        </ion-list>
+
+        <ion-button expand="full" (click)="submitOrder()">Submit Order</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="3">
+        <!-- Side Navigation Bar for Drinks -->
+        <ion-list>
+          <ion-item button (click)="filterDrinkItems(1)">Alcohol</ion-item>
+          <ion-item button (click)="filterDrinkItems(2)">Non-alcoholic</ion-item>
+          
+          <!-- Add more drink types as needed -->
+        </ion-list>
+      </ion-col>
+
+      <ion-col size="6">
+        <!-- Drink Item Listing -->
+        <ion-card *ngFor="let drinkItem of filteredDrinkItems">
+          <ion-card-header>
+            <ion-card-title>{{ drinkItem.name }}</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <!-- Add relevant properties for drinks -->
+            <ion-button (click)="addToDrinkOrder(drinkItem)">Add to Order</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="3">
+        <!-- Order Summary for Drinks -->
+        <h2>Order Summary - Drinks</h2>
+        <ion-list>
+          <ion-item *ngFor="let orderedDrink of orderedDrinks">
+            {{ orderedDrink.name }} - {{ orderedDrink.price }}
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+

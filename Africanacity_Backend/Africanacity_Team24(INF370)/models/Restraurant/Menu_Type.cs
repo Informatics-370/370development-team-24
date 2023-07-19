@@ -11,7 +11,7 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
 		[MaxLength(50)]
 		public string Name { get; set; } = string.Empty;
 
-		public virtual ICollection<MenuItem> MenuItems { get; set; }
+        public List<MenuItem> MenuItems { get; set; } = new List<MenuItem>();
 
-	}
+    }
 }
