@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DataService } from 'src/app/service/data.Service';
 import { FoodType } from 'src/app/shared/food-type';
+import { NavbarComponent } from 'src/app/navbar/navbar.component';
 
 @Component({
   selector: 'app-food-type',

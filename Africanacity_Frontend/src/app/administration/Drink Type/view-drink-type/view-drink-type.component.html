@@ -1,0 +1,54 @@
+<div class="container-fluid">
+    <!-- navbar -->
+    <div class="row">
+            <div class="col-md-2">
+                <app-navbar></app-navbar>
+            </div>
+    
+    
+        <div class="col-md-10">
+            <!-- heading -->
+            <div>
+                <h1 class="heading">Drink Types</h1>
+            </div>
+        
+            <div class="container-fluid">
+                <!-- search bar-->
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search drink type"> <!-- [(ngModel)]="searchQuery" (input)="search()"-->
+                    <button class="btn" onclick="search(searchTerm)">
+                        <i class="fa fa-search" aria-hidden="true">  Search</i>
+                    </button>
+
+                <span style="align-content: right;">
+                    <button style="margin-left: 1em;" type="button" class="btn btn-sm btn-success" onclick="'/create-drink-type'">New</button>
+                </span>
+
+                <!--table-->
+                <table class="table table-striped table-container outlined-table">
+                    <thead class="tableColor">
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col"></th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of drinkType"> 
+                            <td> {{ item.drinkTypeId }} </td>
+                            <td> {{ item.name }} </td>
+                            <td> {{ item.description }} </td>
+                            <td>
+                            <!-- edit and delete buttons -->
+                            <button style="margin-right: 1em;" type="button" onclick="['/edit-drink-type', item.drinkTypeId]" type class="btn btn-sm btn-info"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
+                            <button type="button" class="btn btn-sm btn-danger" (click)="DeleteDrinkType(item.drinkTypeId)"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                          </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

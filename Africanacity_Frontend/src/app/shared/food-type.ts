@@ -2,7 +2,7 @@ export class FoodType{
     foodTypeId!: number;
     name!: string;
     description!: string;
-    foodTypeName: any;
+    //foodTypeName: any;
     
     // name!: string;
     // description!: string;
