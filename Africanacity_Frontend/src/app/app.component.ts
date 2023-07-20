@@ -9,4 +9,11 @@ export class AppComponent {
   title = 'Africanacity_System';
 
   toggleLogin = JSON.parse(localStorage.getItem('User')!)
+
+// Search Function for Employee
+performSearch(searchTerm: string) {
+  
+  console.log('Search term:', searchTerm);
+  
+}
 }

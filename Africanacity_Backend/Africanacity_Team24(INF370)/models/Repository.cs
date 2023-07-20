@@ -1,6 +1,8 @@
-﻿using Africanacity_Team24_INF370_.models.Administration;
-using Africanacity_Team24_INF370_.models.Booking;
-using Africanacity_Team24_INF370_.models.Restraurant;
+﻿using Africanacity_Team24_INF370_.models.Admin;
+using Africanacity_Team24_INF370_.models.Administration;
+﻿using Africanacity_Team24_INF370_.models.Restraurant;
+using Africanacity_Team24_INF370_.ViewModel;
+using Africanacity_Team24_INF370_.View_Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Africanacity_Team24_INF370_.models
@@ -9,16 +11,40 @@ namespace Africanacity_Team24_INF370_.models
 	{
 		private readonly AppDbContext _appDbContext;
 
+        public object EmployeeViewModel => throw new NotImplementedException();
+
         public Repository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
         }
 
+        // EMPLOYEES
         public async Task<Employee[]> GetAllEmployeesAsync()
         {
             IQueryable<Employee> query = _appDbContext.Employees;
             return await query.ToArrayAsync();
         }
+        public async Task<Employee> GetEmployeeAsync(int employeeId)
+        {
+            IQueryable<Employee> query = _appDbContext.Employees.Where(e => e.EmployeeId == employeeId);
+            return await query.FirstOrDefaultAsync();
+        }
+
+        //HELP 
+        public async Task<Help[]> GetAllHelpAsync()
+        {
+            IQueryable<Help> query = _appDbContext.Helps;
+            return await query.ToArrayAsync();
+        }
+        public async Task<Help> GetHelpAsync(int helpId)
+        {
+            IQueryable<Help> query = _appDbContext.Helps.Where(h => h.HelpId == helpId);
+            return await query.FirstOrDefaultAsync();
+        }
+        
+
+
+
         // employee role
         public async Task<Employee_Role[]> GetAllEmployeeRolesAsync()
         {
@@ -56,6 +82,8 @@ namespace Africanacity_Team24_INF370_.models
 			IQueryable<Food_Type> query = _appDbContext.Food_Types.Where(f => f.FoodTypeId == FoodTypeId);
 			return await query.FirstOrDefaultAsync();
 		}
+
+
 
         //DRINK ITEM TYPE
         public async Task<Drink_Type[]> GetAllDrinkTypesAsync()
@@ -116,5 +144,73 @@ namespace Africanacity_Team24_INF370_.models
             IQueryable<Entertainment_Type> query = _appDbContext.Entertainment_Types.Where(t => t.Entertainment_TypeId == Entertainment_TypeId);
             return await query.FirstOrDefaultAsync();
         }
+       
+        //Menu Item
+        public async Task<MenuItem[]> GetAllMenuItemsAsync()
+        {
+            IQueryable<MenuItem> query = _appDbContext.MenuItems;
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<MenuItem> GetMenuItemAsync(int MenuItemId)
+        {
+            IQueryable<MenuItem> query = _appDbContext.MenuItems.Where(c => c.MenuItemId == MenuItemId);
+            return await query.FirstOrDefaultAsync();
+        }
+
+
+        public async Task<int> EditMenuItemAsync(int MenuItemId, MenuItemViewModel menuItemViewModel)
+        {
+            int code = 200; ;
+            //Find the module in the database
+            MenuItem existingMeal = await _appDbContext.MenuItems.Where(x => x.MenuItemId == MenuItemId).FirstOrDefaultAsync();
+            if (existingMeal == null)
+            {
+                code = 404;
+            }
+            else
+            {
+                existingMeal.Name = menuItemViewModel.Name;
+                existingMeal.Description = existingMeal.Description;
+                
+                _appDbContext.MenuItems.Update(existingMeal);
+                await _appDbContext.SaveChangesAsync();
+            }
+            return code;
+        }
+
+
+        //MENU TYPES//
+        public async Task<Menu_Type[]> GetAllMenuTypesAsync()
+        {
+            IQueryable<Menu_Type> query = _appDbContext.Menu_Types;
+            return await query.ToArrayAsync();
+        }
+        public async Task<Menu_Type> GetMenuTypeAsync(int Menu_TypeId)
+        {
+            IQueryable<Menu_Type> query = _appDbContext.Menu_Types.Where(c => c.Menu_TypeId == Menu_TypeId);
+            return await query.FirstOrDefaultAsync();
+        }
+
+
+        public async Task<int> EditMenuTypeAsync(int Menu_TypeId, MenuTypeViewModel menuTypeViewModel)
+        {
+            int code = 200; ;
+            //Find the module in the database
+            Menu_Type findModule = await _appDbContext.Menu_Types.Where(x => x.Menu_TypeId == Menu_TypeId).FirstOrDefaultAsync();
+            if (findModule == null)
+            {
+                code = 404;
+            }
+            else
+            {
+                findModule.Name = menuTypeViewModel.Name;
+                
+                _appDbContext.Menu_Types.Update(findModule);
+                await _appDbContext.SaveChangesAsync();
+            }
+            return code;
+        }
+
     }
 }

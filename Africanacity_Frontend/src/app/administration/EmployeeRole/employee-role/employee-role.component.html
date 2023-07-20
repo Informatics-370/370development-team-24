@@ -1,16 +1,26 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <app-navbar></app-navbar>
+        </div>
+    <div class="col-md-10 order-md-1">
+        
+<h3 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-weight: bolder; font-size: 50px;">Employee Roles</h3>
 <div class="input-group">
 <input type="text" class="form-control" placeholder="Search">
 <button class="btn">
     <i class="fa fa-search" aria-hidden="true"></i>
   </button>
-   <button style="margin-left: 2em;" type="button" class="btn btn-sm btn-success" [routerLink]="['/add-employee-role', employeeroles]">Create</button>
+  <div class="addButton">
+  <button style="margin-left: 1em;" type="button" class="btn btn-sm btn-success" [routerLink]="['/add-employee-role', employeeroles]">Create</button>
+  </div>
 </div>
 
 
 
-<h3 style="text-align: center;">Employee Roles</h3>
-<table class="table table-striped table-hover "> 
-    <thead> 
+
+<table class="table table-striped table-hover outlined-table table-container"> 
+    <thead class="tableColor"> 
         <tr> 
             <th scope="col">Employee Role ID</th> 
             <th scope="col">Employee Role</th> 
@@ -30,3 +40,6 @@
         </tr> 
     </tbody> 
 </table>
+    </div>
+    </div>
+</div>
