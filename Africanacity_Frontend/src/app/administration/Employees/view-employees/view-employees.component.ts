@@ -13,8 +13,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   template: `
   <button (click)="deleteItem()">Delete</button>
 `,
-
-
   styleUrls: ['./view-employees.component.css']
 })
 export class ViewEmployeesComponent {
