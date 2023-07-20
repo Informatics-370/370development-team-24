@@ -40,7 +40,8 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<Entertainer> Entertainers { get; set; }
 		public DbSet<Entertainer_EntertainmentType> Entertainer_Entertainments { get; set; }
 		public DbSet<Entertainer_Schedule> Entertainer_Schedules { get; set; }
-		public DbSet<Event> Events { get; set; }
+        public DbSet<Entertainment_Type> Entertainment_Types { get; set; }
+        public DbSet<Event> Events { get; set; }
 		public DbSet<Schedule> Schedules { get; set; }
 		public DbSet<Schedule_Status> Schedule_Statuses { get; set; }
 

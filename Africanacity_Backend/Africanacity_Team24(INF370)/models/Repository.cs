@@ -1,5 +1,6 @@
 ﻿using Africanacity_Team24_INF370_.models.Administration;
-﻿using Africanacity_Team24_INF370_.models.Restraurant;
+using Africanacity_Team24_INF370_.models.Booking;
+using Africanacity_Team24_INF370_.models.Restraurant;
 using Microsoft.EntityFrameworkCore;
 
 namespace Africanacity_Team24_INF370_.models
@@ -77,6 +78,42 @@ namespace Africanacity_Team24_INF370_.models
         public async Task<MenuItem_Category> GetMenuItemCategoryAsync(int Menu_CategoryId)
         {
             IQueryable<MenuItem_Category> query = _appDbContext.MenuItem_Categories.Where(m => m.Menu_CategoryId == Menu_CategoryId);
+            return await query.FirstOrDefaultAsync();
+        }
+
+        //SCHEDULE 
+        public async Task<Schedule[]> ScheduleDisplayAsync()
+        {
+            IQueryable<Schedule> query = _appDbContext.Schedules;
+            return await query.ToArrayAsync();
+        }
+        public async Task<Schedule> GetScheduleAsync(int ScheduleId)
+        {
+            IQueryable<Schedule> query = _appDbContext.Schedules.Where(s => s.ScheduleId == ScheduleId);
+            return await query.FirstOrDefaultAsync();
+        }
+
+        //EVENTS
+        public async Task<Event[]> GetAllEventsAsync()
+        {
+            IQueryable<Event> query = _appDbContext.Events;
+            return await query.ToArrayAsync();
+        }
+        public async Task<Event> GetEventAsync(int EventId)
+        {
+            IQueryable<Event> query = _appDbContext.Events.Where(e => e.EventId == EventId);
+            return await query.FirstOrDefaultAsync();
+        }
+
+        //ENTERTAINMENT TYPE
+        public async Task<Entertainment_Type[]> GetEntertainmentTypesAsync()
+        {
+            IQueryable<Entertainment_Type> query = _appDbContext.Entertainment_Types;
+            return await query.ToArrayAsync();
+        }
+        public async Task<Entertainment_Type> GetEntertainmentTypeAsync(int Entertainment_TypeId)
+        {
+            IQueryable<Entertainment_Type> query = _appDbContext.Entertainment_Types.Where(t => t.Entertainment_TypeId == Entertainment_TypeId);
             return await query.FirstOrDefaultAsync();
         }
     }
