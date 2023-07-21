@@ -20,8 +20,12 @@ export class HomeComponent implements OnInit {
     
   }
 
-  navigateToOrderScreen(orderType: string){
-    this.router.navigate(['order', {type: orderType}]);
+  navigateToOrderScreen(orderType: string): void {
+    if (orderType === 'Sit-in') {
+      this.router.navigate(['/table']);
+    } else if (orderType === 'Takeaway') {
+      this.router.navigate(['/order']);
+    }
   }
 
  navigateToTable() {
