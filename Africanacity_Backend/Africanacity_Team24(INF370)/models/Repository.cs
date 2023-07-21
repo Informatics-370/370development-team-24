@@ -237,5 +237,15 @@ namespace Africanacity_Team24_INF370_.models
             return code;
         }
 
+
+
+
+        //TABLE NUMBER
+        public async Task<Table_Number[]> GetAllTableNumbersAsync()
+        {
+            IQueryable<Table_Number> query = _appDbContext.Table_Numbers;
+            return await query.ToArrayAsync();
+        }
+
     }
 }

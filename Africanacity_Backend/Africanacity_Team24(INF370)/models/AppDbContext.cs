@@ -640,6 +640,7 @@ namespace Africanacity_Team24_INF370_.models
 
                        });
 
+
             //create seed data for order type
             modelBuilder.Entity<OrderType>()
                           .HasData(
@@ -659,6 +660,62 @@ namespace Africanacity_Team24_INF370_.models
 
 
                           });
+            //create seed data for table number
+            modelBuilder.Entity<Table_Number>()
+                          .HasData(
+                          new
+                          {
+                              Table_NumberId = 1,
+                              TableID = "Table 1",
+
+
+                          });
+            modelBuilder.Entity<Table_Number>()
+                         .HasData(
+                         new
+                         {
+                             Table_NumberId = 2,
+                             TableID = "Table 2",
+
+
+                         });
+            modelBuilder.Entity<Table_Number>()
+                         .HasData(
+                         new
+                         {
+                             Table_NumberId = 3,
+                             TableID = "Table 3",
+
+
+                         });
+            modelBuilder.Entity<Table_Number>()
+                        .HasData(
+                        new
+                        {
+                            Table_NumberId = 4,
+                            TableID = "Table 4",
+
+
+                        });
+            modelBuilder.Entity<Table_Number>()
+                        .HasData(
+                        new
+                        {
+                            Table_NumberId = 5,
+                            TableID = "Table 5",
+
+
+                        });
+            modelBuilder.Entity<Table_Number>()
+                        .HasData(
+                        new
+                        {
+                            Table_NumberId = 6,
+                            TableID = "Table 6",
+
+
+                        });
+
 
 
             //Many to many with MenuItem

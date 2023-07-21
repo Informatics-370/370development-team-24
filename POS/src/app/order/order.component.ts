@@ -5,11 +5,13 @@ import { Drink } from '../shared/drink';
 import { DrinkPrice } from '../shared/drink-price';
 import { MainService } from '../service/main.service';
 import { MenuType } from '../shared/menu-type';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.scss'],
+  providers: [CurrencyPipe],
 })
 export class OrderComponent  implements OnInit {
   menuItems: MenuItem[] = [];
@@ -24,6 +26,7 @@ export class OrderComponent  implements OnInit {
   drinkPrices: DrinkPrice[]= [];
 
   isDrinkSelected = false;
+  kitchenOrderNumber: string = '';
 
   constructor(private mainService: MainService) { }
 
@@ -98,6 +101,7 @@ export class OrderComponent  implements OnInit {
   //to submit to kitchen screen function
    submitOrder() {
     // TODO: Implement submitting order to the kitchen
+    this.kitchenOrderNumber = 'TAKE-' + Math.floor(Math.random() * 10000).toString();
   }
 
   //
@@ -106,25 +110,39 @@ export class OrderComponent  implements OnInit {
     const menuItemPrice = this.menuPrices.find((price) => price.menuItemId === menuItemId);
     return menuItemPrice ? menuItemPrice.amount : 0;
   }
-  
+
   fetchDrinkItemPrice(drinkId: number): number {
     const drinkItemPrice = this.drinkPrices.find((price) => price.drinkId === drinkId);
     return drinkItemPrice ? drinkItemPrice.amount : 0;
   }
 
-  updateMenuItemPrices() {
-    this.menuItems.forEach((menuItem: MenuItem) => {
-      const menuItemPrice = this.menuPrices.find((price) => price.menuItemId === menuItem.menuItemId);
-      menuItem.price = menuItemPrice ? menuItemPrice.amount : 0;
-    });
+  getSelectedMenuItemPrice(menuItemId: number): number {
+    const menuItemPrice = this.menuPrices.find((price) => price.menuItemId === menuItemId);
+    return menuItemPrice ? menuItemPrice.amount : 0;
+  }
+  
+  getSelectedDrinkItemPrice(drinkId: number): number {
+    const drinkItemPrice = this.drinkPrices.find((price) => price.drinkId === drinkId);
+    return drinkItemPrice ? drinkItemPrice.amount : 0;
   }
 
-  updateDrinkPrices() {
-    this.drinkItems.forEach((drinkItem: Drink) => {
-      const drinkItemPrice = this.drinkPrices.find((price) => price.drinkId === drinkItem.drinkId);
-      drinkItem.price = drinkItemPrice ? drinkItemPrice.amount : 0;
-    });
+  //method to calculate the subtotal
+  calculateSubtotal(): number {
+    let subtotal = 0;
+  
+    for (const orderedItem of this.orderedItems) {
+      const menuItemPrice = this.getSelectedMenuItemPrice(orderedItem.menuItemId);
+      subtotal += menuItemPrice;
+    }
+  
+    for (const orderedDrink of this.orderedDrinks) {
+      const drinkItemPrice = this.getSelectedDrinkItemPrice(orderedDrink.drinkId);
+      subtotal += drinkItemPrice;
+    }
+  
+    return subtotal;
   }
+  
 
 
 }

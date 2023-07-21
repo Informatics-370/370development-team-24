@@ -77,7 +77,9 @@ namespace Africanacity_Team24_INF370_.models
         // MENU ITEM CATEGORY
         Task<MenuItem_Category[]> GetAllMenuItemCategoriesAsync();
         Task<MenuItem_Category> GetMenuItemCategoryAsync(int Menu_CategoryId);
-        
+
+        //TABLE NUMBER
+        Task<Table_Number[]> GetAllTableNumbersAsync();
 
     }
 }
