@@ -27,10 +27,13 @@ export class OrderComponent  implements OnInit {
 
   isDrinkSelected = false;
   kitchenOrderNumber: string = '';
+  tableNumber: string = '';
+ 
 
   constructor(private mainService: MainService) { }
 
   ngOnInit() {
+
     this.mainService.GetAllMenuItems().subscribe((result: any) => {
       this.menuItems = result;
       this.filteredMenuItems = this.menuItems;
@@ -102,6 +105,14 @@ export class OrderComponent  implements OnInit {
    submitOrder() {
     // TODO: Implement submitting order to the kitchen
     this.kitchenOrderNumber = 'TAKE-' + Math.floor(Math.random() * 10000).toString();
+  }
+
+
+  //generateOrderNumber
+  generateOrderNumber(): string {
+    // Implement your logic to generate a unique order number here
+    // For example, you can use a combination of a timestamp and a random number
+    return Date.now().toString() + '-' + Math.floor(Math.random() * 10000).toString();
   }
 
   //

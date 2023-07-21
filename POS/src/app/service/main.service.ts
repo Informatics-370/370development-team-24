@@ -96,6 +96,12 @@ export class MainService {
     return this.httpClient.get(`${this.apiUrl}drinkTypeController/GetDrinkType/${drink_TypeId}`);
   }
 
+  //get all table numbers
+  GetAllTableNumbers() {
+    return this.httpClient.get(`${this.apiUrl}Order/GetAllTableNumbers`)
+    .pipe(map(result => result))
+  }
+
 
 
 
