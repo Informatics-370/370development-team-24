@@ -21,18 +21,21 @@
 
       <ion-col size="6">
         <!-- Menu Item Listing -->
-        <h2>MENU ITEMS</h2>
-        <ion-card *ngFor="let menuItem of filteredMenuItems" >
+        <ng-container *ngIf="!isDrinkSelected">
+        <h2 >MENU ITEMS</h2>
+        <ion-card *ngFor="let menuItem of filteredMenuItems">
           <ion-card-header>
             <ion-card-title>{{ menuItem.name }}</ion-card-title>
           </ion-card-header>
 
           <ion-card-content>
-            <p>Price: {{ getMenuItemPrice(menuItem.menuItemId) | currency }}</p>
+            <p>Price: {{ fetchMenuItemPrice(menuItem.menuItemId) | currency }}</p>
             <ion-button (click)="addToMenuItemOrder(menuItem)">Add to Order</ion-button>
           </ion-card-content>
         </ion-card>
+      </ng-container>
 
+        <ng-container  *ngIf="isDrinkSelected">
         <h2>BEVERAGES</h2>
         <ion-card *ngFor="let drinkItem of filteredDrinkItems">
           <ion-card-header>
@@ -41,11 +44,13 @@
 
           <ion-card-content>
             <!-- Add relevant properties for drinks -->
-            <p>Price: {{ getDrinkItemPrice(drinkItem.drinkId) | currency}}</p>
+            <p>Price:  {{ fetchDrinkItemPrice(drinkItem.drinkId) | currency }}</p>
             <ion-button (click)="addToDrinkOrder(drinkItem)">Add to Order</ion-button>
           </ion-card-content>
         </ion-card>
+      </ng-container>
       </ion-col>
+   
 
       <ion-col size="3">
         <!-- Order Summary for Menu Items -->

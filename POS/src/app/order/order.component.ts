@@ -23,6 +23,8 @@ export class OrderComponent  implements OnInit {
   orderedDrinks: Drink[] = [];
   drinkPrices: DrinkPrice[]= [];
 
+  isDrinkSelected = false;
+
   constructor(private mainService: MainService) { }
 
   ngOnInit() {
@@ -31,9 +33,17 @@ export class OrderComponent  implements OnInit {
       this.filteredMenuItems = this.menuItems;
     });
 
+    this.mainService.GetAllMenuItemPrices().subscribe((prices: MenuItemPrice[]) => {
+      this.menuPrices = prices;
+    });
+
     this.mainService.GetAllDrinkItems().subscribe((result: any) => {
       this.drinkItems = result;
       this.filteredDrinkItems = this.drinkItems;
+    });
+
+    this.mainService.GetAllDrinkItemPrices().subscribe((prices: DrinkPrice[]) => {
+      this.drinkPrices = prices;
     });
 
   }
@@ -58,11 +68,23 @@ export class OrderComponent  implements OnInit {
     if (drinkType === 0) {
       this.filteredDrinkItems = this.drinkItems;
     } else {
+      this.isDrinkSelected = true;
       this.filteredDrinkItems = this.drinkItems.filter(
         (item) => item.drink_TypeId === drinkType
       );
     }
   }
+
+    // Filter items based on menu type or drink type
+    filterItems(typeId: number, isDrink: boolean): void {
+      if (isDrink) {
+        this.isDrinkSelected = true;
+        this.filteredDrinkItems = this.drinkItems.filter((item) => item.drink_TypeId === typeId);
+      } else {
+        this.isDrinkSelected = false;
+        this.filteredMenuItems = this.menuItems.filter((item) => item.menu_TypeId === typeId);
+      }
+    }
 
   // add to order screen function
   addToMenuItemOrder(menuItem: MenuItem) {
@@ -80,14 +102,29 @@ export class OrderComponent  implements OnInit {
 
   //
   // Get menu item price by ID
-  getMenuItemPrice(menuItemId: number): number {
-    const menuItemPrice = this.menuPrices.find((amount) => amount.menuItemId === menuItemId);
+  fetchMenuItemPrice(menuItemId: number): number {
+    const menuItemPrice = this.menuPrices.find((price) => price.menuItemId === menuItemId);
     return menuItemPrice ? menuItemPrice.amount : 0;
   }
-
-  getDrinkItemPrice(drinkId: number): number {
-    const drinkItemPrice = this.drinkPrices.find((amount) => amount.drinkId === drinkId);
+  
+  fetchDrinkItemPrice(drinkId: number): number {
+    const drinkItemPrice = this.drinkPrices.find((price) => price.drinkId === drinkId);
     return drinkItemPrice ? drinkItemPrice.amount : 0;
   }
+
+  updateMenuItemPrices() {
+    this.menuItems.forEach((menuItem: MenuItem) => {
+      const menuItemPrice = this.menuPrices.find((price) => price.menuItemId === menuItem.menuItemId);
+      menuItem.price = menuItemPrice ? menuItemPrice.amount : 0;
+    });
+  }
+
+  updateDrinkPrices() {
+    this.drinkItems.forEach((drinkItem: Drink) => {
+      const drinkItemPrice = this.drinkPrices.find((price) => price.drinkId === drinkItem.drinkId);
+      drinkItem.price = drinkItemPrice ? drinkItemPrice.amount : 0;
+    });
+  }
+
 
 }

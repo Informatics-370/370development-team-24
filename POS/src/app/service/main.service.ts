@@ -60,8 +60,8 @@ export class MainService {
   }
 
   //get menu item prices
-  GetAllMenuItemPrices(){
-    return this.httpClient.get(`${this.apiUrl}MenuItem_Price/GetAllMenuItemPrices`).pipe(map(result => result))
+  GetAllMenuItemPrices(): Observable<MenuItemPrice[]>{
+    return this.httpClient.get<MenuItemPrice[]>(`${this.apiUrl}MenuItem_Price/GetAllMenuItemPrices`).pipe(map(result => result))
   }
 
   //get a menu item price by the id
@@ -76,8 +76,8 @@ export class MainService {
   }
 
   //get drink items prices
-  GetAllDrinkItemPrices(){
-    return this.httpClient.get(`${this.apiUrl}DrinkPrice/GetAllDrinkItemPrices`).pipe(map(result => result))
+  GetAllDrinkItemPrices(): Observable<DrinkPrice[]>{
+    return this.httpClient.get<DrinkPrice[]>(`${this.apiUrl}DrinkPrice/GetAllDrinkItemPrices`).pipe(map(result => result))
   }
 
   //get drink item prices by id 
