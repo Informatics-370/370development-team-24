@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Africanacity_Team24_INF370_.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230719133325_Mmino")]
+    [Migration("20230721163328_Mmino")]
     partial class Mmino
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1567,12 +1567,45 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Table_NumberId"), 1L, 1);
 
-                    b.Property<int>("Number")
-                        .HasColumnType("int");
+                    b.Property<string>("TableID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Table_NumberId");
 
                     b.ToTable("Table_Numbers");
+
+                    b.HasData(
+                        new
+                        {
+                            Table_NumberId = 1,
+                            TableID = "Table 1"
+                        },
+                        new
+                        {
+                            Table_NumberId = 2,
+                            TableID = "Table 2"
+                        },
+                        new
+                        {
+                            Table_NumberId = 3,
+                            TableID = "Table 3"
+                        },
+                        new
+                        {
+                            Table_NumberId = 4,
+                            TableID = "Table 4"
+                        },
+                        new
+                        {
+                            Table_NumberId = 5,
+                            TableID = "Table 5"
+                        },
+                        new
+                        {
+                            Table_NumberId = 6,
+                            TableID = "Table 6"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

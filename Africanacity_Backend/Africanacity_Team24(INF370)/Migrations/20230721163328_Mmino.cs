@@ -277,7 +277,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                 {
                     Table_NumberId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Number = table.Column<int>(type: "int", nullable: false)
+                    TableID = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1114,6 +1114,19 @@ namespace Africanacity_Team24_INF370_.Migrations
                 {
                     { 1, "Sit-In" },
                     { 2, "Takeaway" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Table_Numbers",
+                columns: new[] { "Table_NumberId", "TableID" },
+                values: new object[,]
+                {
+                    { 1, "Table 1" },
+                    { 2, "Table 2" },
+                    { 3, "Table 3" },
+                    { 4, "Table 4" },
+                    { 5, "Table 5" },
+                    { 6, "Table 6" }
                 });
 
             migrationBuilder.InsertData(
