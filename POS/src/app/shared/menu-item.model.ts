@@ -7,6 +7,7 @@ export interface MenuItem {
     foodTypeId: number;
     menuCategoryId: number;
     price: number;
+    quantity: number;
 
     // Add other necessary properties
   }

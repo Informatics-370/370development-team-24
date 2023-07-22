@@ -56,20 +56,22 @@
         <!-- Order Summary for Menu Items -->
         <h2>Order Summary </h2>
         <ion-item>
-          
+          <p *ngIf="tableNumber">Table Number: {{ tableNumber }}</p>
         </ion-item>
         <p>Kitchen Order Number: {{ kitchenOrderNumber }}</p>
         <ion-list>
           <ion-item *ngFor="let orderedItem of orderedItems">
-            {{ orderedItem.name }} - {{ getSelectedMenuItemPrice(orderedItem.menuItemId) | currency: 'R ' }}
+            {{ orderedItem.name }} {{ getSelectedMenuItemPrice(orderedItem.menuItemId) | currency: 'R' }}      
+            <ion-input type="number" [(ngModel)]="orderedItem.quantity" (ionChange)="updateSubtotal()" class="small-input"></ion-input>
           </ion-item>
         </ion-list>
         <ion-list>
           <ion-item *ngFor="let orderedDrink of orderedDrinks">
-            {{ orderedDrink.name }} - {{ getSelectedDrinkItemPrice(orderedDrink.drinkId) | currency: 'R ' }}
+            {{ orderedDrink.name }}  {{ getSelectedDrinkItemPrice(orderedDrink.drinkId) | currency: 'R ' }}     
+            <ion-input type="number" [(ngModel)]="orderedDrink.quantity" (ionChange)="updateSubtotal()" class="small-input"></ion-input>
           </ion-item>
         </ion-list>
-        <h3>Subtotal: {{ calculateSubtotal() | currency:'R ' }}</h3>
+        <h3>Subtotal: {{ updateSubtotal() | currency:'R ' }}</h3>
 
         <ion-button expand="full" (click)="submitOrder()">Submit Order</ion-button>
       </ion-col>

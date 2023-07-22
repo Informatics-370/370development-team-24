@@ -7,9 +7,9 @@
 <ion-content>
   <ion-grid>
     <ion-row>
-      <ion-col size="6" *ngFor="let table of tableNumbers">
-        <ion-button expand="full" (click)="onTableNumberSelected(table.tableID)">
-          Table {{ table.tableID }}
+      <ion-col size="6" *ngFor="let tableNumber of tableNumbers">
+        <ion-button expand="full" (click)="onTableNumberSelected(tableNumber.tableID)">
+         {{ tableNumber.tableID}}
         </ion-button>
       </ion-col>
     </ion-row>

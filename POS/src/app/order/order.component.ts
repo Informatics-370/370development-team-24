@@ -6,6 +6,7 @@ import { DrinkPrice } from '../shared/drink-price';
 import { MainService } from '../service/main.service';
 import { MenuType } from '../shared/menu-type';
 import { CurrencyPipe } from '@angular/common';
+import { ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-order',
@@ -27,12 +28,21 @@ export class OrderComponent  implements OnInit {
 
   isDrinkSelected = false;
   kitchenOrderNumber: string = '';
-  tableNumber: string = '';
+  tableNumber: string | null = null;
  
 
-  constructor(private mainService: MainService) { }
+  constructor(private mainService: MainService,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
+
+     // Get the table number from the route parameters
+     this.route.paramMap.subscribe((params) => {
+      const tableNumber = params.get('tableNumber');
+      this.tableNumber = tableNumber;
+     
+    });
 
     this.mainService.GetAllMenuItems().subscribe((result: any) => {
       this.menuItems = result;
@@ -94,25 +104,52 @@ export class OrderComponent  implements OnInit {
 
   // add to order screen function
   addToMenuItemOrder(menuItem: MenuItem) {
-    this.orderedItems.push(menuItem);
+    const existingItem = this.orderedItems.find((item) => item.menuItemId === menuItem.menuItemId);
+
+    if (existingItem) {
+      // If the item already exists in the order, update its quantity
+      existingItem.quantity += 1;
+    } else {
+      // If it's a new item, set the quantity to 1
+      menuItem.quantity = 1;
+      this.orderedItems.push(menuItem);
+    }
+
+    this.updateSubtotal();
   }
 
   addToDrinkOrder(drink: Drink) {
-    this.orderedDrinks.push(drink);
+    const existingDrink = this.orderedDrinks.find((item) => item.drinkId === drink.drinkId);
+
+    if (existingDrink) {
+      // If the drink already exists in the order, update its quantity
+      existingDrink.quantity += 1;
+    } else {
+      // If it's a new drink, set the quantity to 1
+      drink.quantity = 1;
+      this.orderedDrinks.push(drink);
+    }
+    this.updateSubtotal();
   }
 
   //to submit to kitchen screen function
    submitOrder() {
+    if (this.tableNumber) {
+      
+      this.kitchenOrderNumber = `SIT-${this.generateOrderNumber()}`;
+    } else {
+      this.tableNumber = null;
+      this.kitchenOrderNumber = `TAKE-${this.generateOrderNumber()}`;
+    }
     // TODO: Implement submitting order to the kitchen
-    this.kitchenOrderNumber = 'TAKE-' + Math.floor(Math.random() * 10000).toString();
+    
   }
 
 
   //generateOrderNumber
-  generateOrderNumber(): string {
-    // Implement your logic to generate a unique order number here
-    // For example, you can use a combination of a timestamp and a random number
-    return Date.now().toString() + '-' + Math.floor(Math.random() * 10000).toString();
+  private generateOrderNumber(): string {
+    const randomNum = Math.floor(Math.random() * 10000);
+    return randomNum.toString();
   }
 
   //
@@ -138,17 +175,17 @@ export class OrderComponent  implements OnInit {
   }
 
   //method to calculate the subtotal
-  calculateSubtotal(): number {
+  updateSubtotal(): number {
     let subtotal = 0;
   
     for (const orderedItem of this.orderedItems) {
       const menuItemPrice = this.getSelectedMenuItemPrice(orderedItem.menuItemId);
-      subtotal += menuItemPrice;
+      subtotal += menuItemPrice * orderedItem.quantity;
     }
   
     for (const orderedDrink of this.orderedDrinks) {
       const drinkItemPrice = this.getSelectedDrinkItemPrice(orderedDrink.drinkId);
-      subtotal += drinkItemPrice;
+      subtotal += drinkItemPrice * orderedDrink.quantity;
     }
   
     return subtotal;

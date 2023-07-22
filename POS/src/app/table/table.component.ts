@@ -26,7 +26,7 @@ export class TableComponent  implements OnInit {
   }
 
   onTableNumberSelected(tableNumber: string) {
-    this.router.navigate(['/order', { tableNumber: tableNumber }]);
+    this.router.navigate(['/order', { tableNumber }]);
   }
 
 }

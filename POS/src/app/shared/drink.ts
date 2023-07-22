@@ -3,5 +3,6 @@ export interface Drink {
     name: string;
     drink_TypeId: number;
     price: number;
+    quantity: number;
 
 }
