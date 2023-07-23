@@ -7,7 +7,7 @@
         
 <h3 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-weight: bolder; font-size: 50px;">Employee Roles</h3>
 <div class="input-group">
-<input type="text" class="form-control" placeholder="Search">
+<input type="text" class="form-control" (input)="applyFilter($event)" placeholder="Search">
 <button class="btn">
     <i class="fa fa-search" aria-hidden="true"></i>
   </button>
@@ -33,10 +33,10 @@
             <td>{{EmployeeRole.employee_RoleId}}</td> 
             <td>{{EmployeeRole.name}}</td> 
             <td>{{EmployeeRole.description}}</td> 
-            <td>
-                <button style="margin-right: 1em;" type="button" [routerLink]="['/edit-employee-role',EmployeeRole.employee_RoleId]" type class="btn btn-sm btn-info"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
-                <button type="button" class="btn btn-sm btn-danger" (click)="DeleteEmployeeRole(EmployeeRole.employee_RoleId)"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
-            </td>
+
+                <td><i class="fa fa-pencil" [routerLink]="['/edit-employee-role',EmployeeRole.employee_RoleId]"  aria-hidden="true"></i></td>
+                <td><i class="fa fa-trash"  (click)="DeleteEmployeeRole(EmployeeRole.employee_RoleId)" aria-hidden="true"></i></td>
+            
         </tr> 
     </tbody> 
 </table>

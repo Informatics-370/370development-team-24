@@ -4,6 +4,7 @@ using Africanacity_Team24_INF370_.models.Administration;
 using Africanacity_Team24_INF370_.ViewModel;
 using Africanacity_Team24_INF370_.View_Models;
 using Microsoft.EntityFrameworkCore;
+using Africanacity_Team24_INF370_.models.Booking;
 
 namespace Africanacity_Team24_INF370_.models
 {
@@ -115,9 +116,9 @@ namespace Africanacity_Team24_INF370_.models
             IQueryable<Schedule> query = _appDbContext.Schedules;
             return await query.ToArrayAsync();
         }
-        public async Task<Schedule> GetScheduleAsync(int ScheduleId)
+        public async Task<Schedule> GetScheduleAsync(int scheduleId)
         {
-            IQueryable<Schedule> query = _appDbContext.Schedules.Where(s => s.ScheduleId == ScheduleId);
+            IQueryable<Schedule> query = _appDbContext.Schedules.Where(s => s.ScheduleId == scheduleId);
             return await query.FirstOrDefaultAsync();
         }
 

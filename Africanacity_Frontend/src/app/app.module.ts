@@ -39,6 +39,16 @@ import { EditFoodTypeComponent } from './administration/Food Type/edit-food-type
 import { CreateFoodTypeComponent } from './administration/Food Type/create-food-type/create-food-type.component';
 import { EditMenuItemCategoryComponent } from './administration/Menu Item Category/edit-menu-item-category/edit-menu-item-category/edit-menu-item-category.component';
 import { CreateMenuItemCategoryComponent } from './administration/Menu Item Category/create-menu-item-category/create-menu-item-category/create-menu-item-category.component';
+import { AddScheduleComponent } from './booking/schedule/add-schedule/add-schedule.component';
+import { EditScheduleComponent } from './booking/schedule/edit-schedule/edit-schedule.component';
+import { ScheduleDisplayComponent } from './booking/schedule/schedule-display/schedule-display.component';
+import { AddEventComponent } from './booking/events/add-event/add-event.component';
+import { EditEventComponent } from './booking/events/edit-event/edit-event.component';
+import { ViewEventsComponent } from './booking/events/view-events/view-events.component';
+import { AddEntertainmentTypeComponent } from './booking/entertainment/add-entertainment-type/add-entertainment-type.component';
+import { EditEntertainmentTypeComponent } from './booking/entertainment/edit-entertainment-type/edit-entertainment-type.component';
+import { EntertainmentTypesComponent } from './booking/entertainment/entertainment-types/entertainment-types.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 
 
@@ -75,7 +85,16 @@ import { CreateMenuItemCategoryComponent } from './administration/Menu Item Cate
   EditFoodTypeComponent,
    CreateFoodTypeComponent, 
    EditMenuItemCategoryComponent, 
-   CreateMenuItemCategoryComponent
+   CreateMenuItemCategoryComponent, 
+   AddScheduleComponent, 
+   EditScheduleComponent, 
+   ScheduleDisplayComponent,
+   AddEventComponent, 
+    EditEventComponent, 
+    ViewEventsComponent,
+    AddEntertainmentTypeComponent, 
+    EditEntertainmentTypeComponent,
+    EntertainmentTypesComponent,
   ],
   imports: [
     BrowserModule,
@@ -85,9 +104,10 @@ import { CreateMenuItemCategoryComponent } from './administration/Menu Item Cate
     ReactiveFormsModule,
     HttpClientModule,
     MaterialModule,
-    Ng2SearchPipeModule,
+    //Ng2SearchPipeModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    FullCalendarModule,
   ],
   providers: [DataService],
   bootstrap: [AppComponent],

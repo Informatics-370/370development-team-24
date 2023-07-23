@@ -31,6 +31,17 @@ import { CreateMenuItemCategoryComponent } from './administration/Menu Item Cate
 import { EditMenuItemCategoryComponent } from './administration/Menu Item Category/edit-menu-item-category/edit-menu-item-category/edit-menu-item-category.component';
 //import { EditMenuItemCategoryComponent } from './administration/Menu Item Category/edit-menu-item-category/edit-menu-item-category.component';
 //import { CreateMenuItemCategoryComponent } from './administration/Menu Item Category/create-menu-item-category/create-menu-item-category.component';
+import { ScheduleDisplayComponent } from './booking/schedule/schedule-display/schedule-display.component';//Schedule
+import { EditScheduleComponent } from './booking/schedule/edit-schedule/edit-schedule.component';
+import { AddScheduleComponent } from './booking/schedule/add-schedule/add-schedule.component';
+//Events
+import { ViewEventsComponent } from './booking/events/view-events/view-events.component';
+import { EditEventComponent } from './booking/events/edit-event/edit-event.component';
+import { AddEventComponent } from './booking/events/add-event/add-event.component';
+//ENTERTAINMENT TYPE
+import { EntertainmentTypesComponent } from './booking/entertainment/entertainment-types/entertainment-types.component';
+import { EditEntertainmentTypeComponent } from './booking/entertainment/edit-entertainment-type/edit-entertainment-type.component';
+import { AddEntertainmentTypeComponent } from './booking/entertainment/add-entertainment-type/add-entertainment-type.component';
 
 const routes: Routes = [
   // to open the app to open on this specific page
@@ -56,6 +67,19 @@ const routes: Routes = [
   { path: 'create-food-type', component: CreateFoodTypeComponent },
   { path: 'edit-menu-item-category/:id', component: EditMenuItemCategoryComponent}, // for edit Menu Item Category page
   { path: 'create-menu-item-category', component: CreateMenuItemCategoryComponent },
+   ///SCHEDULE
+  {path:'schedule-display', component: ScheduleDisplayComponent},
+  {path:'edit-schedule', component: EditScheduleComponent},
+  {path:'add-schedule', component: AddScheduleComponent},
+ ///EVENTS
+ {path:'view-events', component: ViewEventsComponent},
+ {path:'edit-event', component: EditEventComponent},
+ {path:'add-event', component: AddEventComponent},
+ ///ENTERTAINMENT TYPES
+  {path:'entertainment-types', component: EntertainmentTypesComponent},
+  {path:'edit-entertainment-type', component: EditEntertainmentTypeComponent},
+  {path:'add-entertainment-type', component: AddEntertainmentTypeComponent},
+
   { path: 'navbar',component: NavbarComponent },
   { path: 'login',component: LoginComponent }, // Login paths
   { path: 'otp',  component: OtpComponent },  // otp path
@@ -64,7 +88,8 @@ const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent }, // forgotpassword path
   { path: 'reset-password',component: ResetPasswordComponent }, //resetpassword path
   { path: 'home', component: HomeComponent }, // for home page
-  {path: '', redirectTo: 'login', pathMatch:'full'},
+
+  {path: '', redirectTo: 'home', pathMatch:'full'},
   
 ];
 

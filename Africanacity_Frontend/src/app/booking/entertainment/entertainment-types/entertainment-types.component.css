@@ -1,37 +1,3 @@
-/* table{
-    padding-top: 60px;
-}
-.form-control {
-    
-    background-color: rgba(250, 246, 246, 0.966);
-    border-radius: 8px;
-    border-color: black;
-}
-.input-group{
-    width: 400px;
-    
-}
-
-
-.table-striped>tbody>tr:nth-child(odd)>td,
-.table-striped>tbody>tr:nth-child(odd)>th {
-  background-color: lightgrey;
-  color: white;
-}
-button{
-    border-radius: 50px;
-    border-color: black;
-}
-.table-striped{
-    padding-top: 200px;
-}
-.thead{
-    background-color: darkgrey;
-}
-.addButton{
-    margin-left: 200px;
-} */
-
 .heading{
     /* background-color: darkmagenta; */
     height: 50px;
@@ -99,7 +65,3 @@ button{
 .table-hover tr:hover {
     background-color: grey;
   }
-.addButton{
-
-    left: 150px;
-}

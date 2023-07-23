@@ -33,12 +33,12 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
         [HttpGet]
-        [Route("GetEvent/{EventId}")]
-        public async Task<IActionResult> GetEventAsync(int EventId)
+        [Route("GetEvent/{eventId}")]
+        public async Task<IActionResult> GetEventAsync(int eventId)
         {
             try
             {
-                var result = await _Repository.GetEventAsync(EventId);
+                var result = await _Repository.GetEventAsync(eventId);
 
                 if (result == null) return NotFound("This Event does not exist. You need to create a new event.");
 
@@ -69,12 +69,12 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 
         [HttpPut]
-        [Route("EditEvent/{EventId}")]
-        public async Task<ActionResult<EventViewModel>> EditEvent(int EventId, EventViewModel eventViewModel)
+        [Route("EditEvent/{eventId}")]
+        public async Task<ActionResult<EventViewModel>> EditEvent(int eventId, EventViewModel eventViewModel)
         {
             try
             {
-                var existingEvent = await _Repository.GetEventAsync(EventId);
+                var existingEvent = await _Repository.GetEventAsync(eventId);
                 if (existingEvent == null) return NotFound($"The event does not exist");
 
                 
@@ -94,12 +94,12 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleteEvent/{EventId}")]
-        public async Task<IActionResult> DeleteEvent(int EventId)
+        [Route("DeleteEvent/{eventId}")]
+        public async Task<IActionResult> DeleteEvent(int eventId)
         {
             try
             {
-                var existingEvent = await _Repository.GetEventAsync(EventId);
+                var existingEvent = await _Repository.GetEventAsync(eventId);
 
                 if (existingEvent == null) return NotFound($"The event does not exist");
 

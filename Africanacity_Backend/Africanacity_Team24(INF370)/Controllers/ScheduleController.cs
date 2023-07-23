@@ -42,12 +42,12 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
         [HttpGet]
-        [Route("GetSchedule/{ScheduleId}")]
-        public async Task<IActionResult> GetScheduleAsync(int ScheduleId)
+        [Route("GetSchedule/{scheduleId}")]
+        public async Task<IActionResult> GetScheduleAsync(int scheduleId)
         {
             try
             {
-                var result = await _Repository.GetScheduleAsync(ScheduleId);
+                var result = await _Repository.GetScheduleAsync(scheduleId);
 
                 if (result == null) return NotFound("Schedule does not exist.");
 
@@ -80,12 +80,12 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
         [HttpPut]
-        [Route("EditSchedule/{ScheduleId}")]
-        public async Task<ActionResult<ScheduleViewModel>> EditSchedule(int ScheduleId, ScheduleViewModel viewModel)
+        [Route("EditSchedule/{scheduleId}")]
+        public async Task<ActionResult<ScheduleViewModel>> EditSchedule(int scheduleId, ScheduleViewModel viewModel)
         {
             try
             {
-                var existingSchedule = await _Repository.GetScheduleAsync(ScheduleId);
+                var existingSchedule = await _Repository.GetScheduleAsync(scheduleId);
                 if(existingSchedule != null)
                 {
                     existingSchedule.Date = viewModel.Date;
@@ -108,12 +108,12 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
         [HttpDelete]
-        [Route("RemoveSchedule/{ScheduleId}")]
-        public async Task<IActionResult> RemoveSchedule(int ScheduleId)
+        [Route("RemoveSchedule/{scheduleId}")]
+        public async Task<IActionResult> RemoveSchedule(int scheduleId)
         {
             try
             {
-                var existingSchedule = await _Repository.GetScheduleAsync(ScheduleId);
+                var existingSchedule = await _Repository.GetScheduleAsync(scheduleId);
                 if (existingSchedule == null) return NotFound($"Schedule Does not exist");
                 _Repository.Delete(existingSchedule);
 
