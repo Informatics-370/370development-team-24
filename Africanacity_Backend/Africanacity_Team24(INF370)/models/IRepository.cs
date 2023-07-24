@@ -1,5 +1,7 @@
 ﻿using Africanacity_Team24_INF370_.models.Administration;
 using Africanacity_Team24_INF370_.models.Restraurant;
+using Africanacity_Team24_INF370_.models.Booking;
+using static Org.BouncyCastle.Asn1.Cmp.Challenge;
 
 namespace Africanacity_Team24_INF370_.models
 {
@@ -24,12 +26,20 @@ namespace Africanacity_Team24_INF370_.models
         Task<MenuItem_Category[]> GetAllMenuItemCategoriesAsync();
         Task<MenuItem_Category> GetMenuItemCategoryAsync(int Menu_CategoryId);
 
-		//User
-		//Task<User> ViewProfileAsync(int UserId);
-		//Task<User[]> ViewProfilesAsync();
+		// Entertainer
+		Task<User[]> ViewProfileAsync();
 		Task<User> ViewProfileAsync(int UserId);
 
-		Task<User> GetUserProfile(string UserId);
-	
-    }
+		// Admin
+		Task<AdminInfor[]> ViewAdminProfileAsync();
+		Task<AdminInfor> ViewAdminProfileAsync(int UserId);
+
+		// Booking
+		Task<Bookings[]> GetBookingsAsync();
+		Task<Entertainment_Type[]> GetEntertainmentTypesAsync();
+		Task<Schedule[]> GetSchedulesAsync();
+
+		//Pending Booking
+		Task<Pending_Booking[]> GetPendingsAsync();
+	}
 }

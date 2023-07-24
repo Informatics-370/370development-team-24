@@ -1,10 +1,18 @@
-﻿using Africanacity_Team24_INF370_.models.Administration;
-﻿using Africanacity_Team24_INF370_.models.Restraurant;
+﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
+using Africanacity_Team24_INF370_.models.Administration;
+using Africanacity_Team24_INF370_.models.Restraurant;
+using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+using System.Net;
+using System.Security.Policy;
+using Africanacity_Team24_INF370_.models.Booking;
 
 namespace Africanacity_Team24_INF370_.models
 {
-	public class Repository: IRepository
+    public class Repository: IRepository
 	{
 		private readonly AppDbContext _appDbContext;
 
@@ -69,24 +77,32 @@ namespace Africanacity_Team24_INF370_.models
             return await query.FirstOrDefaultAsync();
         }
 
-		//User
-		//public async Task<User[]> ViewProfilesAsync()
-		//{
-		//	IQueryable<User> query = _appDbContext.Users;
-		//	return await query.ToArrayAsync();
-		//}
-		//public async Task<User> ViewProfileAsync(int UserId)
-		//{
-		//	IQueryable<User> query = _appDbContext.Users.Where(u => u.Id == UserId);
-		//	return await query.FirstOrDefaultAsync();
-		//}
+		// Entertainer
+		public async Task<User[]> ViewProfileAsync()
+		{
+			IQueryable<User> query = _appDbContext.Users;
+			return await query.ToArrayAsync();
+		}
+
 		public async Task<User> ViewProfileAsync(int UserId)
 		{
 			IQueryable<User> query = _appDbContext.Users.Where(u => u.Id == UserId);
 			return await query.FirstOrDefaultAsync();
 		}
 
-		public async Task<User> GetUserProfile(string UserId)
+		//Admin
+		public async Task<AdminInfor[]> ViewAdminProfileAsync()
+		{
+			IQueryable<AdminInfor> query = _appDbContext.Admins;
+			return await query.ToArrayAsync();
+		}
+
+		public async Task<AdminInfor> ViewAdminProfileAsync(int UserId)
+		{
+			IQueryable<AdminInfor> query = _appDbContext.Admins.Where(u => u.Id == UserId);
+			return await query.FirstOrDefaultAsync();
+		}
+		public async Task<User> GetUserProfile(int UserId)
 		{
 			// Fetch the user profile details from the database or any other data source
 			var user = await _appDbContext.Users.FindAsync(UserId);
@@ -106,6 +122,34 @@ namespace Africanacity_Team24_INF370_.models
 			return userProfile;
 		}
 
+		//Booking
+		public async Task<Bookings[]> GetBookingsAsync()
+        {
+            IQueryable<Bookings> query = _appDbContext.bookings.Include(p => p.Schedule).Include(p => p.EntertainmentType);
 
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<Schedule[]> GetSchedulesAsync()
+        {
+            IQueryable<Schedule> query = _appDbContext.Schedules;
+
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<Entertainment_Type[]> GetEntertainmentTypesAsync()
+        {
+            IQueryable< Entertainment_Type> query = _appDbContext.EntertainmentTypes;
+
+            return await query.ToArrayAsync();
+        }
+
+		// Pending Booking
+		public async Task<Pending_Booking[]> GetPendingsAsync()
+		{
+			IQueryable<Pending_Booking> query = _appDbContext.Pending_Bookings.Include(p => p.Schedule).Include(p => p.EntertainmentType);
+
+			return await query.ToArrayAsync();
+		}
 	}
 }

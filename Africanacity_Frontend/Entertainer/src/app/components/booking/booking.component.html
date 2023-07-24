@@ -1,0 +1,111 @@
+<div class="col-md-2">
+    <app-navbar></app-navbar> 
+</div>
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">
+    <img src="../../assets/Nav_image/Africanacity.png" alt="" width="40" height="40" class="d-inline-block align-text-top">
+    Hello {{fullName}}<h6>
+    </h6></a>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
+  <div class="navbar-nav">
+      <div class="nav-item text-nowrap">
+          <a style="background: red;
+          color: #fff;
+          border-radius: 4px;
+          margin: 10px;" class="nav-link px-3 cursor-pointer" (click)="logout()">Sign out</a>
+      </div>
+  </div>
+</header>
+
+<div  style="  /* The image used */
+background-image: url('../assets/Home/Pic7.jpg');
+
+/* Add the blur effect */
+filter: blur(8px);
+-webkit-filter: blur(8px);
+
+/* Full height */
+height: 240%;
+width: 100%;
+
+/* Center and scale the image nicely */
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;"></div>
+
+<div style="background-color: rgb(0,0,0); /* Fallback color */
+background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+color: white;
+font-weight: bold;
+border: 3px solid #f1f1f1;
+position: absolute;
+top: 130%;
+left: 50%;
+margin-left: 8%;
+transform: translate(-50%, -50%);
+z-index: 2;
+width: 80%;
+padding: 20px;
+/* text-align: center; */
+">
+
+<div>
+        <h1>Make Booking</h1>
+        <p>Please fill out this form with the required information</p>
+        <form action="">
+          
+          <fieldset>
+            <label>First Name 
+              <input type="text" name="firstname" required /></label>
+            <label>Last Name 
+            <input type="text" name="lastname" required />
+            </label>
+            <label>Email
+            <input type="email" name="email" required />
+            </label>
+            <label>Phone Number 
+            <input type="text" name="phone" required />
+            </label>
+            
+            <!-- <label>Check-in Date
+            <input type="date" name="check-in-date" required />
+            </label>
+            <label>Check-out Date
+            <input type="date" name="check-out-date" required />
+            </label> -->
+             </fieldset>
+          <fieldset>
+            <label> Entertainment Type
+            <select name="entertainment">
+                  <option value="">(select one)</option>
+                  <option value="1">Singer</option>
+                  <option value="2">Poet</option>
+                  <option value="3">Artist</option>
+                  <option value="4">Band</option>
+                </select>
+            </label><br>
+         
+            <label>Number of room <input type="number" name="age" min="1" max="120" class="time"/><br><br>
+              <label>Timeslot
+              <label><input type="radio" name="time-type" class="inline" /> Single Room</label>
+              <label><input type="radio" name="time-type" class="inline" /> Double Room</label>
+              <label><input type="radio" name="time-type" class="inline" /> Triple Room</label>
+              <label><input type="radio" name="time-type" class="inline" /> Quad Bedroom</label>
+              </label>
+            </label><br>
+            <div>
+              <input formControlName="file" type="file" id="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;"> Choose file
+              <button color="primary" (click)="file.click()">Upload File</button>
+              <span *ngIf="fileNameUploaded.length > 0"> {{fileNameUploaded}}</span>
+            </div><br>
+            <label>Additional Requests
+            <textarea name="additional" rows="5" cols="30" placeholder="Your message ..."></textarea>
+            </label>
+          </fieldset>
+          <input type="submit" value="Submit" />
+        </form>
+</div>
+</div>

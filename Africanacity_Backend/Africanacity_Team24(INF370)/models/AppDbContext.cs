@@ -3,13 +3,15 @@ using System.Reflection.Emit;
 using System;
 using Microsoft.EntityFrameworkCore;
 using Africanacity_Team24_INF370_.models.Administration;
-using Africanacity_Team24_INF370_.models.Admin;
 using Africanacity_Team24_INF370_.models.Booking;
 using Africanacity_Team24_INF370_.models.Inventory;
 using Africanacity_Team24_INF370_.models.Restraurant;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Africanacity_Team24_INF370_.models.Login;
 using Africanacity_Team24_INF370_.models;
+using Microsoft.Extensions.Logging;
+using Org.BouncyCastle.Utilities.Collections;
+using System.Diagnostics;
 
 namespace Africanacity_Team24_INF370_.models
 {
@@ -31,13 +33,16 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<Password> Passwords { get; set; }
 		public DbSet<Title> Titles { get; set; }
 		public DbSet<User> Users { get; set; }
+		public DbSet<AdminInfor> Admins { get; set; }
 		public DbSet<User_Role> User_Roles { get; set; }
 		public DbSet<VAT> Vats { get; set; }
 
 		//Booking model
-		public DbSet<Bookings> Bookings { get; set; }
+		public DbSet<Bookings> bookings { get; set; }
+		public DbSet<Pending_Booking> Pending_Bookings { get; set; }
 		public DbSet<Booking_Status> Booking_Statuses { get; set; }
 		public DbSet<Entertainer> Entertainers { get; set; }
+		public DbSet<Entertainment_Type> EntertainmentTypes { get; set; }
 		public DbSet<Entertainer_EntertainmentType> Entertainer_Entertainments { get; set; }
 		public DbSet<Entertainer_Schedule> Entertainer_Schedules { get; set; }
 		public DbSet<Event> Events { get; set; }
@@ -74,8 +79,79 @@ namespace Africanacity_Team24_INF370_.models
 
 			modelBuilder.Entity<User>().ToTable("Users");
 			base.OnModelCreating(modelBuilder);
-            // Create Seed Data For the Employee Table:
-            modelBuilder.Entity<Employee>()
+
+			// Create Seed Data For the Events Table:
+
+      modelBuilder.Entity<Event>()
+			 .HasData(
+			 new
+			 {
+				 EventId = 1,
+				 Event_Name = "Smooth Sunday",
+				 Description = "An event filled with spectacular music performances and art display "
+			 });
+
+			modelBuilder.Entity<Event>()
+				   .HasData(
+				   new
+				   {
+					   EventId = 2,
+					   Event_Name = "Wacky Wednesday",
+					   Description = "An event where various forms of entertainments take place"
+				   });
+
+			modelBuilder.Entity<Event>()
+				  .HasData(
+				  new
+				  {
+					  EventId = 3,
+					  Event_Name = "Poetry Musings",
+					  Description = " poets are invited to recite poems and another kind of artistry "
+				  });
+
+			// Create Seed Data For the Entertainments Type Table:
+
+			modelBuilder.Entity<Entertainment_Type>()
+				  .HasData(
+				  new
+				  {
+					  Entertainment_TypeId = 1,
+					  Name = "Poetry",
+					  Description = "Poetry recitations"
+				  });
+
+			modelBuilder.Entity<Entertainment_Type>()
+				 .HasData(
+				 new
+				 {
+					 Entertainment_TypeId = 2,
+					 Name = "StandUp Comedy",
+					 Description = "One-liners for a comedic performance"
+				 });
+
+			modelBuilder.Entity<Entertainment_Type>()
+				 .HasData(
+				 new
+				 {
+					 Entertainment_TypeId = 3,
+					 Name = "Dance",
+					 Description = "Present dance as an art form, ballet, amapiano styles, hipHop dancers"
+				 });
+
+			modelBuilder.Entity<Entertainment_Type>()
+
+					   .HasData(
+					   new
+					   {
+						   Entertainment_TypeId = 4,
+						   Name = "Music",
+						   Description = "Artits who perform own music. All types of music"
+
+					   });
+
+
+						// Create Seed Data For the Employee Table:
+						modelBuilder.Entity<Employee>()
 						   .HasData(
 						   new
 						   {
@@ -99,20 +175,20 @@ namespace Africanacity_Team24_INF370_.models
 			      tg => tg.HasOne<Access>().WithMany());
 
 			// For the Entertainer_EntertainmentType M2M  payload (Uncomment code below and run migration to generate tables)
-			modelBuilder.Entity<Entertainer>()
-				.HasMany(t => t.Entertainment_Types)
-				.WithMany(g => g.Entertainers)
-				.UsingEntity<Entertainer_EntertainmentType>
-				 (tg => tg.HasOne<Entertainment_Type>().WithMany(),
-				  tg => tg.HasOne<Entertainer>().WithMany());
+			//modelBuilder.Entity<Entertainer>()
+			//	.HasMany(t => t.Entertainment_Types)
+			//	.WithMany(g => g.Entertainers)
+			//	.UsingEntity<Entertainer_EntertainmentType>
+			//	 (tg => tg.HasOne<Entertainment_Type>().WithMany(),
+			//	  tg => tg.HasOne<Entertainer>().WithMany());
 
 			// For the Entertainer_Schedule M2M payload (Uncomment code below and run migration to generate tables)
-			modelBuilder.Entity<Schedule>()
-				.HasMany(t => t.Entertainers)
-				.WithMany(g => g.Schedules)
-				.UsingEntity<Entertainer_Schedule>
-				 (tg => tg.HasOne<Entertainer>().WithMany(),
-				  tg => tg.HasOne<Schedule>().WithMany());
+			//modelBuilder.Entity<Schedule>()
+			//	.HasMany(t => t.Entertainers)
+			//	.WithMany(g => g.Schedules)
+			//	.UsingEntity<Entertainer_Schedule>
+			//	 (tg => tg.HasOne<Entertainer>().WithMany(),
+			//	  tg => tg.HasOne<Schedule>().WithMany());
 
 			// For the Supplier_InventoryItem M2M payload (Uncomment code below and run migration to generate tables)
 			modelBuilder.Entity<Inventory_Item>()

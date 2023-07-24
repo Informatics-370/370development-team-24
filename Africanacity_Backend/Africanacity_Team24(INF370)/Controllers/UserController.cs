@@ -22,6 +22,8 @@ using Africanacity_Team24_INF370_.models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using Africanacity_Team24_INF370_.View_Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
@@ -115,7 +117,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 		private Task<bool> CheckUsernameExistAsync(string? username)
 			=> _authContext.Users.AnyAsync(x => x.Email == username);
-
+		 
 		private static string CheckPasswordStrength(string pass)
 		{
 			StringBuilder sb = new StringBuilder();
@@ -135,7 +137,14 @@ namespace Africanacity_Team24_INF370_.Controllers
 			var identity = new ClaimsIdentity(new Claim[]
 			{
 				new Claim(ClaimTypes.Role, user.Role),
-				new Claim(ClaimTypes.Name,$"{user.Username}")
+				new Claim(ClaimTypes.NameIdentifier, $"{user.Id}"),
+				new Claim(ClaimTypes.Name,$"{user.Username}"),
+				new Claim(ClaimTypes.GivenName,$"{user.FirstName}"),
+				new Claim(ClaimTypes.Surname,$"{user.LastName}"),
+				new Claim(ClaimTypes.WindowsAccountName,$"{user.ContactNumber}"),
+				new Claim(ClaimTypes.Email,$"{user.Email}"),
+				new Claim(ClaimTypes.Actor ,$"{user.PhysicalAddress }")
+
 			});
 
 			var credentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
@@ -281,6 +290,38 @@ namespace Africanacity_Team24_INF370_.Controllers
 			});
 		}
 
+		//[HttpPost]
+		//[Route("Change-password")]
+		//public async Task<IActionResult> ChangePassword(UpdatePasswordModel resetPasswordDto )
+		//{
+			
+		//	if (string.IsNullOrEmpty(resetPasswordDto.OldPassword))
+		//	{
+		//		return BadRequest("Old Password must be supplied for password change.");
+		//	}
+
+		//	if (!ModelState.IsValid)
+		//	{
+		//		return BadRequest(resetPasswordDto);
+		//	}
+		//	if (user == null)
+		//	{
+		//		return NotFound(new
+		//		{
+		//			StatusCode = 404,
+		//			Message = "User does not exist"
+		//		});
+		//	}
+		//	user.Password = PasswordHasher.HashPassword(resetPasswordDto.NewPassword);
+		//	_authContext.Entry(user).State = EntityState.Modified;
+		//	await _authContext.SaveChangesAsync();
+		//	return Ok(new
+		//	{
+		//		StatusCode = 200,
+		//		Message = "Password successfully reset"
+		//	});
+		//}
+
 		//getting User using id
 		[HttpGet]
 		[Route("Profile/{UserId}")]
@@ -299,34 +340,6 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 		}
 
-		//[Authorize]
-		//[HttpGet("Profile")]
-		//public async Task<ActionResult<User>> GetProfile()
-		//{
-		//	string username = User.Identity.Name;
-		//	var user = await _userManager.FindByNameAsync(username);
-
-		//	if (user == null)
-		//	{
-		//		return NotFound(new { Message = "User not found" });
-		//	}
-
-		//	return Ok(user);
-		//}
-
-		//[HttpGet("profile")]
-		//[Authorize] // Make sure the user is authenticated
-		//public async Task<IActionResult> GetUserProfile()
-		//{
-		//	var UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-		//	var userProfile = await _repository.GetUserProfile(UserId);
-		//	if (userProfile == null)
-		//	{
-		//		return NotFound(new { Message = "User profile not found" });
-		//	}
-		//	return Ok(userProfile);
-		//}
-
 		//getting User using id
 		[HttpGet]
 		[Route("ProfileIn")]
@@ -334,6 +347,79 @@ namespace Africanacity_Team24_INF370_.Controllers
 		{
 			return Ok(await _authContext.Users.ToListAsync());
 		}
+
+		[HttpGet("GetUser/{username}")]
+		public IActionResult GetProfileInformation(string username)
+		{
+			// Fetch profile information from the database based on the username
+			var profile = _authContext.Users.FirstOrDefault(p => p.Username == username);
+
+			if (profile == null)
+			{
+				return NotFound(); // or return an appropriate response for a non-existent profile
+			}
+
+			return Ok(profile);
+		}
+
+		// Edit user
+		[HttpPut]
+		[Route("EditUser/{UserId}")]
+		public async Task<ActionResult<User>> EditUser(int UserId, User ftvm)
+		{
+			try
+			{
+				var existingUser = await _repository.ViewProfileAsync(UserId);
+
+				// fix error message
+				if (existingUser == null) return NotFound($"The user does not exist");
+
+				existingUser.FirstName = ftvm.FirstName;
+				existingUser.Email = ftvm.Email;										
+				existingUser.LastName = ftvm.LastName;
+				existingUser.ContactNumber = ftvm.ContactNumber;
+				existingUser.PhysicalAddress = ftvm.PhysicalAddress;
+				existingUser.Username = ftvm.Username;
+
+				if (await _repository.SaveChangesAsync())
+				{
+					return Ok(existingUser);
+				}
+			}
+			catch (Exception)
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+			}
+			return BadRequest("Your request is invalid");
+		}
+
+		// Delete User
+		[HttpDelete]
+		[Route("DeleteUser/{UserId}")]
+		public async Task<IActionResult> DeleteUser(int UserId)
+		{
+			try
+			{
+				var existingUser = await _repository.ViewProfileAsync(UserId);
+
+				// fix error message
+				if (existingUser == null) return NotFound($"The userdoes not exist");
+
+				_repository.Delete(existingUser);
+
+				if (await _repository.SaveChangesAsync())
+				{
+					return Ok(existingUser);
+				}
+			}
+			catch (Exception)
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+			}
+			return BadRequest("Your request is invalid");
+		}
 	}
+
 }
+
 

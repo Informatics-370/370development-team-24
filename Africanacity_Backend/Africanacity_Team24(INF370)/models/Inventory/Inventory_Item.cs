@@ -1,10 +1,9 @@
-﻿ using Africanacity_Team24_INF370_.models.Admin;
-using Africanacity_Team24_INF370_.models.Administration;
+﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
 using System.ComponentModel.DataAnnotations;
 
 namespace Africanacity_Team24_INF370_.models.Inventory
 {
-	public class Inventory_Item
+    public class Inventory_Item
 	{
 		[Key]
 		public int Inventory_ItemId { get; set; }

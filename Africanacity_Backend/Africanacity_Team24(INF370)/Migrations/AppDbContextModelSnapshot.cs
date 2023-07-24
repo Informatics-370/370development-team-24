@@ -22,80 +22,6 @@ namespace Africanacity_Team24_INF370_.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Admin.Help", b =>
-                {
-                    b.Property<int>("HelpId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HelpId"), 1L, 1);
-
-                    b.Property<int?>("AdministratorId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int?>("Help_CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("HelpId");
-
-                    b.HasIndex("AdministratorId");
-
-                    b.HasIndex("Help_CategoryId");
-
-                    b.ToTable("Helps");
-                });
-
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Admin.Title", b =>
-                {
-                    b.Property<int>("TitleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TitleId"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("TitleId");
-
-                    b.ToTable("Titles");
-                });
-
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Admin.User", b =>
-                {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"), 1L, 1);
-
-                    b.Property<int?>("TitleId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.HasKey("UserId");
-
-                    b.HasIndex("TitleId");
-
-                    b.ToTable("User");
-                });
-
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Access", b =>
                 {
                     b.Property<int>("AccessId")
@@ -134,6 +60,59 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.ToTable("Access_UserRoles");
                 });
 
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.AdminInfor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ContactNumber")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhysicalAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RefreshTokenExpiryTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ResetPasswordToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ResetPasswordTokenExpiry")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Admins");
+                });
+
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Administrator", b =>
                 {
                     b.Property<int>("AdministratorId")
@@ -164,12 +143,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("AdministratorId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Administrators");
                 });
@@ -244,14 +218,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("EmployeeId");
 
                     b.HasIndex("Employee_RoleId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Employees");
 
@@ -287,6 +256,39 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasKey("Employee_RoleId");
 
                     b.ToTable("Employee_Roles");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Help", b =>
+                {
+                    b.Property<int>("HelpId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HelpId"), 1L, 1);
+
+                    b.Property<int?>("AdministratorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int?>("Help_CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("HelpId");
+
+                    b.HasIndex("AdministratorId");
+
+                    b.HasIndex("Help_CategoryId");
+
+                    b.ToTable("Helps");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Help_Category", b =>
@@ -325,14 +327,27 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("PasswordId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Passwords");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Title", b =>
+                {
+                    b.Property<int>("TitleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TitleId"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("TitleId");
+
+                    b.ToTable("Titles");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.User_Role", b =>
@@ -408,12 +423,33 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<int?>("Booking_StatusId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ContactNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Demo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("EntertainerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EntertainmentTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ScheduleId")
                         .HasColumnType("int");
 
                     b.HasKey("BookingId");
@@ -422,7 +458,11 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     b.HasIndex("EntertainerId");
 
-                    b.ToTable("Bookings");
+                    b.HasIndex("EntertainmentTypeId");
+
+                    b.HasIndex("ScheduleId");
+
+                    b.ToTable("bookings");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Entertainer", b =>
@@ -455,42 +495,33 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("EntertainerId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Entertainers");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Entertainer_EntertainmentType", b =>
                 {
-                    b.Property<int>("EntertainersEntertainerId")
+                    b.Property<int>("Entertainer_EntertainmentTypeId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("Entertainment_TypesEntertainment_TypeId")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Entertainer_EntertainmentTypeId"), 1L, 1);
 
-                    b.HasKey("EntertainersEntertainerId", "Entertainment_TypesEntertainment_TypeId");
-
-                    b.HasIndex("Entertainment_TypesEntertainment_TypeId");
+                    b.HasKey("Entertainer_EntertainmentTypeId");
 
                     b.ToTable("Entertainer_Entertainments");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Entertainer_Schedule", b =>
                 {
-                    b.Property<int>("EntertainersEntertainerId")
+                    b.Property<int>("Entertainer_ScheduleId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("SchedulesScheduleId")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Entertainer_ScheduleId"), 1L, 1);
 
-                    b.HasKey("EntertainersEntertainerId", "SchedulesScheduleId");
-
-                    b.HasIndex("SchedulesScheduleId");
+                    b.HasKey("Entertainer_ScheduleId");
 
                     b.ToTable("Entertainer_Schedules");
                 });
@@ -503,19 +534,69 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Entertainment_TypeId"), 1L, 1);
 
+                    b.Property<DateTime?>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateModified")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("End_Time")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("EntertainerId")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Start_Time")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Entertainment_TypeId");
 
-                    b.ToTable("Entertainment_Type");
+                    b.HasIndex("EntertainerId");
+
+                    b.ToTable("EntertainmentTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Entertainment_TypeId = 1,
+                            Description = "Poetry recitations",
+                            Name = "Poetry"
+                        },
+                        new
+                        {
+                            Entertainment_TypeId = 2,
+                            Description = "One-liners for a comedic performance",
+                            Name = "StandUp Comedy"
+                        },
+                        new
+                        {
+                            Entertainment_TypeId = 3,
+                            Description = "Present dance as an art form, ballet, amapiano styles, hipHop dancers",
+                            Name = "Dance"
+                        },
+                        new
+                        {
+                            Entertainment_TypeId = 4,
+                            Description = "Artits who perform own music. All types of music",
+                            Name = "Music"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Event", b =>
@@ -529,7 +610,11 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<int?>("AdministratorId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Event_Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -539,6 +624,94 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasIndex("AdministratorId");
 
                     b.ToTable("Events");
+
+                    b.HasData(
+                        new
+                        {
+                            EventId = 1,
+                            Description = "An event filled with spectacular music performances and art display ",
+                            Event_Name = "Smooth Sunday"
+                        },
+                        new
+                        {
+                            EventId = 2,
+                            Description = "An event where various forms of entertainments take place",
+                            Event_Name = "Wacky Wednesday"
+                        },
+                        new
+                        {
+                            EventId = 3,
+                            Description = " poets are invited to recite poems and another kind of artistry ",
+                            Event_Name = "Poetry Musings"
+                        });
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Pending_Booking", b =>
+                {
+                    b.Property<int>("Pending_BookingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Pending_BookingId"), 1L, 1);
+
+                    b.Property<string>("ContactNumber")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<DateTime?>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Demo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("End_Time")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EntertainmentTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ScheduleId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Start_Time")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Pending_BookingId");
+
+                    b.HasIndex("EntertainmentTypeId");
+
+                    b.HasIndex("ScheduleId");
+
+                    b.ToTable("Pending_Bookings");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Schedule", b =>
@@ -552,21 +725,46 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<int?>("AdministratorId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("End_Time")
+                    b.Property<DateTime?>("DateCreated")
                         .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("End_Time")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("EntertainerId")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Schedule_StatusId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Start_Time")
+                    b.Property<DateTime?>("Start_Time")
                         .HasColumnType("datetime2");
 
                     b.HasKey("ScheduleId");
 
                     b.HasIndex("AdministratorId");
+
+                    b.HasIndex("EntertainerId");
 
                     b.HasIndex("Schedule_StatusId");
 
@@ -1187,6 +1385,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("TitleId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Token")
                         .HasColumnType("nvarchar(max)");
 
@@ -1197,6 +1398,8 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TitleId");
 
                     b.HasIndex("User_RoleId");
 
@@ -1336,24 +1539,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Admin.Help", b =>
-                {
-                    b.HasOne("Africanacity_Team24_INF370_.models.Administration.Administrator", null)
-                        .WithMany("Helps")
-                        .HasForeignKey("AdministratorId");
-
-                    b.HasOne("Africanacity_Team24_INF370_.models.Administration.Help_Category", null)
-                        .WithMany("Helps")
-                        .HasForeignKey("Help_CategoryId");
-                });
-
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Admin.User", b =>
-                {
-                    b.HasOne("Africanacity_Team24_INF370_.models.Admin.Title", null)
-                        .WithMany("Users")
-                        .HasForeignKey("TitleId");
-                });
-
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Access_UserRole", b =>
                 {
                     b.HasOne("Africanacity_Team24_INF370_.models.Administration.Access", null)
@@ -1369,13 +1554,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Administrator", b =>
-                {
-                    b.HasOne("Africanacity_Team24_INF370_.models.Admin.User", null)
-                        .WithMany("Administrators")
-                        .HasForeignKey("UserId");
-                });
-
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Discount", b =>
                 {
                     b.HasOne("Africanacity_Team24_INF370_.models.Administration.Administrator", null)
@@ -1388,17 +1566,17 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasOne("Africanacity_Team24_INF370_.models.Administration.Employee_Role", null)
                         .WithMany("Employees")
                         .HasForeignKey("Employee_RoleId");
-
-                    b.HasOne("Africanacity_Team24_INF370_.models.Admin.User", null)
-                        .WithMany("Employees")
-                        .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Password", b =>
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Help", b =>
                 {
-                    b.HasOne("Africanacity_Team24_INF370_.models.Admin.User", null)
-                        .WithMany("Passwords")
-                        .HasForeignKey("UserId");
+                    b.HasOne("Africanacity_Team24_INF370_.models.Administration.Administrator", null)
+                        .WithMany("Helps")
+                        .HasForeignKey("AdministratorId");
+
+                    b.HasOne("Africanacity_Team24_INF370_.models.Administration.Help_Category", null)
+                        .WithMany("Helps")
+                        .HasForeignKey("Help_CategoryId");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Bookings", b =>
@@ -1410,43 +1588,29 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasOne("Africanacity_Team24_INF370_.models.Booking.Entertainer", null)
                         .WithMany("Booking")
                         .HasForeignKey("EntertainerId");
-                });
 
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Entertainer", b =>
-                {
-                    b.HasOne("Africanacity_Team24_INF370_.models.Admin.User", null)
-                        .WithMany("Entertainers")
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Entertainer_EntertainmentType", b =>
-                {
-                    b.HasOne("Africanacity_Team24_INF370_.models.Booking.Entertainer", null)
+                    b.HasOne("Africanacity_Team24_INF370_.models.Booking.Entertainment_Type", "EntertainmentType")
                         .WithMany()
-                        .HasForeignKey("EntertainersEntertainerId")
+                        .HasForeignKey("EntertainmentTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Africanacity_Team24_INF370_.models.Booking.Entertainment_Type", null)
+                    b.HasOne("Africanacity_Team24_INF370_.models.Booking.Schedule", "Schedule")
                         .WithMany()
-                        .HasForeignKey("Entertainment_TypesEntertainment_TypeId")
+                        .HasForeignKey("ScheduleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("EntertainmentType");
+
+                    b.Navigation("Schedule");
                 });
 
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Entertainer_Schedule", b =>
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Entertainment_Type", b =>
                 {
                     b.HasOne("Africanacity_Team24_INF370_.models.Booking.Entertainer", null)
-                        .WithMany()
-                        .HasForeignKey("EntertainersEntertainerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Africanacity_Team24_INF370_.models.Booking.Schedule", null)
-                        .WithMany()
-                        .HasForeignKey("SchedulesScheduleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Entertainment_Types")
+                        .HasForeignKey("EntertainerId");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Event", b =>
@@ -1456,11 +1620,34 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasForeignKey("AdministratorId");
                 });
 
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Pending_Booking", b =>
+                {
+                    b.HasOne("Africanacity_Team24_INF370_.models.Booking.Entertainment_Type", "EntertainmentType")
+                        .WithMany("Pending_Bookings")
+                        .HasForeignKey("EntertainmentTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Africanacity_Team24_INF370_.models.Booking.Schedule", "Schedule")
+                        .WithMany("Pending_Bookings")
+                        .HasForeignKey("ScheduleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("EntertainmentType");
+
+                    b.Navigation("Schedule");
+                });
+
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Schedule", b =>
                 {
                     b.HasOne("Africanacity_Team24_INF370_.models.Administration.Administrator", null)
                         .WithMany("Schedules")
                         .HasForeignKey("AdministratorId");
+
+                    b.HasOne("Africanacity_Team24_INF370_.models.Booking.Entertainer", null)
+                        .WithMany("Schedules")
+                        .HasForeignKey("EntertainerId");
 
                     b.HasOne("Africanacity_Team24_INF370_.models.Booking.Schedule_Status", null)
                         .WithMany("Schedules")
@@ -1598,6 +1785,10 @@ namespace Africanacity_Team24_INF370_.Migrations
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.User", b =>
                 {
+                    b.HasOne("Africanacity_Team24_INF370_.models.Administration.Title", null)
+                        .WithMany("Users")
+                        .HasForeignKey("TitleId");
+
                     b.HasOne("Africanacity_Team24_INF370_.models.Administration.User_Role", null)
                         .WithMany("Users")
                         .HasForeignKey("User_RoleId");
@@ -1654,22 +1845,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Admin.Title", b =>
-                {
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Admin.User", b =>
-                {
-                    b.Navigation("Administrators");
-
-                    b.Navigation("Employees");
-
-                    b.Navigation("Entertainers");
-
-                    b.Navigation("Passwords");
-                });
-
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Administrator", b =>
                 {
                     b.Navigation("Discounts");
@@ -1700,6 +1875,11 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Navigation("Helps");
                 });
 
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Title", b =>
+                {
+                    b.Navigation("Users");
+                });
+
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.User_Role", b =>
                 {
                     b.Navigation("Users");
@@ -1713,6 +1893,20 @@ namespace Africanacity_Team24_INF370_.Migrations
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Entertainer", b =>
                 {
                     b.Navigation("Booking");
+
+                    b.Navigation("Entertainment_Types");
+
+                    b.Navigation("Schedules");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Entertainment_Type", b =>
+                {
+                    b.Navigation("Pending_Bookings");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Schedule", b =>
+                {
+                    b.Navigation("Pending_Bookings");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Schedule_Status", b =>

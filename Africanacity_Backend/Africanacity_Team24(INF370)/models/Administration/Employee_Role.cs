@@ -1,9 +1,9 @@
-﻿using Africanacity_Team24_INF370_.models.Admin;
+﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
 using System.ComponentModel.DataAnnotations;
 
 namespace Africanacity_Team24_INF370_.models.Administration
 {
-	public class Employee_Role
+    public class Employee_Role
 	{
 		[Key]
 		public int Employee_RoleId { get; set; }

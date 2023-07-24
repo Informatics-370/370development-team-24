@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../UserService/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -23,11 +25,19 @@ export class NavbarComponent {
     // Perform any other actions based on the selected option
   }
 
-  constructor()
-    
-  {
-    
- }
+  constructor(
+    private auth: AuthService,
+    private router: Router )  
+  { }
+
+ view(): void {
+  const url = this.router.serializeUrl(this.router.createUrlTree(['/view-profile']));
+  window.location.href = url;
+}
+
+logout(){
+  this.auth.signOut();
+}
 }
 
   

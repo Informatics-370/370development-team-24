@@ -8,7 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using Africanacity_Team24_INF370_.models.Login;
-using Africanacity_Team24_INF370_.models.Admin;
+using Africanacity_Team24_INF370_.models.Administration.Admin;
 using System;
 using Africanacity_Team24_INF370_.EmailService;
 

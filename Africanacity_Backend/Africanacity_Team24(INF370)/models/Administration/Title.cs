@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Africanacity_Team24_INF370_.models.Admin
+namespace Africanacity_Team24_INF370_.models.Administration
 {
     public class Title
     {

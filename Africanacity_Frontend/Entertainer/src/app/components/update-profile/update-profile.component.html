@@ -1,0 +1,77 @@
+<div class="col-md-2">
+  <app-navbar></app-navbar> 
+</div>
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow" >
+<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">
+  <img src="../../assets/Nav_image/Africanacity.png" alt="" width="40" height="40" class="d-inline-block align-text-top">
+  Hello {{fullName}}<h6>
+  </h6></a>
+<button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+<input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
+<div class="navbar-nav">
+    <div class="nav-item text-nowrap">
+        <a style="background: red;
+        color: #fff;
+        border-radius: 4px;
+        margin: 10px;" class="nav-link px-3 cursor-pointer" (click)="logout()">Sign out</a>
+    </div>
+</div>
+</header>
+
+<div class="container" style="margin-left: 15%; width: auto;">
+  <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+    <h2 class="pt-3 font-weight-bold" style="text-align: center;">
+      Update Profile
+    </h2>  
+    <!-- Your form controls here -->
+    <div class="form-group pt-3">
+      <div class="input-field" [class.error]="updateForm.controls['firstName'].dirty && updateForm.hasError('required','firstName')">
+        <span class="fa fa-user p-2"></span>
+        <input id="firstName" type="text" placeholder="First Name" formControlName="firstName">
+      </div>
+    </div>
+    <div class="form-group pt-3">
+      <div class="input-field" [class.error]="updateForm.controls['lastName'].dirty && updateForm.hasError('required','lastName')">
+        <span class="fa fa-user p-2"></span>
+        <input id="lastName" type="text" placeholder="Last Name" formControlName="lastName">
+      </div>
+    </div>
+    <div class="form-group pt-3">
+      <div class="input-field" [class.error]="updateForm.controls['username'].dirty && updateForm.hasError('required','username')">
+        <span class="fa fa-user p-2"></span>
+        <input id="username" type="text" placeholder="Username" formControlName="username">
+      </div>
+    </div>
+    <div class="form-group pt-3">
+      <div class="input-field" [class.error]="updateForm.controls['contactNumber'].dirty && updateForm.hasError('required', 'contactNumber')">
+        <span class="fa fa-user p-2"></span>
+        <input id="contactNumber" type="text" placeholder="Contact Number" formControlName="contactNumber">
+      </div>
+      <small *ngIf="updateForm.controls['contactNumber'].dirty && updateForm.controls['contactNumber'].errors?.['minlength']" class="text-danger">
+        *Contact number must be 10 digits.*
+      </small>
+    </div>
+    <div class="form-group pt-3">
+      <div class="input-field" [class.error]="updateForm.controls['email'].dirty && updateForm.hasError('required','email')">
+        <span class="fa fa-user p-2"></span>
+        <input  style="width: 100%;" id="email" type="text" placeholder="Email" formControlName="email">
+      </div>
+    </div> 
+    <div class="form-group pt-3">
+      <div class="input-field" [class.error]="updateForm.controls['physicalAddress'].dirty && updateForm.hasError('required','physicalAddress')">
+        <span class="fa fa-user p-2"></span>
+        <textarea  style="width: 100%;" id="physicalAddress" type="text" placeholder="Physical Address" formControlName="physicalAddress"></textarea>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-1 col-sm-6">
+        <button style="margin-right:1em; width: 40%;" type="submit" class="btn btn-sm btn-light">Submit</button>
+        <button style="width: 40%;" type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button>
+      </div>
+    </div>
+  </form>
+  
+</div>
