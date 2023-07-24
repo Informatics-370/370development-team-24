@@ -20,8 +20,6 @@ export class EntertainerComponent {
   entertainers: Profile[] = [];
   filteredentertainers: Profile[] = [];
 
-
-
   deleteItem(): void {
     const confirmationSnackBar = this.snackBar.open(
       'Are you sure you want to delete this entertainer?',
@@ -117,6 +115,7 @@ export class EntertainerComponent {
       });
 
     }
+    
     deleteEntertainer(id: number){
       this.api.deleteUser(id).subscribe(result => {
         this.deleteItem();

@@ -440,7 +440,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<int?>("EntertainerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("EntertainmentTypeId")
+                    b.Property<int>("Entertainment_TypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("FirstName")
@@ -458,7 +458,7 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     b.HasIndex("EntertainerId");
 
-                    b.HasIndex("EntertainmentTypeId");
+                    b.HasIndex("Entertainment_TypeId");
 
                     b.HasIndex("ScheduleId");
 
@@ -680,7 +680,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<DateTime?>("End_Time")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("EntertainmentTypeId")
+                    b.Property<int>("Entertainment_TypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("FirstName")
@@ -699,7 +699,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ScheduleId")
+                    b.Property<int?>("ScheduleId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("Start_Time")
@@ -707,7 +707,7 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     b.HasKey("Pending_BookingId");
 
-                    b.HasIndex("EntertainmentTypeId");
+                    b.HasIndex("Entertainment_TypeId");
 
                     b.HasIndex("ScheduleId");
 
@@ -1591,7 +1591,7 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     b.HasOne("Africanacity_Team24_INF370_.models.Booking.Entertainment_Type", "EntertainmentType")
                         .WithMany()
-                        .HasForeignKey("EntertainmentTypeId")
+                        .HasForeignKey("Entertainment_TypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1624,19 +1624,15 @@ namespace Africanacity_Team24_INF370_.Migrations
                 {
                     b.HasOne("Africanacity_Team24_INF370_.models.Booking.Entertainment_Type", "EntertainmentType")
                         .WithMany("Pending_Bookings")
-                        .HasForeignKey("EntertainmentTypeId")
+                        .HasForeignKey("Entertainment_TypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Africanacity_Team24_INF370_.models.Booking.Schedule", "Schedule")
+                    b.HasOne("Africanacity_Team24_INF370_.models.Booking.Schedule", null)
                         .WithMany("Pending_Bookings")
-                        .HasForeignKey("ScheduleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ScheduleId");
 
                     b.Navigation("EntertainmentType");
-
-                    b.Navigation("Schedule");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Schedule", b =>

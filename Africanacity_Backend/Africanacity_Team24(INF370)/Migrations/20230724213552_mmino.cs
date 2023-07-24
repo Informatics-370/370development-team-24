@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Africanacity_Team24_INF370_.Migrations
 {
-    public partial class Assignment : Migration
+    public partial class mmino : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -916,7 +916,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Demo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EntertainmentTypeId = table.Column<int>(type: "int", nullable: false),
+                    Entertainment_TypeId = table.Column<int>(type: "int", nullable: false),
                     ScheduleId = table.Column<int>(type: "int", nullable: false),
                     Booking_StatusId = table.Column<int>(type: "int", nullable: true),
                     EntertainerId = table.Column<int>(type: "int", nullable: true)
@@ -935,8 +935,8 @@ namespace Africanacity_Team24_INF370_.Migrations
                         principalTable: "Entertainers",
                         principalColumn: "EntertainerId");
                     table.ForeignKey(
-                        name: "FK_bookings_EntertainmentTypes_EntertainmentTypeId",
-                        column: x => x.EntertainmentTypeId,
+                        name: "FK_bookings_EntertainmentTypes_Entertainment_TypeId",
+                        column: x => x.Entertainment_TypeId,
                         principalTable: "EntertainmentTypes",
                         principalColumn: "Entertainment_TypeId",
                         onDelete: ReferentialAction.Cascade);
@@ -959,8 +959,8 @@ namespace Africanacity_Team24_INF370_.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ContactNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     Demo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EntertainmentTypeId = table.Column<int>(type: "int", nullable: false),
-                    ScheduleId = table.Column<int>(type: "int", nullable: false),
+                    Entertainment_TypeId = table.Column<int>(type: "int", nullable: false),
+                    ScheduleId = table.Column<int>(type: "int", nullable: true),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Start_Time = table.Column<DateTime>(type: "datetime2", nullable: true),
                     End_Time = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -975,8 +975,8 @@ namespace Africanacity_Team24_INF370_.Migrations
                 {
                     table.PrimaryKey("PK_Pending_Bookings", x => x.Pending_BookingId);
                     table.ForeignKey(
-                        name: "FK_Pending_Bookings_EntertainmentTypes_EntertainmentTypeId",
-                        column: x => x.EntertainmentTypeId,
+                        name: "FK_Pending_Bookings_EntertainmentTypes_Entertainment_TypeId",
+                        column: x => x.Entertainment_TypeId,
                         principalTable: "EntertainmentTypes",
                         principalColumn: "Entertainment_TypeId",
                         onDelete: ReferentialAction.Cascade);
@@ -984,8 +984,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         name: "FK_Pending_Bookings_Schedules_ScheduleId",
                         column: x => x.ScheduleId,
                         principalTable: "Schedules",
-                        principalColumn: "ScheduleId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ScheduleId");
                 });
 
             migrationBuilder.CreateTable(
@@ -1142,9 +1141,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                 column: "EntertainerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_bookings_EntertainmentTypeId",
+                name: "IX_bookings_Entertainment_TypeId",
                 table: "bookings",
-                column: "EntertainmentTypeId");
+                column: "Entertainment_TypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_bookings_ScheduleId",
@@ -1257,9 +1256,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                 column: "Payment_MethodId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pending_Bookings_EntertainmentTypeId",
+                name: "IX_Pending_Bookings_Entertainment_TypeId",
                 table: "Pending_Bookings",
-                column: "EntertainmentTypeId");
+                column: "Entertainment_TypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pending_Bookings_ScheduleId",

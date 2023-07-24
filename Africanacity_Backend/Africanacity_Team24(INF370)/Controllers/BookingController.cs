@@ -28,7 +28,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 						p.Pending_BookingId,
 						p.FirstName,
 						EntertainmentTypeName = p.EntertainmentType.Name,
-						ScheduleDate = p.Schedule.Date,
+						//ScheduleDate = p.Schedule.Date,
 						p.LastName,
 						p.Demo,
 						p.Email,
@@ -95,17 +95,17 @@ namespace Africanacity_Team24_INF370_.Controllers
 							var booking = new Pending_Booking
 							{
 								
-								FirstName = formData["firstname"]
+								FirstName = formData["FirstName"]
 								,
-								LastName = formData["lastname"]
+								LastName = formData["LastName"]
 								,
 								Email = formData["Email"]
 								,
-								ContactNumber = formData["contactnumber"]
+								ContactNumber = formData["ContactNumber"]
 								,
-								ScheduleId = Convert.ToInt32(formData["schedule"])
-								,
-								EntertainmentTypeId = Convert.ToInt32(formData["entertainmenttype"])
+								//ScheduleId = Convert.ToInt32(formData["schedule"])
+								//,
+								Entertainment_TypeId = Convert.ToInt32(formData["entertainmenttype"])
 								,
 								Demo = base64
 							};
@@ -150,17 +150,17 @@ namespace Africanacity_Team24_INF370_.Controllers
 						var booking = new Bookings
 						{
 
-							FirstName = formData["firstname"]
+							FirstName = formData["FirstName"]
 							,
-							LastName = formData["lastname"]
+							LastName = formData["LastName"]
 							,
 							Email = formData["Email"]
 							,
-							ContactNumber = formData["contactnumber"]
+							ContactNumber = formData["ContactNumber"]
 							,
 							ScheduleId = Convert.ToInt32(formData["schedule"])
 							,
-							EntertainmentTypeId = Convert.ToInt32(formData["entertainmenttype"])
+							Entertainment_TypeId = Convert.ToInt32(formData["entertainmenttype"])
 							,
 							Demo = base64
 						};
@@ -225,13 +225,13 @@ namespace Africanacity_Team24_INF370_.Controllers
 		{
 			var addBooking = new Pending_Booking
 			{
-				LastName = cvm.lastname,
-				FirstName = cvm.firstname,
-				ContactNumber = cvm.phoneNumber,
-				Email = cvm.email,
+				LastName = cvm.LastName,
+				FirstName = cvm.FirstName,
+				ContactNumber = cvm.ContactNumber,
+				Email = cvm.Email,
 				Demo = cvm.Demo,
-				EntertainmentTypeId = Convert.ToInt32(cvm.entertainmenttype),
-				ScheduleId = Convert.ToInt32(cvm.schedule)
+				Entertainment_TypeId = Convert.ToInt32(cvm.entertainmenttype),
+				//ScheduleId = Convert.ToInt32(cvm.schedule)
 			};
 			
 
