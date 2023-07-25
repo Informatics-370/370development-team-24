@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Order</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="3">
+        <!-- Side Navigation Bar for Menu Items -->
+        <ion-list>
+          <ion-item button (click)="filterMenuItems(1)">Breakfast</ion-item>
+          <ion-item button (click)="filterMenuItems(2)">All Day</ion-item>
+          <ion-item button (click)="filterDrinkItems(1)">Alcohol</ion-item>
+          <ion-item button (click)="filterDrinkItems(2)">Non-alcoholic</ion-item>
+
+          <!-- Add more menu types as needed -->
+        </ion-list>
+      </ion-col>
+
+      <ion-col size="6">
+        <!-- Menu Item Listing -->
+        <ng-container *ngIf="!isDrinkSelected">
+        <h2 >MENU ITEMS</h2>
+        <ion-card *ngFor="let menuItem of filteredMenuItems">
+          <ion-card-header>
+            <ion-card-title>{{ menuItem.name }}</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <p>Price: {{ fetchMenuItemPrice(menuItem.menuItemId) | currency: 'R ' }}</p>
+            <ion-button (click)="addToMenuItemOrder(menuItem)">Add to Order</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ng-container>
+
+        <ng-container  *ngIf="isDrinkSelected">
+        <h2>BEVERAGES</h2>
+        <ion-card *ngFor="let drinkItem of filteredDrinkItems">
+          <ion-card-header>
+            <ion-card-title>{{ drinkItem.name }}</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <!-- Add relevant properties for drinks -->
+            <p>Price:  {{ fetchDrinkItemPrice(drinkItem.drinkId) | currency: 'R '}} </p>
+            <ion-button (click)="addToDrinkOrder(drinkItem)">Add to Order</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ng-container>
+      </ion-col>
+   
+
+      <ion-col size="3">
+        <!-- Order Summary for Menu Items -->
+        <h2>Order Summary </h2>
+        <ion-item>
+          <p *ngIf="tableNumber">Table Number: {{ tableNumber }}</p>
+        </ion-item>
+        <p>Kitchen Order Number: {{ kitchenOrderNumber }}</p>
+        <ion-list>
+          <ion-item *ngFor="let orderedItem of orderedItems">
+            {{ orderedItem.name }} {{ getSelectedMenuItemPrice(orderedItem.menuItemId) | currency: 'R' }}      
+            <ion-input type="number" [(ngModel)]="orderedItem.quantity" (ionChange)="updateSubtotal()" class="small-input"></ion-input>
+          </ion-item>
+        </ion-list>
+        <ion-list>
+          <ion-item *ngFor="let orderedDrink of orderedDrinks">
+            {{ orderedDrink.name }}  {{ getSelectedDrinkItemPrice(orderedDrink.drinkId) | currency: 'R ' }}     
+            <ion-input type="number" [(ngModel)]="orderedDrink.quantity" (ionChange)="updateSubtotal()" class="small-input"></ion-input>
+          </ion-item>
+        </ion-list>
+        <h3>Subtotal: {{ updateSubtotal() | currency:'R ' }}</h3>
+
+        <ion-button expand="full" (click)="submitOrder()">Submit Order</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+

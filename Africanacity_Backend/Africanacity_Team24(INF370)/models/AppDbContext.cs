@@ -65,6 +65,8 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<Order_Drink> Order_Drinks { get; set; }
 		public DbSet<Order_MenuItem> Order_MenuItems { get; set; }
 		public DbSet<Order_Status> Order_Statuses { get; set; }
+           
+        public DbSet<OrderType> OrderTypes { get; set; }
 		public DbSet<Payment> Payments { get; set; }
 		public DbSet<Payment_Method> Payment_Methods { get; set; }
 		public DbSet<Table_Number> Table_Numbers { get; set; }
@@ -79,14 +81,169 @@ namespace Africanacity_Team24_INF370_.models
 							   EmployeeId = 1,
 							   Surname = "James",
 							   FirstName = "Vanessa",
-							   Email_Address = "VanessaJames@gmial.com",
-							   PhysicalAddress = "404 Jacob Street",
-							   City = "Pretoria",
-							   State = "Gauteng",
-							   PostalCode = "0181",
+							   Email_Address = "VanessaJames@gmail.com",
+							   Physical_Address = "404 Jacob Street",
 							   PhoneNumber = "0847541236"
 
 						   });
+            modelBuilder.Entity<Employee>()
+                         .HasData(
+                         new
+                         {
+                             EmployeeId = 2,
+                             Surname = "Williams",
+                             FirstName = "Serena",
+                             Email_Address = "SerenaWilliams@gmail.com",
+                             Physical_Address = "132 Harriet Street",
+                             PhoneNumber = "0842341236"
+
+                         });
+            modelBuilder.Entity<Employee>()
+                         .HasData(
+                         new
+                         {
+                             EmployeeId = 3,
+                             Surname = "Elba",
+                             FirstName = "Edris",
+                             Email_Address = "EdrisElba@gmail.com",
+                             Physical_Address = "245 homelyn Street",
+                             PhoneNumber = "0212378798"
+
+                         });
+            modelBuilder.Entity<Employee>()
+                        .HasData(
+                        new
+                        {
+                            EmployeeId = 4,
+                            Surname = "Nyongo",
+                            FirstName = "Lupita",
+                            Email_Address = "NyongoLupita@gmail.com",
+                            Physical_Address = "254 Summer Street",
+                            PhoneNumber = "0455783475"
+
+                        });
+            modelBuilder.Entity<Employee>()
+                        .HasData(
+                        new
+                        {
+                            EmployeeId = 5,
+                            Surname = "Jackson",
+                            FirstName = "Micheal",
+                            Email_Address = "MicheaJackson@gmail.com",
+                            Physical_Address = "567 Winter Street",
+                            PhoneNumber = "0874567836"
+
+                        });
+            modelBuilder.Entity<Employee>()
+                        .HasData(
+                        new
+                        {
+                            EmployeeId = 6,
+                            Surname = "Kim",
+                            FirstName = "Taehyung",
+                            Email_Address = "TaehyungKim@gmial.com",
+                            Physical_Address = "345 Shallow  Street",
+                            PhoneNumber = "0874562134"
+
+                        });
+            modelBuilder.Entity<Employee>()
+                        .HasData(
+                        new
+                        {
+                            EmployeeId = 7,
+                            Surname = "Coleman",
+                            FirstName = "Zendaya",
+                            Email_Address = "ZendayaColeman@gmail.com",
+                            Physical_Address = "243 Super Street ",
+                            PhoneNumber = "0212378798"
+
+                        });
+            modelBuilder.Entity<Employee>()
+                        .HasData(
+                        new
+                        {
+                            EmployeeId = 8,
+                            Surname = "Federal",
+                            FirstName = "Roger",
+                            Email_Address = "RogerFederal@gmail.com",
+                            Physical_Address = "987 Wall Street",
+                            PhoneNumber = "0612346487"
+
+                        });
+            modelBuilder.Entity<Employee>()
+                        .HasData(
+                        new
+                        {
+                            EmployeeId = 9,
+                            Surname = "Lopez",
+                            FirstName = "Jennifer",
+                            Email_Address = "JenniferLOpez@gmail.com",
+                            Physical_Address = "967 Ballard Street",
+                            PhoneNumber = "0874834576"
+
+                        });
+            modelBuilder.Entity<Employee>()
+                        .HasData(
+                        new
+                        {
+                            EmployeeId = 10,
+                            Surname = "Boseman",
+                            FirstName = "Chadwick",
+                            Email_Address = "ChadwickBoseman@gmail.com",
+                            Physical_Address = "483 Alien Street",
+                            PhoneNumber = "0923456789"
+
+                        });
+            // Create Seed Data For the Help Q&A Table:
+
+            modelBuilder.Entity<Help>()
+                        .HasData(
+                        new
+                        {
+                            HelpId = 1,
+                            Name = "What food does MMINO Restaurant serve?",
+                            Description = "MMINO Restaurant serves various types of cuisines"
+                        });
+            modelBuilder.Entity<Help>()
+                       .HasData(
+                       new
+                       {
+                           HelpId = 2,
+                           Name = "Where is MMINO Restaurant?",
+                           Description = "MMINO Restaurant is located in Hatfield,Pretoria. 1005 Arcadia Street"
+                       });
+            modelBuilder.Entity<Help>()
+                      .HasData(
+                      new
+                      {
+                          HelpId = 3,
+                          Name = "How how do you book for a live entertainment slot?",
+                          Description = "You can book for a live entertainment on the website."
+                      });
+
+
+
+
+            // Create Seed Data For The Employee Role Table:
+            modelBuilder.Entity<Employee_Role>()
+                           .HasData(
+                           new
+                           {
+                               Employee_RoleId = 1,
+                               Name = "Waiter",
+							   Description = "The waiter serves the customers and takes orders"
+
+                           });
+
+            modelBuilder.Entity<Employee_Role>()
+                          .HasData(
+                          new
+                          {
+                              Employee_RoleId = 2,
+                              Name = "Chef",
+                              Description = "The chef prepares the meals and notifies the waiter of ready orders."
+
+                          });
 			//create seed data for menu type
             modelBuilder.Entity<Menu_Type>()
                           .HasData(
@@ -213,7 +370,6 @@ namespace Africanacity_Team24_INF370_.models
 							 Description ="Two larger chicken burger, 6 pcs nuggets, two large fries",
                              FoodTypeId = 1,
 							 Menu_CategoryId =3,
-                             CategoryMenu_CategoryId = 3,
                              Menu_TypeId = 2,
 
 
@@ -229,8 +385,8 @@ namespace Africanacity_Team24_INF370_.models
                                Description = "Pap, boerewors an Tbone steak",
                                FoodTypeId = 2,
                                Menu_CategoryId= 3,
-                               CategoryMenu_CategoryId = 3,
                                Menu_TypeId = 2,
+                              
 
 
                            });
@@ -244,8 +400,8 @@ namespace Africanacity_Team24_INF370_.models
                               Description = "Mozarella stuffe cheese balls",
                               FoodTypeId = 3,
                               Menu_CategoryId = 2,
-                              CategoryMenu_CategoryId = 2,
                               Menu_TypeId = 2,
+                              
 
 
                           });
@@ -258,8 +414,8 @@ namespace Africanacity_Team24_INF370_.models
                               Description = "A green salad with salsa mix",
                               FoodTypeId = 4,
                               Menu_CategoryId = 5,
-                              CategoryMenu_CategoryId = 5,
                               Menu_TypeId = 2,
+                              
 
 
                           });
@@ -268,18 +424,302 @@ namespace Africanacity_Team24_INF370_.models
                           new
                           {
                               MenuItemId = 5,
-                              Name = "Blueberry cheescake",
+                              Name = "Blueberry cheescake slice",
                               Description = "Delicious cheesecake with blueberry sauce topping",
                               FoodTypeId = 3,
                               Menu_CategoryId = 4,
-                              CategoryMenu_CategoryId = 4,
                               Menu_TypeId = 2,
+                          });
+            modelBuilder.Entity<MenuItem>()
+                         .HasData(
+                         new
+                         {
+                             MenuItemId = 6,
+                             Name = "English Breakfast",
+                             Description = "Delicious everyday english breakfast with eggs and bacon",
+                             FoodTypeId = 1,
+                             Menu_CategoryId = 1,
+                             Menu_TypeId = 1,
+                         });
+            modelBuilder.Entity<MenuItem>()
+                         .HasData(
+                         new
+                         {
+                             MenuItemId = 7,
+                             Name = "Blueberry smoothy bowl",
+                             Description = "Smoothy bowl with blueberries, almond milk and honey",
+                             FoodTypeId = 4,
+                             Menu_CategoryId = 1,
+                             Menu_TypeId = 1,
+                         });
+            modelBuilder.Entity<MenuItem>()
+                        .HasData(
+                        new
+                        {
+                            MenuItemId = 8,
+                            Name = "Toatsed beef panini sandwich",
+                            Description = "A toasted panini sandwich with beef sausages, tomatos and cheese",
+                            FoodTypeId = 2,
+                            Menu_CategoryId = 1,
+                            Menu_TypeId = 1,
+                        });
 
+
+
+            //create seed data for MENU ITEM PRICE
+            modelBuilder.Entity<MenuItem_Price>()
+                         .HasData(
+                         new
+                         {
+                             MenuItem_PriceId = 1,
+                             MenuItemId = 5,
+                             Amount = 50.50m
+                         }) ;
+            modelBuilder.Entity<MenuItem_Price>()
+                        .HasData(
+                        new
+                        {
+                            MenuItem_PriceId = 2,
+                            MenuItemId = 1,
+                            Amount = 105.35m
+                        });
+            modelBuilder.Entity<MenuItem_Price>()
+                        .HasData(
+                        new
+                        {
+                            MenuItem_PriceId = 3,
+                            MenuItemId = 4,
+                            Amount = 35.10m
+                        });
+
+            modelBuilder.Entity<MenuItem_Price>()
+                        .HasData(
+                        new
+                        {
+                            MenuItem_PriceId = 5,
+                            MenuItemId = 2,
+                            Amount = 200.50m
+                        });
+            modelBuilder.Entity<MenuItem_Price>()
+                        .HasData(
+                        new
+                        {
+                            MenuItem_PriceId = 6,
+                            MenuItemId = 3,
+                            Amount = 45.50m
+                        });
+
+            // Create Seed Data For the Drink type Table:
+            modelBuilder.Entity<Drink_Type>()
+                           .HasData(
+                           new
+                           {
+                               Drink_TypeId = 1,
+                               Name = "Alcohol",
+
+                           });
+            modelBuilder.Entity<Drink_Type>()
+                           .HasData(
+                           new
+                           {
+                               Drink_TypeId = 2,
+                               Name = "Non-Alcohol",
+
+                           });
+
+            // Create Seed Data For the Drink Table:
+            modelBuilder.Entity<Drink>()
+                           .HasData(
+                           new
+                           {
+                               DrinkId = 1,
+                               Name = "Margarita",
+                               Drink_TypeId = 1,
+
+                           });
+
+            modelBuilder.Entity<Drink>()
+                          .HasData(
+                          new
+                          {
+                              DrinkId = 2,
+                              Name = "Strawberry Daiquri",
+                              Drink_TypeId = 1,
+
+                          });
+            modelBuilder.Entity<Drink>()
+                          .HasData(
+                          new
+                          {
+                              DrinkId = 3,
+                              Name = "Blood Mary",
+                              Drink_TypeId = 1,
+
+                          });
+            modelBuilder.Entity<Drink>()
+                          .HasData(
+                          new
+                          {
+                              DrinkId = 4,
+                              Name = "Virgin Mojito",
+                              Drink_TypeId = 2,
+
+                          });
+            modelBuilder.Entity<Drink>()
+                          .HasData(
+                          new
+                          {
+                              DrinkId = 5,
+                              Name = "Cappuccino",
+                              Drink_TypeId = 2,
+
+                          });
+            modelBuilder.Entity<Drink>()
+                          .HasData(
+                          new
+                          {
+                              DrinkId = 6,
+                              Name = "Frozen lemonade",
+                              Drink_TypeId = 2,
 
                           });
 
+            //create seed data drink prices 
+            modelBuilder.Entity<Drink_Price>()
+                        .HasData(
+                        new
+                        {
+                            Drink_PriceId = 1,
+                            Amount = 55m,
+                            DrinkId = 1,
+
+                        });
+            modelBuilder.Entity<Drink_Price>()
+                       .HasData(
+                       new
+                       {
+                           Drink_PriceId = 2,
+                           Amount = 75m,
+                           DrinkId = 2,
+
+                       });
+            modelBuilder.Entity<Drink_Price>()
+                       .HasData(
+                       new
+                       {
+                           Drink_PriceId = 3,
+                           Amount = 99m,
+                           DrinkId = 3,
+
+                       });
+            modelBuilder.Entity<Drink_Price>()
+                       .HasData(
+                       new
+                       {
+                           Drink_PriceId = 4,
+                           Amount = 45m,
+                           DrinkId = 4,
+
+                       });
+            modelBuilder.Entity<Drink_Price>()
+                       .HasData(
+                       new
+                       {
+                           Drink_PriceId = 5,
+                           Amount = 65m,
+                           DrinkId = 5,
+
+                       });
+            modelBuilder.Entity<Drink_Price>()
+                       .HasData(
+                       new
+                       {
+                           Drink_PriceId = 6,
+                           Amount = 100m,
+                           DrinkId = 6,
+
+                       });
+
+
+            //create seed data for order type
+            modelBuilder.Entity<OrderType>()
+                          .HasData(
+                          new
+                          {
+                              OrderType_ID = 1,
+                              Name = "Sit-In",
+
+
+                          });
+            modelBuilder.Entity<OrderType>()
+                          .HasData(
+                          new
+                          {
+                              OrderType_ID = 2,
+                              Name = "Takeaway",
+
+
+                          });
+            //create seed data for table number
+            modelBuilder.Entity<Table_Number>()
+                          .HasData(
+                          new
+                          {
+                              Table_NumberId = 1,
+                              TableID = "Table 1",
+
+
+                          });
+            modelBuilder.Entity<Table_Number>()
+                         .HasData(
+                         new
+                         {
+                             Table_NumberId = 2,
+                             TableID = "Table 2",
+
+
+                         });
+            modelBuilder.Entity<Table_Number>()
+                         .HasData(
+                         new
+                         {
+                             Table_NumberId = 3,
+                             TableID = "Table 3",
+
+
+                         });
+            modelBuilder.Entity<Table_Number>()
+                        .HasData(
+                        new
+                        {
+                            Table_NumberId = 4,
+                            TableID = "Table 4",
+
+
+                        });
+            modelBuilder.Entity<Table_Number>()
+                        .HasData(
+                        new
+                        {
+                            Table_NumberId = 5,
+                            TableID = "Table 5",
+
+
+                        });
+            modelBuilder.Entity<Table_Number>()
+                        .HasData(
+                        new
+                        {
+                            Table_NumberId = 6,
+                            TableID = "Table 6",
+
+
+                        });
+
+
+
             //Many to many with MenuItem
-                         modelBuilder.Entity<MenuItem>()
+            modelBuilder.Entity<MenuItem>()
                         .HasOne(m => m.Menu_Type)
                         .WithMany()
                         .HasForeignKey(m => m.Menu_TypeId);
@@ -293,6 +733,7 @@ namespace Africanacity_Team24_INF370_.models
                         .HasOne(m => m.Food_Type)
                         .WithMany()
                         .HasForeignKey(m => m.FoodTypeId);
+
 
             // For the Access_UserRole M2M payload (Uncomment code below and run migration to generate tables)
             modelBuilder.Entity<Access>()

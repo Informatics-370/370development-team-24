@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="login-content">
+  <ion-grid class="ion-no-padding ion-align-items-center">
+  <ion-card class="login-card">
+    
+    <ion-card-header>
+      <ion-img src="../../assets/images/Africanacity.png" class="card-image"></ion-img>
+      <ion-card-title class="card-title">Login</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating"><ion-icon name="person-circle-outline"></ion-icon>     Username</ion-label>
+        <ion-input type="UserName"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating"><ion-icon name="eye-off-outline"></ion-icon>     Password</ion-label>
+        <ion-input type="Password"></ion-input>
+      </ion-item>
+
+      
+        <ion-button expand="full" color="primary" (click)="LoginUser()" class="button" shape="round" fill="outline">Log in</ion-button>
+        <p style="font-size:medium;"> Don't have an account?<ion-router-link routerLink="/register" routerDirection="forward">
+    
+          Register here
+        </ion-router-link></p>
+    </ion-card-content>
+  </ion-card>
+
+  
+
+ 
+</ion-grid>
+</ion-content>
+
+
+
+<!--div class="outer">
+  <div class="container">
+      <div class="row">
+          <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+              <div class="panel border bg-white">
+                  <div class="panel-heading">
+                      <h3 class="pt-3 font-weight-bold">
+                        <img src="../../assets/images/Africanacity.png" alt="Avatar" class="avatar">
+                        Login
+                    </h3>
+                  </div>
+                  <div class="panel-body p-3">
+                      <form [formGroup]="loginForm" (ngSubmit)="LoginUser()">
+                          <div class="form-group pt-3">
+                              <div class="input-field" [class.error]="loginForm.controls['UserName'].dirty && loginForm.hasError('required','UserName')"> <span class="fa fa-user p-2"></span> <input formControlName="UserName" type="text" placeholder="Username" required> </div>
+                          </div>
+                          <small *ngIf="loginForm.controls['UserName'].dirty && loginForm.hasError('required','UserName')" class="text-danger">*Username is required*</small>
+                          <div class="form-group pt-3">
+                              <div class="input-field" [class.error]="loginForm.controls['Password'].dirty && loginForm.hasError('required','Password')"> <span class="fa fa-lock px-2"></span> <input formControlName="Password" placeholder="Password"> <button type="button" class="bg-white text-muted"> <span ></span> </button></div>
+                          </div>
+                          <small *ngIf="loginForm.controls['Password'].dirty && loginForm.hasError('required','Password')" class="text-danger">*Password is required*</small>
+                          <div class="form-inline fr mt-4"> <a id="forgot" data-bs-toggle="modal" data-bs-target="#exampleModal" class="font-weight-bold">Forgot password?</a> </div>
+                      
+                          <button type="submit"  class="btn btn-primary btn-block mt-4 w-100">Login</button>
+                          <div class="text-center pt-4 text-muted">Don't have an account? <a id="forgot" href="#" routerLink="/register">Register</a> </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div--> 

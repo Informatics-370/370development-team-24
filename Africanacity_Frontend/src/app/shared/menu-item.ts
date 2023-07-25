@@ -1,13 +1,12 @@
-export interface MenuItem {
-    menuItem_Id: Number;
-    name:String;
-    description: String;
-    foodTypeName:String;//new property for name
-    menuTypeName:String;//new property for name
-    menuCategoryName:String;//new property for name
-    foodTypeId: number;
-    menu_TypeId: number;
-    menuItemCategory_Id: number;
+export class MenuItem {
+    menuItemId!: number;
+    name!:String;
+    description!: String;
+    foodTypeId!:number;//new property for name
+    menuTypeId!:number;//new property for name
+    menuCategoryId!:number;//new property for name
+    isDeleted!:false;
+   
 }
 
 /*export class MenuItem

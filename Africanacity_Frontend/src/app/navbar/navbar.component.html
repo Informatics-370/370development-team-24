@@ -1,142 +1,61 @@
-<!-- <nav class="topnav ">
-     <div class="header">
-        <a class="navbar-brand" >
-            <img src="../../assets/Nav_image/Africanacity.png" alt=""  class="d-inline-block align-text-top"> 
-        <span class="head">MMINO System</span> 
-        </a>
-        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
-          </svg>
-    </div> 
-</nav> -->
 
-<!-- <nav class="navbar navbar-light" style="background-color: #ac13baf3;">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-        <img src="../../assets/Nav_image/Africanacity.png" alt="" width="40" height="40" class="d-inline-block align-text-top">
-          MMINO
-        </a>
-        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
-          </svg>
-      </div>
-  </nav> -->
-  
-  <!-- The sidebar -->
-<!--div class="sidenav">
-  <a>
-        <img src="../../assets/Nav_image/Africanacity.png" alt="" width="40" height="40" class="d-inline-block align-text-top">
-          Africanacity
-        </a>
-  <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
-  <button class="dropdown-btn"> <i class="fa fa-fw fa-group"></i> Employee Management
-    <i class="fa fa-caret-down"></i>
-  </button>
-  <div class="dropdown-container">
-    <a href="#">Add Employee</a>
-    <a href="#">View Employee</a>
-    <a href="#">Roles</a>
-  </div>
-  <button class="dropdown-btn"> <i class="fa fa-fw fa-folder"></i> Menu Management
-    <i class="fa fa-caret-down"></i>
-  </button>
-  <div class="dropdown-container">
-    <a href="#">Menu Items</a>
-    <a href="/src/app/administration/menu-types/menu-types.component.html">Menu Types</a>
-  </div>
-  <button class="dropdown-btn"> <i class="fa fa-fw fa-glass"></i> Drink Management
-    <i class="fa fa-caret-down"></i>
-  </button>
-  <div class="dropdown-container">
-    <a href="#">Drink Items</a>
-    <a href="#">Drink Types</a>
-  </div>
-  <button class="dropdown-btn"> <i class="fa fa-fw fa-folder"></i> Inventory Management
-    <i class="fa fa-caret-down"></i>
-  </button>
-  <div class="dropdown-container">
-    <a href="#">Food</a>
-    <a href="#">Drinks</a>
-  </div>
-  <button class="dropdown-btn"> <i class="fa fa-fw fa-users"></i> Supplier Management
-    <i class="fa fa-caret-down"></i>
-  </button>
-  <div class="dropdown-container" onclick="">
-    <a href="#">Add Supplier</a>
-    <a href="#">View Supplier</a>
-  </div>
-  <a href="#contact"><i class="fa fa-fw fa-user"></i> Reports</a>
-  <button class="dropdown-btn"> <i class="fa fa-fw fa-question-circle"></i> Help Management
-    <i class="fa fa-caret-down"></i>
-  </button>
-  <div class="dropdown-container" onclick="">
-    <a href="#">Add Help</a>
-    <a href="#">View Help</a>
-  </div>
-  <a href="#contact"><i class="fa fa-fw fa-user-circle-o"></i>View Profile</a>
-  <a href="#clients"> LOGOUT </a>
-</div--> 
- 
- <!--nav class="side-navbar">
+ <div class="col-md-0">
+
+ <nav class="side-navbar">
   <a>
     <img src="../../assets/Nav_image/Africanacity.png" alt="" width="40" height="40" class="d-inline-block align-text-top">
       Africanacity
     </a>
   <ul>
     <li>
-      <a href="#"> <i class="fa fa-fw fa-home"></i> Home</a>
+      <a class="nav-link" routerLink="/home"><i class="fa fa-fw fa-home"></i> Home</a>
     </li>
     <li>
-      <a href="#"> <i class="fa fa-fw fa-group"></i> Employee Management</a>
+      <a href="#"> <i class="fa fa-fw fa-group"></i> Employee Management <i class="fa fa-sort-desc" aria-hidden="true"></i></a>
       <ul class="dropdown">
-        <li><a href="#">Add Employee</a></li>
-        <li><a href="#">View Employee's</a></li>
-        <li><a href="#">Employee Roles</a></li>
+        <li><a class="nav-link" routerLink="/add-employee"><i class="fa fa-circle-o" aria-hidden="true"></i> Add Employee</a></li>
+        <li><a class="nav-link" routerLink="/view-employees"><i class="fa fa-circle-o" aria-hidden="true"></i> View Employee's</a></li>
+        <li><a class="nav-link" routerLink="/employee-role"><i class="fa fa-circle-o" aria-hidden="true"></i> Employee Roles</a></li>
       </ul>
     </li>
     <li>
-      <a href="#"> <i class="fa fa-fw fa-folder"></i>Menu Management</a>
+      <a href="#"> <i class="fa fa-fw fa-folder"></i> Menu Management <i class="fa fa-sort-desc" aria-hidden="true"></i></a>
       <ul class="dropdown">
-        <li><a href="#">Menu Items</a></li>
-        <li><a href="/src/app/administration/menu-types/menu-types.component.html">Menu Types</a></li>
+        <li><a class="nav-link" routerLink="/menuitems"><i class="fa fa-circle-o" aria-hidden="true"></i>Menu Items</a></li>
+        <li><a class="nav-link" routerLink="/menu-types"><i class="fa fa-circle-o" aria-hidden="true"></i>Menu Type</a></li>
+        <li><a class="nav-link" routerLink="/menu-item-category"><i class="fa fa-circle-o" aria-hidden="true"></i>Menu Item Category</a></li>
+        <li><a class="nav-link" routerLink="/food-type"><i class="fa fa-circle-o" aria-hidden="true"></i>Food Types</a></li>
       </ul>
     </li>
     <li>
-      <a href="#"> <i class="fa fa-fw fa-glass"></i> Drink Management</a>
+      <a href="#"> <i class="fa fa-fw fa-glass"></i> Drink Management <i class="fa fa-sort-desc" aria-hidden="true"></i></a>
       <ul class="dropdown">
-        <li><a href="#">Drink Items</a></li>
-        <li><a href="#">Drink Types</a></li>
+        <li><a href="#"> <i class="fa fa-circle-o" aria-hidden="true"></i>Drink Items</a></li>
+        <li><a href="./administration/drinkType"> <i class="fa fa-circle-o" aria-hidden="true"></i>Drink Types</a></li>
       </ul>
     </li>
     <li>
-      <a href="#"> <i class="fa fa-fw fa-folder"></i> Inventory Management</a>
+      <a href="#"> <i class="fa fa-fw fa-folder"></i> Inventory Management <i class="fa fa-sort-desc" aria-hidden="true"></i></a>
       <ul class="dropdown">
-        <li><a href="#">Food</a></li>
-        <li><a href="#">Drinks</a></li>
+        <li><a href="#"><i class="fa fa-circle-o" aria-hidden="true"></i> Food</a></li>
+        <li><a href="#"><i class="fa fa-circle-o" aria-hidden="true"></i> Drinks</a></li>
       </ul>
     </li>
     <li>
-      <a href="#"> <i class="fa fa-fw fa-users"></i> Supplier Management</a>
+      <a href="#"> <i class="fa fa-fw fa-users"></i> Supplier Management <i class="fa fa-sort-desc" aria-hidden="true"></i></a>
       <ul class="dropdown">
-        <li><a href="#">Add Supplier</a></li>
-        <li><a href="#">View Supplier's</a></li>
+        <li><a href="#"><i class="fa fa-circle-o" aria-hidden="true"></i> Add Supplier</a></li>
+        <li><a href="#"><i class="fa fa-circle-o" aria-hidden="true"></i> View Supplier's</a></li>
       </ul>
+    </li>  
+    <li>
+      <a href="#"><i class="fa fa-bar-chart" aria-hidden="true"></i> Reports</a>
     </li>
     <li>
-      <a href="#"> <i class="fa fa-fw fa-users"></i> Supplier Management</a>
+      <a href="#"> <i class="fa fa-fw fa-question-circle"></i> Help Management <i class="fa fa-sort-desc" aria-hidden="true"></i></a>
       <ul class="dropdown">
-        <li><a href="#">Add Supplier</a></li>
-        <li><a href="#">View Supplier's</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#"> <i class="fa fa-fw fa-user"></i> Reports</a>
-    </li>
-    <li>
-      <a href="#"> <i class="fa fa-fw fa-question-circle"></i> Help Management</a>
-      <ul class="dropdown">
-        <li><a href="#">Add Help Q&A</a></li>
-        <li><a href="#">View Help Q&A's</a></li>
+        <li><a class="nav-link" routerLink="/add-help"><i class="fa fa-circle-o" aria-hidden="true"></i> Add Help Q&A</a></li>
+        <li><a class="nav-link" routerLink="/view-help-list"><i class="fa fa-circle-o" aria-hidden="true"></i> View Help Q&A's</a></li>
       </ul>
     </li>
     <li>
@@ -144,10 +63,11 @@
     </li>
 
     <li>
-      <a href="#clients"> LOGOUT </a>
+      <a routerLink="../login"> LOGOUT </a>
     </li>
   </ul>
-</nav-->
+</nav>
+ </div>
 
 
 
