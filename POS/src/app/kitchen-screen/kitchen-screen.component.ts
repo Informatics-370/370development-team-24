@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { KitchenOrderViewModel } from '../shared/kitchen-order';
+import { MainService } from '../service/main.service';
 
 @Component({
   selector: 'app-kitchen-screen',
@@ -9,40 +10,38 @@ import { KitchenOrderViewModel } from '../shared/kitchen-order';
   styleUrls: ['./kitchen-screen.component.scss'],
 })
 export class KitchenScreenComponent  implements OnInit {
-  kitchenOrderNumber!: string | null;
+  kitchenOrderNumber: KitchenOrderViewModel |undefined;
   kitchenOrder!: KitchenOrderViewModel;
 
   constructor(
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private mainService: MainService
   ) { }
 
   ngOnInit() {
 
      // Get the kitchenOrderNumber from the route parameters
      this.route.paramMap.subscribe((params) => {
-      this.kitchenOrderNumber = params.get('kitchenOrderNumber');
+      const kitchenOrderNumber = params.get('kitchenOrderNumber');
       // Fetch the order details based on the kitchenOrderNumber
-      this.fetchKitchenOrderDetails();
+      this.fetchKitchenOrderDetails(kitchenOrderNumber);
     });
   }
 
-  fetchKitchenOrderDetails() {
-    // Send an HTTP GET request to fetch the order details based on the kitchenOrderNumber
-    this.http
-      .get<KitchenOrderViewModel>(
-        `https://localhost:49991/api/Order/GetKitchenOrder/${this.kitchenOrderNumber}`
-      )
-      .subscribe(
-        (order) => {
-          // Order details fetched successfully
-          this.kitchenOrder = order;
+  fetchKitchenOrderDetails(kitchenOrderNumber: string | null): void {
+    
+    if (kitchenOrderNumber) {
+      this.mainService.getKitchenOrder(kitchenOrderNumber).subscribe(
+        (result: KitchenOrderViewModel) => {
+          this.kitchenOrder = result;
         },
         (error) => {
-          console.error('Error fetching order details:', error);
+          console.error('Error fetching kitchen order:', error);
           // Handle error if needed
         }
       );
+    }
   }
 
 }

@@ -156,14 +156,14 @@ export class OrderComponent  implements OnInit {
       vat: 0, // This will be calculated on the server
       discount: 0, // This will be calculated on the server
     };
-    
+
     this.mainService.saveKitchenOrder(kitchenOrder).subscribe(
       (response) => {
         // Order successfully saved in the backend
         console.log('Order saved successfully:', response);
   
         // Redirect to the Kitchen Screen to display the order details
-        this.router.navigate(['/kitchen', this.kitchenOrderNumber]);
+        this.router.navigate(['kitchen-screen', this.kitchenOrderNumber]);
       },
       (error) => {
         console.error('Error saving order:', error);
