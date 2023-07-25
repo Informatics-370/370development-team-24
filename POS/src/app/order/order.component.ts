@@ -68,6 +68,7 @@ export class OrderComponent  implements OnInit {
 
 
   filterMenuItems(menuType: number) {
+    this.isDrinkSelected = false;
     if (menuType === 0) {
       this.filteredMenuItems = this.menuItems;
     } else {

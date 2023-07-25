@@ -18,7 +18,7 @@ import { DrinkPrice } from '../shared/drink-price';
 export class MainService {
 
   //linking to backend
-  apiUrl = 'https://localhost:49991/api/'
+  apiUrl = 'http://localhost:49991/api/'
 
   httpOptions ={
     headers: new HttpHeaders({

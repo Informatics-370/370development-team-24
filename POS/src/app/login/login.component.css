@@ -2,7 +2,7 @@
 .card-image{
     max-width: 80px;
     border-radius: 150px;
-    margin-left: 150px;
+    margin-left: 130px;
    
 }
 
@@ -17,7 +17,7 @@
     max-width: 400px; /* adjust the width as per your preference */
     background-color:rgb(19, 16, 16);
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    margin-left:550px ;
+    margin-left:515px ;
     margin-top: 150px;
     border-radius: 25px;
     max-height: 600px;
@@ -30,12 +30,24 @@
 
   .card-title{
    font-size: x-large;
+   color:grey;
+   
   }
 
 .button{
     width:150px;
     margin-left:100px;
     
+}
+
+.ion-item{
+  background-color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color:black;
+  box-sizing: border-box;
+ 
+ 
+  
 }
 
   
