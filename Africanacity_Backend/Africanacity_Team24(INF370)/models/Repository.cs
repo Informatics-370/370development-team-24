@@ -5,6 +5,7 @@ using Africanacity_Team24_INF370_.ViewModel;
 using Africanacity_Team24_INF370_.View_Models;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace Africanacity_Team24_INF370_.models
 {
 	public class Repository: IRepository
@@ -245,6 +246,18 @@ namespace Africanacity_Team24_INF370_.models
         {
             IQueryable<Table_Number> query = _appDbContext.Table_Numbers;
             return await query.ToArrayAsync();
+        }
+
+
+
+        //////KITCHEN ORDER
+        public async Task<KitchenOrder> SaveKitchenOrder(KitchenOrder kitchenOrder)
+        {
+            // Add the KitchenOrder to the context and save changes to the database
+            _appDbContext.KitchenOrders.Add(kitchenOrder);
+            await _appDbContext.SaveChangesAsync();
+
+            return kitchenOrder;
         }
 
     }

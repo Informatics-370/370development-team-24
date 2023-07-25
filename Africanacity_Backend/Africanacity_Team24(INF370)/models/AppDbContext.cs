@@ -70,6 +70,8 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<Payment> Payments { get; set; }
 		public DbSet<Payment_Method> Payment_Methods { get; set; }
 		public DbSet<Table_Number> Table_Numbers { get; set; }
+
+        public DbSet<KitchenOrder> KitchenOrders { get; set; }
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);

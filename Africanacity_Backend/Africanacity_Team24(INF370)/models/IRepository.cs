@@ -81,5 +81,10 @@ namespace Africanacity_Team24_INF370_.models
         //TABLE NUMBER
         Task<Table_Number[]> GetAllTableNumbersAsync();
 
+        //Kitchen order
+        Task<KitchenOrder> SaveKitchenOrder(KitchenOrder kitchenOrder);
+        
+
+
     }
 }
