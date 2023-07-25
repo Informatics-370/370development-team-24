@@ -58,6 +58,29 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 
 
+        //get kitchen order
+        [HttpGet]
+        [Route("GetKitchenOrder/{KitchenOrderNumber}")]
+
+        public async Task<ActionResult<KitchenOrder>> GetKitchenOrder(string kitchenOrderNumber)
+        {
+            try
+            {
+                var kitchenOrder = await _repository.GetKitchenOrderByNumberAsync(kitchenOrderNumber);
+                if (kitchenOrder == null)
+                {
+                    return NotFound();
+                }
+                return Ok(kitchenOrder);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+
+
+
 
 
 

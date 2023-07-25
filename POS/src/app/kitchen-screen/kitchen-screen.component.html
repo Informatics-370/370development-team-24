@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Kitchen Screen</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="kitchenOrder">
+    <ion-card-header>
+      <ion-card-title>Order Details</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p>Table Number: {{ kitchenOrder.tableNumber }}</p>
+      <p>Kitchen Order Number: {{ kitchenOrder.kitchenOrderNumber }}</p>
+
+      <h3>Ordered Items:</h3>
+      <ion-list *ngIf="kitchenOrder.orderedItems">
+        <ion-item *ngFor="let orderedItem of kitchenOrder.orderedItems">
+          {{ orderedItem.name }} (Quantity: {{ orderedItem.quantity }})
+        </ion-item>
+      </ion-list>
+
+      <h3>Ordered Drinks:</h3>
+      <ion-list *ngIf="kitchenOrder.orderedDrinks">
+        <ion-item *ngFor="let orderedDrink of kitchenOrder.orderedDrinks">
+          {{ orderedDrink.name }} (Quantity: {{ orderedDrink.quantity }})
+        </ion-item>
+      </ion-list>
+
+      <p>Subtotal: {{ kitchenOrder.subtotal | currency:'R ' }}</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+

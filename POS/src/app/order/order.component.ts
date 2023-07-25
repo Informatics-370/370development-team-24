@@ -7,6 +7,8 @@ import { MainService } from '../service/main.service';
 import { MenuType } from '../shared/menu-type';
 import { CurrencyPipe } from '@angular/common';
 import { ActivatedRoute, Router} from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { KitchenOrderViewModel } from '../shared/kitchen-order';
 
 @Component({
   selector: 'app-order',
@@ -33,7 +35,8 @@ export class OrderComponent  implements OnInit {
 
   constructor(private mainService: MainService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private http: HttpClient) { }
 
   ngOnInit() {
 
@@ -143,6 +146,35 @@ export class OrderComponent  implements OnInit {
       this.kitchenOrderNumber = `TAKE-${this.generateOrderNumber()}`;
     }
     // TODO: Implement submitting order to the kitchen
+    const kitchenOrder: KitchenOrderViewModel = {
+      kitchenOrderId: 0, // This will be ignored by the server as it generates the ID
+      tableNumber: this.tableNumber || '', // Empty string if takeaway
+      kitchenOrderNumber: this.kitchenOrderNumber,
+      orderedItems: this.orderedItems,
+      orderedDrinks: this.orderedDrinks,
+      subtotal: this.updateSubtotal(),
+      vat: 0, // This will be calculated on the server
+      discount: 0, // This will be calculated on the server
+    };
+    
+    this.mainService.saveKitchenOrder(kitchenOrder).subscribe(
+      (response) => {
+        // Order successfully saved in the backend
+        console.log('Order saved successfully:', response);
+  
+        // Redirect to the Kitchen Screen to display the order details
+        this.router.navigate(['/kitchen', this.kitchenOrderNumber]);
+      },
+      (error) => {
+        console.error('Error saving order:', error);
+        // Handle error if needed
+      }
+    );
+
+
+
+    
+
     
   }
 

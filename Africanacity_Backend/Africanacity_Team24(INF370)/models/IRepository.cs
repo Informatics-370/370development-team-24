@@ -83,7 +83,8 @@ namespace Africanacity_Team24_INF370_.models
 
         //Kitchen order
         Task<KitchenOrder> SaveKitchenOrder(KitchenOrder kitchenOrder);
-        
+        Task<KitchenOrder> GetKitchenOrderByNumberAsync (string kitchenOrderNumber);
+
 
 
     }

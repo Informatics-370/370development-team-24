@@ -11,6 +11,7 @@ import { MenuItemPrice } from '../shared/menu-item-price';
 import { Drink } from '../shared/drink';
 import { DrinkType } from '../shared/drink-type';
 import { DrinkPrice } from '../shared/drink-price';
+import { KitchenOrderViewModel } from '../shared/kitchen-order';
 
 @Injectable({
   providedIn: 'root'
@@ -100,6 +101,16 @@ export class MainService {
   GetAllTableNumbers() {
     return this.httpClient.get(`${this.apiUrl}Order/GetAllTableNumbers`)
     .pipe(map(result => result))
+  }
+
+  //save kitchen order
+  saveKitchenOrder(kitchenOrder: KitchenOrderViewModel): Observable<any> {
+    return this.httpClient.post(`${this.apiUrl}Order/SaveKitchenOrder`, kitchenOrder);
+  }
+
+  //get a kitchen order
+  getKitchenOrder(kitchenOrderNumber: string): Observable<KitchenOrderViewModel> {
+    return this.httpClient.get<KitchenOrderViewModel>(`${this.apiUrl}Order/GetKitchenOrder/${kitchenOrderNumber}`);
   }
 
 
