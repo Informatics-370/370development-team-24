@@ -65,3 +65,29 @@ button{
 .table-hover tr:hover {
     background-color: grey;
   }
+
+  .quantity-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .quantity-controls {
+    display: flex;
+    align-items: center;
+  }
+  
+  .quantity-controls i {
+    margin: 0 5px; /* Adjust the margin as needed */
+  }
+  
+  .quantity-controls span {
+    margin: 0 10px; /* Adjust the margin as needed */
+  }
+
+  /* Add other styles as needed */
+.low-quantity {
+  color: red;
+}
+
+  

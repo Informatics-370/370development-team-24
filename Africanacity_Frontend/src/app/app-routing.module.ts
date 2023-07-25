@@ -42,6 +42,9 @@ import { ViewInventoryitemsComponent } from './administration/Inventory Manageme
 import { AddInventoryitemComponent } from './administration/Inventory Management/Inventory Items/add-inventoryitem/add-inventoryitem.component';
 import { EditInventoryitemComponent } from './administration/Inventory Management/Inventory Items/edit-inventoryitem/edit-inventoryitem.component';
 import { SelectedInventorytypeComponent } from './administration/Inventory Management/Inventory Items/view-inventoryitems/selected-inventorytype/selected-inventorytype.component';
+import { ChecklistComponent } from './administration/Inventory Management/Inventory Items/checklist/checklist.component';
+import { InventoryStocktypeComponent } from './administration/Inventory Management/Inventory Items/inventory-stocktype/inventory-stocktype.component';
+
 //import { EditMenuItemCategoryComponent } from './administration/Menu Item Category/edit-menu-item-category/edit-menu-item-category.component';
 //import { CreateMenuItemCategoryComponent } from './administration/Menu Item Category/create-menu-item-category/create-menu-item-category.component';
 
@@ -90,6 +93,8 @@ const routes: Routes = [
   {path: 'add-inventoryitem', component: AddInventoryitemComponent},
   {path: 'edit-inventoryitem/:id', component: EditInventoryitemComponent},
   {path: 'selected-inventorytype', component: SelectedInventorytypeComponent},
+  {path: 'checklist', component:ChecklistComponent},
+  {path: 'inventory-stocktype', component: InventoryStocktypeComponent},
   {path: '', redirectTo: 'login', pathMatch:'full'},
   
 ];

@@ -79,6 +79,10 @@ namespace Africanacity_Team24_INF370_.models
         Task<Inventory_Type[]> GetAllInventoryTypesAsync();
         Task<Inventory_Type> GetInventoryTypeAsync(int Inventory_TypeId);
 
+     
+        
+
+
 
     }
 }

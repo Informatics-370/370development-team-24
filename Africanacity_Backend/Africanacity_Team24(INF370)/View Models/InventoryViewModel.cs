@@ -8,5 +8,7 @@
         public int InventoryType { get; set; }
 
         public string Description { get; set; }
+
+        public int Quantity { get; set; }
     }
 }

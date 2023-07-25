@@ -109,17 +109,17 @@ namespace Africanacity_Team24_INF370_.Controllers
         // Delete SupplierType
         [HttpDelete]
         [Route("DeleteSupplierType/{supplier_TypeId}")]
-        public async Task<IActionResult> DeleteSupplierType(int suppiler_TypeId)
+        public async Task<IActionResult> DeleteSupplierType(int supplier_TypeId)
         {
             try
             {
-                var currentSupplierType = await _Repository.GetSupplierTypeAsync(suppiler_TypeId);
+                var currentItem = await _Repository.GetSupplierTypeAsync(supplier_TypeId);
 
-                if (currentSupplierType == null) return NotFound($"The supplier does not exist");
+                if (currentItem == null) return NotFound($"The inventory item does not exist");
 
-                _Repository.Delete(currentSupplierType);
+                _Repository.Delete(currentItem);
 
-                if (await _Repository.SaveChangesAsync()) return Ok(currentSupplierType);
+                if (await _Repository.SaveChangesAsync()) return Ok(currentItem);
 
             }
             catch (Exception)
@@ -129,15 +129,6 @@ namespace Africanacity_Team24_INF370_.Controllers
             return BadRequest("Your request is invalid.");
         }
 
-        [HttpGet("search")]
-        public ActionResult<IEnumerable<Supplier_Type>> Search(string searchTerm)
-        {
-            var Supplier_Type = _appDBContext.Supplier_Types
-                .Where(n => n.Name.Contains(searchTerm))
-                .ToList();
-
-            return Ok(Supplier_Type);
-        }
 
     }
 

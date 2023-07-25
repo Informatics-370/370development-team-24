@@ -23,7 +23,7 @@
     </div>
 
     <div class="form-group">
-      <label class="col-md-1" style="font-weight: bold;" for="employeeRoleName">Supplier Type</label>
+      <label class="col-md-1" style="font-weight: bold;" for="employeeRoleName">Employee Role</label>
       <div class="col-md-6">
         <select class="form-control" id="employeeRoleName" formControlName="employeeRole">
           <option *ngFor="let item of employeeRolesData" [value]="item.employee_RoleId">{{ item.name }}</option>

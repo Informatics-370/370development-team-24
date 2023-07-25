@@ -746,11 +746,19 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("StockTake_Id")
+                        .HasColumnType("int");
+
                     b.HasKey("Inventory_ItemId");
 
                     b.HasIndex("AdministratorId");
 
                     b.HasIndex("Inventory_TypeId");
+
+                    b.HasIndex("StockTake_Id");
 
                     b.ToTable("Inventory_Items");
 
@@ -760,70 +768,80 @@ namespace Africanacity_Team24_INF370_.Migrations
                             Inventory_ItemId = 1,
                             Description = "Freshly produced",
                             Inventory_TypeId = 1,
-                            ItemName = "Lettuce"
+                            ItemName = "Lettuce",
+                            Quantity = 2
                         },
                         new
                         {
                             Inventory_ItemId = 2,
                             Description = "Used for all chicken dishes",
                             Inventory_TypeId = 1,
-                            ItemName = "Chicken"
+                            ItemName = "Chicken",
+                            Quantity = 6
                         },
                         new
                         {
                             Inventory_ItemId = 3,
                             Description = "Needs to be cooked well",
                             Inventory_TypeId = 1,
-                            ItemName = "Mogodu"
+                            ItemName = "Mogodu",
+                            Quantity = 5
                         },
                         new
                         {
                             Inventory_ItemId = 4,
                             Description = "Served in all drinks with the gin recipie",
                             Inventory_TypeId = 3,
-                            ItemName = "Gin"
+                            ItemName = "Gin",
+                            Quantity = 15
                         },
                         new
                         {
                             Inventory_ItemId = 5,
                             Description = "To Quench your Thirst",
                             Inventory_TypeId = 2,
-                            ItemName = "Coke"
+                            ItemName = "Coke",
+                            Quantity = 24
                         },
                         new
                         {
                             Inventory_ItemId = 6,
                             Description = "For those who like no taste",
                             Inventory_TypeId = 2,
-                            ItemName = "Sarkling Water"
+                            ItemName = "Sarkling Water",
+                            Quantity = 30
                         },
                         new
                         {
                             Inventory_ItemId = 7,
                             Description = "Many different types served",
                             Inventory_TypeId = 3,
-                            ItemName = "Beer"
+                            ItemName = "Beer",
+                            Quantity = 12
                         },
                         new
                         {
                             Inventory_ItemId = 8,
                             Description = "One of the starches served with each dish",
                             Inventory_TypeId = 1,
-                            ItemName = "Rice"
+                            ItemName = "Rice",
+                            Quantity = 4
                         },
                         new
                         {
                             Inventory_ItemId = 9,
                             Description = "One of the starches served with each dish",
                             Inventory_TypeId = 1,
-                            ItemName = "Maize Meal"
+                            ItemName = "Maize Meal",
+                            Quantity = 3
                         },
                         new
                         {
                             Inventory_ItemId = 10,
                             Description = "For those who do not like fizz",
                             Inventory_TypeId = 2,
-                            ItemName = "Apple Juice"
+                            ItemName = "Apple Juice",
+                            Quantity = 24
                         });
                 });
 
@@ -868,6 +886,53 @@ namespace Africanacity_Team24_INF370_.Migrations
                             Description = "For all Alcoholic Drink inventory items",
                             Name = "Alcoholic Drinks"
                         });
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.StockTake", b =>
+                {
+                    b.Property<int>("StockTake_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StockTake_Id"), 1L, 1);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("StockQuantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("StockTake_Id");
+
+                    b.ToTable("StockTakes");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.StockTakeItem", b =>
+                {
+                    b.Property<int>("StockTakeItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StockTakeItemId"), 1L, 1);
+
+                    b.Property<string>("DifferenceDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("InventoryItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StockTakeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StockTakeQuantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("StockTakeItemId");
+
+                    b.HasIndex("StockTakeId");
+
+                    b.ToTable("StockTakeItems");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier", b =>
@@ -1710,7 +1775,22 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.StockTake", null)
+                        .WithMany("Inventory_Items")
+                        .HasForeignKey("StockTake_Id");
+
                     b.Navigation("Inventory_Type");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.StockTakeItem", b =>
+                {
+                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.StockTake", "StockTake")
+                        .WithMany("StockTakeItems")
+                        .HasForeignKey("StockTakeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("StockTake");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier", b =>
@@ -1960,6 +2040,13 @@ namespace Africanacity_Team24_INF370_.Migrations
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Inventory_Type", b =>
                 {
                     b.Navigation("Inventory_Items");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.StockTake", b =>
+                {
+                    b.Navigation("Inventory_Items");
+
+                    b.Navigation("StockTakeItems");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier_Type", b =>

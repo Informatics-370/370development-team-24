@@ -12,6 +12,7 @@
 
           <th scope="col">ID</th>
           <th scope="col">Name</th>
+          <th scope="col" style="text-align: center;">Quantity</th>
           <th scope="col">Description</th>
           <th scope="col"></th>
           <th scope="col"></th>
@@ -20,6 +21,18 @@
     <tr *ngFor="let inventoryitem of inventoryItems">
           <td>{{inventoryitem.inventory_ItemId}}</td>
           <td>{{inventoryitem.itemName}}</td>
+          <td>
+            <div class="quantity-container">
+              <div class="quantity-controls">
+                <i class="fa fa-plus" (click)="incrementQuantity(inventoryitem)"></i>
+                <span [class.low-quantity]="inventoryitem.quantity < predefinedLevel">
+                <span>{{inventoryitem.quantity}}</span>
+                </span>
+                <i class="fa fa-minus" (click)="decrementQuantity(inventoryitem)"></i>
+              </div>
+            </div>
+          </td>
+          
           <td>{{inventoryitem.description}}</td>
           
             <td> <i class="fa fa-pencil" [routerLink]="['/edit-inventoryitem', inventoryitem.inventory_ItemId]" aria-hidden="true"></i></td>
@@ -27,6 +40,9 @@
       </tr>
   </tbody>
 </table>
+
+
+
   </div>
 </div>
 

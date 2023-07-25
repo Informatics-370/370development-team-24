@@ -21,7 +21,8 @@ export class AddInventoryitemComponent {
    inventoryItemForm: FormGroup = new FormGroup({
      itemName: new FormControl('',[Validators.required]),
      inventoryType: new FormControl([Validators.required]),
-     description: new FormControl('',[Validators.required])
+     description: new FormControl('',[Validators.required]),
+     quantity: new FormControl ([ Validators.required])
    })
 
    ngOnInit(): void {
@@ -31,6 +32,20 @@ export class AddInventoryitemComponent {
    cancel(){
      this.router.navigate(['/selected-inventorytype'])
    }
+
+   incrementQuantity() {
+    const quantityControl = this.inventoryItemForm.get('quantity');
+    quantityControl?.setValue((quantityControl.value ?? 0) + 1);
+  }
+  
+  decrementQuantity() {
+    const quantityControl = this.inventoryItemForm.get('quantity');
+    const currentValue = quantityControl?.value;
+    if (currentValue && currentValue > 0) {
+      quantityControl?.setValue(currentValue - 1);
+    }
+  }
+  
 
    GetAllInventoryTypes(){
      this.inventoryservice.GetAllInventoryTypes().subscribe(result => {
@@ -50,10 +65,11 @@ export class AddInventoryitemComponent {
     inventoryitem.itemName = this.inventoryItemForm.value.itemName;
     inventoryitem.inventoryType = this.inventoryItemForm.value.inventoryType;
     inventoryitem.description = this.inventoryItemForm.value.description;
+    inventoryitem.quantity = this.inventoryItemForm.value.quantity;
     
   
     this.inventoryservice.AddInventoryItem(inventoryitem).subscribe(result => {
-      this.router.navigate(['/view-inventoryitems/:typeId'])
+      this.router.navigate(['/selected-inventorytype'])
 });
   
     this.snackBar.open(

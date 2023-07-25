@@ -3,6 +3,11 @@ using Africanacity_Team24_INF370_.models;
 using Africanacity_Team24_INF370_.View_Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
+using Microsoft.EntityFrameworkCore;
+using System.Data.Entity;
+using System.Net;
+using System.Net.Mail;
+using Africanacity_Team24_INF370_.EmailService;
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
@@ -14,6 +19,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         private readonly IRepository _Repository;
         private readonly AppDbContext _appDBContext;
+        private readonly IEmailService _emailService;
 
         public InventoryItemController(IRepository Repository, AppDbContext context)
         {
@@ -43,7 +49,9 @@ namespace Africanacity_Team24_INF370_.Controllers
 
                     InventoryTypeName = i.Inventory_Type.Name,
 
-                    i.Description
+                    i.Description,
+
+                    i.Quantity
 
                 });
 
@@ -83,7 +91,8 @@ namespace Africanacity_Team24_INF370_.Controllers
             {
                 ItemName = ivm.ItemName,
                 Inventory_TypeId = Convert.ToInt32(ivm.InventoryType),
-                Description = ivm.Description
+                Description = ivm.Description,
+                Quantity = ivm.Quantity
             };
 
             try
@@ -114,6 +123,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                 currentItem.ItemName = ivm.ItemName;
                 currentItem.Description = ivm.Description;
                 currentItem.Inventory_TypeId = Convert.ToInt32(ivm.InventoryType);
+                currentItem.Quantity = ivm.Quantity;
              
                 if (await _Repository.SaveChangesAsync())
                 {
@@ -164,6 +174,37 @@ namespace Africanacity_Team24_INF370_.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
+
+     
+        [HttpPut]
+        [Route("UpdateItems/{inventory_ItemId}")]
+        public async Task<IActionResult> UpdateItems(int inventory_ItemId, [FromBody] InventoryViewModel inventoryitem)
+        {
+            try
+            {
+                var currentItem = await _Repository.GetInventoryItemAsync(inventory_ItemId);
+                if (currentItem == null)
+                {
+                    return NotFound($"The inventory item does not exist.");
+                }
+
+                currentItem.Quantity = inventoryitem.Quantity; // Update the quantity property
+
+                if (await _Repository.SaveChangesAsync())
+                {
+                    return Ok(currentItem); // Return the updated inventory item
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+
+            return BadRequest("Your request is invalid.");
+        }
+
+   
+
 
     }
 }

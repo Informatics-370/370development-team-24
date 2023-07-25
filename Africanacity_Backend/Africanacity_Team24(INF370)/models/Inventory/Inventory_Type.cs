@@ -10,6 +10,7 @@ namespace Africanacity_Team24_INF370_.models.Inventory
 
         public virtual ICollection<Inventory_Item> Inventory_Items { get; set; }
 
+
         //public List<Inventory_Item> Inventorys { get; set; } = new List<Inventory_Item>();
-	}
+    }
 }

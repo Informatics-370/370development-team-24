@@ -15,10 +15,14 @@ namespace Africanacity_Team24_INF370_.models.Inventory
 		[MaxLength(100)]
 		public string Description { get; set; } = string.Empty;
 
+		public int Quantity { get; set; }
+
 		public int Inventory_TypeId { get; set; }
 
 		public List<Supplier> Suppliers { get; set; } = new List<Supplier>();
 
         public Inventory_Type Inventory_Type { get; set; }
+
+
     }
 }

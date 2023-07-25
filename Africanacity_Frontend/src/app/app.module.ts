@@ -55,6 +55,9 @@ import { EditSuppliertypeComponent } from './administration/Supplier Management/
 import { EditIntventorytypeComponent } from './administration/Inventory Management/Inventory Types/edit-intventorytype/edit-intventorytype.component';
 import { EditInventoryitemComponent } from './administration/Inventory Management/Inventory Items/edit-inventoryitem/edit-inventoryitem.component';
 import { SelectedInventorytypeComponent } from './administration/Inventory Management/Inventory Items/view-inventoryitems/selected-inventorytype/selected-inventorytype.component';
+import { ChecklistComponent } from './administration/Inventory Management/Inventory Items/checklist/checklist.component';
+import { InventoryStocktypeComponent } from './administration/Inventory Management/Inventory Items/inventory-stocktype/inventory-stocktype.component';
+
 
 
 
@@ -90,8 +93,23 @@ import { SelectedInventorytypeComponent } from './administration/Inventory Manag
   EditFoodTypeComponent,
    CreateFoodTypeComponent, 
    EditMenuItemCategoryComponent, 
-   CreateMenuItemCategoryComponent, AddInventoryitemComponent, ViewInventoryitemsComponent, AddInventorytypesComponent, ViewInventorytypesComponent, AddSuppliertypeComponent, ViewSuppliertypesComponent, AddSupplierComponent, ViewSuppliersComponent, EditSupplierComponent, EditSuppliertypeComponent, EditIntventorytypeComponent, EditInventoryitemComponent, SelectedInventorytypeComponent
+   CreateMenuItemCategoryComponent, 
+   AddInventoryitemComponent,
+    ViewInventoryitemsComponent, 
+    AddInventorytypesComponent, 
+    ViewInventorytypesComponent, 
+    AddSuppliertypeComponent, 
+    ViewSuppliertypesComponent, 
+    AddSupplierComponent, 
+    ViewSuppliersComponent, 
+    EditSupplierComponent, 
+    EditSuppliertypeComponent, 
+    EditIntventorytypeComponent, 
+    EditInventoryitemComponent, 
+    SelectedInventorytypeComponent, 
+    ChecklistComponent, InventoryStocktypeComponent
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,

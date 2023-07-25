@@ -51,9 +51,9 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<Supplier> Suppliers { get; set; }
 		public DbSet<Supplier_InventoryItem> Supplier_InventoryItems { get; set; }
 		public DbSet<Supplier_Type> Supplier_Types { get; set; }
-
-		//Restraurant model
-		public DbSet<Drink> Drinks { get; set; }
+ 
+        //Restraurant model
+        public DbSet<Drink> Drinks { get; set; }
 		public DbSet<Drink_Price> Drink_Prices { get; set; }
 		public DbSet<Drink_Type> Drink_Types { get; set; }
 		public DbSet<Food_Type> Food_Types { get; set; }
@@ -69,8 +69,10 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<Payment_Method> Payment_Methods { get; set; }
 		public DbSet<Table_Number> Table_Numbers { get; set; }
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
+
 		{
 			base.OnModelCreating(modelBuilder);
+           // modelBuilder.Entity<StockTake>().HasMany(st => st.StockTakeItems).WithOne().OnDelete(DeleteBehavior.Cascade);
 
 
 
@@ -583,7 +585,8 @@ namespace Africanacity_Team24_INF370_.models
                   Inventory_ItemId = 1,
                   ItemName = "Lettuce",
                   Description = "Freshly produced",
-                  Inventory_TypeId = 1     
+                  Inventory_TypeId = 1,
+                  Quantity = 2
               });
 
 
@@ -594,7 +597,8 @@ namespace Africanacity_Team24_INF370_.models
               Inventory_ItemId = 2,
               ItemName = "Chicken",
               Description = "Used for all chicken dishes",
-              Inventory_TypeId = 1
+              Inventory_TypeId = 1,
+              Quantity = 6
           });
 
             modelBuilder.Entity<Inventory_Item>()
@@ -604,7 +608,8 @@ namespace Africanacity_Team24_INF370_.models
               Inventory_ItemId = 3,
               ItemName = "Mogodu",
               Description = "Needs to be cooked well",
-              Inventory_TypeId = 1
+              Inventory_TypeId = 1,
+              Quantity = 5,
           });
 
 
@@ -615,7 +620,8 @@ namespace Africanacity_Team24_INF370_.models
               Inventory_ItemId = 4,
               ItemName = "Gin",
               Description = "Served in all drinks with the gin recipie",
-              Inventory_TypeId = 3
+              Inventory_TypeId = 3,
+              Quantity = 15
           });
 
 
@@ -626,7 +632,8 @@ namespace Africanacity_Team24_INF370_.models
               Inventory_ItemId = 5,
               ItemName = "Coke",
               Description = "To Quench your Thirst",
-              Inventory_TypeId = 2
+              Inventory_TypeId = 2,
+              Quantity = 24
           });
 
 
@@ -638,6 +645,7 @@ namespace Africanacity_Team24_INF370_.models
               ItemName = "Sarkling Water",
               Description = "For those who like no taste",
               Inventory_TypeId = 2,
+              Quantity = 30
           });
 
 
@@ -649,6 +657,7 @@ namespace Africanacity_Team24_INF370_.models
               ItemName = "Beer",
               Description = "Many different types served",
               Inventory_TypeId = 3,
+              Quantity = 12
           });
 
 
@@ -660,6 +669,7 @@ namespace Africanacity_Team24_INF370_.models
               ItemName = "Rice",
               Description = "One of the starches served with each dish",
               Inventory_TypeId = 1,
+              Quantity = 4
           });
 
             modelBuilder.Entity<Inventory_Item>()
@@ -670,6 +680,8 @@ namespace Africanacity_Team24_INF370_.models
               ItemName = "Maize Meal",
               Description = "One of the starches served with each dish",
               Inventory_TypeId = 1,
+              Quantity = 3
+
           });
 
             modelBuilder.Entity<Inventory_Item>()
@@ -680,6 +692,7 @@ namespace Africanacity_Team24_INF370_.models
               ItemName = "Apple Juice",
               Description = "For those who do not like fizz",
               Inventory_TypeId = 2,
+              Quantity = 24
           });
 
 
@@ -701,6 +714,18 @@ namespace Africanacity_Team24_INF370_.models
             //            .HasOne(m => m.Food_Type)
             //            .WithMany()
             //            .HasForeignKey(m => m.FoodTypeId);
+
+           ///////// modelBuilder.Entity<StockTakeItem>()
+          ////// //.HasKey(sti => sti.StockTakeItemId); // Set the primary key for StockTakeItem
+
+            //// Configure the relationship between StockTakeItem and StockTake
+            //modelBuilder.Entity<StockTakeItem>()
+            //    .HasOne(sti => sti.StockTake)
+            //    .WithMany(st => st.StockTakeItems)
+            //    .HasForeignKey(sti => sti.StockTakeId); // Set the foreign key for StockTakeItem
+
+            //// Configure the relationship between StockTake and StockTakeItem
+ 
 
 
             // For the Access_UserRole M2M payload (Uncomment code below and run migration to generate tables)

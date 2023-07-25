@@ -36,12 +36,17 @@ export class ViewHelpListComponent {
       });
     }
 
-    searchTerm: string = '';
-
-    @Output() searchClicked: EventEmitter<string> = new EventEmitter<string>();
-
-    search(searchTerm: string) {
-      this.searchClicked.emit(searchTerm);
+    applyFilter(event: Event) {
+      const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+    
+      this.helps = this.helps.filter(help => {
+        const column2Value = help.name.toLowerCase() || help.name.toUpperCase();
+        const column3Value = help.description.toLowerCase();
+    
+        return column2Value.includes(filterValue) || 
+        column3Value.includes(filterValue);
+      });
     }
+
 
 }

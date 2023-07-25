@@ -29,6 +29,5 @@ namespace Africanacity_Team24_INF370_.models.Administration
 
         public Employee_Role Employee_Role { get; set; }
 
-
     }
 }

@@ -13,7 +13,7 @@ namespace Africanacity_Team24_INF370_.models
 	{
 		private readonly AppDbContext _appDbContext;
 
-        public object EmployeeViewModel => throw new NotImplementedException();
+        object IRepository.EmployeeViewModel => throw new NotImplementedException();
 
         public Repository(AppDbContext appDbContext)
         {

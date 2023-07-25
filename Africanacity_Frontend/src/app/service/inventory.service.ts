@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, Subject, throwError } from 'rxjs';
 import { InventoryType } from '../shared/inventorytype';
 import { InventoryItem } from '../shared/inventoryitem';
+import { StockTake } from '../shared/stocktake';
 
 @Injectable({
     providedIn: 'root'
@@ -10,6 +11,8 @@ import { InventoryItem } from '../shared/inventoryitem';
   export class InventoryService {
   
     apiUrl = 'http://localhost:49991/api/'
+    private inventoryItems: InventoryItem[] = [];
+    private checklistItems: InventoryItem[] = [];
   
     httpOptions ={
       headers: new HttpHeaders({
@@ -59,8 +62,28 @@ import { InventoryItem } from '../shared/inventoryitem';
           );
       }
 
+      UpdateInventoryItem(inventory_ItemId: number, inventoryitem: InventoryItem): Observable<any> {
+        // Perform client-side operations or validations here
+        // Update the item locally
+    
+        const updatedItemIndex = this.inventoryItems.findIndex(item => item.inventory_ItemId === inventory_ItemId);
+        if (updatedItemIndex !== -1) {
+          this.inventoryItems[updatedItemIndex] = inventoryitem;
+          console.log('Inventory item updated successfully.'); // Success message
+        } else {
+          console.log('Failed to update inventory item: Item not found.'); // Error message
+        }
+    
+        const httpOptions = {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json'
+          })
+        };
+    
+        return this.httpClient.put(`${this.apiUrl}InventoryItem/UpdateItems/${inventory_ItemId}`, inventoryitem, httpOptions);
+      }
 
-    // Get Supplier Types
+    // Get Inventory Types
 
     GetAllInventoryTypes(): Observable<any>{
       return this.httpClient.get(`${this.apiUrl}InventoryType/GetAllInventoryTypes`)
@@ -96,6 +119,51 @@ import { InventoryItem } from '../shared/inventoryitem';
             return throwError(error);
           })
         );
+    }
+
+    addItem(item: InventoryItem) {
+      this.checklistItems.push(item);
+    }
+
+    getChecklistItems(): InventoryItem[] {
+      return this.checklistItems;
+    }
+    
+    addToChecklist(item: InventoryItem) {
+      // Check if the item is already in the checklist
+      const existingItem = this.checklistItems.find((checklistItem) => checklistItem.inventory_ItemId === item.inventory_ItemId);
+      if (existingItem) {
+        // Item already exists in the checklist, handle accordingly (e.g., show error message)
+        console.error('Item already exists in the checklist.');
+        return;
+      }
+  
+      // Add the item to the checklist
+      this.checklistItems.push(item);
+      console.log('Item added to the checklist:', item);
+    }
+
+    //Submit Stock Take 
+ 
+    submitStockTake(stockTake: StockTake): Observable<any> {
+      return this.httpClient.post<any>(`${this.apiUrl}StockTake/SubmitStockTake`, stockTake);
+    }
+
+    getInventoryItemsByType(typeId: number): Observable<InventoryItem[]> {
+      return this.httpClient.get<InventoryItem[]>(`${this.apiUrl}StockTake/${typeId}`);
+    }
+
+    SendEmail(item: InventoryItem, predefinedLevel: number) {
+      console.log('ItemName:', item.itemName);
+      console.log('Quantity:', item.quantity);
+      // Make a request to the backend API to check inventory levels
+      // and send email notifications if necessary
+      return this.httpClient.post(`${this.apiUrl}SendNotification/SendEmail`, {}).pipe(
+        catchError((error) => {
+          console.error('Failed to send notification:', error);
+          return throwError(error);
+        })
+      );
     }
     
 }
