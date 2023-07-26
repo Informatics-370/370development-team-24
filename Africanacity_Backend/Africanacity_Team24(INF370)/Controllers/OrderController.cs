@@ -44,10 +44,21 @@ namespace Africanacity_Team24_INF370_.Controllers
         //save kicthen orders
         [HttpPost]
         [Route("SaveKitchenOrder")]
-        public async Task<ActionResult<KitchenOrder>> SaveKitchenOrder(KitchenOrder kitchenOrder)
+        public async Task<ActionResult<KitchenOrder>> SaveKitchenOrder(KitchenOrderViewModel kitchenOrderViewModel)
         {
-            // Make sure to set the timestamp to the current date and time
-            kitchenOrder.Timestamp = DateTime.Now;
+            // Create a new KitchenOrder instance from the ViewModel
+            var kitchenOrder = new KitchenOrder
+            {
+                KitchenOrderId = kitchenOrderViewModel.KitchenOrderId,
+                TableNumber = kitchenOrderViewModel.TableNumber,
+                KitchenOrderNumber = kitchenOrderViewModel.KitchenOrderNumber,
+                OrderedItems = kitchenOrderViewModel.OrderedItems,
+                OrderedDrinks = kitchenOrderViewModel.OrderedDrinks,
+                Subtotal = kitchenOrderViewModel.Subtotal,
+                VAT = kitchenOrderViewModel.VAT,
+                Discount = kitchenOrderViewModel.Discount,
+                
+            };
 
             // Save the KitchenOrder to the database
             _repository.Add(kitchenOrder);

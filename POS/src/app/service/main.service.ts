@@ -104,7 +104,7 @@ export class MainService {
   }
 
   //save kitchen order
-  saveKitchenOrder(kitchenOrder: KitchenOrderViewModel): Observable<any> {
+  SaveKitchenOrder(kitchenOrder: KitchenOrderViewModel): Observable<any> {
     return this.httpClient.post(`${this.apiUrl}Order/SaveKitchenOrder`, kitchenOrder);
   }
 
