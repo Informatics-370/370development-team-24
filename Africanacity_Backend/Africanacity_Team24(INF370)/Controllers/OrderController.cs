@@ -44,27 +44,38 @@ namespace Africanacity_Team24_INF370_.Controllers
         //save kicthen orders
         [HttpPost]
         [Route("SaveKitchenOrder")]
-        public async Task<ActionResult<KitchenOrder>> SaveKitchenOrder(KitchenOrderViewModel kitchenOrderViewModel)
+        public IActionResult SaveKitchenOrder([FromBody] KitchenOrderViewModel kitchenOrder)
         {
-            // Create a new KitchenOrder instance from the ViewModel
-            var kitchenOrder = new KitchenOrder
+            try
             {
-                KitchenOrderId = kitchenOrderViewModel.KitchenOrderId,
-                TableNumber = kitchenOrderViewModel.TableNumber,
-                KitchenOrderNumber = kitchenOrderViewModel.KitchenOrderNumber,
-                OrderedItems = kitchenOrderViewModel.OrderedItems,
-                OrderedDrinks = kitchenOrderViewModel.OrderedDrinks,
-                Subtotal = kitchenOrderViewModel.Subtotal,
-                VAT = kitchenOrderViewModel.VAT,
-                Discount = kitchenOrderViewModel.Discount,
-                
-            };
+                // Process the submitted data using the ViewModel without navigation properties
+                // For example, you can access the ordered items and drinks like this:
+                foreach (var orderedItem in kitchenOrder.OrderedItems)
+                {
+                    // Access the properties of orderedItem (MenuItemViewModel)
+                    int menuItemId = orderedItem.MenuItemId;
+                    string name = orderedItem.Name;
+                    // ... and so on ...
+                }
 
-            // Save the KitchenOrder to the database
-            _repository.Add(kitchenOrder);
-            await _repository.SaveChangesAsync();
+                foreach (var orderedDrink in kitchenOrder.OrderedDrinks)
+                {
+                    // Access the properties of orderedDrink (DrinkViewModel)
+                    int drinkId = orderedDrink.DrinkId;
+                    string name = orderedDrink.Name;
+                    // ... and so on ...
+                }
 
-            return CreatedAtAction("GetKitchenOrder", new { id = kitchenOrder.KitchenOrderId }, kitchenOrder);
+                // ... rest of the code ...
+
+                // Return an appropriate response
+                return Ok(new { message = "Kitchen order saved successfully." });
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions that may occur during processing
+                return BadRequest("Error saving kitchen order: " + ex.Message);
+            }
         }
 
 

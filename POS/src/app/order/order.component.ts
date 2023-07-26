@@ -150,8 +150,8 @@ export class OrderComponent  implements OnInit {
       kitchenOrderId: 0, // This will be ignored by the server as it generates the ID
       tableNumber: this.tableNumber || '', // Empty string if takeaway
       kitchenOrderNumber: this.kitchenOrderNumber,
-      orderedItems: this.orderedItems || '',
-      orderedDrinks: this.orderedDrinks || '',
+      orderedItems: this.orderedItems,
+      orderedDrinks: this.orderedDrinks,
       subtotal: this.updateSubtotal(),
       vat: 0, // This will be calculated on the server
       discount: 0, // This will be calculated on the server
@@ -160,9 +160,9 @@ export class OrderComponent  implements OnInit {
     console.log('Sending Kitchen Order:', kitchenOrder)
 
     this.mainService.SaveKitchenOrder(kitchenOrder).subscribe(
-      (response) => {
+      response => {
         // Order successfully saved in the backend
-        console.log('Order saved successfully:', response);
+        console.log('Order saved successfully:', response.message);
   
         // Redirect to the Kitchen Screen to display the order details
         this.router.navigate(['/.kitchen-screen', this.kitchenOrderNumber]);

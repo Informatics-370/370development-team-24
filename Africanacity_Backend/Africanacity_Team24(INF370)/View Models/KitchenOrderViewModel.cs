@@ -8,8 +8,8 @@ namespace Africanacity_Team24_INF370_.View_Models
         public int KitchenOrderId { get; set; }
         public string TableNumber { get; set; }
         public string KitchenOrderNumber { get; set; }
-        public List<MenuItem> OrderedItems { get; set; } 
-        public List<Drink> OrderedDrinks { get; set; }
+        public List<MenuItemViewModel> OrderedItems { get; set; } = new List<MenuItemViewModel>();
+        public List<DrinkViewModel> OrderedDrinks { get; set; } = new List<DrinkViewModel>();
         public decimal Subtotal { get; set; }
         public decimal VAT { get; set; }
         public decimal Discount { get; set; }
@@ -19,17 +19,6 @@ namespace Africanacity_Team24_INF370_.View_Models
         {
         }
 
-        public KitchenOrderViewModel(KitchenOrder kitchenOrder, decimal vat, decimal discount)
-        {
-            KitchenOrderId = kitchenOrder.KitchenOrderId;
-            TableNumber = kitchenOrder.TableNumber;
-            KitchenOrderNumber = kitchenOrder.KitchenOrderNumber;
-            OrderedItems = kitchenOrder.OrderedItems;
-            OrderedDrinks = kitchenOrder.OrderedDrinks;
-            Subtotal = kitchenOrder.Subtotal;
-            VAT = vat;
-            Discount = discount;
-            // Map other properties related to KitchenOrder as needed...
-        }
+      
     }
 }
