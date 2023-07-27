@@ -1,8 +1,8 @@
 export class Entertainment_Type {
 
-    Entertainment_TypeId!: number;
-    Name!: string;
-    Description!: string;
+    entertainment_TypeId!: number;
+    name!: string;
+    description!: string;
 
 
 }

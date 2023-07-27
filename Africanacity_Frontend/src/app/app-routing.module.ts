@@ -46,7 +46,7 @@ import { AddEntertainmentTypeComponent } from './booking/entertainment/add-enter
 const routes: Routes = [
   // to open the app to open on this specific page
   // open on this page
-  { path: '', component: LoginComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'add-employee', component: AddEmployeeComponent }, // for add employee page
   { path: 'edit-employee/:id', component: EditEmployeeComponent},//Edit employee
   { path: 'view-employees', component: ViewEmployeesComponent }, // for view employees page
@@ -69,15 +69,15 @@ const routes: Routes = [
   { path: 'create-menu-item-category', component: CreateMenuItemCategoryComponent },
    ///SCHEDULE
   {path:'schedule-display', component: ScheduleDisplayComponent},
-  {path:'edit-schedule', component: EditScheduleComponent},
+  {path:'edit-schedule/:id', component: EditScheduleComponent},
   {path:'add-schedule', component: AddScheduleComponent},
  ///EVENTS
  {path:'view-events', component: ViewEventsComponent},
- {path:'edit-event', component: EditEventComponent},
+ {path:'edit-event/:id', component: EditEventComponent},
  {path:'add-event', component: AddEventComponent},
  ///ENTERTAINMENT TYPES
   {path:'entertainment-types', component: EntertainmentTypesComponent},
-  {path:'edit-entertainment-type', component: EditEntertainmentTypeComponent},
+  {path:'edit-entertainment-type/:id', component: EditEntertainmentTypeComponent},
   {path:'add-entertainment-type', component: AddEntertainmentTypeComponent},
 
   { path: 'navbar',component: NavbarComponent },

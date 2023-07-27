@@ -1,8 +1,8 @@
-import { Component, OnInit, EventEmitter, Output} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Event } from 'src/app/shared/event';
+import { BookingEvent } from 'src/app/shared/bookingevent';
 import { DataService } from 'src/app/service/data.Service';
 
 @Component({
@@ -12,8 +12,8 @@ import { DataService } from 'src/app/service/data.Service';
 })
 
 export class ViewEventsComponent implements OnInit{
-  events: Event[]=[]
-  Filteredevents : Event[]=[]
+  bookingevents: BookingEvent[]=[]
+  Filteredevents : BookingEvent[]=[]
  
   constructor(private dataService:DataService ,private snackBar: MatSnackBar, private httpClient: HttpClient, private router: Router){}
 
@@ -21,6 +21,8 @@ export class ViewEventsComponent implements OnInit{
    
     ngOnInit(): void {
       this.GetAllEvents()
+      console.log(this.bookingevents)
+
     }
 
     GetAllEvents()
@@ -28,23 +30,23 @@ export class ViewEventsComponent implements OnInit{
       this.dataService.GetAllEvents().subscribe(result => {
         let eventsList:any[] = result
         eventsList.forEach((element) => {
-          this.events.push(element)
+          this.bookingevents.push(element)
           
         });
       })
     }
 
-    // applyFilter(event: Event) {
-    //   const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+    applyFilter(event: Event) {
+     const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
     
-    //   this.Filteredevents = this.events.filter(event => {
-    //     const column2Value = event.event_name.toLowerCase() || event.event_name.toUpperCase();
-    //     const column3Value = event.description.toLowerCase();
+    this.Filteredevents = this.bookingevents.filter(bookingevent => {
+    const column2Value = bookingevent.event_Name.toLowerCase() || bookingevent.event_Name.toUpperCase();
+    const column3Value = bookingevent.description.toLowerCase();
     
-    //     return column2Value.includes(filterValue) || 
-    //     column3Value.includes(filterValue);
-    //   });
-    // }
+    return column2Value.includes(filterValue) || 
+     column3Value.includes(filterValue);
+    });
+   }
   
 
     deleteItem(): void {

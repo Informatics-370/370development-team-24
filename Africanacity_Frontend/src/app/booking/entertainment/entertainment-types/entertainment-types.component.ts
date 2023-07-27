@@ -15,16 +15,18 @@ export class EntertainmentTypesComponent implements OnInit{
   constructor(private dataService:DataService ,private snackBar: MatSnackBar, private httpClient: HttpClient, private router: Router){}
 
   ngOnInit(): void {
-    
+    this.GetEntertainmentTypes()
+    console.log(this.entertainments)
   }
+
   entertainments: Entertainment_Type[] =[]
-  filteredTypes : Entertainment_Type[] =[];
+  filteredTypes : Entertainment_Type[] =[]
 
     GetEntertainmentTypes()
     {
       this.dataService.GetEntertainmentTypes().subscribe(result => {
-        let entertainmentsList:any[] = result
-        entertainmentsList.forEach((element) => {
+        let entertainmentList:any[] = result
+        entertainmentList.forEach((element) => {
           this.entertainments.push(element)
           
         });
@@ -35,8 +37,8 @@ export class EntertainmentTypesComponent implements OnInit{
       const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
     
       this.filteredTypes = this.entertainments.filter(entertainmentType => {
-        const column2Value = entertainmentType.Name.toLowerCase() || entertainmentType.Name.toUpperCase();
-        const column3Value = entertainmentType.Description.toLowerCase();
+        const column2Value = entertainmentType.name.toLowerCase() || entertainmentType.name.toUpperCase();
+        const column3Value = entertainmentType.description.toLowerCase();
     
         return column2Value.includes(filterValue) || 
         column3Value.includes(filterValue)

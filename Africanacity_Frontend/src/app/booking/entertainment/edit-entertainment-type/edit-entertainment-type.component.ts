@@ -16,8 +16,8 @@ export class EditEntertainmentTypeComponent implements OnInit{
     this.activated.params.subscribe(params =>{
       this.dataService.GetEvent(params['id']).subscribe(result =>{
         this.editType = result as Entertainment_Type;
-        this.updateTypeForm.controls['Name'].setValue(this.editType.Name);
-        this.updateTypeForm.controls['Description'].setValue(this.editType.Description);
+        this.updateTypeForm.controls['name'].setValue(this.editType.name);
+        this.updateTypeForm.controls['description'].setValue(this.editType.description);
       })
     })
   }
@@ -41,10 +41,10 @@ export class EditEntertainmentTypeComponent implements OnInit{
    
   updateEntertainment(){
     let entertainmentType = new Entertainment_Type();
-      entertainmentType.Name = this.updateTypeForm.value.event_name;
-      entertainmentType.Description= this.updateTypeForm.value.description;
+      entertainmentType.name = this.updateTypeForm.value.event_name;
+      entertainmentType.description= this.updateTypeForm.value.description;
 
-      this.dataService.EditEntertainment(this.editType.Entertainment_TypeId,entertainmentType).subscribe((response:any)=>{
+      this.dataService.EditEntertainment(this.editType.entertainment_TypeId,entertainmentType).subscribe((response:any)=>{
         if (response.statusCode === 200) {
           this.router.navigate(['./entertainment-types']);
           window.location.reload();

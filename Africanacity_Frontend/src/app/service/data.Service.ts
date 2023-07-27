@@ -11,7 +11,7 @@ import { MenuItem } from '../shared/menu-item';
 import { FoodType } from '../shared/food-type';
 import { MenuItemCategory } from '../shared/menu-item-category';
 import { Schedule } from '../shared/schedule';
-import { Event } from '../shared/event';
+import { BookingEvent } from '../shared/bookingevent';
 import { Entertainment_Type } from '../shared/entertainmentType';
 
 
@@ -21,7 +21,7 @@ import { Entertainment_Type } from '../shared/entertainmentType';
 export class DataService {
   
 
-  apiUrl = 'https://localhost:5116/api/'
+  apiUrl = 'http://localhost:49991/api/'
 
   httpOptions ={
     headers: new HttpHeaders({
@@ -247,14 +247,14 @@ GetEvent(eventId: Number)
   return this.httpClient.get(`${this.apiUrl}EventController/GetEvent` + "/" + eventId).pipe(map(result => result))
 }
 
-AddNewEvent(event : Event)
+AddNewEvent(bookingevent : BookingEvent)
 {
-  return this.httpClient.post(`${this.apiUrl}Event/AddNewEvent`, event, this.httpOptions)
+  return this.httpClient.post(`${this.apiUrl}Event/AddNewEvent`, bookingevent, this.httpOptions)
 }
 
-EditEvent(eventId: Number, event: Event)
+EditEvent(eventId: Number, bookingevent: BookingEvent)
 {
-  return this.httpClient.put(`${this.apiUrl}EventController/EditEvent/${eventId}`, event, this.httpOptions)
+  return this.httpClient.put(`${this.apiUrl}EventController/EditEvent/${eventId}`, bookingevent, this.httpOptions)
 }
 
 DeleteEvent(eventId: Number)
@@ -269,9 +269,9 @@ GetEntertainmentTypes(): Observable<any>
   .pipe(map(results => results))
 }
 
-GetEntertainmentType(Entertainment_TypeId: Number)
+GetEntertainmentType(entertainment_TypeId: Number)
 {
-  return this.httpClient.get(`${this.apiUrl}EntertainmentTypeController/GetEntertainmentType` + "/" + Entertainment_TypeId).pipe(map(result => result))
+  return this.httpClient.get(`${this.apiUrl}EntertainmentTypeController/GetEntertainmentType` + "/" + entertainment_TypeId).pipe(map(result => result))
 }
 
 AddEntertainmentType(entertainmentType : Entertainment_Type)
@@ -279,14 +279,14 @@ AddEntertainmentType(entertainmentType : Entertainment_Type)
   return this.httpClient.post(`${this.apiUrl}EntertainmentType/AddEntertainment`, entertainmentType, this.httpOptions)
 }
 
-EditEntertainment(Entertainment_TypeId: Number, entertainmentType: Entertainment_Type)
+EditEntertainment(entertainment_TypeId: Number, entertainmentType: Entertainment_Type)
 {
-  return this.httpClient.put(`${this.apiUrl}EntertainmentTypeController/EditEntertainmentType/${Entertainment_TypeId}`, entertainmentType, this.httpOptions)
+  return this.httpClient.put(`${this.apiUrl}EntertainmentTypeController/EditEntertainmentType/${entertainment_TypeId}`, entertainmentType, this.httpOptions)
 }
 
-DeleteEntertainmentType(Entertainment_TypeId: Number)
+DeleteEntertainmentType(entertainment_TypeId: Number)
 {
-  return this.httpClient.delete<string>(`${this.apiUrl}EntertainmentTypeController/DeleteEntertainmentType` + "/" + Entertainment_TypeId, this.httpOptions)
+  return this.httpClient.delete<string>(`${this.apiUrl}EntertainmentTypeController/DeleteEntertainmentType` + "/" + entertainment_TypeId, this.httpOptions)
 }
 
 

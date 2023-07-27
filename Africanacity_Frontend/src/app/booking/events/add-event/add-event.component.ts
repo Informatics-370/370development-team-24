@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
-import { Event } from 'src/app/shared/event';
+import { BookingEvent } from 'src/app/shared/bookingevent';
 
 @Component({
   selector: 'app-add-event',
@@ -26,7 +26,7 @@ export class AddEventComponent implements OnInit {
   
 
   eventsForm: FormGroup = new FormGroup({
-    event_name: new FormControl('',[Validators.required]),
+    event_Name: new FormControl('',[Validators.required]),
     description: new FormControl('',[Validators.required]),
     
   })
@@ -44,15 +44,15 @@ export class AddEventComponent implements OnInit {
       return;
     }
   
-    let event = new Event();
-    event.event_name = this.eventsForm.value.surname;
-    event.description = this.eventsForm.value.firstName;
+    let event = new BookingEvent();
+    event.event_Name = this.eventsForm.value.event_Name;
+    event.description = this.eventsForm.value.description;
     this.dataService.AddNewEvent(event).subscribe(result => {
       this.router.navigate(['/view-events'])
     });
   
     this.snackBar.open(
-      this.eventsForm.get('event_name')!.value + ` created successfully`,
+      this.eventsForm.get('event_Name')!.value + ` created successfully`,
       'X',
      { duration: 5000 }
     );

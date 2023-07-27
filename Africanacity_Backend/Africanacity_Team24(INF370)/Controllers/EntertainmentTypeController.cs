@@ -8,7 +8,7 @@ using Africanacity_Team24_INF370_.models.Booking;
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[Controller]")]
     [ApiController]
     public class EntertainmentTypeController: ControllerBase
     {
@@ -21,7 +21,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         [HttpGet]
         [Route("GetEntertainmentTypes")]
-        public async Task<ActionResult> GetEntertainmentTypes()
+        public async Task<IActionResult> GetEntertainmentTypes()
         {
             try
             {

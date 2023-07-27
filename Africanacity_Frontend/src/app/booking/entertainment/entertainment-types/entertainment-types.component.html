@@ -6,7 +6,7 @@
     <div class="col-md-10 order-md-1">
     <h3 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px; font-weight: bolder;">Entertainment Types </h3>
 
-    <input type="text" class="form-control"  placeholder="Search Entertainment">
+    <input type="text" class="form-control" (input)="applyFilter($event)" placeholder="Search Entertainment">
     <span style="align-content: right;">
         <button style="margin-left: 1em;" type="button" class="btn btn-sm btn-success" [routerLink]="'/add-entertainment-type'">New</button>
     </span>
@@ -21,13 +21,13 @@
                 <th scope="col"></th>
         </thead>
         <tbody>
-          <tr *ngFor="let entertainments of filteredTypes">
-                <td>{{entertainments.Entertainment_TypeId}}</td>
-                <td>{{entertainments.Name}}</td>
-                <td>{{entertainments.Description}}</td>
+          <tr *ngFor="let item of entertainments">
+                <td>{{item.entertainment_TypeId}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.description}}</td>
                 
-                  <td> <i class="fa fa-pencil" [routerLink]="['/edit-entertainment-type', entertainments.Entertainment_TypeId]" aria-hidden="true"></i></td>
-                  <td><i class="fa fa-trash"  (click)="DeleteEntertainmentType(entertainments.Entertainment_TypeId)" aria-hidden="true"></i></td>
+                  <td> <i class="fa fa-pencil" [routerLink]="['/edit-entertainment-type', item.entertainment_TypeId]" aria-hidden="true"></i></td>
+                  <td><i class="fa fa-trash"  (click)="DeleteEntertainmentType(item.entertainment_TypeId)" aria-hidden="true"></i></td>
             </tr>
         </tbody>
     </table>

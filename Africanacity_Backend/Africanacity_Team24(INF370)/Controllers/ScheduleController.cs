@@ -5,7 +5,7 @@ using Africanacity_Team24_INF370_.View_Models;
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[Controller]")]
     [ApiController]
     public class ScheduleController : ControllerBase
     {

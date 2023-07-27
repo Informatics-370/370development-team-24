@@ -44,8 +44,8 @@ export class AddEntertainmentTypeComponent implements OnInit {
     }
   
     let entertainmentType = new Entertainment_Type();
-    entertainmentType.Name= this.entertainmentform.value.surname;
-    entertainmentType.Description = this.entertainmentform.value.firstName;
+    entertainmentType.name= this.entertainmentform.value.surname;
+    entertainmentType.description = this.entertainmentform.value.firstName;
   
   
     this.dataService.AddEntertainmentType(entertainmentType).subscribe(result => {

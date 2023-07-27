@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { DataService } from 'src/app/service/data.Service';
-import { Event } from 'src/app/shared/event';
+import { BookingEvent } from 'src/app/shared/bookingevent';
 
 @Component({
   selector: 'app-edit-event',
@@ -17,18 +17,18 @@ export class EditEventComponent implements OnInit {
     private activated:ActivatedRoute,
     private snackBar: MatSnackBar){}
 
-   editEvents: Event = new Event();
+   editEvents: BookingEvent = new BookingEvent();
 
    updateEventsForm: FormGroup = new FormGroup({
-    event_name: new FormControl('',[Validators.required]),
+    event_Name: new FormControl('',[Validators.required]),
     description: new FormControl('',[Validators.required])
  })
 
     ngOnInit(): void{
       this.activated.params.subscribe(params =>{
         this.dataService.GetEvent(params['id']).subscribe(result =>{
-          this.editEvents = result as Event;
-          this.updateEventsForm.controls['event_name'].setValue(this.editEvents.event_name);
+          this.editEvents = result as BookingEvent;
+          this.updateEventsForm.controls['event_Name'].setValue(this.editEvents.event_Name);
           this.updateEventsForm.controls['description'].setValue(this.editEvents.description);
         })
       })
@@ -39,8 +39,8 @@ export class EditEventComponent implements OnInit {
     }
 
     updateEvent(){
-      let event = new Event();
-      event.event_name = this.updateEventsForm.value.event_name;
+      let event = new BookingEvent();
+      event.event_Name = this.updateEventsForm.value.event_name;
       event.description = this.updateEventsForm.value.description;
   
       this.dataService.EditEvent(this.editEvents.eventId,event).subscribe((response:any) => {

@@ -243,7 +243,18 @@ namespace Africanacity_Team24_INF370_.models
                               Description = "The chef prepares the meals and notifies the waiter of ready orders."
 
                           });
-			//create seed data for menu type
+
+            modelBuilder.Entity<Employee_Role>()
+                         .HasData(
+                         new
+                         {
+                             Employee_RoleId = 3,
+                             Name = "Kitchen Staff",
+                             Description = "The kitchen staff assists the chef prepare meals."
+
+                         });
+
+            //create seed data for menu type
             modelBuilder.Entity<Menu_Type>()
                           .HasData(
                           new
@@ -431,24 +442,89 @@ namespace Africanacity_Team24_INF370_.models
                               CategoryMenu_CategoryId = 4,
                               Menu_TypeId = 2,
 
-
                           });
+            // Create Seed Data For the Events Table:
+            modelBuilder.Entity<Event>()
+                         .HasData(
+                         new
+                         {
+                             EventId = 1,
+                             Event_Name = "Smooth Sunday",
+                             Description = "An event filled with spectacular music performances and art display "
+                            
+                         });
+            modelBuilder.Entity<Event>()
+                         .HasData(
+                         new
+                         {
+                             EventId = 2,
+                             Event_Name = "Wacky Wednesday",
+                             Description = "An event where various forms of entertainments take place"
+
+                         });
+            modelBuilder.Entity<Event>()
+                        .HasData(
+                        new
+                        {
+                            EventId = 3,
+                            Event_Name = "Poetry Musings",
+                            Description = " poets are invited to recite poems and another kind of artistry "
+
+                        });
+            // Create Seed Data For the Entertainments Type Table:
+            modelBuilder.Entity<Entertainment_Type>()
+                       .HasData(
+                       new
+                       {
+                           Entertainment_TypeId = 1,
+                           Name = "Poetry",
+                           Description = "Poetry recitations"
+
+                       });
+            modelBuilder.Entity<Entertainment_Type>()
+                      .HasData(
+                      new
+                      {
+                          Entertainment_TypeId = 2,
+                          Name = "StandUp Comedy",
+                          Description = "One-liners for a comedic performance"
+
+                      });
+            modelBuilder.Entity<Entertainment_Type>()
+                      .HasData(
+                      new
+                      {
+                          Entertainment_TypeId = 3,
+                          Name = "Dance",
+                          Description = "Present dance as an art form, ballet, amapiano styles, hipHop dancers"
+
+                      });
+            modelBuilder.Entity<Entertainment_Type>()
+                                 .HasData(
+                                  new
+                                  {
+                                      Entertainment_TypeId = 4,
+                                      Name = "Music",
+                                      Description = "Artits who perform own music. All types of music"
+
+                                  });
+
 
             //Many to many with MenuItem
-                         modelBuilder.Entity<MenuItem>()
+            modelBuilder.Entity<MenuItem>()
                         .HasOne(m => m.Menu_Type)
                         .WithMany()
                         .HasForeignKey(m => m.Menu_TypeId);
 
-                        modelBuilder.Entity<MenuItem>()
-                        .HasOne(m => m.MenuItem_Category)
-                        .WithMany()
-                        .HasForeignKey(m => m.Menu_CategoryId);
+            modelBuilder.Entity<MenuItem>()
+            .HasOne(m => m.MenuItem_Category)
+            .WithMany()
+            .HasForeignKey(m => m.Menu_CategoryId);
 
-                        modelBuilder.Entity<MenuItem>()
-                        .HasOne(m => m.Food_Type)
-                        .WithMany()
-                        .HasForeignKey(m => m.FoodTypeId);
+            modelBuilder.Entity<MenuItem>()
+            .HasOne(m => m.Food_Type)
+            .WithMany()
+            .HasForeignKey(m => m.FoodTypeId);
 
             // For the Access_UserRole M2M payload (Uncomment code below and run migration to generate tables)
             modelBuilder.Entity<Access>()
@@ -497,6 +573,19 @@ namespace Africanacity_Team24_INF370_.models
 				.UsingEntity<Order_MenuItem>
 				 (tg => tg.HasOne<MenuItem>().WithMany(),
 				  tg => tg.HasOne<Order>().WithMany());
-		}
+
+            //Event
+           // modelBuilder.Entity<Administrator>()
+
+           // .HasOne(sti => sti.Events)
+
+           //.WithMany()
+
+           //.HasForeignKey(sti => sti.AdministratorId);
+
+           // modelBuilder.Entity<Event>()
+
+           //.HasKey(sti => sti.EventId);
+        }
 	}
 }

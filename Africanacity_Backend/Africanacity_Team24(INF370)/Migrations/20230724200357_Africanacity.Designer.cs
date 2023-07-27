@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Africanacity_Team24_INF370_.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230523023217_MMINO")]
-    partial class MMINO
+    [Migration("20230724200357_Africanacity")]
+    partial class Africanacity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -409,6 +409,12 @@ namespace Africanacity_Team24_INF370_.Migrations
                             Employee_RoleId = 2,
                             Description = "The chef prepares the meals and notifies the waiter of ready orders.",
                             Name = "Chef"
+                        },
+                        new
+                        {
+                            Employee_RoleId = 3,
+                            Description = "The kitchen staff assists the chef prepare meals.",
+                            Name = "Kitchen Staff"
                         });
                 });
 
@@ -638,7 +644,33 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     b.HasKey("Entertainment_TypeId");
 
-                    b.ToTable("Entertainment_Type");
+                    b.ToTable("Entertainment_Types");
+
+                    b.HasData(
+                        new
+                        {
+                            Entertainment_TypeId = 1,
+                            Description = "Poetry recitations",
+                            Name = "Poetry"
+                        },
+                        new
+                        {
+                            Entertainment_TypeId = 2,
+                            Description = "One-liners for a comedic performance",
+                            Name = "StandUp Comedy"
+                        },
+                        new
+                        {
+                            Entertainment_TypeId = 3,
+                            Description = "Present dance as an art form, ballet, amapiano styles, hipHop dancers",
+                            Name = "Dance"
+                        },
+                        new
+                        {
+                            Entertainment_TypeId = 4,
+                            Description = "Artits who perform own music. All types of music",
+                            Name = "Music"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Event", b =>
@@ -652,16 +684,39 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<int?>("AdministratorId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Event_Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("EventId");
 
                     b.HasIndex("AdministratorId");
 
                     b.ToTable("Events");
+
+                    b.HasData(
+                        new
+                        {
+                            EventId = 1,
+                            Description = "An event filled with spectacular music performances and art display ",
+                            Event_Name = "Smooth Sunday"
+                        },
+                        new
+                        {
+                            EventId = 2,
+                            Description = "An event where various forms of entertainments take place",
+                            Event_Name = "Wacky Wednesday"
+                        },
+                        new
+                        {
+                            EventId = 3,
+                            Description = " poets are invited to recite poems and another kind of artistry ",
+                            Event_Name = "Poetry Musings"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Schedule", b =>
@@ -681,6 +736,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<DateTime>("End_Time")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("EventId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("Schedule_StatusId")
                         .HasColumnType("int");
 
@@ -690,6 +748,8 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasKey("ScheduleId");
 
                     b.HasIndex("AdministratorId");
+
+                    b.HasIndex("EventId");
 
                     b.HasIndex("Schedule_StatusId");
 
@@ -1658,9 +1718,17 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .WithMany("Schedules")
                         .HasForeignKey("AdministratorId");
 
+                    b.HasOne("Africanacity_Team24_INF370_.models.Booking.Event", "Event")
+                        .WithMany()
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Africanacity_Team24_INF370_.models.Booking.Schedule_Status", null)
                         .WithMany("Schedules")
                         .HasForeignKey("Schedule_StatusId");
+
+                    b.Navigation("Event");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Inventory_Item", b =>

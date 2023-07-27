@@ -6,7 +6,7 @@ using Africanacity_Team24_INF370_.models.Booking;
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[Controller]")]
     [ApiController]
     public class EventController: ControllerBase
     {
@@ -19,7 +19,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         [HttpGet]
         [Route("GetAllEvents")]
-        public async Task<ActionResult> GetAllEvents()
+        public async Task<IActionResult> GetAllEvents()
         {
             try
             {

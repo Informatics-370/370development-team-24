@@ -48,7 +48,12 @@ import { ViewEventsComponent } from './booking/events/view-events/view-events.co
 import { AddEntertainmentTypeComponent } from './booking/entertainment/add-entertainment-type/add-entertainment-type.component';
 import { EditEntertainmentTypeComponent } from './booking/entertainment/edit-entertainment-type/edit-entertainment-type.component';
 import { EntertainmentTypesComponent } from './booking/entertainment/entertainment-types/entertainment-types.component';
-import { FullCalendarModule } from '@fullcalendar/angular';
+import { FullCalendarModule } from '@fullcalendar/angular';//schedule
+import dayGridPlugin from '@fullcalendar/daygrid'; // Import the dayGrid plugin
+import interactionPlugin from '@fullcalendar/interaction'; // Import the interaction plugin
+
+
+
 
 
 
@@ -80,9 +85,9 @@ import { FullCalendarModule } from '@fullcalendar/angular';
    ConfirmationDialogComponent, 
    MenuitemsComponent,
     UpdatePasswordComponent, 
-  FoodTypeComponent, 
-  MenuItemCategoryComponent, 
-  EditFoodTypeComponent,
+   FoodTypeComponent, 
+   MenuItemCategoryComponent, 
+   EditFoodTypeComponent,
    CreateFoodTypeComponent, 
    EditMenuItemCategoryComponent, 
    CreateMenuItemCategoryComponent, 
@@ -95,6 +100,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     AddEntertainmentTypeComponent, 
     EditEntertainmentTypeComponent,
     EntertainmentTypesComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -109,7 +115,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     MatSnackBarModule,
     FullCalendarModule,
   ],
-  providers: [DataService],
+  providers: [DataService], 
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

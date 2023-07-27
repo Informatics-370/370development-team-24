@@ -9,9 +9,8 @@ namespace Africanacity_Team24_INF370_.models.Booking
 		[Key]
 		public int EventId { get; set; }
 
-		[MaxLength(50)]
+	
 		public string Event_Name { get; set; } = string.Empty;
-		[MaxLength(50)]
 		public string Description { get; set; } = string.Empty;
 
 	}

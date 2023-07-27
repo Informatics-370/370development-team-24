@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Africanacity_Team24_INF370_.Migrations
 {
-    public partial class MMINO : Migration
+    public partial class Africanacity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -103,7 +103,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Entertainment_Type",
+                name: "Entertainment_Types",
                 columns: table => new
                 {
                     Entertainment_TypeId = table.Column<int>(type: "int", nullable: false)
@@ -113,7 +113,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Entertainment_Type", x => x.Entertainment_TypeId);
+                    table.PrimaryKey("PK_Entertainment_Types", x => x.Entertainment_TypeId);
                 });
 
             migrationBuilder.CreateTable(
@@ -694,7 +694,8 @@ namespace Africanacity_Team24_INF370_.Migrations
                 {
                     EventId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Event_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AdministratorId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -757,33 +758,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                         column: x => x.Inventory_TypeId,
                         principalTable: "Inventory_Types",
                         principalColumn: "Inventory_TypeId");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Schedules",
-                columns: table => new
-                {
-                    ScheduleId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Start_Time = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    End_Time = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AdministratorId = table.Column<int>(type: "int", nullable: true),
-                    Schedule_StatusId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Schedules", x => x.ScheduleId);
-                    table.ForeignKey(
-                        name: "FK_Schedules_Administrators_AdministratorId",
-                        column: x => x.AdministratorId,
-                        principalTable: "Administrators",
-                        principalColumn: "AdministratorId");
-                    table.ForeignKey(
-                        name: "FK_Schedules_Schedule_Statuses_Schedule_StatusId",
-                        column: x => x.Schedule_StatusId,
-                        principalTable: "Schedule_Statuses",
-                        principalColumn: "Schedule_StatusId");
                 });
 
             migrationBuilder.CreateTable(
@@ -898,35 +872,45 @@ namespace Africanacity_Team24_INF370_.Migrations
                         principalColumn: "EntertainerId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Entertainer_Entertainments_Entertainment_Type_Entertainment_TypesEntertainment_TypeId",
+                        name: "FK_Entertainer_Entertainments_Entertainment_Types_Entertainment_TypesEntertainment_TypeId",
                         column: x => x.Entertainment_TypesEntertainment_TypeId,
-                        principalTable: "Entertainment_Type",
+                        principalTable: "Entertainment_Types",
                         principalColumn: "Entertainment_TypeId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Entertainer_Schedules",
+                name: "Schedules",
                 columns: table => new
                 {
-                    EntertainersEntertainerId = table.Column<int>(type: "int", nullable: false),
-                    SchedulesScheduleId = table.Column<int>(type: "int", nullable: false)
+                    ScheduleId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Start_Time = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    End_Time = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EventId = table.Column<int>(type: "int", nullable: false),
+                    AdministratorId = table.Column<int>(type: "int", nullable: true),
+                    Schedule_StatusId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Entertainer_Schedules", x => new { x.EntertainersEntertainerId, x.SchedulesScheduleId });
+                    table.PrimaryKey("PK_Schedules", x => x.ScheduleId);
                     table.ForeignKey(
-                        name: "FK_Entertainer_Schedules_Entertainers_EntertainersEntertainerId",
-                        column: x => x.EntertainersEntertainerId,
-                        principalTable: "Entertainers",
-                        principalColumn: "EntertainerId",
+                        name: "FK_Schedules_Administrators_AdministratorId",
+                        column: x => x.AdministratorId,
+                        principalTable: "Administrators",
+                        principalColumn: "AdministratorId");
+                    table.ForeignKey(
+                        name: "FK_Schedules_Events_EventId",
+                        column: x => x.EventId,
+                        principalTable: "Events",
+                        principalColumn: "EventId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Entertainer_Schedules_Schedules_SchedulesScheduleId",
-                        column: x => x.SchedulesScheduleId,
-                        principalTable: "Schedules",
-                        principalColumn: "ScheduleId",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_Schedules_Schedule_Statuses_Schedule_StatusId",
+                        column: x => x.Schedule_StatusId,
+                        principalTable: "Schedule_Statuses",
+                        principalColumn: "Schedule_StatusId");
                 });
 
             migrationBuilder.CreateTable(
@@ -1002,13 +986,38 @@ namespace Africanacity_Team24_INF370_.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Entertainer_Schedules",
+                columns: table => new
+                {
+                    EntertainersEntertainerId = table.Column<int>(type: "int", nullable: false),
+                    SchedulesScheduleId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Entertainer_Schedules", x => new { x.EntertainersEntertainerId, x.SchedulesScheduleId });
+                    table.ForeignKey(
+                        name: "FK_Entertainer_Schedules_Entertainers_EntertainersEntertainerId",
+                        column: x => x.EntertainersEntertainerId,
+                        principalTable: "Entertainers",
+                        principalColumn: "EntertainerId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Entertainer_Schedules_Schedules_SchedulesScheduleId",
+                        column: x => x.SchedulesScheduleId,
+                        principalTable: "Schedules",
+                        principalColumn: "ScheduleId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Employee_Roles",
                 columns: new[] { "Employee_RoleId", "Description", "Name" },
                 values: new object[,]
                 {
                     { 1, "The waiter serves the customers and takes orders", "Waiter" },
-                    { 2, "The chef prepares the meals and notifies the waiter of ready orders.", "Chef" }
+                    { 2, "The chef prepares the meals and notifies the waiter of ready orders.", "Chef" },
+                    { 3, "The kitchen staff assists the chef prepare meals.", "Kitchen Staff" }
                 });
 
             migrationBuilder.InsertData(
@@ -1026,6 +1035,27 @@ namespace Africanacity_Team24_INF370_.Migrations
                     { 8, "RogerFederal@gmail.com", null, "Roger", "0612346487", "987 Wall Street", "Federal", null },
                     { 9, "JenniferLOpez@gmail.com", null, "Jennifer", "0874834576", "967 Ballard Street", "Lopez", null },
                     { 10, "ChadwickBoseman@gmail.com", null, "Chadwick", "0923456789", "483 Alien Street", "Boseman", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Entertainment_Types",
+                columns: new[] { "Entertainment_TypeId", "Description", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Poetry recitations", "Poetry" },
+                    { 2, "One-liners for a comedic performance", "StandUp Comedy" },
+                    { 3, "Present dance as an art form, ballet, amapiano styles, hipHop dancers", "Dance" },
+                    { 4, "Artits who perform own music. All types of music", "Music" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Events",
+                columns: new[] { "EventId", "AdministratorId", "Description", "Event_Name" },
+                values: new object[,]
+                {
+                    { 1, null, "An event filled with spectacular music performances and art display ", "Smooth Sunday" },
+                    { 2, null, "An event where various forms of entertainments take place", "Wacky Wednesday" },
+                    { 3, null, " poets are invited to recite poems and another kind of artistry ", "Poetry Musings" }
                 });
 
             migrationBuilder.InsertData(
@@ -1282,6 +1312,11 @@ namespace Africanacity_Team24_INF370_.Migrations
                 column: "AdministratorId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Schedules_EventId",
+                table: "Schedules",
+                column: "EventId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Schedules_Schedule_StatusId",
                 table: "Schedules",
                 column: "Schedule_StatusId");
@@ -1348,9 +1383,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                 name: "Entertainer_Schedules");
 
             migrationBuilder.DropTable(
-                name: "Events");
-
-            migrationBuilder.DropTable(
                 name: "Helps");
 
             migrationBuilder.DropTable(
@@ -1387,7 +1419,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                 name: "Booking_Statuses");
 
             migrationBuilder.DropTable(
-                name: "Entertainment_Type");
+                name: "Entertainment_Types");
 
             migrationBuilder.DropTable(
                 name: "Entertainers");
@@ -1412,6 +1444,9 @@ namespace Africanacity_Team24_INF370_.Migrations
 
             migrationBuilder.DropTable(
                 name: "Suppliers");
+
+            migrationBuilder.DropTable(
+                name: "Events");
 
             migrationBuilder.DropTable(
                 name: "Schedule_Statuses");
@@ -1444,10 +1479,10 @@ namespace Africanacity_Team24_INF370_.Migrations
                 name: "Inventory_Types");
 
             migrationBuilder.DropTable(
-                name: "Administrators");
+                name: "Supplier_Types");
 
             migrationBuilder.DropTable(
-                name: "Supplier_Types");
+                name: "Administrators");
 
             migrationBuilder.DropTable(
                 name: "Employee_Roles");
