@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'order', component: OrderComponent},
   {path: 'table', component: TableComponent},
-  {path: 'kitchen-screen', component: KitchenScreenComponent},
+  {path: 'kitchen-screen/:kitchenOrderNumber', component: KitchenScreenComponent},
   {path: '', redirectTo: '/order', pathMatch:'full'},
   {path: '**', redirectTo: '/order', pathMatch:'full'}
   

@@ -165,7 +165,7 @@ export class OrderComponent  implements OnInit {
         console.log('Order saved successfully:', response.message);
   
         // Redirect to the Kitchen Screen to display the order details
-        this.router.navigate(['/.kitchen-screen', this.kitchenOrderNumber]);
+        this.router.navigate(['/kitchen-screen', this.kitchenOrderNumber]);
       },
       (error) => {
         console.error('Error saving order:', error);

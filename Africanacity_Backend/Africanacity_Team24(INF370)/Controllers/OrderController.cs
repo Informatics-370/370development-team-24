@@ -82,8 +82,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         //get kitchen order
         [HttpGet]
-        [Route("GetKitchenOrder/{KitchenOrderNumber}")]
-
+        [Route("GetKitchenOrder/{kitchenOrderNumber}")]
         public async Task<ActionResult<KitchenOrder>> GetKitchenOrder(string kitchenOrderNumber)
         {
             try
@@ -91,15 +90,16 @@ namespace Africanacity_Team24_INF370_.Controllers
                 var kitchenOrder = await _repository.GetKitchenOrderByNumberAsync(kitchenOrderNumber);
                 if (kitchenOrder == null)
                 {
-                    return NotFound();
+                    return NoContent(); // 204 No Content
                 }
-                return Ok(kitchenOrder);
+                return Ok(kitchenOrder); // 200 OK
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(500, "Internal Server Error. Please contact support.");
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
+
 
 
 

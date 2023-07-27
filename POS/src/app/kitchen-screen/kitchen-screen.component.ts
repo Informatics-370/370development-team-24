@@ -10,7 +10,7 @@ import { MainService } from '../service/main.service';
   styleUrls: ['./kitchen-screen.component.scss'],
 })
 export class KitchenScreenComponent  implements OnInit {
-  kitchenOrderNumber: KitchenOrderViewModel |undefined;
+  kitchenOrderNumber: KitchenOrderViewModel | undefined;
   kitchenOrder!: KitchenOrderViewModel;
 
   constructor(
@@ -19,13 +19,21 @@ export class KitchenScreenComponent  implements OnInit {
     private mainService: MainService
   ) { }
 
-  ngOnInit() {
 
-     // Get the kitchenOrderNumber from the route parameters
-     this.route.paramMap.subscribe((params) => {
+  ngOnInit() {
+    this.route.paramMap.subscribe((params) => {
       const kitchenOrderNumber = params.get('kitchenOrderNumber');
-      // Fetch the order details based on the kitchenOrderNumber
-      this.fetchKitchenOrderDetails(kitchenOrderNumber);
+      console.log('Kitchen Order Number from URL:', kitchenOrderNumber);
+
+      if (kitchenOrderNumber) {
+        this.mainService
+          .getKitchenOrder(kitchenOrderNumber)
+          .subscribe((kitchenOrder) => {
+            console.log('Kitchen Order Data:', kitchenOrder);
+            this.kitchenOrderNumber = kitchenOrder;
+            console.log('Kitchen Order Display:', this.kitchenOrderNumber);
+          });
+      }
     });
   }
 
