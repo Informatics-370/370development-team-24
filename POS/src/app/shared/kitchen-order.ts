@@ -9,6 +9,6 @@ export interface KitchenOrderViewModel {
   orderedItems: MenuItem[];
   orderedDrinks: Drink[];
   subtotal: number;
-  vat: number;
-  discount: number;
+  vatId: number;
+  discountId: number;
 }

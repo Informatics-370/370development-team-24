@@ -12,12 +12,15 @@ import { MainService } from '../service/main.service';
 export class KitchenScreenComponent  implements OnInit {
   kitchenOrderNumber: KitchenOrderViewModel | undefined;
   kitchenOrder!: KitchenOrderViewModel;
+  orderSummary: KitchenOrderViewModel | null;
 
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
     private mainService: MainService
-  ) { }
+  ) { 
+    this.orderSummary = this.mainService.getOrderSummary();
+  }
 
 
   ngOnInit() {
@@ -50,6 +53,11 @@ export class KitchenScreenComponent  implements OnInit {
         }
       );
     }
+  }
+
+  clearOrderSummary() {
+    this.mainService.clearOrderSummary();
+    this.orderSummary = null; // Set the Order Summary data to null in the component as well
   }
 
 }

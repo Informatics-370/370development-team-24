@@ -86,6 +86,13 @@ namespace Africanacity_Team24_INF370_.models
         Task<KitchenOrder> GetKitchenOrderByNumberAsync (string kitchenOrderNumber);
 
 
+        //VAT
+        Task<VAT> GetVatItemAsync(int VatId);
+
+        //DISCOUNT
+        Task<Discount> GetDiscountItemAsync(int DiscountId);
+
+
 
     }
 }

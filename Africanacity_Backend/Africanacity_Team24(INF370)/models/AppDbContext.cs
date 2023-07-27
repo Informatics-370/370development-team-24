@@ -725,7 +725,7 @@ namespace Africanacity_Team24_INF370_.models
                         {
                             VatId = 1,
                             Description = "10% VAT on total",
-                            Amount = 0.10,
+                            Amount = 0.10m,
                         });
             modelBuilder.Entity<VAT>()
                        .HasData(
@@ -733,7 +733,7 @@ namespace Africanacity_Team24_INF370_.models
                        {
                            VatId = 2,
                            Description = "15% VAT on total",
-                           Amount = 0.15,
+                           Amount = 0.15m,
                        });
             //seed data for Discount
             modelBuilder.Entity<Discount>()
@@ -743,7 +743,7 @@ namespace Africanacity_Team24_INF370_.models
                            DiscountId = 1,
                            Name = "Month end discount",
                            Description = "10% Discount",
-                           Amount = 0.10,
+                           Amount = 0.10m,
                            Start_Date = DateTime.Now,
                            End_Date = DateTime.Now.AddDays(10),
                        });

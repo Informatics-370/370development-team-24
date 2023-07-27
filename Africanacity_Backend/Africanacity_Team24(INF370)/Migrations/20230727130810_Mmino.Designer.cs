@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Africanacity_Team24_INF370_.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230725170250_Mmino")]
+    [Migration("20230727130810_Mmino")]
     partial class Mmino
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -236,6 +236,17 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasIndex("AdministratorId");
 
                     b.ToTable("Discounts");
+
+                    b.HasData(
+                        new
+                        {
+                            DiscountId = 1,
+                            Amount = 0.10m,
+                            Description = "10% Discount",
+                            End_Date = new DateTime(2023, 8, 6, 15, 8, 8, 907, DateTimeKind.Local).AddTicks(1453),
+                            Name = "Month end discount",
+                            Start_Date = new DateTime(2023, 7, 27, 15, 8, 8, 907, DateTimeKind.Local).AddTicks(1442)
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Employee", b =>
@@ -500,6 +511,20 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasKey("VatId");
 
                     b.ToTable("Vats");
+
+                    b.HasData(
+                        new
+                        {
+                            VatId = 1,
+                            Amount = 0.10m,
+                            Description = "10% VAT on total"
+                        },
+                        new
+                        {
+                            VatId = 2,
+                            Amount = 0.15m,
+                            Description = "15% VAT on total"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Booking_Status", b =>
@@ -1011,8 +1036,6 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     b.HasKey("Drink_PriceId");
 
-                    b.HasIndex("DrinkId");
-
                     b.ToTable("Drink_Prices");
 
                     b.HasData(
@@ -1141,6 +1164,9 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("KitchenOrderId"), 1L, 1);
 
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("KitchenOrderNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1152,8 +1178,8 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Timestamp")
-                        .HasColumnType("datetime2");
+                    b.Property<decimal>("VAT")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("KitchenOrderId");
 
@@ -1963,15 +1989,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasForeignKey("KitchenOrderId");
                 });
 
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Drink_Price", b =>
-                {
-                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.Drink", null)
-                        .WithMany("DrinkPrices")
-                        .HasForeignKey("DrinkId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.MenuItem", b =>
                 {
                     b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.Food_Type", "Food_Type")
@@ -2199,11 +2216,6 @@ namespace Africanacity_Team24_INF370_.Migrations
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier_Type", b =>
                 {
                     b.Navigation("Suppliers");
-                });
-
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Drink", b =>
-                {
-                    b.Navigation("DrinkPrices");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Drink_Type", b =>

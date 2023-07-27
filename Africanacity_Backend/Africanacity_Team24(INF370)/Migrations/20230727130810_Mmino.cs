@@ -76,6 +76,20 @@ namespace Africanacity_Team24_INF370_.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Drink_Prices",
+                columns: table => new
+                {
+                    Drink_PriceId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DrinkId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Drink_Prices", x => x.Drink_PriceId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Drink_Types",
                 columns: table => new
                 {
@@ -166,7 +180,8 @@ namespace Africanacity_Team24_INF370_.Migrations
                     TableNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     KitchenOrderNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Subtotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Timestamp = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    VAT = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -592,26 +607,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                         column: x => x.User_RoleId,
                         principalTable: "User_Roles",
                         principalColumn: "User_RoleId");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Drink_Prices",
-                columns: table => new
-                {
-                    Drink_PriceId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    DrinkId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Drink_Prices", x => x.Drink_PriceId);
-                    table.ForeignKey(
-                        name: "FK_Drink_Prices_Drinks_DrinkId",
-                        column: x => x.DrinkId,
-                        principalTable: "Drinks",
-                        principalColumn: "DrinkId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -1047,6 +1042,24 @@ namespace Africanacity_Team24_INF370_.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Discounts",
+                columns: new[] { "DiscountId", "AdministratorId", "Amount", "Description", "End_Date", "Name", "Start_Date" },
+                values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 8, 6, 15, 8, 8, 907, DateTimeKind.Local).AddTicks(1453), "Month end discount", new DateTime(2023, 7, 27, 15, 8, 8, 907, DateTimeKind.Local).AddTicks(1442) });
+
+            migrationBuilder.InsertData(
+                table: "Drink_Prices",
+                columns: new[] { "Drink_PriceId", "Amount", "DrinkId" },
+                values: new object[,]
+                {
+                    { 1, 55m, 1 },
+                    { 2, 75m, 2 },
+                    { 3, 99m, 3 },
+                    { 4, 45m, 4 },
+                    { 5, 65m, 5 },
+                    { 6, 100m, 6 }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Drink_Types",
                 columns: new[] { "Drink_TypeId", "Name" },
                 values: new object[,]
@@ -1158,6 +1171,15 @@ namespace Africanacity_Team24_INF370_.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Vats",
+                columns: new[] { "VatId", "Amount", "Description" },
+                values: new object[,]
+                {
+                    { 1, 0.10m, "10% VAT on total" },
+                    { 2, 0.15m, "15% VAT on total" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Drinks",
                 columns: new[] { "DrinkId", "Drink_TypeId", "KitchenOrderId", "Name" },
                 values: new object[,]
@@ -1183,19 +1205,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                     { 6, "Delicious everyday english breakfast with eggs and bacon", 1, null, null, 1, 1, null, "English Breakfast" },
                     { 7, "Smoothy bowl with blueberries, almond milk and honey", 4, null, null, 1, 1, null, "Blueberry smoothy bowl" },
                     { 8, "A toasted panini sandwich with beef sausages, tomatos and cheese", 2, null, null, 1, 1, null, "Toatsed beef panini sandwich" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Drink_Prices",
-                columns: new[] { "Drink_PriceId", "Amount", "DrinkId" },
-                values: new object[,]
-                {
-                    { 1, 55m, 1 },
-                    { 2, 75m, 2 },
-                    { 3, 99m, 3 },
-                    { 4, 45m, 4 },
-                    { 5, 65m, 5 },
-                    { 6, 100m, 6 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -1261,11 +1270,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                 name: "IX_Discounts_AdministratorId",
                 table: "Discounts",
                 column: "AdministratorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Drink_Prices_DrinkId",
-                table: "Drink_Prices",
-                column: "DrinkId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Drinks_Drink_TypeId",

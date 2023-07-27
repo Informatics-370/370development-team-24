@@ -17,6 +17,8 @@ import { KitchenOrderViewModel } from '../shared/kitchen-order';
   providedIn: 'root'
 })
 export class MainService {
+  private orderSummary: KitchenOrderViewModel | null = null;
+  
 
   //linking to backend
   apiUrl = 'http://localhost:49991/api/'
@@ -108,10 +110,35 @@ export class MainService {
     return this.httpClient.post(`${this.apiUrl}Order/SaveKitchenOrder`, kitchenOrder);
   }
 
+  
+
   //get a kitchen order
-  getKitchenOrder(kitchenOrderNumber: string): Observable<KitchenOrderViewModel> {
-    return this.httpClient.get<KitchenOrderViewModel>(`${this.apiUrl}Order/GetKitchenOrder/${kitchenOrderNumber}`);
+  getKitchenOrder(kitchenOrderNumber: string): Observable<any> {
+    return this.httpClient.get(`${this.apiUrl}Order/GetKitchenOrder/${kitchenOrderNumber}`);
   }
+
+  //get Vat by Id
+  GetVatItemById(vatId: Number): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}Order/GetVatItem/${vatId}`);
+  }
+
+  //get Discount by Id
+  GetDiscountItemById(discountId: Number): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}Order/GetDiscountItem/${discountId}`);
+  }
+
+  setOrderSummary(orderSummary: KitchenOrderViewModel) {
+    this.orderSummary = orderSummary;
+  }
+
+  getOrderSummary(): KitchenOrderViewModel | null {
+    return this.orderSummary;
+  }
+
+  clearOrderSummary() {
+    this.orderSummary = null;
+  }
+
 
 
 

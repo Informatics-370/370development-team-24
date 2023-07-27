@@ -266,6 +266,20 @@ namespace Africanacity_Team24_INF370_.models
             return await query.FirstOrDefaultAsync();
         }
 
+        //VAT
+        public async Task<VAT> GetVatItemAsync(int VatId)
+        {
+            IQueryable<VAT> query = _appDbContext.Vats.Where(c => c.VatId == VatId);
+            return await query.FirstOrDefaultAsync();
+        }
+
+        //DISCOUNT
+        public async Task<Discount> GetDiscountItemAsync(int DiscountId)
+        {
+            IQueryable<Discount> query = _appDbContext.Discounts.Where(c => c.DiscountId == DiscountId);
+            return await query.FirstOrDefaultAsync();
+        }
+
 
     }
 }

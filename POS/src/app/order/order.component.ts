@@ -153,8 +153,8 @@ export class OrderComponent  implements OnInit {
       orderedItems: this.orderedItems,
       orderedDrinks: this.orderedDrinks,
       subtotal: this.updateSubtotal(),
-      vat: 0, // This will be calculated on the server
-      discount: 0, // This will be calculated on the server
+      vatId: 0, // This will be calculated on the server
+      discountId: 0, // This will be calculated on the server
     };
 
     console.log('Sending Kitchen Order:', kitchenOrder)
@@ -173,10 +173,7 @@ export class OrderComponent  implements OnInit {
       }
     );
 
-
-
-    
-
+    this.mainService.clearOrderSummary();
     
   }
 
