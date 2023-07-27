@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngIf="kitchenOrder">
+  <ion-card *ngFor="let kitchenOrder of kitchenOrders">
     <ion-card-header>
       <ion-card-title>Order Details</ion-card-title>
     </ion-card-header>

@@ -2,7 +2,7 @@
 import { MenuItem } from "./menu-item.model";
 import { Drink } from "./drink";
 
-export interface KitchenOrderViewModel {
+export interface KitchenOrder {
   kitchenOrderId: number;
   tableNumber: string;
   kitchenOrderNumber: string;

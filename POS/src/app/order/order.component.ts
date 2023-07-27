@@ -8,7 +8,7 @@ import { MenuType } from '../shared/menu-type';
 import { CurrencyPipe } from '@angular/common';
 import { ActivatedRoute, Router} from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { KitchenOrderViewModel } from '../shared/kitchen-order';
+import { KitchenOrder } from '../shared/kitchen-order';
 
 @Component({
   selector: 'app-order',
@@ -145,8 +145,26 @@ export class OrderComponent  implements OnInit {
       this.tableNumber = null;
       this.kitchenOrderNumber = `TAKE-${this.generateOrderNumber()}`;
     }
+
+     // Create arrays to store only the names of ordered items and drinks
+      const orderedItemNames: string[] = [];
+      const orderedDrinkNames: string[] = [];
+
+       // Extract the names of ordered items
+      for (const orderedItem of this.orderedItems) {
+      orderedItemNames.push(orderedItem.name);
+      }
+
+  // Extract the names of ordered drinks
+      for (const orderedDrink of this.orderedDrinks) {
+      orderedDrinkNames.push(orderedDrink.name);
+      }
+
+
+
+
     // TODO: Implement submitting order to the kitchen
-    const kitchenOrder: KitchenOrderViewModel = {
+    const kitchenOrder: KitchenOrder = {
       kitchenOrderId: 0, // This will be ignored by the server as it generates the ID
       tableNumber: this.tableNumber || '', // Empty string if takeaway
       kitchenOrderNumber: this.kitchenOrderNumber,
@@ -173,7 +191,10 @@ export class OrderComponent  implements OnInit {
       }
     );
 
-    this.mainService.clearOrderSummary();
+
+
+    
+
     
   }
 

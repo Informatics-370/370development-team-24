@@ -44,29 +44,27 @@ namespace Africanacity_Team24_INF370_.Controllers
         //save kicthen orders
         [HttpPost]
         [Route("SaveKitchenOrder")]
-        public IActionResult SaveKitchenOrder([FromBody] KitchenOrderViewModel kitchenOrder)
+        public async Task<IActionResult> SaveKitchenOrder([FromBody] KitchenOrderViewModel kitchenOrder)
         {
             try
             {
-                // Process the submitted data using the ViewModel without navigation properties
-                // For example, you can access the ordered items and drinks like this:
-                foreach (var orderedItem in kitchenOrder.OrderedItems)
+                // Create a new instance of KitchenOrder and map the data from the view model
+                var newKitchenOrder = new KitchenOrder
                 {
-                    // Access the properties of orderedItem (MenuItemViewModel)
-                    int menuItemId = orderedItem.MenuItemId;
-                    string name = orderedItem.Name;
-                    // ... and so on ...
-                }
+                    TableNumber = kitchenOrder.TableNumber,
+                    KitchenOrderNumber = kitchenOrder.KitchenOrderNumber,
+                    // Map the selected menu item names and drink names to their corresponding properties
+                    OrderedItems = kitchenOrder.OrderedItems.Select(item => item.Name).ToList(),
+                    OrderedDrinks = kitchenOrder.OrderedDrinks.Select(drink => drink.Name).ToList(),
+                    Subtotal = kitchenOrder.Subtotal,
+                    VAT = kitchenOrder.VAT,
+                    Discount = kitchenOrder.Discount,
+                    
+                };
 
-                foreach (var orderedDrink in kitchenOrder.OrderedDrinks)
-                {
-                    // Access the properties of orderedDrink (DrinkViewModel)
-                    int drinkId = orderedDrink.DrinkId;
-                    string name = orderedDrink.Name;
-                    // ... and so on ...
-                }
-
-                // ... rest of the code ...
+                    // Save the newKitchenOrder to the database using your DbContext
+                _repository.Add(newKitchenOrder);
+                await _repository.SaveChangesAsync();
 
                 // Return an appropriate response
                 return Ok(new { message = "Kitchen order saved successfully." });
@@ -80,23 +78,20 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 
 
+
         //get kitchen order
         [HttpGet]
-        [Route("GetKitchenOrder/{kitchenOrderNumber}")]
-        public async Task<ActionResult<KitchenOrder>> GetKitchenOrder(string kitchenOrderNumber)
+        [Route("GetAllKitchenOrders")]
+        public async Task<ActionResult<List<KitchenOrder>>> GetAllKitchenOrders()
         {
             try
             {
-                var kitchenOrder = await _repository.GetKitchenOrderByNumberAsync(kitchenOrderNumber);
-                if (kitchenOrder == null)
-                {
-                    return NoContent(); // 204 No Content
-                }
-                return Ok(kitchenOrder); // 200 OK
+                var kitchenOrders = await _repository.GetAllKitchenOrdersAsync();
+                return Ok(kitchenOrders);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+                return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
 

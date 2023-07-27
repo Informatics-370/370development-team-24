@@ -11,13 +11,13 @@ import { MenuItemPrice } from '../shared/menu-item-price';
 import { Drink } from '../shared/drink';
 import { DrinkType } from '../shared/drink-type';
 import { DrinkPrice } from '../shared/drink-price';
-import { KitchenOrderViewModel } from '../shared/kitchen-order';
+import { KitchenOrder} from '../shared/kitchen-order';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MainService {
-  private orderSummary: KitchenOrderViewModel | null = null;
+  private orderSummary: KitchenOrder | null = null;
   
 
   //linking to backend
@@ -106,16 +106,20 @@ export class MainService {
   }
 
   //save kitchen order
-  SaveKitchenOrder(kitchenOrder: KitchenOrderViewModel): Observable<any> {
+  SaveKitchenOrder(kitchenOrder: KitchenOrder): Observable<any> {
     return this.httpClient.post(`${this.apiUrl}Order/SaveKitchenOrder`, kitchenOrder);
   }
 
   
 
-  //get a kitchen order
-  getKitchenOrder(kitchenOrderNumber: string): Observable<any> {
-    return this.httpClient.get(`${this.apiUrl}Order/GetKitchenOrder/${kitchenOrderNumber}`);
-  }
+  //get all kitchen orders
+  //get all kitchen orders
+//get all kitchen orders
+getAllKitchenOrders(): Observable<KitchenOrder[]> {
+  return this.httpClient.get<KitchenOrder[]>(`${this.apiUrl}Order/GetAllKitchenOrders`);
+}
+
+
 
   //get Vat by Id
   GetVatItemById(vatId: Number): Observable<any>{
@@ -127,11 +131,11 @@ export class MainService {
     return this.httpClient.get(`${this.apiUrl}Order/GetDiscountItem/${discountId}`);
   }
 
-  setOrderSummary(orderSummary: KitchenOrderViewModel) {
+  setOrderSummary(orderSummary: KitchenOrder) {
     this.orderSummary = orderSummary;
   }
 
-  getOrderSummary(): KitchenOrderViewModel | null {
+  getOrderSummary(): KitchenOrder | null {
     return this.orderSummary;
   }
 

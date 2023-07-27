@@ -260,10 +260,10 @@ namespace Africanacity_Team24_INF370_.models
             return kitchenOrder;
         }
 
-        public async Task<KitchenOrder> GetKitchenOrderByNumberAsync(string kitchenOrderNumber)
+        public async Task<KitchenOrder[]> GetAllKitchenOrdersAsync()
         {
-            IQueryable<KitchenOrder> query = _appDbContext.KitchenOrders.Where(c => c.KitchenOrderNumber == kitchenOrderNumber);
-            return await query.FirstOrDefaultAsync();
+            IQueryable<KitchenOrder> query = _appDbContext.KitchenOrders;
+            return await query.ToArrayAsync();
         }
 
         //VAT
