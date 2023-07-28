@@ -12,10 +12,9 @@ import { Drink } from '../shared/drink';
   styleUrls: ['./kitchen-screen.component.scss'],
 })
 export class KitchenScreenComponent  implements OnInit {
-  kitchenOrderNumber: KitchenOrder |undefined;
+  
   kitchenOrders: KitchenOrder[] = [];
-  orderedItems: MenuItem[] = [];
-  orderedDrinks: Drink[] = [];
+ 
 
   constructor(
     private route: ActivatedRoute,

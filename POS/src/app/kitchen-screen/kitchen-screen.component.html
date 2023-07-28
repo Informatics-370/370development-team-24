@@ -1,11 +1,11 @@
-<!--ion-header>
+<ion-header>
   <ion-toolbar>
     <ion-title>Kitchen Screen</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let kitchenOrder of kitchenOrders">
+  <ion-card *ngFor="let kitchenOrder">
     <ion-card-header>
       <ion-card-title>Order Details</ion-card-title>
     </ion-card-header>
@@ -17,19 +17,18 @@
       <h3>Ordered Items:</h3>
       <ion-list *ngIf="kitchenOrder.orderedItems">
         <ion-item *ngFor="let orderedItem of kitchenOrder.orderedItems">
-          {{ orderedItem.name }} (Quantity: {{ orderedItem.quantity }})
+          {{ kitchenOrder.orderedItem}} 
         </ion-item>
       </ion-list>
 
       <h3>Ordered Drinks:</h3>
       <ion-list *ngIf="kitchenOrder.orderedDrinks">
         <ion-item *ngFor="let orderedDrink of kitchenOrder.orderedDrinks">
-          {{ orderedDrink.name }} (Quantity: {{ orderedDrink.quantity }})
+          {{ kitchenOrder.orderedDrink}}
         </ion-item>
       </ion-list>
 
-      <p>Subtotal: {{ kitchenOrder.subtotal | currency:'R ' }}</p>
+      <p>Subtotal: {{ kitchenOrder.subtotal | currency: 'R ' }}</p>
     </ion-card-content>
   </ion-card>
-</ion-content-->
-
+</ion-content>

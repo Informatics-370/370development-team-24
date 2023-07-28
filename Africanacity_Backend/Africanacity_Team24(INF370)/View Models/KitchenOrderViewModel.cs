@@ -11,8 +11,7 @@ namespace Africanacity_Team24_INF370_.View_Models
         public List<string> OrderedItems { get; set; } // List of ordered item names
         public List<string> OrderedDrinks { get; set; }
         public decimal Subtotal { get; set; }
-        public decimal VAT { get; set; }
-        public decimal Discount { get; set; }
+       
 
         // Empty constructor required for deserializationa
         public KitchenOrderViewModel()

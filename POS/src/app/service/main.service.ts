@@ -115,9 +115,9 @@ export class MainService {
   //get all kitchen orders
   //get all kitchen orders
 //get all kitchen orders
-getAllKitchenOrders(): Observable<KitchenOrder[]> {
+  getAllKitchenOrders(): Observable<KitchenOrder[]> {
   return this.httpClient.get<KitchenOrder[]>(`${this.apiUrl}Order/GetAllKitchenOrders`);
-}
+  }
 
 
 

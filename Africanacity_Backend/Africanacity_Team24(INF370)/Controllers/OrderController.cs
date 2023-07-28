@@ -52,13 +52,13 @@ namespace Africanacity_Team24_INF370_.Controllers
 
                 var kitchenItem = new KitchenOrder
                 {
+                    KitchenOrderId = kitchenOrder.KitchenOrderId,
                     TableNumber = kitchenOrder.TableNumber,
                     KitchenOrderNumber = kitchenOrder.KitchenOrderNumber,
                     OrderedItems = string.Join(",", kitchenOrder.OrderedItems),
                     OrderedDrinks = string.Join(",", kitchenOrder.OrderedDrinks),
                     Subtotal = kitchenOrder.Subtotal,
-                    VAT = kitchenOrder.VAT,
-                    Discount = kitchenOrder.Discount,
+                    
                 };
 
 
@@ -68,13 +68,15 @@ namespace Africanacity_Team24_INF370_.Controllers
 
                 return Ok(kitchenItem);
             }
-            catch (Exception)
+
+            catch (Exception ex)
             {
-                return BadRequest("Invalid transaction");
+                var innerExceptionMessage = ex.InnerException?.Message;
+                return BadRequest($"Invalid transaction. Error: {ex.Message}. Inner Exception: {innerExceptionMessage}");
             }
 
-            
-        
+
+
         }
 
 

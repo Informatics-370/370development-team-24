@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Africanacity_Team24_INF370_.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230728115502_Mmino")]
+    [Migration("20230728142310_Mmino")]
     partial class Mmino
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -243,9 +243,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                             DiscountId = 1,
                             Amount = 0.10m,
                             Description = "10% Discount",
-                            End_Date = new DateTime(2023, 8, 7, 13, 55, 1, 558, DateTimeKind.Local).AddTicks(8321),
+                            End_Date = new DateTime(2023, 8, 7, 16, 23, 10, 120, DateTimeKind.Local).AddTicks(4166),
                             Name = "Month end discount",
-                            Start_Date = new DateTime(2023, 7, 28, 13, 55, 1, 558, DateTimeKind.Local).AddTicks(8306)
+                            Start_Date = new DateTime(2023, 7, 28, 16, 23, 10, 120, DateTimeKind.Local).AddTicks(4157)
                         });
                 });
 
@@ -965,9 +965,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<int>("Drink_TypeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("KitchenOrderId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -976,8 +973,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasKey("DrinkId");
 
                     b.HasIndex("Drink_TypeId");
-
-                    b.HasIndex("KitchenOrderId");
 
                     b.ToTable("Drinks");
 
@@ -1164,10 +1159,15 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("KitchenOrderId"), 1L, 1);
 
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("KitchenOrderNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderedDrinks")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderedItems")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -1177,9 +1177,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<string>("TableNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("VAT")
-                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("KitchenOrderId");
 
@@ -1235,9 +1232,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<int?>("Food_TypeFoodTypeId1")
                         .HasColumnType("int");
 
-                    b.Property<int?>("KitchenOrderId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Menu_CategoryId")
                         .HasColumnType("int");
 
@@ -1257,8 +1251,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasIndex("FoodTypeId");
 
                     b.HasIndex("Food_TypeFoodTypeId1");
-
-                    b.HasIndex("KitchenOrderId");
 
                     b.HasIndex("Menu_CategoryId");
 
@@ -1983,10 +1975,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasForeignKey("Drink_TypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.KitchenOrder", null)
-                        .WithMany("OrderedDrinks")
-                        .HasForeignKey("KitchenOrderId");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.MenuItem", b =>
@@ -2000,10 +1988,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.Food_Type", null)
                         .WithMany("MenuItems")
                         .HasForeignKey("Food_TypeFoodTypeId1");
-
-                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.KitchenOrder", null)
-                        .WithMany("OrderedItems")
-                        .HasForeignKey("KitchenOrderId");
 
                     b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.MenuItem_Category", "MenuItem_Category")
                         .WithMany()
@@ -2226,13 +2210,6 @@ namespace Africanacity_Team24_INF370_.Migrations
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Food_Type", b =>
                 {
                     b.Navigation("MenuItems");
-                });
-
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.KitchenOrder", b =>
-                {
-                    b.Navigation("OrderedDrinks");
-
-                    b.Navigation("OrderedItems");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Menu_Type", b =>
