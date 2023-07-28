@@ -55,8 +55,8 @@ namespace Africanacity_Team24_INF370_.Controllers
                     KitchenOrderId = kitchenOrder.KitchenOrderId,
                     TableNumber = kitchenOrder.TableNumber,
                     KitchenOrderNumber = kitchenOrder.KitchenOrderNumber,
-                    OrderedItems = string.Join(",", kitchenOrder.OrderedItems),
-                    OrderedDrinks = string.Join(",", kitchenOrder.OrderedDrinks),
+                    OrderedItems = kitchenOrder.OrderedItems,
+                    OrderedDrinks = kitchenOrder.OrderedDrinks,
                     Subtotal = kitchenOrder.Subtotal,
                     
                 };

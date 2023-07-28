@@ -1032,7 +1032,7 @@ namespace Africanacity_Team24_INF370_.Migrations
             migrationBuilder.InsertData(
                 table: "Discounts",
                 columns: new[] { "DiscountId", "AdministratorId", "Amount", "Description", "End_Date", "Name", "Start_Date" },
-                values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 8, 7, 16, 23, 10, 120, DateTimeKind.Local).AddTicks(4166), "Month end discount", new DateTime(2023, 7, 28, 16, 23, 10, 120, DateTimeKind.Local).AddTicks(4157) });
+                values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 8, 7, 21, 0, 14, 860, DateTimeKind.Local).AddTicks(8730), "Month end discount", new DateTime(2023, 7, 28, 21, 0, 14, 860, DateTimeKind.Local).AddTicks(8714) });
 
             migrationBuilder.InsertData(
                 table: "Drink_Prices",

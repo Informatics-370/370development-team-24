@@ -241,9 +241,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                             DiscountId = 1,
                             Amount = 0.10m,
                             Description = "10% Discount",
-                            End_Date = new DateTime(2023, 8, 7, 16, 23, 10, 120, DateTimeKind.Local).AddTicks(4166),
+                            End_Date = new DateTime(2023, 8, 7, 21, 0, 14, 860, DateTimeKind.Local).AddTicks(8730),
                             Name = "Month end discount",
-                            Start_Date = new DateTime(2023, 7, 28, 16, 23, 10, 120, DateTimeKind.Local).AddTicks(4157)
+                            Start_Date = new DateTime(2023, 7, 28, 21, 0, 14, 860, DateTimeKind.Local).AddTicks(8714)
                         });
                 });
 
