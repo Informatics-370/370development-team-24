@@ -6,8 +6,8 @@ export interface KitchenOrder {
   kitchenOrderId: number;
   tableNumber: string;
   kitchenOrderNumber: string;
-  orderedItems: MenuItem[];
-  orderedDrinks: Drink[];
+  menuItemId: number;
+  drinkId: number;
   subtotal: number;
   vatId: number;
   discountId: number;

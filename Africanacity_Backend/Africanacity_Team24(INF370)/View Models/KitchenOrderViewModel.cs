@@ -8,8 +8,8 @@ namespace Africanacity_Team24_INF370_.View_Models
         public int KitchenOrderId { get; set; }
         public string TableNumber { get; set; }
         public string KitchenOrderNumber { get; set; }
-        public List<MenuItemViewModel> OrderedItems { get; set; } = new List<MenuItemViewModel>();
-        public List<DrinkViewModel> OrderedDrinks { get; set; } = new List<DrinkViewModel>();
+        public List<string> OrderedItems { get; set; } // List of ordered item names
+        public List<string> OrderedDrinks { get; set; }
         public decimal Subtotal { get; set; }
         public decimal VAT { get; set; }
         public decimal Discount { get; set; }
@@ -17,8 +17,10 @@ namespace Africanacity_Team24_INF370_.View_Models
         // Empty constructor required for deserializationa
         public KitchenOrderViewModel()
         {
+            OrderedItems = new List<string>();
+            OrderedDrinks = new List<string>();
         }
 
-      
+
     }
 }

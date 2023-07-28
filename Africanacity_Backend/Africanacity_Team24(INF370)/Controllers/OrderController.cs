@@ -48,32 +48,33 @@ namespace Africanacity_Team24_INF370_.Controllers
         {
             try
             {
-                // Create a new instance of KitchenOrder and map the data from the view model
-                var newKitchenOrder = new KitchenOrder
+
+
+                var kitchenItem = new KitchenOrder
                 {
                     TableNumber = kitchenOrder.TableNumber,
                     KitchenOrderNumber = kitchenOrder.KitchenOrderNumber,
-                    // Map the selected menu item names and drink names to their corresponding properties
-                    OrderedItems = kitchenOrder.OrderedItems.Select(item => item.Name).ToList(),
-                    OrderedDrinks = kitchenOrder.OrderedDrinks.Select(drink => drink.Name).ToList(),
+                    OrderedItems = string.Join(",", kitchenOrder.OrderedItems),
+                    OrderedDrinks = string.Join(",", kitchenOrder.OrderedDrinks),
                     Subtotal = kitchenOrder.Subtotal,
                     VAT = kitchenOrder.VAT,
                     Discount = kitchenOrder.Discount,
-                    
                 };
 
-                    // Save the newKitchenOrder to the database using your DbContext
-                _repository.Add(newKitchenOrder);
+
+
+                _repository.Add(kitchenItem);
                 await _repository.SaveChangesAsync();
 
-                // Return an appropriate response
-                return Ok(new { message = "Kitchen order saved successfully." });
+                return Ok(kitchenItem);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // Handle any exceptions that may occur during processing
-                return BadRequest("Error saving kitchen order: " + ex.Message);
+                return BadRequest("Invalid transaction");
             }
+
+            
+        
         }
 
 

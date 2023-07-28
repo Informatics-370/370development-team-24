@@ -767,6 +767,9 @@ namespace Africanacity_Team24_INF370_.models
                         .HasForeignKey(m => m.FoodTypeId);
 
 
+            
+
+
             // For the Access_UserRole M2M payload (Uncomment code below and run migration to generate tables)
             modelBuilder.Entity<Access>()
 			    .HasMany(t => t.User_Roles)

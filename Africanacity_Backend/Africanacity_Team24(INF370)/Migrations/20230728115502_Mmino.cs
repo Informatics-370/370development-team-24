@@ -1044,7 +1044,7 @@ namespace Africanacity_Team24_INF370_.Migrations
             migrationBuilder.InsertData(
                 table: "Discounts",
                 columns: new[] { "DiscountId", "AdministratorId", "Amount", "Description", "End_Date", "Name", "Start_Date" },
-                values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 8, 6, 15, 8, 8, 907, DateTimeKind.Local).AddTicks(1453), "Month end discount", new DateTime(2023, 7, 27, 15, 8, 8, 907, DateTimeKind.Local).AddTicks(1442) });
+                values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 8, 7, 13, 55, 1, 558, DateTimeKind.Local).AddTicks(8321), "Month end discount", new DateTime(2023, 7, 28, 13, 55, 1, 558, DateTimeKind.Local).AddTicks(8306) });
 
             migrationBuilder.InsertData(
                 table: "Drink_Prices",
