@@ -67,6 +67,6 @@ button{
   }
 
   .search-bar {
-    flex-grow: 1; /* Allow the search bar to expand and take available space */
+    flex-grow: 2; /* Allow the search bar to expand and take available space */
     margin-right: 10px; /* Add some space between the search bar and add icon */
   }
