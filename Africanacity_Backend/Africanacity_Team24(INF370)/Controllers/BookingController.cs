@@ -20,7 +20,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 			_logger = logger;
 		}
 
-		
+
 
 		[HttpGet]
 		[Route("Schedule")]
@@ -71,6 +71,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 				existinBooking.LastName = cvm.LastName;
 				existinBooking.FirstName = cvm.FirstName;
+				existinBooking.Instagram = cvm.Instagram;
 				existinBooking.ContactNumber = cvm.ContactNumber;
 				existinBooking.Email = cvm.Email;
 				existinBooking.Demo = cvm.Demo;
@@ -154,6 +155,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 				{
 					p.BookingId,
 					p.FirstName,
+					p.Instagram,
 					p.LastName,
 					EntertainmentTypeName = p.EntertainmentType.Name,
 					p.ContactNumber,
@@ -185,6 +187,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 				{
 					p.Pending_BookingId,
 					p.FirstName,
+					p.Instagram,
 					p.LastName,
 					EntertainmentTypeName = p.EntertainmentType.Name,
 					p.ContactNumber,
@@ -227,6 +230,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 						var booking = new Pending_Booking
 						{
 							FirstName = formData["firstName"]
+							,
+							Instagram = formData["Instagram"]
 							,
 							LastName = formData["lastName"]
 							,
@@ -282,6 +287,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 						{
 							FirstName = formData["firstName"]
 							,
+							Instagram = formData["Instagram"]
+							,
 							LastName = formData["lastName"]
 							,
 							Email = formData["email"]
@@ -323,9 +330,10 @@ namespace Africanacity_Team24_INF370_.Controllers
 				// Create a new Booking object based on the pending booking
 				var confirmedBooking = new Bookings
 				{
-	
+
 					FirstName = pendingBooking.FirstName,
 					LastName = pendingBooking.LastName,
+					Instagram = pendingBooking.Instagram,
 					Email = pendingBooking.Email,
 					Entertainment_TypeId = pendingBooking.Entertainment_TypeId,
 					Demo = pendingBooking.Demo,
@@ -358,7 +366,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 		[HttpGet]
 		[Route("GetBooking/{bookingId}")]
-		public async Task<IActionResult>GetBookingAsync(int bookingId)
+		public async Task<IActionResult> GetBookingAsync(int bookingId)
 		{
 			try
 			{
@@ -367,6 +375,57 @@ namespace Africanacity_Team24_INF370_.Controllers
 				if (result == null) return NotFound("Booking does not exist. You need to create an booking first");
 
 				return Ok(result);
+			}
+			catch (Exception)
+			{
+				return StatusCode(500, "Internal Server Error. Please contact support");
+			}
+		}
+
+
+
+		//[HttpGet("GetBookingInfor/{email}")]
+		//public async Task<IActionResult> GetBookingInfor(string email)
+		//{
+		//	try
+		//	{
+		//		var result = await _repository.GetBookingInforAsync(email);
+
+		//		if (result == null || result.Count == 0)
+		//			return NotFound("Booking does not exist. You need to create a booking first");
+
+		//		return Ok(result);
+		//	}
+		//	catch (Exception)
+		//	{
+		//		return StatusCode(500, "Internal Server Error. Please contact support");
+		//	}
+		//}
+
+		[HttpGet("GetBookingInfor/{email}")]
+		public async Task<IActionResult> GetBookingInfor(string email)
+		{
+			try
+			{
+				var result = await _repository.GetBookingInforAsync(email);
+
+				if (result == null || result.Count == 0)
+					return NotFound("Booking does not exist. You need to create a booking first");
+
+				// Map the entertainmenttype to entertainmenttypeName in the response
+				var mappedResult = result.Select(booking => new
+				{
+					booking.BookingId,
+					booking.FirstName,
+					booking.LastName,
+					booking.Email,
+					booking.Instagram,
+					booking.ContactNumber,
+					booking.Demo,
+					EntertainmentTypeName = booking.EntertainmentType.Name // Assuming the entertainment type name is stored in the Name property of the EntertainmentType
+				});
+
+				return Ok(mappedResult);
 			}
 			catch (Exception)
 			{

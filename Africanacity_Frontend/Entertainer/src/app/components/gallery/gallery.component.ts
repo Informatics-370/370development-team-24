@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
 import { Booked } from 'src/app/models/Booked';
 import { Booking } from 'src/app/models/Booking';
 import { BookingService } from 'src/app/services/Booking.service';
@@ -9,16 +8,15 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
 
 @Component({
-  selector: 'app-past-booking',
-  templateUrl: './past-booking.component.html',
-  styleUrls: ['./past-booking.component.scss']
+  selector: 'app-gallery',
+  templateUrl: './gallery.component.html',
+  styleUrls: ['./gallery.component.scss']
 })
-export class PastBookingComponent implements OnInit {
+export class GalleryComponent implements OnInit {
 
   public users:any = [];
-  email!: string;
   bookings: Booked[] = [];
-  filteredbookings: Booked[] =[]; 
+  filteredbookings: Booked[] = []; 
   public role!:string;
 
   public fullName : string = "";
@@ -27,20 +25,9 @@ export class PastBookingComponent implements OnInit {
     private auth: AuthService, 
     private userStore: UserStoreService,
     private book: BookingService,
-    private snackBar: MatSnackBar,
-    private route: ActivatedRoute) { }
+    private snackBar: MatSnackBar,) { }
 
   ngOnInit() {
-
-    this.route.params.subscribe(params => {
-      const email = params['email'];
-      if (email) {
-        this.getBooking(email);
-      } else {
-        console.error('Username is undefined');
-      }
-    });
-
     this.api.getUsers()
     .subscribe(res=>{
     this.users = res;
@@ -57,6 +44,8 @@ export class PastBookingComponent implements OnInit {
       const roleFromToken = this.auth.getRoleFromToken();
       this.role = val || roleFromToken;
     });
+
+    this.book.getBooks().subscribe((books:any) => {this.filteredbookings = books});
 
     this.filteredbookings= this.bookings
     console.log(this.filteredbookings)
@@ -122,29 +111,4 @@ export class PastBookingComponent implements OnInit {
     console.log(this.selectedBooking);
   }
 
-  // getBooking(email: string) {
-  //   this.book.GetBookingInfor(email)
-  //     .subscribe(
-  //       (data: any) => {
-  //         this.filteredbookings = data;
-  //       },
-  //       (error: any) => {
-  //         console.error('An error occurred:', error);
-  //       }
-  //     );
-  // }
-
- getBooking(email: string) {
-  this.book.GetBookingInfor(email).subscribe(
-    (data: Booked[]) => {
-      console.log(data); // Check the data received from the API
-      this.filteredbookings = data;
-    },
-    (error: any) => {
-      console.error('An error occurred:', error);
-    }
-  );
-}
-  
-  
 }

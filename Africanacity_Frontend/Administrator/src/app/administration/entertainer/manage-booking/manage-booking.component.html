@@ -33,7 +33,7 @@
                       <th scope="col">Full Name</th>
                       <th scope="col">Email</th>
                       <th scope="col">Mobile Number</th>
-                      <th scope="col">Time</th>
+                      <th scope="col">Instagram</th>
                       <th scope="col">Entertainment Type</th>
                       <th scope="col">Action</th>
                   </tr>
@@ -41,7 +41,7 @@
               <tbody>
                   <tr *ngFor="let booking of filteredbookings">
                       <td>{{booking.pending_BookingId}}</td>
-                      <td>{{booking.firstName}}</td>
+                      <td></td>
                       <td>
                         <div class="image-container">
                           <img class="pdemo" src='data:image/png;base64,{{booking.demo}}'>
@@ -57,7 +57,7 @@
                       <td>{{booking.firstName}} {{booking.lastName}}</td>
                       <td>{{booking.email}}</td>
                       <td>{{booking.contactNumber}}</td>
-                      <td>{{booking.contactNumber}}</td>
+                      <td>{{booking.instagram}}</td>
                       <td>{{booking.entertainmentTypeName}}</td>
                       <td>
                         <a class="button-link" style="color: black; margin-right: 10px;" (click)="acceptBooking(booking.pending_BookingId)" aria-hidden="true"> Accept</a> 

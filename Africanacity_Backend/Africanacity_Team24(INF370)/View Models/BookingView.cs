@@ -12,6 +12,8 @@ namespace Africanacity_Team24_INF370_.models
 		[DataType(DataType.EmailAddress)]
 		public string Email { get; set; }
 
+		public string Instagram { get; set; }
+
 		[DataType(DataType.PhoneNumber)]
 		[StringLength(10)]
 		public string ContactNumber { get; set; }

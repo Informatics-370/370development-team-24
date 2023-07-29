@@ -37,6 +37,8 @@ namespace Africanacity_Team24_INF370_.models
 		// Booking
 		Task<Bookings[]> GetBookingsAsync();
 		Task<Bookings> GetBookingAsync(int BookingId);
+		//Task<Bookings> GetBookingInforAsync(string email);
+		Task<List<Bookings>> GetBookingInforAsync(string email);
 		Task<Entertainment_Type[]> GetEntertainmentTypesAsync();
 		Task<Schedule[]> GetSchedulesAsync();
 

@@ -32,7 +32,8 @@ export class BookingComponent implements OnInit {
    lastName: ['', Validators.required],
    contactNumber: [null, Validators.required],
    entertainmenttype: [null, Validators.required],
-   email: ['', Validators.required]
+   email: ['', Validators.required],
+   Instagram: ['', Validators.required]
  })
 
  constructor(private apiService: BookingService, 
@@ -87,6 +88,7 @@ GetAllEntertainment(){
      this.formData.append('lastName', this.bookingForm.get('lastName')!.value);
      this.formData.append('contactNumber', this.bookingForm.get('contactNumber')!.value);
      this.formData.append('email', this.bookingForm.get('email')!.value);
+     this.formData.append('Instagram', this.bookingForm.get('Instagram')!.value);
      this.formData.append('entertainmenttype', this.bookingForm.get('entertainmenttype')!.value);
      
      this.apiService.addBooking(this.formData).subscribe(() => {
@@ -106,6 +108,7 @@ GetAllEntertainment(){
    this.formData.delete("lastName");
    this.formData.delete("contactNumber");
    this.formData.delete("email");
+   this.formData.delete("Intsagram");
    this.formData.delete("entertainmenttype");
  }
 

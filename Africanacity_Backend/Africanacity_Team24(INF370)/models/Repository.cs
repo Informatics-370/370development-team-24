@@ -135,6 +135,19 @@ namespace Africanacity_Team24_INF370_.models
 			IQueryable<Bookings> query = _appDbContext.bookings.Where(d => d.BookingId == BookingId);
 			return await query.FirstOrDefaultAsync();
 		}
+		//public async Task<Bookings> GetBookingInforAsync(string email)
+		//{
+		//	IQueryable<Bookings> query = _appDbContext.bookings.Where(d => d.Email == email);
+		//	return await query.FirstOrDefaultAsync();
+		//}
+		// Assuming you have a DbSet<Bookings> in your DbContext
+		public async Task<List<Bookings>> GetBookingInforAsync(string email)
+		{
+			return await _appDbContext.bookings
+				.Include(booking => booking.EntertainmentType)
+				.Where(booking => booking.Email == email)
+				.ToListAsync();
+		}
 
 
 		public async Task<Schedule[]> GetSchedulesAsync()

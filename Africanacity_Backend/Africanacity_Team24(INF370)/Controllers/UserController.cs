@@ -35,6 +35,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 		private readonly AppDbContext _authContext;
 		private readonly IEmailService _emailService;
 		private readonly IRepository _repository;
+	
 		public UserController(AppDbContext context, IRepository repository, IConfiguration configuration, IEmailService emailService)
 		{
 			_authContext = context;
@@ -107,7 +108,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 		}
 
 		private Task<bool> CheckEmailExistAsync(string? email)
-				=> _authContext.Users.AnyAsync(x => x.Email == email);
+			=> _authContext.Users.AnyAsync(x => x.Email == email);
 
 		private Task<bool> CheckUsernameExistAsync(string? username)
 			=> _authContext.Users.AnyAsync(x => x.Email == username);
@@ -137,8 +138,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 				new Claim(ClaimTypes.Surname,$"{user.LastName}"),
 				new Claim(ClaimTypes.WindowsAccountName,$"{user.ContactNumber}"),
 				new Claim(ClaimTypes.Email,$"{user.Email}"),
-				new Claim(ClaimTypes.Actor ,$"{user.PhysicalAddress }"),						
-				new Claim(ClaimTypes.PrimarySid ,$"{user.Password }")
+				new Claim(ClaimTypes.Actor ,$"{user.PhysicalAddress }")
 
 			});
 
@@ -147,7 +147,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 			var tokenDescriptor = new SecurityTokenDescriptor
 			{
 				Subject = identity,
-				Expires = DateTime.Now.AddSeconds(1000000),
+				Expires = DateTime.Now.AddMinutes(15),
 				SigningCredentials = credentials
 			};
 			var token = jwtTokenHandler.CreateToken(tokenDescriptor);
@@ -190,7 +190,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 		}
 
 
-		[Authorize]
+
+		//[Authorize]
 		[HttpGet]
 		public async Task<ActionResult<User>> GetAllUsers()
 		{
@@ -255,7 +256,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 		public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)
 		{
 			var newToken = resetPasswordDto.EmailToken.Replace(" ", "+");
-			var user = await _authContext.Users.AsNoTracking().FirstOrDefaultAsync(a => a.Email == resetPasswordDto.Email);
+			var user = await _authContext.Admins.AsNoTracking().FirstOrDefaultAsync(a => a.Email == resetPasswordDto.Email);
 			if (user == null)
 			{
 				return NotFound(new
@@ -284,37 +285,29 @@ namespace Africanacity_Team24_INF370_.Controllers
 			});
 		}
 
-		//[HttpPost]
-		//[Route("Change-password")]
-		//public async Task<IActionResult> ChangePassword(UpdatePasswordModel resetPasswordDto )
-		//{
-
-		//	if (string.IsNullOrEmpty(resetPasswordDto.OldPassword))
-		//	{
-		//		return BadRequest("Old Password must be supplied for password change.");
-		//	}
-
-		//	if (!ModelState.IsValid)
-		//	{
-		//		return BadRequest(resetPasswordDto);
-		//	}
-		//	if (user == null)
-		//	{
-		//		return NotFound(new
-		//		{
-		//			StatusCode = 404,
-		//			Message = "User does not exist"
-		//		});
-		//	}
-		//	user.Password = PasswordHasher.HashPassword(resetPasswordDto.NewPassword);
-		//	_authContext.Entry(user).State = EntityState.Modified;
-		//	await _authContext.SaveChangesAsync();
-		//	return Ok(new
-		//	{
-		//		StatusCode = 200,
-		//		Message = "Password successfully reset"
-		//	});
-		//}
+		[HttpPost]
+		[Route("Change-password")]
+		public async Task<IActionResult> ChangePassword(ResetPasswordDto resetPasswordDto)
+		{
+			var newToken = resetPasswordDto.EmailToken.Replace(" ", "+");
+			var user = await _authContext.Users.AsNoTracking().FirstOrDefaultAsync(a => a.Email == resetPasswordDto.Email);
+			if (user == null)
+			{
+				return NotFound(new
+				{
+					StatusCode = 404,
+					Message = "User does not exist"
+				});
+			}
+			user.Password = PasswordHasher.HashPassword(resetPasswordDto.NewPassword);
+			_authContext.Entry(user).State = EntityState.Modified;
+			await _authContext.SaveChangesAsync();
+			return Ok(new
+			{
+				StatusCode = 200,
+				Message = "Password successfully reset"
+			});
+		}
 
 		//getting User using id
 		[HttpGet]
@@ -334,6 +327,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 		}
 
+
 		//getting User using id
 		[HttpGet]
 		[Route("ProfileIn")]
@@ -342,21 +336,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 			return Ok(await _authContext.Users.ToListAsync());
 		}
 
-		[HttpGet("GetUser/{username}")]
-		public IActionResult GetProfileInformation(string username)
-		{
-			// Fetch profile information from the database based on the username
-			var profile = _authContext.Users.FirstOrDefault(p => p.Username == username);
-
-			if (profile == null)
-			{
-				return NotFound(); // or return an appropriate response for a non-existent profile
-			}
-
-			return Ok(profile);
-		}
-
-		// Edit user
+		// Edit Entertainer
 		[HttpPut]
 		[Route("EditUser/{UserId}")]
 		public async Task<ActionResult<User>> EditUser(int UserId, User ftvm)
@@ -387,7 +367,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 			return BadRequest("Your request is invalid");
 		}
 
-		// Delete User
+		// Delete Entertainer
 		[HttpDelete]
 		[Route("DeleteUser/{UserId}")]
 		public async Task<IActionResult> DeleteUser(int UserId)
@@ -397,7 +377,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 				var existingUser = await _repository.ViewProfileAsync(UserId);
 
 				// fix error message
-				if (existingUser == null) return NotFound($"The user does not exist");
+				if (existingUser == null) return NotFound($"The userdoes not exist");
 
 				_repository.Delete(existingUser);
 
@@ -413,7 +393,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 			return BadRequest("Your request is invalid");
 		}
 
-		[HttpPost]
+	
+	[HttpPost]
 		[Route("Changepassword")]
 		public async Task<IActionResult> ChangePassword([FromBody] UpdatePasswordModel request)
 		{

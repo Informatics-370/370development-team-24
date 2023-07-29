@@ -5,6 +5,7 @@ export class Booked{
   email! : string;
   contactNumber! : string;
   demo!: string;
+  instagram!: string;
   entertainmenttype!: number;
   entertainmentTypeName!: string;
   }

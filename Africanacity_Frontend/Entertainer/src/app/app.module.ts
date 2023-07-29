@@ -22,6 +22,7 @@ import { AboutComponent } from './General Home/about/about.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './models/material.modules';
 import { EditBookingComponent } from './components/edit-booking/edit-booking.component';
+import { GalleryComponent } from './components/gallery/gallery.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { EditBookingComponent } from './components/edit-booking/edit-booking.com
     ChangePasswordComponent,
     WelcomeComponent,
     AboutComponent,
-    EditBookingComponent
+    EditBookingComponent,
+    GalleryComponent
   ],
   imports: [
     BrowserModule,

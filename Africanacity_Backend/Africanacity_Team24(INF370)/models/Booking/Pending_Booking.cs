@@ -8,6 +8,7 @@ namespace Africanacity_Team24_INF370_.models.Booking
 		public int Pending_BookingId { get; set; }
 		public string? FirstName { get; set; }
 		public string? LastName { get; set; }
+		public string? Instagram { get; set; }
 
 		[DataType(DataType.EmailAddress)]
 		public string? Email { get; set; }

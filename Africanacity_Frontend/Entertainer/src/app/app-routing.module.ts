@@ -14,6 +14,7 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { WelcomeComponent } from './General Home/about/welcome/welcome.component';
 import { AboutComponent } from './General Home/about/about.component';
 import { EditBookingComponent } from './components/edit-booking/edit-booking.component';
+import { GalleryComponent } from './components/gallery/gallery.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'welcome', pathMatch:'full'},
@@ -30,6 +31,7 @@ const routes: Routes = [
   {path:'welcome',component:WelcomeComponent},
   {path:'past-booking', component: PastBookingComponent, canActivate:[AuthGuard]},
   {path:'edit-booking/:id', component:  EditBookingComponent, canActivate:[AuthGuard]},
+  {path:'gallery', component:  GalleryComponent, canActivate:[AuthGuard]}
 
 ];
 

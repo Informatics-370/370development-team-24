@@ -68,6 +68,9 @@ padding: 20px;
             <label>Phone Number 
             <input class="form-control" placeholder="Enter phoneNumber" [required]="true" name="contactNumber" formControlName="contactNumber" />
             </label>
+            <label>Instagram 
+              <input class="form-control" placeholder="Enter instagram handle" [required]="true" name="Instagram" formControlName="Instagram" />
+              </label>
              </fieldset>
           <fieldset>
             <label for="entertainmenttype"> Entertainment Type
@@ -75,12 +78,6 @@ padding: 20px;
                 <option *ngFor="let item of entertainmentTypeData" [value]="item.entertainment_TypeId">{{ item.name }}</option>
               </select>
             </label><br>        
-              <!-- <label>Timeslot
-              <label><input type="radio" name="time-type" class="inline" /> Single Room</label>
-              <label><input type="radio" name="time-type" class="inline" /> Double Room</label>
-              <label><input type="radio" name="time-type" class="inline" /> Triple Room</label>
-              <label><input type="radio" name="time-type" class="inline" /> Quad Bedroom</label>
-            </label><br> -->
             <div>
               <input formControlName="demo" type="file" id="demo" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;"> Choose file
               <button color="primary" (click)="file.click()">Upload File</button>

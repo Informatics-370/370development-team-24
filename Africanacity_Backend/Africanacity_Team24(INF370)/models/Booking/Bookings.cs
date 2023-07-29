@@ -12,6 +12,7 @@ namespace Africanacity_Team24_INF370_.models.Booking
 		public string Description { get; set; } = string.Empty;
 		public string? FirstName { get; set; }
 		public string? LastName { get; set; }
+		public string? Instagram { get; set; }
 		public string? Email { get; set; }
 		public string? ContactNumber { get; set; }
 		public string? Demo { get; set; }
