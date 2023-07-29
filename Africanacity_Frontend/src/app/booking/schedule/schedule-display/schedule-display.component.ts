@@ -16,7 +16,7 @@ import { DataService } from 'src/app/service/data.Service';
 export class ScheduleDisplayComponent implements OnInit {
  
   private dialogRef: any;
-  newEvents: any[] = []; 
+  //newEvents: any[] = []; 
   constructor(private dialog: MatDialog, private dataService: DataService){}
 
 
@@ -36,12 +36,18 @@ export class ScheduleDisplayComponent implements OnInit {
     );
   }
 
+  newEvents: any = [
+    {title: 'music slot', date: '2023-07-19',color:'#2196F3'},
+    {title: 'dance', date: '2023-07-23',color:'#2196F3'},
+    {title: 'poet slot', date: '2023-07-05',color:'#0000FF'},
+  ];
+
   calendarOptions: CalendarOptions = {
    initialView: 'dayGridMonth',
      plugins: [dayGridPlugin, interactionPlugin],
      dateClick: this.onDateClick.bind(this),
      events: this.newEvents,
-     eventColor: 'color',
+     //eventColor: 'color',
  };
 
  onDateClick(date: { dateStr: string }) {
