@@ -6,7 +6,6 @@ import { HomeComponent } from './administration/home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './login/register/register.component';
 import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
@@ -57,8 +56,10 @@ import { EditInventoryitemComponent } from './administration/Inventory Managemen
 import { SelectedInventorytypeComponent } from './administration/Inventory Management/Inventory Items/view-inventoryitems/selected-inventorytype/selected-inventorytype.component';
 import { ChecklistComponent } from './administration/Inventory Management/Inventory Items/checklist/checklist.component';
 import { InventoryStocktypeComponent } from './administration/Inventory Management/Inventory Items/inventory-stocktype/inventory-stocktype.component';
-
-
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ReceiveOrderComponent } from './administration/Inventory Management/Inventory Items/receive-order/receive-order.component';
+import { ViewOrdersComponent } from './administration/Inventory Management/Inventory Items/receive-order/view-orders/view-orders/view-orders.component';
 
 
 @NgModule({
@@ -107,7 +108,9 @@ import { InventoryStocktypeComponent } from './administration/Inventory Manageme
     EditIntventorytypeComponent, 
     EditInventoryitemComponent, 
     SelectedInventorytypeComponent, 
-    ChecklistComponent, InventoryStocktypeComponent
+    ChecklistComponent, InventoryStocktypeComponent,
+    ReceiveOrderComponent,
+    ViewOrdersComponent
   ],
 
   imports: [
@@ -121,7 +124,9 @@ import { InventoryStocktypeComponent } from './administration/Inventory Manageme
     Ng2SearchPipeModule,
     MatSelectModule,
     MatSnackBarModule,
-    MatIconModule
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule
 
   ],
   providers: [DataService],

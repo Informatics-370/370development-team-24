@@ -44,6 +44,8 @@ import { EditInventoryitemComponent } from './administration/Inventory Managemen
 import { SelectedInventorytypeComponent } from './administration/Inventory Management/Inventory Items/view-inventoryitems/selected-inventorytype/selected-inventorytype.component';
 import { ChecklistComponent } from './administration/Inventory Management/Inventory Items/checklist/checklist.component';
 import { InventoryStocktypeComponent } from './administration/Inventory Management/Inventory Items/inventory-stocktype/inventory-stocktype.component';
+import { ReceiveOrderComponent } from './administration/Inventory Management/Inventory Items/receive-order/receive-order.component';
+import { ViewOrdersComponent } from './administration/Inventory Management/Inventory Items/receive-order/view-orders/view-orders/view-orders.component';
 
 //import { EditMenuItemCategoryComponent } from './administration/Menu Item Category/edit-menu-item-category/edit-menu-item-category.component';
 //import { CreateMenuItemCategoryComponent } from './administration/Menu Item Category/create-menu-item-category/create-menu-item-category.component';
@@ -51,7 +53,7 @@ import { InventoryStocktypeComponent } from './administration/Inventory Manageme
 const routes: Routes = [
   // to open the app to open on this specific page
   // open on this page
-  { path: '', component: HomeComponent },
+  { path: '', component: ViewOrdersComponent },
   { path: 'add-employee', component: AddEmployeeComponent }, // for add employee page
   { path: 'edit-employee/:id', component: EditEmployeeComponent},//Edit employee
   { path: 'view-employees', component: ViewEmployeesComponent }, // for view employees page
@@ -95,6 +97,8 @@ const routes: Routes = [
   {path: 'selected-inventorytype', component: SelectedInventorytypeComponent},
   {path: 'checklist', component:ChecklistComponent},
   {path: 'inventory-stocktype', component: InventoryStocktypeComponent},
+  {path: 'receive-order/:id', component:ReceiveOrderComponent},
+  {path: 'view-orders', component:ViewOrdersComponent},
   {path: '', redirectTo: 'login', pathMatch:'full'},
   
 ];

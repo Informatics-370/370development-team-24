@@ -4,6 +4,9 @@ import { catchError, map, Observable, Subject, throwError } from 'rxjs';
 import { InventoryType } from '../shared/inventorytype';
 import { InventoryItem } from '../shared/inventoryitem';
 import { StockTake } from '../shared/stocktake';
+import { BehaviorSubject} from 'rxjs';
+import { Supplier } from '../shared/supplier';
+import { Supplier_Inventory } from '../shared/supplieritem';
 
 @Injectable({
     providedIn: 'root'
@@ -13,6 +16,11 @@ import { StockTake } from '../shared/stocktake';
     apiUrl = 'http://localhost:49991/api/'
     private inventoryItems: InventoryItem[] = [];
     private checklistItems: InventoryItem[] = [];
+    // private inventoryItemsChanged$ = new BehaviorSubject<InventoryItem[]>([]);
+    public inventoryItemsChanged$ = new Subject<InventoryItem[]>();
+
+  // ... Your existing code ...
+  
   
     httpOptions ={
       headers: new HttpHeaders({
@@ -129,19 +137,19 @@ import { StockTake } from '../shared/stocktake';
       return this.checklistItems;
     }
     
-    addToChecklist(item: InventoryItem) {
-      // Check if the item is already in the checklist
-      const existingItem = this.checklistItems.find((checklistItem) => checklistItem.inventory_ItemId === item.inventory_ItemId);
-      if (existingItem) {
-        // Item already exists in the checklist, handle accordingly (e.g., show error message)
-        console.error('Item already exists in the checklist.');
-        return;
-      }
+    // addToChecklist(item: InventoryItem) {
+    //   // Check if the item is already in the checklist
+    //   const existingItem = this.checklistItems.find((checklistItem) => checklistItem.inventory_ItemId === item.inventory_ItemId);
+    //   if (existingItem) {
+    //     // Item already exists in the checklist, handle accordingly (e.g., show error message)
+    //     console.error('Item already exists in the checklist.');
+    //     return;
+    //   }
   
-      // Add the item to the checklist
-      this.checklistItems.push(item);
-      console.log('Item added to the checklist:', item);
-    }
+    //   // Add the item to the checklist
+    //   this.checklistItems.push(item);
+    //   console.log('Item added to the checklist:', item);
+    // }
 
     //Submit Stock Take 
  
@@ -165,5 +173,64 @@ import { StockTake } from '../shared/stocktake';
         })
       );
     }
+    addToChecklist(item: InventoryItem) {
+      // Check if the item is already in the checklist
+      const existingItem = this.checklistItems.find(
+        (checklistItem) => checklistItem.inventory_ItemId === item.inventory_ItemId
+      );
+      if (existingItem) {
+        // Item already exists in the checklist, update its properties (e.g., quantity)
+        existingItem.quantity = item.quantity;
+      } else {
+        // Add the item to the checklist
+        this.checklistItems.push(item);
+        console.log('Item added to the checklist:', item);
+      }
+  
+      // Emit changes to the checklistItems
+      this.emitInventoryItemsChanged(this.checklistItems);
+    }
     
+  
+    // ... Your existing code ...
+  
+    emitInventoryItemsChanged(items: InventoryItem[]) {
+      this.inventoryItemsChanged$.next(items);
+    }
+  
+    // Observable to subscribe to changes in inventory items
+    get inventoryItemsChanged(): Observable<InventoryItem[]> {
+      return this.inventoryItemsChanged$.asObservable();
+    }
+
+    getSuppliersFromInventoryItem(item: InventoryItem): Observable<Supplier[]> {
+      // Implement a method to retrieve the suppliers related to the inventory item.
+      // For example, you can make an API call to get the suppliers based on item ID.
+      // Replace the URL with your actual API endpoint to fetch suppliers for the given item ID.
+      return this.httpClient.get<Supplier[]>(`${this.apiUrl}Suppliers/GetSuppliersByItemId/${item.inventory_ItemId}`)
+        .pipe(
+          catchError(error => {
+            console.error('Error fetching suppliers:', error);
+            return [];
+          })
+        );
+    }
+
+    GetAllSuppliers(): Observable<any>{
+      return this.httpClient.get(`${this.apiUrl}Supplier/GetAllSuppliers`)
+      .pipe(map(result => result))
+    }
+    
+    GetInventoryItemByName(itemName: string): Observable<InventoryItem> {
+      return this.httpClient.get<InventoryItem>(`${this.apiUrl}InventoryItem/GetInventoryItemByName/${itemName}`);
+    }
+
+    AddReceivedOrder(receiveorder: Supplier_Inventory): Observable<any> {
+      return this.httpClient.post(`${this.apiUrl}InventoryItem/AddReceivedOrder`, receiveorder, this.httpOptions);
+    }
+  
+    GetAllInventoryOrders(): Observable<Supplier_Inventory[]> {
+      return this.httpClient.get<Supplier_Inventory[]>(`${this.apiUrl}InventoryItem/GetAllInventoryOrders`)
+        .pipe(map(result => result));
+    }
 }

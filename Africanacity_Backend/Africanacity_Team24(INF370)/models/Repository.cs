@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Africanacity_Team24_INF370_.models.Inventory;
 using System.Linq;
 
+
 namespace Africanacity_Team24_INF370_.models
 {
 	public class Repository: IRepository
@@ -244,6 +245,12 @@ namespace Africanacity_Team24_INF370_.models
             return await query.ToArrayAsync();
         }
 
+        public async Task<Supplier_Inventory[]> GetAllInventoryOrdersAsync()
+        {
+            IQueryable<Supplier_Inventory> query = _appDbContext.Supplier_Inventorys.Include(i => i.Inventory_Item).Include(i => i.Supplier);
+
+            return await query.ToArrayAsync();
+        }
 
     }
 }

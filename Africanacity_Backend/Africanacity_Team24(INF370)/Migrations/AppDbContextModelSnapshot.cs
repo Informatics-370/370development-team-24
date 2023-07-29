@@ -749,16 +749,11 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int?>("StockTake_Id")
-                        .HasColumnType("int");
-
                     b.HasKey("Inventory_ItemId");
 
                     b.HasIndex("AdministratorId");
 
                     b.HasIndex("Inventory_TypeId");
-
-                    b.HasIndex("StockTake_Id");
 
                     b.ToTable("Inventory_Items");
 
@@ -888,53 +883,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.StockTake", b =>
-                {
-                    b.Property<int>("StockTake_Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StockTake_Id"), 1L, 1);
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("StockQuantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("StockTake_Id");
-
-                    b.ToTable("StockTakes");
-                });
-
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.StockTakeItem", b =>
-                {
-                    b.Property<int>("StockTakeItemId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StockTakeItemId"), 1L, 1);
-
-                    b.Property<string>("DifferenceDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("InventoryItemId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StockTakeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StockTakeQuantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("StockTakeItemId");
-
-                    b.HasIndex("StockTakeId");
-
-                    b.ToTable("StockTakeItems");
-                });
-
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier", b =>
                 {
                     b.Property<int>("SupplierId")
@@ -1022,15 +970,58 @@ namespace Africanacity_Team24_INF370_.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier_Inventory", b =>
+                {
+                    b.Property<int>("SupplierItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SupplierItemId"), 1L, 1);
+
+                    b.Property<int>("Inventory_ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Ordered_Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Ordered_Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Received_Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SupplierId")
+                        .HasColumnType("int");
+
+                    b.HasKey("SupplierItemId");
+
+                    b.HasIndex("Inventory_ItemId");
+
+                    b.HasIndex("SupplierId");
+
+                    b.ToTable("Supplier_Inventorys");
+
+                    b.HasData(
+                        new
+                        {
+                            SupplierItemId = 1,
+                            Inventory_ItemId = 1,
+                            Ordered_Date = new DateTime(2023, 7, 29, 0, 0, 0, 0, DateTimeKind.Local),
+                            Ordered_Quantity = 33,
+                            Received_Date = new DateTime(2023, 7, 29, 0, 0, 0, 0, DateTimeKind.Local),
+                            SupplierId = 1
+                        });
+                });
+
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier_InventoryItem", b =>
                 {
-                    b.Property<int>("Inventory_ItemsInventory_ItemId")
+                    b.Property<int?>("Inventory_ItemsInventory_ItemId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SuppliersSupplierId")
+                    b.Property<int?>("SuppliersSupplierId")
                         .HasColumnType("int");
 
-                    b.HasKey("Inventory_ItemsInventory_ItemId", "SuppliersSupplierId");
+                    b.HasIndex("Inventory_ItemsInventory_ItemId");
 
                     b.HasIndex("SuppliersSupplierId");
 
@@ -1775,22 +1766,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.StockTake", null)
-                        .WithMany("Inventory_Items")
-                        .HasForeignKey("StockTake_Id");
-
                     b.Navigation("Inventory_Type");
-                });
-
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.StockTakeItem", b =>
-                {
-                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.StockTake", "StockTake")
-                        .WithMany("StockTakeItems")
-                        .HasForeignKey("StockTakeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("StockTake");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier", b =>
@@ -1808,19 +1784,34 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Navigation("Supplier_Type");
                 });
 
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier_Inventory", b =>
+                {
+                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.Inventory_Item", "Inventory_Item")
+                        .WithMany("Supplier_Inventorys")
+                        .HasForeignKey("Inventory_ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.Supplier", "Supplier")
+                        .WithMany("Supplier_Inventorys")
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Inventory_Item");
+
+                    b.Navigation("Supplier");
+                });
+
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier_InventoryItem", b =>
                 {
                     b.HasOne("Africanacity_Team24_INF370_.models.Inventory.Inventory_Item", null)
                         .WithMany()
-                        .HasForeignKey("Inventory_ItemsInventory_ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Inventory_ItemsInventory_ItemId");
 
                     b.HasOne("Africanacity_Team24_INF370_.models.Inventory.Supplier", null)
                         .WithMany()
-                        .HasForeignKey("SuppliersSupplierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SuppliersSupplierId");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Drink", b =>
@@ -2037,16 +2028,19 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Navigation("Schedules");
                 });
 
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Inventory_Item", b =>
+                {
+                    b.Navigation("Supplier_Inventorys");
+                });
+
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Inventory_Type", b =>
                 {
                     b.Navigation("Inventory_Items");
                 });
 
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.StockTake", b =>
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier", b =>
                 {
-                    b.Navigation("Inventory_Items");
-
-                    b.Navigation("StockTakeItems");
+                    b.Navigation("Supplier_Inventorys");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier_Type", b =>

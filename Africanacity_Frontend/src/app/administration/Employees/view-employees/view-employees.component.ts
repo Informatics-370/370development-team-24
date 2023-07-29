@@ -4,8 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Employee } from 'src/app/shared/employee';
 import { EmployeeService } from 'src/app/service/employee.service';
-
-
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import { saveAs } from 'file-saver'; // Import file-saver for saving the PDF
 
 @Component({
   selector: 'app-view-employees',
@@ -89,6 +90,33 @@ deleteItemFromServer(): void {
     this.employeeservice.DeleteEmployee(employeeId).subscribe(result => {
       this.deleteItem();
       });
+    }
+    downloadPDF() {
+      const doc = new jsPDF();
+      const headers = [['ID', 'Name', 'Surname', 'Role', 'Email', 'Phone Number', 'Address']];
+      
+      // Map the checklistItems to generate the data array
+      const data = this.employees.map(employee => [employee.employeeId, employee.firstName, employee.surname, employee.employeeRole, employee.email_Address, employee.phoneNumber, employee.physical_Address]);
+    
+      doc.setFontSize(12);
+    
+      // Generate the table using autoTable
+      // startY is the initial position for the table
+      autoTable(doc, {
+        head: headers,
+        body: data,
+        startY: 20,
+        // Other options for styling the table if needed
+      });
+      
+      // Convert the PDF blob to a Base64 string
+      const pdfBlob = doc.output('blob');
+    
+      // Create a file-saver Blob object
+      const file = new Blob([pdfBlob], { type: 'application/pdf' });
+    
+      // Save the Blob to a file
+      saveAs(file, 'employee_listing.pdf');
     }
 }
 

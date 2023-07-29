@@ -16,7 +16,7 @@
 } */
 
 table{
-    padding-top: 60px;
+    padding-top: 30px;
     padding-right: 1000px;
 }
 .form-control {
@@ -33,7 +33,7 @@ table{
 
 .table-striped>tbody>tr:nth-child(odd)>td,
 .table-striped>tbody>tr:nth-child(odd)>th {
-  background-color: lightgray;
+  background-color: rgb(255, 249, 249);
   color: rgb(0, 0, 0);
 }
 button{
@@ -57,11 +57,12 @@ button{
 
 .outlined-table th,
 .outlined-table td {
-  border: 1px solid rgb(165, 113, 207);; 
-  padding: 10px; 
+  border: 1px solid rgb(0, 0, 0);
+  padding: 10px;
 }
-.table-container{
-    margin-top: 20px
+.table-container {
+  margin-top: 10px;
+  padding-top: 40px; /* Add some padding to the top to avoid overlapping with the search bar */
 }
 .table-hover tr:hover {
     background-color: grey;
@@ -84,6 +85,9 @@ button{
   }
   .icon-cell {
     text-align: center;
+  }
+  .row-ordered {
+    background-color: rgb(193, 225, 193); /* Green background color */
   }
   
 

@@ -7,5 +7,6 @@ export class InventoryItem{
     quantity!: number;
     stockTakeQuantity!: number;
     isChecked!: boolean;
+    ordered: boolean = false;
 
 }

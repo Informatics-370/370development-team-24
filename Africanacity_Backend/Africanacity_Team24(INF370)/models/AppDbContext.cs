@@ -51,7 +51,9 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<Supplier> Suppliers { get; set; }
 		public DbSet<Supplier_InventoryItem> Supplier_InventoryItems { get; set; }
 		public DbSet<Supplier_Type> Supplier_Types { get; set; }
- 
+        public DbSet<Supplier_Inventory> Supplier_Inventorys { get; set; }
+
+
         //Restraurant model
         public DbSet<Drink> Drinks { get; set; }
 		public DbSet<Drink_Price> Drink_Prices { get; set; }
@@ -695,6 +697,18 @@ namespace Africanacity_Team24_INF370_.models
               Quantity = 24
           });
 
+          modelBuilder.Entity<Supplier_Inventory>()
+              .HasData(
+            new
+            {
+                  SupplierItemId = 1,
+                 SupplierId = 1,
+                  Inventory_ItemId = 1,
+                 Ordered_Quantity = 33,
+                  Ordered_Date = DateTime.Today,
+                  Received_Date = DateTime.Today
+            });
+
 
 
 
@@ -757,7 +771,7 @@ namespace Africanacity_Team24_INF370_.models
 				.HasMany(t => t.Suppliers)
 				.WithMany(g => g.Inventory_Items)
 				.UsingEntity<Supplier_InventoryItem>
-				 (tg => tg.HasOne<Supplier>().WithMany(),
+			 (tg => tg.HasOne<Supplier>().WithMany(),
 				  tg => tg.HasOne<Inventory_Item>().WithMany());
 
 			// For the Order_Drink M2M payload (Uncomment code below and run migration to generate tables)
