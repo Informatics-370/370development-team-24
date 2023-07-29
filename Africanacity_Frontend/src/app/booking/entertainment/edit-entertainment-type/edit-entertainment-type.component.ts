@@ -14,7 +14,7 @@ export class EditEntertainmentTypeComponent implements OnInit{
 
   ngOnInit(): void {
     this.activated.params.subscribe(params =>{
-      this.dataService.GetEvent(params['id']).subscribe(result =>{
+      this.dataService.GetEntertainmentType(params['id']).subscribe(result =>{
         this.editType = result as Entertainment_Type;
         this.updateTypeForm.controls['name'].setValue(this.editType.name);
         this.updateTypeForm.controls['description'].setValue(this.editType.description);
@@ -31,8 +31,8 @@ export class EditEntertainmentTypeComponent implements OnInit{
     editType: Entertainment_Type = new Entertainment_Type();
 
    updateTypeForm: FormGroup = new FormGroup({
-    Name: new FormControl('',[Validators.required]),
-    Description: new FormControl('',[Validators.required])
+    name: new FormControl('',[Validators.required]),
+    description: new FormControl('',[Validators.required])
    })
 
    cancel(){
@@ -41,12 +41,12 @@ export class EditEntertainmentTypeComponent implements OnInit{
    
   updateEntertainment(){
     let entertainmentType = new Entertainment_Type();
-      entertainmentType.name = this.updateTypeForm.value.event_name;
+      entertainmentType.name = this.updateTypeForm.value.name;
       entertainmentType.description= this.updateTypeForm.value.description;
 
-      this.dataService.EditEntertainment(this.editType.entertainment_TypeId,entertainmentType).subscribe((response:any)=>{
+      this.dataService.EditEntertainmentType(this.editType.entertainment_TypeId,entertainmentType).subscribe((response:any)=>{
         if (response.statusCode === 200) {
-          this.router.navigate(['./entertainment-types']);
+          this.router.navigate(['/entertainment-types']);
           window.location.reload();
           this.showSuccessMessage('Entertainment Type updated successfully!');
         } else {

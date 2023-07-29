@@ -6,10 +6,14 @@
     <div class="col-md-10 order-md-1">
     <h3 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px; font-weight: bolder;">Entertainment Events </h3>
 
-    <input type="text" class="form-control" (input)="applyFilter($event)" placeholder="Search Event">
-    <span style="align-content: right;">
-        <button style="margin-left: 1em;" type="button" class="btn btn-sm btn-success" [routerLink]="'/add-event'">New</button>
-    </span>
+    <div class="input-group">
+        <div class="search-bar">
+            <input type="text" class="form-control" (input)="applyFilter($event)" placeholder="Search Event">
+        </div>
+        <div class="addButton">
+              <i class="fa fa-plus-circle fa-3x" aria-hidden="true"[routerLink]="'/add-event'"></i>
+        </div>
+    </div>
 
     <table class="table table-striped table-hover table-container outlined-table">
         <thead class="tableColor">
@@ -21,9 +25,9 @@
                 <th scope="col"></th>
         </thead>
         <tbody>
-          <tr *ngFor="let event of bookingevents">
+          <tr *ngFor="let event of Filteredevents">
                 <td>{{event.eventId}}</td>
-                <td>{{event.event_Name}}</td>
+                <td>{{event.name}}</td>
                 <td>{{event.description}}</td>
                 
                   <td> <i class="fa fa-pencil" [routerLink]="['/edit-event', event.eventId]" aria-hidden="true"></i></td>
@@ -33,4 +37,4 @@
     </table>
 
     </div>
-</div>    
+</div> 

@@ -215,10 +215,10 @@ ScheduleDisplay(): Observable<any>
   .pipe(map(results => results))
 }
 
-GetSchedule(scheduleId: Number)
-{
-  return this.httpClient.get(`${this.apiUrl}ScheduleController/GetSchedule` + "/" + scheduleId).pipe(map(result => result))
+GetSchedule(scheduleId: number) {
+  return this.httpClient.get<any>(`${this.apiUrl}Schedule/GetSchedule/${scheduleId}`).pipe(map(result => result));
 }
+
 
 AddSchedule(schedule : Schedule)
 {
@@ -227,12 +227,12 @@ AddSchedule(schedule : Schedule)
 
 EditSchedule(scheduleId: Number, schedule: Schedule)
 {
-  return this.httpClient.put(`${this.apiUrl}ScheduleController/EditSchedule/${scheduleId}`, schedule, this.httpOptions)
+  return this.httpClient.put(`${this.apiUrl}Schedule/EditSchedule/${scheduleId}`, schedule, this.httpOptions)
 }
 
 DeleteSchedule(scheduleId: Number)
 {
-  return this.httpClient.delete<string>(`${this.apiUrl}ScheduleController/DeleteSchedule` + "/" + scheduleId, this.httpOptions)
+  return this.httpClient.delete<string>(`${this.apiUrl}Schedule/DeleteSchedule` + "/" + scheduleId, this.httpOptions)
 }
 
 /************************************EVENTS******************************/
@@ -244,7 +244,7 @@ GetAllEvents(): Observable<any>
 
 GetEvent(eventId: Number)
 {
-  return this.httpClient.get(`${this.apiUrl}EventController/GetEvent` + "/" + eventId).pipe(map(result => result))
+  return this.httpClient.get(`${this.apiUrl}Event/GetEvent` + "/" + eventId).pipe(map(result => result))
 }
 
 AddNewEvent(bookingevent : BookingEvent)
@@ -254,12 +254,12 @@ AddNewEvent(bookingevent : BookingEvent)
 
 EditEvent(eventId: Number, bookingevent: BookingEvent)
 {
-  return this.httpClient.put(`${this.apiUrl}EventController/EditEvent/${eventId}`, bookingevent, this.httpOptions)
+  return this.httpClient.put(`${this.apiUrl}Event/EditEvent/${eventId}`, bookingevent, this.httpOptions)
 }
 
 DeleteEvent(eventId: Number)
 {
-  return this.httpClient.delete<string>(`${this.apiUrl}EventController/DeleteEvent` + "/" + eventId, this.httpOptions)
+  return this.httpClient.delete<string>(`${this.apiUrl}Event/DeleteEvent` + "/" + eventId, this.httpOptions)
 }
 
 /*******************ENTERTAINMENT TYPE********************/
@@ -271,22 +271,22 @@ GetEntertainmentTypes(): Observable<any>
 
 GetEntertainmentType(entertainment_TypeId: Number)
 {
-  return this.httpClient.get(`${this.apiUrl}EntertainmentTypeController/GetEntertainmentType` + "/" + entertainment_TypeId).pipe(map(result => result))
+  return this.httpClient.get(`${this.apiUrl}EntertainmentType/GetEntertainmentType` + "/" + entertainment_TypeId).pipe(map(result => result))
 }
 
 AddEntertainmentType(entertainmentType : Entertainment_Type)
 {
-  return this.httpClient.post(`${this.apiUrl}EntertainmentType/AddEntertainment`, entertainmentType, this.httpOptions)
+  return this.httpClient.post(`${this.apiUrl}EntertainmentType/AddEntertainmentType`, entertainmentType, this.httpOptions)
 }
 
-EditEntertainment(entertainment_TypeId: Number, entertainmentType: Entertainment_Type)
+EditEntertainmentType(entertainment_TypeId: Number, entertainmentType: Entertainment_Type)
 {
-  return this.httpClient.put(`${this.apiUrl}EntertainmentTypeController/EditEntertainmentType/${entertainment_TypeId}`, entertainmentType, this.httpOptions)
+  return this.httpClient.put(`${this.apiUrl}EntertainmentType/EditEntertainmentType/${entertainment_TypeId}`, entertainmentType, this.httpOptions)
 }
 
 DeleteEntertainmentType(entertainment_TypeId: Number)
 {
-  return this.httpClient.delete<string>(`${this.apiUrl}EntertainmentTypeController/DeleteEntertainmentType` + "/" + entertainment_TypeId, this.httpOptions)
+  return this.httpClient.delete<string>(`${this.apiUrl}EntertainmentType/DeleteEntertainmentType` + "/" + entertainment_TypeId, this.httpOptions)
 }
 
 

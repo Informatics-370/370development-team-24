@@ -26,7 +26,7 @@ export class AddEventComponent implements OnInit {
   
 
   eventsForm: FormGroup = new FormGroup({
-    event_Name: new FormControl('',[Validators.required]),
+    name: new FormControl('',[Validators.required]),
     description: new FormControl('',[Validators.required]),
     
   })
@@ -45,14 +45,14 @@ export class AddEventComponent implements OnInit {
     }
   
     let event = new BookingEvent();
-    event.event_Name = this.eventsForm.value.event_Name;
+    event.name = this.eventsForm.value.name;
     event.description = this.eventsForm.value.description;
     this.dataService.AddNewEvent(event).subscribe(result => {
       this.router.navigate(['/view-events'])
     });
   
     this.snackBar.open(
-      this.eventsForm.get('event_Name')!.value + ` created successfully`,
+      this.eventsForm.get('Name')!.value + ` created successfully`,
       'X',
      { duration: 5000 }
     );

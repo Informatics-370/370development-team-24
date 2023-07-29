@@ -23,6 +23,8 @@ export class ViewEventsComponent implements OnInit{
       this.GetAllEvents()
       console.log(this.bookingevents)
 
+      this.Filteredevents=this.bookingevents;
+
     }
 
     GetAllEvents()
@@ -40,7 +42,7 @@ export class ViewEventsComponent implements OnInit{
      const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
     
     this.Filteredevents = this.bookingevents.filter(bookingevent => {
-    const column2Value = bookingevent.event_Name.toLowerCase() || bookingevent.event_Name.toUpperCase();
+    const column2Value = bookingevent.name.toLowerCase() || bookingevent.name.toUpperCase();
     const column3Value = bookingevent.description.toLowerCase();
     
     return column2Value.includes(filterValue) || 
@@ -48,12 +50,19 @@ export class ViewEventsComponent implements OnInit{
     });
    }
   
+   deleteItemFromServer(): void{
+    this.DeleteEvent;
+  }
 
     deleteItem(): void {
-      const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete this event?', 'Delete, Cancel',{
+      const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete this event?', 'Delete , Cancel',{
         duration: 5000, // Display duration in milliseconds
   
       });
+      confirmationSnackBar.onAction().subscribe(() => {
+        this.deleteItemFromServer();
+       window.location.reload();
+      })
     }
 
 

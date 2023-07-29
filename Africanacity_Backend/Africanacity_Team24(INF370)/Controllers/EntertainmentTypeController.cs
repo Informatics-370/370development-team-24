@@ -35,12 +35,12 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
         [HttpGet]
-        [Route("GetEntertainmentType/{Entertainment_TypeId}")]
-        public async Task<IActionResult> GetEntertainmentTypeAsync(int Entertainment_TypeId)
+        [Route("GetEntertainmentType/{entertainment_TypeId}")]
+        public async Task<IActionResult> GetEntertainmentTypeAsync(int entertainment_TypeId)
         {
             try
             {
-                var result = await _Repository.GetEntertainmentTypeAsync(Entertainment_TypeId);
+                var result = await _Repository.GetEntertainmentTypeAsync(entertainment_TypeId);
 
                 if (result == null) return NotFound("Entertainment Type does not exist. You need to create a new entertainment first");
 
@@ -73,12 +73,12 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
         [HttpPut]
-        [Route("EditEntertainmentType/{Entertainment_TypeId}")]
-        public async Task<ActionResult<EntertainmentViewModel>> EditEntertainmentType(int Entertainment_TypeId, EntertainmentViewModel viewModel)
+        [Route("EditEntertainmentType/{entertainment_TypeId}")]
+        public async Task<ActionResult<EntertainmentViewModel>> EditEntertainmentType(int entertainment_TypeId, EntertainmentViewModel viewModel)
         {
             try
             {
-                var existingType = await _Repository.GetEntertainmentTypeAsync(Entertainment_TypeId);
+                var existingType = await _Repository.GetEntertainmentTypeAsync(entertainment_TypeId);
                 if (existingType == null) return NotFound($"The entertainment type does not exist");
 
                 existingType.Name = viewModel.Name;

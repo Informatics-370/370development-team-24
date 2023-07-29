@@ -27,10 +27,9 @@ export class AddEntertainmentTypeComponent implements OnInit {
     
   }
 
-
   entertainmentform : FormGroup = new FormGroup({
-    Name: new FormControl('',[Validators.required]),
-    Description: new FormControl('',[Validators.required])
+    name: new FormControl('',[Validators.required]),
+    description: new FormControl('',[Validators.required])
     
   });
 
@@ -44,8 +43,8 @@ export class AddEntertainmentTypeComponent implements OnInit {
     }
   
     let entertainmentType = new Entertainment_Type();
-    entertainmentType.name= this.entertainmentform.value.surname;
-    entertainmentType.description = this.entertainmentform.value.firstName;
+    entertainmentType.name= this.entertainmentform.value.name;
+    entertainmentType.description = this.entertainmentform.value.description;
   
   
     this.dataService.AddEntertainmentType(entertainmentType).subscribe(result => {
@@ -53,7 +52,7 @@ export class AddEntertainmentTypeComponent implements OnInit {
     });
 
     this.snackBar.open(
-      this.entertainmentform.get('Name')!.value + ` created successfully`,
+      this.entertainmentform.get('name')!.value + ` created successfully`,
       'X',
       { duration: 5000 }
     );

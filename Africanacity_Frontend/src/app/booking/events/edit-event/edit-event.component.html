@@ -10,9 +10,9 @@
          <div class="row">
             <form [formGroup]="updateEventsForm" class="form-horizontal"  (ngSubmit)="updateEvent()">
                 <div class="form-group">
-                    <label class=" col-sm-1" style="font-weight: bold;" for="event_name">Event Title:</label>
+                    <label class=" col-sm-1" style="font-weight: bold;" for="name">Event Title:</label>
                     <div class="col-sm-6">
-                      <input class="form-control" id="event_name" placeholder="Enter event title" [required]="true" formControlName="event_name">
+                      <input class="form-control" id="name" placeholder="Enter event title" [required]="true" formControlName="name">
                     </div>
                 </div>
 

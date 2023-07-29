@@ -65,3 +65,8 @@ button{
 .table-hover tr:hover {
     background-color: grey;
   }
+
+  .search-bar {
+    flex-grow: 1; /* Allow the search bar to expand and take available space */
+    margin-right: 10px; /* Add some space between the search bar and add icon */
+  }

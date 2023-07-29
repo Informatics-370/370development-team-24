@@ -1,17 +1,20 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Africanacity_Team24_INF370_.models.Booking;
+using System.ComponentModel.DataAnnotations;
 
 namespace Africanacity_Team24_INF370_.View_Models
 {
     public class ScheduleViewModel
     {
-        [Key]
+       
        
         public int Schedule_Id { get; set; }
+        public string Title { get; set; }
         public DateTime Date { get; set; }
 
-        public DateTime Start_Time { get; set; }
+        public string Start_Time { get; set; }
 
-        public DateTime End_Time { get; set; }
-        public int EventId { get; set; }
+        public string End_Time { get; set; }
+        public  string Description { get; set; }
+        public int EventName { get; set; }
     }
 }

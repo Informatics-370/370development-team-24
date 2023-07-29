@@ -48,12 +48,11 @@ import { ViewEventsComponent } from './booking/events/view-events/view-events.co
 import { AddEntertainmentTypeComponent } from './booking/entertainment/add-entertainment-type/add-entertainment-type.component';
 import { EditEntertainmentTypeComponent } from './booking/entertainment/edit-entertainment-type/edit-entertainment-type.component';
 import { EntertainmentTypesComponent } from './booking/entertainment/entertainment-types/entertainment-types.component';
-import { FullCalendarModule } from '@fullcalendar/angular';//schedule
+import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid'; // Import the dayGrid plugin
-import interactionPlugin from '@fullcalendar/interaction'; // Import the interaction plugin
-
-
-
+import interactionPlugin from '@fullcalendar/interaction';
+//import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; // Import the interaction plugin
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 
@@ -114,6 +113,8 @@ import interactionPlugin from '@fullcalendar/interaction'; // Import the interac
     MatSelectModule,
     MatSnackBarModule,
     FullCalendarModule,
+    ModalModule.forRoot(),
+    
   ],
   providers: [DataService], 
   bootstrap: [AppComponent],

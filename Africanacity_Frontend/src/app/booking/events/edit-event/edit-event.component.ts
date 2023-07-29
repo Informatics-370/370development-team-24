@@ -20,7 +20,7 @@ export class EditEventComponent implements OnInit {
    editEvents: BookingEvent = new BookingEvent();
 
    updateEventsForm: FormGroup = new FormGroup({
-    event_Name: new FormControl('',[Validators.required]),
+    name: new FormControl('',[Validators.required]),
     description: new FormControl('',[Validators.required])
  })
 
@@ -28,7 +28,7 @@ export class EditEventComponent implements OnInit {
       this.activated.params.subscribe(params =>{
         this.dataService.GetEvent(params['id']).subscribe(result =>{
           this.editEvents = result as BookingEvent;
-          this.updateEventsForm.controls['event_Name'].setValue(this.editEvents.event_Name);
+          this.updateEventsForm.controls['name'].setValue(this.editEvents.name);
           this.updateEventsForm.controls['description'].setValue(this.editEvents.description);
         })
       })
@@ -40,7 +40,7 @@ export class EditEventComponent implements OnInit {
 
     updateEvent(){
       let event = new BookingEvent();
-      event.event_Name = this.updateEventsForm.value.event_name;
+      event.name = this.updateEventsForm.value.name;
       event.description = this.updateEventsForm.value.description;
   
       this.dataService.EditEvent(this.editEvents.eventId,event).subscribe((response:any) => {

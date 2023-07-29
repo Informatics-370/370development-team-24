@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Africanacity_Team24_INF370_.models;
+using Africanacity_Team24_INF370_.models.Booking;
 using Africanacity_Team24_INF370_.View_Models;
 
 
@@ -28,18 +29,21 @@ namespace Africanacity_Team24_INF370_.Controllers
                 {
                     s.ScheduleId,
                     s.Date,
+                    s.Title,
+                    s.Description,
                     s.Start_Time,
                     s.End_Time,
-                    EventName = s.Event.Event_Name,
+                    EventName = s.Event.Name
 
                 });
-                return  Ok(schedule);
+                return Ok(schedule);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support");
             }
         }
+
 
         [HttpGet]
         [Route("GetSchedule/{scheduleId}")]
@@ -63,8 +67,15 @@ namespace Africanacity_Team24_INF370_.Controllers
         [Route("AddSchedule")]
         public async Task<IActionResult> AddSchedule(ScheduleViewModel svm)
         {
-            var schedule = new ScheduleViewModel { 
-                Date = svm.Date , Start_Time = svm.Start_Time, End_Time = svm.End_Time
+        
+
+            var schedule = new Schedule { 
+                Title = svm.Title, 
+                Description = svm.Description, 
+                Date = svm.Date,
+                Start_Time = svm.Start_Time, 
+                End_Time = svm.End_Time, 
+                EventId = Convert.ToInt32(svm.EventName)
             }; 
             try
             {
@@ -79,6 +90,8 @@ namespace Africanacity_Team24_INF370_.Controllers
             return Ok(schedule);
         }
 
+
+
         [HttpPut]
         [Route("EditSchedule/{scheduleId}")]
         public async Task<ActionResult<ScheduleViewModel>> EditSchedule(int scheduleId, ScheduleViewModel viewModel)
@@ -88,14 +101,17 @@ namespace Africanacity_Team24_INF370_.Controllers
                 var existingSchedule = await _Repository.GetScheduleAsync(scheduleId);
                 if(existingSchedule != null)
                 {
+                    existingSchedule.Title = viewModel.Title;
                     existingSchedule.Date = viewModel.Date;
                     existingSchedule.Start_Time = viewModel.Start_Time;
                     existingSchedule.End_Time = viewModel.End_Time;
+                    existingSchedule.Description = viewModel.Description;
+                    existingSchedule.EventId = viewModel.EventName;
 
-                   if (await _Repository.SaveChangesAsync())
-                   {
+                    if (await _Repository.SaveChangesAsync())
+                    {
                         return Ok(existingSchedule);
-                   }
+                     }
                 }
 
             }

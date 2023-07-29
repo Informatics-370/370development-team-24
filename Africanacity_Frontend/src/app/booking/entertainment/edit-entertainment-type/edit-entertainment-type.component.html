@@ -10,23 +10,23 @@
            <div class="row">
               <form [formGroup]="updateTypeForm" class="form-horizontal"  (ngSubmit)="updateEntertainment()">
                   <div class="form-group">
-                      <label class=" col-sm-1" style="font-weight: bold;" for="Name">Entertainment:</label>
+                      <label class=" col-sm-1" style="font-weight: bold;" for="name">Entertainment:</label>
                       <div class="col-sm-6">
-                        <input class="form-control" id="Name" placeholder="Enter entertainment type" [required]="true" formControlName="Name">
+                        <input class="form-control" id="name" placeholder="Enter entertainment type" [required]="true" formControlName="name">
                       </div>
                   </div>
   
                   <div class="form-group">
-                      <label class="col-sm-1" style="font-weight: bold;" for="Description">Description:</label>
+                      <label class="col-sm-1" style="font-weight: bold;" for="description">Description:</label>
                       <div class="col-sm-6">
-                        <textarea class="form-control" type="text" id="Description" placeholder="Enter description" [required]="true" formControlName="Description"></textarea>
+                        <textarea class="form-control" type="text" id="description" placeholder="Enter description" [required]="true" formControlName="description"></textarea>
                       </div>
                   </div>
                   <br>
   
                   <div class="form-group">
                       <div class="col-sm-offset-1 col-sm-6">
-                        <button style="margin-right:1em;" type="submit" [disabled]="!updateTypeForm.valid" class="btn btn-sm btn-success" (click)="updateEntertainment">Save</button>
+                        <button style="margin-right:1em;" type="submit" [disabled]="!updateTypeForm.valid" class="btn btn-sm btn-success" (click)="updateEntertainment()">Save</button>
                         <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Discard</button>
                       </div>
                   </div>

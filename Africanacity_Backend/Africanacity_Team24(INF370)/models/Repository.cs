@@ -140,9 +140,9 @@ namespace Africanacity_Team24_INF370_.models
             IQueryable<Entertainment_Type> query = _appDbContext.Entertainment_Types;
             return await query.ToArrayAsync();
         }
-        public async Task<Entertainment_Type> GetEntertainmentTypeAsync(int Entertainment_TypeId)
+        public async Task<Entertainment_Type> GetEntertainmentTypeAsync(int entertainment_TypeId)
         {
-            IQueryable<Entertainment_Type> query = _appDbContext.Entertainment_Types.Where(t => t.Entertainment_TypeId == Entertainment_TypeId);
+            IQueryable<Entertainment_Type> query = _appDbContext.Entertainment_Types.Where(t => t.Entertainment_TypeId == entertainment_TypeId);
             return await query.FirstOrDefaultAsync();
         }
        

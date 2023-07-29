@@ -17,6 +17,8 @@ export class EntertainmentTypesComponent implements OnInit{
   ngOnInit(): void {
     this.GetEntertainmentTypes()
     console.log(this.entertainments)
+    
+    this.filteredTypes =this.entertainments;
   }
 
   entertainments: Entertainment_Type[] =[]
@@ -46,16 +48,23 @@ export class EntertainmentTypesComponent implements OnInit{
     }
 
 
+    deleteItemFromServer(): void{
+      this.DeleteEntertainmentType;
+    }
 
     deleteItem(): void {
       const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete this type of entertainment?', 'Delete, Cancel',{
         duration: 5000, // Display duration in milliseconds
   
       });
+      confirmationSnackBar.onAction().subscribe(() => {
+        this.deleteItemFromServer();
+       window.location.reload();
+      })
     }
 
-    DeleteEntertainmentType(Entertainment_TypeId: Number){
-      this.dataService.DeleteEntertainmentType(Entertainment_TypeId).subscribe(result => {
+    DeleteEntertainmentType(entertainment_TypeId: Number){
+      this.dataService.DeleteEntertainmentType(entertainment_TypeId).subscribe(result => {
         this.deleteItem();
         });
     }

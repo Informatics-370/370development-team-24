@@ -8,13 +8,15 @@ namespace Africanacity_Team24_INF370_.models.Booking
 	{
 		[Key]
 		public int ScheduleId { get; set; }
-
+		public string Title { get; set; }
 		public DateTime Date { get; set; } 
 
-		public DateTime Start_Time { get; set; } 
+		public string Start_Time { get; set; } 
 
-		public DateTime End_Time { get; set; }
+		public string End_Time { get; set; }
         public int EventId { get; set; }
+		public string Description { get; set; }
+
 
 		public Event Event { get; set; }
 

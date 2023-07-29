@@ -1,7 +1,7 @@
 export class BookingEvent {
 
     eventId!: number;
-    event_Name!: string;
+    name!: string;
     description!: string;
 
 }

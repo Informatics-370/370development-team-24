@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Africanacity_Team24_INF370_.Migrations
 {
-    public partial class Africanacity : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -694,7 +694,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                 {
                     EventId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Event_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AdministratorId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -885,10 +885,12 @@ namespace Africanacity_Team24_INF370_.Migrations
                 {
                     ScheduleId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Start_Time = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    End_Time = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Start_Time = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    End_Time = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EventId = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AdministratorId = table.Column<int>(type: "int", nullable: true),
                     Schedule_StatusId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -1050,7 +1052,7 @@ namespace Africanacity_Team24_INF370_.Migrations
 
             migrationBuilder.InsertData(
                 table: "Events",
-                columns: new[] { "EventId", "AdministratorId", "Description", "Event_Name" },
+                columns: new[] { "EventId", "AdministratorId", "Description", "Name" },
                 values: new object[,]
                 {
                     { 1, null, "An event filled with spectacular music performances and art display ", "Smooth Sunday" },

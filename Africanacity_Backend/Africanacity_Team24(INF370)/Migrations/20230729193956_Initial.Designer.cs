@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Africanacity_Team24_INF370_.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230724200357_Africanacity")]
-    partial class Africanacity
+    [Migration("20230729193956_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -688,7 +688,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Event_Name")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -703,19 +703,19 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             EventId = 1,
                             Description = "An event filled with spectacular music performances and art display ",
-                            Event_Name = "Smooth Sunday"
+                            Name = "Smooth Sunday"
                         },
                         new
                         {
                             EventId = 2,
                             Description = "An event where various forms of entertainments take place",
-                            Event_Name = "Wacky Wednesday"
+                            Name = "Wacky Wednesday"
                         },
                         new
                         {
                             EventId = 3,
                             Description = " poets are invited to recite poems and another kind of artistry ",
-                            Event_Name = "Poetry Musings"
+                            Name = "Poetry Musings"
                         });
                 });
 
@@ -733,8 +733,13 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("End_Time")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("End_Time")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("EventId")
                         .HasColumnType("int");
@@ -742,8 +747,13 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<int?>("Schedule_StatusId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Start_Time")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Start_Time")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ScheduleId");
 

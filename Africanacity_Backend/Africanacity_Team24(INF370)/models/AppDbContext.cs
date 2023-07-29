@@ -449,7 +449,7 @@ namespace Africanacity_Team24_INF370_.models
                          new
                          {
                              EventId = 1,
-                             Event_Name = "Smooth Sunday",
+                             Name = "Smooth Sunday",
                              Description = "An event filled with spectacular music performances and art display "
                             
                          });
@@ -458,7 +458,7 @@ namespace Africanacity_Team24_INF370_.models
                          new
                          {
                              EventId = 2,
-                             Event_Name = "Wacky Wednesday",
+                             Name = "Wacky Wednesday",
                              Description = "An event where various forms of entertainments take place"
 
                          });
@@ -467,7 +467,7 @@ namespace Africanacity_Team24_INF370_.models
                         new
                         {
                             EventId = 3,
-                            Event_Name = "Poetry Musings",
+                            Name = "Poetry Musings",
                             Description = " poets are invited to recite poems and another kind of artistry "
 
                         });

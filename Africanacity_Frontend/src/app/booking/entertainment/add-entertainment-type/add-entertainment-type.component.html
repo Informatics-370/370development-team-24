@@ -11,16 +11,16 @@
      <div class="row">
         <form [formGroup]="entertainmentform" class="form-horizontal" (ngSubmit)="onSubmit()">
             <div class="form-group">
-                <label class=" col-md-1" style="font-weight: bold;" for="Name">Entertainment:</label>
+                <label class=" col-md-1" style="font-weight: bold;" for="name">Entertainment:</label>
                 <div class="col-md-6">
-                  <input class="form-control" placeholder="Enter entertainment type" [required]="true" name="Name" formControlName="Name">
+                  <input class="form-control" placeholder="Enter entertainment type" [required]="true" name="name" formControlName="name">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-1" style="font-weight: bold;" for="Description">Description:</label>
+                <label class="col-sm-1" style="font-weight: bold;" for="description">Description:</label>
                 <div class="col-sm-6">
-                    <textarea class="form-control" type="text" id="Description" placeholder="Provide description" [required]="true" formControlName="Description"></textarea>
+                    <textarea class="form-control" type="text" id="description" placeholder="Provide description" [required]="true" formControlName="description"></textarea>
                 </div>
             </div>
             <br>

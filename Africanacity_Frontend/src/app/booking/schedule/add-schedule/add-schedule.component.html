@@ -1,45 +1,59 @@
-<div mat-subheader>
-  <h2 mat-dialog-title>Add Schedule </h2>
-<button style="margin-left: 1em;" mat-icon-button mat-dialog-close class="close-button" aria-label="Close">
-  <mat-icon>close</mat-icon>
-</button>
+<div mat-subheader class="header-container">
+  <h2 mat-dialog-title class="header-title">Add Schedule Slot</h2>
+  <button mat-icon-button mat-dialog-close class="close-button" aria-label="Close">
+    <mat-icon>close</mat-icon>
+  </button>
 </div>
 
 <div mat-dialog-content>
   <form [formGroup]="scheduleform">
-    <mat-form-field>
+    <mat-form-field class="full-width-input">
       <mat-label>Title</mat-label>
       <input matInput formControlName="title" placeholder="Schedule Title">
-      <!-- <mat-error *ngIf="scheduleform.get('title').invalid">Title is required</mat-error> -->
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field class="full-width-input">
         <mat-label>Event</mat-label>
-        <mat-select formControlName="event_name" >
-            <mat-option *ngFor="let item of bookingevents "  [value]="item.eventId">{{item.event_Name}}</mat-option>
+        <mat-select formControlName="event" >
+            <mat-option *ngFor="let item of bookingevents " [value]="item.eventId">{{item.name}}</mat-option>
         </mat-select>
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field class="full-width-input">
       <mat-label>Start Time</mat-label>
-      <input matInput [matDatepicker]="startDatePicker" formControlName="start" placeholder="Start Time">
-      <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
-      <mat-datepicker #startDatePicker></mat-datepicker>
-    </mat-form-field> 
+      <input matInput formControlName="start_time" placeholder="Start Time" type="time">
+      <!-- Add the AM/PM dropdown -->
+      <mat-select formControlName="start_time_ampm">
+        <mat-option value="AM">AM</mat-option>
+        <mat-option value="PM">PM</mat-option>
+      </mat-select>
+    </mat-form-field>
     
-    <mat-form-field>
+    <mat-form-field class="full-width-input">
       <mat-label>End Time</mat-label>
-      <input matInput [matDatepicker]="endDatePicker" formControlName="end" placeholder="End Time">
-      <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
-      <mat-datepicker #endDatePicker></mat-datepicker>
-    </mat-form-field> 
-
+      <input matInput formControlName="end_time" placeholder="End Time" type="time">
+      <!-- Add the AM/PM dropdown -->
+      <mat-select formControlName="end_time_ampm">
+        <mat-option value="AM">AM</mat-option>
+        <mat-option value="PM">PM</mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+  
+    <mat-form-field class="full-width-input" appearance="fill">
+      <mat-label>Description</mat-label>
+      <input matInput formControlName="description" />
+    </mat-form-field>
     
 
   </form>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onCancel()">Cancel</button>
-  <button mat-button (click)="onSave()">Save</button>
+  <button mat-button color="warn" (click)="onCancel()">Cancel</button>
+  <button mat-button color="primary" (click)="onSave()">Save</button>
 </div>
+
+
+
+
 

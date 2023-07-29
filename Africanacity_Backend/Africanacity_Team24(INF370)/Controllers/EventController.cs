@@ -54,7 +54,7 @@ namespace Africanacity_Team24_INF370_.Controllers
         [Route("AddNewEvent")]
         public async Task<IActionResult> AddNewEvent(EventViewModel evm)
         {
-            var NewEvent = new Event { Event_Name = evm.Event_Name, Description = evm.Description };
+            var NewEvent = new Event { Name = evm.Name, Description = evm.Description };
             try
             {
                 _Repository.Add(NewEvent);
@@ -78,7 +78,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                 if (existingEvent == null) return NotFound($"The event does not exist");
 
                 
-                existingEvent.Event_Name = eventViewModel.Event_Name;
+                existingEvent.Name = eventViewModel.Name;
                 existingEvent.Description = eventViewModel.Description;
 
                 if (await _Repository.SaveChangesAsync())
