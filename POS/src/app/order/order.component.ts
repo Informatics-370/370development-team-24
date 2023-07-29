@@ -19,13 +19,13 @@ import { KitchenOrder } from '../shared/kitchen-order';
 export class OrderComponent  implements OnInit {
   menuItems: MenuItem[] = [];
   filteredMenuItems: MenuItem[] = [];
-  orderedItems: MenuItem[] = [];
+  orderedItems: string[] = [];
   menuType: MenuType[] = [];
   menuPrices: MenuItemPrice[]=[];
 
   drinkItems: Drink[] = [];
   filteredDrinkItems: Drink[] = [];
-  orderedDrinks: Drink[] = [];
+  orderedDrinks: string[] = [];
   drinkPrices: DrinkPrice[]= [];
 
   isDrinkSelected = false;
@@ -108,30 +108,34 @@ export class OrderComponent  implements OnInit {
 
   // add to order screen function
   addToMenuItemOrder(menuItem: MenuItem) {
-    const existingItem = this.orderedItems.find((item) => item.menuItemId === menuItem.menuItemId);
+    const existingItem = this.orderedItems.find((item) => item === menuItem.name);
 
     if (existingItem) {
       // If the item already exists in the order, update its quantity
-      existingItem.quantity += 1;
+      const index = this.orderedItems.indexOf(existingItem);
+      if (index !== -1) {
+        this.menuItems[index].quantity += 1;
+      }
     } else {
       // If it's a new item, set the quantity to 1
-      menuItem.quantity = 1;
-      this.orderedItems.push(menuItem);
+      this.menuItems.push({ ...menuItem, quantity: 1 });
     }
 
     this.updateSubtotal();
   }
 
   addToDrinkOrder(drink: Drink) {
-    const existingDrink = this.orderedDrinks.find((item) => item.drinkId === drink.drinkId);
+    const existingDrink = this.orderedDrinks.find((item) => item === drink.name);
 
     if (existingDrink) {
       // If the drink already exists in the order, update its quantity
-      existingDrink.quantity += 1;
+      const index = this.orderedDrinks.indexOf(existingDrink);
+      if (index !== -1) {
+        this.drinkItems[index].quantity += 1;
+      }
     } else {
       // If it's a new drink, set the quantity to 1
-      drink.quantity = 1;
-      this.orderedDrinks.push(drink);
+      this.drinkItems.push({ ...drink, quantity: 1 });
     }
     this.updateSubtotal();
   }
@@ -151,25 +155,21 @@ export class OrderComponent  implements OnInit {
       const orderedDrinkNames: string[] = [];
 
        // Extract the names of ordered items
-      for (const orderedItem of this.orderedItems) {
+      /*for (const orderedItem of this.orderedItems) {
       orderedItemNames.push(orderedItem.name);
       }
 
   // Extract the names of ordered drinks
       for (const orderedDrink of this.orderedDrinks) {
       orderedDrinkNames.push(orderedDrink.name);
-      }
-
-
-
-
+      }*/
     // TODO: Implement submitting order to the kitchen
     const kitchenOrder: KitchenOrder = {
       kitchenOrderId: 0, // This will be ignored by the server as it generates the ID
       tableNumber: this.tableNumber || '', // Empty string if takeaway
       kitchenOrderNumber: this.kitchenOrderNumber,
-      orderedItems: [...orderedItemNames],
-      orderedDrinks: [...orderedDrinkNames],
+      orderedItems: [...this.orderedItems],
+      orderedDrinks: [...this.orderedDrinks],
       subtotal: this.updateSubtotal(),
        // This will be calculated on the server
     };
@@ -177,7 +177,7 @@ export class OrderComponent  implements OnInit {
     console.log('Sending Kitchen Order:', kitchenOrder)
 
     this.mainService.SaveKitchenOrder(kitchenOrder).subscribe(
-      response => {
+      (response) => {
         // Order successfully saved in the backend
         console.log('Order saved successfully:', response.message);
   
@@ -229,20 +229,21 @@ export class OrderComponent  implements OnInit {
   //method to calculate the subtotal
   updateSubtotal(): number {
     let subtotal = 0;
-  
-    for (const orderedItem of this.orderedItems) {
+
+    for (const orderedItem of this.menuItems) {
       const menuItemPrice = this.getSelectedMenuItemPrice(orderedItem.menuItemId);
       subtotal += menuItemPrice * orderedItem.quantity;
     }
-  
-    for (const orderedDrink of this.orderedDrinks) {
+
+    for (const orderedDrink of this.drinkItems) {
       const drinkItemPrice = this.getSelectedDrinkItemPrice(orderedDrink.drinkId);
       subtotal += drinkItemPrice * orderedDrink.quantity;
     }
-  
+
     return subtotal;
   }
+}
   
 
 
-}
+

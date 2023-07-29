@@ -11,22 +11,19 @@ import { Drink } from '../shared/drink';
   templateUrl: './kitchen-screen.component.html',
   styleUrls: ['./kitchen-screen.component.scss'],
 })
-export class KitchenScreenComponent  implements OnInit {
-  
+export class KitchenScreenComponent implements OnInit {
   kitchenOrders: KitchenOrder[] = [];
- 
 
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
     private mainService: MainService
-  ) { }
+  ) {}
 
   ngOnInit() {
     // Fetch all kitchen orders
     this.fetchKitchenOrderDetails();
   }
-  
 
   fetchKitchenOrderDetails(): void {
     this.mainService.getAllKitchenOrders().subscribe(
@@ -39,6 +36,14 @@ export class KitchenScreenComponent  implements OnInit {
       }
     );
   }
-  
 
+  // Method to display ordered items as a comma-separated string
+  getOrderedItemsString(orderedItems: string[]): string {
+    return orderedItems.join(', ');
+  }
+
+  // Method to display ordered drinks as a comma-separated string
+  getOrderedDrinksString(orderedDrinks: string[]): string {
+    return orderedDrinks.join(', ');
+  }
 }
