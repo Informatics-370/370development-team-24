@@ -1,34 +1,36 @@
+<!-- kitchen-screen.component.html -->
+
 <ion-header>
   <ion-toolbar>
-    <ion-title>Kitchen Screen</ion-title>
+    <ion-title>
+      Kitchen Screen
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let kitchenOrder of kitchenOrders">
+  <ion-card *ngFor="let order of kitchenOrders">
     <ion-card-header>
-      <ion-card-title>Order Details</ion-card-title>
+      <ion-card-title>Order Number: {{ order.kitchenOrderNumber }}</ion-card-title>
+      <ion-card-subtitle *ngIf="order.tableNumber">Table Number: {{ order.tableNumber }}</ion-card-subtitle>
     </ion-card-header>
 
     <ion-card-content>
-      <p>Table Number: {{ kitchenOrder.tableNumber }}</p>
-      <p>Kitchen Order Number: {{ kitchenOrder.kitchenOrderNumber }}</p>
-
-      <h3>Ordered Items:</h3>
-      <ion-list *ngIf="kitchenOrder.orderedItems">
-        <ion-item *ngFor="let orderedItem of kitchenOrder.orderedItems">
-          {{ orderedItem}} 
+      
+      <ion-list>
+        <ion-item *ngFor="let orderedItem of order.orderedItems">
+          {{ orderedItem.name }} x {{ orderedItem.quantity }} 
         </ion-item>
       </ion-list>
 
-      <h3>Ordered Drinks:</h3>
-      <ion-list *ngIf="kitchenOrder.orderedDrinks">
-        <ion-item *ngFor="let orderedDrink of kitchenOrder.orderedDrinks">
-          {{ orderedDrink}} 
+      
+      <ion-list>
+        <ion-item *ngFor="let orderedDrink of order.orderedDrinks">
+          {{ orderedDrink.name }} x {{ orderedDrink.quantity }}
         </ion-item>
       </ion-list>
 
-      <p>Subtotal: {{ kitchenOrder.subtotal | currency: 'R ' }}</p>
+      <h3>Subtotal: {{ order.subtotal | currency: 'R' }}</h3>
     </ion-card-content>
   </ion-card>
 </ion-content>

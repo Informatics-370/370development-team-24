@@ -19,6 +19,7 @@ import { KitchenOrder} from '../shared/kitchen-order';
 export class MainService {
   private orderSummary: KitchenOrder | null = null;
   
+  
 
   //linking to backend
   apiUrl = 'http://localhost:49991/api/'

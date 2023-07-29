@@ -9,6 +9,9 @@ import { CurrencyPipe } from '@angular/common';
 import { ActivatedRoute, Router} from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { KitchenOrder } from '../shared/kitchen-order';
+import { OrderedItem } from '../shared/ordered-item';
+import { OrderedDrink } from '../shared/ordered-drink';
+import { OrderService } from '../service/order.service';
 
 @Component({
   selector: 'app-order',
@@ -19,24 +22,28 @@ import { KitchenOrder } from '../shared/kitchen-order';
 export class OrderComponent  implements OnInit {
   menuItems: MenuItem[] = [];
   filteredMenuItems: MenuItem[] = [];
-  orderedItems: string[] = [];
+  orderedItems: OrderedItem[] = [];
   menuType: MenuType[] = [];
   menuPrices: MenuItemPrice[]=[];
 
+
   drinkItems: Drink[] = [];
   filteredDrinkItems: Drink[] = [];
-  orderedDrinks: string[] = [];
+  orderedDrinks: OrderedDrink[] = [];
   drinkPrices: DrinkPrice[]= [];
 
   isDrinkSelected = false;
   kitchenOrderNumber: string = '';
   tableNumber: string | null = null;
+  selectedMenuItems: MenuItem[] = [];
+  selectedDrinks: Drink[] = [];
  
 
   constructor(private mainService: MainService,
     private router: Router,
     private route: ActivatedRoute,
-    private http: HttpClient) { }
+    private http: HttpClient,
+    private orderService: OrderService,) { }
 
   ngOnInit() {
 
@@ -64,6 +71,10 @@ export class OrderComponent  implements OnInit {
     this.mainService.GetAllDrinkItemPrices().subscribe((prices: DrinkPrice[]) => {
       this.drinkPrices = prices;
     });
+
+   
+
+
 
   }
 
@@ -108,34 +119,30 @@ export class OrderComponent  implements OnInit {
 
   // add to order screen function
   addToMenuItemOrder(menuItem: MenuItem) {
-    const existingItem = this.orderedItems.find((item) => item === menuItem.name);
-
+    const existingItem = this.orderedItems.find((item) => item.name === menuItem.name);
+  
     if (existingItem) {
       // If the item already exists in the order, update its quantity
-      const index = this.orderedItems.indexOf(existingItem);
-      if (index !== -1) {
-        this.menuItems[index].quantity += 1;
-      }
+      existingItem.quantity += 1;
     } else {
       // If it's a new item, set the quantity to 1
-      this.menuItems.push({ ...menuItem, quantity: 1 });
+      const newOrderItem: OrderedItem = { name: menuItem.name, quantity: 1, menuItemId: menuItem.menuItemId, price: menuItem.price};
+      this.orderedItems.push(newOrderItem);
     }
-
+  
     this.updateSubtotal();
   }
 
   addToDrinkOrder(drink: Drink) {
-    const existingDrink = this.orderedDrinks.find((item) => item === drink.name);
-
+    const existingDrink = this.orderedDrinks.find((item) => item.name === drink.name);
+  
     if (existingDrink) {
       // If the drink already exists in the order, update its quantity
-      const index = this.orderedDrinks.indexOf(existingDrink);
-      if (index !== -1) {
-        this.drinkItems[index].quantity += 1;
-      }
+      existingDrink.quantity += 1;
     } else {
       // If it's a new drink, set the quantity to 1
-      this.drinkItems.push({ ...drink, quantity: 1 });
+      const newOrderItem: OrderedDrink = { name: drink.name, quantity: 1 , drinkId: drink.drinkId, price: drink.price};
+      this.orderedDrinks.push(newOrderItem);
     }
     this.updateSubtotal();
   }
@@ -155,41 +162,42 @@ export class OrderComponent  implements OnInit {
       const orderedDrinkNames: string[] = [];
 
        // Extract the names of ordered items
-      /*for (const orderedItem of this.orderedItems) {
+      for (const orderedItem of this.orderedItems) {
       orderedItemNames.push(orderedItem.name);
       }
 
   // Extract the names of ordered drinks
       for (const orderedDrink of this.orderedDrinks) {
       orderedDrinkNames.push(orderedDrink.name);
-      }*/
+      }
+
+ // Log the extracted item names and drink names
+ console.log('Ordered Items:', orderedItemNames);
+ console.log('Ordered Drinks:', orderedDrinkNames);
+
+
     // TODO: Implement submitting order to the kitchen
     const kitchenOrder: KitchenOrder = {
       kitchenOrderId: 0, // This will be ignored by the server as it generates the ID
       tableNumber: this.tableNumber || '', // Empty string if takeaway
       kitchenOrderNumber: this.kitchenOrderNumber,
-      orderedItems: [...this.orderedItems],
-      orderedDrinks: [...this.orderedDrinks],
-      subtotal: this.updateSubtotal(),
+      orderedItems:this.orderedItems,
+      orderedDrinks: this.orderedDrinks,
+      subtotal: Number(this.updateSubtotal())
        // This will be calculated on the server
     };
+     // Get existing kitchen orders from local storage
+     const existingOrders: KitchenOrder[] = this.orderService.getKitchenOrders();
 
-    console.log('Sending Kitchen Order:', kitchenOrder)
+     // Append the new order to the existing orders
+     existingOrders.push(kitchenOrder);
+ 
+     // Save the updated kitchen orders array to local storage using the OrderService
+     this.orderService.saveKitchenOrders(existingOrders);
 
-    this.mainService.SaveKitchenOrder(kitchenOrder).subscribe(
-      (response) => {
-        // Order successfully saved in the backend
-        console.log('Order saved successfully:', response.message);
-  
-        // Redirect to the Kitchen Screen to display the order details
-        this.router.navigate(['/kitchen-screen', this.kitchenOrderNumber]);
-      },
-      (error) => {
-        console.error('Error saving order:', error);
-        // Handle error if needed
-      }
-    );
+    console.log('Sending Kitchen Order:', kitchenOrder);
 
+    
 
 
     
@@ -197,6 +205,9 @@ export class OrderComponent  implements OnInit {
     
   }
 
+
+  //NEW SUBMIT METHOD
+  
 
   //generateOrderNumber
   private generateOrderNumber(): string {
@@ -219,6 +230,7 @@ export class OrderComponent  implements OnInit {
   getSelectedMenuItemPrice(menuItemId: number): number {
     const menuItemPrice = this.menuPrices.find((price) => price.menuItemId === menuItemId);
     return menuItemPrice ? menuItemPrice.amount : 0;
+    
   }
   
   getSelectedDrinkItemPrice(drinkId: number): number {
@@ -229,17 +241,17 @@ export class OrderComponent  implements OnInit {
   //method to calculate the subtotal
   updateSubtotal(): number {
     let subtotal = 0;
-
-    for (const orderedItem of this.menuItems) {
+  
+    for (const orderedItem of this.orderedItems) {
       const menuItemPrice = this.getSelectedMenuItemPrice(orderedItem.menuItemId);
       subtotal += menuItemPrice * orderedItem.quantity;
     }
-
-    for (const orderedDrink of this.drinkItems) {
+  
+    for (const orderedDrink of this.orderedDrinks) {
       const drinkItemPrice = this.getSelectedDrinkItemPrice(orderedDrink.drinkId);
       subtotal += drinkItemPrice * orderedDrink.quantity;
     }
-
+  
     return subtotal;
   }
 }
