@@ -6,6 +6,7 @@ import { RegisterComponent } from './register/register.component';
 import { OrderComponent } from './order/order.component';
 import { TableComponent } from './table/table.component';
 import { KitchenScreenComponent } from './kitchen-screen/kitchen-screen.component';
+import { NotificationComponent } from './notification/notification.component';
 
 
 const routes: Routes = [
@@ -15,8 +16,9 @@ const routes: Routes = [
   {path: 'order', component: OrderComponent},
   {path: 'table', component: TableComponent},
   {path: 'kitchen-screen', component: KitchenScreenComponent},
-  {path: '', redirectTo: '/order', pathMatch:'full'},
-  {path: '**', redirectTo: '/order', pathMatch:'full'}
+  {path: 'notification', component: NotificationComponent},
+  {path: '', redirectTo: '/home', pathMatch:'full'},
+  {path: '**', redirectTo: '/home', pathMatch:'full'}
   
 
 ];

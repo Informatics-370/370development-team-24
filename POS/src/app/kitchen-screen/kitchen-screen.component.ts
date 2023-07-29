@@ -6,6 +6,8 @@ import { MainService } from '../service/main.service';
 import { MenuItem } from '../shared/menu-item.model';
 import { Drink } from '../shared/drink';
 import { OrderService } from '../service/order.service';
+import { NotificationService } from '../service/notification.service';
+import { NotificationComponent } from '../notification/notification.component';
 
 @Component({
   selector: 'app-kitchen-screen',
@@ -14,12 +16,14 @@ import { OrderService } from '../service/order.service';
 })
 export class KitchenScreenComponent implements OnInit {
   kitchenOrders: KitchenOrder[] = [];
+  notificationMessages: string[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
     private mainService: MainService, 
-    private orderService: OrderService
+    private orderService: OrderService,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit() {
@@ -29,5 +33,21 @@ export class KitchenScreenComponent implements OnInit {
   }
 
 
-  
+  markOrderAsComplete(order: KitchenOrder) {
+    // Update the order status or perform any other logic here
+     
+
+    // Generate the notification message
+    const message = `Kitchen Order ${order.kitchenOrderNumber} is completed!`;
+    console.log('Complete button clicked. Sending notification.');
+    // Send the notification using the NotificationService
+    this.notificationService.addNotification(message);
+
+    // Update the notificationMessages array with the latest message
+    this.notificationMessages.push(message);
+  }
 }
+
+
+  
+

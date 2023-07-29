@@ -17,8 +17,10 @@ import { HomeComponent } from './home/home.component';
 import { OrderComponent } from './order/order.component';
 import { TableComponent } from './table/table.component';
 import { KitchenScreenComponent } from './kitchen-screen/kitchen-screen.component';
+import { NotificationComponent } from './notification/notification.component';
 import { RegisterComponent } from './register/register.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NotificationService } from './service/notification.service';
 
 @NgModule({
   declarations: [AppComponent,
@@ -27,7 +29,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   HomeComponent,
   OrderComponent,
   TableComponent,
-  KitchenScreenComponent],
+  KitchenScreenComponent,
+  NotificationComponent],
 
 
 
@@ -40,7 +43,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ReactiveFormsModule,
   HttpClientModule,
   BrowserAnimationsModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, NotificationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
