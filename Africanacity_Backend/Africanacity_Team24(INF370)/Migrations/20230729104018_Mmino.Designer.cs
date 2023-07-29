@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Africanacity_Team24_INF370_.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230728190016_Mmino")]
+    [Migration("20230729104018_Mmino")]
     partial class Mmino
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -243,9 +243,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                             DiscountId = 1,
                             Amount = 0.10m,
                             Description = "10% Discount",
-                            End_Date = new DateTime(2023, 8, 7, 21, 0, 14, 860, DateTimeKind.Local).AddTicks(8730),
+                            End_Date = new DateTime(2023, 8, 8, 12, 40, 17, 381, DateTimeKind.Local).AddTicks(1833),
                             Name = "Month end discount",
-                            Start_Date = new DateTime(2023, 7, 28, 21, 0, 14, 860, DateTimeKind.Local).AddTicks(8714)
+                            Start_Date = new DateTime(2023, 7, 29, 12, 40, 17, 381, DateTimeKind.Local).AddTicks(1825)
                         });
                 });
 

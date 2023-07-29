@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let kitchenOrder">
+  <ion-card *ngFor="let kitchenOrder of kitchenOrders">
     <ion-card-header>
       <ion-card-title>Order Details</ion-card-title>
     </ion-card-header>
@@ -17,14 +17,14 @@
       <h3>Ordered Items:</h3>
       <ion-list *ngIf="kitchenOrder.orderedItems">
         <ion-item *ngFor="let orderedItem of kitchenOrder.orderedItems">
-          {{ kitchenOrder.orderedItem}} 
+          {{ orderedItem}} 
         </ion-item>
       </ion-list>
 
       <h3>Ordered Drinks:</h3>
       <ion-list *ngIf="kitchenOrder.orderedDrinks">
         <ion-item *ngFor="let orderedDrink of kitchenOrder.orderedDrinks">
-          {{ kitchenOrder.orderedDrink}}
+          {{ orderedDrink}} 
         </ion-item>
       </ion-list>
 

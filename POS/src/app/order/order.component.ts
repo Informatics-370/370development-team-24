@@ -177,15 +177,12 @@ export class OrderComponent  implements OnInit {
     console.log('Sending Kitchen Order:', kitchenOrder)
 
     this.mainService.SaveKitchenOrder(kitchenOrder).subscribe(
-      (response: any) => {
-        if (response && response.message) {
-          // Order successfully saved in the backend
-          console.log('Order saved successfully:', response.message);
-          // Redirect to the Kitchen Screen to display the order details
-          this.router.navigate(['/kitchen-screen', this.kitchenOrderNumber]);
-        } else {
-          console.error('Error saving order: Invalid response from the server');
-        }
+      response => {
+        // Order successfully saved in the backend
+        console.log('Order saved successfully:', response.message);
+  
+        // Redirect to the Kitchen Screen to display the order details
+        this.router.navigate(['/kitchen-screen', this.kitchenOrderNumber]);
       },
       (error) => {
         console.error('Error saving order:', error);

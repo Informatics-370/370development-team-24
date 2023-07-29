@@ -55,8 +55,8 @@ namespace Africanacity_Team24_INF370_.Controllers
                     KitchenOrderId = kitchenOrder.KitchenOrderId,
                     TableNumber = kitchenOrder.TableNumber,
                     KitchenOrderNumber = kitchenOrder.KitchenOrderNumber,
-                    OrderedItems = kitchenOrder.OrderedItems,
-                    OrderedDrinks = kitchenOrder.OrderedDrinks,
+                    OrderedItems = string.Join(",", kitchenOrder.OrderedItems),
+                    OrderedDrinks = string.Join(",", kitchenOrder.OrderedDrinks),
                     Subtotal = kitchenOrder.Subtotal,
                     
                 };
@@ -85,7 +85,7 @@ namespace Africanacity_Team24_INF370_.Controllers
         //get kitchen order
         [HttpGet]
         [Route("GetAllKitchenOrders")]
-        public async Task<ActionResult<List<KitchenOrder>>> GetAllKitchenOrders()
+        public async Task<ActionResult<List<KitchenOrderViewModel>>> GetAllKitchenOrders()
         {
             try
             {
