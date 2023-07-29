@@ -21,6 +21,7 @@ import { WelcomeComponent } from './General Home/about/welcome/welcome.component
 import { AboutComponent } from './General Home/about/about.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './models/material.modules';
+import { EditBookingComponent } from './components/edit-booking/edit-booking.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { MaterialModule } from './models/material.modules';
     PastBookingComponent,
     ChangePasswordComponent,
     WelcomeComponent,
-    AboutComponent
+    AboutComponent,
+    EditBookingComponent
   ],
   imports: [
     BrowserModule,

@@ -37,8 +37,7 @@ export class UpdateProfileComponent implements OnInit {
       username: ['', Validators.required],
       email: ['', Validators.required],
       physicalAddress: ['', Validators.required],
-      contactNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-      password: ['', Validators.required]
+      contactNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]]
     });
   
     this.api.getUsers().subscribe(res => {

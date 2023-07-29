@@ -1,15 +1,15 @@
 <div class="col-md-2">
     <app-navbar></app-navbar> 
-</div>
-<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+</div> 
+ <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">
-    <img src="../../assets/Nav_image/Africanacity.png" alt="" width="40" height="40" class="d-inline-block align-text-top">
+    <img src="../../assets/Nav_image/Africanacity.png" alt="" class="avatar" >
     Hello {{fullName}}<h6>
     </h6></a>
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
+  <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" (input)="applyFilter($event)" placeholder="Search" aria-label="Search">
   <div class="navbar-nav">
       <div class="nav-item text-nowrap">
           <a style="background: red;
@@ -20,34 +20,53 @@
   </div>
 </header>
 
-      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <h3 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px; font-weight: bolder;"> Manage Booking Listing</h3>
-          <div class="table-responsive">
-              <table  class="table table-striped table-hover table-container outlined-table">
-                  <thead class="tableColor">
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">FullName</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Time</th>
-                        <th scope="col">Event</th>
-                        <th scope="col">Entertainment Type</th>
-                        <th scope="col">Action</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr *ngFor="let user of users; let i= index">
-                          <td>{{i+1}}</td>
-                          <td>{{user.firstName}} {{user.lastName}}</td>
-                          <td>{{user.lastName}}</td>
-                          <td>{{user.username}}</td>
-                          <td>{{user.email}}</td>
-                          <td>{{user.email}}</td>
-                          <td>{{user.email}}</td>
-                      </tr>
+        
+        <div class="table-responsive">
+          <table class="table table-striped table-hover table-container outlined-table">
+              <thead class="tableColor">
+                  <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Event</th>
+                      <th scope="col">Demo</th>
+                      <th scope="col">Full Name</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Mobile Number</th>
+                      <th scope="col">Time</th>
+                      <th scope="col">Entertainment Type</th>
+                      <th scope="col">Action</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let booking of filteredbookings">
+                      <td>{{booking.pending_BookingId}}</td>
+                      <td>{{booking.firstName}}</td>
+                      <td>
+                        <div class="image-container">
+                          <img class="pdemo" src='data:image/png;base64,{{booking.demo}}'>
+                          <input type="checkbox" id="image-popup-{{booking.pending_BookingId}}" />
+                          <label for="image-popup-{{booking.pending_BookingId}}" class="popup-overlay"></label>
+                          <div class="popup-content">
+                            <img class="demo" src='data:image/png;base64,{{booking.demo}}'>
+                            <!-- Close button within the popup -->
+                            <label class="close-button" for="image-popup-{{booking.pending_BookingId}}">&times;</label>
+                          </div>
+                        </div>
+                      </td>
+                      <td>{{booking.firstName}} {{booking.lastName}}</td>
+                      <td>{{booking.email}}</td>
+                      <td>{{booking.contactNumber}}</td>
+                      <td>{{booking.contactNumber}}</td>
+                      <td>{{booking.entertainmentTypeName}}</td>
+                      <td>
+                        <a class="button-link" style="color: black; margin-right: 10px;" (click)="acceptBooking(booking.pending_BookingId)" aria-hidden="true"> Accept</a> 
+                        <a class="button-link" style="color: red;"(click)="DeleteBooking(booking.pending_BookingId)" aria-hidden="true">Decline</a>            
+                    </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+    </main>
 
-                  </tbody>
-              </table>
-          </div>
-      </main>
-
+    

@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Booked } from 'src/app/models/Booked';
+import { Booking } from 'src/app/models/Booking';
+import { BookingService } from 'src/app/services/Booking.service';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
@@ -11,10 +15,17 @@ import { UserStoreService } from 'src/app/services/user-store.service';
 export class PastBookingComponent implements OnInit {
 
   public users:any = [];
+  bookings: Booked[] = [];
+  filteredbookings: Booked[] = []; 
   public role!:string;
 
   public fullName : string = "";
-  constructor(private api : ApiService, private auth: AuthService, private userStore: UserStoreService) { }
+  constructor(
+    private api : ApiService, 
+    private auth: AuthService, 
+    private userStore: UserStoreService,
+    private book: BookingService,
+    private snackBar: MatSnackBar,) { }
 
   ngOnInit() {
     this.api.getUsers()
@@ -32,11 +43,72 @@ export class PastBookingComponent implements OnInit {
     .subscribe(val=>{
       const roleFromToken = this.auth.getRoleFromToken();
       this.role = val || roleFromToken;
-    })
+    });
+
+    this.book.getBooks().subscribe((books:any) => {this.filteredbookings = books});
+
+    this.filteredbookings= this.bookings
+    console.log(this.filteredbookings)
+
   }
 
   logout(){
     this.auth.signOut();
+  }
+
+
+    deleteItem(): void {
+      const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete this booking?', 'Confirm, Cancel',{
+        duration: 5000, // Display duration in milliseconds
+  
+      });
+  
+      
+      //  cancel(){
+      //    this.router.navigate(['/home'])
+      //  }
+    
+  
+      confirmationSnackBar.onAction().subscribe(() => {
+        // Perform the deletion action here
+        this.deleteItemFromServer();
+        window.location.reload();
+      });
+    }
+  
+  deleteItemFromServer(): void {
+    this.DeleteBooking;
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+  
+    this.filteredbookings = this.bookings.filter(booking => {
+      const column2Value = booking.firstName.toLowerCase() || booking.firstName.toUpperCase();
+      const column3Value = booking.lastName.toLowerCase();
+ 
+  
+  
+      return column2Value.includes(filterValue) || 
+      column3Value.includes(filterValue) 
+    });
+  }
+
+
+  DeleteBooking(bookId: Number){
+    this.book.DeleteBooking(bookId).subscribe(result => {
+      this.deleteItem();
+      });
+    }
+
+
+  selectedBooking: Booking | undefined; // Define a variable to store the selected booking
+
+  // ... (existing code) ...
+
+  openModal(booking: Booking) {
+    this.selectedBooking = booking; // Set the selected booking when "View" is clicked
+    console.log(this.selectedBooking);
   }
 
 }

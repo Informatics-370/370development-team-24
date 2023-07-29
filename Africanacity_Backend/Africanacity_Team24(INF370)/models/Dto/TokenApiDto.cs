@@ -1,4 +1,4 @@
-﻿namespace AngularAuthYtAPI.Models.Dto
+﻿namespace Africanacity_Team24_INF370_.models.Dto
 {
     public class TokenApiDto
     {

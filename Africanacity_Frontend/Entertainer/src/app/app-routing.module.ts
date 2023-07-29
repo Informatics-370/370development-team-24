@@ -13,6 +13,7 @@ import { PastBookingComponent } from './components/past-booking/past-booking.com
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { WelcomeComponent } from './General Home/about/welcome/welcome.component';
 import { AboutComponent } from './General Home/about/about.component';
+import { EditBookingComponent } from './components/edit-booking/edit-booking.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'welcome', pathMatch:'full'},
@@ -27,7 +28,8 @@ const routes: Routes = [
   {path:'change-password',component:ChangePasswordComponent, canActivate:[AuthGuard]},
   {path:'about',component:AboutComponent},
   {path:'welcome',component:WelcomeComponent},
-  {path:'past-booking', component: PastBookingComponent, canActivate:[AuthGuard]}
+  {path:'past-booking', component: PastBookingComponent, canActivate:[AuthGuard]},
+  {path:'edit-booking/:id', component:  EditBookingComponent, canActivate:[AuthGuard]},
 
 ];
 

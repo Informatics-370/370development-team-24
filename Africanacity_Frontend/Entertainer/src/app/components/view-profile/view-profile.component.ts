@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Profile } from 'src/app/models/Profile';
 import { Router } from '@angular/router';
 
@@ -100,6 +99,7 @@ view(): void {
   const url = this.router.serializeUrl(this.router.createUrlTree(['/update-profile']));
   window.location.href = url;
 }
+
 
   logout(){
     this.auth.signOut();

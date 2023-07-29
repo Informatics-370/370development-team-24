@@ -2,7 +2,7 @@
 
 namespace Africanacity_Team24_INF370_.models.Booking
 {
-	public class Pending_Booking: BaseEntity
+	public class Pending_Booking : BaseBookingEntity
 	{
 		[Key]
 		public int Pending_BookingId { get; set; }
@@ -19,7 +19,6 @@ namespace Africanacity_Team24_INF370_.models.Booking
 		public int Entertainment_TypeId { get; set; }
 		public Entertainment_Type EntertainmentType { get; set; }
 
-		//public int ScheduleId { get; set; }
-		//public Schedule Schedule { get; set; }
+
 	}
 }

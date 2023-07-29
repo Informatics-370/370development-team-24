@@ -93,11 +93,10 @@ export class UpdateProfileComponent implements OnInit {
    
   }
 
-
   onSubmit() {
     const confirmed = confirm('Are you sure you want to update your profile?');
     if (confirmed) {
-      this.api.editUser(this.UserId, this.updateForm.value).subscribe(result => {
+      this.api.editAdmin(this.UserId, this.updateForm.value).subscribe(result => {
         // Redirect to the home page or any other desired location
         this.router.navigate(['/login']);
       });

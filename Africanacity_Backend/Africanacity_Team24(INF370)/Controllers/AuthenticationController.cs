@@ -1,22 +1,12 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
-using System.Net.Mail;
-using Africanacity_Team24_INF370_.models.Login;
-using Africanacity_Team24_INF370_.ViewModel;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Text;
-using MimeKit;
-using MailKit.Security;
 using Africanacity_Team24_INF370_.Helpers;
-using Microsoft.AspNetCore.Authorization;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
 using System;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using AngularAuthYtAPI.Models.Dto;
-using System.Configuration;
 using Africanacity_Team24_INF370_.EmailService;
 using Africanacity_Team24_INF370_.models.Dto;
 using Africanacity_Team24_INF370_.models;
@@ -34,19 +24,13 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 	public class AuthenticationController : ControllerBase
 	{
-			private readonly UserManager<AppUser> _userManager;
-			private readonly IUserClaimsPrincipalFactory<AppUser> _claimsPrincipalFactory;
 			private readonly IConfiguration _configuration;
-			private static Dictionary<string, TwoFactorCode> _twoFactorCodeDictionary
-				= new Dictionary<string, TwoFactorCode>();
 			private readonly AppDbContext _authContext;
 			private readonly IEmailService _emailService;
 			private readonly IRepository _repository;
-		public AuthenticationController(AppDbContext context, IRepository repository, UserManager<AppUser> userManager, IUserClaimsPrincipalFactory<AppUser> claimsPrincipalFactory, IConfiguration configuration, IEmailService emailService)
+		public AuthenticationController(AppDbContext context, IRepository repository, IConfiguration configuration, IEmailService emailService)
 			{
 				_authContext = context;
-				_userManager = userManager;
-				_claimsPrincipalFactory = claimsPrincipalFactory;
 				_configuration = configuration;
 				_emailService = emailService;
 				_repository = repository;
@@ -116,10 +100,10 @@ namespace Africanacity_Team24_INF370_.Controllers
 			}
 
 			private Task<bool> CheckEmailExistAsync(string? email)
-				=> _authContext.Users.AnyAsync(x => x.Email == email);
+				=> _authContext.Admins.AnyAsync(x => x.Email == email);
 
 			private Task<bool> CheckUsernameExistAsync(string? username)
-				=> _authContext.Users.AnyAsync(x => x.Email == username);
+				=> _authContext.Admins.AnyAsync(x => x.Email == username);
 
 			private static string CheckPasswordStrength(string pass)
 			{
@@ -155,7 +139,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 				var tokenDescriptor = new SecurityTokenDescriptor
 				{
 					Subject = identity,
-					Expires = DateTime.Now.AddSeconds(15),
+					Expires = DateTime.Now.AddMinutes(15),
 					SigningCredentials = credentials
 				};
 				var token = jwtTokenHandler.CreateToken(tokenDescriptor);
@@ -167,7 +151,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 				var tokenBytes = RandomNumberGenerator.GetBytes(64);
 				var refreshToken = Convert.ToBase64String(tokenBytes);
 
-				var tokenInUser = _authContext.Users
+				var tokenInUser = _authContext.Admins
 					.Any(a => a.RefreshToken == refreshToken);
 				if (tokenInUser)
 				{
@@ -246,7 +230,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 				var tokenBytes = RandomNumberGenerator.GetBytes(64);
 				var emailToken = Convert.ToBase64String(tokenBytes);
 				user.ResetPasswordToken = emailToken;
-				user.ResetPasswordTokenExpiry = DateTime.Now.AddMinutes(5);
+				user.ResetPasswordTokenExpiry = DateTime.Now.AddMinutes(15);
 				string from = _configuration["EmailSetting:From"];
 				var emailModel = new EmailModel(email, "Reset Password!!", EmailBody.EmailStringBody(email, emailToken));
 				_emailService.SendEmail(emailModel);
@@ -263,7 +247,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 			[Route("Reset-password")]
 			public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)
 			{
-				var newToken = resetPasswordDto.EmailToken.Replace("", "+");
+				var newToken = resetPasswordDto.EmailToken.Replace(" ", "+");
 				var user = await _authContext.Admins.AsNoTracking().FirstOrDefaultAsync(a => a.Email == resetPasswordDto.Email);
 				if (user == null)
 				{
@@ -297,7 +281,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 			[Route("Change-password")]
 			public async Task<IActionResult> ChangePassword(ResetPasswordDto resetPasswordDto)
 			{
-				var newToken = resetPasswordDto.EmailToken.Replace("", "+");
+				var newToken = resetPasswordDto.EmailToken.Replace(" ", "+");
 				var user = await _authContext.Admins.AsNoTracking().FirstOrDefaultAsync(a => a.Email == resetPasswordDto.Email);
 				if (user == null)
 				{

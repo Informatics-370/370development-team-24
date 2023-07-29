@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import {JwtHelperService} from '@auth0/angular-jwt'
 import { TokenApiModel } from '../models/token-api.model';
 import { Observable } from 'rxjs';
+import { ResetPassword } from '../models/reset-password.model';
+import { UpdatePassword } from '../models/Update';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +18,10 @@ export class AuthService {
     this.userPayload = this.decodedToken();
    }
 
+   ChangePassword(request: UpdatePassword) {
+    return this.http.post<any>(`${this.baseUrl}Changepassword`, request);
+  }
+  
   signUp(userObj: any) {
     return this.http.post<any>(`${this.baseUrl}Register`, userObj)
   }

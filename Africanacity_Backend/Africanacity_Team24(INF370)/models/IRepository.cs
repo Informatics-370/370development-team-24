@@ -36,10 +36,12 @@ namespace Africanacity_Team24_INF370_.models
 
 		// Booking
 		Task<Bookings[]> GetBookingsAsync();
+		Task<Bookings> GetBookingAsync(int BookingId);
 		Task<Entertainment_Type[]> GetEntertainmentTypesAsync();
 		Task<Schedule[]> GetSchedulesAsync();
 
 		//Pending Booking
 		Task<Pending_Booking[]> GetPendingsAsync();
+		Task<Pending_Booking> GetPendingAsync(int BookingId);
 	}
 }

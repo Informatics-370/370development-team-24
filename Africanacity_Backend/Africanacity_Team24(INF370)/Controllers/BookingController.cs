@@ -1,7 +1,10 @@
 ﻿using Africanacity_Team24_INF370_.models;
 using Africanacity_Team24_INF370_.models.Administration;
 using Africanacity_Team24_INF370_.models.Booking;
+using Africanacity_Team24_INF370_.models.Restraurant;
+using Africanacity_Team24_INF370_.View_Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging; // Import the logging namespace
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
@@ -9,44 +12,139 @@ namespace Africanacity_Team24_INF370_.Controllers
 	[ApiController]
 	public class BookingController : Controller
 	{
-			private readonly IRepository _repository;
-			public BookingController(IRepository repository)
-			{
-				_repository = repository;
-			}
+		private readonly IRepository _repository;
+		private readonly ILogger<BookingController> _logger;
+		public BookingController(IRepository repository, ILogger<BookingController> logger)
+		{
+			_repository = repository;
+			_logger = logger;
+		}
 
-			[HttpGet]
-			[Route("ManageBooking")]
-			public async Task<ActionResult> ManageBooking()
-			{
-				try
-				{
-					var results = await _repository.GetPendingsAsync();
-
-					dynamic bookings = results.Select(p => new
-					{
-						p.Pending_BookingId,
-						p.FirstName,
-						EntertainmentTypeName = p.EntertainmentType.Name,
-						//ScheduleDate = p.Schedule.Date,
-						p.LastName,
-						p.Demo,
-						p.Email,
-						p.ContactNumber
-					});
-
-					return Ok(bookings);
-				}
-				catch (Exception)
-				{
-
-					return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
-				}
-			}
+		
 
 		[HttpGet]
-		[Route("BookingListing")]
-		public async Task<ActionResult> BookingListing()
+		[Route("Schedule")]
+		public async Task<ActionResult> Schedules()
+		{
+			try
+			{
+				var results = await _repository.GetSchedulesAsync();
+
+				return Ok(results);
+			}
+			catch (Exception)
+			{
+
+				return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+			}
+		}
+
+
+		[HttpGet]
+		[Route("EntertainmentTypes")]
+		public async Task<ActionResult> EntertainmentTypes()
+		{
+			try
+			{
+				var results = await _repository.GetEntertainmentTypesAsync();
+
+				return Ok(results);
+			}
+			catch (Exception)
+			{
+
+				return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+			}
+		}
+
+		// Edit Booking
+		[HttpPut]
+		[Route("EditBooking/{BookingId}")]
+		public async Task<ActionResult<BookingView>> EditBooking(int BookingId, BookingView cvm)
+		{
+			try
+			{
+				var existinBooking = await _repository.GetBookingAsync(BookingId);
+
+				// fix error message
+				if (existinBooking == null) return NotFound($"The booking does not exist");
+
+				existinBooking.LastName = cvm.LastName;
+				existinBooking.FirstName = cvm.FirstName;
+				existinBooking.ContactNumber = cvm.ContactNumber;
+				existinBooking.Email = cvm.Email;
+				existinBooking.Demo = cvm.Demo;
+				existinBooking.Entertainment_TypeId = Convert.ToInt32(cvm.entertainmenttype);
+				//ScheduleId = Convert.ToInt32(cvm.schedule)
+
+				if (await _repository.SaveChangesAsync())
+				{
+					return Ok(existinBooking);
+				}
+			}
+			catch (Exception)
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+			}
+			return BadRequest("Your request is invalid");
+		}
+
+		// Delete booking
+		[HttpDelete]
+		[Route("DeleteBooking/{BookingId}")]
+		public async Task<IActionResult> DeleteBooking(int BookingId)
+		{
+			try
+			{
+				var existingBooking = await _repository.GetBookingAsync(BookingId);
+
+				// fix error message
+				if (existingBooking == null) return NotFound($"The booking does not exist");
+
+				_repository.Delete(existingBooking);
+
+				if (await _repository.SaveChangesAsync())
+				{
+					return Ok(existingBooking);
+				}
+			}
+			catch (Exception)
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+			}
+			return BadRequest("Your request is invalid");
+		}
+
+
+		//Manage Delete booking
+		[HttpDelete]
+		[Route("ManageDeleteBooking/{BookingId}")]
+		public async Task<IActionResult> ManageDeleteBooking(int BookingId)
+		{
+			try
+			{
+				var existingBooking = await _repository.GetPendingAsync(BookingId);
+
+				// fix error message
+				if (existingBooking == null) return NotFound($"The booking does not exist");
+
+				_repository.Delete(existingBooking);
+
+				if (await _repository.SaveChangesAsync())
+				{
+					return Ok(existingBooking);
+				}
+			}
+			catch (Exception)
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+			}
+			return BadRequest("Your request is invalid");
+		}
+		// Booking that where approved
+		[HttpGet]
+		[Route("BookedListing")]
+		public async Task<ActionResult> ManageBooked()
 		{
 			try
 			{
@@ -56,12 +154,12 @@ namespace Africanacity_Team24_INF370_.Controllers
 				{
 					p.BookingId,
 					p.FirstName,
-					EntertainmentTypeName = p.EntertainmentType.Name,
-					ScheduleDate = p.Schedule.Start_Time,
 					p.LastName,
-					p.Demo,
+					EntertainmentTypeName = p.EntertainmentType.Name,
+					p.ContactNumber,
 					p.Email,
-					p.ContactNumber
+					p.Demo,
+
 				});
 
 				return Ok(bookings);
@@ -73,64 +171,42 @@ namespace Africanacity_Team24_INF370_.Controllers
 			}
 		}
 
-		[HttpPost, DisableRequestSizeLimit]
-			[Route("RequestBooking")]
-			public async Task<IActionResult> RequestBooking([FromForm] IFormCollection formData)
+
+		//Booking listing waiting approval
+		[HttpGet]
+		[Route("ManageBookedListing")]
+		public async Task<ActionResult> BookedListing()
+		{
+			try
 			{
-				try
+				var results = await _repository.GetPendingsAsync();
+
+				dynamic bookings = results.Select(p => new
 				{
-					var formCollection = await Request.ReadFormAsync();
+					p.Pending_BookingId,
+					p.FirstName,
+					p.LastName,
+					EntertainmentTypeName = p.EntertainmentType.Name,
+					p.ContactNumber,
+					p.Email,
+					p.Demo,
 
-					var file = formCollection.Files.First();
+				});
 
-					if (file.Length > 0)
-					{
-
-						using (var ms = new MemoryStream())
-						{
-							file.CopyTo(ms);
-							var fileBytes = ms.ToArray();
-							string base64 = Convert.ToBase64String(fileBytes);
-
-							var booking = new Pending_Booking
-							{
-								
-								FirstName = formData["FirstName"]
-								,
-								LastName = formData["LastName"]
-								,
-								Email = formData["Email"]
-								,
-								ContactNumber = formData["ContactNumber"]
-								,
-								//ScheduleId = Convert.ToInt32(formData["schedule"])
-								//,
-								Entertainment_TypeId = Convert.ToInt32(formData["entertainmenttype"])
-								,
-								Demo = base64
-							};
-
-
-							_repository.Add(booking);
-							await _repository.SaveChangesAsync();
-						}
-
-						return Ok();
-					}
-					else
-					{
-						return BadRequest();
-					}
-				}
-				catch (Exception ex)
-				{
-					return StatusCode(500, $"Internal server error: {ex}");
-				}
+				return Ok(bookings);
 			}
+			catch (Exception)
+			{
 
+				return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+			}
+		}
+
+
+		//Request to make booking
 		[HttpPost, DisableRequestSizeLimit]
-		[Route("AddBooks")]
-		public async Task<IActionResult> AddBooks([FromForm] IFormCollection formData)
+		[Route("RequestBk")]
+		public async Task<IActionResult> RequestBook([FromForm] IFormCollection formData)
 		{
 			try
 			{
@@ -147,22 +223,20 @@ namespace Africanacity_Team24_INF370_.Controllers
 						var fileBytes = ms.ToArray();
 						string base64 = Convert.ToBase64String(fileBytes);
 
-						var booking = new Bookings
-						{
 
-							FirstName = formData["FirstName"]
+						var booking = new Pending_Booking
+						{
+							FirstName = formData["firstName"]
 							,
-							LastName = formData["LastName"]
+							LastName = formData["lastName"]
 							,
-							Email = formData["Email"]
-							,
-							ContactNumber = formData["ContactNumber"]
-							,
-							ScheduleId = Convert.ToInt32(formData["schedule"])
+							Email = formData["email"]
 							,
 							Entertainment_TypeId = Convert.ToInt32(formData["entertainmenttype"])
 							,
 							Demo = base64
+							,
+							ContactNumber = formData["contactNumber"]
 						};
 
 
@@ -183,70 +257,123 @@ namespace Africanacity_Team24_INF370_.Controllers
 			}
 		}
 
-
-		[HttpGet]
-			[Route("Schedule")]
-			public async Task<ActionResult> Schedules()
-			{
-				try
-				{
-					var results = await _repository.GetSchedulesAsync();
-
-					return Ok(results);
-				}
-				catch (Exception)
-				{
-
-					return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
-				}
-			}
-
-
-			[HttpGet]
-			[Route("EntertainmentTypes")]
-			public async Task<ActionResult> EntertainmentTypes()
-			{
-				try
-				{
-					var results = await _repository.GetEntertainmentTypesAsync();
-
-					return Ok(results);
-				}
-				catch (Exception)
-				{
-
-					return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
-				}
-			}
-
-		[HttpPost]
-		[Route("AddBooking")]
-		public async Task<IActionResult> AddBooking(BookingView cvm)
+		// Add Booking
+		[HttpPost, DisableRequestSizeLimit]
+		[Route("AddBk")]
+		public async Task<IActionResult> AddBooking([FromForm] IFormCollection formData)
 		{
-			var addBooking = new Pending_Booking
-			{
-				LastName = cvm.LastName,
-				FirstName = cvm.FirstName,
-				ContactNumber = cvm.ContactNumber,
-				Email = cvm.Email,
-				Demo = cvm.Demo,
-				Entertainment_TypeId = Convert.ToInt32(cvm.entertainmenttype),
-				//ScheduleId = Convert.ToInt32(cvm.schedule)
-			};
-			
-
 			try
 			{
-				_repository.Add(addBooking);
-				await _repository.SaveChangesAsync();
-				
+				var formCollection = await Request.ReadFormAsync();
+
+				var file = formCollection.Files.First();
+
+				if (file.Length > 0)
+				{
+
+					using (var ms = new MemoryStream())
+					{
+						file.CopyTo(ms);
+						var fileBytes = ms.ToArray();
+						string base64 = Convert.ToBase64String(fileBytes);
+
+
+						var book = new Bookings
+						{
+							FirstName = formData["firstName"]
+							,
+							LastName = formData["lastName"]
+							,
+							Email = formData["email"]
+							,
+							Entertainment_TypeId = Convert.ToInt32(formData["entertainmenttype"])
+							,
+							Demo = base64
+							,
+							ContactNumber = formData["contactNumber"]
+						};
+
+
+						_repository.Add(book);
+						await _repository.SaveChangesAsync();
+					}
+
+					return Ok();
+				}
+				else
+				{
+					return BadRequest();
+				}
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, $"Internal server error: {ex}");
+			}
+		}
+
+		[HttpPost]
+		[Route("MoveBookingToConfirmed/{BookingId}")]
+		public async Task<IActionResult> MoveBookingToConfirmed(int BookingId)
+		{
+			try
+			{
+				var pendingBooking = await _repository.GetPendingAsync(BookingId);
+				if (pendingBooking == null) return NotFound($"The pending booking does not exist");
+
+				// Create a new Booking object based on the pending booking
+				var confirmedBooking = new Bookings
+				{
+	
+					FirstName = pendingBooking.FirstName,
+					LastName = pendingBooking.LastName,
+					Email = pendingBooking.Email,
+					Entertainment_TypeId = pendingBooking.Entertainment_TypeId,
+					Demo = pendingBooking.Demo,
+					ContactNumber = pendingBooking.ContactNumber
+				};
+
+				_repository.Delete(pendingBooking); // Delete the pending booking
+				_repository.Add(confirmedBooking); // Add the confirmed booking
+
+				if (await _repository.SaveChangesAsync())
+				{
+					return Ok(confirmedBooking);
+				}
+				else
+				{
+					return StatusCode(StatusCodes.Status500InternalServerError, "Failed to save changes to the database.");
+				}
+			}
+			catch (Exception ex)
+
+			{
+				// Log the exception message and stack trace
+				var innerExcept = ex.InnerException?.Message;
+
+				_logger.LogError(ex, "An error occurred while moving the booking to confirmed.");
+
+				return BadRequest($"Invalid transaction. Error. {ex.Message}. Inner Exception: {innerExcept}");
+			}
+		}
+
+		[HttpGet]
+		[Route("GetBooking/{bookingId}")]
+		public async Task<IActionResult>GetBookingAsync(int bookingId)
+		{
+			try
+			{
+				var result = await _repository.GetBookingAsync(bookingId);
+
+				if (result == null) return NotFound("Booking does not exist. You need to create an booking first");
+
+				return Ok(result);
 			}
 			catch (Exception)
 			{
-				return BadRequest("Invalid transaction");
+				return StatusCode(500, "Internal Server Error. Please contact support");
 			}
-			return Ok(addBooking);
 		}
+
 
 	}
 }

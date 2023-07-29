@@ -69,5 +69,23 @@ export class ApiService {
     return this.http.put(`${this.baseUrl}/EditUser/${UserId}`,user, this.httpOptions)
   }
 
+  
+    // changePassword(oldPassword: string, newPassword: string): Observable<any> {  
+    //   const token = localStorage.getItem('token');
 
-}
+    //   const headers = new HttpHeaders({
+    //     'Content-Type': 'application/json',
+    //    'Authorization':  `Bearer ${token}`
+    //     // Add any additional headers you may need, e.g., authentication headers
+    //   });
+  
+    //   const body = {
+    //     oldPassword: oldPassword,
+    //     newPassword: newPassword
+    //   };
+  
+    //   return this.http.post<any>(this.baseUrl, body, { headers: headers });
+    // }
+  }
+  
+

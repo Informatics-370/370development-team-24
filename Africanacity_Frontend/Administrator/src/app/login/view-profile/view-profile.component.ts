@@ -107,7 +107,7 @@ view(): void {
   deleteUser(): void {
     const confirmed = confirm('Are you sure you want to delete your account?');
     if (confirmed) {
-      this.api.deleteUser(this.UserId)
+      this.api.deleteAdmin(this.UserId)
         .subscribe(
           () => {
             alert('User deleted successfully!');
@@ -115,7 +115,7 @@ view(): void {
             // Perform any necessary actions after deletion, such as redirecting to a login page
           },
           (error) => {
-            console.error('Error deleting user:', error);
+            console.error('Error deleting Admin:', error);
             alert('An error occurred while deleting your account.');
           }
         );

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Africanacity_Team24_INF370_.models.Booking
 {
-    public class Entertainment_Type: BaseEntity
+    public class Entertainment_Type : BaseBookingEntity
 	{
 		[Key]
 		public int Entertainment_TypeId { get; set; }

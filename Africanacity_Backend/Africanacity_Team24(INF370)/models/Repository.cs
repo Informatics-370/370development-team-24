@@ -125,12 +125,19 @@ namespace Africanacity_Team24_INF370_.models
 		//Booking
 		public async Task<Bookings[]> GetBookingsAsync()
         {
-            IQueryable<Bookings> query = _appDbContext.bookings.Include(p => p.Schedule).Include(p => p.EntertainmentType);
+            IQueryable<Bookings> query = _appDbContext.bookings/*.Include(p => p.Schedule)*/.Include(p => p.EntertainmentType);
 
             return await query.ToArrayAsync();
         }
 
-        public async Task<Schedule[]> GetSchedulesAsync()
+		public async Task<Bookings> GetBookingAsync(int BookingId)
+		{
+			IQueryable<Bookings> query = _appDbContext.bookings.Where(d => d.BookingId == BookingId);
+			return await query.FirstOrDefaultAsync();
+		}
+
+
+		public async Task<Schedule[]> GetSchedulesAsync()
         {
             IQueryable<Schedule> query = _appDbContext.Schedules;
 
@@ -151,5 +158,12 @@ namespace Africanacity_Team24_INF370_.models
 
 			return await query.ToArrayAsync();
 		}
+
+		public async Task<Pending_Booking> GetPendingAsync(int BookingId)
+		{
+			IQueryable<Pending_Booking > query = _appDbContext.Pending_Bookings.Where(d => d.Pending_BookingId == BookingId);
+			return await query.FirstOrDefaultAsync();
+		}
+
 	}
 }

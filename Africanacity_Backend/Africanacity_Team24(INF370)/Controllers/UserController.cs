@@ -14,7 +14,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using AngularAuthYtAPI.Models.Dto;
 using System.Configuration;
 using Africanacity_Team24_INF370_.EmailService;
 using Africanacity_Team24_INF370_.models.Dto;
@@ -25,25 +24,20 @@ using System.IdentityModel.Tokens.Jwt;
 using Africanacity_Team24_INF370_.View_Models;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
+
 namespace Africanacity_Team24_INF370_.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
 	public class UserController : Controller
 	{
-		private readonly UserManager<AppUser> _userManager;
-		private readonly IUserClaimsPrincipalFactory<AppUser> _claimsPrincipalFactory;
 		private readonly IConfiguration _configuration;
-		private static Dictionary<string, TwoFactorCode> _twoFactorCodeDictionary
-			= new Dictionary<string, TwoFactorCode>();
 		private readonly AppDbContext _authContext;
 		private readonly IEmailService _emailService;
 		private readonly IRepository _repository;
-		public UserController(AppDbContext context, IRepository repository, UserManager<AppUser> userManager, IUserClaimsPrincipalFactory<AppUser> claimsPrincipalFactory, IConfiguration configuration, IEmailService emailService)
+		public UserController(AppDbContext context, IRepository repository, IConfiguration configuration, IEmailService emailService)
 		{
 			_authContext = context;
-			_userManager = userManager;
-			_claimsPrincipalFactory = claimsPrincipalFactory;
 			_configuration = configuration;
 			_emailService = emailService;
 			_repository = repository;
@@ -113,11 +107,11 @@ namespace Africanacity_Team24_INF370_.Controllers
 		}
 
 		private Task<bool> CheckEmailExistAsync(string? email)
-			=> _authContext.Users.AnyAsync(x => x.Email == email);
+				=> _authContext.Users.AnyAsync(x => x.Email == email);
 
 		private Task<bool> CheckUsernameExistAsync(string? username)
 			=> _authContext.Users.AnyAsync(x => x.Email == username);
-		 
+
 		private static string CheckPasswordStrength(string pass)
 		{
 			StringBuilder sb = new StringBuilder();
@@ -143,7 +137,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 				new Claim(ClaimTypes.Surname,$"{user.LastName}"),
 				new Claim(ClaimTypes.WindowsAccountName,$"{user.ContactNumber}"),
 				new Claim(ClaimTypes.Email,$"{user.Email}"),
-				new Claim(ClaimTypes.Actor ,$"{user.PhysicalAddress }")
+				new Claim(ClaimTypes.Actor ,$"{user.PhysicalAddress }"),						
+				new Claim(ClaimTypes.PrimarySid ,$"{user.Password }")
 
 			});
 
@@ -152,7 +147,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 			var tokenDescriptor = new SecurityTokenDescriptor
 			{
 				Subject = identity,
-				Expires = DateTime.Now.AddSeconds(15),
+				Expires = DateTime.Now.AddSeconds(1000000),
 				SigningCredentials = credentials
 			};
 			var token = jwtTokenHandler.CreateToken(tokenDescriptor);
@@ -193,7 +188,6 @@ namespace Africanacity_Team24_INF370_.Controllers
 			return principal;
 
 		}
-
 
 
 		[Authorize]
@@ -243,7 +237,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 			var tokenBytes = RandomNumberGenerator.GetBytes(64);
 			var emailToken = Convert.ToBase64String(tokenBytes);
 			user.ResetPasswordToken = emailToken;
-			user.ResetPasswordTokenExpiry = DateTime.Now.AddMinutes(5);
+			user.ResetPasswordTokenExpiry = DateTime.Now.AddMinutes(15);
 			string from = _configuration["EmailSetting:From"];
 			var emailModel = new EmailModel(email, "Reset Password!!", EmailBody.EmailStringBody(email, emailToken));
 			_emailService.SendEmail(emailModel);
@@ -260,7 +254,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 		[Route("Reset-password")]
 		public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)
 		{
-			var newToken = resetPasswordDto.EmailToken.Replace("", "+");
+			var newToken = resetPasswordDto.EmailToken.Replace(" ", "+");
 			var user = await _authContext.Users.AsNoTracking().FirstOrDefaultAsync(a => a.Email == resetPasswordDto.Email);
 			if (user == null)
 			{
@@ -294,7 +288,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 		//[Route("Change-password")]
 		//public async Task<IActionResult> ChangePassword(UpdatePasswordModel resetPasswordDto )
 		//{
-			
+
 		//	if (string.IsNullOrEmpty(resetPasswordDto.OldPassword))
 		//	{
 		//		return BadRequest("Old Password must be supplied for password change.");
@@ -375,7 +369,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 				if (existingUser == null) return NotFound($"The user does not exist");
 
 				existingUser.FirstName = ftvm.FirstName;
-				existingUser.Email = ftvm.Email;										
+				existingUser.Email = ftvm.Email;
 				existingUser.LastName = ftvm.LastName;
 				existingUser.ContactNumber = ftvm.ContactNumber;
 				existingUser.PhysicalAddress = ftvm.PhysicalAddress;
@@ -403,7 +397,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 				var existingUser = await _repository.ViewProfileAsync(UserId);
 
 				// fix error message
-				if (existingUser == null) return NotFound($"The userdoes not exist");
+				if (existingUser == null) return NotFound($"The user does not exist");
 
 				_repository.Delete(existingUser);
 
@@ -418,8 +412,66 @@ namespace Africanacity_Team24_INF370_.Controllers
 			}
 			return BadRequest("Your request is invalid");
 		}
+
+		[HttpPost]
+		[Route("Changepassword")]
+		public async Task<IActionResult> ChangePassword([FromBody] UpdatePasswordModel request)
+		{
+			try
+			{
+				// Retrieve the user based on the authenticated user or a token
+				var user = await _authContext.Users.SingleOrDefaultAsync(u => u.Username == User.Identity.Name);
+
+				// Check if the user exists
+				if (user == null)
+				{
+					return NotFound("User not found.");
+				}
+
+				// Check if the old password matches the stored password
+				if (!VerifyPasswordHash(request.OldPassword, user.Password))
+				{
+					return BadRequest("Old password is incorrect.");
+				}
+
+				// Check if the new password is different from the old password
+				if (request.NewPassword == request.OldPassword)
+				{
+					return BadRequest("New password must be different from the old password.");
+				}
+
+				// Update the password
+				user.Password = CreatePasswordHash(request.NewPassword);
+				await _authContext.SaveChangesAsync();
+
+				return Ok(new { Message = "Password changed successfully." });
+			}
+			catch (Exception ex)
+			{
+				// Log the exception for debugging purposes
+				// You can use a logging library like Serilog or NLog for this
+				// logger.LogError(ex, "An error occurred while changing password.");
+
+				// Return a generic error message to the client
+				return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "An error occurred while processing your request." });
+			}
+
+}
+
+		private static string CreatePasswordHash(string password)
+		{
+			// You should use a proper password hashing algorithm, e.g., bcrypt or PBKDF2
+			return PasswordHasher.HashPassword(password);
+		}
+
+		private static bool VerifyPasswordHash(string password, string passwordHash)
+		{
+			// You should use a proper password hashing algorithm, e.g., bcrypt or PBKDF2
+			return PasswordHasher.VerifyPassword(password, passwordHash);
+		}
 	}
 
 }
+
 
 

@@ -15,7 +15,10 @@ import { TokenApiModel } from '../shared/token-api.model';
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(private auth: AuthService, private toast: NgToastService, private router: Router) {}
+  constructor(
+    private auth: AuthService, 
+    private toast: NgToastService, 
+    private router: Router) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const myToken = this.auth.getToken();
