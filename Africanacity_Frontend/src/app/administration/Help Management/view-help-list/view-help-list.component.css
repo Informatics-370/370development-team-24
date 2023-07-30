@@ -1,20 +1,3 @@
-.heading{
-    /* background-color: darkmagenta; */
-    height: 50px;
-    text-align: center;
-    padding-top: 7px;
-    font-family: 'Times New Roman', Times, serif;
-}
-
-.edit-form{
-    align-items: center;
-}
-
-.label{
-    margin-bottom: 5px;
-    padding-bottom: 5px;
-} */
-
 table{
     padding-top: 60px;
 }
@@ -32,36 +15,16 @@ table{
 
 .table-striped>tbody>tr:nth-child(odd)>td,
 .table-striped>tbody>tr:nth-child(odd)>th {
-  background-color: lightgray;
-  color: rgb(0, 0, 0);
+  background-color: lightgrey;
+  color: white;
 }
 button{
-    border-radius: 50px;
+    border-radius: 99px;
     border-color: black;
 }
 .table-striped{
     padding-top: 200px;
 }
-.tableColor{
-    background-color: rgb(165, 113, 207);
+.thead{
+    background-color: darkgrey;
 }
-.outlined-table{
-    border: 1px solid #000; 
-    border-collapse: collapse;
-
-}
-.input-group{
-    margin-top: 25px;
-}
-
-.outlined-table th,
-.outlined-table td {
-  border: 1px solid rgb(165, 113, 207);; 
-  padding: 10px; 
-}
-.table-container{
-    margin-top: 40px
-}
-.table-hover tr:hover {
-    background-color: grey;
-  }

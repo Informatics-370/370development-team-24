@@ -1,54 +1,51 @@
 <div class="container-fluid">
     <!-- navbar -->
     <div class="row">
-            <div class="col-md-2">
-                <app-navbar></app-navbar>
-            </div>
+        <div class="col-md-2">
+            <app-navbar></app-navbar>
+        </div>
     
     
-        <div class="col-md-10">
+        <div class="col-md-10 order-md-1">
             <!-- heading -->
-            <div>
-                <h1 class="heading">Food Types</h1>
-            </div>
+            <h3 class="heading">Food Types</h3>
         
-            <div class="container-fluid">
-                <!-- search bar-->
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search food type"> <!-- [(ngModel)]="searchQuery" (input)="search()"-->
-                    <button class="btn" onclick="search(searchTerm)">
-                        <i class="fa fa-search" aria-hidden="true">  Search</i>
-                    </button>
+            <!-- search bar-->
+            <div class="input-group">
+                <div class="search-bar">
+                    <!-- search bar-->
+                    <input type="text" class="form-control" (input)="applyFilter($event)" placeholder="Search Columns">
+                </div>
 
-                <span style="align-content: right;">
-                    <button style="margin-left: 1em;" type="button" class="btn btn-sm btn-success" [routerLink]="'/create-food-type'">New</button>
-                </span>
-
-                <!--table-->
-                <table class="table table-striped table-container outlined-table">
-                    <thead class="tableColor">
-                        <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Description</th>
-                            <th scope="col"></th>
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of foodType"> 
-                            <td> {{ item.foodTypeId }} </td>
-                            <td> {{ item.name }} </td>
-                            <td> {{ item.description }} </td>
-                            <td>
-                            <!-- edit and delete buttons -->
-                            <button style="margin-right: 1em;" type="button" [routerLink]="['/edit-food-type', item.foodTypeId]" type class="btn btn-sm btn-info"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
-                            <button type="button" class="btn btn-sm btn-danger" (click)="DeleteFoodType(item.foodTypeId)"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
-                          </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="addButton">
+                    <i type="button" class="fa fa-plus-circle fa-3x" [routerLink]="'/create-food-type'"></i>
+                </div>
             </div>
+
+            <!--table-->
+            <table class="table table-striped table-container outlined-table">
+                <thead class="tableColor">
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col"></th>
+                            
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of foodType"> 
+                        <td> {{ item.foodTypeId }} </td>
+                        <td> {{ item.name }} </td>
+                        <td> {{ item.description }} </td>
+                        <td>
+                        <!-- edit and delete buttons -->
+                        <button style="margin-right: 1em;" type="button" [routerLink]="['/edit-food-type', item.foodTypeId]" type class="btn btn-sm btn-info"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
+                        <button type="button" class="btn btn-sm btn-danger" (click)="DeleteFoodType(item.foodTypeId)"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

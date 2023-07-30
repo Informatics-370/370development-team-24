@@ -1,4 +1,6 @@
 ﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
+﻿using Africanacity_Team24_INF370_.models.Admin;
+using Africanacity_Team24_INF370_.models.Administration;
 using System.ComponentModel.DataAnnotations;
 
 namespace Africanacity_Team24_INF370_.models.Inventory
@@ -7,16 +9,19 @@ namespace Africanacity_Team24_INF370_.models.Inventory
 	{
 		[Key]
 		public int Inventory_ItemId { get; set; }
+    {
+        [Key]
+        public int Inventory_ItemId { get; set; }
 
-		[MaxLength(50)]
-		public string ItemName { get; set; } = string.Empty;
+        [MaxLength(50)]
+        public string ItemName { get; set; } = string.Empty;
 
-		[MaxLength(100)]
-		public string Description { get; set; } = string.Empty;
+        [MaxLength(100)]
+        public string Description { get; set; } = string.Empty;
 
-		public int Quantity { get; set; }
+        public int Quantity { get; set; }
 
-		public int Inventory_TypeId { get; set; }
+        public int Inventory_TypeId { get; set; }
 
         public List<Supplier> Suppliers { get; set; } = new List<Supplier>();
 
@@ -26,4 +31,5 @@ namespace Africanacity_Team24_INF370_.models.Inventory
 
 
     }
+ }
 }

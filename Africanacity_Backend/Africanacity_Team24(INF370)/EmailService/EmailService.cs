@@ -1,24 +1,33 @@
-﻿using System;
+﻿using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
-using Africanacity_Team24_INF370_.models.Inventory;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
 ﻿using Africanacity_Team24_INF370_.models;
 
+using SmtpClient = System.Net.Mail.SmtpClient;
 
 namespace Africanacity_Team24_INF370_.EmailService
 {
-    public class EmailService : IEmailService
-    {
-        private readonly IConfiguration _configuration;
+	public class EmailService : IEmailService
+	{
 
-        public EmailService(IConfiguration configuration)
+        private readonly SmtpClient _smtpClient;
+        private const string SenderEmail = "lavanianaidoo13@gmail.com";
+        private const string SenderPassword = "Shimmering123";
+
+        public EmailService()
         {
-            _configuration = configuration;
+            _smtpClient = new SmtpClient("smtp.gmail.com", 587)
+            {
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(SenderEmail, SenderPassword),
+                EnableSsl = true
+            };
         }
 
-        public async Task SendEmailAsync(string toEmail, string subject, string body)
+        public async Task SendEmployeeAddedEmailAsync(string recipientEmail, string FirstName)
         {
             var emailMessage = new MimeMessage();
             var from = new MailboxAddress("MMINO Restaurant Team", _configuration["EmailSettings1:From"]);
@@ -27,8 +36,10 @@ namespace Africanacity_Team24_INF370_.EmailService
             emailMessage.To.Add(to);
             emailMessage.Subject = subject;
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            var message = new MailMessage(SenderEmail, recipientEmail)
             {
-                Text = body
+                Subject = "Employee Added",
+                Body = $"Dear recipient, a new employee with the name {FirstName} has been added to the system."
             };
 
             using (var client = new SmtpClient())
@@ -48,9 +59,10 @@ namespace Africanacity_Team24_INF370_.EmailService
                     await client.DisconnectAsync(true);
                 }
             }
+            await _smtpClient.SendMailAsync(message);
         }
 
-        public async Task CheckAndSendNotificationAsync(string itemName, int itemQuantity, int predefinedLevel)
+        public Task SendEmailAsync(string recipientEmail, string subject, string message)
         {
             if (itemQuantity < predefinedLevel)
             {
@@ -62,6 +74,7 @@ namespace Africanacity_Team24_INF370_.EmailService
                 // Send the email asynchronously
                 await SendEmailAsync(toEmail, subject, content);
             }
+            throw new NotImplementedException();
         }
 
 		public void SendEmail(EmailModel emailModel)

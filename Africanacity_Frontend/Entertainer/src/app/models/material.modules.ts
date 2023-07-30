@@ -34,7 +34,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
-import { MatIcon } from '@angular/material/icon';
 
 import { NgModule } from '@angular/core';
 
@@ -76,9 +75,7 @@ import { NgModule } from '@angular/core';
     MatTooltipModule,
     MatPaginatorModule,
     MatSortModule,
-    MatTableModule,
-    
-   
+    MatTableModule
   ]
 })
 export class MaterialModule { }

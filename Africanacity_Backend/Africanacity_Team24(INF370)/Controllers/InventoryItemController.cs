@@ -9,9 +9,9 @@ using System.Data.Entity;
 using System.Net;
 using System.Net.Mail;
 using Africanacity_Team24_INF370_.EmailService;
-using SendGrid.Helpers.Mail;
+//using SendGrid.Helpers.Mail;
 using Microsoft.VisualBasic;
-using Newtonsoft.Json.Linq;
+//using Newtonsoft.Json.Linq;
 using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 

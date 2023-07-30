@@ -24,7 +24,7 @@ namespace Africanacity_Team24_INF370_.models
 	{
 		private readonly AppDbContext _appDbContext;
 
-        object IRepository.EmployeeViewModel => throw new NotImplementedException();
+        public object EmployeeViewModel => throw new NotImplementedException();
 
         public Repository(AppDbContext appDbContext)
         {
@@ -35,7 +35,6 @@ namespace Africanacity_Team24_INF370_.models
         public async Task<Employee[]> GetAllEmployeesAsync()
         {
             IQueryable<Employee> query = _appDbContext.Employees.Include(e => e.Employee_Role);
-
             return await query.ToArrayAsync();
         }
         public async Task<Employee> GetEmployeeAsync(int employeeId)
@@ -56,9 +55,6 @@ namespace Africanacity_Team24_INF370_.models
             return await query.FirstOrDefaultAsync();
         }
         
-
-
-
         // employee role
         public async Task<Employee_Role[]> GetAllEmployeeRolesAsync()
         {
@@ -108,6 +104,18 @@ namespace Africanacity_Team24_INF370_.models
         public async Task<Drink_Type> GetDrinkTypeAsync(int Drink_TypeId)
         {
             IQueryable<Drink_Type> query = _appDbContext.Drink_Types.Where(d => d.Drink_TypeId == Drink_TypeId);
+            return await query.FirstOrDefaultAsync();
+        }
+
+        //DRINK
+        public async Task<Drink[]> GetAllDrinksAsync()
+        {
+            IQueryable<Drink> query = _appDbContext.Drinks.Include(d => d.Drink_Type);
+            return await query.ToArrayAsync();
+        }
+        public async Task<Drink> GetDrinkAsync(int drinkId)
+        {
+            IQueryable<Drink> query = _appDbContext.Drinks.Where(d => d.DrinkId == drinkId);
             return await query.FirstOrDefaultAsync();
         }
 
@@ -324,7 +332,7 @@ namespace Africanacity_Team24_INF370_.models
             return await query.FirstOrDefaultAsync();
         }
 
-        //SUUPLIER TYPES
+        //SUPLIER TYPES
 
         public async Task<Supplier_Type[]> GetAllSupplierTypesAsync()
         {

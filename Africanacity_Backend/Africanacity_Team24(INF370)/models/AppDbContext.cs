@@ -26,9 +26,9 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<Administrator> Administrators { get; set; }
 		public DbSet<Access_UserRole> Access_UserRoles{ get; set; }
 		public DbSet<Discount> Discounts { get; set; }
-		public DbSet<Employee> Employees { get; set; }
         public DbSet<Employee_Role> Employee_Roles { get; set; }
-		public DbSet<Help> Helps { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Help> Helps { get; set; }
 		public DbSet<Help_Category> Help_Categories{ get; set; }
 		public DbSet<Password> Passwords { get; set; }
 		public DbSet<Title> Titles { get; set; }
@@ -83,6 +83,7 @@ namespace Africanacity_Team24_INF370_.models
 
 			modelBuilder.Entity<User>().ToTable("Users");
 			base.OnModelCreating(modelBuilder);
+
            // modelBuilder.Entity<StockTake>().HasMany(st => st.StockTakeItems).WithOne().OnDelete(DeleteBehavior.Cascade);
 
 
@@ -193,8 +194,30 @@ namespace Africanacity_Team24_INF370_.models
                                Employee_RoleId = 1,
 							   Physical_Address = "404 Jacob Street",
 							   PhoneNumber = "0847541236"
+            //modelBuilder.Entity<Employee>()
 
-						   });
+                        //   .HasData(
+                        //   new
+                        //   {
+                        //       EmployeeId = 1,
+                        //       Surname = "James",
+                        //       FirstName = "Vanessa",
+                        //       Email_Address = "VanessaJames@gmail.com",
+                        //       Employee_RoleId = 1,
+                        //       Physical_Address = "404 Jacob Street",
+//PhoneNumber = "0847541236"
+
+						//   .HasData(
+						//   new
+						//   {
+						//	   EmployeeId = 1,
+						//	   Surname = "James",
+						//	   FirstName = "Vanessa",
+						//	   Email_Address = "VanessaJames@gmail.com",
+                       //        Employee_RoleId = 1,
+						//	   Physical_Address = "404 Jacob Street",
+						//	   PhoneNumber = "0847541236"
+                       //    });
             modelBuilder.Entity<Employee>()
                          .HasData(
                          new
@@ -339,6 +362,14 @@ namespace Africanacity_Team24_INF370_.models
                           Description = "You can book for a live entertainment on the website."
                       });
 
+			//create seed data for menu type
+            //modelBuilder.Entity<Menu_Type>()
+             //             .HasData(
+             //             new
+            //              {
+            //                  Menu_TypeId = 1,
+             //                 Name = "Breakfast"
+
 
 			////create seed data for menu type
    //         modelBuilder.Entity<Menu_Type>()
@@ -388,6 +419,7 @@ namespace Africanacity_Team24_INF370_.models
                               Menu_TypeId = 1,
                               Name = "Breakfast"
                               
+   //                           Name = "Breakfast"                           
 
    //                       });
    //         modelBuilder.Entity<Menu_Type>()

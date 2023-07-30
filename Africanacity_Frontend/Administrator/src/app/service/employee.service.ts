@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, Subject } from 'rxjs';
+import { ViewEmployeesComponent } from '../administration/Employees/view-employees/view-employees.component';
 import { Help } from '../shared/help';
 import { Employee } from '../shared/employee';
-
 
 
 @Injectable({
@@ -11,8 +11,9 @@ import { Employee } from '../shared/employee';
 })
 export class EmployeeService {
 
-  apiUrl = 'http://localhost:49991/api/'
-
+  apiUrl = 'http://localhost:4002/api/'
+  // private apiURL = 'http://localhost:49991/api/Employee';
+  // private apiUrl = 'http://localhost:5000/api/email';
 
 
   httpOptions ={
@@ -48,11 +49,6 @@ export class EmployeeService {
     .pipe(map(result => result))
   }
 
-  GetAllEmployeeRoles(): Observable<any>{
-    return this.httpClient.get(`${this.apiUrl}EmployeeRole/GetAllEmployeeRoles`)
-    .pipe(map(results => results))
-    
-  }
 
   AddEmployee(employee: Employee)
   {
@@ -60,7 +56,7 @@ export class EmployeeService {
   }
 
 
-  DeleteEmployee(employeeId: Number)
+  deleteEmployee(employeeId: Number)
   {
     return this.httpClient.delete<string>(`${this.apiUrl}Employee/DeleteEmployee` + "/" + employeeId, this.httpOptions)
   }

@@ -1,12 +1,16 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, Subject } from 'rxjs';
+import { LoginUser } from '../shared/login-user';
+import { RegisterUser } from '../shared/register-user';
 import { User } from '../shared/user';
 import { Employee_Role} from '../shared/EmployeeRole';
 import { MenuTypes } from '../shared/menu-types'; //Menu Types
 import { MenuItem } from '../shared/menu-item';
 import { FoodType } from '../shared/food-type';
-import { LoginUser } from '../shared/login-user';
+import { DrinkType } from '../shared/drink-type';
+import { Drink } from '../shared/drink';
 import { MenuItemCategory } from '../shared/menu-item-category';
 import { Schedule } from '../shared/schedule';
 import { BookingEvent } from '../shared/bookingevent';
@@ -19,7 +23,7 @@ import { Entertainment_Type } from '../shared/entertainmentType';
 export class DataService {
   
 
-  apiUrl = 'http://localhost:49991/api/'
+  apiUrl = 'http://localhost:4002/api/'
 
   httpOptions ={
     headers: new HttpHeaders({
@@ -145,42 +149,84 @@ export class DataService {
   // }
 
   /********** MENU CATEGORY***************/
-  // GetAllMenuItemCategories(): Observable<any>{
-  //   return this.httpClient.get(`${this.apiUrl}MenuItem_Category/GetAllMenuItemCategories`)
-  //   .pipe(map(result => result));
-  // }
-
-  // fetch food type name
-  // GetMenuItemCategoryById(menuItemCategory_Id: Number): Observable<any>{
-  //   return this.httpClient.get(`${this.apiUrl}MenuItem_Category/GetMenuItemCategory/${menuItemCategory_Id}`);
-  // }
-  // food type
   GetAllFoodTypes(): Observable<any>{
-    return this.httpClient.get(`${this.apiUrl}foodTypeController/GetAllFoodTypes`).pipe(map(result => result)) 
+    return this.httpClient.get(`${this.apiUrl}foodType/GetAllFoodTypes`).pipe(map(result => result)) 
   }
 
   GetFoodType(foodTypeId: number)
   {
-    return this.httpClient.get(`${this.apiUrl}foodTypeController/GetFoodType` + "/" + foodTypeId).pipe(map(result => result))
+    return this.httpClient.get(`${this.apiUrl}foodType/GetFoodType` + "/" + foodTypeId).pipe(map(result => result))
   }
 
   AddFoodType(foodType : FoodType)
   {
-    return this.httpClient.post(`${this.apiUrl}foodTypeController/AddFoodType`, foodType, this.httpOptions)
+    return this.httpClient.post(`${this.apiUrl}foodType/AddFoodType`, foodType, this.httpOptions)
   }
 
   EditFoodType(foodTypeId: number, foodType: FoodType)
   {
-    return this.httpClient.put(`${this.apiUrl}foodTypeController/EditFoodType/${foodTypeId}`, foodType, this.httpOptions)
+    return this.httpClient.put(`${this.apiUrl}foodType/EditFoodType/${foodTypeId}`, foodType, this.httpOptions)
   }
 
   DeleteFoodType(foodTypeId: number)
   {
-    return this.httpClient.delete<string>(`${this.apiUrl}foodTypeController/DeleteFoodType` + "/" + foodTypeId, this.httpOptions)
+    return this.httpClient.delete<string>(`${this.apiUrl}foodType/DeleteFoodType` + "/" + foodTypeId, this.httpOptions)
+  }
+
+  // drink type
+  GetAllDrinkTypes(): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}drinkType/GetAllDrinkTypes`).pipe(map(result => result)) 
+  }
+
+  GetDrinkType(drinkTypeId: number)
+  {
+    return this.httpClient.get(`${this.apiUrl}drinkType/GetDrinkType` + "/" + drinkTypeId).pipe(map(result => result))
+  }
+
+  AddDrinkType(drinkType : DrinkType)
+  {
+    return this.httpClient.post(`${this.apiUrl}drinkType/AddDrinkType`, drinkType, this.httpOptions)
+  }
+
+  EditDrinkType(drinkTypeId: number, drinkType: DrinkType)
+  {
+    return this.httpClient.put(`${this.apiUrl}drinkType/EditDrinkType/${drinkTypeId}`, drinkType, this.httpOptions)
+  }
+
+  DeleteDrinkType(drinkTypeId: number)
+  {
+    return this.httpClient.delete<string>(`${this.apiUrl}drinkType/DeleteDrinkType` + "/" + drinkTypeId, this.httpOptions)
+  }
+
+  // drink 
+  GetAllDrinks(): Observable<any>
+  {
+    return this.httpClient.get(`${this.apiUrl}Drink/DrinkItemListing`).pipe(map(result => result)) 
+  }
+
+  GetDrink(drinkId: number): Observable<any>
+  {
+    return this.httpClient.get(`${this.apiUrl}Drink/GetDrink/${drinkId}`);
+  }
+
+  AddDrink(drink: Drink)
+  {
+    return this.httpClient.post(`${this.apiUrl}Drink/AddDrink`, drink, this.httpOptions)
+  }
+
+  EditDrink(drinkId: number, drink: Drink)
+  {
+    return this.httpClient.put(`${this.apiUrl}Drink/EditDrink/${drinkId}`, drink, this.httpOptions)
+  }
+
+  DeleteDrink(drinkId: number)
+  {
+    return this.httpClient.delete<string>(`${this.apiUrl}Drink/DeleteDrink` + "/" + drinkId, this.httpOptions)
   }
 
   // menu item category
-  GetAllMenuItemCategories(): Observable<any>{
+  GetAllMenuItemCategories(): Observable<any>
+  {
     return this.httpClient.get(`${this.apiUrl}MenuItem_Category/GetAllMenuItemCategories`).pipe(map(result => result)) 
   }
 

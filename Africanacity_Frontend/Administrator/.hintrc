@@ -21,14 +21,7 @@
     "axe/forms": [
       "default",
       {
-        "label": "off",
-        "select-name": "off"
-      }
-    ],
-    "axe/aria": [
-      "default",
-      {
-        "empty-table-header": "off"
+        "label": "off"
       }
     ]
   }
