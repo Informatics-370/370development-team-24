@@ -60,6 +60,22 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReceiveOrderComponent } from './administration/Inventory Management/Inventory Items/receive-order/receive-order.component';
 import { ViewOrdersComponent } from './administration/Inventory Management/Inventory Items/receive-order/view-orders/view-orders/view-orders.component';
+import { AddScheduleComponent } from './booking/schedule/add-schedule/add-schedule.component';
+import { EditScheduleComponent } from './booking/schedule/edit-schedule/edit-schedule.component';
+import { ScheduleDisplayComponent } from './booking/schedule/schedule-display/schedule-display.component';
+import { AddEventComponent } from './booking/events/add-event/add-event.component';
+import { EditEventComponent } from './booking/events/edit-event/edit-event.component';
+import { ViewEventsComponent } from './booking/events/view-events/view-events.component';
+import { AddEntertainmentTypeComponent } from './booking/entertainment/add-entertainment-type/add-entertainment-type.component';
+import { EditEntertainmentTypeComponent } from './booking/entertainment/edit-entertainment-type/edit-entertainment-type.component';
+import { EntertainmentTypesComponent } from './booking/entertainment/entertainment-types/entertainment-types.component';
+// import { FullCalendarModule } from '@fullcalendar/angular';
+// import dayGridPlugin from '@fullcalendar/daygrid'; // Import the dayGrid plugin
+// import interactionPlugin from '@fullcalendar/interaction';
+// //import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; // Import the interaction plugin
+// import { ModalModule } from 'ngx-bootstrap/modal';
+
+
 
 
 @NgModule({
@@ -89,9 +105,9 @@ import { ViewOrdersComponent } from './administration/Inventory Management/Inven
    ConfirmationDialogComponent, 
    MenuitemsComponent,
     UpdatePasswordComponent, 
-  FoodTypeComponent, 
-  MenuItemCategoryComponent, 
-  EditFoodTypeComponent,
+   FoodTypeComponent, 
+   MenuItemCategoryComponent, 
+   EditFoodTypeComponent,
    CreateFoodTypeComponent, 
    EditMenuItemCategoryComponent, 
    CreateMenuItemCategoryComponent, 
@@ -110,7 +126,17 @@ import { ViewOrdersComponent } from './administration/Inventory Management/Inven
     SelectedInventorytypeComponent, 
     ChecklistComponent, InventoryStocktypeComponent,
     ReceiveOrderComponent,
-    ViewOrdersComponent
+    ViewOrdersComponent,
+   AddScheduleComponent, 
+   EditScheduleComponent, 
+   ScheduleDisplayComponent,
+   AddEventComponent, 
+    EditEventComponent, 
+    ViewEventsComponent,
+    AddEntertainmentTypeComponent, 
+    EditEntertainmentTypeComponent,
+    EntertainmentTypesComponent,
+    
   ],
 
   imports: [
@@ -121,15 +147,17 @@ import { ViewOrdersComponent } from './administration/Inventory Management/Inven
     ReactiveFormsModule,
     HttpClientModule,
     MaterialModule,
-    Ng2SearchPipeModule,
-    MatSelectModule,
-    MatSnackBarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatDialogModule
-
+    //Ng2SearchPipeModule,
+    // MatSelectModule,
+    // MatSnackBarModule,
+    // MatIconModule,
+    // MatButtonModule,
+    // MatDialogModule,
+    // FullCalendarModule,
+    // ModalModule.forRoot(),
+    
   ],
-  providers: [DataService],
+  providers: [DataService], 
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

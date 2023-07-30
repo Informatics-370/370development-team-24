@@ -15,6 +15,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class EmployeeRoleComponent implements OnInit{
 
 employeeroles:Employee_Role[] = []
+filteredemployeeroles:Employee_Role[]=[];
+
 
 constructor(private dataService: DataService, 
   private router: Router, 
@@ -42,6 +44,9 @@ constructor(private dataService: DataService,
 
   ngOnInit():void {
   this.GetAllEmployeeRoles()
+
+  this.filteredemployeeroles= this.employeeroles
+  console.log(this.filteredemployeeroles)
   }
   // Get all employees method
   GetAllEmployeeRoles()
@@ -60,11 +65,22 @@ constructor(private dataService: DataService,
       });
     }   
     
-    searchTerm: string = '';
+  //filter method
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+  
+    this.filteredemployeeroles = this.employeeroles.filter(EmployeeRole => {
+      const column2Value = EmployeeRole.name.toLowerCase() || EmployeeRole.name.toUpperCase();
+      const column3Value = EmployeeRole.description.toLowerCase();
+      
+  
+      return column2Value.includes(filterValue) || 
+      column3Value.includes(filterValue);
+
+    });
+  }
 
     
 
-    // search(searchTerm: string) {
-    //   this.searchClicked.emit(searchTerm);
-    // }
+    
 }

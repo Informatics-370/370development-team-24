@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Africanacity_Team24_INF370_.models.Inventory;
 using System.Linq;
 
+using Africanacity_Team24_INF370_.models.Booking;
 
 namespace Africanacity_Team24_INF370_.models
 {
@@ -113,6 +114,41 @@ namespace Africanacity_Team24_INF370_.models
             return await query.FirstOrDefaultAsync();
         }
 
+        //SCHEDULE 
+        public async Task<Schedule[]> ScheduleDisplayAsync()
+        {
+            IQueryable<Schedule> query = _appDbContext.Schedules;
+            return await query.ToArrayAsync();
+        }
+        public async Task<Schedule> GetScheduleAsync(int scheduleId)
+        {
+            IQueryable<Schedule> query = _appDbContext.Schedules.Where(s => s.ScheduleId == scheduleId);
+            return await query.FirstOrDefaultAsync();
+        }
+
+        //EVENTS
+        public async Task<Event[]> GetAllEventsAsync()
+        {
+            IQueryable<Event> query = _appDbContext.Events;
+            return await query.ToArrayAsync();
+        }
+        public async Task<Event> GetEventAsync(int EventId)
+        {
+            IQueryable<Event> query = _appDbContext.Events.Where(e => e.EventId == EventId);
+            return await query.FirstOrDefaultAsync();
+        }
+
+        //ENTERTAINMENT TYPE
+        public async Task<Entertainment_Type[]> GetEntertainmentTypesAsync()
+        {
+            IQueryable<Entertainment_Type> query = _appDbContext.Entertainment_Types;
+            return await query.ToArrayAsync();
+        }
+        public async Task<Entertainment_Type> GetEntertainmentTypeAsync(int entertainment_TypeId)
+        {
+            IQueryable<Entertainment_Type> query = _appDbContext.Entertainment_Types.Where(t => t.Entertainment_TypeId == entertainment_TypeId);
+            return await query.FirstOrDefaultAsync();
+        }
        
         //Menu Item
         public async Task<MenuItem[]> GetAllMenuItemsAsync()

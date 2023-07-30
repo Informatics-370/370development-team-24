@@ -38,6 +38,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatIcon } from '@angular/material/icon';
 
+
 @NgModule({
   declarations: [],
   exports: [
@@ -78,6 +79,7 @@ import { MatIcon } from '@angular/material/icon';
     MatSortModule,
     MatTableModule,
     
+   
   ]
 })
 export class MaterialModule { }

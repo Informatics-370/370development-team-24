@@ -8,6 +8,10 @@ import { MenuItem } from '../shared/menu-item';
 import { FoodType } from '../shared/food-type';
 import { LoginUser } from '../shared/login-user';
 import { MenuItemCategory } from '../shared/menu-item-category';
+import { Schedule } from '../shared/schedule';
+import { BookingEvent } from '../shared/bookingevent';
+import { Entertainment_Type } from '../shared/entertainmentType';
+
 
 @Injectable({
   providedIn: 'root'
@@ -201,8 +205,91 @@ export class DataService {
     //return this.httpClient.delete<string>(`${this.apiUrl}MenuItem_Category/DeleteMenuItemCategory` + "/" + Menu_CategoryId, this.httpOptions)
     return this.httpClient.delete<string>(`${this.apiUrl}MenuItem_Category/DeleteMenuItemCategory` + "/" + menu_CategoryId, this.httpOptions)
   }
+/******************************SCHEDULE**********************/
+//Get All Schedules
+ScheduleDisplay(): Observable<any>
+{
+  return this.httpClient.get(`${this.apiUrl}Schedule/ScheduleDisplay`)
+  .pipe(map(results => results))
+}
+
+GetSchedule(scheduleId: number) {
+  return this.httpClient.get<any>(`${this.apiUrl}Schedule/GetSchedule/${scheduleId}`).pipe(map(result => result));
+}
+
+
+AddSchedule(schedule : Schedule)
+{
+  return this.httpClient.post(`${this.apiUrl}Schedule/AddSchedule`, schedule, this.httpOptions)
+}
+
+EditSchedule(scheduleId: Number, schedule: Schedule)
+{
+  return this.httpClient.put(`${this.apiUrl}Schedule/EditSchedule/${scheduleId}`, schedule, this.httpOptions)
+}
+
+DeleteSchedule(scheduleId: Number)
+{
+  return this.httpClient.delete<string>(`${this.apiUrl}Schedule/DeleteSchedule` + "/" + scheduleId, this.httpOptions)
+}
+
+/************************************EVENTS******************************/
+GetAllEvents(): Observable<any>
+{
+  return this.httpClient.get(`${this.apiUrl}Event/GetAllEvents`)
+  .pipe(map(results => results))
+}
+
+GetEvent(eventId: Number)
+{
+  return this.httpClient.get(`${this.apiUrl}Event/GetEvent` + "/" + eventId).pipe(map(result => result))
+}
+
+AddNewEvent(bookingevent : BookingEvent)
+{
+  return this.httpClient.post(`${this.apiUrl}Event/AddNewEvent`, bookingevent, this.httpOptions)
+}
+
+EditEvent(eventId: Number, bookingevent: BookingEvent)
+{
+  return this.httpClient.put(`${this.apiUrl}Event/EditEvent/${eventId}`, bookingevent, this.httpOptions)
+}
+
+DeleteEvent(eventId: Number)
+{
+  return this.httpClient.delete<string>(`${this.apiUrl}Event/DeleteEvent` + "/" + eventId, this.httpOptions)
+}
+
+/*******************ENTERTAINMENT TYPE********************/
+GetEntertainmentTypes(): Observable<any>
+{
+  return this.httpClient.get(`${this.apiUrl}EntertainmentType/GetEntertainmentTypes`)
+  .pipe(map(results => results))
+}
+
+GetEntertainmentType(entertainment_TypeId: Number)
+{
+  return this.httpClient.get(`${this.apiUrl}EntertainmentType/GetEntertainmentType` + "/" + entertainment_TypeId).pipe(map(result => result))
+}
+
+AddEntertainmentType(entertainmentType : Entertainment_Type)
+{
+  return this.httpClient.post(`${this.apiUrl}EntertainmentType/AddEntertainmentType`, entertainmentType, this.httpOptions)
+}
+
+EditEntertainmentType(entertainment_TypeId: Number, entertainmentType: Entertainment_Type)
+{
+  return this.httpClient.put(`${this.apiUrl}EntertainmentType/EditEntertainmentType/${entertainment_TypeId}`, entertainmentType, this.httpOptions)
+}
+
+DeleteEntertainmentType(entertainment_TypeId: Number)
+{
+  return this.httpClient.delete<string>(`${this.apiUrl}EntertainmentType/DeleteEntertainmentType` + "/" + entertainment_TypeId, this.httpOptions)
+}
+
 
 }
+
 
 class UserCredentials  {
   EmailAddress:string = 'Addyouremailaddresshere';

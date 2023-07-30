@@ -1,6 +1,7 @@
 ﻿using Africanacity_Team24_INF370_.models.Admin;
 ﻿using Africanacity_Team24_INF370_.Controllers;
 using Africanacity_Team24_INF370_.models.Administration;
+using Africanacity_Team24_INF370_.models.Booking;
 using Africanacity_Team24_INF370_.models.Restraurant;
 using Africanacity_Team24_INF370_.ViewModel;
 using Africanacity_Team24_INF370_.View_Models;
@@ -81,5 +82,16 @@ namespace Africanacity_Team24_INF370_.models
 
         Task<Supplier_Inventory[]> GetAllInventoryOrdersAsync();
        
+        //SCHEDULE
+        Task<Schedule> GetScheduleAsync(int schedule_Id);
+        Task<Schedule[]> ScheduleDisplayAsync();
+
+        //EVENTS
+        Task<Event[]> GetAllEventsAsync();
+        Task<Event> GetEventAsync(int EventId);
+
+        //ENTERTAINMENT TYPE
+        Task<Entertainment_Type[]> GetEntertainmentTypesAsync();
+        Task<Entertainment_Type> GetEntertainmentTypeAsync(int Entertainment_TypeId);
     }
 }

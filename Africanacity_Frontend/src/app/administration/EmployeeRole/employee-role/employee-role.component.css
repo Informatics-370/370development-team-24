@@ -96,6 +96,9 @@ button{
 .table-container{
     margin-top: 60px
 }
+.table-hover tr:hover {
+    background-color: grey;
+  }
 .addButton{
 
     left: 150px;
