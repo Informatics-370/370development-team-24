@@ -234,6 +234,17 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasIndex("AdministratorId");
 
                     b.ToTable("Discounts");
+
+                    b.HasData(
+                        new
+                        {
+                            DiscountId = 1,
+                            Amount = 0.10m,
+                            Description = "10% Discount",
+                            End_Date = new DateTime(2023, 8, 8, 12, 40, 17, 381, DateTimeKind.Local).AddTicks(1833),
+                            Name = "Month end discount",
+                            Start_Date = new DateTime(2023, 7, 29, 12, 40, 17, 381, DateTimeKind.Local).AddTicks(1825)
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Employee", b =>
@@ -508,6 +519,20 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasKey("VatId");
 
                     b.ToTable("Vats");
+
+                    b.HasData(
+                        new
+                        {
+                            VatId = 1,
+                            Amount = 0.10m,
+                            Description = "10% VAT on total"
+                        },
+                        new
+                        {
+                            VatId = 2,
+                            Amount = 0.15m,
+                            Description = "15% VAT on total"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Booking_Status", b =>
@@ -958,6 +983,44 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasIndex("Drink_TypeId");
 
                     b.ToTable("Drinks");
+
+                    b.HasData(
+                        new
+                        {
+                            DrinkId = 1,
+                            Drink_TypeId = 1,
+                            Name = "Margarita"
+                        },
+                        new
+                        {
+                            DrinkId = 2,
+                            Drink_TypeId = 1,
+                            Name = "Strawberry Daiquri"
+                        },
+                        new
+                        {
+                            DrinkId = 3,
+                            Drink_TypeId = 1,
+                            Name = "Blood Mary"
+                        },
+                        new
+                        {
+                            DrinkId = 4,
+                            Drink_TypeId = 2,
+                            Name = "Virgin Mojito"
+                        },
+                        new
+                        {
+                            DrinkId = 5,
+                            Drink_TypeId = 2,
+                            Name = "Cappuccino"
+                        },
+                        new
+                        {
+                            DrinkId = 6,
+                            Drink_TypeId = 2,
+                            Name = "Frozen lemonade"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Drink_Price", b =>
@@ -968,17 +1031,53 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Drink_PriceId"), 1L, 1);
 
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("DrinkId")
+                    b.Property<int>("DrinkId")
                         .HasColumnType("int");
 
                     b.HasKey("Drink_PriceId");
 
-                    b.HasIndex("DrinkId");
-
                     b.ToTable("Drink_Prices");
+
+                    b.HasData(
+                        new
+                        {
+                            Drink_PriceId = 1,
+                            Amount = 55m,
+                            DrinkId = 1
+                        },
+                        new
+                        {
+                            Drink_PriceId = 2,
+                            Amount = 75m,
+                            DrinkId = 2
+                        },
+                        new
+                        {
+                            Drink_PriceId = 3,
+                            Amount = 99m,
+                            DrinkId = 3
+                        },
+                        new
+                        {
+                            Drink_PriceId = 4,
+                            Amount = 45m,
+                            DrinkId = 4
+                        },
+                        new
+                        {
+                            Drink_PriceId = 5,
+                            Amount = 65m,
+                            DrinkId = 5
+                        },
+                        new
+                        {
+                            Drink_PriceId = 6,
+                            Amount = 100m,
+                            DrinkId = 6
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Drink_Type", b =>
@@ -997,6 +1096,18 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasKey("Drink_TypeId");
 
                     b.ToTable("Drink_Types");
+
+                    b.HasData(
+                        new
+                        {
+                            Drink_TypeId = 1,
+                            Name = "Alcohol"
+                        },
+                        new
+                        {
+                            Drink_TypeId = 2,
+                            Name = "Non-Alcohol"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Food_Type", b =>
@@ -1048,6 +1159,38 @@ namespace Africanacity_Team24_INF370_.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.KitchenOrder", b =>
+                {
+                    b.Property<int>("KitchenOrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("KitchenOrderId"), 1L, 1);
+
+                    b.Property<string>("KitchenOrderNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderedDrinks")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderedItems")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Subtotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("TableNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("KitchenOrderId");
+
+                    b.ToTable("KitchenOrders");
+                });
+
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Menu_Type", b =>
                 {
                     b.Property<int>("Menu_TypeId")
@@ -1097,9 +1240,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<int?>("Food_TypeFoodTypeId1")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MenuItem_CategoryMenu_CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Menu_CategoryId")
                         .HasColumnType("int");
 
@@ -1119,8 +1259,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasIndex("FoodTypeId");
 
                     b.HasIndex("Food_TypeFoodTypeId1");
-
-                    b.HasIndex("MenuItem_CategoryMenu_CategoryId");
 
                     b.HasIndex("Menu_CategoryId");
 
@@ -1174,7 +1312,34 @@ namespace Africanacity_Team24_INF370_.Migrations
                             FoodTypeId = 3,
                             Menu_CategoryId = 4,
                             Menu_TypeId = 2,
-                            Name = "Blueberry cheescake"
+                            Name = "Blueberry cheescake slice"
+                        },
+                        new
+                        {
+                            MenuItemId = 6,
+                            Description = "Delicious everyday english breakfast with eggs and bacon",
+                            FoodTypeId = 1,
+                            Menu_CategoryId = 1,
+                            Menu_TypeId = 1,
+                            Name = "English Breakfast"
+                        },
+                        new
+                        {
+                            MenuItemId = 7,
+                            Description = "Smoothy bowl with blueberries, almond milk and honey",
+                            FoodTypeId = 4,
+                            Menu_CategoryId = 1,
+                            Menu_TypeId = 1,
+                            Name = "Blueberry smoothy bowl"
+                        },
+                        new
+                        {
+                            MenuItemId = 8,
+                            Description = "A toasted panini sandwich with beef sausages, tomatos and cheese",
+                            FoodTypeId = 2,
+                            Menu_CategoryId = 1,
+                            Menu_TypeId = 1,
+                            Name = "Toatsed beef panini sandwich"
                         });
                 });
 
@@ -1191,12 +1356,17 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int?>("MenuItem_CategoryMenu_CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Menu_CategoryId");
+
+                    b.HasIndex("MenuItem_CategoryMenu_CategoryId");
 
                     b.ToTable("MenuItem_Categories");
 
@@ -1244,9 +1414,44 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("MenuItemId")
+                        .HasColumnType("int");
+
                     b.HasKey("MenuItem_PriceId");
 
                     b.ToTable("MenuItem_Prices");
+
+                    b.HasData(
+                        new
+                        {
+                            MenuItem_PriceId = 1,
+                            Amount = 50.50m,
+                            MenuItemId = 5
+                        },
+                        new
+                        {
+                            MenuItem_PriceId = 2,
+                            Amount = 105.35m,
+                            MenuItemId = 1
+                        },
+                        new
+                        {
+                            MenuItem_PriceId = 3,
+                            Amount = 35.10m,
+                            MenuItemId = 4
+                        },
+                        new
+                        {
+                            MenuItem_PriceId = 5,
+                            Amount = 200.50m,
+                            MenuItemId = 2
+                        },
+                        new
+                        {
+                            MenuItem_PriceId = 6,
+                            Amount = 45.50m,
+                            MenuItemId = 3
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Order", b =>
@@ -1348,6 +1553,36 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.ToTable("Order_Statuses");
                 });
 
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.OrderType", b =>
+                {
+                    b.Property<int>("OrderType_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderType_ID"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("OrderType_ID");
+
+                    b.ToTable("OrderTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            OrderType_ID = 1,
+                            Name = "Sit-In"
+                        },
+                        new
+                        {
+                            OrderType_ID = 2,
+                            Name = "Takeaway"
+                        });
+                });
+
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Payment", b =>
                 {
                     b.Property<int>("PaymentId")
@@ -1395,12 +1630,45 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Table_NumberId"), 1L, 1);
 
-                    b.Property<int>("Number")
-                        .HasColumnType("int");
+                    b.Property<string>("TableID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Table_NumberId");
 
                     b.ToTable("Table_Numbers");
+
+                    b.HasData(
+                        new
+                        {
+                            Table_NumberId = 1,
+                            TableID = "Table 1"
+                        },
+                        new
+                        {
+                            Table_NumberId = 2,
+                            TableID = "Table 2"
+                        },
+                        new
+                        {
+                            Table_NumberId = 3,
+                            TableID = "Table 3"
+                        },
+                        new
+                        {
+                            Table_NumberId = 4,
+                            TableID = "Table 4"
+                        },
+                        new
+                        {
+                            Table_NumberId = 5,
+                            TableID = "Table 5"
+                        },
+                        new
+                        {
+                            Table_NumberId = 6,
+                            TableID = "Table 6"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -1742,10 +2010,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .WithMany("MenuItems")
                         .HasForeignKey("Food_TypeFoodTypeId1");
 
-                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.MenuItem_Category", null)
-                        .WithMany("MenuItems")
-                        .HasForeignKey("MenuItem_CategoryMenu_CategoryId");
-
                     b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.MenuItem_Category", "MenuItem_Category")
                         .WithMany()
                         .HasForeignKey("Menu_CategoryId")
@@ -1767,6 +2031,13 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Navigation("MenuItem_Category");
 
                     b.Navigation("Menu_Type");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.MenuItem_Category", b =>
+                {
+                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.MenuItem_Category", null)
+                        .WithMany("MenuItems")
+                        .HasForeignKey("MenuItem_CategoryMenu_CategoryId");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Order", b =>
@@ -1950,11 +2221,6 @@ namespace Africanacity_Team24_INF370_.Migrations
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier_Type", b =>
                 {
                     b.Navigation("Suppliers");
-                });
-
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Drink", b =>
-                {
-                    b.Navigation("DrinkPrices");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Drink_Type", b =>

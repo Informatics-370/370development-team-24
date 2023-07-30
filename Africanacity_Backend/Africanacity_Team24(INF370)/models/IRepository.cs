@@ -55,6 +55,19 @@ namespace Africanacity_Team24_INF370_.models
 
         Task<int> EditMenuTypeAsync(int Menu_TypeId, MenuTypeViewModel menuTypeViewModel);
 
+        //Menu Items prices
+        Task<MenuItem_Price[]> GetAllMenuItemPricesAsync();
+        Task<MenuItem_Price> GetAMenuItemPriceAsync(int MenuItem_PriceId);
+
+        Task<int> EditMenuItemPriceAsync(int MenuItem_PriceId, MenuItemPriceViewModel menuItemPriceViewModel);
+
+
+
+        //DRINK ITEM
+        Task<Drink[]> GetAllDrinksAsync();
+        Task<Drink> GetDrinkItemAsync(int DrinkId);
+
+     
 
         // DRINK ITEM TYPE
         Task<Drink_Type[]> GetAllDrinkTypesAsync();
@@ -63,6 +76,10 @@ namespace Africanacity_Team24_INF370_.models
         // DRINK ITEM
         Task<Drink[]> GetAllDrinksAsync();
         Task<Drink> GetDrinkAsync(int Drink_TypeId);
+        //DRINK ITEM PRICES
+        Task<Drink_Price[]> GetAllDrinkItemPricesAsync();
+        Task<Drink_Price> GetADrinkItemPriceAsync(int Drink_PriceId);
+
 
         // MENU ITEM CATEGORY
         Task<MenuItem_Category[]> GetAllMenuItemCategoriesAsync();
@@ -99,6 +116,21 @@ namespace Africanacity_Team24_INF370_.models
         //ENTERTAINMENT TYPE
         Task<Entertainment_Type[]> GetEntertainmentTypesAsync();
         Task<Entertainment_Type> GetEntertainmentTypeAsync(int Entertainment_TypeId);
+        //TABLE NUMBER
+        Task<Table_Number[]> GetAllTableNumbersAsync();
+
+        //Kitchen order
+        Task<KitchenOrder> SaveKitchenOrder(KitchenOrder kitchenOrder);
+        Task<KitchenOrder[]> GetAllKitchenOrdersAsync();
+
+
+        //VAT
+        Task<VAT> GetVatItemAsync(int VatId);
+
+        //DISCOUNT
+        Task<Discount> GetDiscountItemAsync(int DiscountId);
+        
+
 
     }
 		// Entertainer

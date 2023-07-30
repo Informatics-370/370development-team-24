@@ -7,9 +7,10 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
 	{
 		[Key]
 		public int MenuItem_PriceId { get; set; }
-
-		[DisplayFormat(DataFormatString = "{0:0.00}")]
+		public int MenuItemId { get; set; }
 		public decimal Amount { get; set; }
+
+
 
 	}
 }

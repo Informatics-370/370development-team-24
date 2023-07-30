@@ -73,10 +73,13 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<Order_Drink> Order_Drinks { get; set; }
 		public DbSet<Order_MenuItem> Order_MenuItems { get; set; }
 		public DbSet<Order_Status> Order_Statuses { get; set; }
+           
+        public DbSet<OrderType> OrderTypes { get; set; }
 		public DbSet<Payment> Payments { get; set; }
 		public DbSet<Payment_Method> Payment_Methods { get; set; }
 		public DbSet<Table_Number> Table_Numbers { get; set; }
 
+        public DbSet<KitchenOrder> KitchenOrders { get; set; }
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 		{
@@ -962,6 +965,450 @@ namespace Africanacity_Team24_INF370_.models
 
                                   });
 
+                });
+
+            
+            // Create Seed Data For the Menu Category Table:
+            modelBuilder.Entity<MenuItem_Category>()
+                           .HasData(
+                           new
+                           {
+                               Menu_CategoryId = 1,
+                               Name = "Breakfast",
+                               Description = "Meals between 7am to 12pm"
+
+                           });
+
+            modelBuilder.Entity<MenuItem_Category>()
+                 .HasData(
+                 new
+                 {
+                     Menu_CategoryId = 2,
+                     Name = "Starter",
+                     Description = "Appetisers"
+
+                 });
+
+            modelBuilder.Entity<MenuItem_Category>()
+                          .HasData(
+                          new
+                          {
+                              Menu_CategoryId = 3,
+                              Name = "Main",
+                              Description = "Big and Filling meals",
+
+                          });
+
+            modelBuilder.Entity<MenuItem_Category>()
+                          .HasData(
+                          new
+                          {
+                              Menu_CategoryId = 4,
+                              Name = "Dessert",
+                              Description = "Special things for those with a sweet tooth"
+
+                          });
+
+            modelBuilder.Entity<MenuItem_Category>()
+                          .HasData(
+                          new
+                          {
+                              Menu_CategoryId = 5,
+                              Name = "Light Meals",
+                              Description = "For those hungry but not hungry"
+
+                          });
+
+
+
+            
+            // Create Seed Data For the MenuItem Table:
+            modelBuilder.Entity<MenuItem>()
+                           .HasData(
+                           new
+                           {
+                             MenuItemId = 1,
+							 Name = "Chicken Feast",
+							 Description ="Two larger chicken burger, 6 pcs nuggets, two large fries",
+                             FoodTypeId = 1,
+							 Menu_CategoryId =3,
+                             Menu_TypeId = 2,
+
+
+                           });
+
+            // Create Seed Data For the MenuItem Table:
+            modelBuilder.Entity<MenuItem>()
+                           .HasData(
+                           new
+                           {
+                               MenuItemId = 2,
+                               Name = "The Braai feast",
+                               Description = "Pap, boerewors an Tbone steak",
+                               FoodTypeId = 2,
+                               Menu_CategoryId= 3,
+                               Menu_TypeId = 2,
+                              
+
+
+                           });
+
+            modelBuilder.Entity<MenuItem>()
+                          .HasData(
+                          new
+                          {
+                              MenuItemId = 3,
+                              Name = "Chilli cheese poppers",
+                              Description = "Mozarella stuffe cheese balls",
+                              FoodTypeId = 3,
+                              Menu_CategoryId = 2,
+                              Menu_TypeId = 2,
+                              
+
+
+                          });
+            modelBuilder.Entity<MenuItem>()
+                          .HasData(
+                          new
+                          {
+                              MenuItemId = 4,
+                              Name = "Mexican salad",
+                              Description = "A green salad with salsa mix",
+                              FoodTypeId = 4,
+                              Menu_CategoryId = 5,
+                              Menu_TypeId = 2,
+                              
+
+
+                          });
+            modelBuilder.Entity<MenuItem>()
+                          .HasData(
+                          new
+                          {
+                              MenuItemId = 5,
+                              Name = "Blueberry cheescake slice",
+                              Description = "Delicious cheesecake with blueberry sauce topping",
+                              FoodTypeId = 3,
+                              Menu_CategoryId = 4,
+                              Menu_TypeId = 2,
+                          });
+            modelBuilder.Entity<MenuItem>()
+                         .HasData(
+                         new
+                         {
+                             MenuItemId = 6,
+                             Name = "English Breakfast",
+                             Description = "Delicious everyday english breakfast with eggs and bacon",
+                             FoodTypeId = 1,
+                             Menu_CategoryId = 1,
+                             Menu_TypeId = 1,
+                         });
+            modelBuilder.Entity<MenuItem>()
+                         .HasData(
+                         new
+                         {
+                             MenuItemId = 7,
+                             Name = "Blueberry smoothy bowl",
+                             Description = "Smoothy bowl with blueberries, almond milk and honey",
+                             FoodTypeId = 4,
+                             Menu_CategoryId = 1,
+                             Menu_TypeId = 1,
+                         });
+            modelBuilder.Entity<MenuItem>()
+                        .HasData(
+                        new
+                        {
+                            MenuItemId = 8,
+                            Name = "Toatsed beef panini sandwich",
+                            Description = "A toasted panini sandwich with beef sausages, tomatos and cheese",
+                            FoodTypeId = 2,
+                            Menu_CategoryId = 1,
+                            Menu_TypeId = 1,
+                        });
+
+
+
+            //create seed data for MENU ITEM PRICE
+            modelBuilder.Entity<MenuItem_Price>()
+                         .HasData(
+                         new
+                         {
+                             MenuItem_PriceId = 1,
+                             MenuItemId = 5,
+                             Amount = 50.50m
+                         }) ;
+            modelBuilder.Entity<MenuItem_Price>()
+                        .HasData(
+                        new
+                        {
+                            MenuItem_PriceId = 2,
+                            MenuItemId = 1,
+                            Amount = 105.35m
+                        });
+            modelBuilder.Entity<MenuItem_Price>()
+                        .HasData(
+                        new
+                        {
+                            MenuItem_PriceId = 3,
+                            MenuItemId = 4,
+                            Amount = 35.10m
+                        });
+
+            modelBuilder.Entity<MenuItem_Price>()
+                        .HasData(
+                        new
+                        {
+                            MenuItem_PriceId = 5,
+                            MenuItemId = 2,
+                            Amount = 200.50m
+                        });
+            modelBuilder.Entity<MenuItem_Price>()
+                        .HasData(
+                        new
+                        {
+                            MenuItem_PriceId = 6,
+                            MenuItemId = 3,
+                            Amount = 45.50m
+                        });
+
+            // Create Seed Data For the Drink type Table:
+            modelBuilder.Entity<Drink_Type>()
+                           .HasData(
+                           new
+                           {
+                               Drink_TypeId = 1,
+                               Name = "Alcohol",
+
+                           });
+            modelBuilder.Entity<Drink_Type>()
+                           .HasData(
+                           new
+                           {
+                               Drink_TypeId = 2,
+                               Name = "Non-Alcohol",
+
+                           });
+
+            // Create Seed Data For the Drink Table:
+            modelBuilder.Entity<Drink>()
+                           .HasData(
+                           new
+                           {
+                               DrinkId = 1,
+                               Name = "Margarita",
+                               Drink_TypeId = 1,
+
+                           });
+
+            modelBuilder.Entity<Drink>()
+                          .HasData(
+                          new
+                          {
+                              DrinkId = 2,
+                              Name = "Strawberry Daiquri",
+                              Drink_TypeId = 1,
+
+                          });
+            modelBuilder.Entity<Drink>()
+                          .HasData(
+                          new
+                          {
+                              DrinkId = 3,
+                              Name = "Blood Mary",
+                              Drink_TypeId = 1,
+
+                          });
+            modelBuilder.Entity<Drink>()
+                          .HasData(
+                          new
+                          {
+                              DrinkId = 4,
+                              Name = "Virgin Mojito",
+                              Drink_TypeId = 2,
+
+                          });
+            modelBuilder.Entity<Drink>()
+                          .HasData(
+                          new
+                          {
+                              DrinkId = 5,
+                              Name = "Cappuccino",
+                              Drink_TypeId = 2,
+
+                          });
+            modelBuilder.Entity<Drink>()
+                          .HasData(
+                          new
+                          {
+                              DrinkId = 6,
+                              Name = "Frozen lemonade",
+                              Drink_TypeId = 2,
+
+                          });
+
+            //create seed data drink prices 
+            modelBuilder.Entity<Drink_Price>()
+                        .HasData(
+                        new
+                        {
+                            Drink_PriceId = 1,
+                            Amount = 55m,
+                            DrinkId = 1,
+
+                        });
+            modelBuilder.Entity<Drink_Price>()
+                       .HasData(
+                       new
+                       {
+                           Drink_PriceId = 2,
+                           Amount = 75m,
+                           DrinkId = 2,
+
+                       });
+            modelBuilder.Entity<Drink_Price>()
+                       .HasData(
+                       new
+                       {
+                           Drink_PriceId = 3,
+                           Amount = 99m,
+                           DrinkId = 3,
+
+                       });
+            modelBuilder.Entity<Drink_Price>()
+                       .HasData(
+                       new
+                       {
+                           Drink_PriceId = 4,
+                           Amount = 45m,
+                           DrinkId = 4,
+
+                       });
+            modelBuilder.Entity<Drink_Price>()
+                       .HasData(
+                       new
+                       {
+                           Drink_PriceId = 5,
+                           Amount = 65m,
+                           DrinkId = 5,
+
+                       });
+            modelBuilder.Entity<Drink_Price>()
+                       .HasData(
+                       new
+                       {
+                           Drink_PriceId = 6,
+                           Amount = 100m,
+                           DrinkId = 6,
+
+                       });
+
+
+            //create seed data for order type
+            modelBuilder.Entity<OrderType>()
+                          .HasData(
+                          new
+                          {
+                              OrderType_ID = 1,
+                              Name = "Sit-In",
+
+
+                          });
+            modelBuilder.Entity<OrderType>()
+                          .HasData(
+                          new
+                          {
+                              OrderType_ID = 2,
+                              Name = "Takeaway",
+
+
+                          });
+            //create seed data for table number
+            modelBuilder.Entity<Table_Number>()
+                          .HasData(
+                          new
+                          {
+                              Table_NumberId = 1,
+                              TableID = "Table 1",
+
+
+                          });
+            modelBuilder.Entity<Table_Number>()
+                         .HasData(
+                         new
+                         {
+                             Table_NumberId = 2,
+                             TableID = "Table 2",
+
+
+                         });
+            modelBuilder.Entity<Table_Number>()
+                         .HasData(
+                         new
+                         {
+                             Table_NumberId = 3,
+                             TableID = "Table 3",
+
+
+                         });
+            modelBuilder.Entity<Table_Number>()
+                        .HasData(
+                        new
+                        {
+                            Table_NumberId = 4,
+                            TableID = "Table 4",
+
+
+                        });
+            modelBuilder.Entity<Table_Number>()
+                        .HasData(
+                        new
+                        {
+                            Table_NumberId = 5,
+                            TableID = "Table 5",
+
+
+                        });
+            modelBuilder.Entity<Table_Number>()
+                        .HasData(
+                        new
+                        {
+                            Table_NumberId = 6,
+                            TableID = "Table 6",
+
+
+                        });
+
+            //seed data for VAT
+            modelBuilder.Entity<VAT>()
+                        .HasData(
+                        new
+                        {
+                            VatId = 1,
+                            Description = "10% VAT on total",
+                            Amount = 0.10m,
+                        });
+            modelBuilder.Entity<VAT>()
+                       .HasData(
+                       new
+                       {
+                           VatId = 2,
+                           Description = "15% VAT on total",
+                           Amount = 0.15m,
+                       });
+            //seed data for Discount
+            modelBuilder.Entity<Discount>()
+                       .HasData(
+                       new
+                       {
+                           DiscountId = 1,
+                           Name = "Month end discount",
+                           Description = "10% Discount",
+                           Amount = 0.10m,
+                           Start_Date = DateTime.Now,
+                           End_Date = DateTime.Now.AddDays(10),
+                       });
+
+
 
             //Many to many with MenuItem
             modelBuilder.Entity<MenuItem>()
@@ -978,6 +1425,11 @@ namespace Africanacity_Team24_INF370_.models
             .HasOne(m => m.Food_Type)
             .WithMany()
             .HasForeignKey(m => m.FoodTypeId);
+
+            
+
+
+
 
             // For the Access_UserRole M2M payload (Uncomment code below and run migration to generate tables)
             modelBuilder.Entity<Access>()

@@ -34,6 +34,8 @@ import { InventoryComponent } from './administration/Reports/inventory/inventory
 import { InventoryReconciliationComponent } from './administration/Reports/inventory-reconciliation/inventory-reconciliation.component';
 import { SalesComponent } from './administration/Reports/sales/sales.component';
 import { ScheduleComponent } from './administration/Reports/schedule/schedule.component';
+import { AddMenuItemComponent } from './administration/menuitems/add-menu-item/add-menu-item.component';//add menu item page
+import { EditMenuItemComponent } from './administration/menuitems/edit-menu-item/edit-menu-item.component';//edit menu item page
 //import { EditMenuItemCategoryComponent } from './administration/Menu Item Category/edit-menu-item-category/edit-menu-item-category.component';
 //import { CreateMenuItemCategoryComponent } from './administration/Menu Item Category/create-menu-item-category/create-menu-item-category.component';
 import { ScheduleDisplayComponent } from './booking/schedule/schedule-display/schedule-display.component';//Schedule
@@ -47,6 +49,7 @@ import { AddEventComponent } from './booking/events/add-event/add-event.componen
 import { EntertainmentTypesComponent } from './booking/entertainment/entertainment-types/entertainment-types.component';
 import { EditEntertainmentTypeComponent } from './booking/entertainment/edit-entertainment-type/edit-entertainment-type.component';
 import { AddEntertainmentTypeComponent } from './booking/entertainment/add-entertainment-type/add-entertainment-type.component';
+
 
 const routes: Routes = [
   // to open the app to open on this specific page
@@ -69,6 +72,8 @@ const routes: Routes = [
   { path: 'menu-types', component: MenuTypesComponent }, // for menu page
   { path: 'add-menu-type', component: AddMenuTypeComponent}, //add menu type page
   { path: 'menuitems', component: MenuitemsComponent},//For the menu item page
+  { path: 'add-menu-item',component:AddMenuItemComponent},//for add menu item page
+  { path: 'edit-menu-item/:id', component:EditMenuItemComponent}, // for edit menu item page
   { path: 'employee-role',component: EmployeeRoleComponent },
   { path: 'food-type', component: FoodTypeComponent }, // for foodType page
   { path: 'menu-item-category', component: MenuItemCategoryComponent }, // for Menu Item Category page

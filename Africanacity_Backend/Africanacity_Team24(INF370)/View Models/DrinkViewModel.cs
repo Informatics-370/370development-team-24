@@ -6,7 +6,8 @@ namespace Africanacity_Team24_INF370_.View_Models
     public class DrinkViewModel
     {
         public string Name { get; set; } = string.Empty;
-
         public int DrinkType { get; set; } 
+        public int DrinkId { get; set; }
+        public int Drink_TypeId { get; set; }
     }
 }

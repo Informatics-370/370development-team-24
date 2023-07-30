@@ -18,6 +18,7 @@ using System.Net;
 using System.Security.Policy;
 using Africanacity_Team24_INF370_.models.Booking;
 
+
 namespace Africanacity_Team24_INF370_.models
 {
     public class Repository: IRepository
@@ -119,6 +120,32 @@ namespace Africanacity_Team24_INF370_.models
             return await query.FirstOrDefaultAsync();
         }
 
+        //DRINK ITEM
+        public async Task<Drink[]> GetAllDrinksAsync()
+        {
+            IQueryable<Drink> query = _appDbContext.Drinks;
+            return await query.ToArrayAsync();
+        }
+        public async Task<Drink> GetDrinkItemAsync(int DrinkId)
+        {
+            IQueryable<Drink> query = _appDbContext.Drinks.Where(d => d.DrinkId == DrinkId);
+            return await query.FirstOrDefaultAsync();
+
+        }
+
+        //DRINK ITEM PRICES
+        public async Task<Drink_Price[]> GetAllDrinkItemPricesAsync()
+        {
+            IQueryable<Drink_Price> query = _appDbContext.Drink_Prices;
+            return await query.ToArrayAsync();
+        }
+        public async Task<Drink_Price> GetADrinkItemPriceAsync(int Drink_PriceId)
+        {
+            IQueryable<Drink_Price> query = _appDbContext.Drink_Prices.Where(c => c.Drink_PriceId == Drink_PriceId);
+            return await query.FirstOrDefaultAsync();
+        }
+
+
         //MENU ITEM CATEGORY
         public async Task<MenuItem_Category[]> GetAllMenuItemCategoriesAsync()
         {
@@ -167,10 +194,12 @@ namespace Africanacity_Team24_INF370_.models
             return await query.FirstOrDefaultAsync();
         }
        
+
         //Menu Item
         public async Task<MenuItem[]> GetAllMenuItemsAsync()
         {
-            IQueryable<MenuItem> query = _appDbContext.MenuItems;
+            IQueryable<MenuItem> query = _appDbContext.MenuItems.Include(p => p.Menu_Type).Include(p => p.Food_Type).Include(p => p.MenuItem_Category);
+
             return await query.ToArrayAsync();
         }
 
@@ -387,6 +416,81 @@ namespace Africanacity_Team24_INF370_.models
 
             return await query.ToArrayAsync();
         }
+        //Menu Item Prices
+        
+        public async Task<MenuItem_Price[]> GetAllMenuItemPricesAsync()
+        {
+            IQueryable<MenuItem_Price> query = _appDbContext.MenuItem_Prices;
+            return await query.ToArrayAsync();
+        }
+        public async Task<MenuItem_Price> GetAMenuItemPriceAsync(int MenuItem_PriceId)
+        {
+            IQueryable<MenuItem_Price> query = _appDbContext.MenuItem_Prices.Where(c => c.MenuItem_PriceId == MenuItem_PriceId);
+            return await query.FirstOrDefaultAsync();
+        }
+
+
+        public async Task<int> EditMenuItemPriceAsync(int MenuItem_PriceId, MenuItemPriceViewModel menuItemPriceViewModel)
+        {
+            int code = 200; ;
+            //Find the module in the database
+            MenuItem_Price findModule = await _appDbContext.MenuItem_Prices.Where(x => x.MenuItem_PriceId == MenuItem_PriceId).FirstOrDefaultAsync();
+            if (findModule == null)
+            {
+                code = 404;
+            }
+            else
+            {
+                findModule.Amount = menuItemPriceViewModel.Amount;
+
+                _appDbContext.MenuItem_Prices.Update(findModule);
+                await _appDbContext.SaveChangesAsync();
+            }
+            return code;
+        }
+
+
+
+
+        //TABLE NUMBER
+        public async Task<Table_Number[]> GetAllTableNumbersAsync()
+        {
+            IQueryable<Table_Number> query = _appDbContext.Table_Numbers;
+            return await query.ToArrayAsync();
+        }
+
+
+
+        //////KITCHEN ORDER
+        public async Task<KitchenOrder> SaveKitchenOrder(KitchenOrder kitchenOrder)
+        {
+            // Add the KitchenOrder to the context and save changes to the database
+            _appDbContext.KitchenOrders.Add(kitchenOrder);
+            await _appDbContext.SaveChangesAsync();
+
+            return kitchenOrder;
+        }
+
+        public async Task<KitchenOrder[]> GetAllKitchenOrdersAsync()
+        {
+            IQueryable<KitchenOrder> query = _appDbContext.KitchenOrders;
+            return await query.ToArrayAsync();
+        }
+
+        //VAT
+        public async Task<VAT> GetVatItemAsync(int VatId)
+        {
+            IQueryable<VAT> query = _appDbContext.Vats.Where(c => c.VatId == VatId);
+            return await query.FirstOrDefaultAsync();
+        }
+
+        //DISCOUNT
+        public async Task<Discount> GetDiscountItemAsync(int DiscountId)
+        {
+            IQueryable<Discount> query = _appDbContext.Discounts.Where(c => c.DiscountId == DiscountId);
+            return await query.FirstOrDefaultAsync();
+        }
+
 
     }
 		// Pending Booking

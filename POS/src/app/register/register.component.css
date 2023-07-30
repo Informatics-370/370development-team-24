@@ -1,0 +1,42 @@
+
+.card-image{
+    max-width: 70px;
+    margin-left: 150px;
+}
+
+
+  .register-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .box {
+    max-width: 400px; /* adjust the width as per your preference */
+    background-color:rgb(19, 16, 16);
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin-left:550px ;
+    margin-top: 150px;
+    border-radius: 25px;
+    max-height: 600px;
+    border-style:ridge;
+    border-color:rgb(153, 2, 228);
+    border-width: 7px;
+
+
+}
+
+  .card-title{
+   font-size: x-large;
+  }
+
+.button{
+    width:150px;
+    margin-left:100px;
+    
+}
+
+  
+
+  
+  
