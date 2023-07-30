@@ -13,6 +13,7 @@ import { PrintReceiptComponent } from '../print-receipt/print-receipt.component'
 export class PaymentComponent  implements OnInit {
 
   order!: KitchenOrder | undefined;
+  
 
   constructor(private orderService: OrderService,
     private route: ActivatedRoute,
@@ -25,6 +26,17 @@ export class PaymentComponent  implements OnInit {
         this.order = this.orderService.getKitchenOrderByNumber(kitchenOrderNumber);
       });
     }
+
+    async presentModal() {
+      const modal = await this.modalController.create({
+        component: 'print-receipt', // Replace 'modal-content' with the selector or class name of your modal content component
+        componentProps: {
+          order: this.order // Pass the order object to the modal content component
+        }
+      });
+      return await modal.present();
+    }
+    
 
    async onPaidButtonClick() {
       console.log('Paid button clicked!');
@@ -41,21 +53,14 @@ export class PaymentComponent  implements OnInit {
         // Show the print receipt modal here
         // You can use a third-party library like ngx-bootstrap or implement your custom modal
         // For demonstration purposes, we'll assume the receipt is printed and proceed to navigate back to the Kitchen Screen
+       
         this.goBackToKitchenScreen();
       } else {
         // Handle the case where the order is undefined
         // For example, you can redirect to an error page or show a message
         console.log('Order not found or undefined.');
       }
-
-      const modal = await this.modalController.create({
-        component: 'modal', // Replace 'modal-content' with the actual name of your modal content template
-        cssClass: 'my-custom-modal-class', // Replace with your custom CSS class if needed
-        componentProps: {
-          order: this.order // Pass the order object to the modal
-        }
-      });
-      return await modal.present()
+      
     }
 
   

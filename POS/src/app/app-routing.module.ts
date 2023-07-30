@@ -22,11 +22,8 @@ const routes: Routes = [
   {path: 'notification', component: NotificationComponent},
   {path: 'payment/:kitchenOrderNumber', component:PaymentComponent},
   {path: '', redirectTo: '/home', pathMatch:'full'},
-  {path: '**', redirectTo: '/home', pathMatch:'full'},  {
-    path: 'modal',
-    loadChildren: () => import('./payment/modal/modal.module').then( m => m.ModalPageModule)
-  }
-
+  {path: '**', redirectTo: '/home', pathMatch:'full'},
+  
   
 
 ];

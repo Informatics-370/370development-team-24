@@ -1,24 +1,38 @@
 <!--ion-header>
   <ion-toolbar>
-    <ion-title>Print Receipt</ion-title>
+    <ion-title>
+      Order Details
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onCancel()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Order Details</ion-card-title>
+      <ion-card-title>Order Number: {{ order.kitchenOrderNumber }}</ion-card-title>
     </ion-card-header>
+
     <ion-card-content>
-      < Display the order details here -->
-      <!--p>Order ID: {{ order.kitchenOrderNumber }}</p>
-      <Add more order details as needed -->
+      <ion-list>
+        <ion-item *ngFor="let orderedItem of order.orderedItems">
+          {{ orderedItem.name }} x {{ orderedItem.quantity }} 
+        </ion-item>
+      </ion-list>
+      
+      <ion-list>
+        <ion-item *ngFor="let orderedDrink of order.orderedDrinks">
+          {{ orderedDrink.name }} x {{ orderedDrink.quantity }}
+        </ion-item>
+      </ion-list>
 
-      <!-- Print Receipt button -->
-      <!--ion-button expand="full" (click)="onPrintReceipt()">Print Receipt</ion-button>
+      <h3>Subtotal: {{ order.subtotal | currency: 'R' }}</h3>
 
-      < Cancel button -->
-      <!--ion-button expand="full" (click)="onCancel()">Cancel</ion-button>
+      <ion-button expand="block" >Print Receipt</ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content-->

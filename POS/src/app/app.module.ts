@@ -23,6 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotificationService } from './service/notification.service';
 import { CommonModule } from '@angular/common';
 import { PaymentComponent } from './payment/payment.component';
+import { PrintReceiptComponent } from './print-receipt/print-receipt.component';
 
 
 @NgModule({
@@ -35,7 +36,9 @@ import { PaymentComponent } from './payment/payment.component';
   KitchenScreenComponent,
   NotificationComponent,
   PaymentComponent,
-],
+  PrintReceiptComponent],
+
+ 
 
 
 
