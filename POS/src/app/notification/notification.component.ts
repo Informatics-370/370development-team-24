@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NotificationService } from '../service/notification.service';
+import { KitchenOrder } from '../shared/kitchen-order';
 
 @Component({
   selector: 'app-notification',
@@ -23,5 +24,7 @@ export class NotificationComponent  implements OnInit {
       this.notifications.push(message);
     });
   }
+
+ 
 
 }

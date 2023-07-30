@@ -18,6 +18,8 @@ import { KitchenOrder} from '../shared/kitchen-order';
 })
 export class MainService {
   private orderSummary: KitchenOrder | null = null;
+  private notificationSubject = new Subject<string>();
+  public notification$ = this.notificationSubject.asObservable()
   
   
 
@@ -143,6 +145,8 @@ export class MainService {
   clearOrderSummary() {
     this.orderSummary = null;
   }
+
+  ///NOTIFICATION
 
 
 

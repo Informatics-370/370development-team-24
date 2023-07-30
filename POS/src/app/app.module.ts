@@ -21,6 +21,7 @@ import { NotificationComponent } from './notification/notification.component';
 import { RegisterComponent } from './register/register.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotificationService } from './service/notification.service';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent,
@@ -30,7 +31,7 @@ import { NotificationService } from './service/notification.service';
   OrderComponent,
   TableComponent,
   KitchenScreenComponent,
-  NotificationComponent],
+  NotificationComponent,],
 
 
 
@@ -42,7 +43,8 @@ import { NotificationService } from './service/notification.service';
   FormsModule,
   ReactiveFormsModule,
   HttpClientModule,
-  BrowserAnimationsModule],
+  BrowserAnimationsModule,
+  CommonModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, NotificationService],
   bootstrap: [AppComponent],
 })

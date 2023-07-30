@@ -2,3 +2,34 @@
     max-width: 100px; /* You can adjust the width to your preference */
     margin-left: 75px
   }
+
+  .ion-card{
+    outline: 70px;
+    border-style:solid;
+    border-color: black;
+  }
+
+  .ion-list{
+    border-style: solid;
+    outline: 70px;
+    border-color: black;
+  }
+  
+  .heading{
+    margin-left: 200px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .ion-button{
+    border-style: groove;
+    border-radius: 75px;
+    border-width: 2px;
+    border-color:blueviolet;
+    
+    
+  }
+
+  .heading2{
+    margin-left: 75px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }

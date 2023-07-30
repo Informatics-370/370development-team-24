@@ -16,7 +16,7 @@ import { NotificationComponent } from '../notification/notification.component';
 })
 export class KitchenScreenComponent implements OnInit {
   kitchenOrders: KitchenOrder[] = [];
-  notificationMessages: string[] = [];
+
 
   constructor(
     private route: ActivatedRoute,
@@ -43,8 +43,8 @@ export class KitchenScreenComponent implements OnInit {
     // Send the notification using the NotificationService
     this.notificationService.addNotification(message);
 
-    // Update the notificationMessages array with the latest message
-    this.notificationMessages.push(message);
+    
+    
   }
 }
 
