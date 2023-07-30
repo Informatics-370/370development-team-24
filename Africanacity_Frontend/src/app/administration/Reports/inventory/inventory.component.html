@@ -6,15 +6,26 @@
 
         <div class="col-md-10 order-md-1">
             <!-- heading -->
-            <div>
+            <div class="row">
                 <h1 class="heading">Inventory Report</h1>
-                <!--canvas baseChart
-                    [datasets]="barChartData"
-                    [labels]="barChartLabels"
-                    [options]="barChartOptions"
-                    [legend]="barChartLegend"
-                    [chartType]="barChartType">
-                </canvas-->
+                <span style="display: block; width: 700px;" class="col-md-6 order-md-1 card">
+                    <canvas baseChart
+                        [datasets]="barChartData"
+                        [labels]="barChartLabels"
+                        [options]="barChartOptions"
+                        [legend]="barChartLegend"
+                        [type]="barChartType">
+                    </canvas>
+                </span>
+                <span class="col-md-1 order-md-1"></span>
+                <span style="display: block; height: 400px;" class="col-md-4 order-md-1 card">
+                    <canvas id="pie" 
+                        baseChart
+                        [datasets]="pieChartData"
+                        [labels]="pieChartLabels"
+                        [type]="pieChartType">
+                    </canvas>
+                </span>
             </div>  
         </div>
     </div>

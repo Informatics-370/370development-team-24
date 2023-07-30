@@ -32,6 +32,9 @@ export class EmployeeComponent implements OnInit {
   barChartType: ChartType = 'bar';
 
   // Pie Chart
+  pieChartOptions: ChartOptions = {
+    responsive: true,
+  }
   pieChartLabels: string[] = [];
   pieChartData: ChartDataset[] = [
     {

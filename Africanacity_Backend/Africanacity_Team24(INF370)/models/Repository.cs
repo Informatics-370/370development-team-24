@@ -4,6 +4,7 @@ using Africanacity_Team24_INF370_.models.Administration;
 using Africanacity_Team24_INF370_.ViewModel;
 using Africanacity_Team24_INF370_.View_Models;
 using Microsoft.EntityFrameworkCore;
+using Africanacity_Team24_INF370_.models.Inventory;
 
 namespace Africanacity_Team24_INF370_.models
 {
@@ -184,6 +185,77 @@ namespace Africanacity_Team24_INF370_.models
                 await _appDbContext.SaveChangesAsync();
             }
             return code;
+        }
+
+        //SUPPLIER
+
+        public async Task<Supplier[]> GetAllSuppliersAsync()
+        {
+            IQueryable<Supplier> query = _appDbContext.Suppliers.Include(s => s.Supplier_Type);
+
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<Supplier> GetSupplierAsync(int supplierId)
+        {
+            IQueryable<Supplier> query = _appDbContext.Suppliers.Where(s => s.SupplierId == supplierId);
+            return await query.FirstOrDefaultAsync();
+        }
+
+        //SUPLIER TYPES
+
+        public async Task<Supplier_Type[]> GetAllSupplierTypesAsync()
+        {
+            IQueryable<Supplier_Type> query = _appDbContext.Supplier_Types;
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<Supplier_Type> GetSupplierTypeAsync(int supplier_TypeId)
+        {
+            IQueryable<Supplier_Type> query = _appDbContext.Supplier_Types.Where(s => s.Supplier_TypeId == supplier_TypeId);
+            return await query.FirstOrDefaultAsync();
+        }
+
+        //INVENTORY 
+
+        public async Task<Inventory_Item[]> GetAllInventoryItemsAsync()
+        {
+            IQueryable<Inventory_Item> query = _appDbContext.Inventory_Items.Include(i => i.Inventory_Type);
+
+            return await query.ToArrayAsync();
+        }
+
+
+        public async Task<Inventory_Item> GetInventoryItemAsync(int inventory_ItemId)
+        {
+            IQueryable<Inventory_Item> query = _appDbContext.Inventory_Items.Where(i => i.Inventory_ItemId == inventory_ItemId);
+            return await query.FirstOrDefaultAsync();
+        }
+
+        //INVENTORY TYPES
+        public async Task<Inventory_Type[]> GetAllInventoryTypesAsync()
+        {
+            IQueryable<Inventory_Type> query = _appDbContext.Inventory_Types;
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<Inventory_Type> GetInventoryTypeAsync(int inventory_TypeId)
+        {
+            IQueryable<Inventory_Type> query = _appDbContext.Inventory_Types.Where(i => i.Inventory_TypeId == inventory_TypeId);
+            return await query.FirstOrDefaultAsync();
+        }
+
+        public async Task<Inventory_Item[]> GetInventoryItemsByTypeAsync(int inventory_TypeId)
+        {
+            IQueryable<Inventory_Item> query = _appDbContext.Inventory_Items.Where(i => i.Inventory_TypeId == inventory_TypeId);
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<Supplier_Inventory[]> GetAllInventoryOrdersAsync()
+        {
+            IQueryable<Supplier_Inventory> query = _appDbContext.Supplier_Inventorys.Include(i => i.Inventory_Item).Include(i => i.Supplier);
+
+            return await query.ToArrayAsync();
         }
 
     }
