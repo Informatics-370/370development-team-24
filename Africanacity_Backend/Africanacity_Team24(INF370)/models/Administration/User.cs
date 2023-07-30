@@ -1,8 +1,7 @@
-﻿using Africanacity_Team24_INF370_.models.Administration;
-using Africanacity_Team24_INF370_.models.Booking;
+﻿using Africanacity_Team24_INF370_.models.Booking;
 using System.ComponentModel.DataAnnotations;
 
-namespace Africanacity_Team24_INF370_.models.Admin
+namespace Africanacity_Team24_INF370_.models.Administration.Admin
 {
     public class User
     {

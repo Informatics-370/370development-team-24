@@ -1,11 +1,11 @@
-﻿using Africanacity_Team24_INF370_.models.Admin;
+﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
 using System.ComponentModel.DataAnnotations;
 using Africanacity_Team24_INF370_.models.Restraurant;
 using Africanacity_Team24_INF370_.models.Inventory;
 
 namespace Africanacity_Team24_INF370_.models.Administration
 {
-	public class Employee
+    public class Employee
 	{
 		[Key]
 		public int EmployeeId { get; set; }

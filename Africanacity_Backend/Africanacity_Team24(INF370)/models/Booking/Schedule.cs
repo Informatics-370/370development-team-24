@@ -1,10 +1,9 @@
-﻿using Africanacity_Team24_INF370_.models.Admin;
-using Africanacity_Team24_INF370_.models.Administration;
+﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
 using System.ComponentModel.DataAnnotations;
 
 namespace Africanacity_Team24_INF370_.models.Booking
 {
-	public class Schedule
+    public class Schedule : BaseBookingEntity
 	{
 		[Key]
 		public int ScheduleId { get; set; }

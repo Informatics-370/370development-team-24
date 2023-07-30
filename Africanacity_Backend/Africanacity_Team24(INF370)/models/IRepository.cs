@@ -7,6 +7,8 @@ using Africanacity_Team24_INF370_.ViewModel;
 using Africanacity_Team24_INF370_.View_Models;
 using System.Threading.Tasks;
 using Africanacity_Team24_INF370_.models.Inventory;
+using Africanacity_Team24_INF370_.models.Booking;
+using static Org.BouncyCastle.Asn1.Cmp.Challenge;
 
 namespace Africanacity_Team24_INF370_.models
 {
@@ -94,4 +96,24 @@ namespace Africanacity_Team24_INF370_.models
         Task<Entertainment_Type[]> GetEntertainmentTypesAsync();
         Task<Entertainment_Type> GetEntertainmentTypeAsync(int Entertainment_TypeId);
     }
+		// Entertainer
+		Task<User[]> ViewProfileAsync();
+		Task<User> ViewProfileAsync(int UserId);
+
+		// Admin
+		Task<AdminInfor[]> ViewAdminProfileAsync();
+		Task<AdminInfor> ViewAdminProfileAsync(int UserId);
+
+		// Booking
+		Task<Bookings[]> GetBookingsAsync();
+		Task<Bookings> GetBookingAsync(int BookingId);
+		//Task<Bookings> GetBookingInforAsync(string email);
+		Task<List<Bookings>> GetBookingInforAsync(string email);
+		Task<Entertainment_Type[]> GetEntertainmentTypesAsync();
+		Task<Schedule[]> GetSchedulesAsync();
+
+		//Pending Booking
+		Task<Pending_Booking[]> GetPendingsAsync();
+		Task<Pending_Booking> GetPendingAsync(int BookingId);
+	}
 }

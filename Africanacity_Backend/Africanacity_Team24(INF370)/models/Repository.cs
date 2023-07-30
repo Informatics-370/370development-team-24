@@ -6,12 +6,21 @@ using Africanacity_Team24_INF370_.View_Models;
 using Microsoft.EntityFrameworkCore;
 using Africanacity_Team24_INF370_.models.Inventory;
 using System.Linq;
-
+﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
+using Africanacity_Team24_INF370_.models.Administration;
+using Africanacity_Team24_INF370_.models.Restraurant;
+using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Serilog;
+using System.Net;
+using System.Security.Policy;
 using Africanacity_Team24_INF370_.models.Booking;
 
 namespace Africanacity_Team24_INF370_.models
 {
-	public class Repository: IRepository
+    public class Repository: IRepository
 	{
 		private readonly AppDbContext _appDbContext;
 
@@ -222,6 +231,89 @@ namespace Africanacity_Team24_INF370_.models
         public async Task<Supplier[]> GetAllSuppliersAsync()
         {
             IQueryable<Supplier> query = _appDbContext.Suppliers.Include(s => s.Supplier_Type);
+		// Entertainer
+		public async Task<User[]> ViewProfileAsync()
+		{
+			IQueryable<User> query = _appDbContext.Users;
+			return await query.ToArrayAsync();
+		}
+
+		public async Task<User> ViewProfileAsync(int UserId)
+		{
+			IQueryable<User> query = _appDbContext.Users.Where(u => u.Id == UserId);
+			return await query.FirstOrDefaultAsync();
+		}
+
+		//Admin
+		public async Task<AdminInfor[]> ViewAdminProfileAsync()
+		{
+			IQueryable<AdminInfor> query = _appDbContext.Admins;
+			return await query.ToArrayAsync();
+		}
+
+		public async Task<AdminInfor> ViewAdminProfileAsync(int UserId)
+		{
+			IQueryable<AdminInfor> query = _appDbContext.Admins.Where(u => u.Id == UserId);
+			return await query.FirstOrDefaultAsync();
+		}
+		public async Task<User> GetUserProfile(int UserId)
+		{
+			// Fetch the user profile details from the database or any other data source
+			var user = await _appDbContext.Users.FindAsync(UserId);
+
+			// Map the user entity to a DTO or view model object
+			var userProfile = new User
+			{
+				FirstName = user.FirstName,
+				LastName = user.LastName,
+				ContactNumber = user.ContactNumber,
+				PhysicalAddress = user.PhysicalAddress,
+				Email = user.Email,
+				Username = user.Username
+				// Add other user properties as needed
+			};
+
+			return userProfile;
+		}
+
+		//Booking
+		public async Task<Bookings[]> GetBookingsAsync()
+        {
+            IQueryable<Bookings> query = _appDbContext.bookings/*.Include(p => p.Schedule)*/.Include(p => p.EntertainmentType);
+
+            return await query.ToArrayAsync();
+        }
+
+		public async Task<Bookings> GetBookingAsync(int BookingId)
+		{
+			IQueryable<Bookings> query = _appDbContext.bookings.Where(d => d.BookingId == BookingId);
+			return await query.FirstOrDefaultAsync();
+		}
+		//public async Task<Bookings> GetBookingInforAsync(string email)
+		//{
+		//	IQueryable<Bookings> query = _appDbContext.bookings.Where(d => d.Email == email);
+		//	return await query.FirstOrDefaultAsync();
+		//}
+		// Assuming you have a DbSet<Bookings> in your DbContext
+		public async Task<List<Bookings>> GetBookingInforAsync(string email)
+		{
+			return await _appDbContext.bookings
+				.Include(booking => booking.EntertainmentType)
+				.Where(booking => booking.Email == email)
+				.ToListAsync();
+		}
+
+
+		public async Task<Schedule[]> GetSchedulesAsync()
+        {
+            IQueryable<Schedule> query = _appDbContext.Schedules;
+
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<Entertainment_Type[]> GetEntertainmentTypesAsync()
+        {
+            IQueryable< Entertainment_Type> query = _appDbContext.EntertainmentTypes;
 
             return await query.ToArrayAsync();
         }
@@ -289,4 +381,19 @@ namespace Africanacity_Team24_INF370_.models
         }
 
     }
+		// Pending Booking
+		public async Task<Pending_Booking[]> GetPendingsAsync()
+		{
+			IQueryable<Pending_Booking> query = _appDbContext.Pending_Bookings/*.Include(p => p.Schedule)*/.Include(p => p.EntertainmentType);
+
+			return await query.ToArrayAsync();
+		}
+
+		public async Task<Pending_Booking> GetPendingAsync(int BookingId)
+		{
+			IQueryable<Pending_Booking > query = _appDbContext.Pending_Bookings.Where(d => d.Pending_BookingId == BookingId);
+			return await query.FirstOrDefaultAsync();
+		}
+
+	}
 }
