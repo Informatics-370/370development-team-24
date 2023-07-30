@@ -14,7 +14,7 @@ import { HttpClient } from '@angular/common/http';
   selector: 'app-booking',
   templateUrl: './booking.component.html',
   styleUrls: ['./booking.component.scss']
-})
+}) 
 export class BookingComponent implements OnInit {
 
   entertainmentTypeData:Entertainment[]=[]

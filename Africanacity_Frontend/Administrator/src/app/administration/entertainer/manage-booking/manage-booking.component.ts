@@ -135,4 +135,31 @@ export class ManageBookingComponent {
       }
     );
   }
+  downloadPDF() {
+    // const doc = new jsPDF();
+    // const headers = [['ID', 'Name', 'Surname', 'Role', 'Email', 'Phone Number', 'Address']];
+    
+    // // Map the checklistItems to generate the data array
+    // const data = this.employees.map(employee => [employee.employeeId, employee.firstName, employee.surname, employee.employeeRole, employee.email_Address, employee.phoneNumber, employee.physical_Address]);
+  
+    // doc.setFontSize(12);
+  
+    // // Generate the table using autoTable
+    // // startY is the initial position for the table
+    // autoTable(doc, {
+    //   head: headers,
+    //   body: data,
+    //   startY: 20,
+    //   // Other options for styling the table if needed
+    // });
+    
+    // // Convert the PDF blob to a Base64 string
+    // const pdfBlob = doc.output('blob');
+  
+    // // Create a file-saver Blob object
+    // const file = new Blob([pdfBlob], { type: 'application/pdf' });
+  
+    // // Save the Blob to a file
+    // saveAs(file, 'employee_listing.pdf');
+  }
 }

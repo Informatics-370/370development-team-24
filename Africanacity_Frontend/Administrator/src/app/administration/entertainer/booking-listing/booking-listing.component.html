@@ -1,29 +1,20 @@
-<div class="col-md-2">
-  <app-navbar></app-navbar> 
-</div> 
-<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">
-  <img src="../../assets/Nav_image/Africanacity.png" alt="" class="avatar" >
-  Hello {{fullName}}<h6>
-  </h6></a>
-<button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon"></span>
-</button>
-<input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" (input)="applyFilter($event)" placeholder="Search" aria-label="Search">
-<div class="navbar-nav">
-    <div class="nav-item text-nowrap">
-        <a style="background: red;
-        color: #fff;
-        border-radius: 4px;
-        margin: 10px;" class="nav-link px-3 cursor-pointer" (click)="logout()">Sign out</a>
-    </div>
-</div>
-</header>
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-md-2">
+          <app-navbar></app-navbar>
+      </div>
+  <div class="col-md-10 order-md-1">
+  <h3 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px; font-weight: bolder;">Booking Listing </h3>
 
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-      <h3 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px; font-weight: bolder;"> Booking Listing</h3>
-      
-      <div class="table-responsive">
+  <div class="input-group">
+      <div class="search-bar">
+      <input type="text" class="form-control" (input)="applyFilter($event)" placeholder="Search Columns">
+      </div>
+    <div class="addButton">
+      <i class="fa fa-download fa-lg icon" aria-hidden="true" (click)="downloadPDF()"></i>
+  
+    </div> 
+      </div>
         <table class="table table-striped table-hover table-container outlined-table">
             <thead class="tableColor">
                 <tr>
@@ -63,5 +54,4 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-  </main>
+
