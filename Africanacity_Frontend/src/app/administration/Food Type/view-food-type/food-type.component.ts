@@ -14,7 +14,7 @@ import { NavbarComponent } from 'src/app/navbar/navbar.component';
 
 export class FoodTypeComponent {
   foodType: FoodType[] = []
-  searchQuery!: string;
+  filteredFoodTypes: FoodType[] = [];
 
   constructor(private dataService: DataService, 
     private router: Router, 
@@ -59,19 +59,17 @@ export class FoodTypeComponent {
       });
   }
 
-  /*searchQuery: string;
-
-  search(searchQuery: string)
-  {
-      this.dataService.search(this.searchQuery).subscribe(
-        (results) => {
-          this.foodType = results;
-        },
-        (error) => {
-          console.log(error);
-        }
-      )
-  }*/
+  // search
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+  
+    this.filteredFoodTypes = this.filteredFoodTypes.filter(foodType => {
+      const column2Value = foodType.name.toLowerCase() || foodType.name.toUpperCase();
+      const column3Value = foodType.description.toLowerCase();
+  
+      return column2Value.includes(filterValue) || column3Value.includes(filterValue);
+    });
+  }
 
 }
 

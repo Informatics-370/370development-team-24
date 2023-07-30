@@ -32,6 +32,7 @@
             <th scope="col">Email</th>
             <th scope="col">Address</th>
             <th scope="col">Phone Number</th>
+            <th scope="col">Role</th>
             <th scope="col"></th>
     </thead> 
     <tbody> 
@@ -42,6 +43,7 @@
             <td>{{employee.email_Address}}</td> 
             <td>{{employee.physical_Address}}</td> 
             <td>{{employee.phoneNumber}}</td> 
+            <td>{{employee.employeeRoleName}}</td>
             <td>
                 <button type="button" class="btn btn-sm btn-info"  [routerLink]="['/edit-employee', employee.employeeId]"><i class="fa fa-pencil" aria-hidden="true"></i>Edit</button>
                 <button type="button" class="btn btn-sm btn-danger" (click)="deleteEmployee(employee.employeeId)" ><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>

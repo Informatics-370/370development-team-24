@@ -1,0 +1,47 @@
+<div class="container-fluid">
+    <!-- navbar -->
+    <div class="row">
+        <div class="col-md-2">
+            <app-navbar></app-navbar>
+        </div>
+    
+       <div class="col-md-10 order-md-1">
+            <!-- heading -->
+            <h3 class="heading">Drinks</h3>
+        
+            <div class="input-group">
+                <div class="search-bar">
+                    <!-- search bar-->
+                    <input type="text" class="form-control" (input)="applyFilter($event)" placeholder="Search Columns">
+                </div>
+         
+                <div class="addButton">
+                    <i type="button" class="fa fa-plus-circle fa-3x" [routerLink]="'/create-drink'"></i>
+                </div>
+            </div>
+ 
+            <!--table-->
+            <table class="table table-striped table-container outlined-table">
+                <thead class="tableColor">
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Type</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let drink of filteredDrinks"> 
+                        <td> {{ drink.drinkId }} </td>
+                         <td> {{ drink.name }} </td>
+                         <td> {{ drink.drinkTypeName }} </td>
+                        <!-- edit and delete buttons -->
+                        <td> <i class="fa fa-pencil" [routerLink]="['/edit-drink-type', drink.drinkId]" aria-hidden="true"></i></td>
+                        <td><i class="fa fa-trash"  (click)="DeleteDrink(drink.drinkId)" aria-hidden="true"></i></td> 
+                   </tr>
+                </tbody>
+            </table>
+       </div>
+    </div>
+</div>

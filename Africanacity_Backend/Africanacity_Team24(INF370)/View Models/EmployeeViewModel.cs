@@ -12,6 +12,8 @@ namespace Africanacity_Team24_INF370_.ViewModel
         public string PhoneNumber { get; set; } 
         public string Physical_Address { get; set; } 
 
+        public int EmployeeRole { get; set; }
+
         //public Employee_Role RoleName { get; set; }
     }
 }

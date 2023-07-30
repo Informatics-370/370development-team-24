@@ -35,8 +35,29 @@ namespace Africanacity_Team24_INF370_.Controllers
         {
             try
             {
+
                 var results = await _Repository.GetAllEmployeesAsync();
-                return Ok(results);
+
+
+                dynamic employees = results.Select(e => new
+                {
+                    e.EmployeeId,
+
+                    e.Surname,
+
+                    e.FirstName,
+
+                    EmployeeRoleName = e.Employee_Role.Name,
+
+                    e.PhoneNumber,
+
+                    e.Email_Address,
+
+                    e.Physical_Address
+
+                });
+
+                return Ok(employees);
             }
             catch (Exception)
             {
@@ -64,12 +85,19 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
         // Add Employee
-
         [HttpPost]
         [Route("AddEmployee")]
         public async Task<IActionResult> AddEmployee(EmployeeViewModel evm)
         {
-            var employee = new Employee { FirstName = evm.FirstName, Surname = evm.Surname, Email_Address = evm.Email_Address, Physical_Address = evm.Physical_Address, PhoneNumber = evm.PhoneNumber };
+            var employee = new Employee
+            {
+                Surname = evm.Surname,
+                FirstName = evm.FirstName,
+                Employee_RoleId = Convert.ToInt32(evm.EmployeeRole),
+                Email_Address = evm.Email_Address,
+                PhoneNumber = evm.PhoneNumber,
+                Physical_Address = evm.Physical_Address
+            };
 
             try
             {

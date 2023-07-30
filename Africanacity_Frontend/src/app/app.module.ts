@@ -39,11 +39,18 @@ import { EditFoodTypeComponent } from './administration/Food Type/edit-food-type
 import { CreateFoodTypeComponent } from './administration/Food Type/create-food-type/create-food-type.component';
 import { EditMenuItemCategoryComponent } from './administration/Menu Item Category/edit-menu-item-category/edit-menu-item-category/edit-menu-item-category.component';
 import { CreateMenuItemCategoryComponent } from './administration/Menu Item Category/create-menu-item-category/create-menu-item-category/create-menu-item-category.component';
-import { ViewDrinkTypeComponent } from './administration/Drink Type/view-drink-type/view-drink-type.component';
+import { DrinkTypeComponent } from './administration/Drink Type/view-drink-type/view-drink-type.component';
 import { CreateDrinkTypeComponent } from './administration/Drink Type/create-drink-type/create-drink-type.component';
 import { EditDrinkTypeComponent } from './administration/Drink Type/edit-drink-type/edit-drink-type.component';
-
-
+import { ViewDrinkComponent } from './administration/Drink/view-drink/view-drink.component';
+import { EditDrinkComponent } from './administration/Drink/edit-drink/edit-drink.component';
+import { CreateDrinkComponent } from './administration/Drink/create-drink/create-drink.component';
+import { EmployeeComponent } from './administration/Reports/employee/employee.component';
+import { InventoryComponent } from './administration/Reports/inventory/inventory.component';
+import { InventoryReconciliationComponent } from './administration/Reports/inventory-reconciliation/inventory-reconciliation.component';
+import { SalesComponent } from './administration/Reports/sales/sales.component';
+import { ScheduleComponent } from './administration/Reports/schedule/schedule.component';
+import { NgChartsModule} from 'ng2-charts';
 
 
 @NgModule({
@@ -78,7 +85,7 @@ import { EditDrinkTypeComponent } from './administration/Drink Type/edit-drink-t
   EditFoodTypeComponent,
    CreateFoodTypeComponent, 
    EditMenuItemCategoryComponent, 
-   CreateMenuItemCategoryComponent, ViewDrinkTypeComponent, CreateDrinkTypeComponent, EditDrinkTypeComponent
+   CreateMenuItemCategoryComponent, DrinkTypeComponent, CreateDrinkTypeComponent, EditDrinkTypeComponent, ViewDrinkComponent, EditDrinkComponent, CreateDrinkComponent, InventoryComponent, EmployeeComponent, InventoryReconciliationComponent, SalesComponent, ScheduleComponent
   ],
   imports: [
     BrowserModule,
@@ -90,7 +97,8 @@ import { EditDrinkTypeComponent } from './administration/Drink Type/edit-drink-t
     MaterialModule,
     Ng2SearchPipeModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    NgChartsModule,
   ],
   providers: [DataService],
   bootstrap: [AppComponent],

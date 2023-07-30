@@ -54,25 +54,34 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <!-- <div class="form-group">
       <label class="col-sm-2" style="font-weight: bold;">Employee Role:</label>
       <div class="col-sm-6">
-        <div class="form-control" type="">
+        <div class="form-control"  id="employeeRole"  name="employeeRole" formControlName="employeeRole">
           <mat-form-field>
             <mat-label>Select a name</mat-label>
             <mat-select>
-              <mat-option *ngFor="let name of Roles" [value]="name">
-                {{ name }}
+              <mat-option *ngFor="let role of employeeRole" [value]="role">
+                {{ role.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
       </div>
+  </div> -->
+
+  <div class="form-group">
+    <label class="col-md-1" style="font-weight: bold;" for="employeeRole">Employee Role</label>
+    <div class="col-md-6">
+    <select class="form-control" id="employeeRole" formControlName="employeeRole">
+      <option *ngFor="let item of employeeRole" [value]="item.employee_RoleId">{{ item.name }}</option>
+    </select>
+  </div>
   </div>
 
     <div class="form-group">
       <div class="col-sm-offset-1 col-sm-6">
-        <button style="margin-right:1em;" type="submit" [disabled]="!employeeForm.valid" class="btn btn-sm btn-success">Add</button>
+        <button style="margin-right:1em;" type="submit" [disabled]="!employeeForm.valid" class="btn btn-sm btn-success" (onclick)="onSubmit()">Add</button>
         <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button>
       </div>
     </div>

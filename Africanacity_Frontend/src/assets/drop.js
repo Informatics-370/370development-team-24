@@ -1,7 +1,7 @@
 
   /* When the user clicks on the button, 
   toggle between hiding and showing the dropdown content */
-  function myFunction() {
+  /*function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
   }
   
@@ -13,5 +13,5 @@
         myDropdown.classList.remove('show');
       }
     }
-  }
+  }*/
   

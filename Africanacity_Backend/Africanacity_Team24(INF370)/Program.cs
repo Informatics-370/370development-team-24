@@ -11,6 +11,7 @@ using Africanacity_Team24_INF370_.models.Login;
 using Africanacity_Team24_INF370_.models.Admin;
 using System;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

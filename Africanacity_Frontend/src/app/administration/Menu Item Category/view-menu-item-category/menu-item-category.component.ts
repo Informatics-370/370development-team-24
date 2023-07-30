@@ -11,7 +11,8 @@ import { MenuItemCategory } from 'src/app/shared/menu-item-category';
   styleUrls: ['./menu-item-category.component.css']
 })
 export class MenuItemCategoryComponent {
-  menuItemCategories: MenuItemCategory[] = []
+  menuItemCategories: MenuItemCategory[] = [];
+  filteredMenuItemCategories: MenuItemCategory[] = [];
 
   constructor(private dataService: DataService, 
     private router: Router, 
@@ -51,5 +52,17 @@ export class MenuItemCategoryComponent {
     this.dataService.DeleteMenuItemCategory(menu_CategoryId).subscribe(result => {
         this.deleteItem();
       });
+  }
+
+  // search
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+  
+    this.filteredMenuItemCategories = this.filteredMenuItemCategories.filter(menuItemCategories => {
+      const column2Value = menuItemCategories.name.toLowerCase() || menuItemCategories.name.toUpperCase();
+      const column3Value = menuItemCategories.description.toLowerCase();
+  
+      return column2Value.includes(filterValue) || column3Value.includes(filterValue);
+    });
   }
 }

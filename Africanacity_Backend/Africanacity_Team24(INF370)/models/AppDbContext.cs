@@ -24,9 +24,9 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<Administrator> Administrators { get; set; }
 		public DbSet<Access_UserRole> Access_UserRoles{ get; set; }
 		public DbSet<Discount> Discounts { get; set; }
-		public DbSet<Employee> Employees { get; set; }
         public DbSet<Employee_Role> Employee_Roles { get; set; }
-		public DbSet<Help> Helps { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Help> Helps { get; set; }
 		public DbSet<Help_Category> Help_Categories{ get; set; }
 		public DbSet<Password> Passwords { get; set; }
 		public DbSet<Title> Titles { get; set; }
@@ -71,19 +71,42 @@ namespace Africanacity_Team24_INF370_.models
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
+
+            // Create Seed Data For The Employee Role Table:
+            modelBuilder.Entity<Employee_Role>()
+                           .HasData(
+                           new
+                           {
+                               Employee_RoleId = 1,
+                               Name = "Waiter",
+                               Description = "The waiter serves the customers and takes orders"
+
+                           });
+
+            modelBuilder.Entity<Employee_Role>()
+                          .HasData(
+                          new
+                          {
+                              Employee_RoleId = 2,
+                              Name = "Chef",
+                              Description = "The chef prepares the meals and notifies the waiter of ready orders."
+
+                          });
+
             // Create Seed Data For the Employee Table:
             modelBuilder.Entity<Employee>()
-						   .HasData(
-						   new
-						   {
-							   EmployeeId = 1,
-							   Surname = "James",
-							   FirstName = "Vanessa",
-							   Email_Address = "VanessaJames@gmail.com",
-							   Physical_Address = "404 Jacob Street",
-							   PhoneNumber = "0847541236"
+                           .HasData(
+                           new
+                           {
+                               EmployeeId = 1,
+                               Surname = "James",
+                               FirstName = "Vanessa",
+                               Email_Address = "VanessaJames@gmail.com",
+                               Employee_RoleId = 1,
+                               Physical_Address = "404 Jacob Street",
+                               PhoneNumber = "0847541236"
 
-						   });
+                           });
             modelBuilder.Entity<Employee>()
                          .HasData(
                          new
@@ -92,6 +115,7 @@ namespace Africanacity_Team24_INF370_.models
                              Surname = "Williams",
                              FirstName = "Serena",
                              Email_Address = "SerenaWilliams@gmail.com",
+                             Employee_RoleId = 2,
                              Physical_Address = "132 Harriet Street",
                              PhoneNumber = "0842341236"
 
@@ -104,6 +128,7 @@ namespace Africanacity_Team24_INF370_.models
                              Surname = "Elba",
                              FirstName = "Edris",
                              Email_Address = "EdrisElba@gmail.com",
+                             Employee_RoleId = 1,
                              Physical_Address = "245 homelyn Street",
                              PhoneNumber = "0212378798"
 
@@ -116,6 +141,7 @@ namespace Africanacity_Team24_INF370_.models
                             Surname = "Nyongo",
                             FirstName = "Lupita",
                             Email_Address = "NyongoLupita@gmail.com",
+                            Employee_RoleId = 2,
                             Physical_Address = "254 Summer Street",
                             PhoneNumber = "0455783475"
 
@@ -128,6 +154,7 @@ namespace Africanacity_Team24_INF370_.models
                             Surname = "Jackson",
                             FirstName = "Micheal",
                             Email_Address = "MicheaJackson@gmail.com",
+                            Employee_RoleId = 2,
                             Physical_Address = "567 Winter Street",
                             PhoneNumber = "0874567836"
 
@@ -140,6 +167,7 @@ namespace Africanacity_Team24_INF370_.models
                             Surname = "Kim",
                             FirstName = "Taehyung",
                             Email_Address = "TaehyungKim@gmial.com",
+                            Employee_RoleId = 1,
                             Physical_Address = "345 Shallow  Street",
                             PhoneNumber = "0874562134"
 
@@ -152,6 +180,7 @@ namespace Africanacity_Team24_INF370_.models
                             Surname = "Coleman",
                             FirstName = "Zendaya",
                             Email_Address = "ZendayaColeman@gmail.com",
+                            Employee_RoleId = 1,
                             Physical_Address = "243 Super Street ",
                             PhoneNumber = "0212378798"
 
@@ -164,6 +193,7 @@ namespace Africanacity_Team24_INF370_.models
                             Surname = "Federal",
                             FirstName = "Roger",
                             Email_Address = "RogerFederal@gmail.com",
+                            Employee_RoleId = 1,
                             Physical_Address = "987 Wall Street",
                             PhoneNumber = "0612346487"
 
@@ -176,6 +206,7 @@ namespace Africanacity_Team24_INF370_.models
                             Surname = "Lopez",
                             FirstName = "Jennifer",
                             Email_Address = "JenniferLOpez@gmail.com",
+                            Employee_RoleId = 2,
                             Physical_Address = "967 Ballard Street",
                             PhoneNumber = "0874834576"
 
@@ -188,6 +219,7 @@ namespace Africanacity_Team24_INF370_.models
                             Surname = "Boseman",
                             FirstName = "Chadwick",
                             Email_Address = "ChadwickBoseman@gmail.com",
+                            Employee_RoleId = 2,
                             Physical_Address = "483 Alien Street",
                             PhoneNumber = "0923456789"
 
@@ -219,29 +251,6 @@ namespace Africanacity_Team24_INF370_.models
                           Description = "You can book for a live entertainment on the website."
                       });
 
-
-
-
-            // Create Seed Data For The Employee Role Table:
-            modelBuilder.Entity<Employee_Role>()
-                           .HasData(
-                           new
-                           {
-                               Employee_RoleId = 1,
-                               Name = "Waiter",
-							   Description = "The waiter serves the customers and takes orders"
-
-                           });
-
-            modelBuilder.Entity<Employee_Role>()
-                          .HasData(
-                          new
-                          {
-                              Employee_RoleId = 2,
-                              Name = "Chef",
-                              Description = "The chef prepares the meals and notifies the waiter of ready orders."
-
-                          });
 			//create seed data for menu type
             modelBuilder.Entity<Menu_Type>()
                           .HasData(

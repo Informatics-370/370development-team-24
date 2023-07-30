@@ -3,12 +3,6 @@
     height: 50px;
     text-align: center;
     padding-top: 7px;
-}
-.heading{
-    /* background-color: darkmagenta; */
-    height: 50px;
-    text-align: center;
-    padding-top: 7px;
     font-family: 'Times New Roman', Times, serif;
 }
 
@@ -31,8 +25,11 @@ table{
     border-color: black;
 }
 .input-group{
-    width: 400px;
-    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 50px;
+    width: 100%;    
 }
 
 
@@ -56,9 +53,6 @@ button{
     border-collapse: collapse;
 
 }
-.input-group{
-    margin-top: 25px;
-}
 
 .outlined-table th,
 .outlined-table td {
@@ -71,4 +65,8 @@ button{
 .addButton{
 
     margin-left: 500px;
+}
+.search-bar {
+    flex-grow: 1; /* Allow the search bar to expand and take available space */
+    margin-right: 10px; /* Add some space between the search bar and add icon */
 }

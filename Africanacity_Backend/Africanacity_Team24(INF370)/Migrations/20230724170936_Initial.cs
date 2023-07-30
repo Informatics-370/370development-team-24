@@ -418,7 +418,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                     DrinkId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Drink_TypeId = table.Column<int>(type: "int", nullable: true)
+                    Drink_TypeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -427,7 +427,8 @@ namespace Africanacity_Team24_INF370_.Migrations
                         name: "FK_Drinks_Drink_Types_Drink_TypeId",
                         column: x => x.Drink_TypeId,
                         principalTable: "Drink_Types",
-                        principalColumn: "Drink_TypeId");
+                        principalColumn: "Drink_TypeId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -604,7 +605,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                     Email_Address = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Physical_Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    Employee_RoleId = table.Column<int>(type: "int", nullable: true),
+                    Employee_RoleId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -614,7 +615,8 @@ namespace Africanacity_Team24_INF370_.Migrations
                         name: "FK_Employees_Employee_Roles_Employee_RoleId",
                         column: x => x.Employee_RoleId,
                         principalTable: "Employee_Roles",
-                        principalColumn: "Employee_RoleId");
+                        principalColumn: "Employee_RoleId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Employees_Users_UserId",
                         column: x => x.UserId,
@@ -1012,23 +1014,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Employees",
-                columns: new[] { "EmployeeId", "Email_Address", "Employee_RoleId", "FirstName", "PhoneNumber", "Physical_Address", "Surname", "UserId" },
-                values: new object[,]
-                {
-                    { 1, "VanessaJames@gmail.com", null, "Vanessa", "0847541236", "404 Jacob Street", "James", null },
-                    { 2, "SerenaWilliams@gmail.com", null, "Serena", "0842341236", "132 Harriet Street", "Williams", null },
-                    { 3, "EdrisElba@gmail.com", null, "Edris", "0212378798", "245 homelyn Street", "Elba", null },
-                    { 4, "NyongoLupita@gmail.com", null, "Lupita", "0455783475", "254 Summer Street", "Nyongo", null },
-                    { 5, "MicheaJackson@gmail.com", null, "Micheal", "0874567836", "567 Winter Street", "Jackson", null },
-                    { 6, "TaehyungKim@gmial.com", null, "Taehyung", "0874562134", "345 Shallow  Street", "Kim", null },
-                    { 7, "ZendayaColeman@gmail.com", null, "Zendaya", "0212378798", "243 Super Street ", "Coleman", null },
-                    { 8, "RogerFederal@gmail.com", null, "Roger", "0612346487", "987 Wall Street", "Federal", null },
-                    { 9, "JenniferLOpez@gmail.com", null, "Jennifer", "0874834576", "967 Ballard Street", "Lopez", null },
-                    { 10, "ChadwickBoseman@gmail.com", null, "Chadwick", "0923456789", "483 Alien Street", "Boseman", null }
-                });
-
-            migrationBuilder.InsertData(
                 table: "Food_Types",
                 columns: new[] { "FoodTypeId", "Description", "Name" },
                 values: new object[,]
@@ -1068,6 +1053,23 @@ namespace Africanacity_Team24_INF370_.Migrations
                 {
                     { 1, "Breakfast" },
                     { 2, "All Day" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Employees",
+                columns: new[] { "EmployeeId", "Email_Address", "Employee_RoleId", "FirstName", "PhoneNumber", "Physical_Address", "Surname", "UserId" },
+                values: new object[,]
+                {
+                    { 1, "VanessaJames@gmail.com", 1, "Vanessa", "0847541236", "404 Jacob Street", "James", null },
+                    { 2, "SerenaWilliams@gmail.com", 2, "Serena", "0842341236", "132 Harriet Street", "Williams", null },
+                    { 3, "EdrisElba@gmail.com", 1, "Edris", "0212378798", "245 homelyn Street", "Elba", null },
+                    { 4, "NyongoLupita@gmail.com", 2, "Lupita", "0455783475", "254 Summer Street", "Nyongo", null },
+                    { 5, "MicheaJackson@gmail.com", 2, "Micheal", "0874567836", "567 Winter Street", "Jackson", null },
+                    { 6, "TaehyungKim@gmial.com", 1, "Taehyung", "0874562134", "345 Shallow  Street", "Kim", null },
+                    { 7, "ZendayaColeman@gmail.com", 1, "Zendaya", "0212378798", "243 Super Street ", "Coleman", null },
+                    { 8, "RogerFederal@gmail.com", 1, "Roger", "0612346487", "987 Wall Street", "Federal", null },
+                    { 9, "JenniferLOpez@gmail.com", 2, "Jennifer", "0874834576", "967 Ballard Street", "Lopez", null },
+                    { 10, "ChadwickBoseman@gmail.com", 2, "Chadwick", "0923456789", "483 Alien Street", "Boseman", null }
                 });
 
             migrationBuilder.InsertData(

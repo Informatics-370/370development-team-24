@@ -24,6 +24,8 @@ namespace Africanacity_Team24_INF370_.models.Administration
 
         public List<Order> Orders { get; set; } = new List<Order>();
 
-		//public Employee_Role Employee_Role { get; set; }
+		public int Employee_RoleId { get; set; }
+
+		public Employee_Role Employee_Role { get; set; }
 	}
 }

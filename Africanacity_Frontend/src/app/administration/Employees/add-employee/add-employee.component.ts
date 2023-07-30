@@ -2,7 +2,9 @@ import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EmployeeService } from '../../../service/employee.service';
+import { DataService } from 'src/app/service/data.Service';
 import { Employee } from '../../../shared/employee';
+import { Employee_Role } from 'src/app/shared/EmployeeRole';
 import { EmailService } from 'src/app/service/email.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -37,15 +39,17 @@ export class AddEmployeeComponent implements OnInit {
   toastContainer!: ViewContainerRef;
   email!: string;
   message!: string;
+  employeeRole: Employee_Role[] = [];
 
-   constructor(private employeeservice: EmployeeService, emailservice: EmailService,  private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar) { }
+   constructor(private employeeservice: EmployeeService, private dataService: DataService, emailservice: EmailService,  private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar) { }
 
      employeeForm: FormGroup = new FormGroup({
        surname: new FormControl('',[Validators.required]),
        firstName: new FormControl('',[Validators.required]),
        email_Address: new FormControl('',[Validators.required]),
        physical_Address: new FormControl('',[Validators.required]),
-       phoneNumber: new FormControl('',[Validators.required])
+       phoneNumber: new FormControl('',[Validators.required]),
+       employeeRole: new FormControl('',[Validators.required])
     
      })
   //EmailVerification
@@ -61,57 +65,60 @@ export class AddEmployeeComponent implements OnInit {
     );
   }
 
+  // Display Notifcations
 
-     Roles: string[] = ['Driver', 'Administrator', 'Waiter'];
+  openDialog():void{
+    const dialogRef = this.dialog.open(NotificationDialogComponent,{
+      width: '250px',
+      data: 'Add new Employee?'
+    });
 
-     // Display Notifcations
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'Yes'){
+        this.onSubmit();
+      }
+    })
+  }
+    
 
-     openDialog():void{
-      const dialogRef = this.dialog.open(NotificationDialogComponent,{
-        width: '250px',
-        data: 'Add new Employee?'
+  ngOnInit(): void {
+    this.GetAllEmployeeRoles()
+  }
+
+  cancel(){
+    this.router.navigate(['/home'])
+  }
+
+  GetAllEmployeeRoles()
+  {
+    this.dataService.GetAllEmployeeRoles().subscribe(result => {
+      let rolesList:any[] = result
+      rolesList.forEach((element) => {
+        this.employeeRole.push(element)
       });
-
-      dialogRef.afterClosed().subscribe(result => {
-        if(result == 'Yes'){
-          this.onSubmit();
-        }
-      })
-    }
-    
-
-    ngOnInit(): void {
-    
-    }
-
-    cancel(){
-      this.router.navigate(['/home'])
+    });
+  }
+  
+  onSubmit() {
+    if (this.employeeForm.invalid) {
+      return;
     }
   
-       onSubmit(){
+    let employee = new Employee();
+    employee.surname = this.employeeForm.value.surname;
+    employee.firstName = this.employeeForm.value.firstName;
+    employee.employeeRole = this.employeeForm.value.employeeRole;
+    employee.email_Address = this.employeeForm.value.email_Address;
+    employee.physical_Address = this.employeeForm.value.physical_Address;
+    employee.phoneNumber = this.employeeForm.value.phoneNumber;
+  
+    this.employeeservice.AddEmployee(employee).subscribe(result => {
+      this.router.navigate(['/view-employees'])
+ });
 
-        let employee = new Employee();
-        employee.surname = this.employeeForm.value.surname;
-        employee.firstName = this.employeeForm.value.firstName;
-        employee.email_Address = this.employeeForm.value.email_Address;
-        employee.physical_Address = this.employeeForm.value.physical_Address;
-        employee.phoneNumber = this.employeeForm.value.phoneNumber;
-            this.employeeservice.AddEmployee(employee).subscribe(result => {
-                  this.router.navigate(['/view-employees'])
-            })
     
-     this.employeeservice.AddEmployee(employee).subscribe((res:any) => {
 
-      if(res.statusCode == 200)
-      {
-        this.router.navigate(['/'])
-      }
-      else
-      {
-      
-      }
-     });
-     this.showSuccessMessage('Enter valid phone number!');
+     this.showSuccessMessage('Successfully added!');
          }
 
          showSuccessMessage(message: string): void {
@@ -124,5 +131,9 @@ export class AddEmployeeComponent implements OnInit {
             snackBarRef.afterDismissed().subscribe(() => {
             this.toastContainer.clear();
           });
+  }
 }
+function GetAllEmployeeRoles() {
+  throw new Error('Function not implemented.');
 }
+

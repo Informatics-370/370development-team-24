@@ -29,13 +29,27 @@ import { EditFoodTypeComponent } from './administration/Food Type/edit-food-type
 import { CreateFoodTypeComponent } from './administration/Food Type/create-food-type/create-food-type.component';
 import { CreateMenuItemCategoryComponent } from './administration/Menu Item Category/create-menu-item-category/create-menu-item-category/create-menu-item-category.component';
 import { EditMenuItemCategoryComponent } from './administration/Menu Item Category/edit-menu-item-category/edit-menu-item-category/edit-menu-item-category.component';
+import { DrinkTypeComponent } from './administration/Drink Type/view-drink-type/view-drink-type.component';
+import { CreateDrinkTypeComponent } from './administration/Drink Type/create-drink-type/create-drink-type.component';
+import { EditDrinkTypeComponent } from './administration/Drink Type/edit-drink-type/edit-drink-type.component';
+import { ViewDrinkComponent } from './administration/Drink/view-drink/view-drink.component';
+import { CreateDrinkComponent } from './administration/Drink/create-drink/create-drink.component';
+import { EditDrinkComponent } from './administration/Drink/edit-drink/edit-drink.component';
+import { EmployeeComponent } from './administration/Reports/employee/employee.component';
+import { InventoryComponent } from './administration/Reports/inventory/inventory.component';
+import { InventoryReconciliationComponent } from './administration/Reports/inventory-reconciliation/inventory-reconciliation.component';
+import { SalesComponent } from './administration/Reports/sales/sales.component';
+import { ScheduleComponent } from './administration/Reports/schedule/schedule.component';
 //import { EditMenuItemCategoryComponent } from './administration/Menu Item Category/edit-menu-item-category/edit-menu-item-category.component';
 //import { CreateMenuItemCategoryComponent } from './administration/Menu Item Category/create-menu-item-category/create-menu-item-category.component';
 
 const routes: Routes = [
   // to open the app to open on this specific page
+
+  { path: '', component: DrinkTypeComponent },
   // open on this page
-  { path: '', component: LoginComponent },
+  //{ path: '', component: LoginComponent },
+
   { path: 'add-employee', component: AddEmployeeComponent }, // for add employee page
   { path: 'edit-employee/:id', component: EditEmployeeComponent},//Edit employee
   { path: 'view-employees', component: ViewEmployeesComponent }, // for view employees page
@@ -64,7 +78,18 @@ const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent }, // forgotpassword path
   { path: 'reset-password',component: ResetPasswordComponent }, //resetpassword path
   { path: 'home', component: HomeComponent }, // for home page
-  {path: '', redirectTo: 'login', pathMatch:'full'},
+  { path: 'view-drink-type', component: DrinkTypeComponent }, //for drink type page
+  { path: 'create-drink-type', component: CreateDrinkTypeComponent }, // for create drink type page
+  { path: 'edit-drink-type/:id', component: EditDrinkTypeComponent }, // for edit drink type page
+  { path: 'view-drink', component: ViewDrinkComponent }, //for drink page
+  { path: 'create-drink', component: CreateDrinkComponent }, // for create drink page
+  { path: 'edit-drink/:id', component: EditDrinkComponent }, // for edit drink page
+  { path: 'employee',component: EmployeeComponent }, // for employee report
+  { path: 'inventory',component: InventoryComponent }, // for inventory report
+  { path: 'inventory-reconciliation',component: InventoryReconciliationComponent }, // for inventory reconciliation report
+  { path: 'sales',component: SalesComponent }, // for sales report
+  { path: 'schedule',component: ScheduleComponent }, // for schedule
+  { path: '', redirectTo: 'login', pathMatch:'full'},
   
 ];
 

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Africanacity_Team24_INF370_.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230614020722_Initial")]
+    [Migration("20230724170936_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -250,7 +250,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("Employee_RoleId")
+                    b.Property<int>("Employee_RoleId")
                         .HasColumnType("int");
 
                     b.Property<string>("FirstName")
@@ -287,6 +287,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             EmployeeId = 1,
                             Email_Address = "VanessaJames@gmail.com",
+                            Employee_RoleId = 1,
                             FirstName = "Vanessa",
                             PhoneNumber = "0847541236",
                             Physical_Address = "404 Jacob Street",
@@ -296,6 +297,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             EmployeeId = 2,
                             Email_Address = "SerenaWilliams@gmail.com",
+                            Employee_RoleId = 2,
                             FirstName = "Serena",
                             PhoneNumber = "0842341236",
                             Physical_Address = "132 Harriet Street",
@@ -305,6 +307,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             EmployeeId = 3,
                             Email_Address = "EdrisElba@gmail.com",
+                            Employee_RoleId = 1,
                             FirstName = "Edris",
                             PhoneNumber = "0212378798",
                             Physical_Address = "245 homelyn Street",
@@ -314,6 +317,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             EmployeeId = 4,
                             Email_Address = "NyongoLupita@gmail.com",
+                            Employee_RoleId = 2,
                             FirstName = "Lupita",
                             PhoneNumber = "0455783475",
                             Physical_Address = "254 Summer Street",
@@ -323,6 +327,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             EmployeeId = 5,
                             Email_Address = "MicheaJackson@gmail.com",
+                            Employee_RoleId = 2,
                             FirstName = "Micheal",
                             PhoneNumber = "0874567836",
                             Physical_Address = "567 Winter Street",
@@ -332,6 +337,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             EmployeeId = 6,
                             Email_Address = "TaehyungKim@gmial.com",
+                            Employee_RoleId = 1,
                             FirstName = "Taehyung",
                             PhoneNumber = "0874562134",
                             Physical_Address = "345 Shallow  Street",
@@ -341,6 +347,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             EmployeeId = 7,
                             Email_Address = "ZendayaColeman@gmail.com",
+                            Employee_RoleId = 1,
                             FirstName = "Zendaya",
                             PhoneNumber = "0212378798",
                             Physical_Address = "243 Super Street ",
@@ -350,6 +357,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             EmployeeId = 8,
                             Email_Address = "RogerFederal@gmail.com",
+                            Employee_RoleId = 1,
                             FirstName = "Roger",
                             PhoneNumber = "0612346487",
                             Physical_Address = "987 Wall Street",
@@ -359,6 +367,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             EmployeeId = 9,
                             Email_Address = "JenniferLOpez@gmail.com",
+                            Employee_RoleId = 2,
                             FirstName = "Jennifer",
                             PhoneNumber = "0874834576",
                             Physical_Address = "967 Ballard Street",
@@ -368,6 +377,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             EmployeeId = 10,
                             Email_Address = "ChadwickBoseman@gmail.com",
+                            Employee_RoleId = 2,
                             FirstName = "Chadwick",
                             PhoneNumber = "0923456789",
                             Physical_Address = "483 Alien Street",
@@ -937,7 +947,7 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DrinkId"), 1L, 1);
 
-                    b.Property<int?>("Drink_TypeId")
+                    b.Property<int>("Drink_TypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -1581,13 +1591,17 @@ namespace Africanacity_Team24_INF370_.Migrations
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Employee", b =>
                 {
-                    b.HasOne("Africanacity_Team24_INF370_.models.Administration.Employee_Role", null)
+                    b.HasOne("Africanacity_Team24_INF370_.models.Administration.Employee_Role", "Employee_Role")
                         .WithMany("Employees")
-                        .HasForeignKey("Employee_RoleId");
+                        .HasForeignKey("Employee_RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Africanacity_Team24_INF370_.models.Admin.User", null)
                         .WithMany("Employees")
                         .HasForeignKey("UserId");
+
+                    b.Navigation("Employee_Role");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Password", b =>
@@ -1702,9 +1716,13 @@ namespace Africanacity_Team24_INF370_.Migrations
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Drink", b =>
                 {
-                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.Drink_Type", null)
+                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.Drink_Type", "Drink_Type")
                         .WithMany("Drinks")
-                        .HasForeignKey("Drink_TypeId");
+                        .HasForeignKey("Drink_TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Drink_Type");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Drink_Price", b =>

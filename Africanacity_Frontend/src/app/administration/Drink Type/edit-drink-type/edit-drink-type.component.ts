@@ -16,7 +16,6 @@ export class EditDrinkTypeComponent {
 
   updateDrinkTypeForm: FormGroup = new FormGroup({
     name: new FormControl('',[Validators.required]),
-    description: new FormControl('',[Validators.required]),
   })
 
   constructor(private dataService: DataService, private router: Router, private http: HttpClient, private activated:ActivatedRoute) {}
@@ -28,7 +27,6 @@ export class EditDrinkTypeComponent {
         this.editDrinkType = res as DrinkType;
 
         this.updateDrinkTypeForm.controls['name'].setValue(this.editDrinkType.name);
-        this.updateDrinkTypeForm.controls['description'].setValue(this.editDrinkType.description);
       })
  
     })
@@ -41,10 +39,7 @@ export class EditDrinkTypeComponent {
   UpdateDrinkType()
   {
     let drinkType = new DrinkType();
-    drinkType.name = this.updateDrinkTypeForm.value.name;
-    drinkType.description = this.updateDrinkTypeForm.value.description;
-    
-
+    drinkType.name = this.updateDrinkTypeForm.value.name;   
 
     this.dataService.EditDrinkType(this.editDrinkType.drinkTypeId,drinkType).subscribe((response:any) => {
 

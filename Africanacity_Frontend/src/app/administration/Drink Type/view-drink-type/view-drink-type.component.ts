@@ -14,7 +14,7 @@ import { NavbarComponent } from 'src/app/navbar/navbar.component';
 
 export class DrinkTypeComponent {
   drinkType: DrinkType[] = []
-  searchQuery!: string;
+  filteredDrinkTypes: DrinkType[] = [];
 
   constructor(private dataService: DataService, 
     private router: Router, 
@@ -32,14 +32,12 @@ export class DrinkTypeComponent {
 
   ngOnInit(): void {
     this.GetAllDrinkTypes();
+    this.filteredDrinkTypes = this.drinkType
   }
 
   deleteItemFromServer(): void {
     this.DeleteDrinkType;
   }
-
- 
-
 
   GetAllDrinkTypes()
   {
@@ -59,19 +57,16 @@ export class DrinkTypeComponent {
       });
   }
 
-  /*searchQuery: string;
+  // search function
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+  
+    this.filteredDrinkTypes = this.drinkType.filter(drinkType => {
+      const column2Value = drinkType.name.toLowerCase() || drinkType.name.toUpperCase();
 
-  search(searchQuery: string)
-  {
-      this.dataService.search(this.searchQuery).subscribe(
-        (results) => {
-          this.foodType = results;
-        },
-        (error) => {
-          console.log(error);
-        }
-      )
-  }*/
+      return column2Value.includes(filterValue);
+    });
+  }
 
 }
 
