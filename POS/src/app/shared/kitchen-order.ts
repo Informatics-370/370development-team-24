@@ -11,5 +11,6 @@ export interface KitchenOrder {
   orderedItems: OrderedItem[];
   orderedDrinks: OrderedDrink[];
   subtotal: number;
+  status: string;
   
 }

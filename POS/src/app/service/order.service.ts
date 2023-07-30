@@ -20,4 +20,11 @@ export class OrderService {
     const ordersString = localStorage.getItem(this.kitchenOrdersKey);
     return ordersString ? JSON.parse(ordersString) : [];
   }
+
+  getKitchenOrderByNumber(kitchenOrderNumber: string): KitchenOrder | undefined {
+    const orders = this.getKitchenOrders();
+    return orders.find((order) => order.kitchenOrderNumber === kitchenOrderNumber);
+  }
+
+  
 }

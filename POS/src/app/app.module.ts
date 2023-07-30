@@ -22,6 +22,8 @@ import { RegisterComponent } from './register/register.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotificationService } from './service/notification.service';
 import { CommonModule } from '@angular/common';
+import { PaymentComponent } from './payment/payment.component';
+
 
 @NgModule({
   declarations: [AppComponent,
@@ -31,7 +33,9 @@ import { CommonModule } from '@angular/common';
   OrderComponent,
   TableComponent,
   KitchenScreenComponent,
-  NotificationComponent,],
+  NotificationComponent,
+  PaymentComponent,
+],
 
 
 

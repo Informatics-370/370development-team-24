@@ -9,30 +9,31 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let order of kitchenOrders">
+  <ion-card *ngFor="let order of kitchenOrders"  class="ion-card">
     <ion-card-header>
-      <ion-card-title>Order Number: {{ order.kitchenOrderNumber }}</ion-card-title>
+      <ion-card-title class="heading">Order Number: {{ order.kitchenOrderNumber }}</ion-card-title>
       <ion-card-subtitle *ngIf="order.tableNumber">Table Number: {{ order.tableNumber }}</ion-card-subtitle>
     </ion-card-header>
 
-    <ion-card-content>
+    <ion-card-content class="content">
       
-      <ion-list>
+     
         <ion-item *ngFor="let orderedItem of order.orderedItems">
           {{ orderedItem.name }} x {{ orderedItem.quantity }} 
         </ion-item>
-      </ion-list>
+     
 
       
-      <ion-list>
+      
         <ion-item *ngFor="let orderedDrink of order.orderedDrinks">
           {{ orderedDrink.name }} x {{ orderedDrink.quantity }}
         </ion-item>
-      </ion-list>
-
-      <h3>Subtotal: {{ order.subtotal | currency: 'R' }}</h3>
+     
+        <ion-item>
+      Subtotal: {{ order.subtotal | currency: 'R' }}
+    </ion-item>
       <!-- Add Complete button -->
-      <ion-button (click)="markOrderAsComplete(order)">Complete</ion-button>
+      <ion-button style="color:black" fill="clear" (click)="markOrderAsComplete(order)" class="ion-button">Complete</ion-button>
       
       
     </ion-card-content>

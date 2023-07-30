@@ -183,7 +183,8 @@ export class OrderComponent  implements OnInit {
       kitchenOrderNumber: this.kitchenOrderNumber,
       orderedItems:this.orderedItems,
       orderedDrinks: this.orderedDrinks,
-      subtotal: Number(this.updateSubtotal())
+      subtotal: Number(this.updateSubtotal()),
+      status: ''
        // This will be calculated on the server
     };
      // Get existing kitchen orders from local storage
