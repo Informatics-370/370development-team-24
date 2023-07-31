@@ -1,0 +1,64 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <app-navbar></app-navbar>
+    </div>
+    <div class="col-md-10 order-md-1">
+      <h4 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px;">Edit Employee</h4>
+      <hr>
+      <div class="container">
+        <div class="row">
+          <form [formGroup]="updateSupplierForm" class="form-horizontal" (ngSubmit)="updateSupplier()">
+            <div class="form-group">
+              <label class="col-sm-1" style="font-weight: bold;" for="supplierName">Name</label>
+              <div class="col-sm-6">
+                <input class="form-control" id="supplierName" placeholder="Enter Name" [required]="true" formControlName="supplierName">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-1" style="font-weight: bold;" for="supplierTypeName">Supplier Type</label>
+              <div class="col-md-6">
+                <select class="form-control" id="supplierTypeName" formControlName="supplierType">
+                  <option *ngFor="let item of supplierTypesData" [value]="item.supplier_TypeId">{{ item.name }}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-1" style="font-weight: bold;" for="email_Address">Email Address:</label>
+              <div class="col-sm-6">
+                <textarea class="form-control" type="text" id="email_Address" placeholder="Enter Address" [required]="true"
+                  formControlName="email_Address"></textarea>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-1" style="font-weight: bold;" for="phoneNumber">Phone Number:</label>
+              <div class="col-sm-6">
+                <textarea class="form-control" type="text" id="phoneNumber" placeholder="Enter 10-digit number" [required]="true"
+                  formControlName="phoneNumber"></textarea>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-1" style="font-weight: bold;" for="physical_Address">Physical Address:</label>
+              <div class="col-sm-6">
+                <textarea class="form-control" type="text" id="physical_Address" placeholder="Enter Address" [required]="true"
+                  formControlName="physical_Address"></textarea>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-offset-1 col-sm-6">
+                <button style="margin-right:1em;" type="submit" [disabled]="!updateSupplierForm.valid" class="btn btn-sm btn-success">Confirm</button>
+                <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

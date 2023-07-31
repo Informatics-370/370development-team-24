@@ -1,4 +1,4 @@
-﻿using Africanacity_Team24_INF370_.models.Admin;
+﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
 using Africanacity_Team24_INF370_.models.Administration;
 using Africanacity_Team24_INF370_.models.Restraurant;
 using System.ComponentModel.DataAnnotations;

@@ -1,4 +1,4 @@
-﻿using Africanacity_Team24_INF370_.models.Admin;
+﻿
 using Africanacity_Team24_INF370_.models.Administration;
 ﻿using Africanacity_Team24_INF370_.models.Restraurant;
 using Africanacity_Team24_INF370_.ViewModel;
@@ -7,12 +7,11 @@ using Microsoft.EntityFrameworkCore;
 using Africanacity_Team24_INF370_.models.Inventory;
 using System.Linq;
 ﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
-using Africanacity_Team24_INF370_.models.Administration;
-using Africanacity_Team24_INF370_.models.Restraurant;
+
 using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+
 using Serilog;
 using System.Net;
 using System.Security.Policy;
@@ -109,11 +108,11 @@ namespace Africanacity_Team24_INF370_.models
         }
 
         //DRINK
-        public async Task<Drink[]> GetAllDrinksAsync()
-        {
-            IQueryable<Drink> query = _appDbContext.Drinks.Include(d => d.Drink_Type);
-            return await query.ToArrayAsync();
-        }
+        //public async Task<Drink[]> GetAllDrinksAsync()
+        //{
+        //    IQueryable<Drink> query = _appDbContext.Drinks.Include(d => d.Drink_Type);
+        //    return await query.ToArrayAsync();
+        //}
         public async Task<Drink> GetDrinkAsync(int drinkId)
         {
             IQueryable<Drink> query = _appDbContext.Drinks.Where(d => d.DrinkId == drinkId);
@@ -268,8 +267,10 @@ namespace Africanacity_Team24_INF370_.models
         public async Task<Supplier[]> GetAllSuppliersAsync()
         {
             IQueryable<Supplier> query = _appDbContext.Suppliers.Include(s => s.Supplier_Type);
-		// Entertainer
-		public async Task<User[]> ViewProfileAsync()
+            return await query.ToArrayAsync();
+        }
+        // Entertainer
+        public async Task<User[]> ViewProfileAsync()
 		{
 			IQueryable<User> query = _appDbContext.Users;
 			return await query.ToArrayAsync();
@@ -348,12 +349,12 @@ namespace Africanacity_Team24_INF370_.models
             return await query.ToArrayAsync();
         }
 
-        public async Task<Entertainment_Type[]> GetEntertainmentTypesAsync()
-        {
-            IQueryable< Entertainment_Type> query = _appDbContext.EntertainmentTypes;
+        //public async Task<Entertainment_Type[]> GetEntertainmentTypesAsync()
+        //{
+        //    IQueryable< Entertainment_Type> query = _appDbContext.EntertainmentTypes;
 
-            return await query.ToArrayAsync();
-        }
+        //    return await query.ToArrayAsync();
+        //}
 
         public async Task<Supplier> GetSupplierAsync(int supplierId)
         {
@@ -385,9 +386,9 @@ namespace Africanacity_Team24_INF370_.models
         }
 
 
-        public async Task<Inventory_Item> GetInventoryItemAsync(int inventory_ItemId)
+        public async Task<Inventory_Item> GetInventoryItemAsync(int Inventory_ItemId)
         {
-            IQueryable<Inventory_Item> query = _appDbContext.Inventory_Items.Where(i => i.Inventory_ItemId == inventory_ItemId);
+            IQueryable<Inventory_Item> query = _appDbContext.Inventory_Items.Where(i => i.Inventory_ItemId == Inventory_ItemId);
             return await query.FirstOrDefaultAsync();
         }
 
@@ -492,7 +493,7 @@ namespace Africanacity_Team24_INF370_.models
         }
 
 
-    }
+    
 		// Pending Booking
 		public async Task<Pending_Booking[]> GetPendingsAsync()
 		{

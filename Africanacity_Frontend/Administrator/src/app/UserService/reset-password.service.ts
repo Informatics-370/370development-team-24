@@ -9,7 +9,7 @@ import { ResetPassword } from '../shared/reset-password.model';
 })
 export class ResetPasswordService {
 
-  private baseUrl: string = 'https://localhost:49991/api/Authentication';
+  private baseUrl: string = 'http://localhost:49991/api/Authentication';
     constructor(private http: HttpClient) 
     { }
 

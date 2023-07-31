@@ -4,6 +4,9 @@ import { OrderService } from '../service/order.service';
 import { KitchenOrder } from '../shared/kitchen-order';
 import { ModalController } from '@ionic/angular';
 import { PrintReceiptComponent } from '../print-receipt/print-receipt.component';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import { saveAs } from 'file-saver'; // Import file-saver for saving the PDF
 
 @Component({
   selector: 'app-payment',
@@ -13,6 +16,7 @@ import { PrintReceiptComponent } from '../print-receipt/print-receipt.component'
 export class PaymentComponent  implements OnInit {
 
   order!: KitchenOrder | undefined;
+  checkedListItems: KitchenOrder [] = [];
   
 
   constructor(private orderService: OrderService,
@@ -37,6 +41,7 @@ export class PaymentComponent  implements OnInit {
       return await modal.present();
     }
     
+    
 
    async onPaidButtonClick() {
       console.log('Paid button clicked!');
@@ -60,6 +65,42 @@ export class PaymentComponent  implements OnInit {
         // For example, you can redirect to an error page or show a message
         console.log('Order not found or undefined.');
       }
+
+      const doc = new jsPDF();
+    const headers = [['Kitchen Order Number', 'Subtotal']];
+
+      // Map the checklistItems to generate the data array
+    const data = this.checkedListItems.map(item => [item.kitchenOrderNumber, item.subtotal]);
+  
+    doc.setFontSize(12);
+  
+    // Generate the table using autoTable
+    // startY is the initial position for the table
+    autoTable(doc, {
+      head: headers,
+      body: data,
+      startY: 20,
+      // Other options for styling the table if needed
+    });
+
+// Function to convert the array of OrderedItem objects into a string
+
+
+  
+    doc.setFontSize(12);
+  
+    // Generate the table using autoTable
+    // startY is the initial position for the table
+   
+    
+    // Convert the PDF blob to a Base64 string
+    const pdfBlob = doc.output('blob');
+  
+    // Create a file-saver Blob object
+    const file = new Blob([pdfBlob], { type: 'application/pdf' });
+  
+    // Save the Blob to a file
+    saveAs(file, 'receipt.pdf');
       
     }
 

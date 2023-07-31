@@ -1,0 +1,61 @@
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <app-navbar></app-navbar>
+        </div>
+    <div class="col-md-10 order-md-1">
+    <h3 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px; font-weight: bolder;">Inventory Item Checklist </h3>
+
+      <div class="input-group">
+    <div class="search-bar">
+    <input type="text" class="form-control" (input)="applyFilter($event)" placeholder="Search Columns">
+    </div>
+  <div class="addButton">
+    <i class="fa fa-download fa-lg icon" aria-hidden="true" (click)="downloadPDF()"></i>
+
+  </div> 
+    </div>
+
+<div class="table-container">
+    <table #pdfTable class="table table-container outlined-table">
+    <thead class="tableColor">
+      <tr>
+        <th scope="col" class="col-sm-1">ID</th>
+        <th scope="col" class="col-sm-7">Name</th>
+        <th scope="col" class="col-sm-1" style="text-align: center;">Ordered</th>
+        <th scope="col" class="col-sm-1" style="text-align: center;">Recieved</th>
+        <th scope="col" class="col-sm-1" style="text-align: center;">Query</th>
+
+        <!-- Add more columns as needed -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of checklistItems" [ngClass]="{'row-ordered': item.ordered}">
+        <td class="col-sm-1">
+          {{ item.inventory_ItemId }}
+        </td>
+          <td class="col-sm-2">{{ item.itemName }}</td>
+
+          <td class="col-sm-1" class="icon-cell">
+            <i class="fa fa-shopping-cart fa-lg icon" aria-hidden="true" (click)="orderItem(item)"></i>
+
+          </td>
+          <td class="col-sm-1" class="icon-cell">
+            <!-- <i class="fa fa-check icon" aria-hidden="true" (click)="receiveItem(item)"></i> -->
+            <i class="fa fa-check icon" aria-hidden="true"   [routerLink]="['/receive-order', item.inventory_ItemId]"></i>
+           
+          </td>
+          <td class="col-sm-1" class="icon-cell">
+            <i class="fa fa-question-circle fa-lg icon" aria-hidden="true" (click)="queryItem(item)"></i>
+          </td>
+        <!-- Display more item details as needed -->
+      </tr>
+    </tbody>
+  </table>
+</div>
+    </div>
+    </div>
+</div>
+
+  

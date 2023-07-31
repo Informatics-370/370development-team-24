@@ -1,156 +1,103 @@
- <nav class="side-navbar">
-  <a>
-    <!-- <img src="../../assets/Nav_image/Africanacity.png" alt="" width="30" height="30" class="d-inline-block align-text-top">
-      Africanacity -->
-      <i class="fa fa-user-circle-o" style="font-size:24px" aria-hidden="true"></i><b> Hello {{fullName}}</b><hr>
-     
-    </a>
-  <ul>
+<nav class="side-navbar">
+  <div class="logo">
+    <!-- Replace the image source with your logo path -->
+    <img src="../../assets/Nav_image/Africanacity.png" alt="Logo" class="logo-image">
+    <span class="logo-text">Africanacity</span>
+  </div>
+  <ul class="nav-links">
     <li>
-      <b> <a href="#"> <i class="fa fa-fw fa-home"></i> Home</a></b>
-      <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+      <a href="#"><i class="fa fa-home"></i> Home</a>
     </li>
     <li>
-      <b><a href="#"> <i class="fa fa-fw fa-group"></i> Employee Management <i class="fa fa-sort-desc" aria-hidden="true"></i></a></b>
-      <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+      <a href="#"><i class="fa fa-group"></i> Employee Management</a>
       <ul class="dropdown">
-        <li>
-          <b><a class="nav-link" routerLink="/add-employee"><i class="fa fa-circle-o" aria-hidden="true"></i> Add Employee</a></b>
-        </li>
-        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
-        <li>
-          <b><a class="nav-link" routerLink="/view-employees"><i class="fa fa-circle-o" aria-hidden="true"></i> View Employee's</a></b>
-          </li>
-        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
-        <li>
-          <b> <a class="nav-link" routerLink="/employee-role"><i class="fa fa-circle-o" aria-hidden="true"></i> Employee Roles</a></b>
-         </li>
-        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+        <li><a routerLink="/add-employee">Add Employee</a></li>
+        <li><a routerLink="/view-employees">View Employees</a></li>
+        <li><a routerLink="/employee-role">Employee Roles</a></li>
       </ul>
     </li>
     <li>
-      <b> <a href="#"> <i class="fa fa-fw fa-folder"></i> Menu Management <i class="fa fa-sort-desc" aria-hidden="true"></i></a></b>
-      <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+      <a href="#"><i class="fa fa-folder"></i> Menu Management</a>
       <ul class="dropdown">
-        <li>
-          <b><a class="nav-link" routerLink="/menuitems"><i class="fa fa-circle-o" aria-hidden="true"></i>Menu Items</a></b>
-          </li>
-        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
-        <li>
-          <b><a class="nav-link" routerLink="/menu-types"><i class="fa fa-circle-o" aria-hidden="true"></i>Menu Type</a></b>
-         </li>
-        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
-        <li>
-          <b><a class="nav-link" routerLink="/menu-item-category"><i class="fa fa-circle-o" aria-hidden="true"></i>Menu Item Category</a></b>
-       </li>
-        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
-        <li>
-          <b><a class="nav-link" routerLink="/food-type"><i class="fa fa-circle-o" aria-hidden="true"></i>Food Types</a></b>
-        </li>
-        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+        <li><a routerLink="/menuitems">Menu Items</a></li>
+        <li><a routerLink="/menu-types">Menu Type</a></li>
+        <li><a routerLink="/menu-item-category">Menu Item Category</a></li>
+        <li><a routerLink="/food-type">Food Types</a></li>
       </ul>
     </li>
     <li>
-      <b><a href="#"> <i class="fa fa-fw fa-glass"></i> Drink Management <i class="fa fa-sort-desc" aria-hidden="true"></i></a></b>
-      <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+      <a href="#"><i class="fa fa-glass"></i> Drink Management</a>
       <ul class="dropdown">
-        <li>
-          <b> <a href="#"> <i class="fa fa-circle-o" aria-hidden="true"></i>Drink Items</a></b>
-         </li>
-        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
-        <li>
-          <b> <a href="./administration/drinkType"> <i class="fa fa-circle-o" aria-hidden="true"></i>Drink Types</a></b>
-         </li>
-        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+        <li><a routerLink="/view-drink">Drink Items</a></li>
+        <li><a routerLink="/view-drink-type">Drink Types</a></li>
       </ul>
     </li>
     <li>
-      <b><a href="#"> <i class="fa fa-fw fa-folder"></i> Inventory Management <i class="fa fa-sort-desc" aria-hidden="true"></i></a></b>
-      <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+      <a > <i class="fa fa-fw fa-folder"></i> Inventory Management <i class="fa fa-sort-desc" aria-hidden="true"></i></a>
       <ul class="dropdown">
-        <li>
-          <b><a href="#"><i class="fa fa-circle-o" aria-hidden="true"></i> Food</a></b>
-          </li>
-        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
-        <li>
-          <b> <a href="#"><i class="fa fa-circle-o" aria-hidden="true"></i> Drinks</a></b>
-         </li>
-        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+        <li><a class="nav-link" routerLink="/add-inventoryitem"> Add Inventory Item</a></li>
+        <li><a class="nav-link" routerLink="/selected-inventorytype"> View Inventory Items</a></li>
+        <li><a class="nav-link" routerLink="/view-inventorytypes"> Inventory Types</a></li>
+        <li><a class="nav-link" routerLink="/checklist">View Checklist</a></li>
+        <li><a class="nav-link" routerLink="/view-orders">Inventory Orders</a></li>
       </ul>
+
     </li>
     <li>
-      <b><a href="#"> <i class="fa fa-fw fa-users"></i> Supplier Management <i class="fa fa-sort-desc" aria-hidden="true"></i></a></b>
-      <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+      <a> <i class="fa fa-fw fa-users"></i> Supplier Management</a>
       <ul class="dropdown">
-        <li>
-          <b>  <a href="#"><i class="fa fa-circle-o" aria-hidden="true"></i> Add Supplier</a></b>
-        </li>
-        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
-        <li>
-          <b><a href="#"><i class="fa fa-circle-o" aria-hidden="true"></i> View Supplier's</a></b>
-        </li>
-        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+        <li><a class="nav-link" routerLink="/add-supplier">Add Supplier</a></li>
+        <li><a class="nav-link" routerLink="/view-suppliers"> View Suppliers</a></li>
+        <li><a class="nav-link" routerLink="/view-suppliertypes"> Supplier Types</a></li>
       </ul>
     </li>  
     <li>
-      <b> <a href="#"><i class="fa fa-bar-chart" aria-hidden="true"></i> Reports</a></b>
-      <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+      <a href="#"><i class="fa fa-music"></i> Entertainment</a>
+      <ul class="dropdown">
+        <li><a href="/schedule-display">Schedule</a></li>
+        <li><a href="/view-events">Events</a></li>
+        <li><a href="/entertainment-types">Entertainment Types</a></li>
+      </ul>
+    </li> 
+    <li>
+      <a href="#"><i class="fa fa-bar-chart"></i> Reports</a>
+      <ul class="dropdown">
+        <li><a routerLink="/sales">Sales</a></li>
+        <li><a routerLink="/inventory">Inventory</a></li>
+        <li><a routerLink="/inventory-reconciliation">Inventory Reconciliation</a></li>
+        <li><a routerLink="/schedule">Schedule</a></li>
+        <li><a routerLink="/employee">Employee</a></li>
+      </ul>
     </li>
     <li>
-      <b><a href="#"> <i class="fa fa-fw fa-user"></i> Entertainer Management <i class="fa fa-sort-desc" aria-hidden="true"></i></a></b>   
-      <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+   <a href="#"> <i class="fa fa-fw fa-user"></i> Entertainer Management</a>
       <ul class="dropdown">
         <li>
-          <b>
-            <a routerLink="../entertainer"><i class="fa fa-circle-o" aria-hidden="true"></i> Manage Entertainer</a>
-          </b>
+            <a routerLink="../entertainer">Manage Entertainer</a>
         </li>
-        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+      
         <!-- <li><a href="#">View</a></li> -->
       </ul>
     </li>
     <li>
       <li>
-        <b> <a href="#"> <i class="fa fa-fw fa-book"></i> Booking Management <i class="fa fa-sort-desc" aria-hidden="true"></i></a></b>
-        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+       <a href="#"> <i class="fa fa-fw fa-book"></i> Booking Management</a>
         <ul class="dropdown">
           <li>
-            <b><a routerLink="../manage-booking"><i class="fa fa-circle-o" aria-hidden="true"></i>Manage Booking</a></b>
+         <a routerLink="../manage-booking">Manage Booking</a>
             </li>
-          <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
           <li>
-            <b><a routerLink="../booking-listing"><i class="fa fa-circle-o" aria-hidden="true"></i>Booking Lisitng</a></b>
+            <a routerLink="../booking-listing">Booking Lisitng</a>
           </li>
-          <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
         </ul>
       </li>
-      <li>
-        <li>
-          <b>  <a href="#"> <i class="fa fa-fw fa-question-circle"></i> Help Management <i class="fa fa-sort-desc" aria-hidden="true"></i></a></b>
-          <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
-          <ul class="dropdown">
-            <li>
-              <b> <a class="nav-link" routerLink="/add-help"><i class="fa fa-circle-o" aria-hidden="true"></i> Add Help Q&A</a></b>
-             </li>
-            <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
-            <li>
-              <b><a class="nav-link" routerLink="/view-help-list"><i class="fa fa-circle-o" aria-hidden="true"></i> View Help Q&A's</a></b>
-              </li>
-            <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
-          </ul>
-        </li>
     <li>
-      <b> <a (click)="view()"> <i class="fa fa-fw fa-user-circle-o"></i> View Profile</a></b>
-      <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+      <a (click)="view()"> <i class="fa fa-fw fa-user-circle-o"></i> View Profile</a>
+    
     </li>
     <li>
-      <b>  <a (click)="logout()"> LOGOUT </a></b>
-      <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+      <a (click)="logout()"> LOGOUT </a>
+      
     </li>
   </ul>
 </nav>
-
-
-
-
-

@@ -1,4 +1,4 @@
-﻿using Africanacity_Team24_INF370_.models.Admin;
+﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
 ﻿using Africanacity_Team24_INF370_.Controllers;
 using Africanacity_Team24_INF370_.models.Administration;
 using Africanacity_Team24_INF370_.models.Booking;
@@ -7,7 +7,7 @@ using Africanacity_Team24_INF370_.ViewModel;
 using Africanacity_Team24_INF370_.View_Models;
 using System.Threading.Tasks;
 using Africanacity_Team24_INF370_.models.Inventory;
-using Africanacity_Team24_INF370_.models.Booking;
+
 using static Org.BouncyCastle.Asn1.Cmp.Challenge;
 
 namespace Africanacity_Team24_INF370_.models
@@ -74,7 +74,7 @@ namespace Africanacity_Team24_INF370_.models
         Task<Drink_Type> GetDrinkTypeAsync(int Drink_TypeId);
 
         // DRINK ITEM
-        Task<Drink[]> GetAllDrinksAsync();
+        //Task<Drink[]> GetAllDrinksAsync();
         Task<Drink> GetDrinkAsync(int Drink_TypeId);
         //DRINK ITEM PRICES
         Task<Drink_Price[]> GetAllDrinkItemPricesAsync();
@@ -132,7 +132,7 @@ namespace Africanacity_Team24_INF370_.models
         
 
 
-    }
+    
 		// Entertainer
 		Task<User[]> ViewProfileAsync();
 		Task<User> ViewProfileAsync(int UserId);
@@ -146,7 +146,7 @@ namespace Africanacity_Team24_INF370_.models
 		Task<Bookings> GetBookingAsync(int BookingId);
 		//Task<Bookings> GetBookingInforAsync(string email);
 		Task<List<Bookings>> GetBookingInforAsync(string email);
-		Task<Entertainment_Type[]> GetEntertainmentTypesAsync();
+		//Task<Entertainment_Type[]> GetEntertainmentTypesAsync();
 		Task<Schedule[]> GetSchedulesAsync();
 
 		//Pending Booking

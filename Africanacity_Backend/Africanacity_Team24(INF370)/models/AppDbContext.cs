@@ -90,137 +90,20 @@ namespace Africanacity_Team24_INF370_.models
            // modelBuilder.Entity<StockTake>().HasMany(st => st.StockTakeItems).WithOne().OnDelete(DeleteBehavior.Cascade);
 
 
-
-            // Create Seed Data For The Employee Role Table:
-            modelBuilder.Entity<Employee_Role>()
-                           .HasData(
-                           new
-                           {
-                               Employee_RoleId = 1,
-                               Name = "Waiter",
-                               Description = "The waiter serves the customers and takes orders"
-
-                           });
-
-            modelBuilder.Entity<Employee_Role>()
-                          .HasData(
-                          new
-                          {
-                              Employee_RoleId = 2,
-                              Name = "Chef",
-                              Description = "The chef prepares the meals and notifies the waiter of ready orders."
-
-                          });
-
             // Create Seed Data For the Employee Table:
             modelBuilder.Entity<Employee>()
-
-			// Create Seed Data For the Events Table:
-
-      modelBuilder.Entity<Event>()
-			 .HasData(
-			 new
-			 {
-				 EventId = 1,
-				 Event_Name = "Smooth Sunday",
-				 Description = "An event filled with spectacular music performances and art display "
-			 });
-
-			modelBuilder.Entity<Event>()
-				   .HasData(
-				   new
-				   {
-					   EventId = 2,
-					   Event_Name = "Wacky Wednesday",
-					   Description = "An event where various forms of entertainments take place"
-				   });
-
-			modelBuilder.Entity<Event>()
-				  .HasData(
-				  new
-				  {
-					  EventId = 3,
-					  Event_Name = "Poetry Musings",
-					  Description = " poets are invited to recite poems and another kind of artistry "
-				  });
-
-			// Create Seed Data For the Entertainments Type Table:
-
-			modelBuilder.Entity<Entertainment_Type>()
-				  .HasData(
-				  new
-				  {
-					  Entertainment_TypeId = 1,
-					  Name = "Poetry",
-					  Description = "Poetry recitations"
-				  });
-
-			modelBuilder.Entity<Entertainment_Type>()
-				 .HasData(
-				 new
-				 {
-					 Entertainment_TypeId = 2,
-					 Name = "StandUp Comedy",
-					 Description = "One-liners for a comedic performance"
-				 });
-
-			modelBuilder.Entity<Entertainment_Type>()
-				 .HasData(
-				 new
-				 {
-					 Entertainment_TypeId = 3,
-					 Name = "Dance",
-					 Description = "Present dance as an art form, ballet, amapiano styles, hipHop dancers"
-				 });
-
-			modelBuilder.Entity<Entertainment_Type>()
-
-					   .HasData(
-					   new
-					   {
-						   Entertainment_TypeId = 4,
-						   Name = "Music",
-						   Description = "Artits who perform own music. All types of music"
-
-					   });
-
-
-						// Create Seed Data For the Employee Table:
-						modelBuilder.Entity<Employee>()
-						   .HasData(
-						   new
-						   {
-							   EmployeeId = 1,
-							   Surname = "James",
-							   FirstName = "Vanessa",
-							   Email_Address = "VanessaJames@gmail.com",
-                               Employee_RoleId = 1,
-							   Physical_Address = "404 Jacob Street",
-							   PhoneNumber = "0847541236"
-            //modelBuilder.Entity<Employee>()
-
-                        //   .HasData(
-                        //   new
-                        //   {
-                        //       EmployeeId = 1,
-                        //       Surname = "James",
-                        //       FirstName = "Vanessa",
-                        //       Email_Address = "VanessaJames@gmail.com",
-                        //       Employee_RoleId = 1,
-                        //       Physical_Address = "404 Jacob Street",
-//PhoneNumber = "0847541236"
-
-						//   .HasData(
-						//   new
-						//   {
-						//	   EmployeeId = 1,
-						//	   Surname = "James",
-						//	   FirstName = "Vanessa",
-						//	   Email_Address = "VanessaJames@gmail.com",
-                       //        Employee_RoleId = 1,
-						//	   Physical_Address = "404 Jacob Street",
-						//	   PhoneNumber = "0847541236"
-                       //    });
+               .HasData(
+               new
+               {
+                   EmployeeId = 1,
+                   Surname = "James",
+                   FirstName = "Vanessa",
+                   Email_Address = "VanessaJames@gmail.com",
+                   Employee_RoleId = 1,
+                   Physical_Address = "404 Jacob Street",
+                   PhoneNumber = "0847541236",
+               });
+           ;
             modelBuilder.Entity<Employee>()
                          .HasData(
                          new
@@ -420,191 +303,190 @@ namespace Africanacity_Team24_INF370_.models
                           new
                           {
                               Menu_TypeId = 1,
-                              Name = "Breakfast"
-                              
-   //                           Name = "Breakfast"                           
-
-   //                       });
-   //         modelBuilder.Entity<Menu_Type>()
-   //                      .HasData(
-   //                      new
-   //                      {
-   //                          Menu_TypeId = 2,
-   //                          Name = "All Day"
+                              Name = "Breakfast",
+                          });
 
 
-   //                      });
-
-            
-   //         // Create Seed Data For the FoodType Table:
-   //         modelBuilder.Entity<Food_Type>()
-   //                        .HasData(
-   //                        new
-   //                        {
-   //                            FoodTypeId = 1,
-   //                            Name = "Chicken",
-   //                            Description = "Meals consisting of chicken"
-                              
-   //                        });
-
-   //         modelBuilder.Entity<Food_Type>()
-   //             .HasData(
-   //             new
-   //             {
-   //                 FoodTypeId = 2,
-   //                Name = "Beef",
-   //                 Description = "Meals consisting of beef",
-   //             });
-
-   //         modelBuilder.Entity<Food_Type>()
-   //             .HasData(
-   //             new
-   //             {
-   //                 FoodTypeId = 3,
-   //                 Name = "Vegetarian",
-   //                 Description = "Meals suitable for vegetarians"
-
-   //             });
-
-   //         modelBuilder.Entity<Food_Type>()
-   //             .HasData(
-   //             new
-   //             {
-   //                 FoodTypeId = 4,
-   //                 Name = "Vegan",
-   //                 Description = "Meals suitable for Vegans"
-
-   //             });
-
-            
-   ////         // Create Seed Data For the Menu Category Table:
-   //         modelBuilder.Entity<MenuItem_Category>()
-   //                        .HasData(
-   //                        new
-   //                        {
-   //                            Menu_CategoryId = 1,
-   //                            Name = "Breakfast",
-   //                            Description = "Meals between 7am to 12pm"
-
-   //                        });
-
-   //         modelBuilder.Entity<MenuItem_Category>()
-   //              .HasData(
-   //              new
-   //              {
-   //                  Menu_CategoryId = 2,
-   //                  Name = "Starter",
-   //                  Description = "Appetisers"
-
-   //              });
-
-   //         modelBuilder.Entity<MenuItem_Category>()
-   //                       .HasData(
-   //                       new
-   //                       {
-   //                          Menu_CategoryId = 3,
-   //                           Name = "Main",
-   //                           Description = "Big and Filling meals",
-
-   //                       });
-
-   //         modelBuilder.Entity<MenuItem_Category>()
-   //                       .HasData(
-   //                       new
-   //                       {
-   //                           Menu_CategoryId = 4,
-   //                           Name = "Dessert",
-   //                           Description = "Special things for those with a sweet tooth"
-
-   //                       });
-
-   //         modelBuilder.Entity<MenuItem_Category>()
-   //                       .HasData(
-   //                       new
-   //                       {
-   //                           Menu_CategoryId = 5,
-   //                           Name = "Light Meals",
-   //                           Description = "For those hungry but not hungry"
-
-   //                       });
+            modelBuilder.Entity<Menu_Type>()
+                         .HasData(
+                         new
+                         {
+                             Menu_TypeId = 2,
+                             Name = "All Day"
 
 
+                         });
 
-            
+
+            // Create Seed Data For the FoodType Table:
+            modelBuilder.Entity<Food_Type>()
+                           .HasData(
+                           new
+                           {
+                               FoodTypeId = 1,
+                               Name = "Chicken",
+                               Description = "Meals consisting of chicken"
+
+                           });
+
+            modelBuilder.Entity<Food_Type>()
+                .HasData(
+                new
+                {
+                    FoodTypeId = 2,
+                    Name = "Beef",
+                    Description = "Meals consisting of beef",
+                });
+
+            modelBuilder.Entity<Food_Type>()
+                .HasData(
+                new
+                {
+                    FoodTypeId = 3,
+                    Name = "Vegetarian",
+                    Description = "Meals suitable for vegetarians"
+
+                });
+
+            modelBuilder.Entity<Food_Type>()
+                .HasData(
+                new
+                {
+                    FoodTypeId = 4,
+                    Name = "Vegan",
+                    Description = "Meals suitable for Vegans"
+
+                });
+
+
+            ////         // Create Seed Data For the Menu Category Table:
+            //         modelBuilder.Entity<MenuItem_Category>()
+            //                        .HasData(
+            //                        new
+            //                        {
+            //                            Menu_CategoryId = 1,
+            //                            Name = "Breakfast",
+            //                            Description = "Meals between 7am to 12pm"
+
+            //                        });
+
+            //         modelBuilder.Entity<MenuItem_Category>()
+            //              .HasData(
+            //              new
+            //              {
+            //                  Menu_CategoryId = 2,
+            //                  Name = "Starter",
+            //                  Description = "Appetisers"
+
+            //              });
+
+            //         modelBuilder.Entity<MenuItem_Category>()
+            //                       .HasData(
+            //                       new
+            //                       {
+            //                          Menu_CategoryId = 3,
+            //                           Name = "Main",
+            //                           Description = "Big and Filling meals",
+
+            //                       });
+
+            //         modelBuilder.Entity<MenuItem_Category>()
+            //                       .HasData(
+            //                       new
+            //                       {
+            //                           Menu_CategoryId = 4,
+            //                           Name = "Dessert",
+            //                           Description = "Special things for those with a sweet tooth"
+
+            //                       });
+
+            //         modelBuilder.Entity<MenuItem_Category>()
+            //                       .HasData(
+            //                       new
+            //                       {
+            //                           Menu_CategoryId = 5,
+            //                           Name = "Light Meals",
+            //                           Description = "For those hungry but not hungry"
+
+            //                       });
+
+
+
+
             // Create Seed Data For the MenuItem Table:
-   //         modelBuilder.Entity<MenuItem>()
-   //                        .HasData(
-   //                        new
-   //                        {
-   //                          MenuItemId = 1,
-			//				 Name = "Chicken Feast",
-			//				 Description ="Two larger chicken burger, 6 pcs nuggets, two large fries",
-   //                          FoodTypeId = 1,
-			//				 Menu_CategoryId =3,
-   //                          CategoryMenu_CategoryId = 3,
-   //                          Menu_TypeId = 2,
+            //         modelBuilder.Entity<MenuItem>()
+            //                        .HasData(
+            //                        new
+            //                        {
+            //                          MenuItemId = 1,
+            //				 Name = "Chicken Feast",
+            //				 Description ="Two larger chicken burger, 6 pcs nuggets, two large fries",
+            //                          FoodTypeId = 1,
+            //				 Menu_CategoryId =3,
+            //                          CategoryMenu_CategoryId = 3,
+            //                          Menu_TypeId = 2,
 
 
-   //                        });
+            //                        });
 
-   //         // Create Seed Data For the MenuItem Table:
-   //         modelBuilder.Entity<MenuItem>()
-   //                        .HasData(
-   //                        new
-   //                        {
-   //                            MenuItemId = 2,
-   //                            Name = "The Braai feast",
-   //                            Description = "Pap, boerewors an Tbone steak",
-   //                            FoodTypeId = 2,
-   //                            Menu_CategoryId= 3,
-   //                            CategoryMenu_CategoryId = 3,
-   //                            Menu_TypeId = 2,
-
-
-   //                        });
-
-   //         modelBuilder.Entity<MenuItem>()
-   //                       .HasData(
-   //                       new
-   //                       {
-   //                           MenuItemId = 3,
-   //                           Name = "Chilli cheese poppers",
-   //                           Description = "Mozarella stuffe cheese balls",
-   //                           FoodTypeId = 3,
-   //                           Menu_CategoryId = 2,
-   //                           CategoryMenu_CategoryId = 2,
-   //                           Menu_TypeId = 2,
+            //         // Create Seed Data For the MenuItem Table:
+            //         modelBuilder.Entity<MenuItem>()
+            //                        .HasData(
+            //                        new
+            //                        {
+            //                            MenuItemId = 2,
+            //                            Name = "The Braai feast",
+            //                            Description = "Pap, boerewors an Tbone steak",
+            //                            FoodTypeId = 2,
+            //                            Menu_CategoryId= 3,
+            //                            CategoryMenu_CategoryId = 3,
+            //                            Menu_TypeId = 2,
 
 
-   //                       });
-   //         modelBuilder.Entity<MenuItem>()
-   //                       .HasData(
-   //                       new
-   //                       {
-   //                           MenuItemId = 4,
-   //                           Name = "Mexican salad",
-   //                           Description = "A green salad with salsa mix",
-   //                           FoodTypeId = 4,
-   //                           Menu_CategoryId = 5,
-   //                           CategoryMenu_CategoryId = 5,
-   //                           Menu_TypeId = 2,
+            //                        });
+
+            //         modelBuilder.Entity<MenuItem>()
+            //                       .HasData(
+            //                       new
+            //                       {
+            //                           MenuItemId = 3,
+            //                           Name = "Chilli cheese poppers",
+            //                           Description = "Mozarella stuffe cheese balls",
+            //                           FoodTypeId = 3,
+            //                           Menu_CategoryId = 2,
+            //                           CategoryMenu_CategoryId = 2,
+            //                           Menu_TypeId = 2,
 
 
-   //                       });
-   //         modelBuilder.Entity<MenuItem>()
-   //                       .HasData(
-   //                       new
-   //                       {
-   //                           MenuItemId = 5,
-   //                           Name = "Blueberry cheescake",
-   //                           Description = "Delicious cheesecake with blueberry sauce topping",
-   //                           FoodTypeId = 3,
-   //                           Menu_CategoryId = 4,
-   //                           CategoryMenu_CategoryId = 4,
-   //                           Menu_TypeId = 2,
+            //                       });
+            //         modelBuilder.Entity<MenuItem>()
+            //                       .HasData(
+            //                       new
+            //                       {
+            //                           MenuItemId = 4,
+            //                           Name = "Mexican salad",
+            //                           Description = "A green salad with salsa mix",
+            //                           FoodTypeId = 4,
+            //                           Menu_CategoryId = 5,
+            //                           CategoryMenu_CategoryId = 5,
+            //                           Menu_TypeId = 2,
 
 
-   //                       });
+            //                       });
+            //         modelBuilder.Entity<MenuItem>()
+            //                       .HasData(
+            //                       new
+            //                       {
+            //                           MenuItemId = 5,
+            //                           Name = "Blueberry cheescake",
+            //                           Description = "Delicious cheesecake with blueberry sauce topping",
+            //                           FoodTypeId = 3,
+            //                           Menu_CategoryId = 4,
+            //                           CategoryMenu_CategoryId = 4,
+            //                           Menu_TypeId = 2,
+
+
+            //                       });
 
             //Create Seed Data for the Supplier Type table:
             modelBuilder.Entity<Supplier_Type>()
@@ -898,7 +780,7 @@ namespace Africanacity_Team24_INF370_.models
             //// Configure the relationship between StockTake and StockTakeItem
  
 
-                          });
+                          
             // Create Seed Data For the Events Table:
             modelBuilder.Entity<Event>()
                          .HasData(
@@ -965,7 +847,7 @@ namespace Africanacity_Team24_INF370_.models
 
                                   });
 
-                });
+                
 
             
             // Create Seed Data For the Menu Category Table:

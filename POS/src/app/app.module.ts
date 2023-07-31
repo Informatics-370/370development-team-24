@@ -26,6 +26,7 @@ import { PaymentComponent } from './payment/payment.component';
 import { PrintReceiptComponent } from './print-receipt/print-receipt.component';
 
 
+
 @NgModule({
   declarations: [AppComponent,
   LoginComponent,

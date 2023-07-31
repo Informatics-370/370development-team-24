@@ -9,7 +9,7 @@ import { Booking } from '../models/Booking';
   providedIn: 'root'
 })
 export class BookingService {
-    apiUrl = 'https://localhost:49991/api/'
+    apiUrl = 'http://localhost:49991/api/'
 
 
 

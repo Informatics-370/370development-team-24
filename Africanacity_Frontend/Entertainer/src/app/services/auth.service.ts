@@ -12,7 +12,7 @@ import { UpdatePassword } from '../models/Update';
 })
 export class AuthService {
 
-  private baseUrl: string = 'https://localhost:49991/api/User/';
+  private baseUrl: string = 'http://localhost:49991/api/User/';
   private userPayload:any;
   constructor(private http: HttpClient, private router: Router) {
     this.userPayload = this.decodedToken();
