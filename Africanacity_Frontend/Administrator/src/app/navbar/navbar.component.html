@@ -1,0 +1,103 @@
+<nav class="side-navbar">
+  <div class="logo">
+    <!-- Replace the image source with your logo path -->
+    <img src="../../assets/Nav_image/Africanacity.png" alt="Logo" class="logo-image">
+    <span class="logo-text">Africanacity</span>
+  </div>
+  <ul class="nav-links">
+    <li>
+      <a href="#"><i class="fa fa-home"></i> Home</a>
+    </li>
+    <li>
+      <a href="#"><i class="fa fa-group"></i> Employee Management</a>
+      <ul class="dropdown">
+        <li><a routerLink="/add-employee">Add Employee</a></li>
+        <li><a routerLink="/view-employees">View Employees</a></li>
+        <li><a routerLink="/employee-role">Employee Roles</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#"><i class="fa fa-folder"></i> Menu Management</a>
+      <ul class="dropdown">
+        <li><a routerLink="/menuitems">Menu Items</a></li>
+        <li><a routerLink="/menu-types">Menu Type</a></li>
+        <li><a routerLink="/menu-item-category">Menu Item Category</a></li>
+        <li><a routerLink="/food-type">Food Types</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#"><i class="fa fa-glass"></i> Drink Management</a>
+      <ul class="dropdown">
+        <li><a routerLink="/view-drink">Drink Items</a></li>
+        <li><a routerLink="/view-drink-type">Drink Types</a></li>
+      </ul>
+    </li>
+    <li>
+      <a > <i class="fa fa-fw fa-folder"></i> Inventory Management <i class="fa fa-sort-desc" aria-hidden="true"></i></a>
+      <ul class="dropdown">
+        <li><a class="nav-link" routerLink="/add-inventoryitem"> Add Inventory Item</a></li>
+        <li><a class="nav-link" routerLink="/selected-inventorytype"> View Inventory Items</a></li>
+        <li><a class="nav-link" routerLink="/view-inventorytypes"> Inventory Types</a></li>
+        <li><a class="nav-link" routerLink="/checklist">View Checklist</a></li>
+        <li><a class="nav-link" routerLink="/view-orders">Inventory Orders</a></li>
+      </ul>
+
+    </li>
+    <li>
+      <a> <i class="fa fa-fw fa-users"></i> Supplier Management</a>
+      <ul class="dropdown">
+        <li><a class="nav-link" routerLink="/add-supplier">Add Supplier</a></li>
+        <li><a class="nav-link" routerLink="/view-suppliers"> View Suppliers</a></li>
+        <li><a class="nav-link" routerLink="/view-suppliertypes"> Supplier Types</a></li>
+      </ul>
+    </li>  
+    <li>
+      <a href="#"><i class="fa fa-music"></i> Entertainment</a>
+      <ul class="dropdown">
+        <li><a href="/schedule-display">Schedule</a></li>
+        <li><a href="/view-events">Events</a></li>
+        <li><a href="/entertainment-types">Entertainment Types</a></li>
+      </ul>
+    </li> 
+    <li>
+      <a href="#"><i class="fa fa-bar-chart"></i> Reports</a>
+      <ul class="dropdown">
+        <li><a routerLink="/sales">Sales</a></li>
+        <li><a routerLink="/inventory">Inventory</a></li>
+        <li><a routerLink="/inventory-reconciliation">Inventory Reconciliation</a></li>
+        <li><a routerLink="/schedule">Schedule</a></li>
+        <li><a routerLink="/employee">Employee</a></li>
+      </ul>
+    </li>
+    <li>
+   <a href="#"> <i class="fa fa-fw fa-user"></i> Entertainer Management</a>
+      <ul class="dropdown">
+        <li>
+            <a routerLink="../entertainer">Manage Entertainer</a>
+        </li>
+      
+        <!-- <li><a href="#">View</a></li> -->
+      </ul>
+    </li>
+    <li>
+      <li>
+       <a href="#"> <i class="fa fa-fw fa-book"></i> Booking Management</a>
+        <ul class="dropdown">
+          <li>
+         <a routerLink="../manage-booking">Manage Booking</a>
+            </li>
+          <li>
+            <a routerLink="../booking-listing">Booking Lisitng</a>
+          </li>
+        </ul>
+      </li>
+    <li>
+      <a (click)="view()"> <i class="fa fa-fw fa-user-circle-o"></i> View Profile</a>
+    
+    </li>
+    <li>
+      <a (click)="logout()"> LOGOUT </a>
+      
+    </li>
+  </ul>
+</nav>

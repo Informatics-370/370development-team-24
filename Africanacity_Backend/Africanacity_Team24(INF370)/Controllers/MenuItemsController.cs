@@ -20,13 +20,35 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         //getting a list of the table menu items
 
+        [HttpGet]
+        [Route("MenuItemListing")]
+        public async Task<ActionResult> MenuItemListing()
+        {
+            try
+            {
+                var results = await _repository.GetAllMenuItemsAsync();
 
-        /* public IActionResult Index()
-         {
+                dynamic menuItems = results.Select(p => new
+                {
+                    p.MenuItemId,
+                    p.Name,
+                    p.Description,
+                    MenuTypeName = p.Menu_Type.Name,
+                    FoodTypeName = p.Food_Type.Name,
+                    MenuCategoryName = p.MenuItem_Category.Name,
+                    p.IsActive,
+                    p.IsDeleted,
+                });
 
+                return Ok(menuItems);
+            }
+            catch (Exception)
+            {
 
-             return View();
-         }*/
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+            }
+        }
+
 
         [HttpGet]
         [Route("GetAllMenuItems")]
@@ -67,11 +89,26 @@ namespace Africanacity_Team24_INF370_.Controllers
             
         }
 
+        //adding a menu item
         [HttpPost]
         [Route("AddMenuItem")]
-        public async Task<IActionResult> AddMenuItem(MenuItemViewModel menuItemViewModel)
+        public async Task<IActionResult> AddMenuItem(IFormCollection formData)
         {
-            var menuItem = new MenuItem {MenuItemId = menuItemViewModel.MenuItemId, Name = menuItemViewModel.Name, Description = menuItemViewModel.Description, };
+            // Implementation goes here
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var menuItem = new MenuItem
+            {
+                Name = formData["name"],
+                Description = formData["description"],
+                Menu_TypeId = Convert.ToInt32(formData["menuType"]),
+                FoodTypeId = Convert.ToInt32(formData["foodType"]),
+                Menu_CategoryId = Convert.ToInt32(formData["menuCategory"]),
+            };
 
             try
             {
@@ -86,9 +123,13 @@ namespace Africanacity_Team24_INF370_.Controllers
             return Ok(menuItem);
         }
 
-        [HttpPut]
-        [Route("EditMenuItem/{menuItemId}")]
-        public async Task<ActionResult<MenuItemViewModel>> EditMenuItem(int MenuItemId, MenuItemViewModel menuItemViewModel)
+
+
+    
+
+    [HttpPut]
+        [Route("EditMenuItem/{MenuItemId}")]
+        public async Task<ActionResult<MenuItemViewModel>> EditMenuItem(int MenuItemId, [FromBody] MenuItemViewModel menuItemViewModel)
         {
             try
             {
@@ -97,6 +138,9 @@ namespace Africanacity_Team24_INF370_.Controllers
 
                 existingMeal.Name = menuItemViewModel.Name;
                 existingMeal.Description = menuItemViewModel.Description;
+                existingMeal.Menu_TypeId = menuItemViewModel.MenuTypeId;
+                existingMeal.FoodTypeId = menuItemViewModel.FoodTypeId;
+                existingMeal.Menu_CategoryId = menuItemViewModel.MenuCategoryId;
                 
 
 

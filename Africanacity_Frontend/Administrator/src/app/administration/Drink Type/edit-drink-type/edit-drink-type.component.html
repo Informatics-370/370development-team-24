@@ -1,0 +1,33 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <app-navbar></app-navbar>
+        </div>
+
+        <div class="col-md-10 order-md-1">
+            <!-- heading -->
+            <div>
+                <h1 class="heading">Edit Drink Type</h1>
+            </div>  
+
+            <div class="container edit-form">
+                <div class="row">  
+                    <form [formGroup]="updateDrinkTypeForm" class="form-horizontal" (ngSubmit)="UpdateDrinkType()">
+                        <div class="form-group">
+                            <label class="col-sm-3 label" style="font-weight: bold;" for="name">Drink Type Name:</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="name" placeholder="Enter Name" [required]="true" formControlName="name">
+                            </div>
+                        </div> <br />
+                        <div class="form-group">
+                            <div class="col-sm-offset-1 col-sm-6">
+                                <button style="margin-right:1em;" type="submit" [disabled]="!updateDrinkTypeForm.valid" class="btn btn-sm btn-success">Confirm</button>
+                                <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>

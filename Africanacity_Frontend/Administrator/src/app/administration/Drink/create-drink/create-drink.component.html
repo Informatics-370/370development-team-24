@@ -1,0 +1,43 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <app-navbar></app-navbar>
+        </div>
+
+        <div class="col-md-10 order-md-1">
+            <!-- heading -->
+            <div>
+                <h1 class="heading">Create Drink</h1>
+            </div>  
+
+            <div class="container edit-form">
+                <div class="row">  
+                    <form [formGroup]="AddDrinkForm" class="form-horizontal" (ngSubmit)="AddDrink()">
+                        <div class="form-group">
+                            <label class="col-sm-3 label" style="font-weight: bold;" for="name">Drink Name:</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="name" placeholder="Enter Name" [required]="true" formControlName="name">
+                            </div> <br />
+
+                            <div class="form-group">
+                                <label class="col-md-1" style="font-weight: bold;" for="drinkType">Drink Type</label>
+                                <div class="col-md-6">
+                                    <select class="form-control" id="drinkType" formControlName="drinkType">
+                                        <option *ngFor="let drinkType of drinkTypesData" [value]="drinkType.drinkTypeId">{{ drinkType.name }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div> <br />
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-1 col-sm-6">
+                                <button style="margin-right:1em;" [disabled]="!AddDrinkForm.valid" type="submit" class="btn btn-sm btn-success" (onclick)="AddDrink()">Confirm</button>
+                                <button type="button" class="btn btn-sm btn-danger" [routerLink]="'/view-drink'">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>

@@ -1,0 +1,140 @@
+import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { BookingService } from 'src/app/UserService/Booking.service';
+import { ApiService } from 'src/app/UserService/api.service';
+import { AuthService } from 'src/app/UserService/auth.service';
+import { UserStoreService } from 'src/app/UserService/user-store.service';
+import { Booking } from 'src/app/shared/Booking';
+
+@Component({
+  selector: 'app-booking-listing',
+  templateUrl: './booking-listing.component.html',
+  styleUrls: ['./booking-listing.component.css']
+})
+export class BookingListingComponent {
+  
+  bookings: Booking[] = [];
+  filteredbookings: Booking[] = []; 
+
+  public users:any = [];
+  public role!:string;
+
+  public fullName : string = "";
+  constructor(
+    private api : ApiService, 
+    private auth: AuthService, 
+    private userStore: UserStoreService,
+    private book: BookingService,
+    private snackBar: MatSnackBar,
+    ) { }
+
+    deleteItem(): void {
+      const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete this booking?', 'Confirm, Cancel',{
+        duration: 5000, // Display duration in milliseconds
+  
+      });
+  
+      
+      //  cancel(){
+      //    this.router.navigate(['/home'])
+      //  }
+    
+  
+      confirmationSnackBar.onAction().subscribe(() => {
+        // Perform the deletion action here
+        this.deleteItemFromServer();
+        window.location.reload();
+      });
+    }
+  
+  deleteItemFromServer(): void {
+    this.DeleteBooking;
+  }
+
+  ngOnInit() {
+
+    this.api.getUsers()
+    .subscribe(res=>{
+    this.users = res;
+    });
+
+    this.userStore.getFullNameFromStore()
+    .subscribe(val=>{
+      const fullNameFromToken = this.auth.getfullNameFromToken();
+      this.fullName = val || fullNameFromToken
+    });
+
+    this.userStore.getRoleFromStore()
+    .subscribe(val=>{
+      const roleFromToken = this.auth.getRoleFromToken();
+      this.role = val || roleFromToken;
+    });
+
+    this.book.getBooks().subscribe((books:any) => {this.filteredbookings = books});
+
+    this.filteredbookings= this.bookings
+    console.log(this.filteredbookings)
+  }
+
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+  
+    this.filteredbookings = this.bookings.filter(booking => {
+      const column2Value = booking.firstName.toLowerCase() || booking.firstName.toUpperCase();
+      const column3Value = booking.lastName.toLowerCase();
+ 
+  
+  
+      return column2Value.includes(filterValue) || 
+      column3Value.includes(filterValue) 
+    });
+  }
+
+
+  DeleteBooking(bookId: Number){
+    this.book.DeleteBooking(bookId).subscribe(result => {
+      this.deleteItem();
+      });
+    }
+
+  logout(){
+    this.auth.signOut();
+  }
+  selectedBooking: Booking | undefined; // Define a variable to store the selected booking
+
+  // ... (existing code) ...
+
+  openModal(booking: Booking) {
+    this.selectedBooking = booking; // Set the selected booking when "View" is clicked
+    console.log(this.selectedBooking);
+  }
+
+  downloadPDF() {
+    // const doc = new jsPDF();
+    // const headers = [['ID', 'Name', 'Surname', 'Role', 'Email', 'Phone Number', 'Address']];
+    
+    // // Map the checklistItems to generate the data array
+    // const data = this.employees.map(employee => [employee.employeeId, employee.firstName, employee.surname, employee.employeeRole, employee.email_Address, employee.phoneNumber, employee.physical_Address]);
+  
+    // doc.setFontSize(12);
+  
+    // // Generate the table using autoTable
+    // // startY is the initial position for the table
+    // autoTable(doc, {
+    //   head: headers,
+    //   body: data,
+    //   startY: 20,
+    //   // Other options for styling the table if needed
+    // });
+    
+    // // Convert the PDF blob to a Base64 string
+    // const pdfBlob = doc.output('blob');
+  
+    // // Create a file-saver Blob object
+    // const file = new Blob([pdfBlob], { type: 'application/pdf' });
+  
+    // // Save the Blob to a file
+    // saveAs(file, 'employee_listing.pdf');
+  }
+}

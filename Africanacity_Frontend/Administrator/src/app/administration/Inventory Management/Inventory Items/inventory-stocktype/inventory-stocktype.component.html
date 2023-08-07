@@ -1,0 +1,52 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2">
+        <app-navbar></app-navbar>
+      </div>
+      <div class="col-md-10 order-md-1">
+        <div>
+          <h3 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px; font-weight: bolder;">
+            Inventory Types
+          </h3>
+          <div class="inventory-type-cards-container">
+            <div class="row">
+              <div
+                class="col-sm-6"
+                *ngFor="let type of inventoryTypes"
+                (click)="onViewItemsClick(type)"
+              >
+                <div
+                  class="card my-3"
+                  [class.selected]="selectedType?.inventory_TypeId === type.inventory_TypeId"
+                  style="background-color: lightgrey; border-radius: 15px; border-color: rgb(182, 99, 182);"
+                >
+                  <div class="card-body">
+                    <h3
+                      class="card-title"
+                      style="text-align: center; font-family: 'Times New Roman', Times, serif;"
+                    >
+                      {{ type.name }}
+                    </h3>
+                    <p
+                      class="card-text"
+                      style="text-align: center; font-family: 'Times New Roman', Times, serif;"
+                    >
+                      {{ type.description }}
+                    </p>
+                    <button
+                      class="btn btn-dark"
+                      style="margin-left: 210px; border-radius: 20px;"
+                      (click)="onViewItemsClick(type)"
+                    >
+                      View Items
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
