@@ -1,10 +1,21 @@
 /* Add this CSS to your styles.css or component's style file */
+/* .side-navbar {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  width: 200px;
+  height: 1000px;
+} */
 .side-navbar {
   background-color: #333;
   color: #fff;
   padding: 20px;
   width: 200px;
   height: 1000px;
+  /* Positioning to move the navbar to the left */
+ margin-left: 0px;
+  top: 0;
+  left: 0px; /* Adjust this value as needed */
 }
 
 .logo {
@@ -45,7 +56,6 @@
   background-color: #555;
 }
 
-/* Styling for dropdown menus */
 .dropdown {
   display: none;
   background-color: #444;
@@ -68,4 +78,5 @@
 
 .dropdown a:hover {
   background-color: #555;
-}
+} 
+

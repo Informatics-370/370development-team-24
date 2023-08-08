@@ -1,69 +1,81 @@
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-2">
-            <app-navbar></app-navbar>
-        </div>
+  <div class="row">
+    <div class="col-md-2">
+      <app-navbar></app-navbar>
+    </div>
     <div class="col-md-10 order-md-2">
-  <h4 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px;">Add Supplier </h4>
-  <hr>
-  <div class="container">
-  <div class="row">  
-  <form [formGroup]="supplierForm" class="form-horizontal"  (ngSubmit)="onSubmit()">
-
-      <div class="form-group">
-          <label class=" col-md-1" style="font-weight: bold;" for="supplierName">Name:</label>
-          <div class="col-md-6">
-            <input class="form-control" placeholder="Enter Supplier Name" [required]="true" name="supplierName" formControlName="supplierName">
-          </div>
+      <div class="card">
+        <div class="card-body">
+          <h4 class="text-center mb-4">Add Supplier</h4>
+          <hr>
+          <div class="container">
+            <div class="row">
+<form [formGroup]="supplierForm" class="form-horizontal"  (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <span>
+      <label class="tb col-sm-1" style="font-weight: bold;" for="supplierName"> Supplier Name:</label>
+      <div class="col-sm-6">
+        <input class="form-control"  placeholder="Enter Name" [required]="true" name="supplierName" formControlName="supplierName">
       </div>
-
-      <div class="form-group">
-        <label class="col-md-1" style="font-weight: bold;" for="supplierType">Supplier Type</label>
-        <div class="col-md-6">
-        <select class="form-control" id="supplierType" formControlName="supplierType">
-          <option *ngFor="let item of supplierTypesData" [value]="item.supplier_TypeId">{{ item.name }}</option>
-        </select>
-      </div>
-      </div>
-      
-    
-      <div class="form-group">
-        <span>
-          <label class="col-sm-1" style="font-weight: bold;" for="email_Address">Email Address</label>
-          <div class="col-sm-6">
-            <input class="form-control"  placeholder="xxxxx@gmail.com" [required]="true" name="email_Address" formControlName="email_Address">
-          </div>
-        </span>
-      </div>
-    
-      <div class="form-group">
-          <label class="col-sm-2" style="font-weight: bold;" for="phoneNumber">Phone Number:</label>
-          <div class="col-sm-6">
-            <input class="form-control" type="text"  placeholder="Enter 10-digit number" [required]="true" name="phoneNumber" formControlName="phoneNumber">
-          </div>
-      </div>
-
+    </span>
+  </div>
       
     <div class="form-group">
+      <label class="col-md-1" style="font-weight: bold;" for="supplierType">Supplier Type:</label>
+      <div class="col-md-6">
+      <select class="form-control" id="supplierType" formControlName="supplierType">
+        <option *ngFor="let item of supplierTypesData" [value]="item.supplier_TypeId">{{ item.name }}</option>
+      </select>
+    </div>
+    </div>
+    
+   
+
+    <div class="form-group">
+      <span>
+        <label class="col-sm-1" style="font-weight: bold;" for="email_Address">Email Address:</label>
+        <div class="col-sm-6">
+          <input class="form-control"  placeholder="xxxxx@gmail.com" [required]="true" name="email_Address" formControlName="email_Address">
+        </div>
+      </span>
+    </div>
+
+    <div class="form-group">
+      <span>
         <label class="col-sm-1" style="font-weight: bold;" for="physical_Address">Physical Address:</label>
         <div class="col-sm-6">
-          <input class="form-control" type="text" id="physical_Address" placeholder="Enter Address" name="physical_Address" [required]="true" formControlName="physical_Address">
+          <input class="form-control"  placeholder="Enter Physical Address" [required]="true" name="physical_Address" formControlName="physical_Address">
         </div>
+      </span>
     </div>
-  
-      <div class="form-group">
-        <div class="col-sm-offset-1 col-sm-6">
-          <button style="margin-right:1em;" type="submit" [disabled]="!supplierForm.valid"  class="btn btn-sm btn-success">Add</button>
-          <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button>
+
+    <div class="form-group">
+      <span>
+        <label class="col-sm-1" style="font-weight: bold;" for="phoneNumber">Phone Number:</label>
+        <div class="col-sm-6">
+          <input class="form-control"  placeholder="Enter valid 10-digit number" [required]="true" name="phoneNumber" formControlName="phoneNumber">
         </div>
+      </span>
+    </div>
+
+    <!-- <div class="form-group"> -->
+      <div class="col-sm-offset-1 col-sm-6 center-buttons">
+      <div class="buttons">
+        <span>
+        <button style="margin-right:1em;" type="submit" [disabled]="!supplierForm.valid" class="btn btn-sm btn-success">Add</button>
+        <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button>
+      </span>
       </div>
-    </form>
-    </div>
-  </div> 
-    </div>
-    </div>
-  </div> 
+      </div>
+    <!-- </div> -->
+  </form>
+  </div>
+ </div> 
+  </div>
+  </div>
+</div>
+
 
 
   

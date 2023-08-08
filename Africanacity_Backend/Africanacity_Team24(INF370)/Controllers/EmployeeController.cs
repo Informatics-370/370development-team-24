@@ -115,21 +115,21 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
         //Update Employee
-
         [HttpPut]
         [Route("EditEmployee/{employeeId}")]
-        public async Task<ActionResult<EmployeeViewModel>> EditEmployee(int employeeId, EmployeeViewModel evm)
+        public async Task<ActionResult<EmployeeViewModel>> EditSupplier(int employeeId, EmployeeViewModel svm)
         {
             try
             {
                 var currentEmployee = await _Repository.GetEmployeeAsync(employeeId);
-                if (currentEmployee == null) return NotFound($"The employee does not exist");
+                if (currentEmployee == null) return NotFound($"The supplier does not exist");
 
-                currentEmployee.FirstName = evm.FirstName;
-                currentEmployee.Surname = evm.Surname;
-                currentEmployee.Email_Address = evm.Email_Address;
-                currentEmployee.PhoneNumber = evm.PhoneNumber;
-                currentEmployee.Physical_Address = evm.Physical_Address;
+                currentEmployee.Surname = svm.Surname;
+                currentEmployee.FirstName = svm.FirstName;
+                currentEmployee.Email_Address = svm.Email_Address;
+                currentEmployee.Employee_RoleId = Convert.ToInt32(svm.EmployeeRole);
+                currentEmployee.PhoneNumber = svm.PhoneNumber;
+                currentEmployee.Physical_Address = svm.Physical_Address;
 
                 if (await _Repository.SaveChangesAsync())
                 {

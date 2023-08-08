@@ -20,8 +20,8 @@ namespace Africanacity_Team24_INF370_.Controllers
             _appDbContext = context;
         }
         [HttpPost]
-        [Route("SendEmail")]
-        public async Task<IActionResult> SendNotification()
+        [Route("SendEmailNotification")]
+        public async Task<IActionResult> SendEmailNotification()
         {
             int predefinedLevel = 5;
 

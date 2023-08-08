@@ -1,5 +1,5 @@
 .heading{
-    /* background-color: darkmagenta; */
+  
     height: 50px;
     text-align: center;
     padding-top: 7px;
@@ -13,7 +13,7 @@
 .label{
     margin-bottom: 5px;
     padding-bottom: 5px;
-} */
+} 
 
 table{
     padding-top: 60px;
@@ -67,7 +67,7 @@ button{
   }
 
   .heading{
-    /* background-color: darkmagenta; */
+
     height: 50px;
     text-align: center;
     padding-top: 7px;
@@ -81,18 +81,18 @@ button{
 .label{
     margin-bottom: 5px;
     padding-bottom: 5px;
-} */
+} 
 
 table{
     padding-top: 30px;
     padding-right: 1000px;
 }
-.form-control {
+/* .form-control {
     
     background-color: rgba(250, 246, 246, 0.966);
     border-radius: 8px;
     border-color: black;
-}
+} */
 .input-group{
     width: 200px;
     
@@ -123,20 +123,16 @@ button{
     margin-top: 25px;
 }
 
-/* .outlined-table th,
-.outlined-table td {
-  border: 1px solid rgb(0, 0, 0);
-  padding: 10px;
-} */
+
 .table-container {
   margin-top: 10px;
-  padding-top: 40px; /* Add some padding to the top to avoid overlapping with the search bar */
+  padding-top: 40px; 
 }
 .table-hover tr:hover {
     background-color: grey;
   }
   .icon {
-    font-size: 30px; /* Adjust the font size as needed */
+    font-size: 30px; 
   }
 
   .input-group {
@@ -144,16 +140,20 @@ button{
     align-items: center;
     justify-content: space-between;
     margin-top: 50px;
-    width: 100%; /* Cover the full width of the page */
+    width: 100%; 
   }
   
   .search-bar {
-    flex-grow: 1; /* Allow the search bar to expand and take available space */
-    margin-right: 10px; /* Add some space between the search bar and add icon */
+    flex-grow: 1; 
+    margin-right: 10px;
+    border: 1px solid rgb(8, 8, 8);
+   
+
   }
   .icon-cell {
     text-align: center;
   }
   .row-ordered {
-    background-color: rgb(193, 225, 193); /* Green background color */
-  }
+    background-color: rgb(193, 225, 193); 
+  } 
+

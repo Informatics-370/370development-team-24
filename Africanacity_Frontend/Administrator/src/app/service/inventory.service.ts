@@ -161,14 +161,15 @@ import { Supplier_Inventory } from '../shared/supplieritem';
       return this.httpClient.get<InventoryItem[]>(`${this.apiUrl}StockTake/${typeId}`);
     }
 
-    SendEmail(item: InventoryItem, predefinedLevel: number) {
+    SendEmailNotification(item: InventoryItem, predefinedLevel: number) {
       console.log('ItemName:', item.itemName);
       console.log('Quantity:', item.quantity);
       // Make a request to the backend API to check inventory levels
       // and send email notifications if necessary
-      return this.httpClient.post(`${this.apiUrl}SendNotification/SendEmail`, {}).pipe(
+      return this.httpClient.post(`${this.apiUrl}SendNotification/SendEmailNotification`, {}).pipe(
         catchError((error) => {
           console.error('Failed to send notification:', error);
+        
           return throwError(error);
         })
       );
