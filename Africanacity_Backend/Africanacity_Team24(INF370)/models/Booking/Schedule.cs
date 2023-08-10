@@ -13,11 +13,11 @@ namespace Africanacity_Team24_INF370_.models.Booking
 		public string Start_Time { get; set; } 
 
 		public string End_Time { get; set; }
-        public int EventId { get; set; }
+       // public int EventId { get; set; }
 		public string Description { get; set; }
 
 
-		public Event Event { get; set; }
+		//public Event Event { get; set; }
 
         public List<Entertainer> Entertainers { get; set; } = new List<Entertainer>();
 	}
