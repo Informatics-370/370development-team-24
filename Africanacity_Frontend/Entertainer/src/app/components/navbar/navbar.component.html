@@ -1,0 +1,51 @@
+ <nav class="side-navbar" >
+  <ul>
+    <li style="margin-bottom: 15%;">
+      <a href="#"> <i></i> </a>
+    </li>
+    <li>
+     <b><a routerLink="../home"> <i class="fa fa-fw fa-home"></i> Home</a></b> 
+     <hr style="width:100%; text-align:left; margin-left:0; margin-top: -10px; height: 10px; border-width: 1px;">
+    </li>
+    <li>
+      <b>
+        <a href="#"> <i class="fa fa-fw fa-book"></i> Bookings <i class="fa fa-sort-desc" aria-hidden="true"></i></a>
+        <ul class="dropdown">
+          <li><a  routerLink="../booking"> <i class="fa fa-fw fa-address-book"></i> Make Booking</a></li>
+          <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+          <li><a  routerLink="../past-booking"> <i class="fa fa-fw fa-address-book-o"></i> View Bookings</a></li>
+        </ul>
+      </b>
+    </li>
+    <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+    <li>
+      <b>
+        <a  routerLink="../gallery"> <i class="fa fa-fw fa-download"></i>Connect</a>
+      </b>
+      <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+    </li>
+    <li>
+      <b>
+        <a href="#"> <i class="fa fa-fw fa-question-circle"></i> Help</a>
+      </b>
+      <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+    </li>
+    <li>
+      <b>
+        <a routerLink="../view-profile"> <i class="fa fa-fw fa-user-circle-o"></i> View Profile</a>
+      </b>
+      <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+    </li>
+    <li>
+      <b>
+        <a (click)="logout()"> LOGOUT </a>
+      </b>
+      <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+    </li>
+  </ul>
+</nav>
+
+
+
+
+

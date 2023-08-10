@@ -1,0 +1,72 @@
+.heading{
+    /* background-color: darkmagenta; */
+    height: 50px;
+    text-align: center;
+    padding-top: 7px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.edit-form{
+    align-items: center;
+}
+
+.label{
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+} */
+
+table{
+    padding-top: 60px;
+}
+.form-control {
+    
+    background-color: rgba(250, 246, 246, 0.966);
+    border-radius: 8px;
+    border-color: black;
+}
+.input-group{
+    width: 400px;
+    
+}
+
+
+.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-child(odd)>th {
+  background-color: lightgray;
+  color: rgb(0, 0, 0);
+}
+button{
+    border-radius: 50px;
+    border-color: black;
+}
+.table-striped{
+    padding-top: 200px;
+}
+.tableColor{
+    background-color: rgb(165, 113, 207);
+}
+.outlined-table{
+    border: 1px solid #000; 
+    border-collapse: collapse;
+
+}
+.input-group{
+    margin-top: 25px;
+}
+
+.outlined-table th,
+.outlined-table td {
+  border: 1px solid rgb(165, 113, 207);; 
+  padding: 10px; 
+}
+.table-container{
+    margin-top: 60px
+}
+.table-hover tr:hover {
+    background-color: grey;
+  }
+
+  .search-bar {
+    flex-grow: 2; /* Allow the search bar to expand and take available space */
+    margin-right: 10px; /* Add some space between the search bar and add icon */
+  }

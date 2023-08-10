@@ -8,7 +8,7 @@ using Africanacity_Team24_INF370_.View_Models;
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/controller")]
     [ApiController]
     public class DrinkController : ControllerBase
     {
@@ -22,40 +22,15 @@ namespace Africanacity_Team24_INF370_.Controllers
         //ERROR CODES FOR DOCUMENTED ERRORS
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
-        // list all drinks with drink types
-        [HttpGet]
-        [Route("DrinkItemListing")]
-        public async Task<IActionResult> DrinkItemListing()
-        {
-            try
-            {
-                var results = await _repository.GetAllDrinksAsync();
-
-                dynamic drinks = results.Select(d => new
-                {
-                    d.DrinkId,
-                    d.Name,
-                    DrinkTypeName = d.Drink_Type.Name
-                });
-
-                return Ok(drinks);
-            }
-            catch (Exception)
-            {
-
-                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
-            }
-        }
-
-        // getting a list of all the drinks
+        // getting a list of all the drink items
         [HttpGet]
         [Route("GetAllDrinks")]
         public async Task<IActionResult> GetAllDrinks()
         {
             try
             {
-                var drinks = await _repository.GetAllDrinksAsync();
-                return Ok(drinks);
+                var drinkItems = await _repository.GetAllDrinksAsync();
+                return Ok(drinkItems);
             }
             catch (Exception)
             {
@@ -65,16 +40,16 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
         }
 
-        //getting drink using id
+        //getting drink item using id
         [HttpGet]
-        [Route("GetDrink/{drinkId}")]
-        public async Task<ActionResult> GetDrink(int drinkId)
+        [Route("GetDrinkItem/{DrinkId }")]
+        public async Task<ActionResult> GetDrinkItem(int DrinkId)
         {
             try
             {
-                var drinks = await _repository.GetDrinkAsync(drinkId);
-                if (drinks == null) return NotFound("Drink does not exist.");
-                return Ok(drinks);
+                var drinkItem = await _repository.GetDrinkItemAsync(DrinkId);
+                if (drinkItem == null) return NotFound("Drink type does not exist.");
+                return Ok(drinkItem);
             }
             catch (Exception)
             {

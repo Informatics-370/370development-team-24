@@ -1,0 +1,46 @@
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-md-2">
+          <app-navbar></app-navbar>
+      </div>
+<div class="login-wrapper" style="margin-left: 25%; margin-top: -70%;" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="box" >
+      <mat-card-header>
+        <h2>Add Menu Item</h2>
+      </mat-card-header><br>
+      <form class="form" [formGroup]="productForm" (submit)="onSubmit()" enctype="multipart/form-data">
+        <mat-card-content>
+          <mat-form-field class="full-width">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Enter the Menu Item Name" formControlName="name">
+          </mat-form-field><br>
+          <mat-form-field class="full-width">
+            <mat-label> Description</mat-label>
+            <textarea matInput formControlName="description"> </textarea>
+          </mat-form-field><br>
+          <mat-form-field>
+            <mat-label>Menu Type</mat-label>
+            <mat-select formControlName="menuType">
+                <mat-option *ngFor="let item of menuTypesData"  [value]="item.menu_TypeId">{{item.name}}</mat-option>
+            </mat-select>
+        </mat-form-field><br>
+        <mat-form-field>
+            <mat-label>Food Type</mat-label>
+            <mat-select formControlName="foodType" >
+                <mat-option *ngFor="let item of foodTypesData"  [value]="item.foodTypeId">{{item.name}}</mat-option>
+            </mat-select>
+        </mat-form-field><br>
+        <mat-form-field>
+            <mat-label>Menu Category</mat-label>
+            <mat-select formControlName="menuCategory" >
+                <mat-option *ngFor="let item of menuItemCategoryData"  [value]="item.menu_CategoryId">{{item.name}}</mat-option>
+            </mat-select>
+        </mat-form-field><br>
+        </mat-card-content>
+        <button mat-stroked-button color="primary" class="btn-block" >Submit</button>
+        
+      </form>
+    </mat-card>
+  </div>
+</div>
+</div>

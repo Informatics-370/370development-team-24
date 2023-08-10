@@ -8,9 +8,13 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using Africanacity_Team24_INF370_.models.Login;
-using Africanacity_Team24_INF370_.models.Admin;
+using Africanacity_Team24_INF370_.models.Administration.Admin;
 using System;
-
+using Africanacity_Team24_INF370_;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Africanacity_Team24_INF370_.EmailService;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -63,22 +67,41 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 	options.Password.RequireLowercase = false;
 	options.Password.RequireNonAlphanumeric = false;
 	options.Password.RequireDigit = true;
+	options.Password.RequiredLength = 8;
 	options.User.RequireUniqueEmail = true;
 })
 .AddEntityFrameworkStores<AppDbContext>()
 .AddDefaultTokenProviders();
 
-builder.Services.AddAuthentication()
-				.AddCookie()
-				.AddJwtBearer(options =>
-				{
-					options.TokenValidationParameters = new TokenValidationParameters()
-					{
-						ValidIssuer = builder.Configuration["Tokens:Issuer"],
-						ValidAudience = builder.Configuration["Tokens:Audience"],
-						IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Tokens:Key"]))
-					};
-				});
+//builder.Services.AddAuthentication()
+//				.AddCookie()
+//				.AddJwtBearer(options =>
+//				{
+//					options.TokenValidationParameters = new TokenValidationParameters()
+//					{
+//						ValidIssuer = builder.Configuration["Tokens:Issuer"],
+//						ValidAudience = builder.Configuration["Tokens:Audience"],
+//						IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Tokens:Key"]))
+//					};
+//				});
+
+builder.Services.AddAuthentication(x =>
+{
+	x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+	x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
+{
+	x.RequireHttpsMetadata = false;
+	x.SaveToken = true;
+	x.TokenValidationParameters = new TokenValidationParameters
+	{
+		ValidateIssuerSigningKey = true,
+		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("veryverysceret.....")),
+		ValidateAudience = false,
+		ValidateIssuer = false,
+		ClockSkew = TimeSpan.Zero
+	};
+});
 
 builder.Services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, AppUserClaimsPrincipalFactory>();
 
@@ -88,6 +111,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 			 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 var app = builder.Build();
 
@@ -98,7 +122,7 @@ if (app.Environment.IsDevelopment())
 	app.UseSwagger();
 	app.UseSwaggerUI();
 }
-
+app.UseHttpsRedirection();
 app.UseCors();
 app.UseAuthorization();
 app.UseAuthentication();

@@ -1,0 +1,56 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <app-navbar></app-navbar>
+    </div>
+    <div class="col-md-10 order-md-1">
+      <div>
+<h1 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px; font-weight: bolder;">Receive Order</h1>
+<form [formGroup]="receiveOrderForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="itemName">Inventory Item Name:</label>
+    <input type="text" formControlName="itemName">
+    <div *ngIf="receiveOrderForm.get('itemName')?.invalid && receiveOrderForm.get('itemName')?.touched">
+      *Please enter a valid item ID.*
+    </div>
+  </div>
+
+  <div>
+    <label for="supplierId">Select Supplier:</label>
+    <select formControlName="supplierId">
+      <option value="">-- Select a supplier --</option>
+      <!-- Populate the options with suppliers from the backend -->
+      <option *ngFor="let supplier of supplierData" [value]="supplier.supplierId">{{ supplier.supplierName }}</option>
+    </select>
+    <div *ngIf="receiveOrderForm.get('supplierId')"></div>
+  </div>
+
+  <div>
+    <label for="ordered_Date">Ordered Date:</label>
+    <input type="date" formControlName="ordered_Date">
+    <div *ngIf="receiveOrderForm.get('ordered_Date')"></div>
+  </div>
+
+  <div>
+    <label for="received_Date">Received Date:</label>
+    <input type="date" formControlName="received_Date" [readonly]="true">
+  </div>
+
+  <div>
+    <label for="ordered_Quantity">Ordered Quantity:</label>
+    <input type="number" formControlName="ordered_Quantity" min="1">
+    <div *ngIf="receiveOrderForm.get('ordered_Quantity')"></div>
+  </div>
+<span>
+  <button type="submit" [disabled]="receiveOrderForm.invalid">Receive Order</button>
+  <button type="button" (click)="onCancel()">Cancel</button>
+</span>
+
+</form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

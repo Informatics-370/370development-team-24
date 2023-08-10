@@ -1,9 +1,9 @@
-﻿using Africanacity_Team24_INF370_.models.Admin;
+﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
 using System.ComponentModel.DataAnnotations;
 
 namespace Africanacity_Team24_INF370_.models.Restraurant
 {
-	public class Menu_Type
+    public class Menu_Type
 	{
 		[Key]
 		public int Menu_TypeId { get; set; }
@@ -11,7 +11,7 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
 		[MaxLength(50)]
 		public string Name { get; set; } = string.Empty;
 
-		public List<MenuItem> MenuItems { get; set; } = new List<MenuItem>();
+        public List<MenuItem> MenuItems { get; set; } = new List<MenuItem>();
 
-	}
+    }
 }

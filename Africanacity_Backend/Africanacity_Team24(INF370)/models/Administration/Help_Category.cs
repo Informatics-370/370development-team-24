@@ -1,9 +1,9 @@
-﻿using Africanacity_Team24_INF370_.models.Admin;
+﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
 using System.ComponentModel.DataAnnotations;
 
 namespace Africanacity_Team24_INF370_.models.Administration
 {
-	public class Help_Category
+    public class Help_Category
 	{
 		[Key]
 		public int Help_CategoryId { get; set; }

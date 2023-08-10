@@ -1,0 +1,43 @@
+<!-- kitchen-screen.component.html -->
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Kitchen Screen
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let order of kitchenOrders"  class="ion-card">
+    <ion-card-header>
+      <ion-card-title class="heading">Order Number: {{ order.kitchenOrderNumber }}</ion-card-title>
+      <ion-card-subtitle *ngIf="order.tableNumber">Table Number: {{ order.tableNumber }}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content class="content">
+      
+     
+        <ion-item *ngFor="let orderedItem of order.orderedItems">
+          {{ orderedItem.name }} x {{ orderedItem.quantity }} 
+        </ion-item>
+     
+
+      
+      
+        <ion-item *ngFor="let orderedDrink of order.orderedDrinks">
+          {{ orderedDrink.name }} x {{ orderedDrink.quantity }}
+        </ion-item>
+     
+        <ion-item>
+      Subtotal: {{ order.subtotal | currency: 'R' }}
+    </ion-item>
+      <!-- Add Complete button -->
+      <ion-button style="color:black" fill="clear" (click)="markOrderAsComplete(order)" class="ion-button">Complete</ion-button>
+      
+      
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+<app-notification></app-notification>
+
