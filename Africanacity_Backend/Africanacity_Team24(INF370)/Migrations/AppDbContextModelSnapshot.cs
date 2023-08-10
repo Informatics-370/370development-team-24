@@ -190,9 +190,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                             DiscountId = 1,
                             Amount = 0.10m,
                             Description = "10% Discount",
-                            End_Date = new DateTime(2023, 8, 10, 1, 9, 23, 682, DateTimeKind.Local).AddTicks(4685),
+                            End_Date = new DateTime(2023, 8, 20, 17, 47, 2, 38, DateTimeKind.Local).AddTicks(8008),
                             Name = "Month end discount",
-                            Start_Date = new DateTime(2023, 7, 31, 1, 9, 23, 682, DateTimeKind.Local).AddTicks(4684)
+                            Start_Date = new DateTime(2023, 8, 10, 17, 47, 2, 38, DateTimeKind.Local).AddTicks(8006)
                         });
                 });
 
@@ -1175,9 +1175,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             SupplierItemId = 1,
                             Inventory_ItemId = 1,
-                            Ordered_Date = new DateTime(2023, 7, 31, 0, 0, 0, 0, DateTimeKind.Local),
+                            Ordered_Date = new DateTime(2023, 8, 10, 0, 0, 0, 0, DateTimeKind.Local),
                             Ordered_Quantity = 33,
-                            Received_Date = new DateTime(2023, 7, 31, 0, 0, 0, 0, DateTimeKind.Local),
+                            Received_Date = new DateTime(2023, 8, 10, 0, 0, 0, 0, DateTimeKind.Local),
                             SupplierId = 1
                         });
                 });

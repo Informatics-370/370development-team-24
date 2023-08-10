@@ -1131,7 +1131,7 @@ namespace Africanacity_Team24_INF370_.Migrations
             migrationBuilder.InsertData(
                 table: "Discounts",
                 columns: new[] { "DiscountId", "AdministratorId", "Amount", "Description", "End_Date", "Name", "Start_Date" },
-                values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 8, 10, 1, 9, 23, 682, DateTimeKind.Local).AddTicks(4685), "Month end discount", new DateTime(2023, 7, 31, 1, 9, 23, 682, DateTimeKind.Local).AddTicks(4684) });
+                values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 8, 20, 17, 47, 2, 38, DateTimeKind.Local).AddTicks(8008), "Month end discount", new DateTime(2023, 8, 10, 17, 47, 2, 38, DateTimeKind.Local).AddTicks(8006) });
 
             migrationBuilder.InsertData(
                 table: "Drink_Prices",
@@ -1370,7 +1370,7 @@ namespace Africanacity_Team24_INF370_.Migrations
             migrationBuilder.InsertData(
                 table: "Supplier_Inventorys",
                 columns: new[] { "SupplierItemId", "Inventory_ItemId", "Ordered_Date", "Ordered_Quantity", "Received_Date", "SupplierId" },
-                values: new object[] { 1, 1, new DateTime(2023, 7, 31, 0, 0, 0, 0, DateTimeKind.Local), 33, new DateTime(2023, 7, 31, 0, 0, 0, 0, DateTimeKind.Local), 1 });
+                values: new object[] { 1, 1, new DateTime(2023, 8, 10, 0, 0, 0, 0, DateTimeKind.Local), 33, new DateTime(2023, 8, 10, 0, 0, 0, 0, DateTimeKind.Local), 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Access_UserRoles_User_RolesUser_RoleId",
