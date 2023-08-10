@@ -24,7 +24,8 @@ export class AddMenuItemComponent implements OnInit {
     description: ['', Validators.required],
     menuType: ['', Validators.required],
     foodType: [null, Validators.required],
-    menuCategory: [null, Validators.required]
+    menuCategory: [null, Validators.required],
+    amount: [null, Validators.required]
     
   })
 
@@ -79,7 +80,11 @@ onSubmit() {
     this.formData.append('foodType', this.productForm.get('foodType')!.value);
     this.formData.append('menuCategory', this.productForm.get('menuCategory')!.value);
     
-    this.dataService.addMenuItem(this.formData).subscribe(() => {
+        // Add the price as well
+        const amount = this.productForm.get('amount')!.value;
+        this.formData.append('amount', amount.toString());
+
+    this.dataService.addMenuItem(this.formData, amount).subscribe(() => {
       this.clearData()
       this.router.navigateByUrl('menuitems').then((navigated: boolean) => {
         if(navigated) {

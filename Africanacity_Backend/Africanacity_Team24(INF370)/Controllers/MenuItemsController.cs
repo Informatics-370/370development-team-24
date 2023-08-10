@@ -101,6 +101,8 @@ namespace Africanacity_Team24_INF370_.Controllers
                 return BadRequest(ModelState);
             }
 
+  
+            //to add to menu item table
             var menuItem = new MenuItem
             {
                 Name = formData["name"],
@@ -110,16 +112,31 @@ namespace Africanacity_Team24_INF370_.Controllers
                 Menu_CategoryId = Convert.ToInt32(formData["menuCategory"]),
             };
 
+           
+
             try
             {
                 _repository.Add(menuItem);
                 await _repository.SaveChangesAsync();
+
+                // Create the MenuItem_Price instance
+                var menuItemPrice = new MenuItem_Price
+                {
+                    MenuItemId = menuItem.MenuItemId,
+                    Amount = Convert.ToDecimal(formData["amount"])
+                    
+                };
+
+                _repository.Add(menuItemPrice);
+                await _repository.SaveChangesAsync();
+
             }
             catch (Exception)
             {
                 return BadRequest("Invalid transaction");
             }
-
+            
+            
             return Ok(menuItem);
         }
 

@@ -23,7 +23,7 @@ import { Drink } from '../shared/Drink';
 export class DataService {
   
 
-  apiUrl = 'http://localhost:49991/api/'
+  apiUrl = 'https://localhost:49991/api/'
 
   httpOptions ={
     headers: new HttpHeaders({
@@ -135,7 +135,9 @@ export class DataService {
   }
 
   //add a new menu item
-  addMenuItem(file:FormData){
+  addMenuItem(file:FormData, amount: number): Observable<any> {
+    // Append the amount to the FormData
+     file.append('amount', amount.toString());
     return this.httpClient.post(`${this.apiUrl}MenuItems/AddMenuItem`, file)
   }
 

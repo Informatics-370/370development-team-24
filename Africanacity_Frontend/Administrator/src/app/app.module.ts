@@ -202,6 +202,7 @@ import { ChangePasswordComponent } from './login/change-password/change-password
     SignupComponent,
     UpdateProfileComponent,
     
+    
 
   ],
   imports: [
