@@ -1,11 +1,11 @@
-﻿using Africanacity_Team24_INF370_.models.Admin;
+﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
 using System.ComponentModel.DataAnnotations;
 using Africanacity_Team24_INF370_.models.Inventory;
 using Africanacity_Team24_INF370_.models.Booking;
 
 namespace Africanacity_Team24_INF370_.models.Administration
 {
-	public class Administrator
+    public class Administrator
 	{
 		[Key]
 		public int AdministratorId { get; set; }

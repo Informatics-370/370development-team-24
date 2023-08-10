@@ -3,13 +3,15 @@ using System.Reflection.Emit;
 using System;
 using Microsoft.EntityFrameworkCore;
 using Africanacity_Team24_INF370_.models.Administration;
-using Africanacity_Team24_INF370_.models.Admin;
 using Africanacity_Team24_INF370_.models.Booking;
 using Africanacity_Team24_INF370_.models.Inventory;
 using Africanacity_Team24_INF370_.models.Restraurant;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Africanacity_Team24_INF370_.models.Login;
-using Africanacity_Team24_INF370_.View_Models;
+using Africanacity_Team24_INF370_.models;
+using Microsoft.Extensions.Logging;
+using Org.BouncyCastle.Utilities.Collections;
+using System.Diagnostics;
 
 namespace Africanacity_Team24_INF370_.models
 {
@@ -24,23 +26,27 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<Administrator> Administrators { get; set; }
 		public DbSet<Access_UserRole> Access_UserRoles{ get; set; }
 		public DbSet<Discount> Discounts { get; set; }
-		public DbSet<Employee> Employees { get; set; }
         public DbSet<Employee_Role> Employee_Roles { get; set; }
-		public DbSet<Help> Helps { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Help> Helps { get; set; }
 		public DbSet<Help_Category> Help_Categories{ get; set; }
 		public DbSet<Password> Passwords { get; set; }
 		public DbSet<Title> Titles { get; set; }
 		public DbSet<User> Users { get; set; }
+		public DbSet<AdminInfor> Admins { get; set; }
 		public DbSet<User_Role> User_Roles { get; set; }
 		public DbSet<VAT> Vats { get; set; }
 
 		//Booking model
-		public DbSet<Bookings> Bookings { get; set; }
+		public DbSet<Bookings> bookings { get; set; }
+		public DbSet<Pending_Booking> Pending_Bookings { get; set; }
 		public DbSet<Booking_Status> Booking_Statuses { get; set; }
 		public DbSet<Entertainer> Entertainers { get; set; }
+		public DbSet<Entertainment_Type> EntertainmentTypes { get; set; }
 		public DbSet<Entertainer_EntertainmentType> Entertainer_Entertainments { get; set; }
 		public DbSet<Entertainer_Schedule> Entertainer_Schedules { get; set; }
-		public DbSet<Event> Events { get; set; }
+        public DbSet<Entertainment_Type> Entertainment_Types { get; set; }
+        public DbSet<Event> Events { get; set; }
 		public DbSet<Schedule> Schedules { get; set; }
 		public DbSet<Schedule_Status> Schedule_Statuses { get; set; }
 
@@ -51,9 +57,11 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<Supplier> Suppliers { get; set; }
 		public DbSet<Supplier_InventoryItem> Supplier_InventoryItems { get; set; }
 		public DbSet<Supplier_Type> Supplier_Types { get; set; }
+        public DbSet<Supplier_Inventory> Supplier_Inventorys { get; set; }
 
-		//Restraurant model
-		public DbSet<Drink> Drinks { get; set; }
+
+        //Restraurant model
+        public DbSet<Drink> Drinks { get; set; }
 		public DbSet<Drink_Price> Drink_Prices { get; set; }
 		public DbSet<Drink_Type> Drink_Types { get; set; }
 		public DbSet<Food_Type> Food_Types { get; set; }
@@ -73,21 +81,29 @@ namespace Africanacity_Team24_INF370_.models
 
         public DbSet<KitchenOrder> KitchenOrders { get; set; }
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
+
 		{
+
+			modelBuilder.Entity<User>().ToTable("Users");
 			base.OnModelCreating(modelBuilder);
+
+           // modelBuilder.Entity<StockTake>().HasMany(st => st.StockTakeItems).WithOne().OnDelete(DeleteBehavior.Cascade);
+
+
             // Create Seed Data For the Employee Table:
             modelBuilder.Entity<Employee>()
-						   .HasData(
-						   new
-						   {
-							   EmployeeId = 1,
-							   Surname = "James",
-							   FirstName = "Vanessa",
-							   Email_Address = "VanessaJames@gmail.com",
-							   Physical_Address = "404 Jacob Street",
-							   PhoneNumber = "0847541236"
-
-						   });
+               .HasData(
+               new
+               {
+                   EmployeeId = 1,
+                   Surname = "James",
+                   FirstName = "Vanessa",
+                   Email_Address = "VanessaJames@gmail.com",
+                   Employee_RoleId = 1,
+                   Physical_Address = "404 Jacob Street",
+                   PhoneNumber = "0847541236",
+               });
+           ;
             modelBuilder.Entity<Employee>()
                          .HasData(
                          new
@@ -96,6 +112,7 @@ namespace Africanacity_Team24_INF370_.models
                              Surname = "Williams",
                              FirstName = "Serena",
                              Email_Address = "SerenaWilliams@gmail.com",
+                             Employee_RoleId = 2,
                              Physical_Address = "132 Harriet Street",
                              PhoneNumber = "0842341236"
 
@@ -108,6 +125,7 @@ namespace Africanacity_Team24_INF370_.models
                              Surname = "Elba",
                              FirstName = "Edris",
                              Email_Address = "EdrisElba@gmail.com",
+                             Employee_RoleId = 1,
                              Physical_Address = "245 homelyn Street",
                              PhoneNumber = "0212378798"
 
@@ -120,6 +138,7 @@ namespace Africanacity_Team24_INF370_.models
                             Surname = "Nyongo",
                             FirstName = "Lupita",
                             Email_Address = "NyongoLupita@gmail.com",
+                            Employee_RoleId = 2,
                             Physical_Address = "254 Summer Street",
                             PhoneNumber = "0455783475"
 
@@ -132,6 +151,7 @@ namespace Africanacity_Team24_INF370_.models
                             Surname = "Jackson",
                             FirstName = "Micheal",
                             Email_Address = "MicheaJackson@gmail.com",
+                            Employee_RoleId = 2,
                             Physical_Address = "567 Winter Street",
                             PhoneNumber = "0874567836"
 
@@ -144,6 +164,7 @@ namespace Africanacity_Team24_INF370_.models
                             Surname = "Kim",
                             FirstName = "Taehyung",
                             Email_Address = "TaehyungKim@gmial.com",
+                            Employee_RoleId = 1,
                             Physical_Address = "345 Shallow  Street",
                             PhoneNumber = "0874562134"
 
@@ -156,6 +177,7 @@ namespace Africanacity_Team24_INF370_.models
                             Surname = "Coleman",
                             FirstName = "Zendaya",
                             Email_Address = "ZendayaColeman@gmail.com",
+                            Employee_RoleId = 1,
                             Physical_Address = "243 Super Street ",
                             PhoneNumber = "0212378798"
 
@@ -168,6 +190,7 @@ namespace Africanacity_Team24_INF370_.models
                             Surname = "Federal",
                             FirstName = "Roger",
                             Email_Address = "RogerFederal@gmail.com",
+                            Employee_RoleId = 1,
                             Physical_Address = "987 Wall Street",
                             PhoneNumber = "0612346487"
 
@@ -180,6 +203,7 @@ namespace Africanacity_Team24_INF370_.models
                             Surname = "Lopez",
                             FirstName = "Jennifer",
                             Email_Address = "JenniferLOpez@gmail.com",
+                            Employee_RoleId = 2,
                             Physical_Address = "967 Ballard Street",
                             PhoneNumber = "0874834576"
 
@@ -192,6 +216,7 @@ namespace Africanacity_Team24_INF370_.models
                             Surname = "Boseman",
                             FirstName = "Chadwick",
                             Email_Address = "ChadwickBoseman@gmail.com",
+                            Employee_RoleId = 2,
                             Physical_Address = "483 Alien Street",
                             PhoneNumber = "0923456789"
 
@@ -223,7 +248,22 @@ namespace Africanacity_Team24_INF370_.models
                           Description = "You can book for a live entertainment on the website."
                       });
 
+			//create seed data for menu type
+            //modelBuilder.Entity<Menu_Type>()
+             //             .HasData(
+             //             new
+            //              {
+            //                  Menu_TypeId = 1,
+             //                 Name = "Breakfast"
 
+
+			////create seed data for menu type
+   //         modelBuilder.Entity<Menu_Type>()
+   //                       .HasData(
+   //                       new
+   //                       {
+   //                           Menu_TypeId = 1,
+   //                           Name = "Breakfast"
 
 
             // Create Seed Data For The Employee Role Table:
@@ -246,16 +286,27 @@ namespace Africanacity_Team24_INF370_.models
                               Description = "The chef prepares the meals and notifies the waiter of ready orders."
 
                           });
-			//create seed data for menu type
+
+            modelBuilder.Entity<Employee_Role>()
+                         .HasData(
+                         new
+                         {
+                             Employee_RoleId = 3,
+                             Name = "Kitchen Staff",
+                             Description = "The kitchen staff assists the chef prepare meals."
+
+                         });
+
+            //create seed data for menu type
             modelBuilder.Entity<Menu_Type>()
                           .HasData(
                           new
                           {
                               Menu_TypeId = 1,
-                              Name = "Breakfast"
-                              
-
+                              Name = "Breakfast",
                           });
+
+
             modelBuilder.Entity<Menu_Type>()
                          .HasData(
                          new
@@ -266,7 +317,7 @@ namespace Africanacity_Team24_INF370_.models
 
                          });
 
-            
+
             // Create Seed Data For the FoodType Table:
             modelBuilder.Entity<Food_Type>()
                            .HasData(
@@ -275,7 +326,7 @@ namespace Africanacity_Team24_INF370_.models
                                FoodTypeId = 1,
                                Name = "Chicken",
                                Description = "Meals consisting of chicken"
-                              
+
                            });
 
             modelBuilder.Entity<Food_Type>()
@@ -306,6 +357,497 @@ namespace Africanacity_Team24_INF370_.models
                     Description = "Meals suitable for Vegans"
 
                 });
+
+
+            ////         // Create Seed Data For the Menu Category Table:
+            //         modelBuilder.Entity<MenuItem_Category>()
+            //                        .HasData(
+            //                        new
+            //                        {
+            //                            Menu_CategoryId = 1,
+            //                            Name = "Breakfast",
+            //                            Description = "Meals between 7am to 12pm"
+
+            //                        });
+
+            //         modelBuilder.Entity<MenuItem_Category>()
+            //              .HasData(
+            //              new
+            //              {
+            //                  Menu_CategoryId = 2,
+            //                  Name = "Starter",
+            //                  Description = "Appetisers"
+
+            //              });
+
+            //         modelBuilder.Entity<MenuItem_Category>()
+            //                       .HasData(
+            //                       new
+            //                       {
+            //                          Menu_CategoryId = 3,
+            //                           Name = "Main",
+            //                           Description = "Big and Filling meals",
+
+            //                       });
+
+            //         modelBuilder.Entity<MenuItem_Category>()
+            //                       .HasData(
+            //                       new
+            //                       {
+            //                           Menu_CategoryId = 4,
+            //                           Name = "Dessert",
+            //                           Description = "Special things for those with a sweet tooth"
+
+            //                       });
+
+            //         modelBuilder.Entity<MenuItem_Category>()
+            //                       .HasData(
+            //                       new
+            //                       {
+            //                           Menu_CategoryId = 5,
+            //                           Name = "Light Meals",
+            //                           Description = "For those hungry but not hungry"
+
+            //                       });
+
+
+
+
+            // Create Seed Data For the MenuItem Table:
+            //         modelBuilder.Entity<MenuItem>()
+            //                        .HasData(
+            //                        new
+            //                        {
+            //                          MenuItemId = 1,
+            //				 Name = "Chicken Feast",
+            //				 Description ="Two larger chicken burger, 6 pcs nuggets, two large fries",
+            //                          FoodTypeId = 1,
+            //				 Menu_CategoryId =3,
+            //                          CategoryMenu_CategoryId = 3,
+            //                          Menu_TypeId = 2,
+
+
+            //                        });
+
+            //         // Create Seed Data For the MenuItem Table:
+            //         modelBuilder.Entity<MenuItem>()
+            //                        .HasData(
+            //                        new
+            //                        {
+            //                            MenuItemId = 2,
+            //                            Name = "The Braai feast",
+            //                            Description = "Pap, boerewors an Tbone steak",
+            //                            FoodTypeId = 2,
+            //                            Menu_CategoryId= 3,
+            //                            CategoryMenu_CategoryId = 3,
+            //                            Menu_TypeId = 2,
+
+
+            //                        });
+
+            //         modelBuilder.Entity<MenuItem>()
+            //                       .HasData(
+            //                       new
+            //                       {
+            //                           MenuItemId = 3,
+            //                           Name = "Chilli cheese poppers",
+            //                           Description = "Mozarella stuffe cheese balls",
+            //                           FoodTypeId = 3,
+            //                           Menu_CategoryId = 2,
+            //                           CategoryMenu_CategoryId = 2,
+            //                           Menu_TypeId = 2,
+
+
+            //                       });
+            //         modelBuilder.Entity<MenuItem>()
+            //                       .HasData(
+            //                       new
+            //                       {
+            //                           MenuItemId = 4,
+            //                           Name = "Mexican salad",
+            //                           Description = "A green salad with salsa mix",
+            //                           FoodTypeId = 4,
+            //                           Menu_CategoryId = 5,
+            //                           CategoryMenu_CategoryId = 5,
+            //                           Menu_TypeId = 2,
+
+
+            //                       });
+            //         modelBuilder.Entity<MenuItem>()
+            //                       .HasData(
+            //                       new
+            //                       {
+            //                           MenuItemId = 5,
+            //                           Name = "Blueberry cheescake",
+            //                           Description = "Delicious cheesecake with blueberry sauce topping",
+            //                           FoodTypeId = 3,
+            //                           Menu_CategoryId = 4,
+            //                           CategoryMenu_CategoryId = 4,
+            //                           Menu_TypeId = 2,
+
+
+            //                       });
+
+            //Create Seed Data for the Supplier Type table:
+            modelBuilder.Entity<Supplier_Type>()
+              .HasData(
+              new
+              {
+                  Supplier_TypeId = 1,
+                  Name = "Alcohol",
+                  Description = "For Alcohol Suppliers",
+          
+              });
+              modelBuilder.Entity<Supplier_Type>()
+              .HasData(
+              new
+              {
+                  Supplier_TypeId = 2,
+                  Name = "Meat and Poultry",
+                  Description = "Suppliers who sell meat and poultry",
+          
+              });
+              modelBuilder.Entity<Supplier_Type>()
+              .HasData(
+              new
+              {
+                  Supplier_TypeId = 3,
+                  Name = "General",
+                 Description = "Stores that sell all types",
+          
+              });
+              modelBuilder.Entity<Supplier_Type>()
+              .HasData(
+              new
+              {
+                  Supplier_TypeId = 4,
+                  Name = "Bakery",
+                  Description = "Stores that supplier baking ingrediants",
+          
+              });
+
+            // Seed data for supplier
+
+            modelBuilder.Entity<Supplier>()
+              .HasData(
+              new
+              {
+                  SupplierId = 1,
+                  SupplierName = "Checkers",
+                  Email_Address = "checkers@gmail.com",
+                  Supplier_TypeId = 3,
+                  PhoneNumber = "0122345654",
+                  Physical_Address = "416 Kirkness St, Arcadia",
+                 
+              });
+             modelBuilder.Entity<Supplier>()
+              .HasData(
+              new
+              {
+                  SupplierId = 2,
+                  SupplierName = "Pick `n Pay",
+                  Email_Address = "pnp@gmail.com",
+                  Supplier_TypeId = 3,
+                  PhoneNumber = "0110456543",
+                  Physical_Address = "Hatfield Plaza 1122 Burnett Street",
+                 
+              });
+             modelBuilder.Entity<Supplier>()
+              .HasData(
+              new
+              {
+                  SupplierId = 3,
+                  SupplierName = "Liquor Rack",
+                  Email_Address = "liquorRack@gmail.com",
+                  Supplier_TypeId = 1,
+                  PhoneNumber = "0656781230",
+                  Physical_Address = "Hatfield Plaza 1145 Burnett Street"
+
+              });
+             modelBuilder.Entity<Supplier>()
+              .HasData(
+              new
+              {
+                  SupplierId = 4,
+                  SupplierName = "BakerMan",
+                  Email_Address = "bakerMan@gmail.com",
+                  Supplier_TypeId = 4,
+                  PhoneNumber = "0714567890",
+                  Physical_Address = "HillCrest Boulevard 110 Lynnwood"
+                 
+              });
+              modelBuilder.Entity<Supplier>()
+              .HasData(
+            new
+            {
+                  SupplierId = 5,
+                  SupplierName = "Mr Jacks Butcher",
+                  Email_Address = "MJButcher@gmail.com",
+                  Supplier_TypeId = 2,
+                  PhoneNumber = "0865045674",
+                  Physical_Address = "143 Atterbury Street"
+                 
+              });
+
+              modelBuilder.Entity<Inventory_Type>()
+              .HasData(
+              new
+              {
+                  Inventory_TypeId = 1,
+                  Name = "Food",
+                  Description = "For all food inventory items"
+          
+              });
+
+             modelBuilder.Entity<Inventory_Type>()
+              .HasData(
+              new
+              {
+                  Inventory_TypeId = 2,
+                  Name = "Non-Alcoholic Drinks",
+                  Description = "For all Non-Alcoholic Drink inventory items"
+          
+              });
+
+              modelBuilder.Entity<Inventory_Type>()
+              .HasData(
+              new
+              {
+                  Inventory_TypeId = 3,
+                  Name = "Alcoholic Drinks",
+                  Description = "For all Alcoholic Drink inventory items"
+          
+              });
+
+              modelBuilder.Entity<Inventory_Item>()
+              .HasData(
+            new
+            {
+                  Inventory_ItemId = 1,
+                  ItemName = "Lettuce",
+                  Description = "Freshly produced",
+                  Inventory_TypeId = 1,
+                  Quantity = 2
+              });
+
+
+            modelBuilder.Entity<Inventory_Item>()
+            .HasData(
+          new
+          {
+              Inventory_ItemId = 2,
+              ItemName = "Chicken",
+              Description = "Used for all chicken dishes",
+              Inventory_TypeId = 1,
+              Quantity = 6
+          });
+
+            modelBuilder.Entity<Inventory_Item>()
+            .HasData(
+          new
+          {
+              Inventory_ItemId = 3,
+              ItemName = "Mogodu",
+              Description = "Needs to be cooked well",
+              Inventory_TypeId = 1,
+              Quantity = 5,
+          });
+
+
+            modelBuilder.Entity<Inventory_Item>()
+            .HasData(
+          new
+          {
+              Inventory_ItemId = 4,
+              ItemName = "Gin",
+              Description = "Served in all drinks with the gin recipie",
+              Inventory_TypeId = 3,
+              Quantity = 15
+          });
+
+
+            modelBuilder.Entity<Inventory_Item>()
+            .HasData(
+          new
+          {
+              Inventory_ItemId = 5,
+              ItemName = "Coke",
+              Description = "To Quench your Thirst",
+              Inventory_TypeId = 2,
+              Quantity = 24
+          });
+
+
+            modelBuilder.Entity<Inventory_Item>()
+            .HasData(
+          new
+          {
+              Inventory_ItemId = 6,
+              ItemName = "Sarkling Water",
+              Description = "For those who like no taste",
+              Inventory_TypeId = 2,
+              Quantity = 30
+          });
+
+
+            modelBuilder.Entity<Inventory_Item>()
+            .HasData(
+          new
+          {
+              Inventory_ItemId = 7,
+              ItemName = "Beer",
+              Description = "Many different types served",
+              Inventory_TypeId = 3,
+              Quantity = 12
+          });
+
+
+            modelBuilder.Entity<Inventory_Item>()
+            .HasData(
+          new
+          {
+              Inventory_ItemId = 8,
+              ItemName = "Rice",
+              Description = "One of the starches served with each dish",
+              Inventory_TypeId = 1,
+              Quantity = 4
+          });
+
+            modelBuilder.Entity<Inventory_Item>()
+            .HasData(
+          new
+          {
+              Inventory_ItemId = 9,
+              ItemName = "Maize Meal",
+              Description = "One of the starches served with each dish",
+              Inventory_TypeId = 1,
+              Quantity = 3
+
+          });
+
+            modelBuilder.Entity<Inventory_Item>()
+            .HasData(
+          new
+          {
+              Inventory_ItemId = 10,
+              ItemName = "Apple Juice",
+              Description = "For those who do not like fizz",
+              Inventory_TypeId = 2,
+              Quantity = 24
+          });
+
+          modelBuilder.Entity<Supplier_Inventory>()
+              .HasData(
+            new
+            {
+                  SupplierItemId = 1,
+                 SupplierId = 1,
+                  Inventory_ItemId = 1,
+                 Ordered_Quantity = 33,
+                  Ordered_Date = DateTime.Today,
+                  Received_Date = DateTime.Today
+            });
+
+
+
+
+
+            //Many to many with MenuItem
+            //modelBuilder.Entity<MenuItem>()
+            //            .HasOne(m => m.Menu_Type)
+            //            .WithMany()
+            //            .HasForeignKey(m => m.Menu_TypeId);
+
+            //            modelBuilder.Entity<MenuItem>()
+            //            .HasOne(m => m.MenuItem_Category)
+            //            .WithMany()
+            //            .HasForeignKey(m => m.Menu_CategoryId);
+
+            //            modelBuilder.Entity<MenuItem>()
+            //            .HasOne(m => m.Food_Type)
+            //            .WithMany()
+            //            .HasForeignKey(m => m.FoodTypeId);
+
+           ///////// modelBuilder.Entity<StockTakeItem>()
+          ////// //.HasKey(sti => sti.StockTakeItemId); // Set the primary key for StockTakeItem
+
+            //// Configure the relationship between StockTakeItem and StockTake
+            //modelBuilder.Entity<StockTakeItem>()
+            //    .HasOne(sti => sti.StockTake)
+            //    .WithMany(st => st.StockTakeItems)
+            //    .HasForeignKey(sti => sti.StockTakeId); // Set the foreign key for StockTakeItem
+
+            //// Configure the relationship between StockTake and StockTakeItem
+ 
+
+                          
+            // Create Seed Data For the Events Table:
+            modelBuilder.Entity<Event>()
+                         .HasData(
+                         new
+                         {
+                             EventId = 1,
+                             Name = "Smooth Sunday",
+                             Description = "An event filled with spectacular music performances and art display "
+                            
+                         });
+            modelBuilder.Entity<Event>()
+                         .HasData(
+                         new
+                         {
+                             EventId = 2,
+                             Name = "Wacky Wednesday",
+                             Description = "An event where various forms of entertainments take place"
+
+                         });
+            modelBuilder.Entity<Event>()
+                        .HasData(
+                        new
+                        {
+                            EventId = 3,
+                            Name = "Poetry Musings",
+                            Description = " poets are invited to recite poems and another kind of artistry "
+
+                        });
+            // Create Seed Data For the Entertainments Type Table:
+            modelBuilder.Entity<Entertainment_Type>()
+                       .HasData(
+                       new
+                       {
+                           Entertainment_TypeId = 1,
+                           Name = "Poetry",
+                           Description = "Poetry recitations"
+
+                       });
+            modelBuilder.Entity<Entertainment_Type>()
+                      .HasData(
+                      new
+                      {
+                          Entertainment_TypeId = 2,
+                          Name = "StandUp Comedy",
+                          Description = "One-liners for a comedic performance"
+
+                      });
+            modelBuilder.Entity<Entertainment_Type>()
+                      .HasData(
+                      new
+                      {
+                          Entertainment_TypeId = 3,
+                          Name = "Dance",
+                          Description = "Present dance as an art form, ballet, amapiano styles, hipHop dancers"
+
+                      });
+            modelBuilder.Entity<Entertainment_Type>()
+                                 .HasData(
+                                  new
+                                  {
+                                      Entertainment_TypeId = 4,
+                                      Name = "Music",
+                                      Description = "Artits who perform own music. All types of music"
+
+                                  });
+
+                
 
             
             // Create Seed Data For the Menu Category Table:
@@ -756,15 +1298,15 @@ namespace Africanacity_Team24_INF370_.models
                         .WithMany()
                         .HasForeignKey(m => m.Menu_TypeId);
 
-                        modelBuilder.Entity<MenuItem>()
-                        .HasOne(m => m.MenuItem_Category)
-                        .WithMany()
-                        .HasForeignKey(m => m.Menu_CategoryId);
+            modelBuilder.Entity<MenuItem>()
+            .HasOne(m => m.MenuItem_Category)
+            .WithMany()
+            .HasForeignKey(m => m.Menu_CategoryId);
 
-                        modelBuilder.Entity<MenuItem>()
-                        .HasOne(m => m.Food_Type)
-                        .WithMany()
-                        .HasForeignKey(m => m.FoodTypeId);
+            modelBuilder.Entity<MenuItem>()
+            .HasOne(m => m.Food_Type)
+            .WithMany()
+            .HasForeignKey(m => m.FoodTypeId);
 
             
 
@@ -780,27 +1322,27 @@ namespace Africanacity_Team24_INF370_.models
 			      tg => tg.HasOne<Access>().WithMany());
 
 			// For the Entertainer_EntertainmentType M2M  payload (Uncomment code below and run migration to generate tables)
-			modelBuilder.Entity<Entertainer>()
-				.HasMany(t => t.Entertainment_Types)
-				.WithMany(g => g.Entertainers)
-				.UsingEntity<Entertainer_EntertainmentType>
-				 (tg => tg.HasOne<Entertainment_Type>().WithMany(),
-				  tg => tg.HasOne<Entertainer>().WithMany());
+			//modelBuilder.Entity<Entertainer>()
+			//	.HasMany(t => t.Entertainment_Types)
+			//	.WithMany(g => g.Entertainers)
+			//	.UsingEntity<Entertainer_EntertainmentType>
+			//	 (tg => tg.HasOne<Entertainment_Type>().WithMany(),
+			//	  tg => tg.HasOne<Entertainer>().WithMany());
 
 			// For the Entertainer_Schedule M2M payload (Uncomment code below and run migration to generate tables)
-			modelBuilder.Entity<Schedule>()
-				.HasMany(t => t.Entertainers)
-				.WithMany(g => g.Schedules)
-				.UsingEntity<Entertainer_Schedule>
-				 (tg => tg.HasOne<Entertainer>().WithMany(),
-				  tg => tg.HasOne<Schedule>().WithMany());
+			//modelBuilder.Entity<Schedule>()
+			//	.HasMany(t => t.Entertainers)
+			//	.WithMany(g => g.Schedules)
+			//	.UsingEntity<Entertainer_Schedule>
+			//	 (tg => tg.HasOne<Entertainer>().WithMany(),
+			//	  tg => tg.HasOne<Schedule>().WithMany());
 
 			// For the Supplier_InventoryItem M2M payload (Uncomment code below and run migration to generate tables)
 			modelBuilder.Entity<Inventory_Item>()
 				.HasMany(t => t.Suppliers)
 				.WithMany(g => g.Inventory_Items)
 				.UsingEntity<Supplier_InventoryItem>
-				 (tg => tg.HasOne<Supplier>().WithMany(),
+			 (tg => tg.HasOne<Supplier>().WithMany(),
 				  tg => tg.HasOne<Inventory_Item>().WithMany());
 
 			// For the Order_Drink M2M payload (Uncomment code below and run migration to generate tables)
@@ -818,6 +1360,19 @@ namespace Africanacity_Team24_INF370_.models
 				.UsingEntity<Order_MenuItem>
 				 (tg => tg.HasOne<MenuItem>().WithMany(),
 				  tg => tg.HasOne<Order>().WithMany());
-		}
+
+            //Event
+           // modelBuilder.Entity<Administrator>()
+
+           // .HasOne(sti => sti.Events)
+
+           //.WithMany()
+
+           //.HasForeignKey(sti => sti.AdministratorId);
+
+           // modelBuilder.Entity<Event>()
+
+           //.HasKey(sti => sti.EventId);
+        }
 	}
 }

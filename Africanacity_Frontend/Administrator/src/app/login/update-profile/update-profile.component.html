@@ -1,0 +1,60 @@
+<app-navbar></app-navbar> 
+
+<div class="container" style="margin-top: -70%; margin-left: 18%; width: auto;">
+<!-- <div class="container" style="margin-left: 18%; width: auto;"> -->
+  <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+    <h2 class="pt-3 font-weight-bold" style="text-align: center;">
+      Update Profile
+    </h2>  
+    <!-- Your form controls here -->
+    <div class="form-group pt-3">
+      <div class="input-field" [class.error]="updateForm.controls['firstName'].dirty && updateForm.hasError('required','firstName')">
+        <span class="fa fa-user p-2"></span>
+        <input id="firstName" type="text" placeholder="First Name" formControlName="firstName">
+      </div>
+    </div>
+    <div class="form-group pt-3">
+      <div class="input-field" [class.error]="updateForm.controls['lastName'].dirty && updateForm.hasError('required','lastName')">
+        <span class="fa fa-user p-2"></span>
+        <input id="lastName" type="text" placeholder="Last Name" formControlName="lastName">
+      </div>
+    </div>
+    <div class="form-group pt-3">
+      <div class="input-field" [class.error]="updateForm.controls['username'].dirty && updateForm.hasError('required','username')">
+        <span class="fa fa-user p-2"></span>
+        <input id="username" type="text" placeholder="Username" formControlName="username">
+      </div>
+    </div>
+    <div class="form-group pt-3">
+      <div class="input-field" [class.error]="updateForm.controls['contactNumber'].dirty && updateForm.hasError('required', 'contactNumber')">
+        <span class="fa fa-user p-2"></span>
+        <input id="contactNumber" type="text" placeholder="Contact Number" formControlName="contactNumber">
+      </div>
+      <small *ngIf="updateForm.controls['contactNumber'].dirty && updateForm.controls['contactNumber'].errors?.['minlength']" class="text-danger">
+        *Contact number must be 10 digits.*
+      </small>
+    </div>
+    <div class="form-group pt-3" >
+      <div class="input-field" [class.error]="updateForm.controls['email'].dirty && updateForm.hasError('required','email')">
+        <span class="fa fa-user p-2"></span>
+        <input id="email" type="text" placeholder="Email" formControlName="email">
+      </div>
+    </div> 
+    <div class="form-group pt-3">
+      <div class="input-field" [class.error]="updateForm.controls['physicalAddress'].dirty && updateForm.hasError('required','physicalAddress')">
+        <span class="fa fa-user p-2"></span>
+        <textarea style=" width: 100%;"id="physicalAddress" type="text" placeholder="Physical Address" formControlName="physicalAddress"></textarea>
+      </div>
+    </div><br>
+
+    <div class="form-group">
+      <div class="col-sm-offset-1 col-sm-6">
+        <button style="margin-right:1em; width: 40%;" type="submit" class="btn btn-sm btn-primary">Submit</button>
+        <button style="width: 40%;" type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button>
+      </div>
+    </div>
+  </form>
+  
+ </div>
+
+

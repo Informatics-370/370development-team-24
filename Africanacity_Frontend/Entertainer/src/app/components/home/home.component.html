@@ -1,0 +1,46 @@
+<div class="col-md-2">
+    <app-navbar></app-navbar> 
+</div>
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">
+    <img src="../../assets/Nav_image/Africanacity.png" alt="" width="40" height="40" class="d-inline-block align-text-top">
+    Hello {{fullName}} <h6>
+    </h6></a>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
+  <div class="navbar-nav">
+      <div class="nav-item text-nowrap">
+          <a style="background: red;
+          color: #fff;
+          border-radius: 4px;
+          margin: 10px;" class="nav-link px-3 cursor-pointer" (click)="logout()">Sign out</a>
+      </div>
+  </div>
+</header>
+
+<div class="container-fluid">
+  <div class="row">
+    <h1 style="margin-left: 20%;"> Events</h1>
+    <div class="flip-card"  style="margin-left: 20%; margin-bottom: 10%;">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="../../assets/Nav_image/Avatar2.jpeg" alt="Avatar" style="width:200px;height:200px;">
+        </div>
+        <div class="flip-card-back">
+          <h1>John Doe</h1>
+          <p>Architect & Engineer</p>
+          <p>We love that guy</p>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-left: 10%; margin-bottom: 10%;">
+      <img src="../../assets/Nav_image/Avatar2.jpeg" alt="Denim Jeans" style="width:50%; height: 50%;">
+      <h1>Tailored Jeans</h1>
+      <p class="price">$19.99</p>
+      <p>Some text about the jeans..</p>
+      <p><button>Add to Cart</button></p>
+    </div>
+  </div>
+</div>

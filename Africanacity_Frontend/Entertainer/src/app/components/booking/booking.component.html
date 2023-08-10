@@ -1,0 +1,93 @@
+<div class="col-md-2">
+    <app-navbar></app-navbar> 
+</div>
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">
+    <img src="../../assets/Nav_image/Africanacity.png" alt="" width="40" height="40" class="d-inline-block align-text-top">
+    Hello {{fullName}}<h6>
+    </h6></a>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
+  <div class="navbar-nav">
+      <div class="nav-item text-nowrap">
+          <a style="background: red;
+          color: #fff;
+          border-radius: 4px;
+          margin: 10px;" class="nav-link px-3 cursor-pointer" (click)="logout()">Sign out</a>
+      </div>
+  </div>
+</header>
+
+<div  style="  /* The image used */
+background-image: url('../assets/Home/Pic7.jpg');
+
+/* Add the blur effect */
+filter: blur(8px);
+-webkit-filter: blur(8px);
+
+/* Full height */
+height: 160%;
+width: 100%;
+
+/* Center and scale the image nicely */
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;"></div>
+
+<div style="background-color: rgb(0,0,0); /* Fallback color */
+background-color: rgba(0,0,0, 0.8); /* Black w/opacity/see-through */
+color: white;
+font-weight: bold;
+border: 3px solid #f1f1f1;
+position: absolute;
+top: 85%;
+left: 50%;
+margin-left: 8%;
+transform: translate(-50%, -50%);
+z-index: 2;
+width: 80%;
+padding: 20px;
+/* text-align: center; */">
+
+<div>
+        <h1>Make Booking</h1>
+        <p>Please fill out this form with the required information</p>
+        <form action="" [formGroup]="bookingForm" class="form-horizontal" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+          
+          <fieldset>
+            <label>First Name 
+              <input class="form-control" placeholder="Enter FirstName" [required]="true" name="firstName" formControlName="firstName" /></label>
+            <label>Last Name 
+            <input class="form-control" placeholder="Enter lastName" [required]="true" name="lastName" formControlName="lastName"/>
+            </label>
+            <label>Email
+            <input class="form-control" placeholder="Enter Email" [required]="true" name="email" formControlName="email"/>
+            </label>
+            <label>Phone Number 
+            <input class="form-control" placeholder="Enter phoneNumber" [required]="true" name="contactNumber" formControlName="contactNumber" />
+            </label>
+            <label>Instagram 
+              <input class="form-control" placeholder="Enter instagram handle" [required]="true" name="Instagram" formControlName="Instagram" />
+              </label>
+             </fieldset>
+          <fieldset>
+            <label for="entertainmenttype"> Entertainment Type
+              <select class="form-control" id="entertainmenttype" formControlName="entertainmenttype">
+                <option *ngFor="let item of entertainmentTypeData" [value]="item.entertainment_TypeId">{{ item.name }}</option>
+              </select>
+            </label><br>        
+            <div>
+              <input formControlName="demo" type="file" id="demo" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;"> Choose file
+              <button color="primary" (click)="file.click()">Upload File</button>
+              <span *ngIf="fileNameUploaded.length > 0"> {{fileNameUploaded}}</span>
+            </div><br>
+            <label>Additional Requests
+            <textarea name="additional" rows="5" cols="30" placeholder="Your message ..."></textarea>
+            </label>
+          </fieldset>
+          <input type="submit" [disabled]="!bookingForm.valid"  value="Submit" />
+        </form>
+</div>
+</div>

@@ -1,10 +1,10 @@
-﻿using Africanacity_Team24_INF370_.models.Admin;
+﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
 using System.ComponentModel.DataAnnotations;
 
 
 namespace Africanacity_Team24_INF370_.models.Restraurant
 {
-	public class MenuItem
+    public class MenuItem
 	{
         internal bool IsActive;
         internal bool IsDeleted;

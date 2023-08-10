@@ -1,254 +1,451 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using System.Text;
+using Africanacity_Team24_INF370_.Helpers;
+using System.Security.Cryptography;
+using System.Text.RegularExpressions;
+using Microsoft.EntityFrameworkCore;
+using System;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Africanacity_Team24_INF370_.EmailService;
+using Africanacity_Team24_INF370_.models.Dto;
 using Africanacity_Team24_INF370_.models;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Mail;
-using Africanacity_Team24_INF370_.models.Login;
-using Africanacity_Team24_INF370_.ViewModel;
 using Africanacity_Team24_INF370_.View_Models;
-using System.Security.Claims;
-using System.Text;
-using MimeKit;
-using MailKit.Security;
+using Africanacity_Team24_INF370_.models.Administration;
 
 namespace Africanacity_Team24_INF370_.Controllers
+
 {
-    [Route("api/[controller]")]
-    [ApiController]
+	[Route("api/[controller]")]
+	[ApiController]
 
-    public class AuthenticationController : ControllerBase
-    {
-        private readonly UserManager<AppUser> _userManager;
-        private readonly IUserClaimsPrincipalFactory<AppUser> _claimsPrincipalFactory;
+	public class AuthenticationController : ControllerBase
+	{
 		private readonly IConfiguration _configuration;
-		private static Dictionary<string, TwoFactorCode> _twoFactorCodeDictionary
-            = new Dictionary<string, TwoFactorCode>();
-
-		public AuthenticationController(UserManager<AppUser> userManager, IUserClaimsPrincipalFactory<AppUser> claimsPrincipalFactory, IConfiguration configuration, IRepository repository)
-
+		private readonly AppDbContext _authContext;
+		private readonly IEmailService _emailService;
+		private readonly IRepository _repository;
+		public AuthenticationController(AppDbContext context, IRepository repository, IConfiguration configuration, IEmailService emailService)
 		{
-			_userManager = userManager;
-			_claimsPrincipalFactory = claimsPrincipalFactory;
+			_authContext = context;
 			_configuration = configuration;
+			_emailService = emailService;
+			_repository = repository;
+		}
+
+		[HttpPost("Authenticate")]
+		//[Route("Authenticate")]
+		public async Task<IActionResult> Authenticate([FromBody] AdminInfor userObj)
+		{
+			if (userObj == null)
+				return BadRequest();
+
+			var user = await _authContext.Admins
+				.FirstOrDefaultAsync(x => x.Username == userObj.Username);
+
+			if (user == null)
+				return NotFound(new { Message = "User not found!" });
+
+			if (!PasswordHasher.VerifyPassword(userObj.Password, user.Password))
+			{
+				return BadRequest(new { Message = "Password is Incorrect" });
+			}
+
+			user.Token = CreateJwt(user);
+			var newAccessToken = user.Token;
+			var newRefreshToken = CreateRefreshToken();
+			user.RefreshToken = newRefreshToken;
+			user.RefreshTokenExpiryTime = DateTime.Now.AddDays(15);
+			await _authContext.SaveChangesAsync();
+
+			return Ok(new TokenApiDto()
+			{
+				AccessToken = newAccessToken,
+				RefreshToken = newRefreshToken
+			});
 		}
 
 		[HttpPost]
 		[Route("Register")]
-		public async Task<IActionResult> Register(UserViewModel uvm)
+		public async Task<IActionResult> AddUser([FromBody] AdminInfor userObj)
 		{
-			var user = await _userManager.FindByIdAsync(uvm.userName);
+			if (userObj == null)
+				return BadRequest();
 
-			if (user == null)
+			// check email
+			if (await CheckEmailExistAsync(userObj.Email))
+				return BadRequest(new { Message = "Email already exist" });
+
+			//check username
+			if (await CheckUsernameExistAsync(userObj.Username))
+				return BadRequest(new { Message = "Username already exist" });
+
+			var passMessage = CheckPasswordStrength(userObj.Password);
+			if (!string.IsNullOrEmpty(passMessage))
+				return BadRequest(new { Message = passMessage.ToString() });
+
+			userObj.Password = PasswordHasher.HashPassword(userObj.Password);
+			userObj.Role = "Admin";
+			userObj.Token = "";
+			await _authContext.AddAsync(userObj);
+			await _authContext.SaveChangesAsync();
+			return Ok(new
 			{
-				user = new AppUser
-				{
-					Id = Guid.NewGuid().ToString(),
-					UserName = uvm.userName,
-					Email = uvm.userName
-				};
-
-				var result = await _userManager.CreateAsync(user, uvm.password);
-
-				if (result.Errors.Count() > 0) return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
-			}
-			else
-			{
-				return Forbid("Account already exists.");
-			}
-
-			return Ok();
-		}
-
-		[HttpPost]
-		[Route("Login")]
-		public async Task<ActionResult> Login(UserViewModel uvm)
-		{
-			var user = await _userManager.FindByNameAsync(uvm.userName);
-
-			if (user != null && await _userManager.CheckPasswordAsync(user, uvm.password))
-			{
-				try
-				{
-					//var principal = await _claimsPrincipalFactory.CreateAsync(user);
-					//await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, principal);
-					return GenerateJWTToken(user);
-				}
-				catch (Exception)
-				{
-					return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
-				}
-			}
-			else
-			{
-				return NotFound("Does not exist");
-			}
-
-			//var loggedInUser = new UserViewModel { EmailAddress = uvm.EmailAddress, Password = uvm.Password };
-
-			//return Ok(loggedInUser);
-		}
-
-		[HttpGet]
-		private ActionResult GenerateJWTToken(AppUser user)
-		{
-			// Create JWT Token
-			var claims = new[]
-			{
-				new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-				new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-				new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName)
-			};
-
-			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"]));
-			var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-			var token = new JwtSecurityToken(
-				_configuration["Tokens:Issuer"],
-				_configuration["Tokens:Audience"],
-				claims,
-				signingCredentials: credentials,
-				expires: DateTime.UtcNow.AddHours(3)
-			);
-
-			return Created("", new
-			{
-				token = new JwtSecurityTokenHandler().WriteToken(token),
-				user = user.UserName
+				Status = 200,
+				Message = "Administrator added successfully!"
 			});
 		}
 
-	[HttpGet]
-        public async Task<IActionResult> Logout()
-        {
+		private Task<bool> CheckEmailExistAsync(string? email)
+			=> _authContext.Admins.AnyAsync(x => x.Email == email);
 
-            await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
+		private Task<bool> CheckUsernameExistAsync(string? username)
+			=> _authContext.Admins.AnyAsync(x => x.Email == username);
 
-            return Ok("Successfully logged out");
-        }
-
-
-		[HttpPost]
-		[Route("Forgotpassword")]
-		public async Task<ActionResult> ForgotPassword(ForgotpasswordModel model)
+		private static string CheckPasswordStrength(string pass)
 		{
-			if (ModelState.IsValid)
+			StringBuilder sb = new StringBuilder();
+			if (pass.Length < 9)
+				sb.Append("Minimum password length should be 8" + Environment.NewLine);
+			if (!(Regex.IsMatch(pass, "[a-z]") && Regex.IsMatch(pass, "[A-Z]") && Regex.IsMatch(pass, "[0-9]")))
+				sb.Append("Password should be AlphaNumeric" + Environment.NewLine);
+			if (!Regex.IsMatch(pass, "[<,>,@,!,#,$,%,^,&,*,(,),_,+,\\[,\\],{,},?,:,;,|,',\\,.,/,~,`,-,=]"))
+				sb.Append("Password should contain special charcter" + Environment.NewLine);
+			return sb.ToString();
+		}
+
+		private string CreateJwt(AdminInfor user)
+		{
+			var jwtTokenHandler = new JwtSecurityTokenHandler();
+			var key = Encoding.ASCII.GetBytes("veryverysceret.....");
+			var identity = new ClaimsIdentity(new Claim[]
 			{
-				var user = await _userManager.FindByNameAsync(model.userName);
+				new Claim(ClaimTypes.Role, user.Role),
+				new Claim(ClaimTypes.NameIdentifier, $"{user.Id}"),
+				new Claim(ClaimTypes.Name,$"{user.Username}"),
+				new Claim(ClaimTypes.GivenName,$"{user.FirstName}"),
+				new Claim(ClaimTypes.Surname,$"{user.LastName}"),
+				new Claim(ClaimTypes.WindowsAccountName,$"{user.ContactNumber}"),
+				new Claim(ClaimTypes.Email,$"{user.Email}"),
+				new Claim(ClaimTypes.Actor ,$"{user.PhysicalAddress }")
 
-				if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
-				{
-					try
-					{
-						var principal = await _claimsPrincipalFactory.CreateAsync(user);
-						await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, principal);
+			});
 
-						// 2 Step Verification
-						var otp = GenerateTwoFactorCodeFor(user.UserName);
+			var credentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
 
-						var fromEmailAddress = "youremailaddresstosendtheemail"; // you must add your own provided email
-						var subject = "System Log in";
-						var message = $"Enter the following OTP: {otp}";
-						var toEmailAddress = user.Email;
+			var tokenDescriptor = new SecurityTokenDescriptor
+			{
+				Subject = identity,
+				Expires = DateTime.Now.AddMinutes(15),
+				SigningCredentials = credentials
+			};
+			var token = jwtTokenHandler.CreateToken(tokenDescriptor);
+			return jwtTokenHandler.WriteToken(token);
+		}
 
-						// Sending email
-						await SendEmail(fromEmailAddress, subject, message, toEmailAddress);
-					}
-					catch (Exception)
-					{
-						return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
-					}
-				}
-				else
-				{
-					return StatusCode(StatusCodes.Status404NotFound, "Invalid user credentials.");
-				}
+		private string CreateRefreshToken()
+		{
+			var tokenBytes = RandomNumberGenerator.GetBytes(64);
+			var refreshToken = Convert.ToBase64String(tokenBytes);
+
+			var tokenInUser = _authContext.Admins
+				.Any(a => a.RefreshToken == refreshToken);
+			if (tokenInUser)
+			{
+				return CreateRefreshToken();
 			}
+			return refreshToken;
+		}
 
-			var loggedInUser = new UserViewModel { userName = model.userName };
+		private ClaimsPrincipal GetPrincipleFromExpiredToken(string token)
+		{
+			var key = Encoding.ASCII.GetBytes("veryverysceret.....");
+			var tokenValidationParameters = new TokenValidationParameters
+			{
+				ValidateAudience = false,
+				ValidateIssuer = false,
+				ValidateIssuerSigningKey = true,
+				IssuerSigningKey = new SymmetricSecurityKey(key),
+				ValidateLifetime = false
+			};
+			var tokenHandler = new JwtSecurityTokenHandler();
+			SecurityToken securityToken;
+			var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out securityToken);
+			var jwtSecurityToken = securityToken as JwtSecurityToken;
+			if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+				throw new SecurityTokenException("This is Invalid Token");
+			return principal;
 
-			return Ok(loggedInUser);
 		}
 
 
+
+		//[Authorize]
+		[HttpGet]
+		public async Task<ActionResult<User>> GetAllUsers()
+		{
+			return Ok(await _authContext.Users.ToListAsync());
+		}
+
 		[HttpPost]
-        [Route("Otp")]
-        public IActionResult VerifyOTP(	OtpModel user)
-        {
-            var validOtp = VerifyTwoFactorCodeFor(user.userName, user.otp);
+		[Route("Refresh")]
+		public async Task<IActionResult> Refresh([FromBody] TokenApiDto tokenApiDto)
+		{
+			if (tokenApiDto is null)
+				return BadRequest("Invalid Client Request");
+			string accessToken = tokenApiDto.AccessToken;
+			string refreshToken = tokenApiDto.RefreshToken;
+			var principal = GetPrincipleFromExpiredToken(accessToken);
+			var username = principal.Identity.Name;
+			var user = await _authContext.Admins.FirstOrDefaultAsync(u => u.Username == username);
+			if (user is null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
+				return BadRequest("Invalid Request");
+			var newAccessToken = CreateJwt(user);
+			var newRefreshToken = CreateRefreshToken();
+			user.RefreshToken = newRefreshToken;
+			await _authContext.SaveChangesAsync();
+			return Ok(new TokenApiDto()
+			{
+				AccessToken = newAccessToken,
+				RefreshToken = newRefreshToken,
+			});
+		}
 
-            if (validOtp)
-            {
-                return Ok();
-            }
+		[HttpPost]
+		[Route("send-reset-email/{email}")]
+		public async Task<IActionResult> SendEmail(string email)
+		{
+			var user = await _authContext.Admins.FirstOrDefaultAsync(a => a.Email == email);
+			if (user is null)
+			{
+				return NotFound(new
+				{
+					StatusCode = 404,
+					Message = "Email does not exist"
+				});
+			}
+			var tokenBytes = RandomNumberGenerator.GetBytes(64);
+			var emailToken = Convert.ToBase64String(tokenBytes);
+			user.ResetPasswordToken = emailToken;
+			user.ResetPasswordTokenExpiry = DateTime.Now.AddMinutes(15);
+			string from = _configuration["EmailSetting:From"];
+			var emailModel = new EmailModel(email, "Reset Password!!", EmailBody.EmailStringBody(email, emailToken));
+			_emailService.SendEmail(emailModel);
+			_authContext.Entry(user).State = EntityState.Modified;
+			await _authContext.SaveChangesAsync();
+			return Ok(new
+			{
+				StatusCode = 200,
+				Message = "Email successfully sent!"
+			});
+		}
 
-            return StatusCode(StatusCodes.Status400BadRequest, "Invalid OTP");
-        }
+		[HttpPost]
+		[Route("Reset-password")]
+		public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)
+		{
+			var newToken = resetPasswordDto.EmailToken.Replace(" ", "+");
+			var user = await _authContext.Admins.AsNoTracking().FirstOrDefaultAsync(a => a.Email == resetPasswordDto.Email);
+			if (user == null)
+			{
+				return NotFound(new
+				{
+					StatusCode = 404,
+					Message = "User does not exist"
+				});
+			}
+			var tokenCode = user.ResetPasswordToken;
+			DateTime emailTokenExpiry = user.ResetPasswordTokenExpiry;
+			if (tokenCode != resetPasswordDto.EmailToken || emailTokenExpiry < DateTime.Now)
+			{
+				return NotFound(new
+				{
+					StatusCode = 400,
+					Message = "Invalid Reset link"
+				});
+			}
+			user.Password = PasswordHasher.HashPassword(resetPasswordDto.NewPassword);
+			_authContext.Entry(user).State = EntityState.Modified;
+			await _authContext.SaveChangesAsync();
+			return Ok(new
+			{
+				StatusCode = 200,
+				Message = "Password successfully reset"
+			});
+		}
 
-        private async Task SendEmail(string fromEmailAddress, string subject, string message, string toEmailAddress)
-        {
-            var fromAddress = new MailAddress(fromEmailAddress);
-            var toAddress = new MailAddress(toEmailAddress);
+		[HttpPost]
+		[Route("Change-password")]
+		public async Task<IActionResult> ChangePassword(ResetPasswordDto resetPasswordDto)
+		{
+			var newToken = resetPasswordDto.EmailToken.Replace(" ", "+");
+			var user = await _authContext.Admins.AsNoTracking().FirstOrDefaultAsync(a => a.Email == resetPasswordDto.Email);
+			if (user == null)
+			{
+				return NotFound(new
+				{
+					StatusCode = 404,
+					Message = "User does not exist"
+				});
+			}
+			user.Password = PasswordHasher.HashPassword(resetPasswordDto.NewPassword);
+			_authContext.Entry(user).State = EntityState.Modified;
+			await _authContext.SaveChangesAsync();
+			return Ok(new
+			{
+				StatusCode = 200,
+				Message = "Password successfully reset"
+			});
+		}
 
-            using (var compiledMessage = new MailMessage(fromAddress, toAddress))
-            {
-                compiledMessage.Subject = subject;
-                compiledMessage.Body = string.Format("Message: {0}", message);
+		//getting User using id
+		[HttpGet]
+		[Route("Profile/{UserId}")]
+		public async Task<ActionResult> GetUser(int UserId)
+		{
+			try
+			{
+				var users = await _repository.ViewProfileAsync(UserId);
+				if (users == null) return NotFound("User does not exist.");
+				return Ok(users);
+			}
+			catch (Exception)
+			{
+				return StatusCode(500, "Enter some error message");
+			}
 
-                using (var smtp = new SmtpClient())
-                {
-                    smtp.Host = "yourownprovidedhost"; // for example: smtp.gmail.com
-                    smtp.Port = 587;
-                    smtp.EnableSsl = true;
-                    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    smtp.UseDefaultCredentials = false;
-                    smtp.Credentials = new NetworkCredential("theemailaccountthatyouwillbeusing", "theemailaccountspassword"); // your own provided email and password
-                    await smtp.SendMailAsync(compiledMessage);
-                }
-            }
-        }
+		}
 
-        private static string GetUniqueKey()
-        {
-            Random rnd = new Random();
 
-            var optCode = rnd.Next(1000, 9999);
+		//getting User using id
+		[HttpGet]
+		[Route("ProfileIn")]
+		public async Task<ActionResult<User>> ViewProfiles()
+		{
+			return Ok(await _authContext.Users.ToListAsync());
+		}
 
-            return optCode.ToString();
-        }
+		// Edit Entertainer
+		[HttpPut]
+		[Route("EditUser/{UserId}")]
+		public async Task<ActionResult<User>> EditUser(int UserId, User ftvm)
+		{
+			try
+			{
+				var existingUser = await _repository.ViewProfileAsync(UserId);
 
-        private static string GenerateTwoFactorCodeFor(string username)
-        {
-            var code = GetUniqueKey();
+				// fix error message
+				if (existingUser == null) return NotFound($"The user does not exist");
 
-            var twoFactorCode = new TwoFactorCode(code);
+				existingUser.FirstName = ftvm.FirstName;
+				existingUser.Email = ftvm.Email;
+				existingUser.LastName = ftvm.LastName;
+				existingUser.ContactNumber = ftvm.ContactNumber;
+				existingUser.PhysicalAddress = ftvm.PhysicalAddress;
+				existingUser.Username = ftvm.Username;
 
-            // add or overwrite code
-            _twoFactorCodeDictionary[username] = twoFactorCode;
+				if (await _repository.SaveChangesAsync())
+				{
+					return Ok(existingUser);
+				}
+			}
+			catch (Exception)
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+			}
+			return BadRequest("Your request is invalid");
+		}
 
-            return code;
-        }
+		// Delete Entertainer
+		[HttpDelete]
+		[Route("DeleteUser/{UserId}")]
+		public async Task<IActionResult> DeleteUser(int UserId)
+		{
+			try
+			{
+				var existingUser = await _repository.ViewProfileAsync(UserId);
 
-        private bool VerifyTwoFactorCodeFor(string subject, string code)
-        {
-            TwoFactorCode twoFactorCodeFromDictionary = null;
-            // find subject in dictionary
-            if (_twoFactorCodeDictionary
-                .TryGetValue(subject, out twoFactorCodeFromDictionary))
-            {
-                if (twoFactorCodeFromDictionary.CanBeVerifiedUntil > DateTime.Now
-                    && twoFactorCodeFromDictionary.Code == code)
-                {
-                    twoFactorCodeFromDictionary.IsVerified = true;
-                    return true;
-                }
-            }
-            return false;
-        }
+				// fix error message
+				if (existingUser == null) return NotFound($"The userdoes not exist");
 
-    }
+				_repository.Delete(existingUser);
+
+				if (await _repository.SaveChangesAsync())
+				{
+					return Ok(existingUser);
+				}
+			}
+			catch (Exception)
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+			}
+			return BadRequest("Your request is invalid");
+		}
+
+		// Edit Admin
+		[HttpPut]
+		[Route("EditAdmin/{UserId}")]
+		public async Task<ActionResult<User>> EditAdmin(int UserId, AdminInfor ftvm)
+		{
+			try
+			{
+				var existingUser = await _repository.ViewAdminProfileAsync(UserId);
+
+				// fix error message
+				if (existingUser == null) return NotFound($"The user does not exist");
+
+				existingUser.FirstName = ftvm.FirstName;
+				existingUser.Email = ftvm.Email;
+				existingUser.LastName = ftvm.LastName;
+				existingUser.ContactNumber = ftvm.ContactNumber;
+				existingUser.PhysicalAddress = ftvm.PhysicalAddress;
+				existingUser.Username = ftvm.Username;
+
+				if (await _repository.SaveChangesAsync())
+				{
+					return Ok(existingUser);
+				}
+			}
+			catch (Exception)
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+			}
+			return BadRequest("Your request is invalid");
+		}
+
+		// Delete Admin
+		[HttpDelete]
+		[Route("DeleteAdmin/{UserId}")]
+		public async Task<IActionResult> DeleteAdmin(int UserId)
+		{
+			try
+			{
+				var existingUser = await _repository.ViewAdminProfileAsync(UserId);
+
+				// fix error message
+				if (existingUser == null) return NotFound($"The userdoes not exist");
+
+				_repository.Delete(existingUser);
+
+				if (await _repository.SaveChangesAsync())
+				{
+					return Ok(existingUser);
+				}
+			}
+			catch (Exception)
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+			}
+			return BadRequest("Your request is invalid");
+		}
+	}
+
 }
+
+
+
+
+

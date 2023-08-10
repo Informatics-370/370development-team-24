@@ -11,16 +11,6 @@ namespace Africanacity_Team24_INF370_.models.Login
 
 		[Required]
 		[DataType(DataType.EmailAddress)]
-		public string userName { get; set; }	
-
-		[Required]
-		[DataType(DataType.Password)]
-
-		public string Password { get; set; }
-
-		[Required]
-		[Compare("Password")]
-		[DataType(DataType.Password)]
-		public string Confirmpassword { get; set; }
+		public string UserName { get; set; }	
 	}
 }

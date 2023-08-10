@@ -1,19 +1,16 @@
-﻿using Africanacity_Team24_INF370_.models.Admin;
+﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
 using System.ComponentModel.DataAnnotations;
 
 namespace Africanacity_Team24_INF370_.models.Inventory
 {
-	public class Inventory_Type
-	{
-		[Key]
-		public int Inventory_TypeId { get; set; }
+    public class Inventory_Type : BaseEntity
+    {
+        [Key]
+        public int Inventory_TypeId { get; set; }
 
-		[MaxLength(50)]
-		public string Name { get; set; } = string.Empty;
+        public virtual ICollection<Inventory_Item> Inventory_Items { get; set; }
 
-		[MaxLength(100)]
-		public string Description { get; set; } = string.Empty;
 
-		public List<Inventory_Item> Inventorys { get; set; } = new List<Inventory_Item>();
-	}
+        //public List<Inventory_Item> Inventorys { get; set; } = new List<Inventory_Item>();
+    }
 }

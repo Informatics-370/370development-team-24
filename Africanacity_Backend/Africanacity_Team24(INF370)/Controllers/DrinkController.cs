@@ -58,16 +58,38 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         }
 
-        // Add drink item
+        // Add drink
         [HttpPost]
-        [Route("AddDrinkItem")]
-        public async Task<IActionResult> AddDrinkItem(DrinkViewModel drinkViewModel)
+        [Route("AddDrink")]
+        public async Task<IActionResult> AddDrink(DrinkViewModel dvm)
         {
-            var drinkItem = new Drink { Name = drinkViewModel.Name };
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var drink = new Drink
+            {
+                Name = dvm.Name,
+                Drink_TypeId = Convert.ToInt32(dvm.DrinkType),
+            };
 
             try
             {
-                _repository.Add(drinkItem);
+                _repository.Add(drink);
+                await _repository.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return BadRequest("Invalid transaction");
+            }
+
+            return Ok(drink);
+            /*var drink = new Drink { Name = dvm.Name };
+
+            try
+            {
+                _repository.Add(drink);
                 await _repository.SaveChangesAsync();
             }
             catch (Exception)
@@ -76,26 +98,26 @@ namespace Africanacity_Team24_INF370_.Controllers
                 return BadRequest("Invalid Transaction");
             }
 
-            return Ok(drinkItem);
+            return Ok(drink);*/
         }
 
-        // Edit drink item
+        // Edit drink type
         [HttpPut]
-        [Route("EditDrinkItem/{DrinkId}")]
-        public async Task<ActionResult<DrinkViewModel>> EditDrinkItem(int DrinkId, DrinkViewModel drinkViewModel)
+        [Route("EditDrink/{drinkId}")]
+        public async Task<ActionResult<DrinkViewModel>> EditDrink(int drinkId, DrinkViewModel dvm)
         {
             try
             {
-                var existingDrinkItem = await _repository.GetDrinkItemAsync(DrinkId);
+                var existingDrink = await _repository.GetDrinkAsync(drinkId);
 
                 // fix error message
-                if (existingDrinkItem == null) return NotFound($"The drink type does not exist");
+                if (existingDrink == null) return NotFound($"The drink does not exist");
 
-                existingDrinkItem.Name = drinkViewModel.Name;
+                existingDrink.Name = dvm.Name;
 
                 if (await _repository.SaveChangesAsync())
                 {
-                    return Ok(existingDrinkItem);
+                    return Ok(existingDrink);
                 }
             }
             catch (Exception)
@@ -105,23 +127,23 @@ namespace Africanacity_Team24_INF370_.Controllers
             return BadRequest("Your request is invalid");
         }
 
-        // Delete drink item
+        // Delete drink 
         [HttpDelete]
-        [Route("DeleteDrinkItem/{DrinkId}")]
-        public async Task<IActionResult> DeleteDrinkItem(int DrinkId)
+        [Route("DeleteDrink/{drinkId}")]
+        public async Task<IActionResult> DeleteDrink(int drinkId)
         {
             try
             {
-                var existingDrinkItem = await _repository.GetDrinkItemAsync(DrinkId);
+                var existingDrink = await _repository.GetDrinkTypeAsync(drinkId);
 
                 // fix error message
-                if (existingDrinkItem == null) return NotFound($"The food type does not exist");
+                if (existingDrink == null) return NotFound($"The food type does not exist");
 
-                _repository.Delete(existingDrinkItem);
+                _repository.Delete(existingDrink);
 
                 if (await _repository.SaveChangesAsync())
                 {
-                    return Ok(existingDrinkItem);
+                    return Ok(existingDrink);
                 }
             }
             catch (Exception)
