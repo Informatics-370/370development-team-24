@@ -13,7 +13,7 @@ import { Supplier_Inventory } from '../shared/supplieritem';
   })
   export class InventoryService {
   
-    apiUrl = 'http://localhost:49991/api/'
+    apiUrl = 'https://localhost:49991/api/'
     private inventoryItems: InventoryItem[] = [];
     private checklistItems: InventoryItem[] = [];
     // private inventoryItemsChanged$ = new BehaviorSubject<InventoryItem[]>([]);

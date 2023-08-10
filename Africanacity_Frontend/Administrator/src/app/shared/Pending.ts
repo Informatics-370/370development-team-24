@@ -8,4 +8,6 @@ export class Pending{
     instagram!: string;
     entertainmenttype!: number;
     entertainmentTypeName!: string;
+    eventname! : string;
+    additional!: string;
   }

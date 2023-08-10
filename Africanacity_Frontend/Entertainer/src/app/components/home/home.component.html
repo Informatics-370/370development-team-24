@@ -22,25 +22,15 @@
 
 <div class="container-fluid">
   <div class="row">
-    <h1 style="margin-left: 20%;"> Events</h1>
-    <div class="flip-card"  style="margin-left: 20%; margin-bottom: 10%;">
-      <div class="flip-card-inner">
-        <div class="flip-card-front">
-          <img src="../../assets/Nav_image/Avatar2.jpeg" alt="Avatar" style="width:200px;height:200px;">
-        </div>
-        <div class="flip-card-back">
-          <h1>John Doe</h1>
-          <p>Architect & Engineer</p>
-          <p>We love that guy</p>
-        </div>
-      </div>
-    </div>
-    <div class="card" style="margin-left: 10%; margin-bottom: 10%;">
-      <img src="../../assets/Nav_image/Avatar2.jpeg" alt="Denim Jeans" style="width:50%; height: 50%;">
-      <h1>Tailored Jeans</h1>
-      <p class="price">$19.99</p>
-      <p>Some text about the jeans..</p>
-      <p><button>Add to Cart</button></p>
+    <h1 style="margin-left: 50%;"> Events</h1><br><br>
+    <div class="card" style="margin-left: 13%; margin-bottom: 10%;"  *ngFor="let event of bookingevents">
+      <img src="../../assets/Nav_image/Avatar2.jpeg" alt="Events" style="width:100%; height: 50%; border-radius: 1%;">
+      <h1>{{event.name}}</h1>
+      <p>{{event.description}}</p>
+      <p>Date: 2023-08-10 </p>
+      <p>Start 9pm until late</p>
+      <p>Venue: Mmino Restarurant, Hatfield </p>
+      <p><button  [routerLink]="['/booking', event.eventId]" >Make Booking</button></p>
     </div>
   </div>
 </div>

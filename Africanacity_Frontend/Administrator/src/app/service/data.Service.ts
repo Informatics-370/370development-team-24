@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { map, Observable, Subject } from 'rxjs';
 import { LoginUser } from '../shared/login-user';
-import { RegisterUser } from '../shared/register-user';
 import { User } from '../shared/user';
 import { Employee_Role} from '../shared/EmployeeRole';
 import { MenuTypes } from '../shared/menu-types'; //Menu Types
@@ -23,7 +22,7 @@ import { Drink } from '../shared/Drink';
 export class DataService {
   
 
-  apiUrl = 'http://localhost:49991/api/'
+  apiUrl = 'https://localhost:49991/api/'
 
   httpOptions ={
     headers: new HttpHeaders({
@@ -33,24 +32,7 @@ export class DataService {
 
   constructor(private httpClient: HttpClient) {   
   }
-// Register user
-  RegisterUser(registerUser: LoginUser){
-    return this.httpClient.post(`${this.apiUrl}Authentication/Register`, registerUser, this.httpOptions)
-  }
 
-  //Login user
-  LoginUser(loginUser: LoginUser){
-    let user = new UserCredentials
-    return this.httpClient.post<User>(`${this.apiUrl}Authentication/Login`, loginUser, this.httpOptions)
-  }
-
-
-//Change user password
-   ChangePassword(loginUser: LoginUser){
-    let user = new UserCredentials
-    return this.httpClient.post<User>(`${this.apiUrl}Authentication/Forgotpassword`, loginUser, this.httpOptions)
-  }
-  
 // Generate otp 
   ValidateOtp(user: User){
     return this.httpClient.post(`${this.apiUrl}Authentication/Otp`, user, this.httpOptions)
@@ -349,9 +331,3 @@ DeleteEntertainmentType(entertainment_TypeId: Number)
 
 
 }
-
-
-class UserCredentials  {
-  EmailAddress:string = 'Addyouremailaddresshere';
-  Password:string = 'Addyourpasswordhere'
-   }

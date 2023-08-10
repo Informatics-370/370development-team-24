@@ -190,9 +190,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                             DiscountId = 1,
                             Amount = 0.10m,
                             Description = "10% Discount",
-                            End_Date = new DateTime(2023, 8, 10, 1, 9, 23, 682, DateTimeKind.Local).AddTicks(4685),
+                            End_Date = new DateTime(2023, 8, 20, 12, 44, 34, 72, DateTimeKind.Local).AddTicks(3391),
                             Name = "Month end discount",
-                            Start_Date = new DateTime(2023, 7, 31, 1, 9, 23, 682, DateTimeKind.Local).AddTicks(4684)
+                            Start_Date = new DateTime(2023, 8, 10, 12, 44, 34, 72, DateTimeKind.Local).AddTicks(3390)
                         });
                 });
 
@@ -576,6 +576,9 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingId"), 1L, 1);
 
+                    b.Property<string>("Additional")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("Booking_StatusId")
                         .HasColumnType("int");
 
@@ -598,6 +601,9 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     b.Property<int>("Entertainment_TypeId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Eventname")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
@@ -786,6 +792,9 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Pending_BookingId"), 1L, 1);
 
+                    b.Property<string>("Additional")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ContactNumber")
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
@@ -803,6 +812,12 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<int>("Entertainment_TypeId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("EventId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Eventname")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
@@ -819,6 +834,8 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasKey("Pending_BookingId");
 
                     b.HasIndex("Entertainment_TypeId");
+
+                    b.HasIndex("EventId");
 
                     b.ToTable("Pending_Bookings");
                 });
@@ -1175,9 +1192,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             SupplierItemId = 1,
                             Inventory_ItemId = 1,
-                            Ordered_Date = new DateTime(2023, 7, 31, 0, 0, 0, 0, DateTimeKind.Local),
+                            Ordered_Date = new DateTime(2023, 8, 10, 0, 0, 0, 0, DateTimeKind.Local),
                             Ordered_Quantity = 33,
-                            Received_Date = new DateTime(2023, 7, 31, 0, 0, 0, 0, DateTimeKind.Local),
+                            Received_Date = new DateTime(2023, 8, 10, 0, 0, 0, 0, DateTimeKind.Local),
                             SupplierId = 1
                         });
                 });
@@ -2315,6 +2332,10 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Africanacity_Team24_INF370_.models.Booking.Event", null)
+                        .WithMany("Pending_Bookings")
+                        .HasForeignKey("EventId");
+
                     b.Navigation("EntertainmentType");
                 });
 
@@ -2640,6 +2661,11 @@ namespace Africanacity_Team24_INF370_.Migrations
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Entertainment_Type", b =>
+                {
+                    b.Navigation("Pending_Bookings");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Event", b =>
                 {
                     b.Navigation("Pending_Bookings");
                 });

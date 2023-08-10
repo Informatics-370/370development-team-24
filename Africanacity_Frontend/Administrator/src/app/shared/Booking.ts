@@ -7,4 +7,7 @@ export class Booking{
     demo!: string;
     entertainmenttype!: number;
     entertainmentTypeName!: string;
+    eventname! : string;
+    additional!: string;
+    instagram!: string;
   }

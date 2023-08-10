@@ -31,6 +31,12 @@
   <div class="container">
   <div class="row">  
   <form [formGroup]="updateBookingForm" class="form-horizontal"  (ngSubmit)="updateBooking()">
+    <div class="form-group">
+      <label class=" col-sm-1" style="font-weight: bold;" for="eventname">Event:</label>
+      <div class="col-sm-6">
+        <input class="form-control" id="eventname"  [required]="true" formControlName="eventname">
+      </div>
+  </div>
       <div class="form-group">
           <label class=" col-sm-1" style="font-weight: bold;" for="lastName">Surname:</label>
           <div class="col-sm-6">
@@ -65,11 +71,19 @@
             <textarea class="form-control" type="text" id="contactNumber" placeholder="Enter 10-digit number" [required]="true" formControlName="contactNumber"></textarea>
           </div>
       </div><br>
+      <div *ngFor="let booking of bookings">
+        <img class="pdemo" src='data:image/png;base64,{{ booking.demo }}'>
+      </div>
+      <!-- <div class="form-group" >
+        <input formControlName="demo" type="file" id="demo" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;"> Choose file
+        <button color="primary" (click)="file.click()">Upload File</button>
+        <span *ngIf="fileNameUploaded.length > 0"> {{fileNameUploaded}}</span>
+      </div><br> -->
       <div class="form-group">
         <input formControlName="demo" type="file" id="demo" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;"> Choose file
         <button color="primary" (click)="file.click()">Upload File</button>
         <span *ngIf="fileNameUploaded.length > 0"> {{fileNameUploaded}}</span>
-      </div><br>
+      </div>
       <div class="form-group">
         <div class="col-sm-offset-1 col-sm-6">
           <button style="margin-right:1em;" type="submit" [disabled]="!updateBookingForm.valid" class="btn btn-sm btn-success">Confirm</button>

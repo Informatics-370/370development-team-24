@@ -497,7 +497,7 @@ namespace Africanacity_Team24_INF370_.models
 		// Pending Booking
 		public async Task<Pending_Booking[]> GetPendingsAsync()
 		{
-			IQueryable<Pending_Booking> query = _appDbContext.Pending_Bookings/*.Include(p => p.Schedule)*/.Include(p => p.EntertainmentType);
+			IQueryable<Pending_Booking> query = _appDbContext.Pending_Bookings/*.Include(p => p.Events)*/.Include(p => p.EntertainmentType);
 
 			return await query.ToArrayAsync();
 		}

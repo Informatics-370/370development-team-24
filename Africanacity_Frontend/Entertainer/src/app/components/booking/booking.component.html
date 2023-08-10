@@ -57,6 +57,10 @@ padding: 20px;
         <form action="" [formGroup]="bookingForm" class="form-horizontal" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
           
           <fieldset>
+            <label for="eventname">Event</label>
+            <input type="text" formControlName="eventname">
+            <div *ngIf="bookingForm.get('events')?.invalid && bookingForm.get('events')?.touched">
+            </div>
             <label>First Name 
               <input class="form-control" placeholder="Enter FirstName" [required]="true" name="firstName" formControlName="firstName" /></label>
             <label>Last Name 
@@ -84,7 +88,7 @@ padding: 20px;
               <span *ngIf="fileNameUploaded.length > 0"> {{fileNameUploaded}}</span>
             </div><br>
             <label>Additional Requests
-            <textarea name="additional" rows="5" cols="30" placeholder="Your message ..."></textarea>
+            <textarea name="additional" formControlName="additional" rows="5" cols="30" placeholder="Your message ..."></textarea>
             </label>
           </fieldset>
           <input type="submit" [disabled]="!bookingForm.valid"  value="Submit" />

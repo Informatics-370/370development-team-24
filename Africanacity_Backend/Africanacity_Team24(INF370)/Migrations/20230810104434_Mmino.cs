@@ -468,9 +468,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                 {
                     EventId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    AdministratorId = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AdministratorId = table.Column<int>(type: "int", nullable: true)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -951,6 +951,8 @@ namespace Africanacity_Team24_INF370_.Migrations
                     ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Demo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Entertainment_TypeId = table.Column<int>(type: "int", nullable: false),
+                    Eventname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Additional = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Booking_StatusId = table.Column<int>(type: "int", nullable: true),
                     EntertainerId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -986,8 +988,11 @@ namespace Africanacity_Team24_INF370_.Migrations
                     Instagram = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ContactNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    Eventname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Additional = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Demo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Entertainment_TypeId = table.Column<int>(type: "int", nullable: false),
+                    EventId = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -1000,6 +1005,11 @@ namespace Africanacity_Team24_INF370_.Migrations
                         principalTable: "Entertainment_Type",
                         principalColumn: "Entertainment_TypeId",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Pending_Bookings_Events_EventId",
+                        column: x => x.EventId,
+                        principalTable: "Events",
+                        principalColumn: "EventId");
                 });
 
             migrationBuilder.CreateTable(
@@ -1131,7 +1141,7 @@ namespace Africanacity_Team24_INF370_.Migrations
             migrationBuilder.InsertData(
                 table: "Discounts",
                 columns: new[] { "DiscountId", "AdministratorId", "Amount", "Description", "End_Date", "Name", "Start_Date" },
-                values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 8, 10, 1, 9, 23, 682, DateTimeKind.Local).AddTicks(4685), "Month end discount", new DateTime(2023, 7, 31, 1, 9, 23, 682, DateTimeKind.Local).AddTicks(4684) });
+                values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 8, 20, 12, 44, 34, 72, DateTimeKind.Local).AddTicks(3391), "Month end discount", new DateTime(2023, 8, 10, 12, 44, 34, 72, DateTimeKind.Local).AddTicks(3390) });
 
             migrationBuilder.InsertData(
                 table: "Drink_Prices",
@@ -1370,7 +1380,7 @@ namespace Africanacity_Team24_INF370_.Migrations
             migrationBuilder.InsertData(
                 table: "Supplier_Inventorys",
                 columns: new[] { "SupplierItemId", "Inventory_ItemId", "Ordered_Date", "Ordered_Quantity", "Received_Date", "SupplierId" },
-                values: new object[] { 1, 1, new DateTime(2023, 7, 31, 0, 0, 0, 0, DateTimeKind.Local), 33, new DateTime(2023, 7, 31, 0, 0, 0, 0, DateTimeKind.Local), 1 });
+                values: new object[] { 1, 1, new DateTime(2023, 8, 10, 0, 0, 0, 0, DateTimeKind.Local), 33, new DateTime(2023, 8, 10, 0, 0, 0, 0, DateTimeKind.Local), 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Access_UserRoles_User_RolesUser_RoleId",
@@ -1550,6 +1560,11 @@ namespace Africanacity_Team24_INF370_.Migrations
                 name: "IX_Pending_Bookings_Entertainment_TypeId",
                 table: "Pending_Bookings",
                 column: "Entertainment_TypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Pending_Bookings_EventId",
+                table: "Pending_Bookings",
+                column: "EventId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Schedules_AdministratorId",
