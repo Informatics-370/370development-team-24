@@ -17,7 +17,7 @@ import { MenuItemCategory } from '../shared/menu-item-category';
 export class DataService {
   
 
-  apiUrl = 'https://localhost:49991/api/'
+  apiUrl = 'http://localhost:49991/api/'
 
   httpOptions ={
     headers: new HttpHeaders({
