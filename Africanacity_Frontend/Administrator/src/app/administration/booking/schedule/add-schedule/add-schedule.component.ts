@@ -10,7 +10,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-add-schedule',
   templateUrl: './add-schedule.component.html',
-  styleUrls: ['./add-schedule.component.css']
+  styleUrls: ['./add-schedule.component.css'],
 })
 
 export class AddScheduleComponent implements OnInit{
@@ -18,13 +18,21 @@ export class AddScheduleComponent implements OnInit{
   formData = new FormData();
   bookingevents: BookingEvent[]=[];
   newEvents: Event[] = [];
-  
- 
+
+  //Date Validation 
+  minDate: Date;
+  maxDate: Date;
+
   constructor( private dataService: DataService, private fb: FormBuilder,private router: Router, 
     private snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<AddScheduleComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  ) {
+    //Set min date to 20 years in the past and a year in the future
+    const currentYear = new Date().getFullYear();
+    this.minDate = new Date(currentYear - 20, 0, 1);
+    this.maxDate = new Date(currentYear + 1, 11, 31);
+  }
 
      // Create an EventEmitter to emit the new event data
     @Output() eventAdded: EventEmitter<any> = new EventEmitter<any>();
@@ -44,7 +52,7 @@ export class AddScheduleComponent implements OnInit{
       this.GetAllEvents()
     }
 
-  //Events method
+  //Retrieve Events method
   GetAllEvents()
   {
     this.dataService.GetAllEvents().subscribe(result => {

@@ -851,37 +851,37 @@ namespace Africanacity_Team24_INF370_.models
                                  .HasData(
                                   new
                                   {
-                                      Schedule_Id = 1,
+                                      ScheduleId = 1,
                                       Title = "Music slot",
-                                      Date = 2023-06-25,
+                                      Date = new DateTime(2023,06,25),
                                       Start_Time = "14;00 PM",
                                       End_Time = "14:30 PM",
-                                      Description = "Musician can book performance"
-                                      //Event_Id = 1
+                                      Description = "Musician can book performance",
+                                      EventId = 1
                                   });
             modelBuilder.Entity<Schedule>()
                                 .HasData(
                                  new
                                  {
-                                     Schedule_Id = 2,
+                                     ScheduleId = 2,
                                      Title = "Dance slot ",
-                                     Date = 2023 - 08 - 02,
+                                     Date = new DateTime(2023,08,02),
                                      Start_Time = "21;00 PM",
                                      End_Time = "21:30 PM",
-                                     Description = "Contemporary Dance performance"
-                                     //Event_Id = 2
+                                     Description = "Contemporary Dance performance",
+                                     EventId = 2
                                  });
             modelBuilder.Entity<Schedule>()
                                 .HasData(
                                  new
                                  {
-                                     Schedule_Id = 3,
+                                     ScheduleId = 3,
                                      Title = "Poetry",
-                                     Date = 2023 - 07 - 22,
+                                     Date = new DateTime(2023,07,22),
                                      Start_Time = "19;00 PM",
                                      End_Time = "19:15 PM",
-                                     Description = "Poet recital"
-                                     //Event_Id = 3
+                                     Description = "Poet recital",
+                                     EventId = 3
                                  });
 
 
