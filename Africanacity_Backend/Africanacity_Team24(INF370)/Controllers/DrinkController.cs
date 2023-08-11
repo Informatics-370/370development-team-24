@@ -23,20 +23,45 @@ namespace Africanacity_Team24_INF370_.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
         // getting a list of all the drink items
+        //[HttpGet]
+        //[Route("GetAllDrinks")]
+        //public async Task<IActionResult> GetAllDrinks()
+        //{
+        //    try
+        //    {
+        //        var drinkItems = await _repository.GetAllDrinksAsync();
+        //        return Ok(drinkItems);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        /*Fix error message*/
+        //        //return StatusCode(500, "Enter some error message");
+        //        return StatusCode(StatusCodes.Status500InternalServerError, "No such values");
+        //    }
+        //}
+
+
         [HttpGet]
-        [Route("GetAllDrinks")]
-        public async Task<IActionResult> GetAllDrinks()
+        [Route("DrinkItemListing")]
+        public async Task<ActionResult> DrinkItemListing()
         {
             try
             {
-                var drinkItems = await _repository.GetAllDrinksAsync();
-                return Ok(drinkItems);
+                var results = await _repository.GetAllDrinksAsync();
+
+                dynamic drinks = results.Select(p => new
+                {
+                    p.DrinkId,
+                    p.Name,
+                    DrinkTypeName = p.Drink_Type.Name,
+                });
+
+                return Ok(drinks);
             }
             catch (Exception)
             {
-                /*Fix error message*/
-                //return StatusCode(500, "Enter some error message");
-                return StatusCode(StatusCodes.Status500InternalServerError, "No such values");
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
             }
         }
 

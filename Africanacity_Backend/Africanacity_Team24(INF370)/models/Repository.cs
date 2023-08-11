@@ -120,9 +120,16 @@ namespace Africanacity_Team24_INF370_.models
         }
 
         //DRINK ITEM
+        //public async Task<Drink[]> GetAllDrinksAsync()
+        //{
+        //    IQueryable<Drink> query = _appDbContext.Drinks;
+        //    return await query.ToArrayAsync();
+        //}
+
         public async Task<Drink[]> GetAllDrinksAsync()
         {
-            IQueryable<Drink> query = _appDbContext.Drinks;
+            IQueryable<Drink> query = _appDbContext.Drinks.Include(p => p.Drink_Type);
+
             return await query.ToArrayAsync();
         }
         public async Task<Drink> GetDrinkItemAsync(int DrinkId)
