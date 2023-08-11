@@ -13,7 +13,7 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./view-drink.component.css']
 })
 export class ViewDrinkComponent implements OnInit{
-  displayedColumns: string[] = ['id','name', 'drinkTypeName', 'delete', 'edit' ];
+  displayedColumns: string[] = ['name', 'drinkTypeName', 'delete', 'edit' ];
   drink: Drink[] = [];
   filteredDrinks: Drink[] = [];
 
@@ -27,6 +27,10 @@ export class ViewDrinkComponent implements OnInit{
     //private snackbar: MatSnackBar,
     ) {}
 
+    ngOnInit(): void {
+      this.dataService.GetAllDrinks().subscribe((drink:any) => {this.dataSource.data = drink})
+    }
+
   deleteItem(): void {
     const confirmationSnackBar = this.snackbar.open('Are you sure you want to delete this item?', 'Cancel Delete', {duration: 5000,})
     
@@ -36,24 +40,21 @@ export class ViewDrinkComponent implements OnInit{
     });
   }
 
-  ngOnInit(): void {
-    this.GetAllDrinks();
-    this.filteredDrinks = this.drink
-  }
+  
 
   deleteItemFromServer(): void {
     this.DeleteDrink;
   }
 
-  GetAllDrinks()
-  {
-    this.dataService.GetAllDrinks().subscribe(result => {
-      let drinksList: any[] = result
-      drinksList.forEach((element) => {
-        this.drink.push(element)
-      });
-    })
-  }
+  // GetAllDrinks()
+  // {
+  //   this.dataService.GetAllDrinks().subscribe(result => {
+  //     let drinksList: any[] = result
+  //     drinksList.forEach((element) => {
+  //       this.drink.push(element)
+  //     });
+  //   })
+  // }
 
   DeleteDrink(drinkId: number)
   {

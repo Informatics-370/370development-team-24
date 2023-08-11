@@ -1,5 +1,5 @@
 export class Drink {
     drinkId!: number;
     name!: string;
-    drinkType!: number;
+    drinkTypeId!:Number;
     drinkTypeName!: string;}

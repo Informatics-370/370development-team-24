@@ -1,4 +1,4 @@
 export class DrinkType {
-    drinkTypeId!: number;
+    drinkTypeId!: Number;
     name!: string;
 }

@@ -20,14 +20,17 @@ export class CreateDrinkComponent implements OnInit {
   toastContainer!: ViewContainerRef;
   DrinkId: number = 0;
   //AddDrinkForm!: FormGroup;
-  drinkTypesData : DrinkType [] = [] ;
+  formData = new FormData();
+  drinkTypesData : DrinkType[]=[]
+  
   //drinks :Drink[]=[];
 
   // CREATING A FORM
-  AddDrinkForm: FormGroup = new FormGroup({
-    // id: new FormControl('',[Validators.required]),
-    name: new FormControl('',[Validators.required]),
-    drinkType: new FormControl('',[Validators.required])
+  AddDrinkForm: FormGroup = this.fb.group({
+    name: ['', Validators.required],
+    drinkType: ['', Validators.required],
+    amount: [null, Validators.required]
+    
   })
 
   constructor(private dataService: DataService, 
@@ -58,7 +61,8 @@ export class CreateDrinkComponent implements OnInit {
   {
     
     this.GetAllDrinkTypes();
-    console.log(this.drinkTypesData)
+    
+    
   }
 
   cancel()
@@ -66,30 +70,56 @@ export class CreateDrinkComponent implements OnInit {
     this.router.navigate(['/drink'])
   }
 
-  GetAllDrinkTypes()
-  {
-    this.dataService.GetAllDrinkTypes().subscribe(result => {
-      let drinkTypesList:any[] = result
-      drinkTypesList.forEach((element) => {
-        this.drinkTypesData.push(element)
-      });
-    });
+  GetAllDrinkTypes() {
+    this.dataService.GetAllDrinkTypes().subscribe(
+      (result: DrinkType[]) => {
+        this.drinkTypesData = result;
+        console.log(this.drinkTypesData); // Moved inside the subscribe block
+      },
+      (error: any) => {
+        console.error('Error fetching drink types:', error);
+      }
+    );
   }
 
-  AddDrink()
+  /*AddDrink()
   {
     if (this.AddDrinkForm.invalid) {
       return;
     }
     let drink = new Drink();
     drink.name = this.AddDrinkForm.value.name;
-    drink.drinkType = this.AddDrinkForm.value.drinkType;
+    drink.drinkTypeId = this.AddDrinkForm.value.drinkType;
 
     this.dataService.AddDrink(drink).subscribe(result => {
       this.router.navigate(['/view-drink'])
       console.log("drink", drink)
     });
     this.showSuccessMessage('Drink added successfully!');
+  }*/
+
+  AddDrink() {
+    if(this.AddDrinkForm.valid)
+    {
+       // Log the drinkType value before sending the request
+       console.log("drinkType value:", this.AddDrinkForm.get('drinkType')!.value);
+      this.formData.append('name', this.AddDrinkForm.get('name')!.value);
+      this.formData.append('drinkType', this.AddDrinkForm.get('drinkType')!.value);
+      
+      
+          // Add the price as well
+          const amount = this.AddDrinkForm.get('amount')!.value;
+          this.formData.append('amount', amount.toString());
+  
+      this.dataService.AddDrink(this.formData, amount).subscribe(() => {
+        this.clearData()
+        this.router.navigateByUrl('./view-drink').then((navigated: boolean) => {
+          if(navigated) {
+            this.snackBar.open(this.AddDrinkForm.get('name')!.value + ` created successfully`, 'X', {duration: 5000});
+          }
+       });
+      });
+    }
   }
 
   /*onSubmit() {
@@ -109,11 +139,11 @@ export class CreateDrinkComponent implements OnInit {
     }
   }*/
 
-  /*clearData()
+  clearData()
   {
     this.formData.delete("name");
     this.formData.delete("drinkType");
-  }*/
+  }
 
   // success message
   showSuccessMessage(message: string): void {

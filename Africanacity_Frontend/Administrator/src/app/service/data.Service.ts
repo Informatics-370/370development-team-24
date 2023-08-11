@@ -191,7 +191,7 @@ export class DataService {
 
   // drink type
   GetAllDrinkTypes(): Observable<any>{
-    return this.httpClient.get(`${this.apiUrl}drinkType/GetAllDrinkTypes`).pipe(map(result => result)) 
+    return this.httpClient.get(`${this.apiUrl}DrinkType/GetAllDrinkTypes`).pipe(map(result => result)) 
   }
 
   GetDrinkType(drinkTypeId: number)
@@ -204,20 +204,20 @@ export class DataService {
     return this.httpClient.post(`${this.apiUrl}drinkType/AddDrinkType`, drinkType, this.httpOptions)
   }
 
-  EditDrinkType(drinkTypeId: number, drinkType: DrinkType)
+  EditDrinkType(drinkTypeId: Number, drinkType: DrinkType)
   {
     return this.httpClient.put(`${this.apiUrl}drinkType/EditDrinkType/${drinkTypeId}`, drinkType, this.httpOptions)
   }
 
-  DeleteDrinkType(drinkTypeId: number)
+  DeleteDrinkType(drinkTypeId: Number)
   {
     return this.httpClient.delete<string>(`${this.apiUrl}drinkType/DeleteDrinkType` + "/" + drinkTypeId, this.httpOptions)
   }
 
   // drink 
-  GetAllDrinks(): Observable<any>
-  {
-    return this.httpClient.get(`${this.apiUrl}Drink/DrinkItemListing`).pipe(map(result => result)) 
+  GetAllDrinks() {
+    return this.httpClient.get(`${this.apiUrl}controller/DrinkItemListing`)
+    .pipe(map(result => result))
   }
 
   GetDrink(drinkId: number): Observable<any>
@@ -225,10 +225,25 @@ export class DataService {
     return this.httpClient.get(`${this.apiUrl}Drink/GetDrink/${drinkId}`);
   }
 
-  AddDrink(drink: Drink)
-  {
-    return this.httpClient.post(`${this.apiUrl}Drink/AddDrink`, drink, this.httpOptions)
-  }
+  // AddDrink(drink: Drink)
+  // {
+  //   return this.httpClient.post(`${this.apiUrl}Drink/AddDrink`, drink, this.httpOptions)
+  // }
+
+  // DataService - Updated AddDrink method
+AddDrink(file: FormData, amount: number): Observable<any> {
+  // Append the amount to the FormData
+  file.append('amount', amount.toString());
+  
+  // Update the return statement to handle the response
+  return this.httpClient.post(`${this.apiUrl}controller/AddDrink`, file).pipe(
+    map(response => {
+      return { drink: response, amount: amount };
+    })
+  );
+}
+
+  
 
   EditDrink(drinkId: number, drink: Drink)
   {
