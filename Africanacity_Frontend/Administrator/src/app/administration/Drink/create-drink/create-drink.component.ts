@@ -9,6 +9,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'src/app/administration/menu-types/add-menu-type/confirmation-dialog/confirmation-dialog.component'
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar'
 import { DrinkType } from 'src/app/shared/Drink_Type';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-drink',
@@ -18,10 +19,8 @@ import { DrinkType } from 'src/app/shared/Drink_Type';
 export class CreateDrinkComponent implements OnInit {
   @ViewChild('toastContainer', { read: ViewContainerRef })
   toastContainer!: ViewContainerRef;
-  DrinkId: number = 0;
-  //AddDrinkForm!: FormGroup;
   formData = new FormData();
-  drinkTypesData : DrinkType[]=[]
+  drinkTypesData : DrinkType[]=[];
   
   //drinks :Drink[]=[];
 
@@ -61,25 +60,15 @@ export class CreateDrinkComponent implements OnInit {
   {
     
     this.GetAllDrinkTypes();
-    
-    
+    console.log(this.drinkTypesData);
   }
 
-  cancel()
-  {
-    this.router.navigate(['/drink'])
-  }
-
+ 
   GetAllDrinkTypes() {
-    this.dataService.GetAllDrinkTypes().subscribe(
-      (result: DrinkType[]) => {
-        this.drinkTypesData = result;
-        console.log(this.drinkTypesData); // Moved inside the subscribe block
-      },
-      (error: any) => {
-        console.error('Error fetching drink types:', error);
-      }
-    );
+    this.dataService.GetAllDrinkTypes().subscribe(result => {
+      this.drinkTypesData = result;
+      console.log("Drink types data:", this.drinkTypesData);
+    });
   }
 
   /*AddDrink()
@@ -98,29 +87,47 @@ export class CreateDrinkComponent implements OnInit {
     this.showSuccessMessage('Drink added successfully!');
   }*/
 
-  AddDrink() {
-    if(this.AddDrinkForm.valid)
-    {
-       // Log the drinkType value before sending the request
-       console.log("drinkType value:", this.AddDrinkForm.get('drinkType')!.value);
-      this.formData.append('name', this.AddDrinkForm.get('name')!.value);
-      this.formData.append('drinkType', this.AddDrinkForm.get('drinkType')!.value);
-      
-      
-          // Add the price as well
-          const amount = this.AddDrinkForm.get('amount')!.value;
-          this.formData.append('amount', amount.toString());
   
-      this.dataService.AddDrink(this.formData, amount).subscribe(() => {
-        this.clearData()
-        this.router.navigateByUrl('./view-drink').then((navigated: boolean) => {
-          if(navigated) {
-            this.snackBar.open(this.AddDrinkForm.get('name')!.value + ` created successfully`, 'X', {duration: 5000});
-          }
-       });
-      });
+
+// ...
+
+AddDrink() {
+  if (this.AddDrinkForm.valid) {
+    const drinkTypeValue = this.AddDrinkForm.get('drinkType')!.value;
+
+    if (!drinkTypeValue) {
+      console.error("Invalid drinkType value.");
+      return;
     }
+
+    // Use the selected drinkTypeId as a string
+   // const drinkTypeIdAsString = drinkTypeValue.drinkTypeId.toString();
+
+    this.formData.append('name', this.AddDrinkForm.get('name')!.value);
+    this.formData.append('drinkType', this.AddDrinkForm.get('drinkType')!.value);
+      
+    // Add the price as well
+    const amount = this.AddDrinkForm.get('amount')!.value;
+    this.formData.append('amount', amount.toString());
+
+    this.dataService.addDrink(this.formData, amount).subscribe(() => {
+      this.clearData()
+      this.router.navigateByUrl('/view-drink').then((navigated: boolean) => {
+        if (navigated) {
+          this.snackBar.open(
+            this.AddDrinkForm.get('name')!.value + ` created successfully`,
+            'X',
+            { duration: 5000 }
+          );
+        }
+      });
+    });
+  } else {
+    console.error("Form is not valid.");
   }
+}
+
+
 
   /*onSubmit() {
     if(this.drinkForm.valid)

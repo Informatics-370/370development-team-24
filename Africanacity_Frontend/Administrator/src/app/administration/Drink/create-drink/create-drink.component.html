@@ -22,11 +22,11 @@
                             <div class="form-group">
                                 <label class="col-md-1" style="font-weight: bold;" for="drinkType">Drink Type</label>
                                 <div class="col-md-6">
-                                    <select class="form-control" id="drinkType" formControlName="drinkType">
-                                        <option *ngFor="let drinkType of drinkTypesData" [value]="drinkType.drinkTypeId">{{ drinkType.name }}</option>
-                                    </select>
+                                  <select class="form-control" id="drinkType" formControlName="drinkType">
+                                    <option *ngFor="let item of drinkTypesData" [value]="item.drinkTypeId">{{ item.name }}</option>
+                                  </select>
                                 </div>
-                            </div>
+                              </div>
                             <div class="form-group">
                                 <label class="col-md-1" style="font-weight: bold;" for="amount">Amount</label>
                                 <div class="col-md-6">
@@ -37,7 +37,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-offset-1 col-sm-6">
-                                <button style="margin-right:1em;" [disabled]="!AddDrinkForm.valid" type="submit" class="btn btn-sm btn-success" (onclick)="AddDrink()">Confirm</button>
+                                <button style="margin-right:1em;" type="submit" class="btn btn-sm btn-success">Confirm</button>
                                 <button type="button" class="btn btn-sm btn-danger" [routerLink]="'/view-drink'">Cancel</button>
                             </div>
                         </div>

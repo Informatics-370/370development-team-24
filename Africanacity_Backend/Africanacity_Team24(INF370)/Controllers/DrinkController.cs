@@ -139,16 +139,19 @@ namespace Africanacity_Team24_INF370_.Controllers
                 return BadRequest(ModelState);
             }
 
+
+            Console.WriteLine("formData[\"drinkType\"]: " + formData["drinkType"]);
             if (!int.TryParse(formData["drinkType"], out int drinkTypeId))
             {
                 return BadRequest("Invalid drinkType value.");
             }
 
+            drinkTypeId = Convert.ToInt32(formData["drinkType"]);
             //to add to menu item table
             var drink = new Drink
             {
                 Name = formData["name"],
-                Drink_TypeId = Convert.ToInt32(formData["drinkType"])
+                Drink_TypeId = drinkTypeId
                
             };
             try

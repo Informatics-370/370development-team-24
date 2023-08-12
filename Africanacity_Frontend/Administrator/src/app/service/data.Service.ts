@@ -191,7 +191,7 @@ export class DataService {
 
   // drink type
   GetAllDrinkTypes(): Observable<any>{
-    return this.httpClient.get(`${this.apiUrl}DrinkType/GetAllDrinkTypes`).pipe(map(result => result)) 
+    return this.httpClient.get(`${this.apiUrl}DrinkType/GetAllDrinkTypes`) 
   }
 
   GetDrinkType(drinkTypeId: number)
@@ -231,17 +231,11 @@ export class DataService {
   // }
 
   // DataService - Updated AddDrink method
-AddDrink(file: FormData, amount: number): Observable<any> {
-  // Append the amount to the FormData
-  file.append('amount', amount.toString());
-  
-  // Update the return statement to handle the response
-  return this.httpClient.post(`${this.apiUrl}controller/AddDrink`, file).pipe(
-    map(response => {
-      return { drink: response, amount: amount };
-    })
-  );
-}
+  addDrink(file:FormData, amount: number): Observable<any> {
+    // Append the amount to the FormData
+     file.append('amount', amount.toString());
+    return this.httpClient.post(`${this.apiUrl}controller/AddDrink`, file)
+  }
 
   
 
