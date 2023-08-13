@@ -45,7 +45,7 @@ export class EditBookingComponent implements OnInit {
     private auth: AuthService, 
     private userStore: UserStoreService
   ) { 
-    //this.updateBookingForm.controls['eventname'].disable();
+    this.updateBookingForm.controls['eventname'].disable();
   }
 
   uploadFile = (files: any) => {

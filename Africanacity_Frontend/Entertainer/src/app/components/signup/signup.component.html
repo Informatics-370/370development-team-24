@@ -32,6 +32,15 @@
                           </div>
                           <small  *ngIf="signUpForm.controls['physicalAddress'].dirty && signUpForm.hasError('required','physicalAddress')" class="text-danger">*Physical Address is required*</small>
                           <div class="form-group pt-3">
+                            <div class="input-field" [class.error]="signUpForm.controls['entertainmentType'].dirty && signUpForm.hasError('required','entertainmentType')"> <span class="fa fa-user p-2"></span> 
+                                <!-- <input id="entertainmenttype" formControlName="entertainmenttype" type="text" placeholder="Entertainmenttype"> -->
+                                <select class="form-control" id="entertainmentType" formControlName="entertainmentType">
+                                    <option *ngFor="let item of entertainmentTypeData" [value]="item.entertainment_TypeId">{{ item.name }}</option>
+                                  </select>
+                             </div>
+                        </div>
+                        <small  *ngIf="signUpForm.controls['entertainmentType'].dirty && signUpForm.hasError('required','entertainmentType')" class="text-danger">*Entertainment Type is required*</small>
+                        <div class="form-group pt-3">
                             <div class="input-field" [class.error]="signUpForm.controls['email'].dirty && signUpForm.hasError('required','email')"> <span class="fa fa-user p-2"></span> <input id="email" formControlName="email" type="text" placeholder="Email"> </div>
                         </div>
                         <small  *ngIf="signUpForm.controls['email'].dirty && signUpForm.hasError('required','email')" class="text-danger">*Email is required*</small>

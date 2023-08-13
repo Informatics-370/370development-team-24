@@ -826,43 +826,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Token = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ContactNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    PhysicalAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RefreshToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RefreshTokenExpiryTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ResetPasswordToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ResetPasswordTokenExpiry = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TitleId = table.Column<int>(type: "int", nullable: true),
-                    User_RoleId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Users_Titles_TitleId",
-                        column: x => x.TitleId,
-                        principalTable: "Titles",
-                        principalColumn: "TitleId");
-                    table.ForeignKey(
-                        name: "FK_Users_User_Roles_User_RoleId",
-                        column: x => x.User_RoleId,
-                        principalTable: "User_Roles",
-                        principalColumn: "User_RoleId");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Schedules",
                 columns: table => new
                 {
@@ -1013,6 +976,50 @@ namespace Africanacity_Team24_INF370_.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Token = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ContactNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    PhysicalAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RefreshToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RefreshTokenExpiryTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ResetPasswordToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ResetPasswordTokenExpiry = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EntertainmentType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Entertainment_TypeId = table.Column<int>(type: "int", nullable: true),
+                    TitleId = table.Column<int>(type: "int", nullable: true),
+                    User_RoleId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Users_Entertainment_Type_Entertainment_TypeId",
+                        column: x => x.Entertainment_TypeId,
+                        principalTable: "Entertainment_Type",
+                        principalColumn: "Entertainment_TypeId");
+                    table.ForeignKey(
+                        name: "FK_Users_Titles_TitleId",
+                        column: x => x.TitleId,
+                        principalTable: "Titles",
+                        principalColumn: "TitleId");
+                    table.ForeignKey(
+                        name: "FK_Users_User_Roles_User_RoleId",
+                        column: x => x.User_RoleId,
+                        principalTable: "User_Roles",
+                        principalColumn: "User_RoleId");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Supplier_InventoryItems",
                 columns: table => new
                 {
@@ -1141,7 +1148,7 @@ namespace Africanacity_Team24_INF370_.Migrations
             migrationBuilder.InsertData(
                 table: "Discounts",
                 columns: new[] { "DiscountId", "AdministratorId", "Amount", "Description", "End_Date", "Name", "Start_Date" },
-                values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 8, 20, 12, 44, 34, 72, DateTimeKind.Local).AddTicks(3391), "Month end discount", new DateTime(2023, 8, 10, 12, 44, 34, 72, DateTimeKind.Local).AddTicks(3390) });
+                values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 8, 22, 21, 20, 54, 812, DateTimeKind.Local).AddTicks(7996), "Month end discount", new DateTime(2023, 8, 12, 21, 20, 54, 812, DateTimeKind.Local).AddTicks(7996) });
 
             migrationBuilder.InsertData(
                 table: "Drink_Prices",
@@ -1380,7 +1387,7 @@ namespace Africanacity_Team24_INF370_.Migrations
             migrationBuilder.InsertData(
                 table: "Supplier_Inventorys",
                 columns: new[] { "SupplierItemId", "Inventory_ItemId", "Ordered_Date", "Ordered_Quantity", "Received_Date", "SupplierId" },
-                values: new object[] { 1, 1, new DateTime(2023, 8, 10, 0, 0, 0, 0, DateTimeKind.Local), 33, new DateTime(2023, 8, 10, 0, 0, 0, 0, DateTimeKind.Local), 1 });
+                values: new object[] { 1, 1, new DateTime(2023, 8, 12, 0, 0, 0, 0, DateTimeKind.Local), 33, new DateTime(2023, 8, 12, 0, 0, 0, 0, DateTimeKind.Local), 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Access_UserRoles_User_RolesUser_RoleId",
@@ -1607,6 +1614,11 @@ namespace Africanacity_Team24_INF370_.Migrations
                 column: "Supplier_TypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Users_Entertainment_TypeId",
+                table: "Users",
+                column: "Entertainment_TypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Users_TitleId",
                 table: "Users",
                 column: "TitleId");
@@ -1725,13 +1737,13 @@ namespace Africanacity_Team24_INF370_.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Entertainment_Type");
-
-            migrationBuilder.DropTable(
                 name: "Inventory_Items");
 
             migrationBuilder.DropTable(
                 name: "Suppliers");
+
+            migrationBuilder.DropTable(
+                name: "Entertainment_Type");
 
             migrationBuilder.DropTable(
                 name: "Titles");
@@ -1770,13 +1782,13 @@ namespace Africanacity_Team24_INF370_.Migrations
                 name: "Table_Numbers");
 
             migrationBuilder.DropTable(
-                name: "Entertainers");
-
-            migrationBuilder.DropTable(
                 name: "Inventory_Types");
 
             migrationBuilder.DropTable(
                 name: "Supplier_Types");
+
+            migrationBuilder.DropTable(
+                name: "Entertainers");
 
             migrationBuilder.DropTable(
                 name: "Administrators");

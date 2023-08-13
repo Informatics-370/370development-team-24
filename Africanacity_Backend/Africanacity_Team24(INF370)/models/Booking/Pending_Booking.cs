@@ -21,8 +21,6 @@ namespace Africanacity_Team24_INF370_.models.Booking
 		public string? Demo { get; set; }
 		public int Entertainment_TypeId { get; set; }
 		public Entertainment_Type EntertainmentType { get; set; }
-		//public int EventId { get; set; }
-		//public Event Events { get; set; }
 
 
 	}

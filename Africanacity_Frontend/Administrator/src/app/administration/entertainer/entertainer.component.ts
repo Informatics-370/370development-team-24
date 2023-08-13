@@ -33,6 +33,7 @@ export class EntertainerComponent {
     confirmationSnackBar.onAction().subscribe(() => {
       // Delete logic goes here
       console.log('Entertainer deleted.');
+      window.location.reload();
     });
   
     confirmationSnackBar.afterDismissed().subscribe((dismissed) => {
@@ -87,7 +88,7 @@ export class EntertainerComponent {
 
   GetEntertainers()
   {
-    this.api.getUsers().subscribe(result => {
+    this.api.GetUsers().subscribe(result => {
       let entertainerList:any[] = result
       entertainerList.forEach((element) => {
         this.entertainers.push(element)

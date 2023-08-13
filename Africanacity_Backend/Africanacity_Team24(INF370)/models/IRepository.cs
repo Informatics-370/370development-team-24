@@ -136,6 +136,7 @@ namespace Africanacity_Team24_INF370_.models
 		// Entertainer
 		Task<User[]> ViewProfileAsync();
 		Task<User> ViewProfileAsync(int UserId);
+		Task<User[]> GetUsersAsync();
 
 		// Admin
 		Task<AdminInfor[]> ViewAdminProfileAsync();

@@ -1,5 +1,4 @@
 export interface Profile {
-
     UserId: number;
     username: string;
     Email: string;
@@ -10,13 +9,6 @@ export interface Profile {
     contactNumber: string;
     physicalAddress: string;
     email: string;
-  
-  
-  // UserId: number;
-  // lastName: string;
-  // firstName: string;
-  // username: string;
-  // Email: string;
-  // Address: string;
-  // Phone: string;
+    entertainment_TypeId: number;
+    entertainmnetType: string;
 }

@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Africanacity_Team24_INF370_.EmailService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Server.IIS.Core;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +31,7 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(
 				
                 }));
 builder.Services.AddControllers();
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -112,6 +115,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+
+//builder.Services.Configure<IISServerOptions>(options =>
+//{
+//	options.MaxRequestBodySize = int.MaxValue; // Set the maximum request body size
+//});
+
 
 var app = builder.Build();
 

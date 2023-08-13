@@ -272,7 +272,7 @@ namespace Africanacity_Team24_INF370_.models
         // Entertainer
         public async Task<User[]> ViewProfileAsync()
 		{
-			IQueryable<User> query = _appDbContext.Users;
+			IQueryable<User> query = _appDbContext.Users/*.Include(p => p.EntertainmentType)*/;
 			return await query.ToArrayAsync();
 		}
 
@@ -280,6 +280,12 @@ namespace Africanacity_Team24_INF370_.models
 		{
 			IQueryable<User> query = _appDbContext.Users.Where(u => u.Id == UserId);
 			return await query.FirstOrDefaultAsync();
+		}
+
+		public async Task<User[]> GetUsersAsync()
+		{
+			IQueryable<User> query = _appDbContext.Users.Include(s => s.Entertainment_Type);
+			return await query.ToArrayAsync();
 		}
 
 		//Admin
@@ -308,7 +314,6 @@ namespace Africanacity_Team24_INF370_.models
 				PhysicalAddress = user.PhysicalAddress,
 				Email = user.Email,
 				Username = user.Username
-				// Add other user properties as needed
 			};
 
 			return userProfile;
@@ -497,7 +502,7 @@ namespace Africanacity_Team24_INF370_.models
 		// Pending Booking
 		public async Task<Pending_Booking[]> GetPendingsAsync()
 		{
-			IQueryable<Pending_Booking> query = _appDbContext.Pending_Bookings/*.Include(p => p.Events)*/.Include(p => p.EntertainmentType);
+			IQueryable<Pending_Booking> query = _appDbContext.Pending_Bookings.Include(p => p.EntertainmentType);
 
 			return await query.ToArrayAsync();
 		}

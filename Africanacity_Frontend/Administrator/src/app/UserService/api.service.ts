@@ -79,4 +79,10 @@ export class ApiService {
     return this.http.put(`${this.baseUrl}/EditAdmin/${UserId}`,user, this.httpOptions)
   }
 
+  
+  GetUsers(): Observable<any>{
+    return this.http.get(`${this.baseUrl}/GetUsers`)
+    .pipe(map(result => result))
+  }
+
 }

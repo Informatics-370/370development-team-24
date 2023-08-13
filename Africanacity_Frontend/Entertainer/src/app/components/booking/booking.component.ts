@@ -39,7 +39,8 @@ export class BookingComponent implements OnInit {
    entertainmenttype: [null, Validators.required],
    email: ['', Validators.required],
    eventname: ['', Validators.required],
-   Instagram: ['', Validators.required]
+   Instagram: ['', Validators.required],
+   additional: ['', Validators.required]
  });
 
  constructor(
@@ -172,6 +173,10 @@ onSubmit() {
       }
     );
   }
+}
+
+cancel() {
+  this.router.navigate(['/home']);
 }
 
 

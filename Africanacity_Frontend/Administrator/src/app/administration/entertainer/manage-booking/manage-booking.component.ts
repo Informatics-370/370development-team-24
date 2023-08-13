@@ -107,8 +107,6 @@ export class ManageBookingComponent {
   }
   selectedBooking: Booking | undefined; // Define a variable to store the selected booking
 
-  // ... (existing code) ...
-
   openModal(booking: Booking) {
     this.selectedBooking = booking; // Set the selected booking when "View" is clicked
     console.log(this.selectedBooking);

@@ -21,6 +21,7 @@
                       <!-- <th scope="col">#</th> -->
                       <th scope="col">Event</th>
                       <th scope="col">Demo</th>
+                      <th scope="col">Video</th>
                       <th scope="col">Full Name</th>
                       <th scope="col">Email</th>
                       <th scope="col">Mobile Number</th>
@@ -35,15 +36,39 @@
                       <td>{{booking.eventname}}</td>
                       <td>
                         <div class="image-container">
-                          <img class="pdemo" src='data:image/png;base64,{{booking.demo}}'>
+                          <img class="pdemo" src='data:image/png;base64,{{booking.demo}}' alt="No image">
                           <input type="checkbox" id="image-popup-{{booking.pending_BookingId}}" />
                           <label for="image-popup-{{booking.pending_BookingId}}" class="popup-overlay"></label>
                           <div class="popup-content">
-                            <img class="demo" src='data:image/png;base64,{{booking.demo}}'>
+                            <img class="demo" src='data:image/png;base64,{{booking.demo}}'  alt="No image">
                             <!-- Close button within the popup -->
                             <label class="close-button" for="image-popup-{{booking.pending_BookingId}}">&times;</label>
                           </div>
                         </div>
+                      </td>
+                     <td>
+                         <div class="media-container">
+                             <video class="vdemo" controls style="width: 100px; height: 100px;">
+                                 <!-- <source [src]="'data:video/mp4;base64,' + booking.demo" type="video/mp4" /> -->
+                                 <source [src]="'data:video/mp4;base64,' + booking.demo" type="video/mp4" />
+                                 <source [src]="'data:video/webm;base64,' + booking.demo" type="video/webm" />
+                                 <source [src]="'data:video/ogg;base64,' + booking.demo" type="video/ogg" />
+                                  Your browser does not support the video tag.
+                              </video>
+                                 <input type="checkbox" id="video-popup-{{booking.pending_BookingId}}" />
+                                    <label for="video-popup-{{booking.pending_BookingId}}" class="popup-overlay video"></label>
+                                       <div class="popup-content">
+                                          <video class="popup-video" controls>
+                                              <!-- <source [src]="'data:video/mp4;base64,' + booking.demo" type="video/mp4"  alt="No video" /> -->
+                                              <source [src]="'data:video/mp4;base64,' + booking.demo" type="video/mp4" />
+                                              <source [src]="'data:video/webm;base64,' + booking.demo" type="video/webm" />
+                                              <source [src]="'data:video/ogg;base64,' + booking.demo" type="video/ogg" /> 
+                                              Your browser does not support the video tag.
+                                          </video>
+                                           <!-- Close button within the popup -->
+                                           <label class="close-button" for="video-popup-{{booking.pending_BookingId}}">&times;</label>
+                                        </div>
+                          </div>
                       </td>
                       <td>{{booking.firstName}} {{booking.lastName}}</td>
                       <td>{{booking.email}}</td>
