@@ -10,6 +10,9 @@ import { Employee } from '../shared/employee';
   providedIn: 'root'
 })
 export class EmployeeService {
+  // GetAllEmployeeRoles() {
+  //   throw new Error('Method not implemented.');
+  // }
 
   apiUrl = 'https://localhost:49991/api/'
   // private apiURL = 'http://localhost:49991/api/Employee';
@@ -79,6 +82,12 @@ export class EmployeeService {
   GetAllHelp(): Observable<any>{
     return this.httpClient.get(`${this.apiUrl}Controller/GetAllHelp`)
     .pipe(map(result => result))
+  }
+
+  GetAllEmployeeRoles(): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}EmployeeRole/GetAllEmployeeRoles`)
+    .pipe(map(results => results))
+    
   }
 
   AddHelp(help: Help)
