@@ -23,7 +23,7 @@ const routes: Routes = [
   {path:'reset', component:ResetComponent},
   {path:'navbar',component: NavbarComponent},
   {path:'update-profile', component:UpdateProfileComponent, canActivate:[AuthGuard]},
-  {path:'booking', component:BookingComponent, canActivate:[AuthGuard]},
+  {path:'booking/:id', component:BookingComponent, canActivate:[AuthGuard]},
   {path:'home', component:HomeComponent, canActivate:[AuthGuard]},
   {path:'view-profile',component:ViewProfileComponent, canActivate:[AuthGuard]},
   {path:'change-password',component:ChangePasswordComponent, canActivate:[AuthGuard]},

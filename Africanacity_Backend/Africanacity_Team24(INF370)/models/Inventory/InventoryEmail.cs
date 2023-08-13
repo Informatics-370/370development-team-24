@@ -16,4 +16,3 @@ namespace Africanacity_Team24_INF370_.models.Inventory
         }
     }
 }
-

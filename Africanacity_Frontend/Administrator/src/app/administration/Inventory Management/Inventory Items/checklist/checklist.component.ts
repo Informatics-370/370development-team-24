@@ -3,7 +3,7 @@ import { InventoryService } from 'src/app/service/inventory.service';
 import { InventoryItem } from 'src/app/shared/inventoryitem';
 import { EventEmitter, Output } from '@angular/core';
 import { saveAs } from 'file-saver'; // Import file-saver for saving the PDF
-import * as html2pdf from 'html2pdf.js';
+
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';

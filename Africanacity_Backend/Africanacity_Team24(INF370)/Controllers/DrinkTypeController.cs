@@ -8,7 +8,7 @@ using Africanacity_Team24_INF370_.View_Models;
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
-	[Route("api/drinkTypeController")]
+	[Route("api/[controller]")]
 	[ApiController]
     public class DrinkTypeController : ControllerBase
 	{

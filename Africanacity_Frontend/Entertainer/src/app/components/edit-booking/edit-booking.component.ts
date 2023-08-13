@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Booked } from 'src/app/models/Booked';
 import { Booking } from 'src/app/models/Booking';
 import { Entertainment } from 'src/app/models/Entertainment';
 import { BookingService } from 'src/app/services/Booking.service';
@@ -20,9 +21,10 @@ export class EditBookingComponent implements OnInit {
   entertainmentTypeData: Entertainment[] = [];
   editBooking: Booking = new Booking();
   formData = new FormData();
-  fileNameUploaded = ''
+  fileNameUploaded = '';
   public role!:string;
   public fullName : string = "";
+  bookings: Booked[] = [];
 
   updateBookingForm: FormGroup = new FormGroup({
     lastName: new FormControl('', [Validators.required]),
@@ -30,7 +32,8 @@ export class EditBookingComponent implements OnInit {
     entertainmenttype: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
     contactNumber: new FormControl('', [Validators.required]),
-    demo: new FormControl('', [Validators.required])
+    demo: new FormControl('', [Validators.required]),
+    eventname: new FormControl('', [Validators.required])
   });
 
   constructor(
@@ -41,7 +44,9 @@ export class EditBookingComponent implements OnInit {
     private snackBar: MatSnackBar,
     private auth: AuthService, 
     private userStore: UserStoreService
-  ) { }
+  ) { 
+    this.updateBookingForm.controls['eventname'].disable();
+  }
 
   uploadFile = (files: any) => {
     let fileToUpload = <File>files[0];
@@ -70,17 +75,16 @@ export class EditBookingComponent implements OnInit {
         this.updateBookingForm.controls['firstName'].setValue(this.editBooking.firstName);
         this.updateBookingForm.controls['email'].setValue(this.editBooking.email);
         this.updateBookingForm.controls['contactNumber'].setValue(this.editBooking.contactNumber);
-        this.updateBookingForm.controls['demo'].setValue(this.editBooking.demo);
+        this.updateBookingForm.controls['eventname'].setValue(this.editBooking.eventname);
 
-        // Find the selected Supplier Type in the supplierTypesData array
         const selectedType = this.entertainmentTypeData.find(type => type.name === this.editBooking.entertainmenttypeName);
         if (selectedType) {
           this.updateBookingForm.controls['entertainmenttype'].patchValue(selectedType.entertainment_TypeId);
         }
       });
     });
-
-    this. GetAllEntertainment(); // Call this method to populate the supplierTypesData array
+console.log(this.updateBookingForm)
+    this. GetAllEntertainment(); 
   }
 
   cancel() {
@@ -100,10 +104,11 @@ export class EditBookingComponent implements OnInit {
     let booking = new Booking();
     booking.lastName = this.updateBookingForm.value.lastName;
     booking.firstName = this.updateBookingForm.value.firstName;
-    booking.entertainmenttypeName = this.updateBookingForm.value.entertainmenttype; // Assign the selected employee Role ID
+    booking.entertainmenttypeName = this.updateBookingForm.value.entertainmenttype; 
     booking.email = this.updateBookingForm.value.email;
     booking.contactNumber = this.updateBookingForm.value.contactNumber;
     booking.demo = this.updateBookingForm.value.demo;
+    booking.eventname = this.updateBookingForm.value.eventname;
 
     this.bookingservice.EditBooking(this.editBooking.bookingId, booking).subscribe(
       (response: any) => {

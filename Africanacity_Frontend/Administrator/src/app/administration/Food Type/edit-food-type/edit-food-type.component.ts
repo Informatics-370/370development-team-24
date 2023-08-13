@@ -36,15 +36,6 @@ export class EditFoodTypeComponent {
     })
   }
 
-  // ngOnInit() {
-  //   const foodTypeId = this.activated.snapshot.params['id'];
-  //   this.http.get(`/api/FoodTypes/${foodTypeId}`).subscribe((data: any) => {
-  //     this.editFoodType = data;
-  //   });
-  // }
-
-
-
   cancel(){
     this.router.navigate(['/food-type'])
   }

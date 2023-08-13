@@ -5,6 +5,8 @@ export class Booking{
     email! : string;
     contactNumber! : string;
     demo!: string;
+    eventname! : string;
+    additional!: string;
     entertainmenttype!: number;
     entertainmenttypeName!: string;
   }

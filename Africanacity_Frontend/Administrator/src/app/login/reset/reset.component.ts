@@ -71,8 +71,10 @@ hideShowPass1() {
 }
 
 
-    reset(){
-        if(this.resetPasswordForm.valid){
+reset(){
+
+        if(this.resetPasswordForm.valid)
+        {
          this.resetPasswordObj.email=this.emailToReset;
          this.resetPasswordObj.newPassword=this.resetPasswordForm.value.newPassword;
          this.resetPasswordObj.confirmPassword=this.resetPasswordForm.value.confirmPassword;

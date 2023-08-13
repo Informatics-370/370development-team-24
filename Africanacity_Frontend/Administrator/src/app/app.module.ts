@@ -11,15 +11,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
-import { ChangePasswordComponent } from './login/change-password/change-password.component';
-import { LoginComponent } from './login/login/login.component';
-import { ResetComponent } from './login/reset/reset.component';
 import { SignupComponent } from './login/signup/signup.component';
 import { UpdateProfileComponent } from './login/update-profile/update-profile.component';
 import { ViewProfileComponent } from './login/view-profile/view-profile.component';
 import { NgToastModule } from 'ng-angular-popup';
 import { ManageBookingComponent } from './administration/entertainer/manage-booking/manage-booking.component';
 import { BookingListingComponent } from './administration/entertainer/booking-listing/booking-listing.component';
+// import { MaterialModule } from './shared/material.modules';
 import { AddEmployeeRoleComponent } from './administration/EmployeeRole/add-employee-role/add-employee-role.component';
 import { EmployeeRoleComponent } from './administration/EmployeeRole/employee-role/employee-role.component';
 import { EditEmployeeRoleComponent } from './administration/EmployeeRole/edit-employee-role/edit-employee-role.component';
@@ -53,7 +51,6 @@ import { AddSuppliertypeComponent } from './administration/Supplier Management/S
 import { ViewSuppliertypesComponent } from './administration/Supplier Management/Supplier Types/view-suppliertypes/view-suppliertypes.component';
 import { AddSupplierComponent } from './administration/Supplier Management/Suppliers/add-supplier/add-supplier.component';
 import { ViewSuppliersComponent } from './administration/Supplier Management/Suppliers/view-suppliers/view-suppliers.component';
-import { MatIconModule } from '@angular/material/icon';
 import { EditSupplierComponent } from './administration/Supplier Management/Suppliers/edit-supplier/edit-supplier.component';
 import { EditSuppliertypeComponent } from './administration/Supplier Management/Supplier Types/edit-suppliertype/edit-suppliertype.component';
 import { EditIntventorytypeComponent } from './administration/Inventory Management/Inventory Types/edit-intventorytype/edit-intventorytype.component';
@@ -61,10 +58,29 @@ import { EditInventoryitemComponent } from './administration/Inventory Managemen
 import { SelectedInventorytypeComponent } from './administration/Inventory Management/Inventory Items/view-inventoryitems/selected-inventorytype/selected-inventorytype.component';
 import { ChecklistComponent } from './administration/Inventory Management/Inventory Items/checklist/checklist.component';
 import { InventoryStocktypeComponent } from './administration/Inventory Management/Inventory Items/inventory-stocktype/inventory-stocktype.component';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
 import { ReceiveOrderComponent } from './administration/Inventory Management/Inventory Items/receive-order/receive-order.component';
 import { ViewOrdersComponent } from './administration/Inventory Management/Inventory Items/receive-order/view-orders/view-orders/view-orders.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import dayGridPlugin from '@fullcalendar/daygrid'; // Import the dayGrid plugin
+import interactionPlugin from '@fullcalendar/interaction';
+//import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; // Import the interaction plugin
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { DrinkTypeComponent } from './administration/Drink Type/view-drink-type/view-drink-type.component';
+import { CreateDrinkTypeComponent } from './administration/Drink Type/create-drink-type/create-drink-type.component';
+import { EditDrinkTypeComponent } from './administration/Drink Type/edit-drink-type/edit-drink-type.component';
+import { ViewDrinkComponent } from './administration/Drink/view-drink/view-drink.component';
+import { EditDrinkComponent } from './administration/Drink/edit-drink/edit-drink.component';
+import { CreateDrinkComponent } from './administration/Drink/create-drink/create-drink.component';
+import { EmployeeComponent } from './administration/Reports/employee/employee.component';
+import { InventoryComponent } from './administration/Reports/inventory/inventory.component';
+import { InventoryReconciliationComponent } from './administration/Reports/inventory-reconciliation/inventory-reconciliation.component';
+import { SalesComponent } from './administration/Reports/sales/sales.component';
+import { ScheduleComponent } from './administration/Reports/schedule/schedule.component';
+import { NgChartsModule} from 'ng2-charts';
+import { AddMenuItemComponent } from './administration/menuitems/add-menu-item/add-menu-item.component';
+import { EditMenuItemComponent } from './administration/menuitems/edit-menu-item/edit-menu-item.component';
 import { AddEntertainmentTypeComponent } from './administration/booking/entertainment/add-entertainment-type/add-entertainment-type.component';
 import { EditEntertainmentTypeComponent } from './administration/booking/entertainment/edit-entertainment-type/edit-entertainment-type.component';
 import { EntertainmentTypesComponent } from './administration/booking/entertainment/entertainment-types/entertainment-types.component';
@@ -80,6 +96,12 @@ import { ScheduleDisplayComponent } from './administration/booking/schedule/sche
 // import interactionPlugin from '@fullcalendar/interaction';
 // //import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; // Import the interaction plugin
 // import { ModalModule } from 'ngx-bootstrap/modal';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { ResetComponent } from './login/reset/reset.component';
+import { LoginComponent } from './login/login/login.component';
+import { ChangePasswordComponent } from './login/change-password/change-password.component';
+
+
 
 
 
@@ -90,12 +112,9 @@ import { ScheduleDisplayComponent } from './administration/booking/schedule/sche
     HomeComponent,
     MenuComponent,
     NavbarComponent,
-    ResetComponent,
     UpdateProfileComponent,
     ViewProfileComponent,
-    LoginComponent,
     SignupComponent,
-    ChangePasswordComponent,
     EntertainerComponent,
     ManageBookingComponent,
     BookingListingComponent,
@@ -118,6 +137,30 @@ import { ScheduleDisplayComponent } from './administration/booking/schedule/sche
    EditMenuTypeComponent, 
    ConfirmationDialogComponent, 
    MenuitemsComponent,
+  FoodTypeComponent, 
+  MenuItemCategoryComponent, 
+  EditFoodTypeComponent,
+   CreateFoodTypeComponent, 
+   EditMenuItemCategoryComponent, 
+   CreateMenuItemCategoryComponent,
+    AddMenuItemComponent, 
+    EditMenuItemComponent,
+    HomeComponent,
+    NavbarComponent, 
+    AddEmployeeComponent, 
+    ViewEmployeesComponent, 
+    AddHelpComponent, 
+    ViewHelpListComponent,
+     EditEmployeeComponent, 
+     EditHelpComponent, 
+     NotificationDialogComponent,
+    AddEmployeeRoleComponent, 
+    EmployeeRoleComponent, 
+    EditEmployeeRoleComponent,
+   MenuTypesComponent, 
+   AddMenuTypeComponent, 
+   EditMenuTypeComponent, 
+   ConfirmationDialogComponent, 
    FoodTypeComponent, 
    MenuItemCategoryComponent, 
    EditFoodTypeComponent,
@@ -138,6 +181,8 @@ import { ScheduleDisplayComponent } from './administration/booking/schedule/sche
     EditInventoryitemComponent, 
     SelectedInventorytypeComponent, 
     ChecklistComponent, InventoryStocktypeComponent,
+    ChecklistComponent, 
+    InventoryStocktypeComponent,
     ReceiveOrderComponent,
     ViewOrdersComponent,
    AddScheduleComponent, 
@@ -149,6 +194,25 @@ import { ScheduleDisplayComponent } from './administration/booking/schedule/sche
     AddEntertainmentTypeComponent, 
     EditEntertainmentTypeComponent,
     EntertainmentTypesComponent,
+    EntertainmentTypesComponent, 
+   CreateMenuItemCategoryComponent, 
+   DrinkTypeComponent, 
+   CreateDrinkTypeComponent,
+    EditDrinkTypeComponent, 
+    ViewDrinkComponent, 
+    EditDrinkComponent, 
+    CreateDrinkComponent, 
+    InventoryComponent, 
+    EmployeeComponent,
+   InventoryReconciliationComponent, 
+    SalesComponent, 
+    ScheduleComponent,
+    ResetComponent,
+    LoginComponent,
+    ChangePasswordComponent,
+    ViewProfileComponent,
+    SignupComponent,
+    UpdateProfileComponent,
     
 
   ],
@@ -173,8 +237,21 @@ import { ScheduleDisplayComponent } from './administration/booking/schedule/sche
     // MatDialogModule,
     // FullCalendarModule,
     // ModalModule.forRoot(),
+    Ng2SearchPipeModule,
+    MatSelectModule,
+    MatSnackBarModule,
+    NgChartsModule,
+    MatSelectModule,
+    MatSnackBarModule,
+    MatSelectModule,
+    MatSnackBarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule,
+    FullCalendarModule,
+    ModalModule.forRoot(), 
   ],
-  providers: [{
+  providers: [DataService,{
     provide:HTTP_INTERCEPTORS,
     useClass:TokenInterceptor,
     multi:true

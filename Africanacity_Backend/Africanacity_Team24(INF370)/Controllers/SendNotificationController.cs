@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using System.IO;
 
-
-
 namespace Africanacity_Team24_INF370_.Controllers
 {
     [Route("api/[Controller]")]
@@ -94,4 +92,3 @@ namespace Africanacity_Team24_INF370_.Controllers
         //}
     }
 }
-

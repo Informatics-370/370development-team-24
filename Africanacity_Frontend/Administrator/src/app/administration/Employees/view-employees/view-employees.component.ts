@@ -14,6 +14,8 @@ import { saveAs } from 'file-saver'; // Import file-saver for saving the PDF
   template: `
   <button (click)="deleteItem()">Delete</button>
 `,
+
+
   styleUrls: ['./view-employees.component.css']
 })
 export class ViewEmployeesComponent {
@@ -85,7 +87,7 @@ deleteItemFromServer(): void {
 
 
   DeleteEmployee(employeeId: Number){
-    this.employeeservice.DeleteEmployee(employeeId).subscribe(result => {
+    this.employeeservice.deleteEmployee(employeeId).subscribe(result => {
       this.deleteItem();
       });
     }
@@ -117,4 +119,3 @@ deleteItemFromServer(): void {
       saveAs(file, 'employee_listing.pdf');
     }
 }
-

@@ -21,7 +21,8 @@ export class CreateFoodTypeComponent {
   AddFoodTypeForm!: FormGroup;
 
   constructor(private dataService: DataService, 
-    private router: Router, 
+    private route: ActivatedRoute, 
+    private router: Router,
     private dialog: MatDialog, 
     private snackBar: MatSnackBar, 
     private fb: FormBuilder) 
@@ -40,7 +41,7 @@ export class CreateFoodTypeComponent {
     openDialog():void{
       const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
         width: '250px',
-        data: 'Add New Menu Type?'
+        data: 'Add New Food Type?'
       });
   
     dialogRef.afterClosed().subscribe(result => {

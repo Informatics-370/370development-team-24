@@ -1,26 +1,7 @@
-<div class="col-md-2">
-  <app-navbar></app-navbar> 
-</div>
-<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow" >
-<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">
-  <img src="../../assets/Nav_image/Africanacity.png" alt="" width="40" height="40" class="d-inline-block align-text-top">
-  Hello {{fullName}}<h6>
-  </h6></a>
-<button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon"></span>
-</button>
-<input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
-<div class="navbar-nav">
-    <div class="nav-item text-nowrap">
-        <a style="background: red;
-        color: #fff;
-        border-radius: 4px;
-        margin: 10px;" class="nav-link px-3 cursor-pointer" (click)="logout()">Sign out</a>
-    </div>
-</div>
-</header>
-<div class="w3-container">
-<div class="container" style="margin-left: 18%; width: auto;">
+<app-navbar></app-navbar> 
+
+<div class="container" style="margin-top: -55%; margin-left: 18%; width: auto;">
+<!-- <div class="container" style="margin-left: 18%; width: auto;"> -->
   <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
     <h2 class="pt-3 font-weight-bold" style="text-align: center;">
       Update Profile
@@ -74,5 +55,6 @@
     </div>
   </form>
   
-</div>
-</div>
+ </div>
+
+

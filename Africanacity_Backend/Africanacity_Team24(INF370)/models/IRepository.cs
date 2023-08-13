@@ -1,4 +1,4 @@
-﻿using Africanacity_Team24_INF370_.models.Admin;
+﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
 ﻿using Africanacity_Team24_INF370_.Controllers;
 using Africanacity_Team24_INF370_.models.Administration;
 using Africanacity_Team24_INF370_.models.Booking;
@@ -7,7 +7,7 @@ using Africanacity_Team24_INF370_.ViewModel;
 using Africanacity_Team24_INF370_.View_Models;
 using System.Threading.Tasks;
 using Africanacity_Team24_INF370_.models.Inventory;
-using Africanacity_Team24_INF370_.models.Booking;
+
 using static Org.BouncyCastle.Asn1.Cmp.Challenge;
 
 namespace Africanacity_Team24_INF370_.models
@@ -55,10 +55,31 @@ namespace Africanacity_Team24_INF370_.models
 
         Task<int> EditMenuTypeAsync(int Menu_TypeId, MenuTypeViewModel menuTypeViewModel);
 
+        //Menu Items prices
+        Task<MenuItem_Price[]> GetAllMenuItemPricesAsync();
+        Task<MenuItem_Price> GetAMenuItemPriceAsync(int MenuItem_PriceId);
+
+        Task<int> EditMenuItemPriceAsync(int MenuItem_PriceId, MenuItemPriceViewModel menuItemPriceViewModel);
+
+
+
+        //DRINK ITEM
+        Task<Drink[]> GetAllDrinksAsync();
+        Task<Drink> GetDrinkItemAsync(int DrinkId);
+
+     
 
         // DRINK ITEM TYPE
         Task<Drink_Type[]> GetAllDrinkTypesAsync();
         Task<Drink_Type> GetDrinkTypeAsync(int Drink_TypeId);
+
+        // DRINK ITEM
+        //Task<Drink[]> GetAllDrinksAsync();
+        Task<Drink> GetDrinkAsync(int Drink_TypeId);
+        //DRINK ITEM PRICES
+        Task<Drink_Price[]> GetAllDrinkItemPricesAsync();
+        Task<Drink_Price> GetADrinkItemPriceAsync(int Drink_PriceId);
+
 
         // MENU ITEM CATEGORY
         Task<MenuItem_Category[]> GetAllMenuItemCategoriesAsync();
@@ -95,10 +116,27 @@ namespace Africanacity_Team24_INF370_.models
         //ENTERTAINMENT TYPE
         Task<Entertainment_Type[]> GetEntertainmentTypesAsync();
         Task<Entertainment_Type> GetEntertainmentTypeAsync(int Entertainment_TypeId);
-    }
+        //TABLE NUMBER
+        Task<Table_Number[]> GetAllTableNumbersAsync();
+
+        //Kitchen order
+        Task<KitchenOrder> SaveKitchenOrder(KitchenOrder kitchenOrder);
+        Task<KitchenOrder[]> GetAllKitchenOrdersAsync();
+
+
+        //VAT
+        Task<VAT> GetVatItemAsync(int VatId);
+
+        //DISCOUNT
+        Task<Discount> GetDiscountItemAsync(int DiscountId);
+        
+
+
+    
 		// Entertainer
 		Task<User[]> ViewProfileAsync();
 		Task<User> ViewProfileAsync(int UserId);
+		Task<User[]> GetUsersAsync();
 
 		// Admin
 		Task<AdminInfor[]> ViewAdminProfileAsync();
@@ -109,7 +147,7 @@ namespace Africanacity_Team24_INF370_.models
 		Task<Bookings> GetBookingAsync(int BookingId);
 		//Task<Bookings> GetBookingInforAsync(string email);
 		Task<List<Bookings>> GetBookingInforAsync(string email);
-		Task<Entertainment_Type[]> GetEntertainmentTypesAsync();
+		//Task<Entertainment_Type[]> GetEntertainmentTypesAsync();
 		Task<Schedule[]> GetSchedulesAsync();
 
 		//Pending Booking

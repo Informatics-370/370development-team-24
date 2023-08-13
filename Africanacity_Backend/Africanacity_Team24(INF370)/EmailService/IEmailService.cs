@@ -12,4 +12,3 @@ namespace Africanacity_Team24_INF370_.EmailService
 	    void SendEmail(EmailModel emailModel);
 	}
 }
-

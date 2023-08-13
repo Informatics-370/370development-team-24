@@ -95,13 +95,11 @@ export class PastBookingComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
   
     this.filteredbookings = this.bookings.filter(booking => {
-      const column2Value = booking.firstName.toLowerCase() || booking.firstName.toUpperCase();
-      const column3Value = booking.lastName.toLowerCase();
+      const column2Value = booking.eventname.toLowerCase() || booking.eventname.toUpperCase();
  
   
   
-      return column2Value.includes(filterValue) || 
-      column3Value.includes(filterValue) 
+      return column2Value.includes(filterValue) 
     });
   }
 

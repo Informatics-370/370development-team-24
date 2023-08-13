@@ -1,4 +1,4 @@
-﻿using Africanacity_Team24_INF370_.models.Admin;
+﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 using System.ComponentModel.DataAnnotations;
@@ -25,4 +25,3 @@ namespace Africanacity_Team24_INF370_.models.Inventory
         public int Ordered_Quantity { get; set; }
     }
 }
-

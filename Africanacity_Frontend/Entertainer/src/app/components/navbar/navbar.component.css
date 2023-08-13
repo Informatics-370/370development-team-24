@@ -1,8 +1,8 @@
 .side-navbar {
-  background-color: rgb(165, 113, 207);
-  color: black;
+  background-color: black;
+  color: white;
   height: 100%;
-  width: 200px;
+  width: 240px;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -11,45 +11,48 @@
   padding-top: 20px;
 }
 
- .img{
-    height: 5%;
-    width: 5%;
-}
 .side-navbar ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
-.side-navbar a {
+.side-navbar .nav-item {
+  margin-bottom: 10px;
+}
+
+.side-navbar .nav-link {
   display: block;
   padding: 10px;
-  color: black;
+  color: white;
   text-decoration: none;
   font-size: 16px;
-  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.side-navbar a:hover {
-  background-color: rgb(198, 198, 198);
+.side-navbar .nav-link:hover {
+  background-color: #555;
 }
 
-.side-navbar .dropdown {
+.side-navbar .dropdown-menu {
   display: none;
-  background-color: rgb(179, 116, 204);
+  background-color: black;
 }
 
-.side-navbar .dropdown li {
+.side-navbar .dropdown-menu li {
   padding-left: 20px;
+  color: white;
 }
 
-.side-navbar li:hover .dropdown {
+.side-navbar .nav-item:hover .dropdown-menu {
   display: block;
-  position: relative;
-} 
-.img{
-  position: fixed;
-  top: 0;
-  bottom: 0;
+  position: absolute;
+  background-color: #555;
+  top: 100%;
   left: 0;
-}  
+}
+
+/* Add this CSS to your existing styles */
+.side-navbar .white-link {
+  color: white;
+}
