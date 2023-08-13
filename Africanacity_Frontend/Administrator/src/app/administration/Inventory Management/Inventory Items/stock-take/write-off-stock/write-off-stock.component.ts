@@ -24,15 +24,16 @@ export class WriteOffStockComponent implements OnInit{
     public dialogRef: MatDialogRef<WriteOffStockComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { items: any[] }
   ) {}
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
 
   onOkButtonClick(): void {
-    // Update the write-off records with reasons
-    const updatedItems = this.data.items.map(item => {
-      return {
-        StockTakeItemId: item.inventory_ItemId,
-        Reason: item.reason
-      };
-    });
+    // Map items to updatedItems
+    const updatedItems = this.data.items.map(item => ({
+      StockTakeItemId: item.inventory_ItemId,
+      Reason: item.reason
+    }));
 
     // Call the method to add write-off records
     this.inventoryService.AddWriteOffRecord(updatedItems).subscribe(
@@ -45,6 +46,4 @@ export class WriteOffStockComponent implements OnInit{
       }
     );
   }
-  ngOnInit(): void {}
-
 }
