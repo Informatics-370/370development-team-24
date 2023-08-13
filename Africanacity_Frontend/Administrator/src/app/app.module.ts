@@ -14,7 +14,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { SignupComponent } from './login/signup/signup.component';
 import { UpdateProfileComponent } from './login/update-profile/update-profile.component';
 import { ViewProfileComponent } from './login/view-profile/view-profile.component';
-import { NgToastModule } from 'ng-angular-popup';
+//import { NgToastModule } from 'ng-angular-popup';
 import { ManageBookingComponent } from './administration/entertainer/manage-booking/manage-booking.component';
 import { BookingListingComponent } from './administration/entertainer/booking-listing/booking-listing.component';
 // import { MaterialModule } from './shared/material.modules';
@@ -34,7 +34,7 @@ import { AddEmployeeComponent } from './administration/Employees/add-employee/ad
 import { ViewEmployeesComponent } from './administration/Employees/view-employees/view-employees.component';
 import { EditEmployeeComponent } from './administration/Employees/view-employees/edit-employee/edit-employee.component';
 import { EditHelpComponent } from './administration/Help Management/view-help-list/edit-help/edit-help.component';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
+//import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { MatSelectModule } from '@angular/material/select';
 import { NotificationDialogComponent } from './administration/Employees/notification-dialog/notification-dialog.component';
 import { FoodTypeComponent } from './administration/Food Type/view-food-type/food-type.component';
@@ -61,7 +61,7 @@ import { InventoryComponent } from './administration/Reports/inventory/inventory
 import { InventoryReconciliationComponent } from './administration/Reports/inventory-reconciliation/inventory-reconciliation.component';
 import { SalesComponent } from './administration/Reports/sales/sales.component';
 import { ScheduleComponent } from './administration/Reports/schedule/schedule.component';
-import { NgChartsModule} from 'ng2-charts';
+//import { NgChartsModule} from 'ng2-charts';
 import { AddMenuItemComponent } from './administration/menuitems/add-menu-item/add-menu-item.component';
 import { EditMenuItemComponent } from './administration/menuitems/edit-menu-item/edit-menu-item.component';
 import { AddEntertainmentTypeComponent } from './administration/booking/entertainment/add-entertainment-type/add-entertainment-type.component';
@@ -210,13 +210,13 @@ import { ChangePasswordComponent } from './login/change-password/change-password
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    NgToastModule,
+    //NgToastModule,
     BrowserAnimationsModule,
     MaterialModule,
-    Ng2SearchPipeModule,
+    //Ng2SearchPipeModule,
     MatSelectModule,
     MatSnackBarModule,
-    NgChartsModule,
+    //NgChartsModule,
     MatSelectModule,
     MatSnackBarModule,
     MatSelectModule,
