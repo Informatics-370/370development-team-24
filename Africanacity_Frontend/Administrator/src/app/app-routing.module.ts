@@ -217,7 +217,7 @@ const routes: Routes = [
   { path: 'sales',component: SalesComponent }, // for sales report
   { path: 'schedule',component: ScheduleComponent },
 // for schedule
-  { path: '', redirectTo: 'login', pathMatch:'full'},
+  { path: '', redirectTo: 'home', pathMatch:'full'},
   
 ];
 

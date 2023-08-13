@@ -190,9 +190,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                             DiscountId = 1,
                             Amount = 0.10m,
                             Description = "10% Discount",
-                            End_Date = new DateTime(2023, 8, 22, 21, 20, 54, 812, DateTimeKind.Local).AddTicks(7996),
+                            End_Date = new DateTime(2023, 8, 23, 17, 7, 12, 639, DateTimeKind.Local).AddTicks(5005),
                             Name = "Month end discount",
-                            Start_Date = new DateTime(2023, 8, 12, 21, 20, 54, 812, DateTimeKind.Local).AddTicks(7996)
+                            Start_Date = new DateTime(2023, 8, 13, 17, 7, 12, 639, DateTimeKind.Local).AddTicks(5004)
                         });
                 });
 
@@ -1563,6 +1563,9 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("KitchenOrderId"), 1L, 1);
 
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("KitchenOrderNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1582,9 +1585,125 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("VAT")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("KitchenOrderId");
 
                     b.ToTable("KitchenOrders");
+
+                    b.HasData(
+                        new
+                        {
+                            KitchenOrderId = 1,
+                            Discount = 0m,
+                            KitchenOrderNumber = "TAKE-0001",
+                            OrderedDrinks = "Frozen lemonade, Margarita",
+                            OrderedItems = "Toatsed beef panini sandwich, Mexican salad",
+                            Subtotal = 193.59m,
+                            TableNumber = "",
+                            Total = 225.10m,
+                            VAT = 31.51m
+                        },
+                        new
+                        {
+                            KitchenOrderId = 2,
+                            Discount = 0m,
+                            KitchenOrderNumber = "SIT-0201",
+                            OrderedDrinks = "Strawberry Daiquri, Frozen lemonade, Margarita, Blood Mary",
+                            OrderedItems = "Chicken Feast",
+                            Subtotal = 373.54m,
+                            TableNumber = "Table 6",
+                            Total = 434.35m,
+                            VAT = 60.81m
+                        },
+                        new
+                        {
+                            KitchenOrderId = 3,
+                            Discount = 50m,
+                            KitchenOrderNumber = "SIT-0202",
+                            OrderedDrinks = "Strawberry Daiquri, Frozen lemonade",
+                            OrderedItems = "Chicken Feast, Chilli cheese poppers",
+                            Subtotal = 280.23m,
+                            TableNumber = "Table 2",
+                            Total = 275.85m,
+                            VAT = 45.62m
+                        },
+                        new
+                        {
+                            KitchenOrderId = 4,
+                            Discount = 21.07m,
+                            KitchenOrderNumber = "SIT-0203",
+                            OrderedDrinks = "Blood Mary,Virgin Mojito",
+                            OrderedItems = "Blueberry cheescake slice, Blueberry cheescake slice",
+                            Subtotal = 210.70m,
+                            TableNumber = "Table 1",
+                            Total = 223.93m,
+                            VAT = 34.30m
+                        },
+                        new
+                        {
+                            KitchenOrderId = 5,
+                            Discount = 12.56m,
+                            KitchenOrderNumber = "SIT-0204",
+                            OrderedDrinks = "Virgin Mojito",
+                            OrderedItems = "Blueberry cheescake slice, Blueberry cheescake slice",
+                            Subtotal = 125.56m,
+                            TableNumber = "Table 4",
+                            Total = 133.44m,
+                            VAT = 20.44m
+                        },
+                        new
+                        {
+                            KitchenOrderId = 6,
+                            Discount = 0m,
+                            KitchenOrderNumber = "TAKE-0002",
+                            OrderedDrinks = "Cappuccino",
+                            OrderedItems = "English Breakfast",
+                            Subtotal = 135.02m,
+                            TableNumber = "",
+                            Total = 157m,
+                            VAT = 21.98m
+                        },
+                        new
+                        {
+                            KitchenOrderId = 7,
+                            Discount = 0m,
+                            KitchenOrderNumber = "SIT-0205",
+                            OrderedDrinks = "Strawberry Daiquri, Strawberry Daiquri, Blood Mary,Magarita,Strawberry Daiquri ",
+                            OrderedItems = "",
+                            Subtotal = 325.94m,
+                            TableNumber = "Table 6",
+                            Total = 379m,
+                            VAT = 53.06m
+                        },
+                        new
+                        {
+                            KitchenOrderId = 8,
+                            Discount = 35.05m,
+                            KitchenOrderNumber = "TAKE-0003",
+                            OrderedDrinks = "Strawberry Daiquri, Strawberry Daiquri",
+                            OrderedItems = "The Braai feast",
+                            Subtotal = 301.43m,
+                            TableNumber = "",
+                            Total = 315.45m,
+                            VAT = 49.07m
+                        },
+                        new
+                        {
+                            KitchenOrderId = 9,
+                            Discount = 32.56m,
+                            KitchenOrderNumber = "SIT-0206",
+                            OrderedDrinks = "Virgin Mojito, Virgin Mojito",
+                            OrderedItems = "The Braai feast, Mexican salad",
+                            Subtotal = 280.02m,
+                            TableNumber = "Table 5",
+                            Total = 293.04m,
+                            VAT = 45.58m
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Menu_Type", b =>
@@ -1847,6 +1966,24 @@ namespace Africanacity_Team24_INF370_.Migrations
                             MenuItem_PriceId = 6,
                             Amount = 45.50m,
                             MenuItemId = 3
+                        },
+                        new
+                        {
+                            MenuItem_PriceId = 10,
+                            Amount = 92.00m,
+                            MenuItemId = 6
+                        },
+                        new
+                        {
+                            MenuItem_PriceId = 11,
+                            Amount = 52.00m,
+                            MenuItemId = 7
+                        },
+                        new
+                        {
+                            MenuItem_PriceId = 12,
+                            Amount = 35.00m,
+                            MenuItemId = 8
                         });
                 });
 

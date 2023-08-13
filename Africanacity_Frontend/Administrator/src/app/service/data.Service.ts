@@ -267,5 +267,71 @@ export class DataService {
   {
     return this.httpClient.delete<string>(`${this.apiUrl}EntertainmentType/DeleteEntertainmentType` + "/" + entertainment_TypeId, this.httpOptions)
   }
-  
+
+
+  //add a new menu item
+  addMenuItem(file:FormData){
+    return this.httpClient.post(`${this.apiUrl}MenuItems/AddMenuItem`, file)
+  }
+
+  //edit menu item
+  editMenuItem(MenuItemId: number, menuItem: MenuItem): Observable<MenuItem> {
+    return this.httpClient.put<MenuItem>(`${this.apiUrl}MenuItems/EditMenuItem/${MenuItemId}`, menuItem,this.httpOptions);
+  }
+
+  // drink type
+  GetAllDrinkTypes(): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}drinkType/GetAllDrinkTypes`).pipe(map(result => result)) 
+  }
+
+  GetDrinkType(drinkTypeId: number)
+  {
+    return this.httpClient.get(`${this.apiUrl}drinkType/GetDrinkType` + "/" + drinkTypeId).pipe(map(result => result))
+  }
+
+  AddDrinkType(drinkType : DrinkType)
+  {
+    return this.httpClient.post(`${this.apiUrl}drinkType/AddDrinkType`, drinkType, this.httpOptions)
+  }
+
+  EditDrinkType(drinkTypeId: number, drinkType: DrinkType)
+  {
+    return this.httpClient.put(`${this.apiUrl}drinkType/EditDrinkType/${drinkTypeId}`, drinkType, this.httpOptions)
+  }
+
+  DeleteDrinkType(drinkTypeId: number)
+  {
+    return this.httpClient.delete<string>(`${this.apiUrl}drinkType/DeleteDrinkType` + "/" + drinkTypeId, this.httpOptions)
+  }
+
+  // drink 
+  GetAllDrinks(): Observable<any>
+  {
+    return this.httpClient.get(`${this.apiUrl}Drink/DrinkItemListing`).pipe(map(result => result)) 
+  }
+
+  GetDrink(drinkId: number): Observable<any>
+  {
+    return this.httpClient.get(`${this.apiUrl}Drink/GetDrink/${drinkId}`);
+  }
+
+  AddDrink(drink: Drink)
+  {
+    return this.httpClient.post(`${this.apiUrl}Drink/AddDrink`, drink, this.httpOptions)
+  }
+
+  EditDrink(drinkId: number, drink: Drink)
+  {
+    return this.httpClient.put(`${this.apiUrl}Drink/EditDrink/${drinkId}`, drink, this.httpOptions)
+  }
+
+  DeleteDrink(drinkId: number)
+  {
+    return this.httpClient.delete<string>(`${this.apiUrl}Drink/DeleteDrink` + "/" + drinkId, this.httpOptions)
+  }
+
+
+
+
+
 }

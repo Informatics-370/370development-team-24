@@ -250,7 +250,10 @@ namespace Africanacity_Team24_INF370_.Migrations
                     KitchenOrderNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OrderedItems = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OrderedDrinks = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Subtotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Subtotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    VAT = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1155,11 +1158,15 @@ namespace Africanacity_Team24_INF370_.Migrations
             migrationBuilder.InsertData(
                 table: "Discounts",
                 columns: new[] { "DiscountId", "AdministratorId", "Amount", "Description", "End_Date", "Name", "Start_Date" },
+<<<<<<<< HEAD:Africanacity_Backend/Africanacity_Team24(INF370)/Migrations/20230810222658_Africanacity.cs
 <<<<<<<< HEAD:Africanacity_Backend/Africanacity_Team24(INF370)/Migrations/20230812192055_Mmino.cs
                 values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 8, 22, 21, 20, 54, 812, DateTimeKind.Local).AddTicks(7996), "Month end discount", new DateTime(2023, 8, 12, 21, 20, 54, 812, DateTimeKind.Local).AddTicks(7996) });
 ========
                 values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 8, 21, 0, 26, 56, 832, DateTimeKind.Local).AddTicks(537), "Month end discount", new DateTime(2023, 8, 11, 0, 26, 56, 832, DateTimeKind.Local).AddTicks(535) });
 >>>>>>>> origin/Tshilanda_branch:Africanacity_Backend/Africanacity_Team24(INF370)/Migrations/20230810222658_Africanacity.cs
+========
+                values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 8, 23, 17, 7, 12, 639, DateTimeKind.Local).AddTicks(5005), "Month end discount", new DateTime(2023, 8, 13, 17, 7, 12, 639, DateTimeKind.Local).AddTicks(5004) });
+>>>>>>>> Unati_Branch:Africanacity_Backend/Africanacity_Team24(INF370)/Migrations/20230813150714_Mmino.cs
 
             migrationBuilder.InsertData(
                 table: "Drink_Prices",
@@ -1246,6 +1253,22 @@ namespace Africanacity_Team24_INF370_.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "KitchenOrders",
+                columns: new[] { "KitchenOrderId", "Discount", "KitchenOrderNumber", "OrderedDrinks", "OrderedItems", "Subtotal", "TableNumber", "Total", "VAT" },
+                values: new object[,]
+                {
+                    { 1, 0m, "TAKE-0001", "Frozen lemonade, Margarita", "Toatsed beef panini sandwich, Mexican salad", 193.59m, "", 225.10m, 31.51m },
+                    { 2, 0m, "SIT-0201", "Strawberry Daiquri, Frozen lemonade, Margarita, Blood Mary", "Chicken Feast", 373.54m, "Table 6", 434.35m, 60.81m },
+                    { 3, 50m, "SIT-0202", "Strawberry Daiquri, Frozen lemonade", "Chicken Feast, Chilli cheese poppers", 280.23m, "Table 2", 275.85m, 45.62m },
+                    { 4, 21.07m, "SIT-0203", "Blood Mary,Virgin Mojito", "Blueberry cheescake slice, Blueberry cheescake slice", 210.70m, "Table 1", 223.93m, 34.30m },
+                    { 5, 12.56m, "SIT-0204", "Virgin Mojito", "Blueberry cheescake slice, Blueberry cheescake slice", 125.56m, "Table 4", 133.44m, 20.44m },
+                    { 6, 0m, "TAKE-0002", "Cappuccino", "English Breakfast", 135.02m, "", 157m, 21.98m },
+                    { 7, 0m, "SIT-0205", "Strawberry Daiquri, Strawberry Daiquri, Blood Mary,Magarita,Strawberry Daiquri ", "", 325.94m, "Table 6", 379m, 53.06m },
+                    { 8, 35.05m, "TAKE-0003", "Strawberry Daiquri, Strawberry Daiquri", "The Braai feast", 301.43m, "", 315.45m, 49.07m },
+                    { 9, 32.56m, "SIT-0206", "Virgin Mojito, Virgin Mojito", "The Braai feast, Mexican salad", 280.02m, "Table 5", 293.04m, 45.58m }
+                });
+
+            migrationBuilder.InsertData(
                 table: "MenuItem_Categories",
                 columns: new[] { "Menu_CategoryId", "Description", "MenuItem_CategoryMenu_CategoryId", "Name" },
                 values: new object[,]
@@ -1253,9 +1276,13 @@ namespace Africanacity_Team24_INF370_.Migrations
                     { 1, "Meals between 7am to 12pm", null, "Breakfast" },
                     { 2, "Appetisers", null, "Starter" },
                     { 3, "Big and Filling meals", null, "Main" },
-                    { 4, "Special things for those with a sweet tooth", null, "Dessert" },
-                    { 5, "For those hungry but not hungry", null, "Light Meals" }
+                    { 4, "Special things for those with a sweet tooth", null, "Dessert" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "MenuItem_Categories",
+                columns: new[] { "Menu_CategoryId", "Description", "MenuItem_CategoryMenu_CategoryId", "Name" },
+                values: new object[] { 5, "For those hungry but not hungry", null, "Light Meals" });
 
             migrationBuilder.InsertData(
                 table: "MenuItem_Prices",
@@ -1266,7 +1293,10 @@ namespace Africanacity_Team24_INF370_.Migrations
                     { 2, 105.35m, 1 },
                     { 3, 35.10m, 4 },
                     { 5, 200.50m, 2 },
-                    { 6, 45.50m, 3 }
+                    { 6, 45.50m, 3 },
+                    { 10, 92.00m, 6 },
+                    { 11, 52.00m, 7 },
+                    { 12, 35.00m, 8 }
                 });
 
             migrationBuilder.InsertData(
@@ -1281,12 +1311,11 @@ namespace Africanacity_Team24_INF370_.Migrations
             migrationBuilder.InsertData(
                 table: "OrderTypes",
                 columns: new[] { "OrderType_ID", "Name" },
-                values: new object[] { 1, "Sit-In" });
-
-            migrationBuilder.InsertData(
-                table: "OrderTypes",
-                columns: new[] { "OrderType_ID", "Name" },
-                values: new object[] { 2, "Takeaway" });
+                values: new object[,]
+                {
+                    { 1, "Sit-In" },
+                    { 2, "Takeaway" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Supplier_Types",
@@ -1408,11 +1437,15 @@ namespace Africanacity_Team24_INF370_.Migrations
             migrationBuilder.InsertData(
                 table: "Supplier_Inventorys",
                 columns: new[] { "SupplierItemId", "Inventory_ItemId", "Ordered_Date", "Ordered_Quantity", "Received_Date", "SupplierId" },
+<<<<<<<< HEAD:Africanacity_Backend/Africanacity_Team24(INF370)/Migrations/20230810222658_Africanacity.cs
 <<<<<<<< HEAD:Africanacity_Backend/Africanacity_Team24(INF370)/Migrations/20230812192055_Mmino.cs
                 values: new object[] { 1, 1, new DateTime(2023, 8, 12, 0, 0, 0, 0, DateTimeKind.Local), 33, new DateTime(2023, 8, 12, 0, 0, 0, 0, DateTimeKind.Local), 1 });
 ========
                 values: new object[] { 1, 1, new DateTime(2023, 8, 11, 0, 0, 0, 0, DateTimeKind.Local), 33, new DateTime(2023, 8, 11, 0, 0, 0, 0, DateTimeKind.Local), 1 });
 >>>>>>>> origin/Tshilanda_branch:Africanacity_Backend/Africanacity_Team24(INF370)/Migrations/20230810222658_Africanacity.cs
+========
+                values: new object[] { 1, 1, new DateTime(2023, 8, 13, 0, 0, 0, 0, DateTimeKind.Local), 33, new DateTime(2023, 8, 13, 0, 0, 0, 0, DateTimeKind.Local), 1 });
+>>>>>>>> Unati_Branch:Africanacity_Backend/Africanacity_Team24(INF370)/Migrations/20230813150714_Mmino.cs
 
             migrationBuilder.CreateIndex(
                 name: "IX_Access_UserRoles_User_RolesUser_RoleId",
