@@ -703,7 +703,8 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Entertainment_TypeId");
 
@@ -755,7 +756,8 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("EventId");
 
@@ -829,7 +831,8 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Pending_BookingId");
 
@@ -865,10 +868,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<int>("EventId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("Schedule_StatusId")
                         .HasColumnType("int");
 
@@ -889,6 +888,38 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasIndex("Schedule_StatusId");
 
                     b.ToTable("Schedules");
+
+                    b.HasData(
+                        new
+                        {
+                            ScheduleId = 1,
+                            Date = new DateTime(2023, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Musician can book performance",
+                            End_Time = "14:30 PM",
+                            EventId = 1,
+                            Start_Time = "14;00 PM",
+                            Title = "Music slot"
+                        },
+                        new
+                        {
+                            ScheduleId = 2,
+                            Date = new DateTime(2023, 8, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Contemporary Dance performance",
+                            End_Time = "21:30 PM",
+                            EventId = 2,
+                            Start_Time = "21;00 PM",
+                            Title = "Dance slot "
+                        },
+                        new
+                        {
+                            ScheduleId = 3,
+                            Date = new DateTime(2023, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Poet recital",
+                            End_Time = "19:15 PM",
+                            EventId = 3,
+                            Start_Time = "19;00 PM",
+                            Title = "Poetry"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Schedule_Status", b =>
@@ -2354,7 +2385,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasForeignKey("AdministratorId");
 
                     b.HasOne("Africanacity_Team24_INF370_.models.Booking.Event", "Event")
-                        .WithMany()
+                        .WithMany("Schedules")
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2682,6 +2713,11 @@ namespace Africanacity_Team24_INF370_.Migrations
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Event", b =>
                 {
                     b.Navigation("Pending_Bookings");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Event", b =>
+                {
+                    b.Navigation("Schedules");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Schedule_Status", b =>

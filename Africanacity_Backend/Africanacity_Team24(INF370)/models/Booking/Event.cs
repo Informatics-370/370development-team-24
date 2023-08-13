@@ -12,6 +12,7 @@ namespace Africanacity_Team24_INF370_.models.Booking
 		//public string Description { get; set; } = string.Empty;
 
 		public virtual ICollection<Pending_Booking> Pending_Bookings { get; set; }
+		public virtual ICollection<Schedule> Schedules { get; set; }
 
 	}
 }

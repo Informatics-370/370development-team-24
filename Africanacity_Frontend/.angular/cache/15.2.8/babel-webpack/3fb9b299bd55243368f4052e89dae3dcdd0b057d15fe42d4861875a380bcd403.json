@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class Help {}\n// export interface Help{\n//   helpId: Number;\n//   name: string;\n//   description: string;\n// }","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}
