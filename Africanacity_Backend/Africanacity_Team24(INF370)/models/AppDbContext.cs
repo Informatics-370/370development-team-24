@@ -1052,6 +1052,31 @@ namespace Africanacity_Team24_INF370_.models
                             MenuItemId = 3,
                             Amount = 45.50m
                         });
+            modelBuilder.Entity<MenuItem_Price>()
+                        .HasData(
+                        new
+                        {
+                            MenuItem_PriceId = 10,
+                            MenuItemId = 6,
+                            Amount = 92.00m
+                        });
+            modelBuilder.Entity<MenuItem_Price>()
+                        .HasData(
+                        new
+                        {
+                            MenuItem_PriceId = 11,
+                            MenuItemId = 7,
+                            Amount = 52.00m
+                        });
+            modelBuilder.Entity<MenuItem_Price>()
+                        .HasData(
+                        new
+                        {
+                            MenuItem_PriceId = 12,
+                            MenuItemId = 8,
+                            Amount = 35.00m
+                        });
+
 
             // Create Seed Data For the Drink type Table:
             modelBuilder.Entity<Drink_Type>()
@@ -1289,6 +1314,93 @@ namespace Africanacity_Team24_INF370_.models
                            Start_Date = DateTime.Now,
                            End_Date = DateTime.Now.AddDays(10),
                        });
+
+            //seed data for KitchenOrder
+            modelBuilder.Entity<KitchenOrder>()
+                       .HasData(
+                       new
+                       {
+                           KitchenOrderId = 1,
+                           TableNumber = "",
+                           KitchenOrderNumber = "TAKE-0001",
+                           OrderedItems = "Toatsed beef panini sandwich, Mexican salad",
+                           OrderedDrinks = "Frozen lemonade, Margarita",
+                           Subtotal = 193.59m,
+                           Discount = 0m,
+                           VAT = 31.51m,
+                           Total = 225.10m
+                       });
+
+            modelBuilder.Entity<KitchenOrder>()
+                      .HasData(
+                      new
+                      {
+                          KitchenOrderId = 2,
+                          TableNumber = "Table 6",
+                          KitchenOrderNumber = "SIT-0201",
+                          OrderedItems = "Chicken Feast",
+                          OrderedDrinks = "Strawberry Daiquri, Frozen lemonade, Margarita, Blood Mary",
+                          Subtotal = 373.54m,
+                          Discount = 0m,
+                          VAT = 60.81m,
+                          Total = 434.35m
+                      });
+            modelBuilder.Entity<KitchenOrder>()
+                     .HasData(
+                     new
+                     {
+                         KitchenOrderId = 3,
+                         TableNumber = "Table 2",
+                         KitchenOrderNumber = "SIT-0205",
+                         OrderedItems = "Chicken Feast, Chilli cheese poppers",
+                         OrderedDrinks = "Strawberry Daiquri, Frozen lemonade",
+                         Subtotal = 280.23m,
+                         Discount = 50m,
+                         VAT = 45.62m,
+                         Total = 275.85m
+                     });
+            modelBuilder.Entity<KitchenOrder>()
+                     .HasData(
+                     new
+                     {
+                         KitchenOrderId = 4,
+                         TableNumber = "Table 1",
+                         KitchenOrderNumber = "SIT-0325",
+                         OrderedItems = "Blueberry cheescake slice, Blueberry cheescake slice",
+                         OrderedDrinks = "Blood Mary,Virgin Mojito",
+                         Subtotal = 210.70m,
+                         Discount = 21.07m,
+                         VAT = 34.30m,
+                         Total = 223.93m
+                     });
+            modelBuilder.Entity<KitchenOrder>()
+                   .HasData(
+                   new
+                   {
+                       KitchenOrderId = 4,
+                       TableNumber = "Table 1",
+                       KitchenOrderNumber = "SIT-0325",
+                       OrderedItems = "Blueberry cheescake slice, Blueberry cheescake slice",
+                       OrderedDrinks = "Blood Mary,Virgin Mojito",
+                       Subtotal = 210.70m,
+                       Discount = 21.07m,
+                       VAT = 34.30m,
+                       Total = 223.93m
+                   });
+            modelBuilder.Entity<KitchenOrder>()
+                   .HasData(
+                   new
+                   {
+                       KitchenOrderId = 5,
+                       TableNumber = "",
+                       KitchenOrderNumber = "TAKE-0115",
+                       OrderedItems = "English Breakfast",
+                       OrderedDrinks = "Cappuccino",
+                       Subtotal = 135.02m,
+                       Discount = 0m,
+                       VAT = 21.98m,
+                       Total = 157m
+                   });
 
 
 
