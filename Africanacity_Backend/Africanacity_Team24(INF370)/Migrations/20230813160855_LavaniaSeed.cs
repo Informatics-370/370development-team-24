@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Africanacity_Team24_INF370_.Migrations
 {
-    public partial class Mmino : Migration
+    public partial class LavaniaSeed : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -1003,6 +1003,46 @@ namespace Africanacity_Team24_INF370_.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Inventory_Prices",
+                columns: table => new
+                {
+                    InventoryPrice_Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Inventory_ItemId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Inventory_Prices", x => x.InventoryPrice_Id);
+                    table.ForeignKey(
+                        name: "FK_Inventory_Prices_Inventory_Items_Inventory_ItemId",
+                        column: x => x.Inventory_ItemId,
+                        principalTable: "Inventory_Items",
+                        principalColumn: "Inventory_ItemId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StockTakes",
+                columns: table => new
+                {
+                    StockTake_Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StockTake_Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Inventory_ItemId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StockTakes", x => x.StockTake_Id);
+                    table.ForeignKey(
+                        name: "FK_StockTakes_Inventory_Items_Inventory_ItemId",
+                        column: x => x.Inventory_ItemId,
+                        principalTable: "Inventory_Items",
+                        principalColumn: "Inventory_ItemId");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Supplier_InventoryItems",
                 columns: table => new
                 {
@@ -1034,8 +1074,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Inventory_ItemId = table.Column<int>(type: "int", nullable: false),
                     SupplierId = table.Column<int>(type: "int", nullable: false),
-                    Ordered_Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Received_Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Ordered_Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -1128,10 +1166,83 @@ namespace Africanacity_Team24_INF370_.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "StockTakeItems",
+                columns: table => new
+                {
+                    StockTakeItemId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    Inventory_ItemId = table.Column<int>(type: "int", nullable: false),
+                    StockTake_Id = table.Column<int>(type: "int", nullable: false),
+                    StockTake_Id1 = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StockTakeItems", x => x.StockTakeItemId);
+                    table.ForeignKey(
+                        name: "FK_StockTakeItems_Inventory_Items_Inventory_ItemId",
+                        column: x => x.Inventory_ItemId,
+                        principalTable: "Inventory_Items",
+                        principalColumn: "Inventory_ItemId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StockTakeItems_StockTakes_StockTake_Id1",
+                        column: x => x.StockTake_Id1,
+                        principalTable: "StockTakes",
+                        principalColumn: "StockTake_Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WriteOffs",
+                columns: table => new
+                {
+                    WriteOffId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StockTakeItemId = table.Column<int>(type: "int", nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WriteOffs", x => x.WriteOffId);
+                    table.ForeignKey(
+                        name: "FK_WriteOffs_StockTakeItems_StockTakeItemId",
+                        column: x => x.StockTakeItemId,
+                        principalTable: "StockTakeItems",
+                        principalColumn: "StockTakeItemId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DiscrepencyItems",
+                columns: table => new
+                {
+                    DiscrepId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    QuantityDifference = table.Column<int>(type: "int", nullable: false),
+                    Inventory_ItemId = table.Column<int>(type: "int", nullable: false),
+                    ItemName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    WriteOffStockWriteOffId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DiscrepencyItems", x => x.DiscrepId);
+                    table.ForeignKey(
+                        name: "FK_DiscrepencyItems_WriteOffs_WriteOffStockWriteOffId",
+                        column: x => x.WriteOffStockWriteOffId,
+                        principalTable: "WriteOffs",
+                        principalColumn: "WriteOffId");
+                });
+
             migrationBuilder.InsertData(
                 table: "Discounts",
                 columns: new[] { "DiscountId", "AdministratorId", "Amount", "Description", "End_Date", "Name", "Start_Date" },
-                values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 8, 10, 1, 9, 23, 682, DateTimeKind.Local).AddTicks(4685), "Month end discount", new DateTime(2023, 7, 31, 1, 9, 23, 682, DateTimeKind.Local).AddTicks(4684) });
+                values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 8, 23, 18, 8, 54, 474, DateTimeKind.Local).AddTicks(6255), "Month end discount", new DateTime(2023, 8, 13, 18, 8, 54, 474, DateTimeKind.Local).AddTicks(6243) });
 
             migrationBuilder.InsertData(
                 table: "Drink_Prices",
@@ -1368,9 +1479,26 @@ namespace Africanacity_Team24_INF370_.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Inventory_Prices",
+                columns: new[] { "InventoryPrice_Id", "Date", "Inventory_ItemId", "Price" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2023, 8, 13, 18, 8, 54, 474, DateTimeKind.Local).AddTicks(6295), 1, 25m },
+                    { 2, new DateTime(2023, 8, 13, 18, 8, 54, 474, DateTimeKind.Local).AddTicks(6302), 2, 250m },
+                    { 3, new DateTime(2023, 8, 13, 18, 8, 54, 474, DateTimeKind.Local).AddTicks(6308), 3, 200m },
+                    { 4, new DateTime(2023, 8, 13, 18, 8, 54, 474, DateTimeKind.Local).AddTicks(6318), 4, 38m },
+                    { 5, new DateTime(2023, 8, 13, 18, 8, 54, 474, DateTimeKind.Local).AddTicks(6323), 5, 45m },
+                    { 6, new DateTime(2023, 8, 13, 18, 8, 54, 474, DateTimeKind.Local).AddTicks(6330), 6, 75m },
+                    { 7, new DateTime(2023, 8, 13, 18, 8, 54, 474, DateTimeKind.Local).AddTicks(6335), 7, 100m },
+                    { 8, new DateTime(2023, 8, 13, 18, 8, 54, 474, DateTimeKind.Local).AddTicks(6340), 8, 40m },
+                    { 9, new DateTime(2023, 8, 13, 18, 8, 54, 474, DateTimeKind.Local).AddTicks(6345), 9, 28m },
+                    { 10, new DateTime(2023, 8, 13, 18, 8, 54, 474, DateTimeKind.Local).AddTicks(6352), 10, 35m }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Supplier_Inventorys",
-                columns: new[] { "SupplierItemId", "Inventory_ItemId", "Ordered_Date", "Ordered_Quantity", "Received_Date", "SupplierId" },
-                values: new object[] { 1, 1, new DateTime(2023, 7, 31, 0, 0, 0, 0, DateTimeKind.Local), 33, new DateTime(2023, 7, 31, 0, 0, 0, 0, DateTimeKind.Local), 1 });
+                columns: new[] { "SupplierItemId", "Inventory_ItemId", "Ordered_Quantity", "SupplierId" },
+                values: new object[] { 1, 1, 33, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Access_UserRoles_User_RolesUser_RoleId",
@@ -1437,6 +1565,11 @@ namespace Africanacity_Team24_INF370_.Migrations
                 column: "AdministratorId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DiscrepencyItems_WriteOffStockWriteOffId",
+                table: "DiscrepencyItems",
+                column: "WriteOffStockWriteOffId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Drinks_Drink_TypeId",
                 table: "Drinks",
                 column: "Drink_TypeId");
@@ -1480,6 +1613,11 @@ namespace Africanacity_Team24_INF370_.Migrations
                 name: "IX_Inventory_Items_Inventory_TypeId",
                 table: "Inventory_Items",
                 column: "Inventory_TypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Inventory_Prices_Inventory_ItemId",
+                table: "Inventory_Prices",
+                column: "Inventory_ItemId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MenuItem_Categories_MenuItem_CategoryMenu_CategoryId",
@@ -1567,6 +1705,21 @@ namespace Africanacity_Team24_INF370_.Migrations
                 column: "Schedule_StatusId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_StockTakeItems_Inventory_ItemId",
+                table: "StockTakeItems",
+                column: "Inventory_ItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockTakeItems_StockTake_Id1",
+                table: "StockTakeItems",
+                column: "StockTake_Id1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockTakes_Inventory_ItemId",
+                table: "StockTakes",
+                column: "Inventory_ItemId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Supplier_InventoryItems_SuppliersSupplierId",
                 table: "Supplier_InventoryItems",
                 column: "SuppliersSupplierId");
@@ -1600,6 +1753,11 @@ namespace Africanacity_Team24_INF370_.Migrations
                 name: "IX_Users_User_RoleId",
                 table: "Users",
                 column: "User_RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WriteOffs_StockTakeItemId",
+                table: "WriteOffs",
+                column: "StockTakeItemId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -1632,6 +1790,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                 name: "Discounts");
 
             migrationBuilder.DropTable(
+                name: "DiscrepencyItems");
+
+            migrationBuilder.DropTable(
                 name: "Drink_Prices");
 
             migrationBuilder.DropTable(
@@ -1645,6 +1806,9 @@ namespace Africanacity_Team24_INF370_.Migrations
 
             migrationBuilder.DropTable(
                 name: "Helps");
+
+            migrationBuilder.DropTable(
+                name: "Inventory_Prices");
 
             migrationBuilder.DropTable(
                 name: "KitchenOrders");
@@ -1695,6 +1859,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                 name: "Booking_Statuses");
 
             migrationBuilder.DropTable(
+                name: "WriteOffs");
+
+            migrationBuilder.DropTable(
                 name: "Schedules");
 
             migrationBuilder.DropTable(
@@ -1713,9 +1880,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                 name: "Entertainment_Type");
 
             migrationBuilder.DropTable(
-                name: "Inventory_Items");
-
-            migrationBuilder.DropTable(
                 name: "Suppliers");
 
             migrationBuilder.DropTable(
@@ -1723,6 +1887,9 @@ namespace Africanacity_Team24_INF370_.Migrations
 
             migrationBuilder.DropTable(
                 name: "User_Roles");
+
+            migrationBuilder.DropTable(
+                name: "StockTakeItems");
 
             migrationBuilder.DropTable(
                 name: "Events");
@@ -1758,16 +1925,22 @@ namespace Africanacity_Team24_INF370_.Migrations
                 name: "Entertainers");
 
             migrationBuilder.DropTable(
-                name: "Inventory_Types");
+                name: "Supplier_Types");
 
             migrationBuilder.DropTable(
-                name: "Supplier_Types");
+                name: "StockTakes");
+
+            migrationBuilder.DropTable(
+                name: "Employee_Roles");
+
+            migrationBuilder.DropTable(
+                name: "Inventory_Items");
 
             migrationBuilder.DropTable(
                 name: "Administrators");
 
             migrationBuilder.DropTable(
-                name: "Employee_Roles");
+                name: "Inventory_Types");
         }
     }
 }

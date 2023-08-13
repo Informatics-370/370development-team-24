@@ -385,6 +385,13 @@ namespace Africanacity_Team24_INF370_.models
             return await query.ToArrayAsync();
         }
 
+        //STOCK TAKE
+        public async Task<StockTakeItem[]> GetAllReconItemsAsync()
+        {
+            IQueryable<StockTakeItem> query = _appDbContext.StockTakeItems.Include(st => st.Inventory_Item);
+            return await query.ToArrayAsync();
+        }
+
 
         public async Task<Inventory_Item> GetInventoryItemAsync(int Inventory_ItemId)
         {

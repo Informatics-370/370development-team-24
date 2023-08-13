@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, Subject, throwError } from 'rxjs';
 import { InventoryType } from '../shared/inventorytype';
 import { InventoryItem } from '../shared/inventoryitem';
-import { StockTake } from '../shared/stocktake';
 import { BehaviorSubject} from 'rxjs';
 import { Supplier } from '../shared/supplier';
 import { Supplier_Inventory } from '../shared/supplieritem';
+import { StockTake } from '../shared/stocktakeitem';
 
 @Injectable({
     providedIn: 'root'
@@ -16,11 +16,7 @@ import { Supplier_Inventory } from '../shared/supplieritem';
     apiUrl = 'http://localhost:49991/api/'
     private inventoryItems: InventoryItem[] = [];
     private checklistItems: InventoryItem[] = [];
-    // private inventoryItemsChanged$ = new BehaviorSubject<InventoryItem[]>([]);
     public inventoryItemsChanged$ = new Subject<InventoryItem[]>();
-
-  // ... Your existing code ...
-  
   
     httpOptions ={
       headers: new HttpHeaders({
@@ -46,10 +42,6 @@ import { Supplier_Inventory } from '../shared/supplieritem';
         return this.httpClient.delete<string>(`${this.apiUrl}InventoryItem/DeleteInventoryItem` + "/" + inventory_ItemId, this.httpOptions)
       }
 
-      // EditSupplier(supplierId: Number, supplier: Supplier)
-      // {
-      //   return this.httpClient.put(`${this.apiUrl}Supplier/EditSupplier/${supplierId}`,supplier, this.httpOptions)
-      // }
 
       EditInventoryItem(inventory_ItemId: number, inventoryitem: InventoryItem): Observable<any> {
         const httpOptions = {
@@ -61,6 +53,7 @@ import { Supplier_Inventory } from '../shared/supplieritem';
       }
 
       AddInventoryItem(inventoryitem: InventoryItem) {
+      
         return this.httpClient.post(`${this.apiUrl}InventoryItem/AddInventoryItem`, inventoryitem, this.httpOptions)
           .pipe(
             catchError(error => {
@@ -71,8 +64,6 @@ import { Supplier_Inventory } from '../shared/supplieritem';
       }
 
       UpdateInventoryItem(inventory_ItemId: number, inventoryitem: InventoryItem): Observable<any> {
-        // Perform client-side operations or validations here
-        // Update the item locally
     
         const updatedItemIndex = this.inventoryItems.findIndex(item => item.inventory_ItemId === inventory_ItemId);
         if (updatedItemIndex !== -1) {
@@ -137,25 +128,11 @@ import { Supplier_Inventory } from '../shared/supplieritem';
       return this.checklistItems;
     }
     
-    // addToChecklist(item: InventoryItem) {
-    //   // Check if the item is already in the checklist
-    //   const existingItem = this.checklistItems.find((checklistItem) => checklistItem.inventory_ItemId === item.inventory_ItemId);
-    //   if (existingItem) {
-    //     // Item already exists in the checklist, handle accordingly (e.g., show error message)
-    //     console.error('Item already exists in the checklist.');
-    //     return;
-    //   }
-  
-    //   // Add the item to the checklist
-    //   this.checklistItems.push(item);
-    //   console.log('Item added to the checklist:', item);
-    // }
-
-    //Submit Stock Take 
- 
-    submitStockTake(stockTake: StockTake): Observable<any> {
-      return this.httpClient.post<any>(`${this.apiUrl}StockTake/SubmitStockTake`, stockTake);
+    addStockTake(stockTake: any): Observable<any> {
+      const url = `${this.apiUrl}InventoryItem/AddStockTake`; // Use the correct endpoint
+      return this.httpClient.post(url, stockTake);
     }
+  
 
     getInventoryItemsByType(typeId: number): Observable<InventoryItem[]> {
       return this.httpClient.get<InventoryItem[]>(`${this.apiUrl}StockTake/${typeId}`);
@@ -180,10 +157,8 @@ import { Supplier_Inventory } from '../shared/supplieritem';
         (checklistItem) => checklistItem.inventory_ItemId === item.inventory_ItemId
       );
       if (existingItem) {
-        // Item already exists in the checklist, update its properties (e.g., quantity)
         existingItem.quantity = item.quantity;
       } else {
-        // Add the item to the checklist
         this.checklistItems.push(item);
         console.log('Item added to the checklist:', item);
       }
@@ -191,9 +166,6 @@ import { Supplier_Inventory } from '../shared/supplieritem';
       // Emit changes to the checklistItems
       this.emitInventoryItemsChanged(this.checklistItems);
     }
-    
-  
-    // ... Your existing code ...
   
     emitInventoryItemsChanged(items: InventoryItem[]) {
       this.inventoryItemsChanged$.next(items);
@@ -205,9 +177,6 @@ import { Supplier_Inventory } from '../shared/supplieritem';
     }
 
     getSuppliersFromInventoryItem(item: InventoryItem): Observable<Supplier[]> {
-      // Implement a method to retrieve the suppliers related to the inventory item.
-      // For example, you can make an API call to get the suppliers based on item ID.
-      // Replace the URL with your actual API endpoint to fetch suppliers for the given item ID.
       return this.httpClient.get<Supplier[]>(`${this.apiUrl}Suppliers/GetSuppliersByItemId/${item.inventory_ItemId}`)
         .pipe(
           catchError(error => {
@@ -234,4 +203,30 @@ import { Supplier_Inventory } from '../shared/supplieritem';
       return this.httpClient.get<Supplier_Inventory[]>(`${this.apiUrl}InventoryItem/GetAllInventoryOrders`)
         .pipe(map(result => result));
     }
+
+    createStockTake(stockTake: any): Observable<any> {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+        })
+      };
+      return this.httpClient.post(`${this.apiUrl}InventoryItem/CreateStockTake`, stockTake, httpOptions);
+    }
+  
+    
+  getAllStockTakes(): Observable<StockTake[]> {
+    return this.httpClient.get<StockTake[]>(`${this.apiUrl}InventoryItem/Stocktake`);
+  }
+
+  //Recon Method
+
+  GetAllReconItems(): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}InventoryItem/GetAllReconItems`)
+    .pipe(map(result => result))
+  }
+
+  AddWriteOffRecord(writeOffData: any): Observable<any> {
+    return this.httpClient.post(`${this.apiUrl}InventoryItem/AddWriteOffRecord`, writeOffData);
+  }
+
 }

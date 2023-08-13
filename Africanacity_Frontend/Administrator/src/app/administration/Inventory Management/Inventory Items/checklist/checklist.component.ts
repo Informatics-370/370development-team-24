@@ -75,17 +75,6 @@ export class ChecklistComponent {
     this.emitInventoryItemsChanged(this.checklistItems);
   }
 
-  // removeFromChecklist(item: InventoryItem) {
-  //   // Remove the item from the checklist
-  //   this.checklistItems = this.checklistItems.filter((checklistItem) => checklistItem.inventory_ItemId !== item.inventory_ItemId);
-  //   console.log('Item removed from the checklist:', item);
-
-  //   // Save the updated data to localStorage
-  //   localStorage.setItem('checklistItems', JSON.stringify(this.checklistItems));
-
-  //   // Emit changes to the checklistItems
-  //   this.emitInventoryItemsChanged(this.checklistItems);
-  // }
 
   checkInventory() {
     console.log('Checking inventory items...');
@@ -113,12 +102,7 @@ export class ChecklistComponent {
     // Emit changes to the checklistItems
     this.emitInventoryItemsChanged(this.checklistItems);
   }
-  
-  // addToChecklist(item: InventoryItem) {
-  //   item.isChecked = false; 
-  //   this.checklistItems.push(item);
-    
-  // }
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
@@ -168,6 +152,8 @@ export class ChecklistComponent {
 
   downloadPDF() {
     const doc = new jsPDF();
+    doc.setFontSize(18);
+    doc.text('Inventory Item CheckList', 105, 15, { align: 'center' });
     const headers = [['ID', 'Name']];
     
     // Map the checklistItems to generate the data array

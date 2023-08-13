@@ -58,6 +58,11 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<Supplier_InventoryItem> Supplier_InventoryItems { get; set; }
 		public DbSet<Supplier_Type> Supplier_Types { get; set; }
         public DbSet<Supplier_Inventory> Supplier_Inventorys { get; set; }
+        public DbSet<Inventory_Price> Inventory_Prices { get; set; }
+        public DbSet<StockTake> StockTakes { get; set; }
+        public DbSet<StockTakeItem> StockTakeItems { get; set; }
+        public DbSet<WriteOffStock> WriteOffs { get; set; }
+        public DbSet<DiscrepencyItem> DiscrepencyItems { get; set; }
 
 
         //Restraurant model
@@ -744,8 +749,8 @@ namespace Africanacity_Team24_INF370_.models
                  SupplierId = 1,
                   Inventory_ItemId = 1,
                  Ordered_Quantity = 33,
-                  Ordered_Date = DateTime.Today,
-                  Received_Date = DateTime.Today
+                 //Ordered_Date = DateTime.Today,
+                 // Received_Date = DateTime.Today
             });
 
 
@@ -1289,6 +1294,112 @@ namespace Africanacity_Team24_INF370_.models
                            Start_Date = DateTime.Now,
                            End_Date = DateTime.Now.AddDays(10),
                        });
+
+            //seed data for Inventory_Price
+
+            modelBuilder.Entity<Inventory_Price>()
+                       .HasData(
+                       new
+                       {
+                           InventoryPrice_Id = 1,
+                           Price = 25m,
+                           Inventory_ItemId = 1,
+                           Date = DateTime.Now
+
+                       });
+
+            modelBuilder.Entity<Inventory_Price>()
+                       .HasData(
+                       new
+                       {
+                           InventoryPrice_Id = 2,
+                           Price = 250m,
+                           Inventory_ItemId = 2,
+                           Date = DateTime.Now
+
+                       });
+
+            modelBuilder.Entity<Inventory_Price>()
+                       .HasData(
+                       new
+                       {
+                           InventoryPrice_Id = 3,
+                           Price = 200m,
+                           Inventory_ItemId = 3,
+                           Date = DateTime.Now
+
+                       });
+
+            modelBuilder.Entity<Inventory_Price>()
+                       .HasData(
+                       new
+                       {
+                           InventoryPrice_Id = 4,
+                           Price = 38m,
+                           Inventory_ItemId = 4,
+                           Date = DateTime.Now
+
+                       });
+            modelBuilder.Entity<Inventory_Price>()
+                     .HasData(
+                     new
+                     {
+                         InventoryPrice_Id = 5,
+                         Price = 45m,
+                         Inventory_ItemId = 5,
+                         Date = DateTime.Now
+
+                     });
+            modelBuilder.Entity<Inventory_Price>()
+                     .HasData(
+                     new
+                     {
+                         InventoryPrice_Id = 6,
+                         Price = 75m,
+                         Inventory_ItemId = 6,
+                         Date = DateTime.Now
+
+                     });
+            modelBuilder.Entity<Inventory_Price>()
+                     .HasData(
+                     new
+                     {
+                         InventoryPrice_Id = 7,
+                         Price = 100m,
+                         Inventory_ItemId = 7,
+                         Date = DateTime.Now
+
+                     });
+            modelBuilder.Entity<Inventory_Price>()
+                     .HasData(
+                     new
+                     {
+                         InventoryPrice_Id = 8,
+                         Price = 40m,
+                         Inventory_ItemId = 8,
+                         Date = DateTime.Now
+
+                     });
+            modelBuilder.Entity<Inventory_Price>()
+                     .HasData(
+                     new
+                     {
+                         InventoryPrice_Id = 9,
+                         Price = 28m,
+                         Inventory_ItemId = 9,
+                         Date = DateTime.Now
+
+                     });
+            modelBuilder.Entity<Inventory_Price>()
+                     .HasData(
+                     new
+                     {
+                         InventoryPrice_Id = 10,
+                         Price = 35m,
+                         Inventory_ItemId = 10,
+                         Date = DateTime.Now
+
+                     });
 
 
 

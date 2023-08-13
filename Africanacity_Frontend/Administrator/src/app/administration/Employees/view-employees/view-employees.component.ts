@@ -93,10 +93,12 @@ deleteItemFromServer(): void {
     }
     downloadPDF() {
       const doc = new jsPDF();
+      doc.setFontSize(18);
+      doc.text('Employee Listing', 105, 15, { align: 'center' });
       const headers = [['ID', 'Name', 'Surname', 'Role', 'Email', 'Phone Number', 'Address']];
       
       // Map the checklistItems to generate the data array
-      const data = this.employees.map(employee => [employee.employeeId, employee.firstName, employee.surname, employee.employeeRole, employee.email_Address, employee.phoneNumber, employee.physical_Address]);
+      const data = this.employees.map(employee => [employee.employeeId, employee.firstName, employee.surname, employee.employeeRoleName, employee.email_Address, employee.phoneNumber, employee.physical_Address]);
     
       doc.setFontSize(12);
     

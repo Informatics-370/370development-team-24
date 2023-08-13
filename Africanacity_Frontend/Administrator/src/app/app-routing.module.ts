@@ -72,9 +72,12 @@ import { MenuTypesComponent } from './administration/menu-types/menu-types.compo
 import { AddMenuItemComponent } from './administration/menuitems/add-menu-item/add-menu-item.component';
 import { EditMenuItemComponent } from './administration/menuitems/edit-menu-item/edit-menu-item.component';
 import { MenuitemsComponent } from './administration/menuitems/menuitems.component';
+import { StockTakeComponent } from './administration/Inventory Management/Inventory Items/stock-take/stock-take.component';
+import { StockTakeListComponent } from './administration/Inventory Management/Inventory Items/stock-take/stock-take-list/stock-take-list.component';
+import { WriteOffStockComponent } from './administration/Inventory Management/Inventory Items/stock-take/write-off-stock/write-off-stock.component';
 
 const routes: Routes = [
-  {path:'login', component:LoginComponent},
+  {path:'login', component: LoginComponent},
   {path:'signup', component:SignupComponent},
   {path:'reset', component:ResetComponent},
   {path:'view-profile',component:ViewProfileComponent, canActivate:[AuthGuard]},
@@ -154,6 +157,9 @@ const routes: Routes = [
   { path: 'inventory-reconciliation',component: InventoryReconciliationComponent }, // for inventory reconciliation report
   { path: 'sales',component: SalesComponent }, // for sales report
   { path: 'schedule',component: ScheduleComponent },
+  {path: 'stock-take', component:StockTakeComponent},
+  {path: 'stock-take-list', component:StockTakeListComponent},
+  {path: 'write-off-stock', component:WriteOffStockComponent},
 // for schedule
   { path: '', redirectTo: 'login', pathMatch:'full'},
   

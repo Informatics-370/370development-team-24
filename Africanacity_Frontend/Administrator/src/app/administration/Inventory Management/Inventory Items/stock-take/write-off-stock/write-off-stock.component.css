@@ -1,0 +1,49 @@
+.discrepancy-alert {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .discrepancy-item {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+  
+  .discrepancy-item h3 {
+    margin: 0;
+  }
+  
+  .discrepancy-item p {
+    margin: 5px 0;
+  }
+  
+  .discrepancy-item textarea {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    resize: vertical;
+  }
+  
+  .ok-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .ok-button:hover {
+    background-color: #0056b3;
+  }
+  

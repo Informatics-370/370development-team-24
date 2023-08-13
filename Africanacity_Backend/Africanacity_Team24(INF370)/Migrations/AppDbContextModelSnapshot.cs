@@ -190,9 +190,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                             DiscountId = 1,
                             Amount = 0.10m,
                             Description = "10% Discount",
-                            End_Date = new DateTime(2023, 8, 10, 1, 9, 23, 682, DateTimeKind.Local).AddTicks(4685),
+                            End_Date = new DateTime(2023, 8, 23, 18, 8, 54, 474, DateTimeKind.Local).AddTicks(6255),
                             Name = "Month end discount",
-                            Start_Date = new DateTime(2023, 7, 31, 1, 9, 23, 682, DateTimeKind.Local).AddTicks(4684)
+                            Start_Date = new DateTime(2023, 8, 13, 18, 8, 54, 474, DateTimeKind.Local).AddTicks(6243)
                         });
                 });
 
@@ -892,6 +892,42 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.ToTable("Schedule_Statuses");
                 });
 
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.DiscrepencyItem", b =>
+                {
+                    b.Property<int>("DiscrepId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DiscrepId"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Inventory_ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ItemName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("QuantityDifference")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("WriteOffStockWriteOffId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DiscrepId");
+
+                    b.HasIndex("WriteOffStockWriteOffId");
+
+                    b.ToTable("DiscrepencyItems");
+                });
+
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Inventory_Item", b =>
                 {
                     b.Property<int>("Inventory_ItemId")
@@ -1010,6 +1046,102 @@ namespace Africanacity_Team24_INF370_.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Inventory_Price", b =>
+                {
+                    b.Property<int>("InventoryPrice_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InventoryPrice_Id"), 1L, 1);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Inventory_ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("InventoryPrice_Id");
+
+                    b.HasIndex("Inventory_ItemId");
+
+                    b.ToTable("Inventory_Prices");
+
+                    b.HasData(
+                        new
+                        {
+                            InventoryPrice_Id = 1,
+                            Date = new DateTime(2023, 8, 13, 18, 8, 54, 474, DateTimeKind.Local).AddTicks(6295),
+                            Inventory_ItemId = 1,
+                            Price = 25m
+                        },
+                        new
+                        {
+                            InventoryPrice_Id = 2,
+                            Date = new DateTime(2023, 8, 13, 18, 8, 54, 474, DateTimeKind.Local).AddTicks(6302),
+                            Inventory_ItemId = 2,
+                            Price = 250m
+                        },
+                        new
+                        {
+                            InventoryPrice_Id = 3,
+                            Date = new DateTime(2023, 8, 13, 18, 8, 54, 474, DateTimeKind.Local).AddTicks(6308),
+                            Inventory_ItemId = 3,
+                            Price = 200m
+                        },
+                        new
+                        {
+                            InventoryPrice_Id = 4,
+                            Date = new DateTime(2023, 8, 13, 18, 8, 54, 474, DateTimeKind.Local).AddTicks(6318),
+                            Inventory_ItemId = 4,
+                            Price = 38m
+                        },
+                        new
+                        {
+                            InventoryPrice_Id = 5,
+                            Date = new DateTime(2023, 8, 13, 18, 8, 54, 474, DateTimeKind.Local).AddTicks(6323),
+                            Inventory_ItemId = 5,
+                            Price = 45m
+                        },
+                        new
+                        {
+                            InventoryPrice_Id = 6,
+                            Date = new DateTime(2023, 8, 13, 18, 8, 54, 474, DateTimeKind.Local).AddTicks(6330),
+                            Inventory_ItemId = 6,
+                            Price = 75m
+                        },
+                        new
+                        {
+                            InventoryPrice_Id = 7,
+                            Date = new DateTime(2023, 8, 13, 18, 8, 54, 474, DateTimeKind.Local).AddTicks(6335),
+                            Inventory_ItemId = 7,
+                            Price = 100m
+                        },
+                        new
+                        {
+                            InventoryPrice_Id = 8,
+                            Date = new DateTime(2023, 8, 13, 18, 8, 54, 474, DateTimeKind.Local).AddTicks(6340),
+                            Inventory_ItemId = 8,
+                            Price = 40m
+                        },
+                        new
+                        {
+                            InventoryPrice_Id = 9,
+                            Date = new DateTime(2023, 8, 13, 18, 8, 54, 474, DateTimeKind.Local).AddTicks(6345),
+                            Inventory_ItemId = 9,
+                            Price = 28m
+                        },
+                        new
+                        {
+                            InventoryPrice_Id = 10,
+                            Date = new DateTime(2023, 8, 13, 18, 8, 54, 474, DateTimeKind.Local).AddTicks(6352),
+                            Inventory_ItemId = 10,
+                            Price = 35m
+                        });
+                });
+
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Inventory_Type", b =>
                 {
                     b.Property<int>("Inventory_TypeId")
@@ -1050,6 +1182,60 @@ namespace Africanacity_Team24_INF370_.Migrations
                             Description = "For all Alcoholic Drink inventory items",
                             Name = "Alcoholic Drinks"
                         });
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.StockTake", b =>
+                {
+                    b.Property<int>("StockTake_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StockTake_Id"), 1L, 1);
+
+                    b.Property<int?>("Inventory_ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StockTake_Date")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("StockTake_Id");
+
+                    b.HasIndex("Inventory_ItemId");
+
+                    b.ToTable("StockTakes");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.StockTakeItem", b =>
+                {
+                    b.Property<int>("StockTakeItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StockTakeItemId"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Inventory_ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StockTake_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StockTake_Id1")
+                        .HasColumnType("int");
+
+                    b.HasKey("StockTakeItemId");
+
+                    b.HasIndex("Inventory_ItemId");
+
+                    b.HasIndex("StockTake_Id1");
+
+                    b.ToTable("StockTakeItems");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier", b =>
@@ -1150,14 +1336,8 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<int>("Inventory_ItemId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Ordered_Date")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("Ordered_Quantity")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("Received_Date")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("SupplierId")
                         .HasColumnType("int");
@@ -1175,9 +1355,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             SupplierItemId = 1,
                             Inventory_ItemId = 1,
-                            Ordered_Date = new DateTime(2023, 7, 31, 0, 0, 0, 0, DateTimeKind.Local),
                             Ordered_Quantity = 33,
-                            Received_Date = new DateTime(2023, 7, 31, 0, 0, 0, 0, DateTimeKind.Local),
                             SupplierId = 1
                         });
                 });
@@ -1243,6 +1421,32 @@ namespace Africanacity_Team24_INF370_.Migrations
                             Description = "Stores that supplier baking ingrediants",
                             Name = "Bakery"
                         });
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.WriteOffStock", b =>
+                {
+                    b.Property<int>("WriteOffId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WriteOffId"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StockTakeItemId")
+                        .HasColumnType("int");
+
+                    b.HasKey("WriteOffId");
+
+                    b.HasIndex("StockTakeItemId");
+
+                    b.ToTable("WriteOffs");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Login.AppUser", b =>
@@ -2337,6 +2541,13 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Navigation("Event");
                 });
 
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.DiscrepencyItem", b =>
+                {
+                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.WriteOffStock", null)
+                        .WithMany("DiscrepencyItems")
+                        .HasForeignKey("WriteOffStockWriteOffId");
+                });
+
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Inventory_Item", b =>
                 {
                     b.HasOne("Africanacity_Team24_INF370_.models.Administration.Administrator", null)
@@ -2350,6 +2561,41 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .IsRequired();
 
                     b.Navigation("Inventory_Type");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Inventory_Price", b =>
+                {
+                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.Inventory_Item", null)
+                        .WithMany("Inventory_Prices")
+                        .HasForeignKey("Inventory_ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.StockTake", b =>
+                {
+                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.Inventory_Item", null)
+                        .WithMany("StockTakes")
+                        .HasForeignKey("Inventory_ItemId");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.StockTakeItem", b =>
+                {
+                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.Inventory_Item", "Inventory_Item")
+                        .WithMany("StockTakeItems")
+                        .HasForeignKey("Inventory_ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.StockTake", "StockTake")
+                        .WithMany("StockTakeItems")
+                        .HasForeignKey("StockTake_Id1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Inventory_Item");
+
+                    b.Navigation("StockTake");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier", b =>
@@ -2399,6 +2645,17 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasForeignKey("SuppliersSupplierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.WriteOffStock", b =>
+                {
+                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.StockTakeItem", "StockTakeItem")
+                        .WithMany("WriteOffs")
+                        .HasForeignKey("StockTakeItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("StockTakeItem");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Drink", b =>
@@ -2651,12 +2908,28 @@ namespace Africanacity_Team24_INF370_.Migrations
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Inventory_Item", b =>
                 {
+                    b.Navigation("Inventory_Prices");
+
+                    b.Navigation("StockTakeItems");
+
+                    b.Navigation("StockTakes");
+
                     b.Navigation("Supplier_Inventorys");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Inventory_Type", b =>
                 {
                     b.Navigation("Inventory_Items");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.StockTake", b =>
+                {
+                    b.Navigation("StockTakeItems");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.StockTakeItem", b =>
+                {
+                    b.Navigation("WriteOffs");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier", b =>
@@ -2667,6 +2940,11 @@ namespace Africanacity_Team24_INF370_.Migrations
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier_Type", b =>
                 {
                     b.Navigation("Suppliers");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.WriteOffStock", b =>
+                {
+                    b.Navigation("DiscrepencyItems");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Drink_Type", b =>

@@ -54,7 +54,8 @@ export class EditEmployeeComponent implements OnInit {
       });
     });
 
-    this.GetAllEmployeeRoles(); // Call this method to populate the supplierTypesData array
+    this.GetAllEmployeeRoles();
+    console.log(this.editEmployee) // Call this method to populate the supplierTypesData array
   }
 
   cancel() {
