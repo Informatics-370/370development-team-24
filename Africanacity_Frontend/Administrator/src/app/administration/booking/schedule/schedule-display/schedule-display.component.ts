@@ -5,6 +5,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { AddScheduleComponent } from '../add-schedule/add-schedule.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DataService } from 'src/app/service/data.Service';
+import { Schedule } from 'src/app/shared/schedule';
 
 
 
@@ -15,33 +16,47 @@ import { DataService } from 'src/app/service/data.Service';
 })
 
 export class ScheduleDisplayComponent implements OnInit {
- 
+ schedules : Schedule [] =[]
+
   private dialogRef: any;
   
   constructor(private dialog: MatDialog, private dataService: DataService){}
 
 
   ngOnInit() {
+   this.GetAllSchedules();
+  }
 
+  GetAllSchedules()
+  {
+    this.dataService.ScheduleDisplay().subscribe(result => {
+      let eventsList:any[] = result
+      eventsList.forEach((element) => {
+        this.schedules.push(element)
+        
+      });
+    })
   }
 
 
 
-  calendarOptions: CalendarOptions = {
-   initialView: 'dayGridMonth',
-     plugins: [dayGridPlugin, interactionPlugin],
-     dateClick: this.handleDateClick.bind(this),
-     events: [
-      { title: 'music slot', date: '2023-07-19',color:'#2196F3'},
-      {title: 'dance', date: '2023-07-23',color:'#2196F3'},
-      {title: 'poetry', date: '2023-08-10'}
-     ]
+  
+//   calendarOptions: CalendarOptions = {
+//    initialView: 'dayGridMonth',
+//      plugins: [dayGridPlugin, interactionPlugin],
+//      dateClick: this.handleDateClick.bind(this),
+//      events: [
+//       {title: 'music slot', date: '2023-07-19',color:'#2196F3'},
+//       {title: 'dance', date: '2023-07-23',color:'#2196F3'},
+//       {title: 'poetry', date: '2023-08-10'},
+//       {title: 'contemp', date: '2023-08-10'}
+//      ]
      
- };
+//  };
 
- handleDateClick(arg: { dateStr: string; }) {
-  alert('date click! ' + arg.dateStr)
-}
+//  handleDateClick(arg: { dateStr: string; }) {
+//   alert('date click! ' + arg.dateStr)
+// }
 
 
 

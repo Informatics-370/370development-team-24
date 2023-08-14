@@ -5,7 +5,9 @@ namespace Africanacity_Team24_INF370_.models.Booking
 {
     public class Schedule
 	{
-		[Key]
+        internal bool IsActive;
+        internal bool IsDeleted;
+        [Key]
 		public int ScheduleId { get; set; }
 		public string Title { get; set; }
 		public DateTime Date { get; set; } 

@@ -19,7 +19,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         [HttpGet]
         [Route("ScheduleDisplay")]
-        public async Task<IActionResult> ScheduleDisplay()
+        public async Task<ActionResult> ScheduleDisplay()
         {
             try
             {
@@ -39,7 +39,13 @@ namespace Africanacity_Team24_INF370_.Controllers
 
                     s.End_Time,
 
-                    EventName = s.Event.Name
+                    EventName = s.Event != null ? s.Event.Name : "Unknown Event",
+
+                    //EventName = s.Event.Name,
+
+                    s.IsActive,
+
+                    s.IsDeleted,
 
                 });
                 return Ok(schedule);
@@ -50,20 +56,7 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
         }
 
-        //[HttpGet]
-        //[Route("ScheduleDisplay")]
-        //public async Task<IActionResult> ScheduleDisplay()
-        //{
-        //    try
-        //    {
-        //        var results = await _Repository.ScheduleDisplayAsync();
-        //        return Ok(results);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return StatusCode(500, "Internal Server Error. Please contact support.");
-        //    }
-        //}
+        
 
         [HttpGet]
         [Route("GetSchedule/{scheduleId}")]
@@ -83,26 +76,71 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
         }
 
+        //[HttpPost]
+        //[Route("AddSchedule")]
+        //public async Task<IActionResult> AddSchedule(IFormCollection formData)
+        //{
+
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+
+
+        //    var schedule = new Schedule
+        //    {
+        //        Title = formData["title"],
+        //        Description = formData["description"],
+        //        Date = new DateTime(date),
+        //        Start_Time = formData["start_time"],
+        //        End_Time = formData["end_time"],
+        //        EventId = Convert.ToInt32(formData["event"]),
+        //    };
+
+        //    try
+        //    {
+        //        _Repository.Add(schedule);
+        //        await _Repository.SaveChangesAsync();
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return BadRequest("Invalid Operation");
+        //    }
+
+        //    return Ok(schedule);
+        //}
+
         [HttpPost]
         [Route("AddSchedule")]
-        public async Task<IActionResult> AddSchedule(ScheduleViewModel svm)
+        public async Task<IActionResult> AddSchedule(IFormCollection formData)
         {
-        
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            var schedule = new Schedule { 
-                Title = svm.Title, 
-                Description = svm.Description, 
-                Date = svm.Date,
-                Start_Time = svm.Start_Time, 
-                End_Time = svm.End_Time, 
-                EventId = Convert.ToInt32(svm.Event)
-            }; 
+            if (!DateTime.TryParse(formData["date"], out DateTime eventDate))
+            {
+                return BadRequest("Invalid date format");
+            }
+
+            var schedule = new Schedule
+            {
+                Title = formData["title"],
+                Description = formData["description"],
+                Date = eventDate,
+                Start_Time = formData["start_time"],
+                End_Time = formData["end_time"],
+                EventId = Convert.ToInt32(formData["event"]),
+            };
+
             try
             {
                 _Repository.Add(schedule);
                 await _Repository.SaveChangesAsync();
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return BadRequest("Invalid Operation");
             }
@@ -114,7 +152,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         [HttpPut]
         [Route("EditSchedule/{scheduleId}")]
-        public async Task<ActionResult<ScheduleViewModel>> EditSchedule(int scheduleId, ScheduleViewModel viewModel)
+        public async Task<ActionResult<ScheduleViewModel>> EditSchedule(int scheduleId, [FromBody] ScheduleViewModel viewModel)
         {
             try
             {
@@ -126,7 +164,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                     existingSchedule.Start_Time = viewModel.Start_Time;
                     existingSchedule.End_Time = viewModel.End_Time;
                     existingSchedule.Description = viewModel.Description;
-                    //existingSchedule.EventId = viewModel.Event;
+                    existingSchedule.EventId = viewModel.EventId;
 
                     if (await _Repository.SaveChangesAsync())
                     {

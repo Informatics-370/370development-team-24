@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgToastService } from 'ng-angular-popup';
+//import { NgToastService } from 'ng-angular-popup';
 import { ResetPasswordService } from 'src/app/UserService/reset-password.service';
 import { confirmPassowrdValidator } from 'src/app/helpers/confirm-password.validator';
 import ValidateForm from 'src/app/helpers/validationform';
@@ -32,7 +32,7 @@ export class ChangePasswordComponent implements OnInit {
 
   constructor(
     private fb : FormBuilder, 
-    private toast: NgToastService,
+    //private toast: NgToastService,
     private router: Router,
     private activate : ActivatedRoute,
     private resetService: ResetPasswordService) { }
@@ -89,18 +89,18 @@ passwordMatchValidator(formGroup: FormGroup) {
         this.resetService.resetPassword(this.resetPasswordObj)
          .subscribe({
             next:(res)=>{
-              this.toast.success({
-                detail: 'Success',
-                summary: 'Unique Password reset Successful!',
-                duration: 3000,
-              });
+              // this.toast.success({
+              //   detail: 'Success',
+              //   summary: 'Unique Password reset Successful!',
+              //   duration: 3000,
+              // });
         },
         error:(err)=>{
-            this.toast.error({
-                detail: 'ERROR',
-                summary: 'Old Password and New password should not match!',
-                duration: 3000,
-              });
+            // this.toast.error({
+            //     detail: 'ERROR',
+            //     summary: 'Old Password and New password should not match!',
+            //     duration: 3000,
+            //   });
         }
       })
 
@@ -113,19 +113,19 @@ passwordMatchValidator(formGroup: FormGroup) {
          this.resetService.resetPassword(this.resetPasswordObj)
          .subscribe({
             next:(res)=>{
-              this.toast.success({
-                detail: 'Success',
-                summary: 'Password reset Successful!',
-                duration: 3000,
-              });
+              // this.toast.success({
+              //   detail: 'Success',
+              //   summary: 'Password reset Successful!',
+              //   duration: 3000,
+              // });
               this.router.navigate([['/view-profile']])
         },
         error:(err)=>{
-            this.toast.error({
-                detail: 'ERROR',
-                summary: 'Password reset unsuccessful!',
-                duration: 3000,
-              });
+            // this.toast.error({
+            //     detail: 'ERROR',
+            //     summary: 'Password reset unsuccessful!',
+            //     duration: 3000,
+            //   });
         }
     })
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Africanacity_Team24_INF370_.Migrations
 {
-    public partial class Africanacity : Migration
+    public partial class Mmino : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -468,9 +468,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                 {
                     EventId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AdministratorId = table.Column<int>(type: "int", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AdministratorId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -638,9 +638,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                 {
                     Entertainment_TypeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    EntertainerId = table.Column<int>(type: "int", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EntertainerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1130,7 +1130,7 @@ namespace Africanacity_Team24_INF370_.Migrations
             migrationBuilder.InsertData(
                 table: "Discounts",
                 columns: new[] { "DiscountId", "AdministratorId", "Amount", "Description", "End_Date", "Name", "Start_Date" },
-                values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 8, 21, 0, 26, 56, 832, DateTimeKind.Local).AddTicks(537), "Month end discount", new DateTime(2023, 8, 11, 0, 26, 56, 832, DateTimeKind.Local).AddTicks(535) });
+                values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 8, 24, 1, 3, 2, 625, DateTimeKind.Local).AddTicks(8561), "Month end discount", new DateTime(2023, 8, 14, 1, 3, 2, 625, DateTimeKind.Local).AddTicks(8553) });
 
             migrationBuilder.InsertData(
                 table: "Drink_Prices",
@@ -1361,7 +1361,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                 {
                     { 1, null, new DateTime(2023, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "Musician can book performance", "14:30 PM", 1, null, "14;00 PM", "Music slot" },
                     { 2, null, new DateTime(2023, 8, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "Contemporary Dance performance", "21:30 PM", 2, null, "21;00 PM", "Dance slot " },
-                    { 3, null, new DateTime(2023, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "Poet recital", "19:15 PM", 3, null, "19;00 PM", "Poetry" }
+                    { 3, null, new DateTime(2023, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "Poet recital", "19:15 PM", 3, null, "19;00 PM", "Poetry" },
+                    { 4, null, new DateTime(2023, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "Contemporary dance slot", "19:50 PM", 2, null, "19;30 PM", "Contemp Dance" },
+                    { 5, null, new DateTime(2023, 8, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "Poet recital", "19:15 PM", 3, null, "19;00 PM", "Comedy" }
                 });
 
             migrationBuilder.InsertData(
@@ -1371,15 +1373,23 @@ namespace Africanacity_Team24_INF370_.Migrations
                 {
                     { 1, null, "checkers@gmail.com", "0122345654", "416 Kirkness St, Arcadia", "Checkers", 3 },
                     { 2, null, "pnp@gmail.com", "0110456543", "Hatfield Plaza 1122 Burnett Street", "Pick `n Pay", 3 },
-                    { 3, null, "liquorRack@gmail.com", "0656781230", "Hatfield Plaza 1145 Burnett Street", "Liquor Rack", 1 },
-                    { 4, null, "bakerMan@gmail.com", "0714567890", "HillCrest Boulevard 110 Lynnwood", "BakerMan", 4 },
-                    { 5, null, "MJButcher@gmail.com", "0865045674", "143 Atterbury Street", "Mr Jacks Butcher", 2 }
+                    { 3, null, "liquorRack@gmail.com", "0656781230", "Hatfield Plaza 1145 Burnett Street", "Liquor Rack", 1 }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Suppliers",
+                columns: new[] { "SupplierId", "AdministratorId", "Email_Address", "PhoneNumber", "Physical_Address", "SupplierName", "Supplier_TypeId" },
+                values: new object[] { 4, null, "bakerMan@gmail.com", "0714567890", "HillCrest Boulevard 110 Lynnwood", "BakerMan", 4 });
+
+            migrationBuilder.InsertData(
+                table: "Suppliers",
+                columns: new[] { "SupplierId", "AdministratorId", "Email_Address", "PhoneNumber", "Physical_Address", "SupplierName", "Supplier_TypeId" },
+                values: new object[] { 5, null, "MJButcher@gmail.com", "0865045674", "143 Atterbury Street", "Mr Jacks Butcher", 2 });
 
             migrationBuilder.InsertData(
                 table: "Supplier_Inventorys",
                 columns: new[] { "SupplierItemId", "Inventory_ItemId", "Ordered_Date", "Ordered_Quantity", "Received_Date", "SupplierId" },
-                values: new object[] { 1, 1, new DateTime(2023, 8, 11, 0, 0, 0, 0, DateTimeKind.Local), 33, new DateTime(2023, 8, 11, 0, 0, 0, 0, DateTimeKind.Local), 1 });
+                values: new object[] { 1, 1, new DateTime(2023, 8, 14, 0, 0, 0, 0, DateTimeKind.Local), 33, new DateTime(2023, 8, 14, 0, 0, 0, 0, DateTimeKind.Local), 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Access_UserRoles_User_RolesUser_RoleId",

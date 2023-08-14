@@ -4,6 +4,7 @@ import { DataService } from 'src/app/service/data.Service';
 import { BookingEvent } from 'src/app/shared/bookingevent';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Schedule } from 'src/app/shared/schedule';
+import { Router } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -19,23 +20,25 @@ export class AddScheduleComponent implements OnInit{
   newEvents: Event[] = [];
 
   //Date Validation 
-  minDate: Date;
-  maxDate: Date;
+  // minDate: Date;
+  // maxDate: Date;
 
-  constructor( private dataService: DataService, private fb: FormBuilder,
+  constructor( private dataService: DataService, 
+    private fb: FormBuilder,
+    private router: Router,
     private snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<AddScheduleComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     //Set min date to 20 years in the past and a year in the future
-    const currentYear = new Date().getFullYear();
-    this.minDate = new Date(currentYear - 20, 0, 1);
-    this.maxDate = new Date(currentYear + 1, 11, 31);
+    // const currentYear = new Date().getFullYear();
+    // this.minDate = new Date(currentYear - 20, 0, 1);
+    // this.maxDate = new Date(currentYear + 1, 11, 31);
   }
 
      // Create an EventEmitter to emit the new event data
-    @Output() eventAdded: EventEmitter<any> = new EventEmitter<any>();
-    private customEventColor = '#2196F3';
+    // @Output() eventAdded: EventEmitter<any> = new EventEmitter<any>();
+    // private customEventColor = '#2196F3';
 
     scheduleform: FormGroup = this.fb.group({
       title: ['', Validators.required],
@@ -61,6 +64,14 @@ export class AddScheduleComponent implements OnInit{
         
       });
     })
+  }
+
+  onSubmit() {
+    const eventData = this.scheduleform.value;
+    this.dataService.AddSchedule(eventData).subscribe(() => {
+      // Handle success or navigate back to event list
+      this.router.navigate(['/schedule-display'])
+    });
   }
 
   // onSave(): void {

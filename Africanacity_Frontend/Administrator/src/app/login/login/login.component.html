@@ -9,7 +9,7 @@
                           Login
                       </h3>
                     </div>
-                    <div class="panel-body p-3">
+                    <!-- <div class="panel-body p-3">
                         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                             <div class="form-group pt-3">
                                 <div class="input-field" [class.error]="loginForm.controls['username'].dirty && loginForm.hasError('required','username')"> <span class="fa fa-user p-2"></span> <input formControlName="username" type="text" placeholder="Username" required> </div>
@@ -26,7 +26,7 @@
                             <button type="submit"  class="btn btn-primary btn-block mt-4 w-100">Login</button>
                             <div class="text-center pt-4 text-muted">Don't have an account? <a id="forgot" routerLink="/signup">Sign up</a> </div>
                         </form>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -45,9 +45,9 @@
             </div>
   
             <div class="modal-body">
-                <div class="form-group pt-3">
+                <!-- <div class="form-group pt-3">
                   <div class="input-field"> <span class="fa fa-user p-2"></span> <input [(ngModel)] ="resetPasswordEmail" (ngModelChange)="checkValidEmail($event)" type="text" placeholder="Email"> </div>
-                </div>
+                </div> -->
                 <small *ngIf="!resetPasswordEmail" class="text-danger">*Email is required*</small>
                  <small *ngIf="!isValidEmail && resetPasswordEmail" class="text-danger">*Email is invalid*</small> 
             </div>

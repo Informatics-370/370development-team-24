@@ -17,7 +17,7 @@ import { ViewProfileComponent } from './login/view-profile/view-profile.componen
 //import { NgToastModule } from 'ng-angular-popup';
 import { ManageBookingComponent } from './administration/entertainer/manage-booking/manage-booking.component';
 import { BookingListingComponent } from './administration/entertainer/booking-listing/booking-listing.component';
-// import { MaterialModule } from './shared/material.modules';
+//import { MaterialModule } from './shared/material.modules';
 import { AddEmployeeRoleComponent } from './administration/EmployeeRole/add-employee-role/add-employee-role.component';
 import { EmployeeRoleComponent } from './administration/EmployeeRole/employee-role/employee-role.component';
 import { EditEmployeeRoleComponent } from './administration/EmployeeRole/edit-employee-role/edit-employee-role.component';
@@ -61,7 +61,7 @@ import { InventoryComponent } from './administration/Reports/inventory/inventory
 import { InventoryReconciliationComponent } from './administration/Reports/inventory-reconciliation/inventory-reconciliation.component';
 import { SalesComponent } from './administration/Reports/sales/sales.component';
 import { ScheduleComponent } from './administration/Reports/schedule/schedule.component';
-//import { NgChartsModule} from 'ng2-charts';
+import { NgChartsModule} from 'ng2-charts';
 import { AddMenuItemComponent } from './administration/menuitems/add-menu-item/add-menu-item.component';
 import { EditMenuItemComponent } from './administration/menuitems/edit-menu-item/edit-menu-item.component';
 import { AddEntertainmentTypeComponent } from './administration/booking/entertainment/add-entertainment-type/add-entertainment-type.component';
@@ -195,9 +195,9 @@ import { ChangePasswordComponent } from './login/change-password/change-password
    InventoryReconciliationComponent, 
     SalesComponent, 
     ScheduleComponent,
-    ResetComponent,
-    LoginComponent,
-    ChangePasswordComponent,
+    //ResetComponent,
+    //LoginComponent,
+    //ChangePasswordComponent,
     ViewProfileComponent,
     SignupComponent,
     UpdateProfileComponent,
@@ -227,11 +227,7 @@ import { ChangePasswordComponent } from './login/change-password/change-password
     FullCalendarModule,
     ModalModule.forRoot(), 
   ],
-  providers: [DataService,{
-    provide:HTTP_INTERCEPTORS,
-    useClass:TokenInterceptor,
-    multi:true
-  }],
+  providers: [DataService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

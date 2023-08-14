@@ -15,7 +15,7 @@
 
     <mat-form-field class="full-width-input">
       <mat-label>Start Time</mat-label>
-      <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="startTimePicker" formControlName="start_time" placeholder="Start Time">
+      <input matInput  [matDatepicker]="startTimePicker" formControlName="start_time" placeholder="Start Time">
       <mat-datepicker-toggle matSuffix [for]="startTimePicker"></mat-datepicker-toggle>
       <mat-datepicker #startTimePicker></mat-datepicker>
 
@@ -45,8 +45,8 @@
 </div>
 
 <div mat-dialog-actions>
-  <button mat-button color="warn" (click)="onCancel()">Cancel</button>
-  <button mat-button color="primary" (click)="onSave()">Save</button>
+  <button mat-button color="warn">Cancel</button>
+  <button mat-button color="primary" (click)="onSubmit()">Save</button>
 </div>
 
 
