@@ -29,7 +29,9 @@ export class BookingComponent implements OnInit {
   public role!:string;
   public fullName : string = "";
   formData = new FormData();
-  fileNameUploaded = ''
+  fileNameUploaded = '';
+  submittingBooking: boolean = false; // Flag to track submission state
+  successMessage: string = '';
 
   bookingForm: FormGroup = this.fb.group({
    firstName: ['', Validators.required],
@@ -114,66 +116,43 @@ GetAllEvents()
    this.fileNameUploaded = fileToUpload.name
  }
 
-//  onSubmit() {
-//    if(this.bookingForm.valid)
-//    {
-//      this.formData.append('firstName', this.bookingForm.get('firstName')!.value);
-//      this.formData.append('lastName', this.bookingForm.get('lastName')!.value);
-//      this.formData.append('contactNumber', this.bookingForm.get('contactNumber')!.value);
-//      this.formData.append('email', this.bookingForm.get('email')!.value);
-//      this.formData.append('Instagram', this.bookingForm.get('Instagram')!.value);
-//     //  this.formData.append('entertainmenttype', this.bookingForm.get('entertainmenttype')!.value);
-//     //  this.formData.append('events', this.bookingForm.get('events')!.value);
-//     const entertainmentTypeId = parseInt(this.bookingForm.get('entertainmenttype')!.value);
-//     const eventId = parseInt(this.bookingForm.get('events')!.value);
 
-// // Then use these parsed values in your FormData
-// this.formData.append('entertainmenttype', entertainmentTypeId.toString());
-// this.formData.append('events', eventId.toString());
-
-
-//      this.apiService.addBooking(this.formData).subscribe(() => {
-//        this.clearData()
-//        this.router.navigateByUrl('home').then((navigated: boolean) => {
-//          if(navigated) {
-//            this.snackBar.open(this.bookingForm.get('firstName')!.value + ` Booking request successfully`, 'X', {duration: 5000});
-//          }
-//       });
-//      });
-//    }
-//  }
 onSubmit() {
   if (this.bookingForm.valid) {
-    // ... your existing code to append form data to formData ...
-         this.formData.append('firstName', this.bookingForm.get('firstName')!.value);
-     this.formData.append('lastName', this.bookingForm.get('lastName')!.value);
-     this.formData.append('contactNumber', this.bookingForm.get('contactNumber')!.value);
-     this.formData.append('email', this.bookingForm.get('email')!.value);
-     this.formData.append('Instagram', this.bookingForm.get('Instagram')!.value);
-     this.formData.append('entertainmenttype', this.bookingForm.get('entertainmenttype')!.value);
-    this.formData.append('eventname', this.bookingForm.get('eventname')!.value);
-    this.formData.append('additional', this.bookingForm.get('additional')!.value);
+    this.submittingBooking = true; // Set the flag to show loader
 
+    // ... existing code ...
+    if (this.bookingForm.valid) {
+          // ... your existing code to append form data to formData ...
+               this.formData.append('firstName', this.bookingForm.get('firstName')!.value);
+           this.formData.append('lastName', this.bookingForm.get('lastName')!.value);
+           this.formData.append('contactNumber', this.bookingForm.get('contactNumber')!.value);
+           this.formData.append('email', this.bookingForm.get('email')!.value);
+           this.formData.append('Instagram', this.bookingForm.get('Instagram')!.value);
+           this.formData.append('entertainmenttype', this.bookingForm.get('entertainmenttype')!.value);
+          this.formData.append('eventname', this.bookingForm.get('eventname')!.value);
+          this.formData.append('additional', this.bookingForm.get('additional')!.value);
 
     this.apiService.addBooking(this.formData).subscribe(
       () => {
         this.clearData();
-        this.router.navigateByUrl('home').then((navigated: boolean) => {
-          if (navigated) {
-            this.snackBar.open(
-              this.bookingForm.get('firstName')!.value + ` Booking request successfully`,
-              'X',
-              { duration: 5000 }
-            );
-          }
-        });
+        this.successMessage = 'Booking request submitted successfully!';
+        this.submittingBooking = false; // Clear loader flag
+        setTimeout(() => {
+          this.successMessage = ''; // Clear success message after a delay
+          this.router.navigateByUrl('home');
+        }, 5000); // Display success message for 5 seconds
       },
       (error) => {
         console.error('Error submitting booking:', error);
+        this.submittingBooking = false; // Clear loader flag in case of error
       }
     );
   }
+ }
 }
+// ...
+
 
 cancel() {
   this.router.navigate(['/home']);

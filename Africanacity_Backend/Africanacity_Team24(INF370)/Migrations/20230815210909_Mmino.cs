@@ -995,7 +995,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                     ResetPasswordToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ResetPasswordTokenExpiry = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EntertainmentType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Entertainment_TypeId = table.Column<int>(type: "int", nullable: true),
+                    Entertainment_TypeId = table.Column<int>(type: "int", nullable: false),
                     TitleId = table.Column<int>(type: "int", nullable: true),
                     User_RoleId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -1006,7 +1006,8 @@ namespace Africanacity_Team24_INF370_.Migrations
                         name: "FK_Users_Entertainment_Type_Entertainment_TypeId",
                         column: x => x.Entertainment_TypeId,
                         principalTable: "Entertainment_Type",
-                        principalColumn: "Entertainment_TypeId");
+                        principalColumn: "Entertainment_TypeId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Users_Titles_TitleId",
                         column: x => x.TitleId,
@@ -1148,7 +1149,7 @@ namespace Africanacity_Team24_INF370_.Migrations
             migrationBuilder.InsertData(
                 table: "Discounts",
                 columns: new[] { "DiscountId", "AdministratorId", "Amount", "Description", "End_Date", "Name", "Start_Date" },
-                values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 8, 22, 21, 20, 54, 812, DateTimeKind.Local).AddTicks(7996), "Month end discount", new DateTime(2023, 8, 12, 21, 20, 54, 812, DateTimeKind.Local).AddTicks(7996) });
+                values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 8, 25, 23, 9, 8, 746, DateTimeKind.Local).AddTicks(5499), "Month end discount", new DateTime(2023, 8, 15, 23, 9, 8, 746, DateTimeKind.Local).AddTicks(5499) });
 
             migrationBuilder.InsertData(
                 table: "Drink_Prices",
@@ -1387,7 +1388,7 @@ namespace Africanacity_Team24_INF370_.Migrations
             migrationBuilder.InsertData(
                 table: "Supplier_Inventorys",
                 columns: new[] { "SupplierItemId", "Inventory_ItemId", "Ordered_Date", "Ordered_Quantity", "Received_Date", "SupplierId" },
-                values: new object[] { 1, 1, new DateTime(2023, 8, 12, 0, 0, 0, 0, DateTimeKind.Local), 33, new DateTime(2023, 8, 12, 0, 0, 0, 0, DateTimeKind.Local), 1 });
+                values: new object[] { 1, 1, new DateTime(2023, 8, 15, 0, 0, 0, 0, DateTimeKind.Local), 33, new DateTime(2023, 8, 15, 0, 0, 0, 0, DateTimeKind.Local), 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Access_UserRoles_User_RolesUser_RoleId",

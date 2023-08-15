@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Africanacity_Team24_INF370_.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230812192055_Mmino")]
+    [Migration("20230815210909_Mmino")]
     partial class Mmino
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -192,9 +192,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                             DiscountId = 1,
                             Amount = 0.10m,
                             Description = "10% Discount",
-                            End_Date = new DateTime(2023, 8, 22, 21, 20, 54, 812, DateTimeKind.Local).AddTicks(7996),
+                            End_Date = new DateTime(2023, 8, 25, 23, 9, 8, 746, DateTimeKind.Local).AddTicks(5499),
                             Name = "Month end discount",
-                            Start_Date = new DateTime(2023, 8, 12, 21, 20, 54, 812, DateTimeKind.Local).AddTicks(7996)
+                            Start_Date = new DateTime(2023, 8, 15, 23, 9, 8, 746, DateTimeKind.Local).AddTicks(5499)
                         });
                 });
 
@@ -1194,9 +1194,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             SupplierItemId = 1,
                             Inventory_ItemId = 1,
-                            Ordered_Date = new DateTime(2023, 8, 12, 0, 0, 0, 0, DateTimeKind.Local),
+                            Ordered_Date = new DateTime(2023, 8, 15, 0, 0, 0, 0, DateTimeKind.Local),
                             Ordered_Quantity = 33,
-                            Received_Date = new DateTime(2023, 8, 12, 0, 0, 0, 0, DateTimeKind.Local),
+                            Received_Date = new DateTime(2023, 8, 15, 0, 0, 0, 0, DateTimeKind.Local),
                             SupplierId = 1
                         });
                 });
@@ -2056,7 +2056,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<string>("EntertainmentType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Entertainment_TypeId")
+                    b.Property<int>("Entertainment_TypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("FirstName")
@@ -2543,9 +2543,11 @@ namespace Africanacity_Team24_INF370_.Migrations
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.User", b =>
                 {
-                    b.HasOne("Africanacity_Team24_INF370_.models.Booking.Entertainment_Type", null)
-                        .WithMany("Entertainers")
-                        .HasForeignKey("Entertainment_TypeId");
+                    b.HasOne("Africanacity_Team24_INF370_.models.Booking.Entertainment_Type", "Entertainment_Type")
+                        .WithMany("Users")
+                        .HasForeignKey("Entertainment_TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Africanacity_Team24_INF370_.models.Administration.Title", null)
                         .WithMany("Users")
@@ -2554,6 +2556,8 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasOne("Africanacity_Team24_INF370_.models.Administration.User_Role", null)
                         .WithMany("Users")
                         .HasForeignKey("User_RoleId");
+
+                    b.Navigation("Entertainment_Type");
                 });
 
             modelBuilder.Entity("EntertainerSchedule", b =>
@@ -2676,9 +2680,9 @@ namespace Africanacity_Team24_INF370_.Migrations
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Entertainment_Type", b =>
                 {
-                    b.Navigation("Entertainers");
-
                     b.Navigation("Pending_Bookings");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Event", b =>

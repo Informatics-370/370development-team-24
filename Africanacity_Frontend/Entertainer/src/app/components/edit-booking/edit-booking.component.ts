@@ -33,7 +33,9 @@ export class EditBookingComponent implements OnInit {
     email: new FormControl('', [Validators.required]),
     contactNumber: new FormControl('', [Validators.required]),
     demo: new FormControl('', [Validators.required]),
-    eventname: new FormControl('', [Validators.required])
+    eventname: new FormControl('', [Validators.required]),
+    instagram: new FormControl('', [Validators.required]),
+    additional : new FormControl('', [Validators.required])
   });
 
   constructor(
@@ -76,6 +78,8 @@ export class EditBookingComponent implements OnInit {
         this.updateBookingForm.controls['email'].setValue(this.editBooking.email);
         this.updateBookingForm.controls['contactNumber'].setValue(this.editBooking.contactNumber);
         this.updateBookingForm.controls['eventname'].setValue(this.editBooking.eventname);
+        this.updateBookingForm.controls['instagram'].setValue(this.editBooking.instagram);
+        this.updateBookingForm.controls['additional'].setValue(this.editBooking.additional);
 
         const selectedType = this.entertainmentTypeData.find(type => type.name === this.editBooking.entertainmenttypeName);
         if (selectedType) {
@@ -109,6 +113,8 @@ console.log(this.updateBookingForm)
     booking.contactNumber = this.updateBookingForm.value.contactNumber;
     booking.demo = this.updateBookingForm.value.demo;
     booking.eventname = this.updateBookingForm.value.eventname;
+    booking.instagram = this.updateBookingForm.value.instagram;
+    booking.additional = this.updateBookingForm.value.additional;
 
     this.bookingservice.EditBooking(this.editBooking.bookingId, booking).subscribe(
       (response: any) => {

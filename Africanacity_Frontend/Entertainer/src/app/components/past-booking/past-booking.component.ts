@@ -68,24 +68,26 @@ export class PastBookingComponent implements OnInit {
   }
 
 
-    deleteItem(): void {
-      const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete this booking?', 'Confirm, Cancel',{
-        duration: 5000, // Display duration in milliseconds
+  deleteItem(): void {
+    const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete this booking?', 'Confirm, Cancel',{
+      duration: 5000, // Display duration in milliseconds
+    });
   
-      });
+    confirmationSnackBar.onAction().subscribe(() => {
+      // Perform the deletion action here
+      this.deleteItemFromServer();
+      // Show success notification
+      this.showNotification('Booking deletion request sent and email sent successfully', 'success');
+      window.location.reload();
+    });
+  }
   
-      
-      //  cancel(){
-      //    this.router.navigate(['/home'])
-      //  }
-    
-  
-      confirmationSnackBar.onAction().subscribe(() => {
-        // Perform the deletion action here
-        this.deleteItemFromServer();
-        window.location.reload();
-      });
-    }
+  showNotification(message: string, type: 'success' | 'error' | 'info') {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      panelClass: ['snackbar', `snackbar-${type}`], // You can define your custom CSS classes for different types
+    });
+  }
   
   deleteItemFromServer(): void {
     this.DeleteBooking;

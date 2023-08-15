@@ -25,7 +25,7 @@ using Africanacity_Team24_INF370_.View_Models;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using Newtonsoft.Json;
 using System.Diagnostics;
-
+using System.Net;
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
@@ -44,6 +44,27 @@ namespace Africanacity_Team24_INF370_.Controllers
 			_configuration = configuration;
 			_emailService = emailService;
 			_repository = repository;
+		}
+
+		private async Task SendEmailAsync(string recipientEmail, string subject, string body)
+		{
+			var smtpClient = new SmtpClient("smtp.gmail.com")
+			{
+				Port = 587,
+				Credentials = new NetworkCredential("africanacitymmino@gmail.com", "xuaqebsjnbxopjtx"),
+				EnableSsl = true,
+			};
+
+			var mailMessage = new MailMessage
+			{
+				From = new MailAddress("africanacitymmino@gmail.com"),
+				Subject = subject,
+				Body = body,
+				IsBodyHtml = true,
+			};
+			mailMessage.To.Add(recipientEmail);
+
+			await smtpClient.SendMailAsync(mailMessage);
 		}
 
 		//[HttpPost("Authenticate")]
@@ -178,6 +199,9 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 			await _authContext.AddAsync(newUser);
 			await _authContext.SaveChangesAsync();
+			// Send registration confirmation email
+			await SendRegistrationConfirmationEmail(newUser.Email, newUser.FirstName);
+
 
 			return Ok(new
 			{
@@ -186,6 +210,36 @@ namespace Africanacity_Team24_INF370_.Controllers
 			});
 		}
 
+		private async Task SendRegistrationConfirmationEmail(string recipientEmail, string recipientName)
+		{
+			string emailSubject = "Registration Confirmation";
+			string emailBody = $@"
+        <html>
+        <head>
+            <style>
+                body {{
+                    font-family: Arial, sans-serif;
+                    margin: 0;
+                    padding: 20px;
+                }}
+                h1 {{
+                    margin-bottom: 20px;
+                }}
+                p {{
+                    margin: 10px 0;
+                }}
+            </style>
+        </head>
+        <body>
+            <h1>Registration Successful</h1>
+            <p>Hello {recipientName},</p>
+            <p>Your registration with us is now confirmed. Welcome aboard!</p>
+            <p>Feel free to explore and enjoy our services.</p>
+        </body>
+        </html>";
+
+			await SendEmailAsync(recipientEmail, emailSubject, emailBody);
+		}
 
 
 		private Task<bool> CheckEmailExistAsync(string? email)
@@ -337,7 +391,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 		public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)
 		{
 			var newToken = resetPasswordDto.EmailToken.Replace(" ", "+");
-			var user = await _authContext.Admins.AsNoTracking().FirstOrDefaultAsync(a => a.Email == resetPasswordDto.Email);
+			var user = await _authContext.Users.AsNoTracking().FirstOrDefaultAsync(a => a.Email == resetPasswordDto.Email);
 			if (user == null)
 			{
 				return NotFound(new

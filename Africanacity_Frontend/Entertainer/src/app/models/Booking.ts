@@ -9,4 +9,5 @@ export class Booking{
     additional!: string;
     entertainmenttype!: number;
     entertainmenttypeName!: string;
+    instagram! : string;
   }

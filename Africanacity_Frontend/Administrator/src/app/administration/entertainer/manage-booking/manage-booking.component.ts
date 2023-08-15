@@ -19,6 +19,8 @@ export class ManageBookingComponent {
 
   bookings: Pending[] = [];
   filteredbookings: Pending[] = []; 
+  loading: boolean = true;
+
 
   public users:any = [];
   public role!:string;
@@ -74,9 +76,20 @@ export class ManageBookingComponent {
       this.role = val || roleFromToken;
     });
 
-    this.book.getRequestBooks().subscribe((books:any) => {this.filteredbookings = books});
+    this.book.getRequestBooks().subscribe(
+      (books: any) => {
+        this.filteredbookings = books;
+        this.loading = false; // Hide the loader
+      },
+      (error) => {
+        console.error('Error fetching bookings:', error);
+        this.loading = false; // Hide the loader in case of error as well
+      }
+    );
 
-    this.filteredbookings= this.bookings
+    // this.book.getRequestBooks().subscribe((books:any) => {this.filteredbookings = books});
+
+    // this.filteredbookings= this.bookings
     console.log(this.filteredbookings)
   }
 

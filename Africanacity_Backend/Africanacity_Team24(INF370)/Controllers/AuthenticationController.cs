@@ -18,6 +18,8 @@ using Africanacity_Team24_INF370_.models.Administration;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
+using System.Net.Mail;
+using System.Net;
 
 namespace Africanacity_Team24_INF370_.Controllers
 
@@ -37,6 +39,27 @@ namespace Africanacity_Team24_INF370_.Controllers
 			_configuration = configuration;
 			_emailService = emailService;
 			_repository = repository;
+		}
+
+		private async Task SendEmailAsync(string recipientEmail, string subject, string body)
+		{
+			var smtpClient = new SmtpClient("smtp.gmail.com")
+			{
+				Port = 587,
+				Credentials = new NetworkCredential("africanacitymmino@gmail.com", "xuaqebsjnbxopjtx"),
+				EnableSsl = true,
+			};
+
+			var mailMessage = new MailMessage
+			{
+				From = new MailAddress("africanacitymmino@gmail.com"),
+				Subject = subject,
+				Body = body,
+				IsBodyHtml = true,
+			};
+			mailMessage.To.Add(recipientEmail);
+
+			await smtpClient.SendMailAsync(mailMessage);
 		}
 
 		[HttpPost("Authenticate")]
@@ -95,6 +118,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 			userObj.Token = "";
 			await _authContext.AddAsync(userObj);
 			await _authContext.SaveChangesAsync();
+			await SendRegistrationConfirmationEmail(userObj.Email, userObj.FirstName);
 			return Ok(new
 			{
 				Status = 200,
@@ -102,11 +126,42 @@ namespace Africanacity_Team24_INF370_.Controllers
 			});
 		}
 
+		private async Task SendRegistrationConfirmationEmail(string recipientEmail, string recipientName)
+		{
+			string emailSubject = "Registration Confirmation";
+			string emailBody = $@"
+        <html>
+        <head>
+            <style>
+                body {{
+                    font-family: Arial, sans-serif;
+                    margin: 0;
+                    padding: 20px;
+                }}
+                h1 {{
+                    margin-bottom: 20px;
+                }}
+                p {{
+                    margin: 10px 0;
+                }}
+            </style>
+        </head>
+        <body>
+            <h1>Registration Successful</h1>
+            <p>Hello {recipientName},</p>
+            <p>Your registration with us is now confirmed. Welcome aboard!</p>
+            <p>Feel free to explore and enjoy our services.</p>
+        </body>
+        </html>";
+
+			await SendEmailAsync(recipientEmail, emailSubject, emailBody);
+		}
+
 		private Task<bool> CheckEmailExistAsync(string? email)
-			=> _authContext.Admins.AnyAsync(x => x.Email == email);
+			=> _authContext.Users.AnyAsync(x => x.Email == email);
 
 		private Task<bool> CheckUsernameExistAsync(string? username)
-			=> _authContext.Admins.AnyAsync(x => x.Email == username);
+			=> _authContext.Users.AnyAsync(x => x.Email == username);
 
 		private static string CheckPasswordStrength(string pass)
 		{
@@ -154,7 +209,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 			var tokenBytes = RandomNumberGenerator.GetBytes(64);
 			var refreshToken = Convert.ToBase64String(tokenBytes);
 
-			var tokenInUser = _authContext.Admins
+			var tokenInUser = _authContext.Users
 				.Any(a => a.RefreshToken == refreshToken);
 			if (tokenInUser)
 			{
@@ -227,7 +282,6 @@ namespace Africanacity_Team24_INF370_.Controllers
 				return StatusCode(500, "Internal Server Error. Please contact support.");
 			}
 		}
-
 
 
 		[HttpPost]
@@ -371,7 +425,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 		// Edit Entertainer
 		[HttpPut]
 		[Route("EditUser/{UserId}")]
-		public async Task<ActionResult<User>> EditUser(int UserId, User ftvm)
+		public async Task<ActionResult<EntertainerViewModel>> EditUser(int UserId, EntertainerViewModel ftvm)
 		{
 			try
 			{
@@ -398,6 +452,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 			}
 			return BadRequest("Your request is invalid");
 		}
+
 
 		// Delete Entertainer
 		[HttpDelete]
@@ -428,7 +483,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 		// Edit Admin
 		[HttpPut]
 		[Route("EditAdmin/{UserId}")]
-		public async Task<ActionResult<User>> EditAdmin(int UserId, AdminInfor ftvm)
+		public async Task<ActionResult<User>> EditAdmin(int UserId, AdminVM ftvm)
 		{
 			try
 			{

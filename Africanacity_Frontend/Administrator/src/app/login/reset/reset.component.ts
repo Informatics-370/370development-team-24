@@ -20,9 +20,7 @@ export class ResetComponent implements OnInit {
   emailToReset!: string;
   emailToken!: string;
   resetPasswordObj = new ResetPassword();
-  type1: string = 'confirmPassword';
-  isText1: boolean = false;
-  eyeIcon1: string = 'fa-eye-slash';
+
   type: string = 'newPassword';
   isText: boolean = false;
   eyeIcon: string = 'fa-eye-slash';
@@ -62,12 +60,6 @@ hideShowPass() {
   this.isText = !this.isText;
   this.isText ? (this.eyeIcon = 'fa-eye') : (this.eyeIcon = 'fa-eye-slash');
   this.isText ? (this.type = 'text') : (this.type = 'newPassword');
-}
-
-hideShowPass1() {
-  this.isText1 = !this.isText1;
-  this.isText1 ? (this.eyeIcon1 = 'fa-eye') : (this.eyeIcon1 = 'fa-eye-slash');
-  this.isText1 ? (this.type1 = 'text') : (this.type1 = 'confirmPassword');
 }
 
 

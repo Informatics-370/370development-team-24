@@ -11,6 +11,9 @@ import { AuthService } from 'src/app/UserService/auth.service';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+  passwordHasLowerCase: boolean = false;
+  passwordHasUpperCase: boolean = false;
+  passwordHasDigit: boolean = false;
 
   public signUpForm!: FormGroup;
   type: string = 'password';
@@ -39,8 +42,15 @@ export class SignupComponent implements OnInit {
       email:['', Validators.required],
       physicalAddress:['', Validators.required],
       contactNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-      password:['', Validators.required]
-    })
+      // password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)]]
+      password: ['', [Validators.required, Validators.minLength(8)]]
+    });
+    
+    this.signUpForm.controls['password'].valueChanges.subscribe((value) => {
+      this.passwordHasLowerCase = /[a-z]/.test(value);
+      this.passwordHasUpperCase = /[A-Z]/.test(value);
+      this.passwordHasDigit = /\d/.test(value);
+  });
   }
 
   hideShowPass(){

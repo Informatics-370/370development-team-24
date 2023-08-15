@@ -38,8 +38,15 @@
                           <div class="form-group pt-3">
                               <div class="input-field" [class.error]="signUpForm.controls['password'].dirty && signUpForm.hasError('required','password')"> <span class="fa fa-lock px-2"></span> <input formControlName="password" [type]="type" placeholder="Password"> <button (click)="hideShowPass()" type="button" class="bg-white text-muted"> <span class="fa {{eyeIcon}}"></span> </button> </div>
                           </div>
-                          <small *ngIf="signUpForm.controls['password'].dirty && signUpForm.hasError('required','password')" class="text-danger">*Password is required and must be 8 characters or more*</small>
-
+                          <!-- <small *ngIf="signUpForm.controls['password'].dirty && signUpForm.hasError('required','password')" class="text-danger">*Password is required and must be 8 characters or more*</small>
+                          <small class="text-muted">Password must have at least 8 characters, including one lowercase letter, one uppercase letter, and one digit.</small> -->
+                          <small *ngIf="signUpForm.controls['password'].dirty">
+                            <div *ngIf="signUpForm.controls['password'].hasError('required')" class="text-danger">*Password is required*</div>
+                            <div *ngIf="signUpForm.controls['password'].hasError('minlength')" class="text-danger">*Password must be 8 characters or more*</div>
+                            <div *ngIf="passwordHasLowerCase" class="text-success">*Contains a lowercase letter*</div>
+                            <div *ngIf="passwordHasUpperCase" class="text-success">*Contains an uppercase letter*</div>
+                            <div *ngIf="passwordHasDigit" class="text-success">*Contains a digit*</div>
+                        </small>
                           <button type="submit" class="btn btn-primary btn-block mt-4 w-100">Signup</button>
                           <div class="text-center pt-4 text-muted">Already have an account? <a id="forgot" routerLink="/login" href="#">Login</a> </div>
                       </form>

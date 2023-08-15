@@ -13,7 +13,10 @@ import { BookingService } from 'src/app/services/Booking.service';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-
+  passwordHasLowerCase: boolean = false;
+  passwordHasUpperCase: boolean = false;
+  passwordHasDigit: boolean = false;
+  
   public signUpForm!: FormGroup;
   type: string = 'password';
   isText: boolean = false;
@@ -45,6 +48,11 @@ export class SignupComponent implements OnInit {
       password:['', Validators.required],
       entertainmentType: [null, Validators.required]
     });
+    this.signUpForm.controls['password'].valueChanges.subscribe((value) => {
+      this.passwordHasLowerCase = /[a-z]/.test(value);
+      this.passwordHasUpperCase = /[A-Z]/.test(value);
+      this.passwordHasDigit = /\d/.test(value);
+  });
     this.GetAllEntertainment();
     console.log(this.GetAllEntertainment)
   }
