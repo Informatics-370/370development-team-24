@@ -76,12 +76,14 @@ deleteItemFromServer(): void {
       const column4Value = employee.email_Address.toLowerCase();
       const column5Value = employee.physical_Address.toLowerCase();
       const column6Value = employee.employeeRoleName.toLowerCase();
+      const column7Value = employee.genderName.toLowerCase();
   
       return column2Value.includes(filterValue) || 
       column3Value.includes(filterValue) ||
       column4Value.includes(filterValue) ||
       column5Value.includes(filterValue) ||
-      column6Value.includes(filterValue);
+      column6Value.includes(filterValue) ||
+      column7Value.includes(filterValue);
     });
   }
 

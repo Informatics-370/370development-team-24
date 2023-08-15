@@ -15,5 +15,9 @@ namespace Africanacity_Team24_INF370_.ViewModel
         public int EmployeeRole { get; set; }
 
         //public Employee_Role RoleName { get; set; }
+
+        public int Gender { get; set; }
+        public DateTime Employment_Date { get; set; }
+
     }
 }

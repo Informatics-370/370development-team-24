@@ -28,6 +28,7 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<Discount> Discounts { get; set; }
         public DbSet<Employee_Role> Employee_Roles { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Gender> Genders { get; set; }
         public DbSet<Help> Helps { get; set; }
 		public DbSet<Help_Category> Help_Categories{ get; set; }
 		public DbSet<Password> Passwords { get; set; }
@@ -92,8 +93,28 @@ namespace Africanacity_Team24_INF370_.models
 			modelBuilder.Entity<User>().ToTable("Users");
 			base.OnModelCreating(modelBuilder);
 
-           // modelBuilder.Entity<StockTake>().HasMany(st => st.StockTakeItems).WithOne().OnDelete(DeleteBehavior.Cascade);
-
+            // modelBuilder.Entity<StockTake>().HasMany(st => st.StockTakeItems).WithOne().OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Gender>()
+                    .HasData(
+                    new
+                    {
+                        GenderId = 1,
+                        Name = "Male",
+                    });
+            modelBuilder.Entity<Gender>()
+                 .HasData(
+                 new
+                 {
+                      GenderId = 2,
+                      Name = "Female",
+                 });
+            modelBuilder.Entity<Gender>()
+                .HasData(
+                 new
+                 {
+                     GenderId = 3,
+                     Name = "Other",
+                     });
 
             // Create Seed Data For the Employee Table:
             modelBuilder.Entity<Employee>()
@@ -107,6 +128,8 @@ namespace Africanacity_Team24_INF370_.models
                    Employee_RoleId = 1,
                    Physical_Address = "404 Jacob Street",
                    PhoneNumber = "0847541236",
+                   GenderId = 2,
+                   Employment_Date = DateTime.Now
                });
            ;
             modelBuilder.Entity<Employee>()
@@ -119,7 +142,9 @@ namespace Africanacity_Team24_INF370_.models
                              Email_Address = "SerenaWilliams@gmail.com",
                              Employee_RoleId = 2,
                              Physical_Address = "132 Harriet Street",
-                             PhoneNumber = "0842341236"
+                             PhoneNumber = "0842341236",
+                             GenderId = 2,
+                             Employment_Date = DateTime.Now
 
                          });
             modelBuilder.Entity<Employee>()
@@ -132,7 +157,9 @@ namespace Africanacity_Team24_INF370_.models
                              Email_Address = "EdrisElba@gmail.com",
                              Employee_RoleId = 1,
                              Physical_Address = "245 homelyn Street",
-                             PhoneNumber = "0212378798"
+                             PhoneNumber = "0212378798",
+                             GenderId = 1,
+                             Employment_Date = DateTime.Now
 
                          });
             modelBuilder.Entity<Employee>()
@@ -145,7 +172,9 @@ namespace Africanacity_Team24_INF370_.models
                             Email_Address = "NyongoLupita@gmail.com",
                             Employee_RoleId = 2,
                             Physical_Address = "254 Summer Street",
-                            PhoneNumber = "0455783475"
+                            PhoneNumber = "0455783475",
+                            GenderId = 2,
+                            Employment_Date = DateTime.Now
 
                         });
             modelBuilder.Entity<Employee>()
@@ -158,7 +187,9 @@ namespace Africanacity_Team24_INF370_.models
                             Email_Address = "MicheaJackson@gmail.com",
                             Employee_RoleId = 2,
                             Physical_Address = "567 Winter Street",
-                            PhoneNumber = "0874567836"
+                            PhoneNumber = "0874567836",
+                            GenderId = 3,
+                            Employment_Date = DateTime.Now
 
                         });
             modelBuilder.Entity<Employee>()
@@ -171,7 +202,9 @@ namespace Africanacity_Team24_INF370_.models
                             Email_Address = "TaehyungKim@gmial.com",
                             Employee_RoleId = 1,
                             Physical_Address = "345 Shallow  Street",
-                            PhoneNumber = "0874562134"
+                            PhoneNumber = "0874562134",
+                            GenderId = 1,
+                            Employment_Date = DateTime.Now
 
                         });
             modelBuilder.Entity<Employee>()
@@ -184,7 +217,9 @@ namespace Africanacity_Team24_INF370_.models
                             Email_Address = "ZendayaColeman@gmail.com",
                             Employee_RoleId = 1,
                             Physical_Address = "243 Super Street ",
-                            PhoneNumber = "0212378798"
+                            PhoneNumber = "0212378798",
+                            GenderId = 2,
+                            Employment_Date = DateTime.Now
 
                         });
             modelBuilder.Entity<Employee>()
@@ -197,7 +232,9 @@ namespace Africanacity_Team24_INF370_.models
                             Email_Address = "RogerFederal@gmail.com",
                             Employee_RoleId = 1,
                             Physical_Address = "987 Wall Street",
-                            PhoneNumber = "0612346487"
+                            PhoneNumber = "0612346487",
+                            GenderId = 3,
+                            Employment_Date = DateTime.Now
 
                         });
             modelBuilder.Entity<Employee>()
@@ -210,7 +247,9 @@ namespace Africanacity_Team24_INF370_.models
                             Email_Address = "JenniferLOpez@gmail.com",
                             Employee_RoleId = 2,
                             Physical_Address = "967 Ballard Street",
-                            PhoneNumber = "0874834576"
+                            PhoneNumber = "0874834576",
+                            GenderId = 3,
+                            Employment_Date = DateTime.Now
 
                         });
             modelBuilder.Entity<Employee>()
@@ -223,7 +262,9 @@ namespace Africanacity_Team24_INF370_.models
                             Email_Address = "ChadwickBoseman@gmail.com",
                             Employee_RoleId = 2,
                             Physical_Address = "483 Alien Street",
-                            PhoneNumber = "0923456789"
+                            PhoneNumber = "0923456789",
+                            GenderId = 1,
+                            Employment_Date = DateTime.Now
 
                         });
             // Create Seed Data For the Help Q&A Table:

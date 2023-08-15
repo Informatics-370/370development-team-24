@@ -6,6 +6,7 @@ import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { Employee_Role } from 'src/app/shared/EmployeeRole';
 import { Employee } from 'src/app/shared/employee';
 import { EmployeeService } from 'src/app/service/employee.service';
+import { Gender } from 'src/app/shared/gender';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class EditEmployeeComponent implements OnInit {
   selectedEmployeeRole: Employee_Role | null = null;
   employeeTypesData: Employee_Role[] = [];
   editEmployee: Employee = new Employee();
+  genderData: Gender[] = [];
 
   updateEmployeeForm: FormGroup = new FormGroup({
     surname: new FormControl('', [Validators.required]),
@@ -24,7 +26,9 @@ export class EditEmployeeComponent implements OnInit {
     employeeRole: new FormControl('', [Validators.required]),
     email_Address: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
-    physical_Address: new FormControl('', [Validators.required])
+    physical_Address: new FormControl('', [Validators.required]),
+    gender: new FormControl('', [Validators.required]),
+    
   });
 
   constructor(
@@ -52,9 +56,15 @@ export class EditEmployeeComponent implements OnInit {
           this.updateEmployeeForm.controls['employeeRole'].setValue(selectedType.employee_RoleId);
         }
       });
+      const selectedType = this.genderData.find(type => type.name === this.editEmployee.genderName);
+      if (selectedType) {
+        this.updateEmployeeForm.controls['gender'].setValue(selectedType.genderId);
+      }
     });
+    
 
     this.GetAllEmployeeRoles();
+    this.GetAllGenders();
     console.log(this.editEmployee) // Call this method to populate the supplierTypesData array
   }
 
@@ -70,6 +80,14 @@ export class EditEmployeeComponent implements OnInit {
       });
     });
   }
+  GetAllGenders() {
+    this.employeeservice.GetAllGenders().subscribe(result => {
+      let genderList: any[] = result;
+      genderList.forEach((element) => {
+        this.genderData.push(element);
+      });
+    });
+  }
 
   updateEmployee() {
     let employee = new Employee();
@@ -79,6 +97,7 @@ export class EditEmployeeComponent implements OnInit {
     employee.email_Address = this.updateEmployeeForm.value.email_Address;
     employee.phoneNumber = this.updateEmployeeForm.value.phoneNumber;
     employee.physical_Address = this.updateEmployeeForm.value.physical_Address;
+    employee.gender = this.updateEmployeeForm.value.gender;
 
     this.employeeservice.EditEmployee(this.editEmployee.employeeId, employee).subscribe(
       (response: any) => {

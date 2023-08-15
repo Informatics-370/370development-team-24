@@ -1,8 +1,14 @@
 {
   "dependencies": {
-    "chart.js": "^4.3.2",
+    "@angular/cdk": "^16.2.0",
+    "@angular/material": "^16.2.0",
+    "@fullcalendar/angular": "^6.1.8",
+    "@fullcalendar/daygrid": "^6.1.8",
+    "@fullcalendar/interaction": "^6.1.8",
+    "chart.js": "^4.3.3",
     "file-saver": "^2.0.5",
     "jspdf": "^2.5.1",
-    "jspdf-autotable": "^3.5.31"
+    "jspdf-autotable": "^3.5.31",
+    "ng2-charts": "^5.0.3"
   }
 }

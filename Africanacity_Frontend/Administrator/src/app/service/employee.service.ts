@@ -71,6 +71,10 @@ export class EmployeeService {
     return this.httpClient.put(`${this.apiUrl}Employee/EditEmployee/${employeeId}`, employee, httpOptions);
   }
  
+  GetAllGenders(): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}Employee/GetAllGenders`)
+    .pipe(map(result => result))
+  }
    
   /* For Help Function */
 

@@ -30,6 +30,16 @@
       </span>
     </div>
 
+    <div class="form-group">
+      <label class="col-md-1" style="font-weight: bold;" for="gender">Gender:</label>
+      <div class="col-md-6">
+      <select class="form-control" id="gender" formControlName="gender">
+        <option *ngFor="let item of gender" [value]="item.genderId">{{ item.name }}</option>
+      </select>
+    </div>
+    </div>
+     
+    
     
     <div class="form-group">
       <label class="col-md-1" style="font-weight: bold;" for="employeeRole">Employee Role</label>
@@ -67,6 +77,13 @@
           <input class="form-control"  placeholder="Enter valid 10-digit number" [required]="true" name="phoneNumber" formControlName="phoneNumber">
         </div>
       </span>
+    </div>
+    
+    <div class="form-group">
+      <label class="col-sm-1" style="font-weight: bold;" for="employment_Date">Employement Date:</label>
+      <div class="col-sm-6">
+      <input type="date" formControlName="employment_Date" class="form-control">
+      </div>
     </div>
 
     <!-- <div class="form-group"> -->

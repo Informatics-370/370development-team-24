@@ -53,8 +53,11 @@ namespace Africanacity_Team24_INF370_.Controllers
 
                     e.Email_Address,
 
-                    e.Physical_Address
+                    e.Physical_Address,
 
+                    e.Employment_Date,
+
+                    GenderName = e.Gender.Name,
                 });
 
                 return Ok(employees);
@@ -65,7 +68,21 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
 
         }
-   
+
+        [HttpGet]
+        [Route("GetAllGenders")]
+        public async Task<IActionResult> GetAllGenders()
+        {
+            try
+            {
+                var results = await _Repository.GetAllGendersAsync();
+                return Ok(results);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
         [HttpGet]
         [Route("GetEmployee/{employeeId}")]
         public async Task<IActionResult> GetEmployeeAsync(int employeeId)
@@ -94,9 +111,11 @@ namespace Africanacity_Team24_INF370_.Controllers
                 Surname = evm.Surname,
                 FirstName = evm.FirstName,
                 Employee_RoleId = Convert.ToInt32(evm.EmployeeRole),
+                GenderId = Convert.ToInt32(evm.Gender),
                 Email_Address = evm.Email_Address,
                 PhoneNumber = evm.PhoneNumber,
-                Physical_Address = evm.Physical_Address
+                Physical_Address = evm.Physical_Address,
+                Employment_Date = evm.Employment_Date
             };
 
             try
@@ -128,6 +147,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                 currentEmployee.FirstName = svm.FirstName;
                 currentEmployee.Email_Address = svm.Email_Address;
                 currentEmployee.Employee_RoleId = Convert.ToInt32(svm.EmployeeRole);
+                currentEmployee.GenderId = Convert.ToInt32(svm.Gender);
                 currentEmployee.PhoneNumber = svm.PhoneNumber;
                 currentEmployee.Physical_Address = svm.Physical_Address;
 
@@ -164,16 +184,6 @@ namespace Africanacity_Team24_INF370_.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
             return BadRequest("Your request is invalid.");
-        }
-
-        [HttpGet("search")]
-        public ActionResult<IEnumerable<Employee>> Search(string searchTerm)
-        {
-            var Employee = _appDBContext.Employees
-                .Where(f => f.FirstName.Contains(searchTerm))
-                .ToList();
-
-            return Ok(Employee);
         }
 
         //Email Verification

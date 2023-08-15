@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NotificationDialogComponent } from '../notification-dialog/notification-dialog.component';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
+import { Gender } from 'src/app/shared/gender';
 
 
 
@@ -40,6 +41,7 @@ export class AddEmployeeComponent implements OnInit {
   email!: string;
   message!: string;
   employeeRole: Employee_Role[] = [];
+  gender: Gender[] = [];
 
    constructor(private employeeservice: EmployeeService, private dataService: DataService, emailservice: EmailService,  private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar) { }
 
@@ -49,7 +51,9 @@ export class AddEmployeeComponent implements OnInit {
        email_Address: new FormControl('',[Validators.required]),
        physical_Address: new FormControl('',[Validators.required]),
        phoneNumber: new FormControl('',[Validators.required]),
-       employeeRole: new FormControl('',[Validators.required])
+       employeeRole: new FormControl('',[Validators.required]),
+       gender: new FormControl('',[Validators.required]),
+       employment_Date: new FormControl('',[Validators.required])
     
      })
   //EmailVerification
@@ -83,6 +87,7 @@ export class AddEmployeeComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetAllEmployeeRoles()
+    this.GetAllGenders()
   }
 
   cancel(){
@@ -95,6 +100,15 @@ export class AddEmployeeComponent implements OnInit {
       let rolesList:any[] = result
       rolesList.forEach((element) => {
         this.employeeRole.push(element)
+      });
+    });
+  }
+  GetAllGenders()
+  {
+    this.employeeservice.GetAllGenders().subscribe(result => {
+      let genderList:any[] = result
+      genderList.forEach((element) => {
+        this.gender.push(element)
       });
     });
   }
@@ -111,6 +125,8 @@ export class AddEmployeeComponent implements OnInit {
     employee.email_Address = this.employeeForm.value.email_Address;
     employee.physical_Address = this.employeeForm.value.physical_Address;
     employee.phoneNumber = this.employeeForm.value.phoneNumber;
+    employee.employment_Date = this.employeeForm.value.employment_Date;
+    employee.gender = this.employeeForm.value.gender;
   
     this.employeeservice.AddEmployee(employee).subscribe(result => {
       this.router.navigate(['/view-employees'])

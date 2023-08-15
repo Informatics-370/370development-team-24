@@ -23,10 +23,12 @@
                 <th scope="col">ID</th>
                 <th scope="col">Surname</th>
                 <th scope="col">First Name</th>
+                <th scope="col">Gender</th>
                 <th scope="col">Type</th>
                 <th scope="col">Email</th>
                 <th scope="col">Cell</th>
                 <th scope="col">Address</th>
+                <th scope="col">Employment Date</th>
                 <th scope="col"></th>
                 <th scope="col"></th>
         </thead>
@@ -35,10 +37,13 @@
                 <td>{{employee.employeeId}}</td>
                 <td>{{employee.surname}}</td>
                 <td>{{employee.firstName}}</td>
+                <td>{{employee.genderName}}</td>
                 <td>{{employee.employeeRoleName}}</td>
                 <td>{{employee.email_Address}}</td>
                 <td>{{employee.phoneNumber}}</td>
                 <td>{{employee.physical_Address}}</td>
+                <td>{{employee.employment_Date}}</td>
+                
                 
                   <td> <i class="fa fa-pencil" [routerLink]="['/edit-employee', employee.employeeId]" aria-hidden="true"></i></td>
                   <td><i class="fa fa-trash"  (click)="DeleteEmployee(employee.employeeId)" aria-hidden="true"></i></td>

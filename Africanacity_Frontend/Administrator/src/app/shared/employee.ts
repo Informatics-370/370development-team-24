@@ -8,5 +8,8 @@
    phoneNumber! : string;
    employeeRole!: number;
    employeeRoleName!: string;
+   gender!: number;
+   genderName!: string;
+   employment_Date!: Date;
  }
 
