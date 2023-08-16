@@ -90,7 +90,7 @@ padding: 20px;
               <input formControlName="demo" type="file" id="demo" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;"> Choose file
               <button color="primary" (click)="file.click()">Upload File</button>
               <span *ngIf="fileNameUploaded.length > 0"> {{fileNameUploaded}}</span>
-              <p>*If the demo is a video it should not be longer than 1 minute*</p>
+              <p>*If the demo is a video it should not be longer than 30 seconds*</p>
             </div><br>
             <label>Additional Requests
             <textarea name="additional" formControlName="additional" rows="5" cols="30" placeholder="Your message ..."></textarea>
