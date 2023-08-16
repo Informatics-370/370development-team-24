@@ -19,12 +19,13 @@ export class AddInventoryitemComponent {
    constructor(private  inventoryservice: InventoryService, private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar) { }
 
    inventoryItemForm: FormGroup = new FormGroup({
-     itemName: new FormControl('',[Validators.required]),
-     inventoryType: new FormControl([Validators.required]),
-     description: new FormControl('',[Validators.required]),
-     quantity: new FormControl ([ Validators.required])
-   })
-
+    itemName: new FormControl('', [Validators.required]),
+    inventoryType: new FormControl('', [Validators.required]),
+    description: new FormControl('', [Validators.required]),
+    quantity: new FormControl('', [Validators.required]),
+    price: new FormControl('', [Validators.required]) 
+  });
+  
    ngOnInit(): void {
      this.GetAllInventoryTypes()
    }
@@ -66,8 +67,9 @@ export class AddInventoryitemComponent {
     inventoryitem.inventoryType = this.inventoryItemForm.value.inventoryType;
     inventoryitem.description = this.inventoryItemForm.value.description;
     inventoryitem.quantity = this.inventoryItemForm.value.quantity;
-    
-  
+    inventoryitem.price = this.inventoryItemForm.value.price;
+
+   
     this.inventoryservice.AddInventoryItem(inventoryitem).subscribe(result => {
       this.router.navigate(['/selected-inventorytype'])
 });

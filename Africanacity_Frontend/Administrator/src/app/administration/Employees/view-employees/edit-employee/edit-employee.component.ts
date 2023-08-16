@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
-import { EmployeeService } from '../../../../service/employee.service';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Employee } from '../../../../shared/employee';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { Employee_Role } from 'src/app/shared/EmployeeRole';
+import { Employee } from 'src/app/shared/employee';
+import { EmployeeService } from 'src/app/service/employee.service';
+import { Gender } from 'src/app/shared/gender';
 
 
 @Component({
@@ -13,10 +14,11 @@ import { Employee_Role } from 'src/app/shared/EmployeeRole';
   templateUrl: './edit-employee.component.html',
   styleUrls: ['./edit-employee.component.css']
 })
-export class EditEmployeeComponent {
+export class EditEmployeeComponent implements OnInit {
   selectedEmployeeRole: Employee_Role | null = null;
-  employeeRolesData: Employee_Role[] = [];
+  employeeTypesData: Employee_Role[] = [];
   editEmployee: Employee = new Employee();
+  genderData: Gender[] = [];
 
   updateEmployeeForm: FormGroup = new FormGroup({
     surname: new FormControl('', [Validators.required]),
@@ -24,7 +26,9 @@ export class EditEmployeeComponent {
     employeeRole: new FormControl('', [Validators.required]),
     email_Address: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
-    physical_Address: new FormControl('', [Validators.required])
+    physical_Address: new FormControl('', [Validators.required]),
+    gender: new FormControl('', [Validators.required]),
+    
   });
 
   constructor(
@@ -47,14 +51,21 @@ export class EditEmployeeComponent {
         this.updateEmployeeForm.controls['physical_Address'].setValue(this.editEmployee.physical_Address);
 
         // Find the selected Supplier Type in the supplierTypesData array
-        const selectedType = this.employeeRolesData.find(type => type.name === this.editEmployee.employeeRoleName);
+        const selectedType = this.employeeTypesData.find(type => type.name === this.editEmployee.employeeRoleName);
         if (selectedType) {
-          this.updateEmployeeForm.controls['employeeRole'].patchValue(selectedType.employee_RoleId);
+          this.updateEmployeeForm.controls['employeeRole'].setValue(selectedType.employee_RoleId);
         }
       });
+      const selectedType = this.genderData.find(type => type.name === this.editEmployee.genderName);
+      if (selectedType) {
+        this.updateEmployeeForm.controls['gender'].setValue(selectedType.genderId);
+      }
     });
+    
 
-    this.GetAllEmployeeRoles(); // Call this method to populate the supplierTypesData array
+    this.GetAllEmployeeRoles();
+    this.GetAllGenders();
+    console.log(this.editEmployee) // Call this method to populate the supplierTypesData array
   }
 
   cancel() {
@@ -63,34 +74,43 @@ export class EditEmployeeComponent {
 
   GetAllEmployeeRoles() {
     this.employeeservice.GetAllEmployeeRoles().subscribe(result => {
-      let employeeRoleList: any[] = result;
-      employeeRoleList.forEach((element) => {
-        this.employeeRolesData.push(element);
+      let employeeTypeList: any[] = result;
+      employeeTypeList.forEach((element) => {
+        this.employeeTypesData.push(element);
+      });
+    });
+  }
+  GetAllGenders() {
+    this.employeeservice.GetAllGenders().subscribe(result => {
+      let genderList: any[] = result;
+      genderList.forEach((element) => {
+        this.genderData.push(element);
       });
     });
   }
 
   updateEmployee() {
     let employee = new Employee();
-    employee.surname = this.updateEmployeeForm.value.supplierName;
-    employee.firstName = this.updateEmployeeForm.value.supplierName;
-    employee.employeeRole = this.updateEmployeeForm.value.employeeRole; // Assign the selected employee Role ID
+    employee.surname= this.updateEmployeeForm.value.surname;
+    employee.firstName= this.updateEmployeeForm.value.firstName;
+    employee.employeeRole = this.updateEmployeeForm.value.employeeRole; 
     employee.email_Address = this.updateEmployeeForm.value.email_Address;
     employee.phoneNumber = this.updateEmployeeForm.value.phoneNumber;
     employee.physical_Address = this.updateEmployeeForm.value.physical_Address;
+    employee.gender = this.updateEmployeeForm.value.gender;
 
     this.employeeservice.EditEmployee(this.editEmployee.employeeId, employee).subscribe(
       (response: any) => {
         if (response.statusCode === 200) {
-          this.router.navigate(['./view-employees']);
+          this.router.navigate(['/view-employees']);
           window.location.reload();
-          this.showSuccessMessage('Employee Information updated successfully!');
+          this.showSuccessMessage( employee.firstName + 'Information updated successfully!');
         } else {
-          // Handle error if needed
+          this.showSuccessMessage( employee.firstName + 'Information cannot be updated!');
         }
       },
       (error) => {
-        // Handle error if needed
+        this.showSuccessMessage( employee.firstName +'s' +'' + 'Information cannot be updated!');
       }
     );
   }

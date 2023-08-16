@@ -36,12 +36,5 @@ export class ViewHelpListComponent {
       });
     }
 
-    searchTerm: string = '';
-
-    @Output() searchClicked: EventEmitter<string> = new EventEmitter<string>();
-
-    search(searchTerm: string) {
-      this.searchClicked.emit(searchTerm);
-    }
 
 }

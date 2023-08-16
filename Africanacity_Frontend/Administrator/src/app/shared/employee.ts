@@ -1,11 +1,3 @@
-//  export interface Employee{
-//    employeeId: Number;
-//    surname: string;
-//    firstName: string; 
-//    email_Address: string; 
-//    physical_Address: string;
-//    phoneNumber: string; 
-//  }
 
  export class Employee{
    employeeId! : number;
@@ -16,5 +8,8 @@
    phoneNumber! : string;
    employeeRole!: number;
    employeeRoleName!: string;
+   gender!: number;
+   genderName!: string;
+   employment_Date!: Date;
  }
 

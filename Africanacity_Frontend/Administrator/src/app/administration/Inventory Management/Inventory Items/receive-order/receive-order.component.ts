@@ -28,8 +28,8 @@ export class ReceiveOrderComponent implements OnInit {
   datePipe = new DatePipe('en-US');
   selectedItemName: string = '';
   selectedSupplierName: string = '';
-  orderDate: Date = new Date();
-  receivedDate: Date = new Date();
+  //orderDate: Date = new Date();
+  //receivedDate: Date = new Date();
   orderedQuantity: number = 0;
 
   constructor(
@@ -45,8 +45,8 @@ export class ReceiveOrderComponent implements OnInit {
     this.receiveOrderForm = this.fb.group({
       itemName: ['', Validators.required],
       supplierId: ['', Validators.required],
-      ordered_Date: ['', Validators.required],
-      received_Date: [new Date().toISOString().slice(0, 10)],
+      //ordered_Date: ['', Validators.required],
+      //received_Date: [new Date().toISOString().slice(0, 10)],
       ordered_Quantity: ['', [Validators.required, Validators.min(1)]]
     });
     this.receiveOrderForm.controls['itemName'].disable();
@@ -76,82 +76,44 @@ export class ReceiveOrderComponent implements OnInit {
 
   // ...
 
-// onSubmit() {
-//   if (this.receiveOrderForm.invalid) {
-//     return;
-//   }
-
-//   const formattedOrderedDate = this.datePipe.transform(
-//     this.receiveOrderForm.value.ordered_Date,
-//     'yyyy-MM-dd'
-//   );
-
-//   const currentDate = new Date();
-
-//   let receiveorder = new Supplier_Inventory();
-//   receiveorder.itemName = parseInt(this.receiveOrderForm.value.itemName, 10); // Parse to int
-//   receiveorder.supplierNames = parseInt(this.receiveOrderForm.value.supplierId, 10); // Parse to int
-//   receiveorder.ordered_Date = formattedOrderedDate!;
-//   receiveorder.received_Date = currentDate.toISOString().slice(0, 10);
-//   receiveorder.ordered_Quantity = this.receiveOrderForm.value.ordered_Quantity;
-
-//   this.inventoryservice.AddReceivedOrder(receiveorder).subscribe(
-//     (result) => {
-//       // After adding the order, refresh the order list
-//       this.GetAllInventoryOrders();
-//     },
-//     (error) => {
-//       console.error('Error in AddReceivedOrder:', error);
-//       // Show an error message to the user if desired
-//     }
-//   );
-
-//   this.snackBar.open(
-//     this.receiveOrderForm.get('itemName')!.value + ` created successfully`,
-//     'X',
-//     { duration: 5000 }
-//   );
-// }
-onSubmit() {
+ onSubmit() {
   if (this.receiveOrderForm.invalid) {
-    return;
-  }
+     return;
+   }
 
-  const formattedOrderedDate = this.datePipe.transform(
-    this.receiveOrderForm.value.ordered_Date,
-    'yyyy-MM-dd'
-  );
+  //  const formattedOrderedDate = this.datePipe.transform(
+  //    this.receiveOrderForm.value.ordered_Date,
+  //   'yyyy-MM-dd'
+  //  );
 
-  let receiveorder: Supplier_Inventory = {
-    itemName: 0,
-    supplierNames: 0,
-    ordered_Date: formattedOrderedDate!,
-    received_Date: this.receiveOrderForm.value.received_Date,
-    ordered_Quantity: this.receiveOrderForm.value.ordered_Quantity,
-    inventoryItemName: '',
-    supplierName: ''
-  };
+  // const currentDate = new Date();
 
-  // Convert the selected item and supplier names to numbers
-  receiveorder.itemName = parseInt(this.receiveOrderForm.value.itemName, 10);
-  receiveorder.supplierNames = parseInt(this.receiveOrderForm.value.supplierId, 10);
+   let receiveorder = new Supplier_Inventory();
+   //receiveorder.itemName = parseInt(this.receiveOrderForm.value.itemName, 10); // Parse to int
+   receiveorder.inventoryItemName = this.receiveOrderForm.value.inventoryItemName; 
+   receiveorder.supplierNames = parseInt(this.receiveOrderForm.value.supplierNames, 10);
+   //receiveorder.ordered_Date = formattedOrderedDate!;
+   //receiveorder.received_Date = currentDate.toISOString().slice(0, 10);
+   receiveorder.ordered_Quantity = this.receiveOrderForm.value.ordered_Quantity;
 
-  this.inventoryservice.AddReceivedOrder(receiveorder).subscribe(
-    (result) => {
+   this.inventoryservice.AddReceivedOrder(receiveorder).subscribe(
+     (result) => {
       // After adding the order, refresh the order list
-      this.GetAllInventoryOrders();
-      this.snackBar.open(
-        this.receiveOrderForm.get('itemName')!.value + ` created successfully`,
-        'X',
-        { duration: 5000 }
-      );
-    },
-    (error) => {
-      console.error('Error in AddReceivedOrder:', error);
-      // Show an error message to the user if desired
-    }
-  );
-}
+      this.router.navigate(['/view-orders'])
+     },
+     (error) => {
+       console.error('Error in AddReceivedOrder:', error);
+       // Show an error message to the user if desired
+     }
+   );
+
+   this.snackBar.open(
+     this.receiveOrderForm.get('itemName')!.value + ` created successfully`,
+     'X',
+     { duration: 5000 }
+   );
+ }
+
 
 GetAllInventoryOrders() {
   this.inventoryservice.GetAllInventoryOrders().subscribe((result) => {

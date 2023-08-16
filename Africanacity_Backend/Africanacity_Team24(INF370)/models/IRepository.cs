@@ -20,6 +20,8 @@ namespace Africanacity_Team24_INF370_.models
         Task<Employee_Role[]> GetAllEmployeeRolesAsync();
         Task <Employee_Role> GetEmployeeRoleAsync(int Employee_RoleId);
 
+        Task<Gender[]> GetAllGendersAsync();
+
         /* Review entities here*/
         void Add<T>(T entity) where T : class;
         void Delete<T>(T entity) where T : class;
@@ -97,6 +99,9 @@ namespace Africanacity_Team24_INF370_.models
         Task<Inventory_Item[]> GetAllInventoryItemsAsync();
         Task<Inventory_Item> GetInventoryItemAsync(int Inventory_ItemId);
         Task<Inventory_Item[]> GetInventoryItemsByTypeAsync(int inventory_TypeId);
+
+        //STOCK TAKE
+        Task<StockTakeItem[]> GetAllReconItemsAsync();
 
         //INVENTORY TYPES
 

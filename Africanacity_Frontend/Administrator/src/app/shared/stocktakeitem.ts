@@ -4,4 +4,24 @@ export interface StockTakeItem {
     inventory_ItemId: number;
     stockTakeQuantity: number;
   }
+
+  export interface StockTake {
+    stockTakeId: number;
+    stockQuantity: number;
+    stockTakeDate: Date;
+    stockTakeItems: StockTakeItem[];
+    items: StockTakeItem[];
+  }
+  
+  export interface StockTakeItem {
+    quantity: number;
+    inventory_ItemId: number;
+  }
+  
+  // export interface StockTakeViewModel {
+  //   stockTakeDate: Date;
+  //   items: StockTakeItem[];
+  // }
+  
+  
   

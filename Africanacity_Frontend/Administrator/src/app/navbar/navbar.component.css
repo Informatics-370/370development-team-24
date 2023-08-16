@@ -1,11 +1,33 @@
 /* Add this CSS to your styles.css or component's style file */
-.side-navbar {
+/* .side-navbar {
   background-color: #333;
   color: #fff;
   padding: 20px;
   width: 200px;
   height: 1000px;
+} */
+/* .side-navbar {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  width: 200px;
+  height: 1000px;
+ margin-left: 0px;
+  top: 0;
+  left: 0px; 
+} */
+.side-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 200px; /* Adjust width as needed */
+  background-color: #333; /* Set your desired background color */
+  overflow-y: auto; /* Enable vertical scrolling */
+  z-index: 1000;
+  color: #fff; /* Make sure the sidebar is above other content */
 }
+
 
 .logo {
   display: flex;
@@ -45,7 +67,6 @@
   background-color: #555;
 }
 
-/* Styling for dropdown menus */
 .dropdown {
   display: none;
   background-color: #444;
@@ -68,4 +89,5 @@
 
 .dropdown a:hover {
   background-color: #555;
-}
+} 
+

@@ -34,7 +34,7 @@ namespace Africanacity_Team24_INF370_.models
         // EMPLOYEES
         public async Task<Employee[]> GetAllEmployeesAsync()
         {
-            IQueryable<Employee> query = _appDbContext.Employees.Include(e => e.Employee_Role);
+            IQueryable<Employee> query = _appDbContext.Employees.Include(e => e.Employee_Role).Include(e => e.Gender);
             return await query.ToArrayAsync();
         }
         public async Task<Employee> GetEmployeeAsync(int employeeId)
@@ -43,6 +43,11 @@ namespace Africanacity_Team24_INF370_.models
             return await query.FirstOrDefaultAsync();
         }
 
+        public async Task<Gender[]> GetAllGendersAsync()
+        {
+            IQueryable<Gender> query = _appDbContext.Genders;
+            return await query.ToArrayAsync();
+        }
         //HELP 
         public async Task<Help[]> GetAllHelpAsync()
         {
@@ -394,6 +399,13 @@ namespace Africanacity_Team24_INF370_.models
         {
             IQueryable<Inventory_Item> query = _appDbContext.Inventory_Items.Include(i => i.Inventory_Type);
 
+            return await query.ToArrayAsync();
+        }
+
+        //STOCK TAKE
+        public async Task<StockTakeItem[]> GetAllReconItemsAsync()
+        {
+            IQueryable<StockTakeItem> query = _appDbContext.StockTakeItems.Include(st => st.Inventory_Item);
             return await query.ToArrayAsync();
         }
 

@@ -18,7 +18,6 @@ import { EditEmployeeRoleComponent } from './administration/EmployeeRole/edit-em
 import { AddEmployeeRoleComponent } from './administration/EmployeeRole/add-employee-role/add-employee-role.component';
 import { EmployeeRoleComponent } from './administration/EmployeeRole/employee-role/employee-role.component';
 import { MenuTypesComponent } from './administration/menu-types/menu-types.component';//for menu types page
-import { MenuitemsComponent } from './administration/menuitems/menuitems.component';
 // routing for pages
 import { AddEmployeeComponent } from './administration/Employees/add-employee/add-employee.component'; // for add employee page
 import { ViewEmployeesComponent } from './administration/Employees/view-employees/view-employees.component';
@@ -76,6 +75,11 @@ import { InventoryReconciliationComponent } from './administration/Reports/inven
 import { InventoryComponent } from './administration/Reports/inventory/inventory.component';
 import { SalesComponent } from './administration/Reports/sales/sales.component';
 import { ScheduleComponent } from './administration/Reports/schedule/schedule.component';
+import { MenuitemsComponent } from './administration/menuitems/menuitems.component';
+import { StockTakeComponent } from './administration/Inventory Management/Inventory Items/stock-take/stock-take.component';
+import { StockTakeListComponent } from './administration/Inventory Management/Inventory Items/stock-take/stock-take-list/stock-take-list.component';
+import { WriteOffStockComponent } from './administration/Inventory Management/Inventory Items/stock-take/write-off-stock/write-off-stock.component';
+
 
 const routes: Routes = [
   { path: '', component: ViewOrdersComponent },
@@ -114,8 +118,6 @@ const routes: Routes = [
   {path:'add-entertainment-type', component: AddEntertainmentTypeComponent},
 
   { path: 'navbar',component: NavbarComponent },
-  { path: 'login',component: LoginComponent }, // Login paths
-  { path: 'home', component: HomeComponent }, // for home page
   {path:'view-suppliers', component: ViewSuppliersComponent}, // for View Suppliers
   {path: 'edit-supplier/:id', component: EditSupplierComponent},
   {path: 'add-supplier', component:AddSupplierComponent},
@@ -133,10 +135,7 @@ const routes: Routes = [
   {path: 'inventory-stocktype', component: InventoryStocktypeComponent},
   {path: 'receive-order/:id', component:ReceiveOrderComponent},
   {path: 'view-orders', component:ViewOrdersComponent},
-  {path: '', redirectTo: 'login', pathMatch:'full'},
-
-  {path: '', redirectTo: 'home', pathMatch:'full'},
-  {path:'login', component:LoginComponent},
+  {path:'login', component: LoginComponent},
   {path:'signup', component:SignupComponent},
   {path:'reset', component:ResetComponent},
   {path:'view-profile',component:ViewProfileComponent, canActivate:[AuthGuard]},
@@ -216,6 +215,9 @@ const routes: Routes = [
   { path: 'inventory-reconciliation',component: InventoryReconciliationComponent }, // for inventory reconciliation report
   { path: 'sales',component: SalesComponent }, // for sales report
   { path: 'schedule',component: ScheduleComponent },
+  {path: 'stock-take', component:StockTakeComponent},
+  {path: 'stock-take-list', component:StockTakeListComponent},
+  {path: 'write-off-stock', component:WriteOffStockComponent},
 // for schedule
   { path: '', redirectTo: 'home', pathMatch:'full'},
   

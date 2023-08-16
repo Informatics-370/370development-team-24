@@ -17,7 +17,7 @@ import { ViewProfileComponent } from './login/view-profile/view-profile.componen
 //import { NgToastModule } from 'ng-angular-popup';
 import { ManageBookingComponent } from './administration/entertainer/manage-booking/manage-booking.component';
 import { BookingListingComponent } from './administration/entertainer/booking-listing/booking-listing.component';
-// import { MaterialModule } from './shared/material.modules';
+//import { MaterialModule } from './shared/material.modules';
 import { AddEmployeeRoleComponent } from './administration/EmployeeRole/add-employee-role/add-employee-role.component';
 import { EmployeeRoleComponent } from './administration/EmployeeRole/employee-role/employee-role.component';
 import { EditEmployeeRoleComponent } from './administration/EmployeeRole/edit-employee-role/edit-employee-role.component';
@@ -62,7 +62,6 @@ import { ReceiveOrderComponent } from './administration/Inventory Management/Inv
 import { ViewOrdersComponent } from './administration/Inventory Management/Inventory Items/receive-order/view-orders/view-orders/view-orders.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
 import dayGridPlugin from '@fullcalendar/daygrid'; // Import the dayGrid plugin
 import interactionPlugin from '@fullcalendar/interaction';
 //import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; // Import the interaction plugin
@@ -100,7 +99,10 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { ResetComponent } from './login/reset/reset.component';
 import { LoginComponent } from './login/login/login.component';
 import { ChangePasswordComponent } from './login/change-password/change-password.component';
-
+import { StockTakeComponent } from './administration/Inventory Management/Inventory Items/stock-take/stock-take.component';
+import { StockTakeListComponent } from './administration/Inventory Management/Inventory Items/stock-take/stock-take-list/stock-take-list.component';
+import { WriteOffStockComponent } from './administration/Inventory Management/Inventory Items/stock-take/write-off-stock/write-off-stock.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -213,6 +215,9 @@ import { ChangePasswordComponent } from './login/change-password/change-password
     ViewProfileComponent,
     SignupComponent,
     UpdateProfileComponent,
+    StockTakeComponent,
+    StockTakeListComponent,
+    WriteOffStockComponent,
     
     
 

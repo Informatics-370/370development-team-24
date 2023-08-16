@@ -28,6 +28,7 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<Discount> Discounts { get; set; }
         public DbSet<Employee_Role> Employee_Roles { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Gender> Genders { get; set; }
         public DbSet<Help> Helps { get; set; }
 		public DbSet<Help_Category> Help_Categories{ get; set; }
 		public DbSet<Password> Passwords { get; set; }
@@ -58,6 +59,11 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<Supplier_InventoryItem> Supplier_InventoryItems { get; set; }
 		public DbSet<Supplier_Type> Supplier_Types { get; set; }
         public DbSet<Supplier_Inventory> Supplier_Inventorys { get; set; }
+        public DbSet<Inventory_Price> Inventory_Prices { get; set; }
+        public DbSet<StockTake> StockTakes { get; set; }
+        public DbSet<StockTakeItem> StockTakeItems { get; set; }
+        public DbSet<WriteOffStock> WriteOffs { get; set; }
+        public DbSet<DiscrepencyItem> DiscrepencyItems { get; set; }
 
 
         //Restraurant model
@@ -87,8 +93,28 @@ namespace Africanacity_Team24_INF370_.models
 			modelBuilder.Entity<User>().ToTable("Users");
 			base.OnModelCreating(modelBuilder);
 
-           // modelBuilder.Entity<StockTake>().HasMany(st => st.StockTakeItems).WithOne().OnDelete(DeleteBehavior.Cascade);
-
+            // modelBuilder.Entity<StockTake>().HasMany(st => st.StockTakeItems).WithOne().OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Gender>()
+                    .HasData(
+                    new
+                    {
+                        GenderId = 1,
+                        Name = "Male",
+                    });
+            modelBuilder.Entity<Gender>()
+                 .HasData(
+                 new
+                 {
+                      GenderId = 2,
+                      Name = "Female",
+                 });
+            modelBuilder.Entity<Gender>()
+                .HasData(
+                 new
+                 {
+                     GenderId = 3,
+                     Name = "Other",
+                     });
 
             // Create Seed Data For the Employee Table:
             modelBuilder.Entity<Employee>()
@@ -102,6 +128,8 @@ namespace Africanacity_Team24_INF370_.models
                    Employee_RoleId = 1,
                    Physical_Address = "404 Jacob Street",
                    PhoneNumber = "0847541236",
+                   GenderId = 2,
+                   Employment_Date = DateTime.Now
                });
            ;
             modelBuilder.Entity<Employee>()
@@ -114,7 +142,9 @@ namespace Africanacity_Team24_INF370_.models
                              Email_Address = "SerenaWilliams@gmail.com",
                              Employee_RoleId = 2,
                              Physical_Address = "132 Harriet Street",
-                             PhoneNumber = "0842341236"
+                             PhoneNumber = "0842341236",
+                             GenderId = 2,
+                             Employment_Date = DateTime.Now
 
                          });
             modelBuilder.Entity<Employee>()
@@ -127,7 +157,9 @@ namespace Africanacity_Team24_INF370_.models
                              Email_Address = "EdrisElba@gmail.com",
                              Employee_RoleId = 1,
                              Physical_Address = "245 homelyn Street",
-                             PhoneNumber = "0212378798"
+                             PhoneNumber = "0212378798",
+                             GenderId = 1,
+                             Employment_Date = DateTime.Now
 
                          });
             modelBuilder.Entity<Employee>()
@@ -140,7 +172,9 @@ namespace Africanacity_Team24_INF370_.models
                             Email_Address = "NyongoLupita@gmail.com",
                             Employee_RoleId = 2,
                             Physical_Address = "254 Summer Street",
-                            PhoneNumber = "0455783475"
+                            PhoneNumber = "0455783475",
+                            GenderId = 2,
+                            Employment_Date = DateTime.Now
 
                         });
             modelBuilder.Entity<Employee>()
@@ -153,7 +187,9 @@ namespace Africanacity_Team24_INF370_.models
                             Email_Address = "MicheaJackson@gmail.com",
                             Employee_RoleId = 2,
                             Physical_Address = "567 Winter Street",
-                            PhoneNumber = "0874567836"
+                            PhoneNumber = "0874567836",
+                            GenderId = 3,
+                            Employment_Date = DateTime.Now
 
                         });
             modelBuilder.Entity<Employee>()
@@ -166,7 +202,9 @@ namespace Africanacity_Team24_INF370_.models
                             Email_Address = "TaehyungKim@gmial.com",
                             Employee_RoleId = 1,
                             Physical_Address = "345 Shallow  Street",
-                            PhoneNumber = "0874562134"
+                            PhoneNumber = "0874562134",
+                            GenderId = 1,
+                            Employment_Date = DateTime.Now
 
                         });
             modelBuilder.Entity<Employee>()
@@ -179,7 +217,9 @@ namespace Africanacity_Team24_INF370_.models
                             Email_Address = "ZendayaColeman@gmail.com",
                             Employee_RoleId = 1,
                             Physical_Address = "243 Super Street ",
-                            PhoneNumber = "0212378798"
+                            PhoneNumber = "0212378798",
+                            GenderId = 2,
+                            Employment_Date = DateTime.Now
 
                         });
             modelBuilder.Entity<Employee>()
@@ -192,7 +232,9 @@ namespace Africanacity_Team24_INF370_.models
                             Email_Address = "RogerFederal@gmail.com",
                             Employee_RoleId = 1,
                             Physical_Address = "987 Wall Street",
-                            PhoneNumber = "0612346487"
+                            PhoneNumber = "0612346487",
+                            GenderId = 3,
+                            Employment_Date = DateTime.Now
 
                         });
             modelBuilder.Entity<Employee>()
@@ -205,7 +247,9 @@ namespace Africanacity_Team24_INF370_.models
                             Email_Address = "JenniferLOpez@gmail.com",
                             Employee_RoleId = 2,
                             Physical_Address = "967 Ballard Street",
-                            PhoneNumber = "0874834576"
+                            PhoneNumber = "0874834576",
+                            GenderId = 3,
+                            Employment_Date = DateTime.Now
 
                         });
             modelBuilder.Entity<Employee>()
@@ -218,7 +262,9 @@ namespace Africanacity_Team24_INF370_.models
                             Email_Address = "ChadwickBoseman@gmail.com",
                             Employee_RoleId = 2,
                             Physical_Address = "483 Alien Street",
-                            PhoneNumber = "0923456789"
+                            PhoneNumber = "0923456789",
+                            GenderId = 1,
+                            Employment_Date = DateTime.Now
 
                         });
             // Create Seed Data For the Help Q&A Table:
@@ -744,8 +790,8 @@ namespace Africanacity_Team24_INF370_.models
                  SupplierId = 1,
                   Inventory_ItemId = 1,
                  Ordered_Quantity = 33,
-                  Ordered_Date = DateTime.Today,
-                  Received_Date = DateTime.Today
+                 //Ordered_Date = DateTime.Today,
+                 // Received_Date = DateTime.Today
             });
 
 
@@ -1481,6 +1527,111 @@ namespace Africanacity_Team24_INF370_.models
                     VAT = 45.58m,
                     Total = 293.04m
                 });
+            //seed data for Inventory_Price
+
+            modelBuilder.Entity<Inventory_Price>()
+                       .HasData(
+                       new
+                       {
+                           InventoryPrice_Id = 1,
+                           Price = 25m,
+                           Inventory_ItemId = 1,
+                           Date = DateTime.Now
+
+                       });
+
+            modelBuilder.Entity<Inventory_Price>()
+                       .HasData(
+                       new
+                       {
+                           InventoryPrice_Id = 2,
+                           Price = 250m,
+                           Inventory_ItemId = 2,
+                           Date = DateTime.Now
+
+                       });
+
+            modelBuilder.Entity<Inventory_Price>()
+                       .HasData(
+                       new
+                       {
+                           InventoryPrice_Id = 3,
+                           Price = 200m,
+                           Inventory_ItemId = 3,
+                           Date = DateTime.Now
+
+                       });
+
+            modelBuilder.Entity<Inventory_Price>()
+                       .HasData(
+                       new
+                       {
+                           InventoryPrice_Id = 4,
+                           Price = 38m,
+                           Inventory_ItemId = 4,
+                           Date = DateTime.Now
+
+                       });
+            modelBuilder.Entity<Inventory_Price>()
+                     .HasData(
+                     new
+                     {
+                         InventoryPrice_Id = 5,
+                         Price = 45m,
+                         Inventory_ItemId = 5,
+                         Date = DateTime.Now
+
+                     });
+            modelBuilder.Entity<Inventory_Price>()
+                     .HasData(
+                     new
+                     {
+                         InventoryPrice_Id = 6,
+                         Price = 75m,
+                         Inventory_ItemId = 6,
+                         Date = DateTime.Now
+
+                     });
+            modelBuilder.Entity<Inventory_Price>()
+                     .HasData(
+                     new
+                     {
+                         InventoryPrice_Id = 7,
+                         Price = 100m,
+                         Inventory_ItemId = 7,
+                         Date = DateTime.Now
+
+                     });
+            modelBuilder.Entity<Inventory_Price>()
+                     .HasData(
+                     new
+                     {
+                         InventoryPrice_Id = 8,
+                         Price = 40m,
+                         Inventory_ItemId = 8,
+                         Date = DateTime.Now
+
+                     });
+            modelBuilder.Entity<Inventory_Price>()
+                     .HasData(
+                     new
+                     {
+                         InventoryPrice_Id = 9,
+                         Price = 28m,
+                         Inventory_ItemId = 9,
+                         Date = DateTime.Now
+
+                     });
+            modelBuilder.Entity<Inventory_Price>()
+                     .HasData(
+                     new
+                     {
+                         InventoryPrice_Id = 10,
+                         Price = 35m,
+                         Inventory_ItemId = 10,
+                         Date = DateTime.Now
+
+                     });
 
 
 
