@@ -23,20 +23,45 @@ namespace Africanacity_Team24_INF370_.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
         // getting a list of all the drink items
+        //[HttpGet]
+        //[Route("GetAllDrinks")]
+        //public async Task<IActionResult> GetAllDrinks()
+        //{
+        //    try
+        //    {
+        //        var drinkItems = await _repository.GetAllDrinksAsync();
+        //        return Ok(drinkItems);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        /*Fix error message*/
+        //        //return StatusCode(500, "Enter some error message");
+        //        return StatusCode(StatusCodes.Status500InternalServerError, "No such values");
+        //    }
+        //}
+
+
         [HttpGet]
-        [Route("GetAllDrinks")]
-        public async Task<IActionResult> GetAllDrinks()
+        [Route("DrinkItemListing")]
+        public async Task<ActionResult> DrinkItemListing()
         {
             try
             {
-                var drinkItems = await _repository.GetAllDrinksAsync();
-                return Ok(drinkItems);
+                var results = await _repository.GetAllDrinksAsync();
+
+                dynamic drinks = results.Select(p => new
+                {
+                    p.DrinkId,
+                    p.Name,
+                    DrinkTypeName = p.Drink_Type.Name,
+                });
+
+                return Ok(drinks);
             }
             catch (Exception)
             {
-                /*Fix error message*/
-                //return StatusCode(500, "Enter some error message");
-                return StatusCode(StatusCodes.Status500InternalServerError, "No such values");
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
             }
         }
 
@@ -59,46 +84,100 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
         // Add drink
+        //[HttpPost]
+        //[Route("AddDrink")]
+        //public async Task<IActionResult> AddDrink(DrinkViewModel dvm)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    var drink = new Drink
+        //    {
+        //        Name = dvm.Name,
+        //        Drink_TypeId = Convert.ToInt32(dvm.DrinkType),
+        //    };
+
+        //    try
+        //    {
+        //        _repository.Add(drink);
+        //        await _repository.SaveChangesAsync();
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return BadRequest("Invalid transaction");
+        //    }
+
+        //    return Ok(drink);
+        //    /*var drink = new Drink { Name = dvm.Name };
+
+        //    try
+        //    {
+        //        _repository.Add(drink);
+        //        await _repository.SaveChangesAsync();
+        //    }
+        //    catch (Exception)
+        //    {
+        //        // fix error message
+        //        return BadRequest("Invalid Transaction");
+        //    }
+
+        //    return Ok(drink);*/
+        //}
+
+
+        //add drink
         [HttpPost]
         [Route("AddDrink")]
-        public async Task<IActionResult> AddDrink(DrinkViewModel dvm)
+        public async Task<IActionResult> AddDrink(IFormCollection formData)
         {
+            // Implementation goes here
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+
+            Console.WriteLine("formData[\"drinkType\"]: " + formData["drinkType"]);
+            if (!int.TryParse(formData["drinkType"], out int drinkTypeId))
+            {
+                return BadRequest("Invalid drinkType value.");
+            }
+
+            drinkTypeId = Convert.ToInt32(formData["drinkType"]);
+            //to add to menu item table
             var drink = new Drink
             {
-                Name = dvm.Name,
-                Drink_TypeId = Convert.ToInt32(dvm.DrinkType),
+                Name = formData["name"],
+                Drink_TypeId = drinkTypeId
+               
             };
-
             try
             {
                 _repository.Add(drink);
                 await _repository.SaveChangesAsync();
+
+                // Create the MenuItem_Price instance
+                var drinkItemPrice = new Drink_Price
+                {
+                    DrinkId = drink.DrinkId,
+                    Amount = Convert.ToDecimal(formData["amount"])
+
+                };
+
+                _repository.Add(drinkItemPrice);
+                await _repository.SaveChangesAsync();
+
             }
             catch (Exception)
             {
                 return BadRequest("Invalid transaction");
             }
 
+
             return Ok(drink);
-            /*var drink = new Drink { Name = dvm.Name };
-
-            try
-            {
-                _repository.Add(drink);
-                await _repository.SaveChangesAsync();
-            }
-            catch (Exception)
-            {
-                // fix error message
-                return BadRequest("Invalid Transaction");
-            }
-
-            return Ok(drink);*/
         }
 
         // Edit drink type

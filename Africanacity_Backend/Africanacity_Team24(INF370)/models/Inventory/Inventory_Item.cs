@@ -1,16 +1,15 @@
 ﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
-
 using Africanacity_Team24_INF370_.models.Administration;
 using System.ComponentModel.DataAnnotations;
 
 namespace Africanacity_Team24_INF370_.models.Inventory
 {
     public class Inventory_Item
-	{
-		[Key]
-		public int Inventory_ItemId { get; set; }
-    
- 
+    {
+        [Key]
+        public int Inventory_ItemId { get; set; }
+
+
 
         [MaxLength(50)]
         public string ItemName { get; set; } = string.Empty;
@@ -28,6 +27,10 @@ namespace Africanacity_Team24_INF370_.models.Inventory
 
         public Inventory_Type Inventory_Type { get; set; }
 
+        public virtual ICollection<Inventory_Price> Inventory_Prices { get; set; }
+
+        public virtual ICollection<StockTake> StockTakes { get; set; }
+        public virtual ICollection<StockTakeItem> StockTakeItems { get; set; }
 
     }
  }

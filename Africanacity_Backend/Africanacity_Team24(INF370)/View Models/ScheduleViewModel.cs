@@ -15,6 +15,8 @@ namespace Africanacity_Team24_INF370_.View_Models
 
         public string End_Time { get; set; }
         public  string Description { get; set; }
-        public int EventName { get; set; }
+
+        public int Event { get; set; }
+        //public int EventName { get; set; }
     }
 }

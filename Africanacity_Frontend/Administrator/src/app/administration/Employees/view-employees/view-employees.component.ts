@@ -76,12 +76,14 @@ deleteItemFromServer(): void {
       const column4Value = employee.email_Address.toLowerCase();
       const column5Value = employee.physical_Address.toLowerCase();
       const column6Value = employee.employeeRoleName.toLowerCase();
+      const column7Value = employee.genderName.toLowerCase();
   
       return column2Value.includes(filterValue) || 
       column3Value.includes(filterValue) ||
       column4Value.includes(filterValue) ||
       column5Value.includes(filterValue) ||
-      column6Value.includes(filterValue);
+      column6Value.includes(filterValue) ||
+      column7Value.includes(filterValue);
     });
   }
 
@@ -93,10 +95,12 @@ deleteItemFromServer(): void {
     }
     downloadPDF() {
       const doc = new jsPDF();
+      doc.setFontSize(18);
+      doc.text('Employee Listing', 105, 15, { align: 'center' });
       const headers = [['ID', 'Name', 'Surname', 'Role', 'Email', 'Phone Number', 'Address']];
       
       // Map the checklistItems to generate the data array
-      const data = this.employees.map(employee => [employee.employeeId, employee.firstName, employee.surname, employee.employeeRole, employee.email_Address, employee.phoneNumber, employee.physical_Address]);
+      const data = this.employees.map(employee => [employee.employeeId, employee.firstName, employee.surname, employee.employeeRoleName, employee.email_Address, employee.phoneNumber, employee.physical_Address]);
     
       doc.setFontSize(12);
     

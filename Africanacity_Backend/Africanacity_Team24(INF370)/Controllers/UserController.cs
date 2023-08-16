@@ -23,19 +23,21 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using Africanacity_Team24_INF370_.View_Models;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Newtonsoft.Json;
+using System.Diagnostics;
 
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class UserController : Controller
+	public class UserController : ControllerBase
 	{
 		private readonly IConfiguration _configuration;
 		private readonly AppDbContext _authContext;
 		private readonly IEmailService _emailService;
 		private readonly IRepository _repository;
-	
+
 		public UserController(AppDbContext context, IRepository repository, IConfiguration configuration, IEmailService emailService)
 		{
 			_authContext = context;
@@ -44,22 +46,52 @@ namespace Africanacity_Team24_INF370_.Controllers
 			_repository = repository;
 		}
 
+		//[HttpPost("Authenticate")]
+		////[Route("Authenticate")]
+		//public async Task<IActionResult> Authenticate([FromBody] User userObj)
+		//{
+		//	if (userObj == null)
+		//		return BadRequest();
+
+		//	var user = await _authContext.Users
+		//		.FirstOrDefaultAsync(x => x.Username == userObj.Username);
+
+		//	if (user == null)
+		//		return NotFound(new { Message = "User not found!" });
+
+		//	if (!PasswordHasher.VerifyPassword(userObj.Password, user.Password))
+		//	{
+		//		return BadRequest(new { Message = "Password is Incorrect" });
+		//	}
+
+		//	user.Token = CreateJwt(user);
+		//	var newAccessToken = user.Token;
+		//	var newRefreshToken = CreateRefreshToken();
+		//	user.RefreshToken = newRefreshToken;
+		//	user.RefreshTokenExpiryTime = DateTime.Now.AddDays(15);
+		//	await _authContext.SaveChangesAsync();
+
+		//	return Ok(new TokenApiDto()
+		//	{
+		//		AccessToken = newAccessToken,
+		//		RefreshToken = newRefreshToken
+		//	});
+		//}
 		[HttpPost("Authenticate")]
-		//[Route("Authenticate")]
-		public async Task<IActionResult> Authenticate([FromBody] User userObj)
+		public async Task<IActionResult> Authenticate([FromBody] EntertainerViewModel entertainerViewModel)
 		{
-			if (userObj == null)
+			if (entertainerViewModel == null)
 				return BadRequest();
 
 			var user = await _authContext.Users
-				.FirstOrDefaultAsync(x => x.Username == userObj.Username);
+				.FirstOrDefaultAsync(x => x.Username == entertainerViewModel.Username);
 
 			if (user == null)
 				return NotFound(new { Message = "User not found!" });
 
-			if (!PasswordHasher.VerifyPassword(userObj.Password, user.Password))
+			if (!PasswordHasher.VerifyPassword(entertainerViewModel.Password, user.Password))
 			{
-				return BadRequest(new { Message = "Password is Incorrect" });
+				return BadRequest(new { Message = "Password is incorrect" });
 			}
 
 			user.Token = CreateJwt(user);
@@ -76,36 +108,85 @@ namespace Africanacity_Team24_INF370_.Controllers
 			});
 		}
 
+
+		//[HttpPost]
+		//[Route("Register")]
+		//public async Task<IActionResult> AddUser([FromBody] User userObj)
+		//{
+		//	if (userObj == null)
+		//		return BadRequest();
+
+		//	// check email
+		//	if (await CheckEmailExistAsync(userObj.Email))
+		//		return BadRequest(new { Message = "Email already exist" });
+
+		//	//check username
+		//	if (await CheckUsernameExistAsync(userObj.Username))
+		//		return BadRequest(new { Message = "Username already exist" });
+
+		//	var passMessage = CheckPasswordStrength(userObj.Password);
+		//	if (!string.IsNullOrEmpty(passMessage))
+		//		return BadRequest(new { Message = passMessage.ToString() });
+
+		//	userObj.Password = PasswordHasher.HashPassword(userObj.Password);
+		//	userObj.Role = "User";
+		//	userObj.Token = "";
+		//	await _authContext.AddAsync(userObj);
+		//	await _authContext.SaveChangesAsync();
+		//	return Ok(new
+		//	{
+		//		Status = 200,
+		//		Message = "Entertainer added successfully!"
+		//	});
+		//}
+
 		[HttpPost]
 		[Route("Register")]
-		public async Task<IActionResult> AddUser([FromBody] User userObj)
+		public async Task<IActionResult> AddUser([FromBody] EntertainerViewModel entertainerViewModel)
 		{
-			if (userObj == null)
+			if (entertainerViewModel == null)
 				return BadRequest();
 
 			// check email
-			if (await CheckEmailExistAsync(userObj.Email))
-				return BadRequest(new { Message = "Email already exist" });
+			if (await CheckEmailExistAsync(entertainerViewModel.Email))
+				return BadRequest(new { Message = "Email already exists" });
 
 			//check username
-			if (await CheckUsernameExistAsync(userObj.Username))
-				return BadRequest(new { Message = "Username already exist" });
+			if (await CheckUsernameExistAsync(entertainerViewModel.Username))
+				return BadRequest(new { Message = "Username already exists" });
 
-			var passMessage = CheckPasswordStrength(userObj.Password);
+			var passMessage = CheckPasswordStrength(entertainerViewModel.Password);
 			if (!string.IsNullOrEmpty(passMessage))
-				return BadRequest(new { Message = passMessage.ToString() });
+				return BadRequest(new { Message = passMessage });
 
-			userObj.Password = PasswordHasher.HashPassword(userObj.Password);
-			userObj.Role = "User";
-			userObj.Token = "";
-			await _authContext.AddAsync(userObj);
+			var newUser = new User
+			{
+				FirstName = entertainerViewModel.FirstName,
+				LastName = entertainerViewModel.LastName,
+				Username = entertainerViewModel.Username,
+				Password = PasswordHasher.HashPassword(entertainerViewModel.Password),
+				Role = "User",
+				Email = entertainerViewModel.Email,
+				ContactNumber = entertainerViewModel.ContactNumber,
+				PhysicalAddress = entertainerViewModel.PhysicalAddress,
+				RefreshToken = "",
+				RefreshTokenExpiryTime = DateTime.UtcNow, // Set as needed
+				ResetPasswordToken = "",
+				ResetPasswordTokenExpiry = DateTime.UtcNow, // Set as needed
+				Entertainment_TypeId = entertainerViewModel.EntertainmentType
+			};
+
+			await _authContext.AddAsync(newUser);
 			await _authContext.SaveChangesAsync();
+
 			return Ok(new
 			{
 				Status = 200,
 				Message = "Entertainer added successfully!"
 			});
 		}
+
+
 
 		private Task<bool> CheckEmailExistAsync(string? email)
 			=> _authContext.Users.AnyAsync(x => x.Email == email);
@@ -339,7 +420,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 		// Edit Entertainer
 		[HttpPut]
 		[Route("EditUser/{UserId}")]
-		public async Task<ActionResult<User>> EditUser(int UserId, User ftvm)
+		public async Task<ActionResult<EntertainerViewModel>> EditUser(int UserId, EntertainerViewModel ftvm)
 		{
 			try
 			{
@@ -377,7 +458,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 				var existingUser = await _repository.ViewProfileAsync(UserId);
 
 				// fix error message
-				if (existingUser == null) return NotFound($"The userdoes not exist");
+				if (existingUser == null) return NotFound($"The user does not exist");
 
 				_repository.Delete(existingUser);
 
@@ -393,8 +474,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 			return BadRequest("Your request is invalid");
 		}
 
-	
-	[HttpPost]
+
+		[HttpPost]
 		[Route("Changepassword")]
 		public async Task<IActionResult> ChangePassword([FromBody] UpdatePasswordModel request)
 		{
@@ -437,7 +518,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 				return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "An error occurred while processing your request." });
 			}
 
-}
+		}
 
 		private static string CreatePasswordHash(string password)
 		{
@@ -450,6 +531,58 @@ namespace Africanacity_Team24_INF370_.Controllers
 			// You should use a proper password hashing algorithm, e.g., bcrypt or PBKDF2
 			return PasswordHasher.VerifyPassword(password, passwordHash);
 		}
+
+		[HttpGet]
+		[Route("EntertainmentTypes")]
+		public async Task<ActionResult> EntertainmentTypes()
+		{
+			try
+			{
+				var results = await _repository.GetEntertainmentTypesAsync();
+
+				return Ok(results);
+			}
+			catch (Exception)
+			{
+
+				return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+			}
+		}
+
+	//	[HttpGet]
+	//	[Route("GetUsers")]
+	//	public async Task<IActionResult> GetUsers()
+	//	{
+	//		try
+	//		{
+	//			var results = await _repository.GetUsersAsync();
+
+				
+
+	//			// Transform the results
+	//			dynamic users = results.Select(e => new
+	//			{
+	//				e.Id,
+	//				e.Username,
+	//				e.FirstName,
+	//				e.LastName,
+	//				EntertainmenTypeName = e.Entertainment_Type.Name, // Use null-conditional operator
+	//				e.ContactNumber,
+	//				e.Email,
+	//				e.PhysicalAddress
+	//			});
+				
+
+	//			return Ok(users);
+	//		}
+	//		catch (Exception ex)
+	//		{
+	//			// Log the exception
+	//			Debug.WriteLine($"Exception: {ex}");
+	//			return StatusCode(500, "Internal Server Error. Please contact support.");
+	//		}
+	//	}
+
 	}
 
 }

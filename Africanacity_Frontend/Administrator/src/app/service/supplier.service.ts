@@ -9,7 +9,7 @@ import { SupplierType } from '../shared/SupplierTypes';
   })
   export class SupplierService {
   
-    apiUrl = 'http://localhost:49991/api/'
+    apiUrl = 'https://localhost:49991/api/'
   
     httpOptions ={
       headers: new HttpHeaders({

@@ -93,7 +93,7 @@ export class LoginComponent implements OnInit {
          error:(err)=>{
            this.toast.error({
              detail: 'ERROR',
-             summary: 'Something went wrong',
+             summary: 'Something went wrong, Invalid email address',
              duration: 3000,
            });
          }

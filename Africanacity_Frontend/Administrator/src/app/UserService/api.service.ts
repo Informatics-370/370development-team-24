@@ -8,7 +8,7 @@ import { Profile } from '../shared/Profile';
   providedIn: 'root',
 })
 export class ApiService {
-  private baseUrl: string = 'http://localhost:49991/api/Authentication';
+  private baseUrl: string = 'https://localhost:49991/api/Authentication';
   private localStorageKey = 'currentUser';
   constructor(private http: HttpClient) {}
 
@@ -77,6 +77,12 @@ export class ApiService {
   editAdmin(UserId: number, user: Profile)
   {
     return this.http.put(`${this.baseUrl}/EditAdmin/${UserId}`,user, this.httpOptions)
+  }
+
+  
+  GetUsers(): Observable<any>{
+    return this.http.get(`${this.baseUrl}/GetUsers`)
+    .pipe(map(result => result))
   }
 
 }

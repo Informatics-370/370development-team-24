@@ -13,7 +13,7 @@
 .label{
     margin-bottom: 5px;
     padding-bottom: 5px;
-} */
+} 
 
 table{
     padding-top: 60px;
@@ -64,4 +64,7 @@ button{
 }
 .table-hover tr:hover {
     background-color: grey;
+  }
+  .form-control{
+    border: 1px solid rgb(8, 8, 8);
   }

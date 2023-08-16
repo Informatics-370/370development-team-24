@@ -50,7 +50,7 @@ export class DrinkTypeComponent {
   
   }
 
-  DeleteDrinkType(drinkTypeId: number)
+  DeleteDrinkType(drinkTypeId: Number)
   {
     this.dataService.DeleteDrinkType(drinkTypeId).subscribe(result => {
         this.deleteItem();

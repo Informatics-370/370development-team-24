@@ -34,7 +34,7 @@ namespace Africanacity_Team24_INF370_.models
         // EMPLOYEES
         public async Task<Employee[]> GetAllEmployeesAsync()
         {
-            IQueryable<Employee> query = _appDbContext.Employees.Include(e => e.Employee_Role);
+            IQueryable<Employee> query = _appDbContext.Employees.Include(e => e.Employee_Role).Include(e => e.Gender);
             return await query.ToArrayAsync();
         }
         public async Task<Employee> GetEmployeeAsync(int employeeId)
@@ -43,6 +43,11 @@ namespace Africanacity_Team24_INF370_.models
             return await query.FirstOrDefaultAsync();
         }
 
+        public async Task<Gender[]> GetAllGendersAsync()
+        {
+            IQueryable<Gender> query = _appDbContext.Genders;
+            return await query.ToArrayAsync();
+        }
         //HELP 
         public async Task<Help[]> GetAllHelpAsync()
         {
@@ -120,9 +125,16 @@ namespace Africanacity_Team24_INF370_.models
         }
 
         //DRINK ITEM
+        //public async Task<Drink[]> GetAllDrinksAsync()
+        //{
+        //    IQueryable<Drink> query = _appDbContext.Drinks;
+        //    return await query.ToArrayAsync();
+        //}
+
         public async Task<Drink[]> GetAllDrinksAsync()
         {
-            IQueryable<Drink> query = _appDbContext.Drinks;
+            IQueryable<Drink> query = _appDbContext.Drinks.Include(p => p.Drink_Type);
+
             return await query.ToArrayAsync();
         }
         public async Task<Drink> GetDrinkItemAsync(int DrinkId)
@@ -272,7 +284,7 @@ namespace Africanacity_Team24_INF370_.models
         // Entertainer
         public async Task<User[]> ViewProfileAsync()
 		{
-			IQueryable<User> query = _appDbContext.Users;
+			IQueryable<User> query = _appDbContext.Users/*.Include(p => p.EntertainmentType)*/;
 			return await query.ToArrayAsync();
 		}
 
@@ -280,6 +292,12 @@ namespace Africanacity_Team24_INF370_.models
 		{
 			IQueryable<User> query = _appDbContext.Users.Where(u => u.Id == UserId);
 			return await query.FirstOrDefaultAsync();
+		}
+
+		public async Task<User[]> GetUsersAsync()
+		{
+			IQueryable<User> query = _appDbContext.Users.Include(s => s.Entertainment_Type);
+			return await query.ToArrayAsync();
 		}
 
 		//Admin
@@ -308,7 +326,6 @@ namespace Africanacity_Team24_INF370_.models
 				PhysicalAddress = user.PhysicalAddress,
 				Email = user.Email,
 				Username = user.Username
-				// Add other user properties as needed
 			};
 
 			return userProfile;
@@ -382,6 +399,13 @@ namespace Africanacity_Team24_INF370_.models
         {
             IQueryable<Inventory_Item> query = _appDbContext.Inventory_Items.Include(i => i.Inventory_Type);
 
+            return await query.ToArrayAsync();
+        }
+
+        //STOCK TAKE
+        public async Task<StockTakeItem[]> GetAllReconItemsAsync()
+        {
+            IQueryable<StockTakeItem> query = _appDbContext.StockTakeItems.Include(st => st.Inventory_Item);
             return await query.ToArrayAsync();
         }
 
@@ -497,7 +521,7 @@ namespace Africanacity_Team24_INF370_.models
 		// Pending Booking
 		public async Task<Pending_Booking[]> GetPendingsAsync()
 		{
-			IQueryable<Pending_Booking> query = _appDbContext.Pending_Bookings/*.Include(p => p.Schedule)*/.Include(p => p.EntertainmentType);
+			IQueryable<Pending_Booking> query = _appDbContext.Pending_Bookings.Include(p => p.EntertainmentType);
 
 			return await query.ToArrayAsync();
 		}

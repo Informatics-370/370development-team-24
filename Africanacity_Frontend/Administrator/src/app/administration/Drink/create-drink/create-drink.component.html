@@ -5,7 +5,7 @@
         </div>
 
         <div class="col-md-10 order-md-1">
-            <!-- heading -->
+            <!--heading-->
             <div>
                 <h1 class="heading">Create Drink</h1>
             </div>  
@@ -22,16 +22,22 @@
                             <div class="form-group">
                                 <label class="col-md-1" style="font-weight: bold;" for="drinkType">Drink Type</label>
                                 <div class="col-md-6">
-                                    <select class="form-control" id="drinkType" formControlName="drinkType">
-                                        <option *ngFor="let drinkType of drinkTypesData" [value]="drinkType.drinkTypeId">{{ drinkType.name }}</option>
-                                    </select>
+                                  <select class="form-control" id="drinkType" formControlName="drinkType">
+                                    <option *ngFor="let item of drinkTypesData" [value]="item.drinkTypeId">{{ item.name }}</option>
+                                  </select>
+                                </div>
+                              </div>
+                            <div class="form-group">
+                                <label class="col-md-1" style="font-weight: bold;" for="amount">Amount</label>
+                                <div class="col-md-6">
+                                    <input matInput placeholder="Enter the Amount" formControlName="amount" type="number">
                                 </div>
                             </div>
                         </div> <br />
 
                         <div class="form-group">
                             <div class="col-sm-offset-1 col-sm-6">
-                                <button style="margin-right:1em;" [disabled]="!AddDrinkForm.valid" type="submit" class="btn btn-sm btn-success" (onclick)="AddDrink()">Confirm</button>
+                                <button style="margin-right:1em;" type="submit" class="btn btn-sm btn-success">Confirm</button>
                                 <button type="button" class="btn btn-sm btn-danger" [routerLink]="'/view-drink'">Cancel</button>
                             </div>
                         </div>
@@ -41,3 +47,39 @@
         </div>
     </div>
 </div>
+
+
+<!--div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <app-navbar></app-navbar>
+        </div>
+  <div class="login-wrapper" style="margin-left: 25%; margin-top: -70%;" fxLayout="row" fxLayoutAlign="center center">
+      <mat-card class="box" >
+        <mat-card-header>
+          <h2>Add Drink</h2>
+        </mat-card-header><br>
+        <form class="form" [formGroup]="AddDrinkForm" (submit)="AddDrink()" enctype="multipart/form-data">
+          <mat-card-content>
+            <mat-form-field class="full-width">
+              <mat-label>Name</mat-label>
+              <input matInput placeholder="Enter the Menu Item Name" formControlName="name">
+            </mat-form-field><br>
+            <mat-form-field>
+              <mat-label>Drink Type</mat-label>
+              <mat-select formControlName="drinkType">
+                  <mat-option *ngFor="let item of drinkTypesData"  [value]="item.drinkTypeId">{{item.name}}</mat-option>
+              </mat-select>
+          </mat-form-field><br>
+          <mat-form-field class="full-width">
+            <mat-label>Amount</mat-label>
+            <input matInput placeholder="Enter the Amount" formControlName="amount" type="number">
+          </mat-form-field><br>
+          </mat-card-content>
+          <button mat-stroked-button color="primary" class="btn-block" >Submit</button>
+          
+        </form>
+      </mat-card>
+    </div>
+  </div>
+  </div-->

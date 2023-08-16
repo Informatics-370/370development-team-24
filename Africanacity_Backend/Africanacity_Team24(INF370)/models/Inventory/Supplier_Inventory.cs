@@ -18,10 +18,11 @@ namespace Africanacity_Team24_INF370_.models.Inventory
         public int SupplierId { get; set; }
         public Supplier Supplier { get; set; }
 
-        public DateTime Ordered_Date { get; set; }
+       // public DateTime Ordered_Date { get; set; }
 
-        public DateTime Received_Date { get; set; } // Here is where you add the line
+       // public DateTime Received_Date { get; set; } // Here is where you add the line
 
         public int Ordered_Quantity { get; set; }
+       // public string InventoryItemName { get; set; }
     }
 }

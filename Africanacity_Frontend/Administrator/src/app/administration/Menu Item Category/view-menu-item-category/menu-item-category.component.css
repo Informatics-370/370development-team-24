@@ -1,4 +1,5 @@
 .heading{
+    /* background-color: darkmagenta; */
     height: 50px;
     text-align: center;
     padding-top: 7px;
@@ -18,10 +19,17 @@ table{
     padding-top: 60px;
 }
 .form-control {
+    
     background-color: rgba(250, 246, 246, 0.966);
     border-radius: 8px;
     border-color: black;
-    width: 100%;
+}
+.input-group{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 50px;
+    width: 100%;    
 }
 
 
@@ -44,13 +52,6 @@ button{
     border: 1px solid #000; 
     border-collapse: collapse;
 
-}
-.input-group{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 50px;
-    width: 100%;
 }
 
 .outlined-table th,

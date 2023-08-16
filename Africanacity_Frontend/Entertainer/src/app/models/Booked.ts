@@ -8,4 +8,6 @@ export class Booked{
   instagram!: string;
   entertainmenttype!: number;
   entertainmentTypeName!: string;
+  eventname! : string;
+  additional!: string;
   }

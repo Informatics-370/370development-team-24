@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Africanacity_Team24_INF370_.models.Booking;
+using System.ComponentModel.DataAnnotations;
 
 namespace Africanacity_Team24_INF370_.models
 {
@@ -24,6 +25,9 @@ namespace Africanacity_Team24_INF370_.models
 		public DateTime RefreshTokenExpiryTime { get; set; }
 		public string? ResetPasswordToken { get; set; }
 		public DateTime ResetPasswordTokenExpiry { get; set; }
+		public string? EntertainmentType { get; set; }
+		public int Entertainment_TypeId { get; set; }
+		public Entertainment_Type Entertainment_Type { get; set; }
 
 	}
 }

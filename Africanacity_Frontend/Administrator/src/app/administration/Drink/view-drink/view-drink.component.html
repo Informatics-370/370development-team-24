@@ -21,27 +21,41 @@
             </div>
  
             <!--table-->
-            <table class="table table-striped table-container outlined-table">
-                <thead class="tableColor">
-                    <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Type</th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let drink of filteredDrinks"> 
-                        <td> {{ drink.drinkId }} </td>
-                         <td> {{ drink.name }} </td>
-                         <td> {{ drink.drinkTypeName }} </td>
-                        <!-- edit and delete buttons -->
-                        <td> <i class="fa fa-pencil" [routerLink]="['/edit-drink-type', drink.drinkId]" aria-hidden="true"></i></td>
-                        <td><i class="fa fa-trash"  (click)="DeleteDrink(drink.drinkId)" aria-hidden="true"></i></td> 
-                   </tr>
-                </tbody>
-            </table>
+            <table mat-table [dataSource]="dataSource" matSort>
+  
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                  <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+
+            
+                <ng-container matColumnDef="drinkTypeName">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Drink Type </th>
+                  <td mat-cell *matCellDef="let element"> {{element.drinkTypeName}} </td>
+                </ng-container>
+            
+                <ng-container matColumnDef="delete">
+                  <th mat-header-cell *matHeaderCellDef></th>
+                  <td mat-cell *matCellDef="let element">
+                    <button mat-stroked-button color="warn" (click)="DeleteDrink(element.drinkId)">
+                      <mat-button>Delete</mat-button>
+                    </button>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="edit">
+                  <th mat-header-cell *matHeaderCellDef></th>
+                  <td mat-cell *matCellDef="let element">
+                    <button mat-stroked-button color="primary">
+                      <mat-button>Edit</mat-button>
+                    </button>
+                  </td>
+                </ng-container>
+            
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row class="mat-row" *matRowDef="let row; columns: displayedColumns;"></tr>
+            
+                
+              </table>
        </div>
     </div>
 </div>

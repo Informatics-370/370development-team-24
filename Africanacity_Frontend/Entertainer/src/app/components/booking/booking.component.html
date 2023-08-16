@@ -57,6 +57,10 @@ padding: 20px;
         <form action="" [formGroup]="bookingForm" class="form-horizontal" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
           
           <fieldset>
+            <label for="eventname">Event</label>
+            <input type="text" formControlName="eventname">
+            <div *ngIf="bookingForm.get('events')?.invalid && bookingForm.get('events')?.touched">
+            </div>
             <label>First Name 
               <input class="form-control" placeholder="Enter FirstName" [required]="true" name="firstName" formControlName="firstName" /></label>
             <label>Last Name 
@@ -82,12 +86,16 @@ padding: 20px;
               <input formControlName="demo" type="file" id="demo" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;"> Choose file
               <button color="primary" (click)="file.click()">Upload File</button>
               <span *ngIf="fileNameUploaded.length > 0"> {{fileNameUploaded}}</span>
+              <p>*If the demo is a video it should not be longer than 2 minutes*</p>
             </div><br>
             <label>Additional Requests
-            <textarea name="additional" rows="5" cols="30" placeholder="Your message ..."></textarea>
+            <textarea name="additional" formControlName="additional" rows="5" cols="30" placeholder="Your message ..."></textarea>
             </label>
           </fieldset>
-          <input type="submit" [disabled]="!bookingForm.valid"  value="Submit" />
+          <div class="btn-group">
+                <input type="submit" [disabled]="!bookingForm.valid" class="btn btn-sm btn-danger" value="Submit" style="margin-right: 8px;"/>
+                <button type="button" class="btn btn-danger btn-sm" (click)="cancel()" style="width: 100%; height: 30%;">Cancel</button>
+            </div>     
         </form>
-</div>
+   </div>
 </div>

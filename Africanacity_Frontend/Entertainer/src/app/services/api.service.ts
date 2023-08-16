@@ -8,7 +8,7 @@ import { Profile } from '../models/Profile';
   providedIn: 'root',
 })
 export class ApiService {
-  private baseUrl: string = 'http://localhost:49991/api/User';
+  private baseUrl: string = 'https://localhost:49991/api/User';
   private localStorageKey = 'currentUser';
   constructor(private http: HttpClient) {}
 

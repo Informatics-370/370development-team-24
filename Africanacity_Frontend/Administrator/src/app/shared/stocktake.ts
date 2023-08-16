@@ -1,13 +1,20 @@
-// stocktake.ts
-import { InventoryItem } from './inventoryitem';
-
-export class StockTake {
-  find(arg0: (data: any) => boolean) {
-    throw new Error('Method not implemented.');
-  }
+export class StockTakeViewModel {
   stockTake_Id!: number;
-  date!: Date;
   stockQuantity!: number;
-  InventoryItems!: InventoryItem[];
-  InventoryItemName!: string; // Include the InventoryItemName property
+  stockTake_Date!: string; // You might need to adjust the data type for dates
+  inventory_ItemId!: number[]; // List of selected Inventory_ItemIds
+}
+
+export class StockTakeRecon{
+  stockTakeItemId!: number;
+  inventoryItemName!: string;
+  inventoryQuantity!: number;
+  quantity!: number;
+  quantityDifference!: number;
+}
+
+export interface WriteOffViewModel {
+  stockTakeItemId: number;
+  reason: string;
+  //discrepencyItems: DiscrepencyItem[];
 }

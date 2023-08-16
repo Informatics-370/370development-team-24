@@ -15,6 +15,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using Africanacity_Team24_INF370_.View_Models;
 using Africanacity_Team24_INF370_.models.Administration;
+using Newtonsoft.Json;
+using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Africanacity_Team24_INF370_.Controllers
 
@@ -184,11 +187,48 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 
 		//[Authorize]
+		//[HttpGet]
+		//public async Task<ActionResult<User>> GetAllUsers()
+		//{
+		//	return Ok(await _authContext.Users.ToListAsync());
+		//}
+
+
 		[HttpGet]
-		public async Task<ActionResult<User>> GetAllUsers()
+		[Route("GetUsers")]
+		public async Task<IActionResult> GetUsers()
 		{
-			return Ok(await _authContext.Users.ToListAsync());
+			try
+			{
+				var results = await _repository.GetUsersAsync();
+
+
+
+				// Transform the results
+				dynamic users = results.Select(e => new
+				{
+					e.Id,
+					e.Username,
+					e.FirstName,
+					e.LastName,
+					EntertainmentTypeName = e.Entertainment_Type.Name, // Use null-conditional operator
+					e.ContactNumber,
+					e.Email,
+					e.PhysicalAddress
+				});
+
+
+				return Ok(users);
+			}
+			catch (Exception ex)
+			{
+				// Log the exception
+				Debug.WriteLine($"Exception: {ex}");
+				return StatusCode(500, "Internal Server Error. Please contact support.");
+			}
 		}
+
+
 
 		[HttpPost]
 		[Route("Refresh")]
@@ -328,10 +368,11 @@ namespace Africanacity_Team24_INF370_.Controllers
 			return Ok(await _authContext.Users.ToListAsync());
 		}
 
+
 		// Edit Entertainer
 		[HttpPut]
 		[Route("EditUser/{UserId}")]
-		public async Task<ActionResult<User>> EditUser(int UserId, User ftvm)
+		public async Task<ActionResult<EntertainerViewModel>> EditUser(int UserId, EntertainerViewModel ftvm)
 		{
 			try
 			{
@@ -426,7 +467,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 				var existingUser = await _repository.ViewAdminProfileAsync(UserId);
 
 				// fix error message
-				if (existingUser == null) return NotFound($"The userdoes not exist");
+				if (existingUser == null) return NotFound($"The admin does not exist");
 
 				_repository.Delete(existingUser);
 

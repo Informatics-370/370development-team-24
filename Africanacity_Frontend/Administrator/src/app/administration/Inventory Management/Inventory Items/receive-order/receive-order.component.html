@@ -11,7 +11,6 @@
     <label for="itemName">Inventory Item Name:</label>
     <input type="text" formControlName="itemName">
     <div *ngIf="receiveOrderForm.get('itemName')?.invalid && receiveOrderForm.get('itemName')?.touched">
-      *Please enter a valid item ID.*
     </div>
   </div>
 
@@ -25,7 +24,7 @@
     <div *ngIf="receiveOrderForm.get('supplierId')"></div>
   </div>
 
-  <div>
+  <!-- <div>
     <label for="ordered_Date">Ordered Date:</label>
     <input type="date" formControlName="ordered_Date">
     <div *ngIf="receiveOrderForm.get('ordered_Date')"></div>
@@ -34,7 +33,7 @@
   <div>
     <label for="received_Date">Received Date:</label>
     <input type="date" formControlName="received_Date" [readonly]="true">
-  </div>
+  </div> -->
 
   <div>
     <label for="ordered_Quantity">Ordered Quantity:</label>

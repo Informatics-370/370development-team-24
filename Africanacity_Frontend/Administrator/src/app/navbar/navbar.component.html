@@ -6,10 +6,10 @@
   </div>
   <ul class="nav-links">
     <li>
-      <a href="#"><i class="fa fa-home"></i> Home</a>
+      <a><i class="fa fa-home"></i> Home</a>
     </li>
     <li>
-      <a href="#"><i class="fa fa-group"></i> Employee Management</a>
+      <a><i class="fa fa-group"></i> Employee Management</a>
       <ul class="dropdown">
         <li><a routerLink="/add-employee">Add Employee</a></li>
         <li><a routerLink="/view-employees">View Employees</a></li>
@@ -17,7 +17,7 @@
       </ul>
     </li>
     <li>
-      <a href="#"><i class="fa fa-folder"></i> Menu Management</a>
+      <a><i class="fa fa-folder"></i> Menu Management</a>
       <ul class="dropdown">
         <li><a routerLink="/menuitems">Menu Items</a></li>
         <li><a routerLink="/menu-types">Menu Type</a></li>
@@ -26,41 +26,129 @@
       </ul>
     </li>
     <li>
-      <a href="#"><i class="fa fa-glass"></i> Drink Management</a>
+      <a ><i class="fa fa-glass"></i> Drink Management</a>
       <ul class="dropdown">
-        <li><a routerLink="/view-drink">Drink Items</a></li>
-        <li><a routerLink="/view-drink-type">Drink Types</a></li>
+        <li>
+          <b> <a href="#"> <i class="fa fa-circle-o" aria-hidden="true"></i>Drink Items</a></b>
+         </li>
+        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+        <li>
+          <b><a href="#"> <i class="fa fa-circle-o" aria-hidden="true"></i>Drink Items</a></b>
+          </li>
+          <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+        <li>
+          <b> <a href="./administration/drinkType"> <i class="fa fa-circle-o" aria-hidden="true"></i>Drink Types</a></b>
+         </li>
+        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
       </ul>
     </li>
     <li>
-      <a > <i class="fa fa-fw fa-folder"></i> Inventory Management <i class="fa fa-sort-desc" aria-hidden="true"></i></a>
+      <a > <i class="fa fa-fw fa-folder"></i> Inventory Management</a>
       <ul class="dropdown">
         <li><a class="nav-link" routerLink="/add-inventoryitem"> Add Inventory Item</a></li>
         <li><a class="nav-link" routerLink="/selected-inventorytype"> View Inventory Items</a></li>
         <li><a class="nav-link" routerLink="/view-inventorytypes"> Inventory Types</a></li>
         <li><a class="nav-link" routerLink="/checklist">View Checklist</a></li>
         <li><a class="nav-link" routerLink="/view-orders">Inventory Orders</a></li>
+        <li><a class="nav-link" routerLink="/stock-take">Stock Take</a></li>
+        <li><a class="nav-link" routerLink="/stock-take-list">View Stock Take</a></li>
       </ul>
 
     </li>
     <li>
-      <a> <i class="fa fa-fw fa-users"></i> Supplier Management</a>
+      <b>
+        <a > <i class="fa fa-fw fa-folder"></i> Inventory Management <i class="fa fa-sort-desc" aria-hidden="true"></i></a>
+      </b> 
+      <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
       <ul class="dropdown">
-        <li><a class="nav-link" routerLink="/add-supplier">Add Supplier</a></li>
-        <li><a class="nav-link" routerLink="/view-suppliers"> View Suppliers</a></li>
-        <li><a class="nav-link" routerLink="/view-suppliertypes"> Supplier Types</a></li>
+        <li>
+          <b> <a class="nav-link" routerLink="/add-inventoryitem"><i class="fa fa-circle-o" aria-hidden="true"></i> Add Inventory Item</a></b>
+         </li>
+        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+        <li>
+          <b><a class="nav-link" routerLink="/selected-inventorytype"><i class="fa fa-circle-o" aria-hidden="true"></i> View Inventory Items</a></b>
+        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+        <li>
+          <b> <a class="nav-link" routerLink="/view-inventorytypes"><i class="fa fa-circle-o" aria-hidden="true"></i> Inventory Types</a></b>
+         </li>
+        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+        <li>
+          <b><a class="nav-link" routerLink="/checklist"><i class="fa fa-circle-o" aria-hidden="true"></i> View Checklist</a></b>
+          </li>
+        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+        <li>
+          <b>  <a class="nav-link" routerLink="/view-orders"><i class="fa fa-circle-o" aria-hidden="true"></i> Inventory Orders</a></b>
+        </li>
+        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+      </ul>
+
+    </li>
+    <li>
+      <b> <a> <i class="fa fa-fw fa-users"></i> Supplier Management <i class="fa fa-sort-desc" aria-hidden="true"></i></a></b>
+     
+      <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+      <ul class="dropdown">
+        <li>
+          <b><a class="nav-link" routerLink="/add-supplier"><i class="fa fa-circle-o" aria-hidden="true"></i> Add Supplier</a></b>
+        </li>
+        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+        <li>
+          <b> <a class="nav-link" routerLink="/view-suppliers"><i class="fa fa-circle-o" aria-hidden="true"></i> View Suppliers</a></b>
+         </li>
+        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+        <li>
+          <b> <a class="nav-link" routerLink="/view-suppliertypes"><i class="fa fa-circle-o" aria-hidden="true"></i> Supplier Types</a></b>
+         </li>
+        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
       </ul>
     </li>  
     <li>
-      <a href="#"><i class="fa fa-music"></i> Entertainment</a>
+      <b> <a href="#"> <i class="fa fa-music"></i> Entertainment <i class="fa fa-sort-desc" aria-hidden="true"></i></a></b>
+      <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+      <!-- <a><i class="fa fa-music"></i> Entertainment</a> -->
       <ul class="dropdown">
-        <li><a href="/schedule-display">Schedule</a></li>
-        <li><a href="/view-events">Events</a></li>
-        <li><a href="/entertainment-types">Entertainment Types</a></li>
+        <li>
+          <b><a href="/schedule-display"><i class="fa fa-calendar-o" aria-hidden="true"></i> Schedule</a></b>
+        </li>
+        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+        <li>
+          <b><a href="/view-events"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> Events</a></b>
+          </li>
+        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+        <li>
+          <b> <a href="/entertainment-types"><i class="fa fa-music" aria-hidden="true"></i> Entertainment Types</a></b>
+         </li>
+        <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+
       </ul>
-    </li> 
+    </li>  
     <li>
-      <a href="#"><i class="fa fa-bar-chart"></i> Reports</a>
+      <!-- <b> <a href="#"><i class="fa fa-bar-chart" aria-hidden="true"></i> Reports </a></b>
+     
+      <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+        <ul class="dropdown">
+          <li>
+            <b> <a class="nav-link" routerLink="/sales"><i class="fa fa-circle-o" aria-hidden="true"></i> Sales</a></b>
+           </li>
+          <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+          <li>
+            <b><a class="nav-link" routerLink="/inventory"><i class="fa fa-circle-o" aria-hidden="true"></i> Inventory</a></b>
+          </li>
+          <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+          <li>
+            <b><a class="nav-link" routerLink="/inventory-reconciliation"><i class="fa fa-circle-o" aria-hidden="true"></i> Inventory Reconciliation</a></b>
+            </li>
+          <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+          <li>
+            <b> <a class="nav-link" routerLink="/schedule"><i class="fa fa-circle-o" aria-hidden="true"></i> Schedule</a></b>
+           </li>
+          <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+          <li>
+            <b><a class="nav-link" routerLink="/employee"><i class="fa fa-circle-o" aria-hidden="true"></i> Employee</a></b>
+         </li>
+          <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
+        </ul> -->
+      <a><i class="fa fa-bar-chart"></i> Reports</a>
       <ul class="dropdown">
         <li><a routerLink="/sales">Sales</a></li>
         <li><a routerLink="/inventory">Inventory</a></li>
@@ -70,10 +158,10 @@
       </ul>
     </li>
     <li>
-   <a href="#"> <i class="fa fa-fw fa-user"></i> Entertainer Management</a>
+   <a> <i class="fa fa-fw fa-user"></i> Entertainer Management</a>
       <ul class="dropdown">
         <li>
-            <a routerLink="../entertainer">Manage Entertainer</a>
+          <a routerLink="../entertainer">Manage Entertainer</a>
         </li>
       
         <!-- <li><a href="#">View</a></li> -->
@@ -81,7 +169,7 @@
     </li>
     <li>
       <li>
-       <a href="#"> <i class="fa fa-fw fa-book"></i> Booking Management</a>
+       <a> <i class="fa fa-fw fa-book"></i> Booking Management</a>
         <ul class="dropdown">
           <li>
          <a routerLink="../manage-booking">Manage Booking</a>
@@ -101,3 +189,10 @@
     </li>
   </ul>
 </nav>
+
+<!-- Check --> 
+ 
+ 
+
+
+

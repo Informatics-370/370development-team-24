@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { EmployeeService } from '../../../service/employee.service';
-import { DataService } from 'src/app/service/data.Service';
-import { Employee } from '../../../shared/employee';
-import { Employee_Role } from 'src/app/shared/EmployeeRole';
 import { EmailService } from 'src/app/service/email.service';
-import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { NotificationDialogComponent } from '../notification-dialog/notification-dialog.component';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
+import { EmployeeService } from 'src/app/service/employee.service';
+import { Employee } from 'src/app/shared/employee';
+import { NotificationDialogComponent } from '../notification-dialog/notification-dialog.component';
+import { Employee_Role } from 'src/app/shared/EmployeeRole';
+import { DataService } from 'src/app/service/data.Service';
+import { Gender } from 'src/app/shared/gender';
 
 
 
@@ -40,8 +40,9 @@ export class AddEmployeeComponent implements OnInit {
   email!: string;
   message!: string;
   employeeRole: Employee_Role[] = [];
+  gender: Gender[] = [];
 
-   constructor(private employeeservice: EmployeeService, private dataService: DataService, emailservice: EmailService,  private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar) { }
+  constructor(private employeeservice: EmployeeService, private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar, dataService: DataService) { }
 
      employeeForm: FormGroup = new FormGroup({
        surname: new FormControl('',[Validators.required]),
@@ -49,52 +50,38 @@ export class AddEmployeeComponent implements OnInit {
        email_Address: new FormControl('',[Validators.required]),
        physical_Address: new FormControl('',[Validators.required]),
        phoneNumber: new FormControl('',[Validators.required]),
-       employeeRole: new FormControl('',[Validators.required])
+       employeeRole: new FormControl('',[Validators.required]),
+       gender: new FormControl('',[Validators.required]),
+       employment_Date: new FormControl('',[Validators.required])
     
      })
   //EmailVerification
 
-  checkEmail() {
-    this.employeeservice.checkEmail(this.email).subscribe(
-      (response) => {
-        this.message = response.message;
-      },
-      (error) => {
-        console.error('Error checking email:', error);
-      }
-    );
-  }
-
-  // Display Notifcations
-
-  openDialog():void{
-    const dialogRef = this.dialog.open(NotificationDialogComponent,{
-      width: '250px',
-      data: 'Add new Employee?'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if(result == 'Yes'){
-        this.onSubmit();
-      }
-    })
-  }
-    
 
   ngOnInit(): void {
     this.GetAllEmployeeRoles()
+    this.GetAllGenders()
   }
 
   cancel(){
-    this.router.navigate(['/home'])
+    this.router.navigate(['/view-employees'])
   }
 
-  GetAllEmployeeRoles()
-  {
-    this.dataService.GetAllEmployeeRoles().subscribe(result => {
-      let rolesList:any[] = result
-      rolesList.forEach((element) => {
+  GetAllEmployeeRoles(){
+    this.employeeservice.GetAllEmployeeRoles().subscribe(result => {
+      let employeeRoleList:any[] = result
+      employeeRoleList.forEach((element) => {
         this.employeeRole.push(element)
+     });
+    });
+  }
+
+  GetAllGenders()
+  {
+    this.employeeservice.GetAllGenders().subscribe(result => {
+      let genderList:any[] = result
+      genderList.forEach((element) => {
+        this.gender.push(element)
       });
     });
   }
@@ -111,6 +98,8 @@ export class AddEmployeeComponent implements OnInit {
     employee.email_Address = this.employeeForm.value.email_Address;
     employee.physical_Address = this.employeeForm.value.physical_Address;
     employee.phoneNumber = this.employeeForm.value.phoneNumber;
+    employee.employment_Date = this.employeeForm.value.employment_Date;
+    employee.gender = this.employeeForm.value.gender;
   
     this.employeeservice.AddEmployee(employee).subscribe(result => {
       this.router.navigate(['/view-employees'])
@@ -133,7 +122,3 @@ export class AddEmployeeComponent implements OnInit {
           });
   }
 }
-function GetAllEmployeeRoles() {
-  throw new Error('Function not implemented.');
-}
-

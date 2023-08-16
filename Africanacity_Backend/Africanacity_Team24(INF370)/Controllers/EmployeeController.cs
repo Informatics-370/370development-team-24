@@ -53,8 +53,11 @@ namespace Africanacity_Team24_INF370_.Controllers
 
                     e.Email_Address,
 
-                    e.Physical_Address
+                    e.Physical_Address,
 
+                    e.Employment_Date,
+
+                    GenderName = e.Gender.Name,
                 });
 
                 return Ok(employees);
@@ -65,7 +68,21 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
 
         }
-   
+
+        [HttpGet]
+        [Route("GetAllGenders")]
+        public async Task<IActionResult> GetAllGenders()
+        {
+            try
+            {
+                var results = await _Repository.GetAllGendersAsync();
+                return Ok(results);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
         [HttpGet]
         [Route("GetEmployee/{employeeId}")]
         public async Task<IActionResult> GetEmployeeAsync(int employeeId)
@@ -94,9 +111,11 @@ namespace Africanacity_Team24_INF370_.Controllers
                 Surname = evm.Surname,
                 FirstName = evm.FirstName,
                 Employee_RoleId = Convert.ToInt32(evm.EmployeeRole),
+                GenderId = Convert.ToInt32(evm.Gender),
                 Email_Address = evm.Email_Address,
                 PhoneNumber = evm.PhoneNumber,
-                Physical_Address = evm.Physical_Address
+                Physical_Address = evm.Physical_Address,
+                Employment_Date = evm.Employment_Date
             };
 
             try
@@ -115,21 +134,22 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
         //Update Employee
-
         [HttpPut]
         [Route("EditEmployee/{employeeId}")]
-        public async Task<ActionResult<EmployeeViewModel>> EditEmployee(int employeeId, EmployeeViewModel evm)
+        public async Task<ActionResult<EmployeeViewModel>> EditSupplier(int employeeId, EmployeeViewModel svm)
         {
             try
             {
                 var currentEmployee = await _Repository.GetEmployeeAsync(employeeId);
-                if (currentEmployee == null) return NotFound($"The employee does not exist");
+                if (currentEmployee == null) return NotFound($"The supplier does not exist");
 
-                currentEmployee.FirstName = evm.FirstName;
-                currentEmployee.Surname = evm.Surname;
-                currentEmployee.Email_Address = evm.Email_Address;
-                currentEmployee.PhoneNumber = evm.PhoneNumber;
-                currentEmployee.Physical_Address = evm.Physical_Address;
+                currentEmployee.Surname = svm.Surname;
+                currentEmployee.FirstName = svm.FirstName;
+                currentEmployee.Email_Address = svm.Email_Address;
+                currentEmployee.Employee_RoleId = Convert.ToInt32(svm.EmployeeRole);
+                currentEmployee.GenderId = Convert.ToInt32(svm.Gender);
+                currentEmployee.PhoneNumber = svm.PhoneNumber;
+                currentEmployee.Physical_Address = svm.Physical_Address;
 
                 if (await _Repository.SaveChangesAsync())
                 {
@@ -164,16 +184,6 @@ namespace Africanacity_Team24_INF370_.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
             return BadRequest("Your request is invalid.");
-        }
-
-        [HttpGet("search")]
-        public ActionResult<IEnumerable<Employee>> Search(string searchTerm)
-        {
-            var Employee = _appDBContext.Employees
-                .Where(f => f.FirstName.Contains(searchTerm))
-                .ToList();
-
-            return Ok(Employee);
         }
 
         //Email Verification

@@ -16,6 +16,8 @@ namespace Africanacity_Team24_INF370_.models.Booking
 		[DataType(DataType.PhoneNumber)]
 		[StringLength(10)]
 		public string? ContactNumber { get; set; }
+		public string? Eventname { get; set; }
+		public string? Additional { get; set; }
 		public string? Demo { get; set; }
 		public int Entertainment_TypeId { get; set; }
 		public Entertainment_Type EntertainmentType { get; set; }

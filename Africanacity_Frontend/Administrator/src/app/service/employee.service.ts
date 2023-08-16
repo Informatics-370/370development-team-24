@@ -10,8 +10,11 @@ import { Employee } from '../shared/employee';
   providedIn: 'root'
 })
 export class EmployeeService {
+  // GetAllEmployeeRoles() {
+  //   throw new Error('Method not implemented.');
+  // }
 
-  apiUrl = 'http://localhost:49991/api/'
+  apiUrl = 'https://localhost:49991/api/'
   // private apiURL = 'http://localhost:49991/api/Employee';
   // private apiUrl = 'http://localhost:5000/api/email';
 
@@ -61,12 +64,20 @@ export class EmployeeService {
     return this.httpClient.delete<string>(`${this.apiUrl}Employee/DeleteEmployee` + "/" + employeeId, this.httpOptions)
   }
 
-  EditEmployee(employeeId: number, employee: Employee)
-   {
-     return this.httpClient.put(`${this.apiUrl}Employee/EditEmployee/${employeeId}`,employee, this.httpOptions)
-   }
-
  
+  EditEmployee(employeeId: number, employee: Employee): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.httpClient.put(`${this.apiUrl}Employee/EditEmployee/${employeeId}`, employee, httpOptions);
+  }
+ 
+  GetAllGenders(): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}Employee/GetAllGenders`)
+    .pipe(map(result => result))
+  }
    
   /* For Help Function */
 
@@ -79,6 +90,12 @@ export class EmployeeService {
   GetAllHelp(): Observable<any>{
     return this.httpClient.get(`${this.apiUrl}Controller/GetAllHelp`)
     .pipe(map(result => result))
+  }
+
+  GetAllEmployeeRoles(): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}EmployeeRole/GetAllEmployeeRoles`)
+    .pipe(map(results => results))
+    
   }
 
   AddHelp(help: Help)
@@ -94,6 +111,12 @@ export class EmployeeService {
   editHelp(helpId: Number, help: Help)
   {
     return this.httpClient.put(`${this.apiUrl}Controller/EditHelp/${helpId}`,help, this.httpOptions)
+  }
+
+  GetAllEmployeeRoles(): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}EmployeeRole/GetAllEmployeeRoles`)
+    .pipe(map(results => results))
+    
   }
 
 }

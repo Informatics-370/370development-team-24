@@ -10,13 +10,7 @@ export interface Profile {
     contactNumber: string;
     physicalAddress: string;
     email: string;
-  
-  
-  // UserId: number;
-  // lastName: string;
-  // firstName: string;
-  // username: string;
-  // Email: string;
-  // Address: string;
-  // Phone: string;
+    entertainmentTypeName: string;
+    //entertainmentType: string;
+
 }

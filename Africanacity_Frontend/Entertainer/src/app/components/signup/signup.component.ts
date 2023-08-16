@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import ValidateForm from '../../helpers/validationform';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import { Entertainment } from 'src/app/models/Entertainment';
+import { BookingService } from 'src/app/services/Booking.service';
 
 @Component({
   selector: 'app-signup',
@@ -15,8 +17,8 @@ export class SignupComponent implements OnInit {
   public signUpForm!: FormGroup;
   type: string = 'password';
   isText: boolean = false;
-  eyeIcon:string = "fa-eye-slash"
-
+  eyeIcon:string = "fa-eye-slash";
+  entertainmentTypeData:Entertainment[]=[]
 
       firstName!:string;
       lastName!:string;
@@ -28,7 +30,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private fb : FormBuilder, 
     private auth: AuthService, 
-    private router: Router
+    private router: Router,
+    private apiService: BookingService,
     ) { }
 
   ngOnInit() {
@@ -39,8 +42,11 @@ export class SignupComponent implements OnInit {
       email:['', Validators.required],
       physicalAddress:['', Validators.required],
       contactNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-      password:['', Validators.required]
-    })
+      password:['', Validators.required],
+      entertainmentType: [null, Validators.required]
+    });
+    this.GetAllEntertainment();
+    console.log(this.GetAllEntertainment)
   }
 
   hideShowPass(){
@@ -54,7 +60,7 @@ export class SignupComponent implements OnInit {
       // Save the user information to localStorage
       const userData = this.signUpForm.value;
       localStorage.setItem('user', JSON.stringify(userData));
-      console.log('User registered successfully:', userData);
+      console.log('Entertainer registered successfully:', userData);
     }
     if (this.signUpForm.valid) {
       console.log(this.signUpForm.value);
@@ -80,4 +86,12 @@ export class SignupComponent implements OnInit {
     }
   }
 
+  GetAllEntertainment(){
+    this.apiService.GetAllEntertainment().subscribe(result => {
+      let bookingList:any[] = result
+     bookingList.forEach((element) => {
+        this.entertainmentTypeData.push(element)
+     });
+    });
+  }
 }

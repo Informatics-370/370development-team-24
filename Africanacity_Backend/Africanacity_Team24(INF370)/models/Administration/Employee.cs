@@ -22,10 +22,16 @@ namespace Africanacity_Team24_INF370_.models.Administration
 		[StringLength(10)]
 		public string PhoneNumber { get; set; } = string.Empty.ToString();
 
+		public DateTime Employment_Date { get; set; }
+
         public List<Order> Orders { get; set; } = new List<Order>();
 
 		public int Employee_RoleId { get; set; }
 
 		public Employee_Role Employee_Role { get; set; }
-	}
+
+        public int GenderId { get; set; }
+
+        public Gender Gender { get; set; }
+    }
 }

@@ -19,7 +19,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         [HttpGet]
         [Route("ScheduleDisplay")]
-        public async Task<ActionResult> ScheduleDisplay()
+        public async Task<IActionResult> ScheduleDisplay()
         {
             try
             {
@@ -28,11 +28,17 @@ namespace Africanacity_Team24_INF370_.Controllers
                 dynamic schedule = results.Select(s => new
                 {
                     s.ScheduleId,
+
                     s.Date,
+
                     s.Title,
+
                     s.Description,
+
                     s.Start_Time,
+
                     s.End_Time,
+
                     EventName = s.Event.Name
 
                 });
@@ -44,6 +50,20 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
         }
 
+        //[HttpGet]
+        //[Route("ScheduleDisplay")]
+        //public async Task<IActionResult> ScheduleDisplay()
+        //{
+        //    try
+        //    {
+        //        var results = await _Repository.ScheduleDisplayAsync();
+        //        return Ok(results);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return StatusCode(500, "Internal Server Error. Please contact support.");
+        //    }
+        //}
 
         [HttpGet]
         [Route("GetSchedule/{scheduleId}")]
@@ -75,7 +95,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                 Date = svm.Date,
                 Start_Time = svm.Start_Time, 
                 End_Time = svm.End_Time, 
-                EventId = Convert.ToInt32(svm.EventName)
+                EventId = Convert.ToInt32(svm.Event)
             }; 
             try
             {
@@ -106,7 +126,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                     existingSchedule.Start_Time = viewModel.Start_Time;
                     existingSchedule.End_Time = viewModel.End_Time;
                     existingSchedule.Description = viewModel.Description;
-                    existingSchedule.EventId = viewModel.EventName;
+                    //existingSchedule.EventId = viewModel.Event;
 
                     if (await _Repository.SaveChangesAsync())
                     {

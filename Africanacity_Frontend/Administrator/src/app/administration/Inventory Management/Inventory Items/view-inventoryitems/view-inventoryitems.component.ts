@@ -71,8 +71,6 @@ deleteItemFromServer(): void {
     );
   }
   
-
-  
   incrementQuantity(inventoryItem: InventoryItem) {
     inventoryItem.quantity++;
     this.updateQuantityOnServer(inventoryItem);
@@ -85,7 +83,7 @@ deleteItemFromServer(): void {
 
       if (inventoryItem.quantity < this.predefinedLevel) {
         this.addToChecklist(inventoryItem);
-        this.inventoryservice.SendEmail(inventoryItem, this.predefinedLevel).subscribe(
+        this.inventoryservice.SendEmailNotification(inventoryItem, this.predefinedLevel).subscribe(
           () => {
             console.log('Notification sent successfully.');
           },
@@ -97,7 +95,6 @@ deleteItemFromServer(): void {
     }
   }
 
-  
   updateQuantityOnServer(inventoryItem: InventoryItem) {
     this.inventoryservice.UpdateInventoryItem(inventoryItem.inventory_ItemId, inventoryItem).subscribe(
       () => {

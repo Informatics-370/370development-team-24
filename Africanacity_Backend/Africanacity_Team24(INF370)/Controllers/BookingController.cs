@@ -21,21 +21,18 @@ namespace Africanacity_Team24_INF370_.Controllers
 		}
 
 
-
 		[HttpGet]
-		[Route("Schedule")]
-		public async Task<ActionResult> Schedules()
+		[Route("GetAllEvents")]
+		public async Task<IActionResult> GetAllEvents()
 		{
 			try
 			{
-				var results = await _repository.GetSchedulesAsync();
-
+				var results = await _repository.GetAllEventsAsync();
 				return Ok(results);
 			}
 			catch (Exception)
 			{
-
-				return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+				return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error.Contact Support");
 			}
 		}
 
@@ -74,9 +71,10 @@ namespace Africanacity_Team24_INF370_.Controllers
 				existinBooking.Instagram = cvm.Instagram;
 				existinBooking.ContactNumber = cvm.ContactNumber;
 				existinBooking.Email = cvm.Email;
+				existinBooking.Eventname = cvm.Eventname;
+				existinBooking.Additional = cvm.Additional;
 				existinBooking.Demo = cvm.Demo;
 				existinBooking.Entertainment_TypeId = Convert.ToInt32(cvm.entertainmenttype);
-				//ScheduleId = Convert.ToInt32(cvm.schedule)
 
 				if (await _repository.SaveChangesAsync())
 				{
@@ -159,6 +157,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 					p.LastName,
 					EntertainmentTypeName = p.EntertainmentType.Name,
 					p.ContactNumber,
+					p.Additional,
+					p.Eventname,
 					p.Email,
 					p.Demo,
 
@@ -174,7 +174,40 @@ namespace Africanacity_Team24_INF370_.Controllers
 		}
 
 
-		//Booking listing waiting approval
+		////Booking listing waiting approval
+		//[HttpGet]
+		//[Route("ManageBookedListing")]
+		//public async Task<ActionResult> BookedListing()
+		//{
+		//	try
+		//	{
+		//		var results = await _repository.GetPendingsAsync();
+
+		//		dynamic bookings = results.Select(p => new
+		//		{
+		//			p.Pending_BookingId,
+		//			p.FirstName,
+		//			p.Instagram,
+		//			p.LastName,
+		//			EntertainmentTypeName = p.EntertainmentType.Name,
+		//			p.ContactNumber,
+		//			p.Additional,
+		//			p.Eventname,
+		//			p.Email,
+		//			p.Demo,
+
+		//		});
+
+		//		return Ok(bookings);
+		//	}
+		//	catch (Exception)
+		//	{
+
+		//		return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+		//	}
+		//}
+
+		// Booking listing waiting approval
 		[HttpGet]
 		[Route("ManageBookedListing")]
 		public async Task<ActionResult> BookedListing()
@@ -183,7 +216,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 			{
 				var results = await _repository.GetPendingsAsync();
 
-				dynamic bookings = results.Select(p => new
+				var bookings = results.Select(p => new
 				{
 					p.Pending_BookingId,
 					p.FirstName,
@@ -191,20 +224,79 @@ namespace Africanacity_Team24_INF370_.Controllers
 					p.LastName,
 					EntertainmentTypeName = p.EntertainmentType.Name,
 					p.ContactNumber,
+					p.Additional,
+					p.Eventname,
 					p.Email,
-					p.Demo,
-
+					p.Demo
 				});
 
 				return Ok(bookings);
 			}
 			catch (Exception)
 			{
-
 				return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
 			}
 		}
 
+		//[HttpPost, DisableRequestSizeLimit]
+		//[Route("RequestBk")]
+		//public async Task<IActionResult> RequestBook([FromForm] IFormCollection formData)
+		//{
+		//	try
+		//	{
+		//		var formCollection = await Request.ReadFormAsync();
+
+		//		var file = formCollection.Files.First();
+		//		if (file.Length > 0)
+		//		{
+		//			// Generate a unique filename
+		//			var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+
+		//			// Store the file on disk
+		//			var filePath = Path.Combine("path_to_your_upload_folder", uniqueFileName);
+		//			using (var stream = new FileStream(filePath, FileMode.Create))
+		//			{
+		//				await file.CopyToAsync(stream);
+		//			}
+
+		//			var booking = new Pending_Booking
+		//			{
+		//				// Populate other fields from formData
+		//				FirstName = formData["firstName"],
+		//				Instagram = formData["Instagram"],
+
+		//				LastName = formData["lastName"]
+		//									,
+		//				Email = formData["email"]
+		//									,
+		//				Eventname = formData["Eventname"]
+		//									,
+		//				Additional = formData["Additional"]
+		//									,
+
+		//				Entertainment_TypeId = Convert.ToInt32(formData["entertainmenttype"]),
+		//				// ...
+
+		//				// Store the file path
+		//				Demo = filePath,
+		//				ContactNumber = formData["contactNumber"]
+		//			};
+
+		//			_repository.Add(booking);
+		//			await _repository.SaveChangesAsync();
+
+		//			return Ok();
+		//		}
+		//		else
+		//		{
+		//			return BadRequest();
+		//		}
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		return StatusCode(500, $"Internal server error: {ex}");
+		//	}
+		//}
 
 		//Request to make booking
 		[HttpPost, DisableRequestSizeLimit]
@@ -213,6 +305,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 		{
 			try
 			{
+
 				var formCollection = await Request.ReadFormAsync();
 
 				var file = formCollection.Files.First();
@@ -237,6 +330,11 @@ namespace Africanacity_Team24_INF370_.Controllers
 							,
 							Email = formData["email"]
 							,
+							Eventname = formData["Eventname"]
+							,
+							Additional = formData["Additional"]
+							,
+
 							Entertainment_TypeId = Convert.ToInt32(formData["entertainmenttype"])
 							,
 							Demo = base64
@@ -294,6 +392,10 @@ namespace Africanacity_Team24_INF370_.Controllers
 							Email = formData["email"]
 							,
 							Entertainment_TypeId = Convert.ToInt32(formData["entertainmenttype"])
+									,
+							Eventname = formData["Eventname"]
+							,
+							Additional = formData["Additional"]
 							,
 							Demo = base64
 							,
@@ -335,6 +437,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 					LastName = pendingBooking.LastName,
 					Instagram = pendingBooking.Instagram,
 					Email = pendingBooking.Email,
+					Eventname = pendingBooking.Eventname,
+					Additional = pendingBooking.Additional,
 					Entertainment_TypeId = pendingBooking.Entertainment_TypeId,
 					Demo = pendingBooking.Demo,
 					ContactNumber = pendingBooking.ContactNumber
@@ -383,25 +487,6 @@ namespace Africanacity_Team24_INF370_.Controllers
 		}
 
 
-
-		//[HttpGet("GetBookingInfor/{email}")]
-		//public async Task<IActionResult> GetBookingInfor(string email)
-		//{
-		//	try
-		//	{
-		//		var result = await _repository.GetBookingInforAsync(email);
-
-		//		if (result == null || result.Count == 0)
-		//			return NotFound("Booking does not exist. You need to create a booking first");
-
-		//		return Ok(result);
-		//	}
-		//	catch (Exception)
-		//	{
-		//		return StatusCode(500, "Internal Server Error. Please contact support");
-		//	}
-		//}
-
 		[HttpGet("GetBookingInfor/{email}")]
 		public async Task<IActionResult> GetBookingInfor(string email)
 		{
@@ -421,8 +506,11 @@ namespace Africanacity_Team24_INF370_.Controllers
 					booking.Email,
 					booking.Instagram,
 					booking.ContactNumber,
+					booking.Eventname,
+					booking.Additional,
 					booking.Demo,
-					EntertainmentTypeName = booking.EntertainmentType.Name // Assuming the entertainment type name is stored in the Name property of the EntertainmentType
+					EntertainmentTypeName = booking.EntertainmentType.Name, // Assuming the entertainment type name is stored in the Name property of the EntertainmentType
+					/*Event = booking.Event.Name*/ // Assuming the entertainment type name is stored in the Name property of the EntertainmentType
 				});
 
 				return Ok(mappedResult);

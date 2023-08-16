@@ -36,6 +36,10 @@
                 <mat-option *ngFor="let item of menuItemCategoryData"  [value]="item.menu_CategoryId">{{item.name}}</mat-option>
             </mat-select>
         </mat-form-field><br>
+        <mat-form-field class="full-width">
+          <mat-label>Amount</mat-label>
+          <input matInput placeholder="Enter the Amount" formControlName="amount" type="number">
+        </mat-form-field><br>
         </mat-card-content>
         <button mat-stroked-button color="primary" class="btn-block" >Submit</button>
         

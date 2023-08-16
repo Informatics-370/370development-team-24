@@ -16,8 +16,8 @@
 
                 <th scope="col">Inventory Name</th>
                 <th scope="col">Supplier Name</th>
-                <th scope="col">Ordered Date</th>
-                <th scope="col">Received Date</th>
+                <!-- <th scope="col">Ordered Date</th>
+                <th scope="col">Received Date</th> -->
                 <th scope="col">Quantity</th>
                
 
@@ -26,8 +26,8 @@
           <tr *ngFor="let supplieritem of filteredsupplieritems">
                 <td>{{supplieritem.inventoryItemName}}</td>
                 <td>{{supplieritem.supplierName}}</td>
-                <td>{{supplieritem.ordered_Date}}</td>
-                <td>{{supplieritem.received_Date}}</td>
+                <!-- <td>{{supplieritem.ordered_Date}}</td>
+                <td>{{supplieritem.received_Date}}</td> -->
                 <td>{{supplieritem.ordered_Quantity}}</td>
         </tbody>
     </table>
