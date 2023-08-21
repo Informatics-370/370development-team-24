@@ -13,8 +13,8 @@ export class StockTakeRecon{
   quantityDifference!: number;
 }
 
-export interface WriteOffViewModel {
-  stockTakeItemId: number;
-  reason: string;
+export class WriteOffViewModel {
+  stockTakeItemId!: number;
+  reason!: string;
   //discrepencyItems: DiscrepencyItem[];
 }

@@ -52,6 +52,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 
                     i.Quantity,
 
+                    
+
                 });
 
                 return Ok(inventoryitems);
@@ -291,7 +293,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         [HttpPost]
         [Route("CreateStockTake")]
-        public IActionResult CreateStockTake(StockTakeViewModel stockTakeData)
+        public async Task<IActionResult> CreateStockTake(StockTakeViewModel stockTakeData)
         {
             try
             {
@@ -308,7 +310,8 @@ namespace Africanacity_Team24_INF370_.Controllers
                     var stockTakeItem = new StockTakeItem
                     {
                         Quantity = item.Quantity,
-                        Inventory_ItemId = item.Inventory_ItemId
+                        Inventory_ItemId = item.Inventory_ItemId,
+                        //StockTake_Id = item.StockTake_Id
                     };
 
                     // Fetch the corresponding inventory item from the database
@@ -329,19 +332,40 @@ namespace Africanacity_Team24_INF370_.Controllers
                             Description = inventoryItem.Description,
                             QuantityDifference = quantityDifference,
                             Inventory_ItemId = inventoryItem.Inventory_ItemId,
-                            ItemName = inventoryItem.ItemName
+                            ItemName = inventoryItem.ItemName,
+
                         };
+
+                       /* try
+                        {
+                            _Repository.Add(discrepancyItem);
+                            await _Repository.SaveChangesAsync();
+
+                            var writeOff = new WriteOffStock()
+                            {
+                                StockTakeItemId = stockTakeItem.StockTakeItemId,
+                                Reason = discrepancyItem.Reason,
+                            };
+
+                            _Repository.Add(writeOff);
+                            await _Repository.SaveChangesAsync();
+                            discrepancyItems.Add(discrepancyItem);
+
+                        }
+                        catch
+                        { }*/
                         discrepancyItems.Add(discrepancyItem);
 
-                       // Create a new WriteOff record
-                       //var writeOff = new WriteOffStock
-                       //{
-                       //    StockTakeItem = stockTakeItem,
-                       //    Description = stockTakeItem.Description,// Link the WriteOff to the StockTakeItem
-                       //    Reason = stockTakeItem.Reason
-                       //};
 
-                       // _appDbContext.WriteOffs.Add(writeOff); // Save the write-off record
+                        // Create a new WriteOff record
+                        //var writeOff = new WriteOffStock
+                        //{
+                        //    StockTakeItem = stockTakeItem,
+                        //    Description = stockTakeItem.Description,// Link the WriteOff to the StockTakeItem
+                        //    Reason = stockTakeItem.Reason
+                        //};
+
+                        // _appDbContext.WriteOffs.Add(writeOff); // Save the write-off record
                     }
                 }
 
@@ -375,8 +399,7 @@ namespace Africanacity_Team24_INF370_.Controllers
         //    return Ok(stockTakes);
         //}
 
-
-
+    
         [HttpGet]
         [Route("GetAllReconItems")]
         public async Task<ActionResult> GetAllReconItems()
@@ -408,6 +431,34 @@ namespace Africanacity_Team24_INF370_.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
             }
         }
+
+        //get inventory prices
+        [HttpGet]
+        [Route("GetInventoryItemPrice/{itemId}")]
+        public IActionResult GetInventoryItemPrice(int itemId)
+        {
+            try
+            {
+                var price = _appDbContext.Inventory_Prices
+                    .Where(price => price.Inventory_ItemId == itemId)
+                    .OrderByDescending(price => price.Date)
+                    .FirstOrDefault()?.Price;
+
+                if (price != null)
+                {
+                    return Ok(new { price });
+                }
+                else
+                {
+                    return NotFound("Price not found for the given inventory item.");
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+            }
+        }
+
 
         //[HttpPost]
         //[Route("AddWriteOffRecord")]
@@ -443,7 +494,9 @@ namespace Africanacity_Team24_INF370_.Controllers
         //        return BadRequest($"Error adding write-off records: {ex.Message}");
         //    }
         //}
-        [HttpPost]
+
+
+        /*[HttpPost]
         [Route("AddWriteOffRecord")]
         public IActionResult AddWriteOffRecord(List<WriteOffViewModel> writeOffItems)
         {
@@ -474,7 +527,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                 }
                 return BadRequest("An error occurred while adding write-off records. Please check the logs for more details.");
             }
-        }
+        }*/
 
     }
 }

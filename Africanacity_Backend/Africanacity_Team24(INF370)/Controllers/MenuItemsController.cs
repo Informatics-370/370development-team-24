@@ -13,9 +13,11 @@ namespace Africanacity_Team24_INF370_.Controllers
     public class MenuItemsController : ControllerBase
     {
         private readonly IRepository _repository;
-        public MenuItemsController(IRepository repository)
+        private readonly AppDbContext _appDbContext;
+        public MenuItemsController(IRepository repository, AppDbContext appDbContext)
         {
             _repository = repository;
+            _appDbContext = appDbContext;
         }
 
         //getting a list of the table menu items
@@ -87,6 +89,32 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
 
             
+        }
+
+        //get the prices
+        [HttpGet]
+        [Route("GetMenuItemPrice/{MenuItemId}")]
+        public IActionResult GetMenuItemPrice(int MenuItemId)
+        {
+            try
+            {
+                var price = _appDbContext.MenuItem_Prices
+                    .Where(price => price.MenuItemId == MenuItemId)
+                    .FirstOrDefault()?.Amount;
+
+                if (price != null)
+                {
+                    return Ok(new { price });
+                }
+                else
+                {
+                    return NotFound("Price not found for the given inventory item.");
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+            }
         }
 
         //adding a menu item
@@ -196,4 +224,6 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
     }
+
+    
 }

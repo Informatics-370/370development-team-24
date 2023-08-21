@@ -96,7 +96,7 @@ export class DataService {
     /********************************MENU ITEM******************************/
     //GET MENU ITEMS
     GetAllMenuItems(): Observable<any>{
-      return this.httpClient.get(`${this.apiUrl}MenuItems/GetAllMenuItems`)
+      return this.httpClient.get(`${this.apiUrl}MenuItems/MenuItemListing`)
       .pipe(map(result => result));
     }
   
@@ -105,11 +105,27 @@ export class DataService {
     GetMenuItemById(menu_ItemId: Number): Observable<any>{
       return this.httpClient.get(`${this.apiUrl}MenuItems/GetMenuItem/${menu_ItemId}`);
     }
+
+    //add a new menu item
+  addMenuItem(file:FormData, amount: number){
+    return this.httpClient.post(`${this.apiUrl}MenuItems/AddMenuItem`, file)
+  }
+
+  //edit menu item
+  editMenuItem(MenuItemId: number, menuItem: MenuItem): Observable<MenuItem> {
+    return this.httpClient.put<MenuItem>(`${this.apiUrl}MenuItems/EditMenuItem/${MenuItemId}`, menuItem,this.httpOptions);
+  }
+
   
     /*Delete Menu type*/
     deleteMenuItem(menu_ItemId: Number){
       return this.httpClient.delete<string>(`${this.apiUrl}MenuItems/DeleteMenuItem` + "/" + menu_ItemId, this.httpOptions)
     }
+
+    GetMenuItemPrice(MenuItemId: number) {
+      return this.httpClient.get<any>(`${this.apiUrl}MenuItems/GetMenuItemPrice/${MenuItemId}`);
+    }
+    
   
   
     /******************FOOD TYPE**************/
@@ -137,12 +153,12 @@ export class DataService {
     // }
     // food type
     GetAllFoodTypes(): Observable<any>{
-      return this.httpClient.get(`${this.apiUrl}foodTypeController/GetAllFoodTypes`).pipe(map(result => result)) 
+      return this.httpClient.get(`${this.apiUrl}foodType/GetAllFoodTypes`).pipe(map(result => result)) 
     }
   
     GetFoodType(foodTypeId: number)
     {
-      return this.httpClient.get(`${this.apiUrl}foodTypeController/GetFoodType` + "/" + foodTypeId).pipe(map(result => result))
+      return this.httpClient.get(`${this.apiUrl}foodType/GetFoodType` + "/" + foodTypeId).pipe(map(result => result))
     }
   
     AddFoodType(foodType : FoodType)
@@ -152,12 +168,12 @@ export class DataService {
   
     EditFoodType(foodTypeId: number, foodType: FoodType)
     {
-      return this.httpClient.put(`${this.apiUrl}foodTypeController/EditFoodType/${foodTypeId}`, foodType, this.httpOptions)
+      return this.httpClient.put(`${this.apiUrl}foodType/EditFoodType/${foodTypeId}`, foodType, this.httpOptions)
     }
   
     DeleteFoodType(foodTypeId: number)
     {
-      return this.httpClient.delete<string>(`${this.apiUrl}foodTypeController/DeleteFoodType` + "/" + foodTypeId, this.httpOptions)
+      return this.httpClient.delete<string>(`${this.apiUrl}foodType/DeleteFoodType` + "/" + foodTypeId, this.httpOptions)
     }
   
     // menu item category
@@ -269,16 +285,7 @@ export class DataService {
   }
 
 
-  //add a new menu item
-  addMenuItem(file:FormData){
-    return this.httpClient.post(`${this.apiUrl}MenuItems/AddMenuItem`, file)
-  }
-
-  //edit menu item
-  editMenuItem(MenuItemId: number, menuItem: MenuItem): Observable<MenuItem> {
-    return this.httpClient.put<MenuItem>(`${this.apiUrl}MenuItems/EditMenuItem/${MenuItemId}`, menuItem,this.httpOptions);
-  }
-
+  
   // drink type
   GetAllDrinkTypes(): Observable<any>{
     return this.httpClient.get(`${this.apiUrl}drinkType/GetAllDrinkTypes`).pipe(map(result => result)) 
@@ -307,27 +314,27 @@ export class DataService {
   // drink 
   GetAllDrinks(): Observable<any>
   {
-    return this.httpClient.get(`${this.apiUrl}Drink/DrinkItemListing`).pipe(map(result => result)) 
+    return this.httpClient.get(`${this.apiUrl}controller/DrinkItemListing`).pipe(map(result => result)) 
   }
 
   GetDrink(drinkId: number): Observable<any>
   {
-    return this.httpClient.get(`${this.apiUrl}Drink/GetDrink/${drinkId}`);
+    return this.httpClient.get(`${this.apiUrl}controller/GetDrink/${drinkId}`);
   }
 
   AddDrink(drink: Drink)
   {
-    return this.httpClient.post(`${this.apiUrl}Drink/AddDrink`, drink, this.httpOptions)
+    return this.httpClient.post(`${this.apiUrl}controller/AddDrink`, drink, this.httpOptions)
   }
 
   EditDrink(drinkId: number, drink: Drink)
   {
-    return this.httpClient.put(`${this.apiUrl}Drink/EditDrink/${drinkId}`, drink, this.httpOptions)
+    return this.httpClient.put(`${this.apiUrl}controller/EditDrink/${drinkId}`, drink, this.httpOptions)
   }
 
   DeleteDrink(drinkId: number)
   {
-    return this.httpClient.delete<string>(`${this.apiUrl}Drink/DeleteDrink` + "/" + drinkId, this.httpOptions)
+    return this.httpClient.delete<string>(`${this.apiUrl}controller/DeleteDrink` + "/" + drinkId, this.httpOptions)
   }
 
 

@@ -8,6 +8,6 @@ export class InventoryItem{
     stockTakeQuantity!: number;
     isChecked!: boolean;
     ordered: boolean = false;
-    price!: number;
-
+    price!:number;
+    inventoryPrices: { [inventoryItemId: number]: number } = {};
 }

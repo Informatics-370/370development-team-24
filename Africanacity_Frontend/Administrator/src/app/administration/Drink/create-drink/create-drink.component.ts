@@ -110,7 +110,7 @@ AddDrink() {
     const amount = this.AddDrinkForm.get('amount')!.value;
     this.formData.append('amount', amount.toString());
 
-    this.dataService.addDrink(this.formData, amount).subscribe(() => {
+    /*this.dataService.AddDrink(this.formData, amount).subscribe(() => {
       this.clearData()
       this.router.navigateByUrl('/view-drink').then((navigated: boolean) => {
         if (navigated) {
@@ -124,7 +124,7 @@ AddDrink() {
     });
   } else {
     console.error("Form is not valid.");
-  }
+  }*/
 }
 
 
@@ -146,7 +146,7 @@ AddDrink() {
     }
   }*/
 
-  clearData()
+ /* clearData()
   {
     this.formData.delete("name");
     this.formData.delete("drinkType");
@@ -161,8 +161,8 @@ AddDrink() {
     });
   
   
-    snackBarRef.afterDismissed().subscribe(() => {
+    MatSnackBarRef.afterDismissed().subscribe(() => {
       this.toastContainer.clear();
-    });
+    });*/
   }
 }

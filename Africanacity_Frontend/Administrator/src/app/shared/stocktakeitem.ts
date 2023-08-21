@@ -16,6 +16,7 @@ export interface StockTakeItem {
   export interface StockTakeItem {
     quantity: number;
     inventory_ItemId: number;
+    stock_TakeId: number;
   }
   
   // export interface StockTakeViewModel {

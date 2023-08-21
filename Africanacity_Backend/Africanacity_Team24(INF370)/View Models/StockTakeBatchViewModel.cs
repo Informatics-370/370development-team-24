@@ -7,6 +7,7 @@
 
         public int Quantity { get; set; }
         public int Inventory_ItemId { get; set; }
+        //public int StockTake_Id { get; set; }   
         //public string Description { get; set; }
     }
 }

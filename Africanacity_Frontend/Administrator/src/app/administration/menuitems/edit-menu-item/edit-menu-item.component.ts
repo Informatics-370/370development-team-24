@@ -17,7 +17,7 @@ import { MenuitemsComponent } from '../menuitems.component';
 export class EditMenuItemComponent implements OnInit {
  
   menuItemId!: number;
-  menuItem: MenuItem = new MenuItem();
+  menuItem!: MenuItem; //= new MenuItem();
   menuTypes!: MenuTypes[];
   foodTypes!: FoodType[];
   menuCategory!: MenuItemCategory[];

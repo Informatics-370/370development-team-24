@@ -30,7 +30,7 @@
                 <th scope="col">Address</th>
                 <th scope="col">Employment Date</th>
                 <th scope="col"></th>
-                <th scope="col"></th>
+                <th scope="col"></th> 
         </thead>
         <tbody>
           <tr *ngFor="let employee of filteredemployees">
@@ -42,7 +42,7 @@
                 <td>{{employee.email_Address}}</td>
                 <td>{{employee.phoneNumber}}</td>
                 <td>{{employee.physical_Address}}</td>
-                <td>{{employee.employment_Date}}</td>
+                <td>{{employee.employment_Date | date}}</td>
                 
                 
                   <td> <i class="fa fa-pencil" [routerLink]="['/edit-employee', employee.employeeId]" aria-hidden="true"></i></td>
