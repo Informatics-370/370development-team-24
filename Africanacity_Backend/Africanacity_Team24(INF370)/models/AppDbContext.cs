@@ -89,6 +89,8 @@ namespace Africanacity_Team24_INF370_.models
 
         //Second option drink table
         public DbSet<OtherDrink> OtherDrinks { get; set; }
+        public DbSet<OtherDrinkPrice> OtherDrinkPrices { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 		{
@@ -1240,6 +1242,36 @@ namespace Africanacity_Team24_INF370_.models
 
                           });
 
+
+            //dummy data for other drink
+            modelBuilder.Entity<OtherDrink>()
+                        .HasData(
+                        new
+                        {
+                            OtherDrinkId = 1,
+                            Name = "Margarita",
+                            Description = "Vodka, pineapple juice and lemon syrup",
+                            //Drink_TypeId = 1,
+                        });
+            modelBuilder.Entity<OtherDrink>()
+                        .HasData(
+                        new
+                        {
+                            OtherDrinkId = 2,
+                            Name = "Frozen Lemonade",
+                            Description = "Crushed ice lemonade juice ",
+                            //Drink_TypeId = 2,
+                        });
+            modelBuilder.Entity<OtherDrink>()
+                       .HasData(
+                       new
+                       {
+                           OtherDrinkId = 3,
+                           Name = "Strawberry Diaquri ",
+                           Description = "Crushed ice, strawberry lemonade, vodka, strawberry syrup",
+                           //Drink_TypeId = 1,
+                       });
+
             //create seed data drink prices 
             modelBuilder.Entity<Drink_Price>()
                         .HasData(
@@ -1662,6 +1694,12 @@ namespace Africanacity_Team24_INF370_.models
                         .HasForeignKey(m => m.Drink_TypeId);
 
 
+
+            //One to many with other drink table 
+            //modelBuilder.Entity<OtherDrink>()
+            //           .HasOne(m => m.Drink_Type)
+            //           .WithMany()
+            //           .HasForeignKey(m => m.Drink_TypeId);
 
 
 

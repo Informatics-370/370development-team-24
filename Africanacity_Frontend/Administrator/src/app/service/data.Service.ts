@@ -288,44 +288,44 @@ export class DataService {
   
   // drink type
   GetAllDrinkTypes(): Observable<any>{
-    return this.httpClient.get(`${this.apiUrl}drinkType/GetAllDrinkTypes`).pipe(map(result => result)) 
+    return this.httpClient.get(`${this.apiUrl}DrinkType/GetAllDrinkTypes`).pipe(map(result => result)) 
   }
 
   GetDrinkType(drinkTypeId: number)
   {
-    return this.httpClient.get(`${this.apiUrl}drinkType/GetDrinkType` + "/" + drinkTypeId).pipe(map(result => result))
+    return this.httpClient.get(`${this.apiUrl}DrinkType/GetDrinkType` + "/" + drinkTypeId).pipe(map(result => result))
   }
 
   AddDrinkType(drinkType : DrinkType)
   {
-    return this.httpClient.post(`${this.apiUrl}drinkType/AddDrinkType`, drinkType, this.httpOptions)
+    return this.httpClient.post(`${this.apiUrl}DrinkType/AddDrinkType`, drinkType, this.httpOptions)
   }
 
   EditDrinkType(drinkTypeId: number, drinkType: DrinkType)
   {
-    return this.httpClient.put(`${this.apiUrl}drinkType/EditDrinkType/${drinkTypeId}`, drinkType, this.httpOptions)
+    return this.httpClient.put(`${this.apiUrl}DrinkType/EditDrinkType/${drinkTypeId}`, drinkType, this.httpOptions)
   }
 
   DeleteDrinkType(drinkTypeId: number)
   {
-    return this.httpClient.delete<string>(`${this.apiUrl}drinkType/DeleteDrinkType` + "/" + drinkTypeId, this.httpOptions)
+    return this.httpClient.delete<string>(`${this.apiUrl}DrinkType/DeleteDrinkType` + "/" + drinkTypeId, this.httpOptions)
   }
 
   // drink 
-  GetAllDrinks(): Observable<any>
+  /*GetAllDrinks(): Observable<any>
   {
     return this.httpClient.get(`${this.apiUrl}controller/DrinkItemListing`).pipe(map(result => result)) 
-  }
+  }*/
 
   GetDrink(drinkId: number): Observable<any>
   {
     return this.httpClient.get(`${this.apiUrl}controller/GetDrink/${drinkId}`);
   }
 
-  AddDrink(drink: Drink)
+  /*AddDrink(drink: Drink)
   {
     return this.httpClient.post(`${this.apiUrl}controller/AddDrink`, drink, this.httpOptions)
-  }
+  }*/
 
   EditDrink(drinkId: number, drink: Drink)
   {
@@ -337,6 +337,19 @@ export class DataService {
     return this.httpClient.delete<string>(`${this.apiUrl}controller/DeleteDrink` + "/" + drinkId, this.httpOptions)
   }
 
+
+   /********************************OTHER DRINK******************************/
+    //GET MENU ITEMS
+    GetAllDrinks(): Observable<any>{
+      return this.httpClient.get(`${this.apiUrl}OtherDrink/DrinkItemListing`)
+      .pipe(map(result => result));
+    }
+
+
+    //add a new menu item
+  AddDrink(file:FormData, amount: number){
+    return this.httpClient.post(`${this.apiUrl}OtherDrink/AddDrinkItem`, file)
+  }
 
 
 

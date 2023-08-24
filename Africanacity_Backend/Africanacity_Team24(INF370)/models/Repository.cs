@@ -274,6 +274,22 @@ namespace Africanacity_Team24_INF370_.models
             return code;
         }
 
+
+        //UNATI
+        //OtherDrink
+        public async Task<OtherDrink[]> GetAllDrinkItemsAsync()
+        {
+            IQueryable<OtherDrink> query = _appDbContext.OtherDrinks.Include(p => p.Drink_Type);
+
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<OtherDrink> GetADrinkItemAsync(int OtherDrinkId)
+        {
+            IQueryable<OtherDrink> query = _appDbContext.OtherDrinks.Where(c => c.OtherDrinkId == OtherDrinkId);
+            return await query.FirstOrDefaultAsync();
+        }
+
         //SUPPLIER
 
         public async Task<Supplier[]> GetAllSuppliersAsync()

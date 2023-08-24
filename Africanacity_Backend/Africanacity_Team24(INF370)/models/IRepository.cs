@@ -69,7 +69,12 @@ namespace Africanacity_Team24_INF370_.models
         Task<Drink[]> GetAllDrinksAsync();
         Task<Drink> GetDrinkItemAsync(int DrinkId);
 
-     
+
+        //OTHER DRINK
+        Task<OtherDrink[]> GetAllDrinkItemsAsync();
+
+        Task<OtherDrink> GetADrinkItemAsync(int OtherDrinkId);
+
 
         // DRINK ITEM TYPE
         Task<Drink_Type[]> GetAllDrinkTypesAsync();

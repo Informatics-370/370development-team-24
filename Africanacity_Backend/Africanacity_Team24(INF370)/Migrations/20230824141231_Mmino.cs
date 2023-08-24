@@ -626,20 +626,27 @@ namespace Africanacity_Team24_INF370_.Migrations
                 name: "OtherDrinks",
                 columns: table => new
                 {
-                    DrinkId = table.Column<int>(type: "int", nullable: false)
+                    OtherDrinkId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Drink_TypeId = table.Column<int>(type: "int", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Drink_TypeId = table.Column<int>(type: "int", nullable: false),
+                    Drink_TypeId1 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OtherDrinks", x => x.DrinkId);
+                    table.PrimaryKey("PK_OtherDrinks", x => x.OtherDrinkId);
                     table.ForeignKey(
                         name: "FK_OtherDrinks_Drink_Types_Drink_TypeId",
                         column: x => x.Drink_TypeId,
                         principalTable: "Drink_Types",
                         principalColumn: "Drink_TypeId",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OtherDrinks_Drink_Types_Drink_TypeId1",
+                        column: x => x.Drink_TypeId1,
+                        principalTable: "Drink_Types",
+                        principalColumn: "Drink_TypeId");
                 });
 
             migrationBuilder.CreateTable(
@@ -901,6 +908,26 @@ namespace Africanacity_Team24_INF370_.Migrations
                         column: x => x.Schedule_StatusId,
                         principalTable: "Schedule_Statuses",
                         principalColumn: "Schedule_StatusId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OtherDrinkPrices",
+                columns: table => new
+                {
+                    OtherDrinkPriceId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OtherDrinkId = table.Column<int>(type: "int", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OtherDrinkPrices", x => x.OtherDrinkPriceId);
+                    table.ForeignKey(
+                        name: "FK_OtherDrinkPrices_OtherDrinks_OtherDrinkId",
+                        column: x => x.OtherDrinkId,
+                        principalTable: "OtherDrinks",
+                        principalColumn: "OtherDrinkId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -1320,7 +1347,7 @@ namespace Africanacity_Team24_INF370_.Migrations
             migrationBuilder.InsertData(
                 table: "Discounts",
                 columns: new[] { "DiscountId", "AdministratorId", "Amount", "Description", "End_Date", "Name", "Start_Date" },
-                values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 9, 3, 15, 4, 14, 127, DateTimeKind.Local).AddTicks(8185), "Month end discount", new DateTime(2023, 8, 24, 15, 4, 14, 127, DateTimeKind.Local).AddTicks(8184) });
+                values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 9, 3, 16, 12, 29, 514, DateTimeKind.Local).AddTicks(2752), "Month end discount", new DateTime(2023, 8, 24, 16, 12, 29, 514, DateTimeKind.Local).AddTicks(2750) });
 
             migrationBuilder.InsertData(
                 table: "Drink_Prices",
@@ -1517,16 +1544,16 @@ namespace Africanacity_Team24_INF370_.Migrations
                 columns: new[] { "EmployeeId", "Email_Address", "Employee_RoleId", "Employment_Date", "FirstName", "GenderId", "PhoneNumber", "Physical_Address", "Surname" },
                 values: new object[,]
                 {
-                    { 1, "VanessaJames@gmail.com", 1, new DateTime(2023, 8, 24, 15, 4, 14, 127, DateTimeKind.Local).AddTicks(7079), "Vanessa", 2, "0847541236", "404 Jacob Street", "James" },
-                    { 2, "SerenaWilliams@gmail.com", 2, new DateTime(2023, 8, 24, 15, 4, 14, 127, DateTimeKind.Local).AddTicks(7097), "Serena", 2, "0842341236", "132 Harriet Street", "Williams" },
-                    { 3, "EdrisElba@gmail.com", 1, new DateTime(2023, 8, 24, 15, 4, 14, 127, DateTimeKind.Local).AddTicks(7104), "Edris", 1, "0212378798", "245 homelyn Street", "Elba" },
-                    { 4, "NyongoLupita@gmail.com", 2, new DateTime(2023, 8, 24, 15, 4, 14, 127, DateTimeKind.Local).AddTicks(7179), "Lupita", 2, "0455783475", "254 Summer Street", "Nyongo" },
-                    { 5, "MicheaJackson@gmail.com", 2, new DateTime(2023, 8, 24, 15, 4, 14, 127, DateTimeKind.Local).AddTicks(7186), "Micheal", 3, "0874567836", "567 Winter Street", "Jackson" },
-                    { 6, "TaehyungKim@gmial.com", 1, new DateTime(2023, 8, 24, 15, 4, 14, 127, DateTimeKind.Local).AddTicks(7196), "Taehyung", 1, "0874562134", "345 Shallow  Street", "Kim" },
-                    { 7, "ZendayaColeman@gmail.com", 1, new DateTime(2023, 8, 24, 15, 4, 14, 127, DateTimeKind.Local).AddTicks(7203), "Zendaya", 2, "0212378798", "243 Super Street ", "Coleman" },
-                    { 8, "RogerFederal@gmail.com", 1, new DateTime(2023, 8, 24, 15, 4, 14, 127, DateTimeKind.Local).AddTicks(7210), "Roger", 3, "0612346487", "987 Wall Street", "Federal" },
-                    { 9, "JenniferLOpez@gmail.com", 2, new DateTime(2023, 8, 24, 15, 4, 14, 127, DateTimeKind.Local).AddTicks(7217), "Jennifer", 3, "0874834576", "967 Ballard Street", "Lopez" },
-                    { 10, "ChadwickBoseman@gmail.com", 2, new DateTime(2023, 8, 24, 15, 4, 14, 127, DateTimeKind.Local).AddTicks(7225), "Chadwick", 1, "0923456789", "483 Alien Street", "Boseman" }
+                    { 1, "VanessaJames@gmail.com", 1, new DateTime(2023, 8, 24, 16, 12, 29, 514, DateTimeKind.Local).AddTicks(1417), "Vanessa", 2, "0847541236", "404 Jacob Street", "James" },
+                    { 2, "SerenaWilliams@gmail.com", 2, new DateTime(2023, 8, 24, 16, 12, 29, 514, DateTimeKind.Local).AddTicks(1451), "Serena", 2, "0842341236", "132 Harriet Street", "Williams" },
+                    { 3, "EdrisElba@gmail.com", 1, new DateTime(2023, 8, 24, 16, 12, 29, 514, DateTimeKind.Local).AddTicks(1461), "Edris", 1, "0212378798", "245 homelyn Street", "Elba" },
+                    { 4, "NyongoLupita@gmail.com", 2, new DateTime(2023, 8, 24, 16, 12, 29, 514, DateTimeKind.Local).AddTicks(1472), "Lupita", 2, "0455783475", "254 Summer Street", "Nyongo" },
+                    { 5, "MicheaJackson@gmail.com", 2, new DateTime(2023, 8, 24, 16, 12, 29, 514, DateTimeKind.Local).AddTicks(1481), "Micheal", 3, "0874567836", "567 Winter Street", "Jackson" },
+                    { 6, "TaehyungKim@gmial.com", 1, new DateTime(2023, 8, 24, 16, 12, 29, 514, DateTimeKind.Local).AddTicks(1494), "Taehyung", 1, "0874562134", "345 Shallow  Street", "Kim" },
+                    { 7, "ZendayaColeman@gmail.com", 1, new DateTime(2023, 8, 24, 16, 12, 29, 514, DateTimeKind.Local).AddTicks(1503), "Zendaya", 2, "0212378798", "243 Super Street ", "Coleman" },
+                    { 8, "RogerFederal@gmail.com", 1, new DateTime(2023, 8, 24, 16, 12, 29, 514, DateTimeKind.Local).AddTicks(1513), "Roger", 3, "0612346487", "987 Wall Street", "Federal" },
+                    { 9, "JenniferLOpez@gmail.com", 2, new DateTime(2023, 8, 24, 16, 12, 29, 514, DateTimeKind.Local).AddTicks(1522), "Jennifer", 3, "0874834576", "967 Ballard Street", "Lopez" },
+                    { 10, "ChadwickBoseman@gmail.com", 2, new DateTime(2023, 8, 24, 16, 12, 29, 514, DateTimeKind.Local).AddTicks(1533), "Chadwick", 1, "0923456789", "483 Alien Street", "Boseman" }
                 });
 
             migrationBuilder.InsertData(
@@ -1562,6 +1589,16 @@ namespace Africanacity_Team24_INF370_.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "OtherDrinks",
+                columns: new[] { "OtherDrinkId", "Description", "Drink_TypeId", "Drink_TypeId1", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Vodka, pineapple juice and lemon syrup", 1, null, "Margarita" },
+                    { 2, "Crushed ice lemonade juice ", 2, null, "Frozen Lemonade" },
+                    { 3, "Crushed ice, strawberry lemonade, vodka, strawberry syrup", 1, null, "Strawberry Diaquri " }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Schedules",
                 columns: new[] { "ScheduleId", "AdministratorId", "Date", "Description", "End_Time", "EventId", "Schedule_StatusId", "Start_Time", "Title" },
                 values: new object[,]
@@ -1577,27 +1614,39 @@ namespace Africanacity_Team24_INF370_.Migrations
                 values: new object[,]
                 {
                     { 1, null, "checkers@gmail.com", "0122345654", "416 Kirkness St, Arcadia", "Checkers", 3 },
-                    { 2, null, "pnp@gmail.com", "0110456543", "Hatfield Plaza 1122 Burnett Street", "Pick `n Pay", 3 },
-                    { 3, null, "liquorRack@gmail.com", "0656781230", "Hatfield Plaza 1145 Burnett Street", "Liquor Rack", 1 },
-                    { 4, null, "bakerMan@gmail.com", "0714567890", "HillCrest Boulevard 110 Lynnwood", "BakerMan", 4 },
-                    { 5, null, "MJButcher@gmail.com", "0865045674", "143 Atterbury Street", "Mr Jacks Butcher", 2 }
+                    { 2, null, "pnp@gmail.com", "0110456543", "Hatfield Plaza 1122 Burnett Street", "Pick `n Pay", 3 }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Suppliers",
+                columns: new[] { "SupplierId", "AdministratorId", "Email_Address", "PhoneNumber", "Physical_Address", "SupplierName", "Supplier_TypeId" },
+                values: new object[] { 3, null, "liquorRack@gmail.com", "0656781230", "Hatfield Plaza 1145 Burnett Street", "Liquor Rack", 1 });
+
+            migrationBuilder.InsertData(
+                table: "Suppliers",
+                columns: new[] { "SupplierId", "AdministratorId", "Email_Address", "PhoneNumber", "Physical_Address", "SupplierName", "Supplier_TypeId" },
+                values: new object[] { 4, null, "bakerMan@gmail.com", "0714567890", "HillCrest Boulevard 110 Lynnwood", "BakerMan", 4 });
+
+            migrationBuilder.InsertData(
+                table: "Suppliers",
+                columns: new[] { "SupplierId", "AdministratorId", "Email_Address", "PhoneNumber", "Physical_Address", "SupplierName", "Supplier_TypeId" },
+                values: new object[] { 5, null, "MJButcher@gmail.com", "0865045674", "143 Atterbury Street", "Mr Jacks Butcher", 2 });
 
             migrationBuilder.InsertData(
                 table: "Inventory_Prices",
                 columns: new[] { "InventoryPrice_Id", "Date", "Inventory_ItemId", "Price" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 8, 24, 15, 4, 14, 127, DateTimeKind.Local).AddTicks(8289), 1, 25m },
-                    { 2, new DateTime(2023, 8, 24, 15, 4, 14, 127, DateTimeKind.Local).AddTicks(8298), 2, 250m },
-                    { 3, new DateTime(2023, 8, 24, 15, 4, 14, 127, DateTimeKind.Local).AddTicks(8305), 3, 200m },
-                    { 4, new DateTime(2023, 8, 24, 15, 4, 14, 127, DateTimeKind.Local).AddTicks(8312), 4, 38m },
-                    { 5, new DateTime(2023, 8, 24, 15, 4, 14, 127, DateTimeKind.Local).AddTicks(8319), 5, 45m },
-                    { 6, new DateTime(2023, 8, 24, 15, 4, 14, 127, DateTimeKind.Local).AddTicks(8326), 6, 75m },
-                    { 7, new DateTime(2023, 8, 24, 15, 4, 14, 127, DateTimeKind.Local).AddTicks(8333), 7, 100m },
-                    { 8, new DateTime(2023, 8, 24, 15, 4, 14, 127, DateTimeKind.Local).AddTicks(8340), 8, 40m },
-                    { 9, new DateTime(2023, 8, 24, 15, 4, 14, 127, DateTimeKind.Local).AddTicks(8347), 9, 28m },
-                    { 10, new DateTime(2023, 8, 24, 15, 4, 14, 127, DateTimeKind.Local).AddTicks(8407), 10, 35m }
+                    { 1, new DateTime(2023, 8, 24, 16, 12, 29, 514, DateTimeKind.Local).AddTicks(2898), 1, 25m },
+                    { 2, new DateTime(2023, 8, 24, 16, 12, 29, 514, DateTimeKind.Local).AddTicks(2910), 2, 250m },
+                    { 3, new DateTime(2023, 8, 24, 16, 12, 29, 514, DateTimeKind.Local).AddTicks(2920), 3, 200m },
+                    { 4, new DateTime(2023, 8, 24, 16, 12, 29, 514, DateTimeKind.Local).AddTicks(2967), 4, 38m },
+                    { 5, new DateTime(2023, 8, 24, 16, 12, 29, 514, DateTimeKind.Local).AddTicks(2976), 5, 45m },
+                    { 6, new DateTime(2023, 8, 24, 16, 12, 29, 514, DateTimeKind.Local).AddTicks(2987), 6, 75m },
+                    { 7, new DateTime(2023, 8, 24, 16, 12, 29, 514, DateTimeKind.Local).AddTicks(2996), 7, 100m },
+                    { 8, new DateTime(2023, 8, 24, 16, 12, 29, 514, DateTimeKind.Local).AddTicks(3004), 8, 40m },
+                    { 9, new DateTime(2023, 8, 24, 16, 12, 29, 514, DateTimeKind.Local).AddTicks(3013), 9, 28m },
+                    { 10, new DateTime(2023, 8, 24, 16, 12, 29, 514, DateTimeKind.Local).AddTicks(3022), 10, 35m }
                 });
 
             migrationBuilder.InsertData(
@@ -1820,9 +1869,19 @@ namespace Africanacity_Team24_INF370_.Migrations
                 column: "Table_NumberId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_OtherDrinkPrices_OtherDrinkId",
+                table: "OtherDrinkPrices",
+                column: "OtherDrinkId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OtherDrinks_Drink_TypeId",
                 table: "OtherDrinks",
                 column: "Drink_TypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OtherDrinks_Drink_TypeId1",
+                table: "OtherDrinks",
+                column: "Drink_TypeId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Payments_Payment_MethodId",
@@ -1981,7 +2040,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                 name: "OrderTypes");
 
             migrationBuilder.DropTable(
-                name: "OtherDrinks");
+                name: "OtherDrinkPrices");
 
             migrationBuilder.DropTable(
                 name: "Passwords");
@@ -2035,6 +2094,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
+                name: "OtherDrinks");
+
+            migrationBuilder.DropTable(
                 name: "Suppliers");
 
             migrationBuilder.DropTable(
@@ -2048,9 +2110,6 @@ namespace Africanacity_Team24_INF370_.Migrations
 
             migrationBuilder.DropTable(
                 name: "StockTakeItems");
-
-            migrationBuilder.DropTable(
-                name: "Drink_Types");
 
             migrationBuilder.DropTable(
                 name: "Events");
@@ -2078,6 +2137,9 @@ namespace Africanacity_Team24_INF370_.Migrations
 
             migrationBuilder.DropTable(
                 name: "Table_Numbers");
+
+            migrationBuilder.DropTable(
+                name: "Drink_Types");
 
             migrationBuilder.DropTable(
                 name: "Supplier_Types");

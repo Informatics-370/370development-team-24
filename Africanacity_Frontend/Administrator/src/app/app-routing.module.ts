@@ -83,7 +83,8 @@ import { MenuitemsComponent } from './administration/menuitems/menuitems.compone
 import { StockTakeComponent } from './administration/Inventory Management/Inventory Items/stock-take/stock-take.component';
 import { StockTakeListComponent } from './administration/Inventory Management/Inventory Items/stock-take/stock-take-list/stock-take-list.component';
 import { WriteOffStockComponent } from './administration/Inventory Management/Inventory Items/stock-take/write-off-stock/write-off-stock.component';
-
+import { ViewOtherDrinkComponent } from './administration/otherDrink/view-other-drink/view-other-drink.component';
+import { CreateOtherDrinkComponent } from './administration/otherDrink/create-other-drink/create-other-drink.component';
 
 const routes: Routes = [
   { path: '', component: EmployeeComponent },
@@ -108,6 +109,7 @@ const routes: Routes = [
   { path: 'create-food-type', component: CreateFoodTypeComponent },
   { path: 'edit-menu-item-category/:id', component: EditMenuItemCategoryComponent}, // for edit Menu Item Category page
   { path: 'create-menu-item-category', component: CreateMenuItemCategoryComponent },
+  
    ///SCHEDULE
   {path:'schedule-display', component: ScheduleDisplayComponent},
   {path:'edit-schedule/:id', component: EditScheduleComponent},
@@ -226,6 +228,8 @@ const routes: Routes = [
   {path: 'stock-take', component:StockTakeComponent},
   {path: 'stock-take-list', component:StockTakeListComponent},
   {path: 'write-off-stock', component:WriteOffStockComponent},// for schedule
+  {path: 'view-other-drink', component: ViewOtherDrinkComponent},
+  {path: 'create-other-drink', component: CreateOtherDrinkComponent},
   { path: '', redirectTo: 'home', pathMatch:'full'},
   
 ];

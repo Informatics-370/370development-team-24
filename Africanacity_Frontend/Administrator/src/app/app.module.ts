@@ -107,6 +107,8 @@ import { SupplierComponent } from './administration/Reports/supplier/supplier.co
 import { BookingComponent } from './administration/Reports/booking/booking.component';
 import { NgChartsModule } from 'ng2-charts';
 import { MenuReportComponent } from './administration/Reports/menu/menu.component';
+import { CreateOtherDrinkComponent } from './administration/otherDrink/create-other-drink/create-other-drink.component';
+import { ViewOtherDrinkComponent } from './administration/otherDrink/view-other-drink/view-other-drink.component';
 
 
 
@@ -228,6 +230,8 @@ import { MenuReportComponent } from './administration/Reports/menu/menu.componen
     BookingComponent,
     MenuReportComponent,
     ViewDrinkComponent,
+    CreateOtherDrinkComponent,
+    ViewOtherDrinkComponent,
     
     
     
