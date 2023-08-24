@@ -35,7 +35,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                     p.OtherDrinkId,
                     p.Name,
                     p.Description,
-                    DrinkTypeName = p.Drink_Type.Name,
+                    //DrinkTypeName = p.Drink_Type.Name,
                 });
 
                 return Ok(drinks);

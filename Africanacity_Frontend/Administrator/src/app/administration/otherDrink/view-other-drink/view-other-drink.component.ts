@@ -16,7 +16,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class ViewOtherDrinkComponent implements OnInit{
 
-  displayedColumns: string[] = ['name', 'description', 'drinkTypeName', 'edit', 'delete'];
+  displayedColumns: string[] = ['name', 'description','edit', 'delete'];
   drinks: OtherDrink[] = [];
   filteredDrinks: OtherDrink [] = [];
   dataSource = new MatTableDataSource <OtherDrink>();
