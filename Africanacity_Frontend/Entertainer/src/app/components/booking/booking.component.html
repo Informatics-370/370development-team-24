@@ -73,9 +73,6 @@ padding: 20px;
             <label>Email
             <input class="form-control" placeholder="Enter Email" [required]="true" name="email" formControlName="email"/>
             </label>
-            <!-- <label>Phone Number 
-            <input class="form-control" placeholder="Enter phoneNumber" [required]="true" name="contactNumber" formControlName="contactNumber" />
-            </label> -->
             <label>Phone Number 
               <input class="form-control" placeholder="Enter phoneNumber" [required]="true" name="contactNumber" formControlName="contactNumber" />
               <div *ngIf="bookingForm?.get('contactNumber')?.hasError('required') && bookingForm?.get('contactNumber')?.touched" class="text-danger">

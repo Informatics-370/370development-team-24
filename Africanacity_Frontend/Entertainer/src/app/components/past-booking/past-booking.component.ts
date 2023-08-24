@@ -20,6 +20,7 @@ export class PastBookingComponent implements OnInit {
   bookings: Booked[] = [];
   filteredbookings: Booked[] =[]; 
   public role!:string;
+  loading: boolean = true;
 
   public fullName : string = "";
   constructor(

@@ -86,17 +86,12 @@ export class EditBookingComponent implements OnInit {
           this.updateBookingForm.patchValue({
             lastName: this.editBooking.lastName,
             firstName: this.editBooking.firstName,
-            // ... other form controls ...
             entertainmenttype: selectedType.entertainment_TypeId,
-            // ... other form controls ...
           });
         }
       });
     });
 
-console.log(this.updateBookingForm.value)
-console.log(this.updateBookingForm.value.entertainmenttype);
-console.log('Available Entertainment Types:', this.entertainmentTypeData);
 
     this. GetAllEntertainment();
   }
