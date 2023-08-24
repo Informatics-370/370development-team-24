@@ -1251,7 +1251,7 @@ namespace Africanacity_Team24_INF370_.models
                             OtherDrinkId = 1,
                             Name = "Margarita",
                             Description = "Vodka, pineapple juice and lemon syrup",
-                            //Drink_TypeId = 1,
+                            Drink_TypeId = 1,
                         });
             modelBuilder.Entity<OtherDrink>()
                         .HasData(
@@ -1260,7 +1260,7 @@ namespace Africanacity_Team24_INF370_.models
                             OtherDrinkId = 2,
                             Name = "Frozen Lemonade",
                             Description = "Crushed ice lemonade juice ",
-                            //Drink_TypeId = 2,
+                            Drink_TypeId = 2,
                         });
             modelBuilder.Entity<OtherDrink>()
                        .HasData(
@@ -1269,7 +1269,7 @@ namespace Africanacity_Team24_INF370_.models
                            OtherDrinkId = 3,
                            Name = "Strawberry Diaquri ",
                            Description = "Crushed ice, strawberry lemonade, vodka, strawberry syrup",
-                           //Drink_TypeId = 1,
+                           Drink_TypeId = 1,
                        });
 
             //create seed data drink prices 
@@ -1696,10 +1696,10 @@ namespace Africanacity_Team24_INF370_.models
 
 
             //One to many with other drink table 
-            //modelBuilder.Entity<OtherDrink>()
-            //           .HasOne(m => m.Drink_Type)
-            //           .WithMany()
-            //           .HasForeignKey(m => m.Drink_TypeId);
+            modelBuilder.Entity<OtherDrink>()
+                       .HasOne(m => m.Drink_Type)
+                       .WithMany()
+                       .HasForeignKey(m => m.Drink_TypeId);
 
 
 

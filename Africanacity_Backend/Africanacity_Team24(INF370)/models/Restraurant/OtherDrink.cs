@@ -15,11 +15,11 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
 
         [MaxLength(100)]
         public string Description { get; set; } = string.Empty;
-       // public int Drink_TypeId { get; set; }
+        public int Drink_TypeId { get; set; }
 
       
         //linked tables
-       // public Drink_Type Drink_Type { get; set; }
+        public Drink_Type Drink_Type { get; set; }
 
         //collecting data of the menu item price table from the menu item form
         public virtual ICollection<OtherDrinkPrice> OtherDrinkPrices { get; set; }

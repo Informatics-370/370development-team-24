@@ -287,8 +287,15 @@ export class DataService {
 
   
   // drink type
-  GetAllDrinkTypes(): Observable<any>{
+  /*GetAllDrinkTypes(): Observable<any>{
     return this.httpClient.get(`${this.apiUrl}DrinkType/GetAllDrinkTypes`).pipe(map(result => result)) 
+  }*/
+
+
+  //Unati
+  GetAllDrinkTypes(): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}DrinkType/GetAllDrinkTypes`)
+    .pipe(map(result => result));
   }
 
   GetDrinkType(drinkTypeId: number)

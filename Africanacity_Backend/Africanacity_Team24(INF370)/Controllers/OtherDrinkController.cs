@@ -35,7 +35,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                     p.OtherDrinkId,
                     p.Name,
                     p.Description,
-                    //DrinkTypeName = p.Drink_Type.Name,
+                    DrinkTypeName = p.Drink_Type.Name,
                 });
 
                 return Ok(drinks);
@@ -66,7 +66,7 @@ namespace Africanacity_Team24_INF370_.Controllers
             {
                 Name = formData["name"],
                 Description = formData["description"],
-                //Drink_TypeId = Convert.ToInt32(formData["drinkTypeName"]),
+                Drink_TypeId = Convert.ToInt32(formData["drinkTypeName"]),
                 
             };
 

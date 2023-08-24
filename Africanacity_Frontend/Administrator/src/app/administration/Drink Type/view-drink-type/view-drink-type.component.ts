@@ -3,7 +3,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DataService } from 'src/app/service/data.Service';
-import { DrinkType } from 'src/app/shared/Drink_Type';
+import { DrinkType } from 'src/app/shared/drink-type';
 import { NavbarComponent } from 'src/app/navbar/navbar.component';
 
 @Component({
@@ -12,7 +12,7 @@ import { NavbarComponent } from 'src/app/navbar/navbar.component';
   styleUrls: ['./view-drink-type.component.css']
 })
 
-export class DrinkTypeComponent {
+export class DrinkTypeComponent implements OnInit{
   drinkType: DrinkType[] = []
   filteredDrinkTypes: DrinkType[] = [];
 
@@ -32,7 +32,7 @@ export class DrinkTypeComponent {
 
   ngOnInit(): void {
     this.GetAllDrinkTypes();
-    this.filteredDrinkTypes = this.drinkType
+    console.log(this.drinkType)
   }
 
   deleteItemFromServer(): void {

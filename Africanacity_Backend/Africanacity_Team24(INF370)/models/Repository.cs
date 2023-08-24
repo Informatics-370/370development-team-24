@@ -279,7 +279,7 @@ namespace Africanacity_Team24_INF370_.models
         //OtherDrink
         public async Task<OtherDrink[]> GetAllDrinkItemsAsync()
         {
-            IQueryable<OtherDrink> query = _appDbContext.OtherDrinks;
+            IQueryable<OtherDrink> query = _appDbContext.OtherDrinks.Include(p => p.Drink_Type);
 
             return await query.ToArrayAsync();
         }

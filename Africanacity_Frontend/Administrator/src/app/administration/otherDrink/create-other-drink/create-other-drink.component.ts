@@ -3,8 +3,8 @@ import { DataService } from 'src/app/service/data.Service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { DrinkType } from 'src/app/shared/Drink_Type';
-
+//import { DrinkType } from 'src/app/shared/Drink_Type';
+import { DrinkType } from 'src/app/shared/drink-type';
 
 
 @Component({
@@ -15,13 +15,13 @@ import { DrinkType } from 'src/app/shared/Drink_Type';
 export class CreateOtherDrinkComponent implements OnInit{
 
   formData = new FormData();
-  drinkTypesData : DrinkType[]=[]
+  drinkTypesData: DrinkType [] =[]
   
 //form
 drinkForm: FormGroup = this.fb.group({
   name: ['', Validators.required],
   description: ['', Validators.required],
-  //drinkTypeName: ['', Validators.required],
+  drinkTypeName: ['', Validators.required],
   amount: [null, Validators.required]
   
 })
@@ -32,7 +32,7 @@ constructor(private dataService: DataService, private fb: FormBuilder, private r
 
 
 ngOnInit(): void {
-  //this.GetAllDrinkTypes()
+  this.GetAllDrinkTypes()
   
 }
 
@@ -52,7 +52,7 @@ onSubmit() {
   {
     this.formData.append('name', this.drinkForm.get('name')!.value);
     this.formData.append('description', this.drinkForm.get('description')!.value);
-    //this.formData.append('drinkTypeName', this.drinkForm.get('drinkTypeName')!.value);
+    this.formData.append('drinkTypeName', this.drinkForm.get('drinkTypeName')!.value);
 
     
         // Add the price as well
