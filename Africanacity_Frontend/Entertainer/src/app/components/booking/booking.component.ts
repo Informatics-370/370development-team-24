@@ -37,7 +37,7 @@ export class BookingComponent implements OnInit {
    firstName: ['', Validators.required],
    demo: ['', Validators.required],
    lastName: ['', Validators.required],
-   contactNumber: [null, Validators.required],
+   contactNumber: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{10}$')]),
    entertainmenttype: [null, Validators.required],
    email: ['', Validators.required],
    eventname: ['', Validators.required],
@@ -165,7 +165,7 @@ cancel() {
    this.formData.delete("lastName");
    this.formData.delete("contactNumber");
    this.formData.delete("email");
-   this.formData.delete("Intsagram");
+   this.formData.delete("Instagram");
    this.formData.delete("entertainmenttype");
    this.formData.delete("additional");
    this.formData.delete("eventname");

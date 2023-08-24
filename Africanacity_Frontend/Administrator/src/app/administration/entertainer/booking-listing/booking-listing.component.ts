@@ -12,17 +12,19 @@ import { Booking } from 'src/app/shared/Booking';
   styleUrls: ['./booking-listing.component.css']
 })
 export class BookingListingComponent {
-  
+
   bookings: Booking[] = [];
-  filteredbookings: Booking[] = []; 
+  filteredbookings: Booking[] = [];
+  loading: boolean = true;
+
 
   public users:any = [];
   public role!:string;
 
   public fullName : string = "";
   constructor(
-    private api : ApiService, 
-    private auth: AuthService, 
+    private api : ApiService,
+    private auth: AuthService,
     private userStore: UserStoreService,
     private book: BookingService,
     private snackBar: MatSnackBar,
@@ -31,22 +33,22 @@ export class BookingListingComponent {
     deleteItem(): void {
       const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete this booking?', 'Confirm, Cancel',{
         duration: 5000, // Display duration in milliseconds
-  
+
       });
-  
-      
+
+
       //  cancel(){
       //    this.router.navigate(['/home'])
       //  }
-    
-  
+
+
       confirmationSnackBar.onAction().subscribe(() => {
         // Perform the deletion action here
         this.deleteItemFromServer();
         window.location.reload();
       });
     }
-  
+
   deleteItemFromServer(): void {
     this.DeleteBooking;
   }
@@ -70,24 +72,35 @@ export class BookingListingComponent {
       this.role = val || roleFromToken;
     });
 
-    this.book.getBooks().subscribe((books:any) => {this.filteredbookings = books});
+    this.book.getBooks().subscribe(
+      (books: any) => {
+        this.filteredbookings = books;
+        this.loading = false; // Hide the loader
+      },
+      (error) => {
+        console.error('Error fetching bookings:', error);
+        this.loading = false; // Hide the loader in case of error as well
+      }
+    );
 
-    this.filteredbookings= this.bookings
-    console.log(this.filteredbookings)
+    // this.book.getBooks().subscribe((books:any) => {this.filteredbookings = books});
+
+    // this.filteredbookings= this.bookings
+    // console.log(this.filteredbookings)
   }
 
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
-  
+
     this.filteredbookings = this.bookings.filter(booking => {
       const column2Value = booking.firstName.toLowerCase() || booking.firstName.toUpperCase();
       const column3Value = booking.lastName.toLowerCase();
- 
-  
-  
-      return column2Value.includes(filterValue) || 
-      column3Value.includes(filterValue) 
+
+
+
+      return column2Value.includes(filterValue) ||
+      column3Value.includes(filterValue)
     });
   }
 
@@ -113,12 +126,12 @@ export class BookingListingComponent {
   downloadPDF() {
     // const doc = new jsPDF();
     // const headers = [['ID', 'Name', 'Surname', 'Role', 'Email', 'Phone Number', 'Address']];
-    
+
     // // Map the checklistItems to generate the data array
     // const data = this.employees.map(employee => [employee.employeeId, employee.firstName, employee.surname, employee.employeeRole, employee.email_Address, employee.phoneNumber, employee.physical_Address]);
-  
+
     // doc.setFontSize(12);
-  
+
     // // Generate the table using autoTable
     // // startY is the initial position for the table
     // autoTable(doc, {
@@ -127,13 +140,13 @@ export class BookingListingComponent {
     //   startY: 20,
     //   // Other options for styling the table if needed
     // });
-    
+
     // // Convert the PDF blob to a Base64 string
     // const pdfBlob = doc.output('blob');
-  
+
     // // Create a file-saver Blob object
     // const file = new Blob([pdfBlob], { type: 'application/pdf' });
-  
+
     // // Save the Blob to a file
     // saveAs(file, 'employee_listing.pdf');
   }

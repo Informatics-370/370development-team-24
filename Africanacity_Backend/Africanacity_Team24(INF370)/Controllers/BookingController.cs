@@ -126,69 +126,60 @@ namespace Africanacity_Team24_INF370_.Controllers
 		}
 
 
-		//**************************************************************************** Edit Booking *******************************************************************************
-		//[HttpPut]
-		//[Route("EditBooking/{bookingId}")]
-		//public async Task<IActionResult> EditBooking(int bookingId, [FromForm] IFormCollection formData)
-		//{
-		//	try
-		//	{
-		//		// Retrieve the booking to be edited
-		//		var booking = await _repository.GetBookingAsync(bookingId);
-		//		if (booking == null)
-		//		{
-		//			return NotFound("Booking not found.");
-		//		}
+			//**************************************************************************** Edit Booking *******************************************************************************
+			[HttpPut]
+			[Route("EditBooking/{bookingId}")]
+			public async Task<IActionResult> EditBooking(int bookingId, [FromForm] IFormCollection formData)
+			{
+				try
+				{
+					var existingBooking = await _repository.GetBookingAsync(bookingId);
 
-		//		// Parse entertainmenttype value from formData
-		//		if (!int.TryParse(formData["entertainmenttype"], out int entertainmentTypeId))
-		//		{
-		//			return BadRequest("Invalid entertainment type selected.");
-		//		}
+					if (existingBooking == null)
+					{
+						return NotFound($"The booking with ID {bookingId} does not exist");
+					}
 
-		//		// Check if the selected entertainmenttype exists
-		//		var entertainmentTypeExists = await _repository.GetEntertainmentTypeAsync(entertainmentTypeId);
-		//		if (entertainmentTypeExists==null)
-		//		{
-		//			return BadRequest("Selected entertainment type does not exist.");
-		//		}
+				// Update booking properties from the form data
+			    	existingBooking.FirstName = formData["firstName"];
+					existingBooking.LastName = formData["lastName"];
+					existingBooking.Instagram = formData["Instagram"];
+					existingBooking.Email = formData["email"];
+					existingBooking.Eventname = formData["Eventname"];
+					existingBooking.Additional = formData["Additional"];
+				    //existingBooking.Entertainment_TypeId = entertainmentTypeId; 
+				    existingBooking.Entertainment_TypeId = Convert.ToInt32(formData["entertainmenttype"]);
+					existingBooking.ContactNumber = formData["contactNumber"];
 
-		//		// Update booking properties
-		//		booking.LastName = formData["lastName"];
-		//		booking.FirstName = formData["firstName"];
-		//		booking.Entertainment_TypeId = entertainmentTypeId; // Update foreign key
-		//		booking.Email = formData["email"];
-		//		booking.ContactNumber = formData["contactNumber"];
-		//		booking.Eventname = formData["eventname"];
-		//		booking.Instagram = formData["instagram"];
-		//		booking.Additional = formData["additional"];
+					// Check if a new demo image was uploaded
+					var file = formData.Files.FirstOrDefault();
+					if (file != null && file.Length > 0)
+					{
+						using (var ms = new MemoryStream())
+						{
+							file.CopyTo(ms);
+							var fileBytes = ms.ToArray();
+							string base64 = Convert.ToBase64String(fileBytes);
+							existingBooking.Demo = base64;
+						}
+					}
 
-		//		// Handle file upload if a file is provided
-		//		if (formData.Files.Count > 0)
-		//		{
-		//			var uploadedFile = formData.Files["demo"];
-		//			if (uploadedFile != null && uploadedFile.Length > 0)
-		//			{
-		//				booking.DemoFileName = uploadedFile.FileName;
-		//				booking.DemoFile = uploadedFile;
-		//			}
-		//		}
+					// Save changes to the repository
+					_repository.Update(existingBooking);
+					await _repository.SaveChangesAsync();
 
-		//		// Save changes to the database
-		//		await _repository.SaveChangesAsync();
-
-		//		return Ok("Booking updated successfully.");
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		return StatusCode(500, $"An error occurred while updating the booking: {ex.Message}");
-		//	}
-		//}
+					return Ok(existingBooking);
+				}
+				catch (Exception ex)
+				{
+					return StatusCode(500, $"Internal server error: {ex}");
+				}
+			}
 
 
 
-		//**************************************************************************** Delete Booking *******************************************************************************
-		[HttpDelete]
+	//**************************************************************************** Delete Booking *******************************************************************************
+	[HttpDelete]
 		[Route("DeleteBooking/{BookingId}")]
 		public async Task<IActionResult> DeleteBooking(int BookingId)
 		{

@@ -25,14 +25,15 @@ export class EditBookingComponent implements OnInit {
   public role!:string;
   public fullName : string = "";
   bookings: Booking[] = [];
+  submittingBooking: boolean = false; // Flag to track submission state
+  successMessage: string = '';
 
   updateBookingForm: FormGroup = new FormGroup({
     lastName: new FormControl('', [Validators.required]),
     firstName: new FormControl('', [Validators.required]),
     entertainmenttype: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
-    contactNumber: new FormControl('', [Validators.required]),
-    // demo: new FormControl('', [Validators.required]),
+    contactNumber: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{10}$')]),
     eventname: new FormControl('', [Validators.required]),
     instagram: new FormControl('', [Validators.required]),
     additional : new FormControl('', [Validators.required]),
@@ -51,11 +52,6 @@ export class EditBookingComponent implements OnInit {
      this.updateBookingForm.controls['eventname'].disable();
   }
 
-  // uploadFile = (files: any) => {
-  //   let fileToUpload = <File>files[0];
-  //   this.formData.append('demo', fileToUpload, fileToUpload.name);
-  //   this.fileNameUploaded = fileToUpload.name
-  // }
 
   ngOnInit(): void {
     this.userStore.getFullNameFromStore()
@@ -82,17 +78,29 @@ export class EditBookingComponent implements OnInit {
         this.updateBookingForm.controls['instagram'].setValue(this.editBooking.instagram);
         // this.updateBookingForm.controls['demo'].setValue(this.editBooking.demo);
         this.updateBookingForm.controls['additional'].setValue(this.editBooking.additional);
+        
 
-        const selectedType = this.entertainmentTypeData.find(type => type.name === this.editBooking.entertainmenttypeName);
+        const selectedType = this.entertainmentTypeData.find(type => type.entertainment_TypeId === this.editBooking.Entertainment_TypeId);
         if (selectedType) {
-          this.updateBookingForm.controls['entertainmenttype'].patchValue(selectedType.entertainment_TypeId);
+          this.selectedEntertainmentType = selectedType;
+          this.updateBookingForm.patchValue({
+            lastName: this.editBooking.lastName,
+            firstName: this.editBooking.firstName,
+            // ... other form controls ...
+            entertainmenttype: selectedType.entertainment_TypeId,
+            // ... other form controls ...
+          });
         }
       });
     });
+
 console.log(this.updateBookingForm.value)
+console.log(this.updateBookingForm.value.entertainmenttype);
+console.log('Available Entertainment Types:', this.entertainmentTypeData);
+
     this. GetAllEntertainment();
   }
-  // console.log(this.updateBookingForm.value)
+
 
   cancel() {
     this.router.navigate(['/past-booking']);
@@ -116,63 +124,53 @@ console.log(this.updateBookingForm.value)
     }
   }
 
-
-  // updateBooking() {
-  
-  //   const booking = new FormData();
-  //   booking.append('lastName', this.updateBookingForm.value.lastName);
-  //   booking.append('firstName', this.updateBookingForm.value.firstName);
-  //   booking.append('entertainmenttype', this.updateBookingForm.value.entertainmenttype);
-  //   booking.append('email', this.updateBookingForm.value.email);
-  //   booking.append('contactNumber', this.updateBookingForm.value.contactNumber);
-  //   booking.append('eventname', this.updateBookingForm.value.eventname);
-  //   booking.append('instagram', this.updateBookingForm.value.instagram);
-  //   booking.append('additional', this.updateBookingForm.value.additional);
-  //   booking.append('demo', this.formData.get('demo') as File); // Append the file here
-
-  //   this.bookingservice.EditBooking(this.editBooking.bookingId, booking).subscribe(
-  //       (response: any) => {
-  //       if (response.statusCode === 200) {
-  //         this.router.navigate(['./past-booking']);
-  //         window.location.reload();
-  //         this.showSuccessMessage('Booking Information updated successfully!');
-  //       } else {
-  //         // Handle error if needed
-  //       }
-  //     },
-  //     (error) => {
-  //       // Handle error if needed
-  //     }
-  //   );
-  // }
-
   updateBooking() {
-    let booking = new Booking();
-    booking.lastName = this.updateBookingForm.value.lastName;
-    booking.firstName = this.updateBookingForm.value.firstName;
-    booking.entertainmenttype = this.updateBookingForm.value.entertainmenttype;
-    booking.email = this.updateBookingForm.value.email;
-    booking.contactNumber = this.updateBookingForm.value.contactNumber;
-    booking.demo = this.updateBookingForm.value.demo;
-    booking.eventname = this.updateBookingForm.value.eventname;
-    booking.instagram = this.updateBookingForm.value.instagram;
-    booking.additional = this.updateBookingForm.value.additional;
-
-    this.bookingservice.EditBooking(this.editBooking.bookingId, booking).subscribe(
-        (response: any) => {
-            if (response.statusCode === 200) {
-                this.router.navigate(['./past-booking']);
-                window.location.reload();
-                this.showSuccessMessage('Booking Information updated successfully!');
-            } else {
-                // Handle error if needed
-            }
+    if (this.updateBookingForm.valid) {
+      this.submittingBooking = true; // Set the flag to show loader
+  
+      // ... existing code ...
+      if (this.updateBookingForm.valid) {
+            // ... your existing code to append form data to formData ...
+            this.formData.append('firstName', this.updateBookingForm.get('firstName')!.value);
+            this.formData.append('lastName', this.updateBookingForm.get('lastName')!.value);
+            this.formData.append('contactNumber', this.updateBookingForm.get('contactNumber')!.value);
+            this.formData.append('email', this.updateBookingForm.get('email')!.value);
+            //this.formData.append('Instagram', this.updateBookingForm.get('Instagram')!.value);
+            this.formData.append('entertainmenttype', this.updateBookingForm.get('entertainmenttype')!.value);
+            this.formData.append('eventname', this.updateBookingForm.get('eventname')!.value);
+            this.formData.append('additional', this.updateBookingForm.get('additional')!.value);
+  
+      this.bookingservice.EditBooking(this.editBooking.bookingId, this.formData).subscribe(
+        () => {
+          this.clearData();
+          this.successMessage = 'Booking updated successfully!';
+          this.submittingBooking = false; // Clear loader flag
+          setTimeout(() => {
+            this.successMessage = ''; // Clear success message after a delay
+            this.router.navigateByUrl('home');
+          }, 5000); // Display success message for 5 seconds
         },
         (error) => {
-            // Handle error if needed
+          console.error('Error submitting booking:', error);
+          this.submittingBooking = false; // Clear loader flag in case of error
         }
-    );
+      );
+    }
+  }
 }
+  
+clearData(){
+  this.formData.delete("demo");
+  this.formData.delete("firstName");
+  this.formData.delete("lastName");
+  this.formData.delete("contactNumber");
+  this.formData.delete("email");
+  this.formData.delete("Instagram");
+  this.formData.delete("entertainmenttype");
+  this.formData.delete("additional");
+  this.formData.delete("eventname");
+}
+
 
 
   showSuccessMessage(message: string): void {
