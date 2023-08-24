@@ -1,9 +1,9 @@
-﻿using Africanacity_Team24_INF370_.models.Admin;
+﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
 using System.ComponentModel.DataAnnotations;
 
 namespace Africanacity_Team24_INF370_.models.Booking
 {
-	public class Booking_Status
+    public class Booking_Status
 	{
 		[Key]
 		public int Booking_StatusId { get; set; }

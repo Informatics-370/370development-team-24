@@ -1,20 +1,16 @@
-﻿using Africanacity_Team24_INF370_.models.Admin;
+﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
 using System.ComponentModel.DataAnnotations;
 
 namespace Africanacity_Team24_INF370_.models.Booking
 {
-	public class Entertainment_Type
+    public class Entertainment_Type : BaseBookingEntity
 	{
 		[Key]
 		public int Entertainment_TypeId { get; set; }
 
-		[MaxLength(50)]
-		public string Name { get; set; } = string.Empty;
-
-		[MaxLength(100)]
-		public string Description { get; set; } = string.Empty;
-
-		public List<Entertainer> Entertainers { get; set; } = new List<Entertainer>();
-
+		public virtual ICollection<Pending_Booking> Pending_Bookings { get; set; }
+		public virtual ICollection<User> Users { get; set; }
 	}
+
 }
+

@@ -1,0 +1,16 @@
+.heading{
+    /* background-color: darkmagenta;
+    height: 50px; */
+    text-align: center;
+    padding-top: 7px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bolder;
+}
+.addButton {
+    margin: 5px 10px; 
+    border-radius: 12px;
+    border-color: purple;
+    background-color: rgb(231, 212, 236);
+    width: fit-content;
+  }
+  

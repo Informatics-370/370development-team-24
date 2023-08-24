@@ -1,9 +1,9 @@
-﻿using Africanacity_Team24_INF370_.models.Admin;
+﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
 using System.ComponentModel.DataAnnotations;
 
 namespace Africanacity_Team24_INF370_.models.Restraurant
 {
-	public class Payment
+    public class Payment
 	{
 		[Key]
 		public int PaymentId { get; set; }

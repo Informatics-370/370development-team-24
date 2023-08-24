@@ -1,9 +1,9 @@
-﻿using Africanacity_Team24_INF370_.models.Admin;
+﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
 using System.ComponentModel.DataAnnotations;
 
 namespace Africanacity_Team24_INF370_.models.Restraurant
 {
-	public class Order_Status
+    public class Order_Status
 	{
 		[Key]
 		public int Order_StatusId { get; set; }

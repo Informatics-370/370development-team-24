@@ -1,0 +1,43 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <app-navbar></app-navbar>
+        </div>
+    <div class="col-md-10 order-md-1">
+        
+<h3 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-weight: bolder; font-size: 50px;">Employee Roles</h3>
+<div class="input-group">
+<input type="text" class="form-control" (input)="applyFilter($event)" placeholder="Search">
+<button class="btn">
+    <i class="fa fa-search" aria-hidden="true"></i>
+  </button>
+  <div class="addButton">
+  <button style="margin-left: 1em;" type="button" class="btn btn-sm btn-success" [routerLink]="['/add-employee-role', employeeroles]">Create</button>
+  </div>
+</div>
+
+
+<table class="table table-striped table-hover outlined-table table-container"> 
+    <thead class="tableColor"> 
+        <tr> 
+            <th scope="col">Employee Role ID</th> 
+            <th scope="col">Employee Role</th> 
+            <th scope="col">Description</th>
+            <th scope="col"></th>
+            </tr> 
+    </thead> 
+    <tbody> 
+        <tr *ngFor="let EmployeeRole of employeeroles"> 
+            <td>{{EmployeeRole.employee_RoleId}}</td> 
+            <td>{{EmployeeRole.name}}</td> 
+            <td>{{EmployeeRole.description}}</td> 
+
+                <td><i class="fa fa-pencil" [routerLink]="['/edit-employee-role',EmployeeRole.employee_RoleId]"  aria-hidden="true"></i></td>
+                <td><i class="fa fa-trash"  (click)="DeleteEmployeeRole(EmployeeRole.employee_RoleId)" aria-hidden="true"></i></td>
+            
+        </tr> 
+    </tbody> 
+</table>
+    </div>
+    </div>
+</div>

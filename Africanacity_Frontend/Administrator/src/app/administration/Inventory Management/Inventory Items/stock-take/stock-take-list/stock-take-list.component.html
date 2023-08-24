@@ -1,0 +1,43 @@
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-md-2">
+          <app-navbar></app-navbar>
+      </div>
+  <div class="col-md-10 order-md-1">
+  <h3 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px; font-weight: bolder;"> Stock Reconciliation</h3>
+
+  <div class="input-group">
+      <div class="search-bar">
+      <input type="text" class="form-control" (input)="applyFilter($event)" placeholder="Search Columns">
+      </div>
+    <div class="addButton">
+      <i class="fa fa-download fa-lg icon" aria-hidden="true" (click)="downloadPDF()"></i>
+  
+    </div> 
+  </div>
+  <label></label>
+
+  <table class="table table-striped table-hover table-container outlined-table">
+      <thead class="tableColor">
+
+              <th scope="col"></th>
+              <th scope="col"> Name</th>
+              <th scope="col">Inventory Qty</th>
+              <th scope="col">Stock Take Qty</th>
+              <th scope="col">Quantity Difference</th>
+
+      </thead>
+      <tbody>
+        <tr *ngFor="let reconItem of filteredreconItems">
+              <td>{{reconItem.stockTakeItemId}}</td>
+              <td>{{reconItem.inventoryItemName}}</td>
+              <td>{{reconItem.inventoryQuantity}}</td>
+              <td>{{reconItem.quantity}}</td>
+              <td>{{reconItem.quantityDifference}}</td>
+          </tr>
+      </tbody>
+  </table>
+  </div>
+  </div>
+
+

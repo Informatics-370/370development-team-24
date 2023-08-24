@@ -1,0 +1,14 @@
+
+ export class Employee{
+   employeeId! : number;
+   surname! : string;
+   firstName! : string;
+   email_Address! : string;
+   physical_Address! : string;
+   phoneNumber! : string;
+   employeeRole!: number;
+   employeeRoleName!: string;
+   gender!: number;
+   genderName!: string;
+   employment_Date!: Date;
+ }

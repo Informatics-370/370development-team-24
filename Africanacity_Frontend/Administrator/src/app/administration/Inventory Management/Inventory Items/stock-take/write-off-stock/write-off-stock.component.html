@@ -1,0 +1,31 @@
+<!-- <div class="discrepancy-alert">
+  <h2 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: bolder; color: red;">Discrepancy Alert!</h2>
+  <div class="discrepancy-item" *ngFor="let item of data.items">
+    <h4 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 20px; ">{{ item.inventory_ItemId }} - {{ item.itemName }}</h4>
+    <p style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 18px; ">{{ item.description }}</p>
+    <textarea  placeholder="Please Enter Valid Reason For Difference" [(ngModel)]="item.stockTakeQuantity"></textarea>
+
+    <div *ngIf="item.quantityDifference !== 0">
+      <p style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 18px; color: red;">
+        Quantity Difference: {{ item.quantityDifference }}
+      </p>
+    </div>
+  </div>
+  <button class="ok-button" (click)="onOkButtonClick()">OK</button>
+</div> -->
+<div class="discrepancy-alert">
+  <h2 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: bolder; color: red;">Discrepancy Alert!</h2>
+  <div class="discrepancy-item" *ngFor="let item of data.items">
+    <h4 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 20px; ">{{ item.inventory_ItemId }} - {{ item.itemName }}</h4>
+    <p style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 18px; ">{{ item.description }}</p>
+    <textarea *ngFor="let thing of updatedItems" placeholder="Please Enter Valid Reason For Difference" [(ngModel)]="thing.reason"></textarea>
+
+    <div *ngIf="item.quantityDifference !== 0">
+      <p style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 18px; color: red;">
+        Quantity Difference: {{ item.quantityDifference }}
+      </p>
+    </div>
+  </div>
+  <button class="ok-button" (click)="onOkButtonClick()">OK</button>
+</div>
+

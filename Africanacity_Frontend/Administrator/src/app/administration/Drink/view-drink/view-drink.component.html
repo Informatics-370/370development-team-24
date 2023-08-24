@@ -1,0 +1,61 @@
+<div class="container-fluid">
+    <!-- navbar -->
+    <div class="row">
+        <div class="col-md-2">
+            <app-navbar></app-navbar>
+        </div>
+    
+       <div class="col-md-10 order-md-1">
+            <!-- heading -->
+            <h3 class="heading">Drinks</h3>
+        
+            <div class="input-group">
+                <div class="search-bar">
+                    <!-- search bar-->
+                    <input type="text" class="form-control" (input)="applyFilter($event)" placeholder="Search Columns">
+                </div>
+         
+                <div class="addButton">
+                    <i type="button" class="fa fa-plus-circle fa-3x" [routerLink]="'/create-drink'"></i>
+                </div>
+            </div>
+ 
+            <!--table-->
+            <table mat-table [dataSource]="dataSource" matSort>
+  
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                  <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+
+            
+                <ng-container matColumnDef="drinkTypeName">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Drink Type </th>
+                  <td mat-cell *matCellDef="let element"> {{element.drinkTypeName}} </td>
+                </ng-container>
+            
+                <ng-container matColumnDef="delete">
+                  <th mat-header-cell *matHeaderCellDef></th>
+                  <td mat-cell *matCellDef="let element">
+                    <button mat-stroked-button color="warn" (click)="DeleteDrink(element.drinkId)">
+                      <mat-button>Delete</mat-button>
+                    </button>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="edit">
+                  <th mat-header-cell *matHeaderCellDef></th>
+                  <td mat-cell *matCellDef="let element">
+                    <button mat-stroked-button color="primary">
+                      <mat-button>Edit</mat-button>
+                    </button>
+                  </td>
+                </ng-container>
+            
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row class="mat-row" *matRowDef="let row; columns: displayedColumns;"></tr>
+            
+                
+              </table>
+       </div>
+    </div>
+</div>

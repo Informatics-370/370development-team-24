@@ -1,0 +1,52 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <app-navbar></app-navbar>
+        </div>
+
+        <div class="col-md-10 order-md-1">
+            <div class="row">
+                <!-- heading -->
+                <div>
+                    <h1 class="heading">Inventory Reconciliation Report</h1>
+                    <div class="addButton">
+                        <button style="width: 150px;">
+                            <i class="fa fa-download fa-lg icon" aria-hidden="true" (click)="downloadPDF()"> Download</i>                
+                        </button>
+                    </div>
+                    <canvas baseChart
+                    [datasets]="lineChartData"
+                    [labels]="lineChartLabels"
+                    [options]="lineChartOptions"
+                    [legend]="lineChartLegend"
+                    [type]="lineChartType"
+                    [plugins]="lineChartPlugins">
+                    </canvas>
+                </div>  
+            </div>
+
+            <div class="row">
+                <table class="table table-striped table-hover table-container outlined-table">
+                    <thead class="tableColor">
+            
+                        <th scope="col"></th>
+                        <th scope="col"> Name</th>
+                        <th scope="col">Inventory Qty</th>
+                        <th scope="col">Stock Take Qty</th>
+                        <th scope="col">Quantity Difference</th>
+            
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let items of reconItems">
+                            <td>{{items.stockTakeItemId}}</td>
+                            <td>{{items.inventoryItemName}}</td>
+                            <td>{{items.inventoryQuantity}}</td>
+                            <td>{{items.quantity}}</td>
+                            <td>{{items.quantityDifference}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

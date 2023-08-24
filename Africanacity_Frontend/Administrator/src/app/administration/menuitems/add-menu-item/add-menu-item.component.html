@@ -1,0 +1,128 @@
+<!-- <div class="container-fluid">
+  <div class="row">
+      <div class="col-md-2">
+          <app-navbar></app-navbar>
+      </div>
+<div class="login-wrapper" style="margin-left: 25%; margin-top: -70%;" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="box" >
+      <mat-card-header>
+        <h2>Add Menu Item</h2>
+      </mat-card-header><br>
+      <form class="form" [formGroup]="productForm" (submit)="onSubmit()" enctype="multipart/form-data">
+        <mat-card-content>
+          <mat-form-field class="full-width">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Enter the Menu Item Name" formControlName="name">
+          </mat-form-field><br>
+          <mat-form-field class="full-width">
+            <mat-label> Description</mat-label>
+            <textarea matInput formControlName="description"> </textarea>
+          </mat-form-field><br>
+          <mat-form-field>
+            <mat-label>Menu Type</mat-label>
+            <mat-select formControlName="menuType">
+                <mat-option *ngFor="let item of menuTypesData"  [value]="item.menu_TypeId">{{item.name}}</mat-option>
+            </mat-select>
+        </mat-form-field><br>
+        <mat-form-field>
+            <mat-label>Food Type</mat-label>
+            <mat-select formControlName="foodType" >
+                <mat-option *ngFor="let item of foodTypesData"  [value]="item.foodTypeId">{{item.name}}</mat-option>
+            </mat-select>
+        </mat-form-field><br>
+        <mat-form-field>
+            <mat-label>Menu Category</mat-label>
+            <mat-select formControlName="menuCategory" >
+                <mat-option *ngFor="let item of menuItemCategoryData"  [value]="item.menu_CategoryId">{{item.name}}</mat-option>
+            </mat-select>
+        </mat-form-field><br>
+        <mat-form-field class="full-width">
+          <mat-label>Amount</mat-label>
+          <input matInput placeholder="Enter the Amount" formControlName="amount" type="number">
+        </mat-form-field><br>
+        </mat-card-content>
+        <button mat-stroked-button color="primary" class="btn-block" >Submit</button>
+        
+      </form>
+    </mat-card>
+  </div>
+</div>
+</div> -->
+
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <app-navbar></app-navbar>
+    </div>
+    <div class="col-md-10 order-md-2">
+      <h4 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px;">Add Menu Item</h4>
+      <hr>
+      <div class="container">
+        <div class="row">
+          <form  [formGroup]="productForm" (submit)="onSubmit()" enctype="multipart/form-data" >
+
+            <div class="form-group">
+              <label class="col-md-1" style="font-weight: bold;" for="name">Name:</label>
+              <div class="col-md-6">
+                <input class="form-control" placeholder="Enter Menu Item Name" [required]="true" name="name"
+                  formControlName="name">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-1" style="font-weight: bold;" for="description">Name:</label>
+              <div class="col-md-6">
+                <textarea class="form-control" placeholder="Enter Menu Item description" [required]="true" name="description"
+                  formControlName="description"></textarea>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-1" style="font-weight: bold;" for="menuType">Menu Type</label>
+              <div class="col-md-6">
+                <select class="form-control" id="menuType" formControlName="menuType">
+                  <option *ngFor="let item of menuTypesData"  [value]="item.menu_TypeId">{{ item.name }}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-1" style="font-weight: bold;" for="foodType">Food Type</label>
+              <div class="col-md-6">
+                <select class="form-control" id="foodType" formControlName="foodType">
+                  <option *ngFor="let item of foodTypesData"  [value]="item.foodTypeId">{{ item.name }}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-1" style="font-weight: bold;" for="menuCategory">Menu Category</label>
+              <div class="col-md-6">
+                <select class="form-control" id="menuCategory" formControlName="menuCategory">
+                  <option *ngFor="let item of menuItemCategoryData"  [value]="item.menu_CategoryId">{{ item.name }}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-1" style="font-weight: bold;" for="amount">Price:</label>
+              <div class="col-md-6">
+                <input class="form-control" placeholder="Enter Menu Item Price" required name="amount" formControlName="amount">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <div class="col-sm-offset-1 col-sm-6">
+                <button style="margin-right:1em;" type="submit" [disabled]="!productForm.valid"
+                  class="btn btn-sm btn-success">Submit</button>
+                <!-- <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button> -->
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

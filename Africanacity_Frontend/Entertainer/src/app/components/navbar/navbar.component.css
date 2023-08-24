@@ -1,0 +1,58 @@
+.side-navbar {
+  background-color: black;
+  color: white;
+  height: 100%;
+  width: 240px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.side-navbar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.side-navbar .nav-item {
+  margin-bottom: 10px;
+}
+
+.side-navbar .nav-link {
+  display: block;
+  padding: 10px;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.side-navbar .nav-link:hover {
+  background-color: #555;
+}
+
+.side-navbar .dropdown-menu {
+  display: none;
+  background-color: black;
+}
+
+.side-navbar .dropdown-menu li {
+  padding-left: 20px;
+  color: white;
+}
+
+.side-navbar .nav-item:hover .dropdown-menu {
+  display: block;
+  position: absolute;
+  background-color: #555;
+  top: 100%;
+  left: 0;
+}
+
+/* Add this CSS to your existing styles */
+.side-navbar .white-link {
+  color: white;
+}

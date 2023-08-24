@@ -22,7 +22,432 @@ namespace Africanacity_Team24_INF370_.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Admin.Help", b =>
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Access", b =>
+                {
+                    b.Property<int>("AccessId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AccessId"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("AccessId");
+
+                    b.ToTable("Accesses");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Access_UserRole", b =>
+                {
+                    b.Property<int>("AccessesAccessId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("User_RolesUser_RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AccessesAccessId", "User_RolesUser_RoleId");
+
+                    b.HasIndex("User_RolesUser_RoleId");
+
+                    b.ToTable("Access_UserRoles");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.AdminInfor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ContactNumber")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhysicalAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RefreshTokenExpiryTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ResetPasswordToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ResetPasswordTokenExpiry")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Admins");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Administrator", b =>
+                {
+                    b.Property<int>("AdministratorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdministratorId"), 1L, 1);
+
+                    b.Property<string>("Email_Address")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Physical_Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("AdministratorId");
+
+                    b.ToTable("Administrators");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Discount", b =>
+                {
+                    b.Property<int>("DiscountId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DiscountId"), 1L, 1);
+
+                    b.Property<int?>("AdministratorId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("End_Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("Start_Date")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("DiscountId");
+
+                    b.HasIndex("AdministratorId");
+
+                    b.ToTable("Discounts");
+
+                    b.HasData(
+                        new
+                        {
+                            DiscountId = 1,
+                            Amount = 0.10m,
+                            Description = "10% Discount",
+                            End_Date = new DateTime(2023, 8, 28, 19, 5, 29, 180, DateTimeKind.Local).AddTicks(5207),
+                            Name = "Month end discount",
+                            Start_Date = new DateTime(2023, 8, 18, 19, 5, 29, 180, DateTimeKind.Local).AddTicks(5206)
+                        });
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Employee", b =>
+                {
+                    b.Property<int>("EmployeeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeId"), 1L, 1);
+
+                    b.Property<string>("Email_Address")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("Employee_RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Employment_Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("GenderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Physical_Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("EmployeeId");
+
+                    b.HasIndex("Employee_RoleId");
+
+                    b.HasIndex("GenderId");
+
+                    b.ToTable("Employees");
+
+                    b.HasData(
+                        new
+                        {
+                            EmployeeId = 1,
+                            Email_Address = "VanessaJames@gmail.com",
+                            Employee_RoleId = 1,
+                            Employment_Date = new DateTime(2023, 8, 18, 19, 5, 29, 180, DateTimeKind.Local).AddTicks(4272),
+                            FirstName = "Vanessa",
+                            GenderId = 2,
+                            PhoneNumber = "0847541236",
+                            Physical_Address = "404 Jacob Street",
+                            Surname = "James"
+                        },
+                        new
+                        {
+                            EmployeeId = 2,
+                            Email_Address = "SerenaWilliams@gmail.com",
+                            Employee_RoleId = 2,
+                            Employment_Date = new DateTime(2023, 8, 18, 19, 5, 29, 180, DateTimeKind.Local).AddTicks(4292),
+                            FirstName = "Serena",
+                            GenderId = 2,
+                            PhoneNumber = "0842341236",
+                            Physical_Address = "132 Harriet Street",
+                            Surname = "Williams"
+                        },
+                        new
+                        {
+                            EmployeeId = 3,
+                            Email_Address = "EdrisElba@gmail.com",
+                            Employee_RoleId = 1,
+                            Employment_Date = new DateTime(2023, 8, 18, 19, 5, 29, 180, DateTimeKind.Local).AddTicks(4300),
+                            FirstName = "Edris",
+                            GenderId = 1,
+                            PhoneNumber = "0212378798",
+                            Physical_Address = "245 homelyn Street",
+                            Surname = "Elba"
+                        },
+                        new
+                        {
+                            EmployeeId = 4,
+                            Email_Address = "NyongoLupita@gmail.com",
+                            Employee_RoleId = 2,
+                            Employment_Date = new DateTime(2023, 8, 18, 19, 5, 29, 180, DateTimeKind.Local).AddTicks(4308),
+                            FirstName = "Lupita",
+                            GenderId = 2,
+                            PhoneNumber = "0455783475",
+                            Physical_Address = "254 Summer Street",
+                            Surname = "Nyongo"
+                        },
+                        new
+                        {
+                            EmployeeId = 5,
+                            Email_Address = "MicheaJackson@gmail.com",
+                            Employee_RoleId = 2,
+                            Employment_Date = new DateTime(2023, 8, 18, 19, 5, 29, 180, DateTimeKind.Local).AddTicks(4316),
+                            FirstName = "Micheal",
+                            GenderId = 3,
+                            PhoneNumber = "0874567836",
+                            Physical_Address = "567 Winter Street",
+                            Surname = "Jackson"
+                        },
+                        new
+                        {
+                            EmployeeId = 6,
+                            Email_Address = "TaehyungKim@gmial.com",
+                            Employee_RoleId = 1,
+                            Employment_Date = new DateTime(2023, 8, 18, 19, 5, 29, 180, DateTimeKind.Local).AddTicks(4325),
+                            FirstName = "Taehyung",
+                            GenderId = 1,
+                            PhoneNumber = "0874562134",
+                            Physical_Address = "345 Shallow  Street",
+                            Surname = "Kim"
+                        },
+                        new
+                        {
+                            EmployeeId = 7,
+                            Email_Address = "ZendayaColeman@gmail.com",
+                            Employee_RoleId = 1,
+                            Employment_Date = new DateTime(2023, 8, 18, 19, 5, 29, 180, DateTimeKind.Local).AddTicks(4333),
+                            FirstName = "Zendaya",
+                            GenderId = 2,
+                            PhoneNumber = "0212378798",
+                            Physical_Address = "243 Super Street ",
+                            Surname = "Coleman"
+                        },
+                        new
+                        {
+                            EmployeeId = 8,
+                            Email_Address = "RogerFederal@gmail.com",
+                            Employee_RoleId = 1,
+                            Employment_Date = new DateTime(2023, 8, 18, 19, 5, 29, 180, DateTimeKind.Local).AddTicks(4349),
+                            FirstName = "Roger",
+                            GenderId = 3,
+                            PhoneNumber = "0612346487",
+                            Physical_Address = "987 Wall Street",
+                            Surname = "Federal"
+                        },
+                        new
+                        {
+                            EmployeeId = 9,
+                            Email_Address = "JenniferLOpez@gmail.com",
+                            Employee_RoleId = 2,
+                            Employment_Date = new DateTime(2023, 8, 18, 19, 5, 29, 180, DateTimeKind.Local).AddTicks(4356),
+                            FirstName = "Jennifer",
+                            GenderId = 3,
+                            PhoneNumber = "0874834576",
+                            Physical_Address = "967 Ballard Street",
+                            Surname = "Lopez"
+                        },
+                        new
+                        {
+                            EmployeeId = 10,
+                            Email_Address = "ChadwickBoseman@gmail.com",
+                            Employee_RoleId = 2,
+                            Employment_Date = new DateTime(2023, 8, 18, 19, 5, 29, 180, DateTimeKind.Local).AddTicks(4365),
+                            FirstName = "Chadwick",
+                            GenderId = 1,
+                            PhoneNumber = "0923456789",
+                            Physical_Address = "483 Alien Street",
+                            Surname = "Boseman"
+                        });
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Employee_Role", b =>
+                {
+                    b.Property<int>("Employee_RoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Employee_RoleId"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Employee_RoleId");
+
+                    b.ToTable("Employee_Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Employee_RoleId = 1,
+                            Description = "The waiter serves the customers and takes orders",
+                            Name = "Waiter"
+                        },
+                        new
+                        {
+                            Employee_RoleId = 2,
+                            Description = "The chef prepares the meals and notifies the waiter of ready orders.",
+                            Name = "Chef"
+                        },
+                        new
+                        {
+                            Employee_RoleId = 3,
+                            Description = "The kitchen staff assists the chef prepare meals.",
+                            Name = "Kitchen Staff"
+                        });
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Gender", b =>
+                {
+                    b.Property<int>("GenderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GenderId"), 1L, 1);
+
+                    b.Property<int?>("GenderId1")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("GenderId");
+
+                    b.HasIndex("GenderId1");
+
+                    b.ToTable("Genders");
+
+                    b.HasData(
+                        new
+                        {
+                            GenderId = 1,
+                            Name = "Male"
+                        },
+                        new
+                        {
+                            GenderId = 2,
+                            Name = "Female"
+                        },
+                        new
+                        {
+                            GenderId = 3,
+                            Name = "Other"
+                        });
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Help", b =>
                 {
                     b.Property<int>("HelpId")
                         .ValueGeneratedOnAdd()
@@ -75,341 +500,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Admin.Title", b =>
-                {
-                    b.Property<int>("TitleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TitleId"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("TitleId");
-
-                    b.ToTable("Titles");
-                });
-
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Admin.User", b =>
-                {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"), 1L, 1);
-
-                    b.Property<int?>("TitleId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("User_RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.HasKey("UserId");
-
-                    b.HasIndex("TitleId");
-
-                    b.HasIndex("User_RoleId");
-
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Access", b =>
-                {
-                    b.Property<int>("AccessId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AccessId"), 1L, 1);
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("AccessId");
-
-                    b.ToTable("Accesses");
-                });
-
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Access_UserRole", b =>
-                {
-                    b.Property<int>("AccessesAccessId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("User_RolesUser_RoleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AccessesAccessId", "User_RolesUser_RoleId");
-
-                    b.HasIndex("User_RolesUser_RoleId");
-
-                    b.ToTable("Access_UserRoles");
-                });
-
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Administrator", b =>
-                {
-                    b.Property<int>("AdministratorId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdministratorId"), 1L, 1);
-
-                    b.Property<string>("Email_Address")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("Physical_Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AdministratorId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Administrators");
-                });
-
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Discount", b =>
-                {
-                    b.Property<int>("DiscountId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DiscountId"), 1L, 1);
-
-                    b.Property<int?>("AdministratorId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("End_Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<DateTime>("Start_Date")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("DiscountId");
-
-                    b.HasIndex("AdministratorId");
-
-                    b.ToTable("Discounts");
-                });
-
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Employee", b =>
-                {
-                    b.Property<int>("EmployeeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeId"), 1L, 1);
-
-                    b.Property<string>("Email_Address")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int?>("Employee_RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("Physical_Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("EmployeeId");
-
-                    b.HasIndex("Employee_RoleId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Employees");
-
-                    b.HasData(
-                        new
-                        {
-                            EmployeeId = 1,
-                            Email_Address = "VanessaJames@gmail.com",
-                            FirstName = "Vanessa",
-                            PhoneNumber = "0847541236",
-                            Physical_Address = "404 Jacob Street",
-                            Surname = "James"
-                        },
-                        new
-                        {
-                            EmployeeId = 2,
-                            Email_Address = "SerenaWilliams@gmail.com",
-                            FirstName = "Serena",
-                            PhoneNumber = "0842341236",
-                            Physical_Address = "132 Harriet Street",
-                            Surname = "Williams"
-                        },
-                        new
-                        {
-                            EmployeeId = 3,
-                            Email_Address = "EdrisElba@gmail.com",
-                            FirstName = "Edris",
-                            PhoneNumber = "0212378798",
-                            Physical_Address = "245 homelyn Street",
-                            Surname = "Elba"
-                        },
-                        new
-                        {
-                            EmployeeId = 4,
-                            Email_Address = "NyongoLupita@gmail.com",
-                            FirstName = "Lupita",
-                            PhoneNumber = "0455783475",
-                            Physical_Address = "254 Summer Street",
-                            Surname = "Nyongo"
-                        },
-                        new
-                        {
-                            EmployeeId = 5,
-                            Email_Address = "MicheaJackson@gmail.com",
-                            FirstName = "Micheal",
-                            PhoneNumber = "0874567836",
-                            Physical_Address = "567 Winter Street",
-                            Surname = "Jackson"
-                        },
-                        new
-                        {
-                            EmployeeId = 6,
-                            Email_Address = "TaehyungKim@gmial.com",
-                            FirstName = "Taehyung",
-                            PhoneNumber = "0874562134",
-                            Physical_Address = "345 Shallow  Street",
-                            Surname = "Kim"
-                        },
-                        new
-                        {
-                            EmployeeId = 7,
-                            Email_Address = "ZendayaColeman@gmail.com",
-                            FirstName = "Zendaya",
-                            PhoneNumber = "0212378798",
-                            Physical_Address = "243 Super Street ",
-                            Surname = "Coleman"
-                        },
-                        new
-                        {
-                            EmployeeId = 8,
-                            Email_Address = "RogerFederal@gmail.com",
-                            FirstName = "Roger",
-                            PhoneNumber = "0612346487",
-                            Physical_Address = "987 Wall Street",
-                            Surname = "Federal"
-                        },
-                        new
-                        {
-                            EmployeeId = 9,
-                            Email_Address = "JenniferLOpez@gmail.com",
-                            FirstName = "Jennifer",
-                            PhoneNumber = "0874834576",
-                            Physical_Address = "967 Ballard Street",
-                            Surname = "Lopez"
-                        },
-                        new
-                        {
-                            EmployeeId = 10,
-                            Email_Address = "ChadwickBoseman@gmail.com",
-                            FirstName = "Chadwick",
-                            PhoneNumber = "0923456789",
-                            Physical_Address = "483 Alien Street",
-                            Surname = "Boseman"
-                        });
-                });
-
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Employee_Role", b =>
-                {
-                    b.Property<int>("Employee_RoleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Employee_RoleId"), 1L, 1);
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Employee_RoleId");
-
-                    b.ToTable("Employee_Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            Employee_RoleId = 1,
-                            Description = "The waiter serves the customers and takes orders",
-                            Name = "Waiter"
-                        },
-                        new
-                        {
-                            Employee_RoleId = 2,
-                            Description = "The chef prepares the meals and notifies the waiter of ready orders.",
-                            Name = "Chef"
-                        });
-                });
-
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Help_Category", b =>
                 {
                     b.Property<int>("Help_CategoryId")
@@ -446,14 +536,27 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("PasswordId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Passwords");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Title", b =>
+                {
+                    b.Property<int>("TitleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TitleId"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("TitleId");
+
+                    b.ToTable("Titles");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.User_Role", b =>
@@ -498,6 +601,20 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasKey("VatId");
 
                     b.ToTable("Vats");
+
+                    b.HasData(
+                        new
+                        {
+                            VatId = 1,
+                            Amount = 0.10m,
+                            Description = "10% VAT on total"
+                        },
+                        new
+                        {
+                            VatId = 2,
+                            Amount = 0.15m,
+                            Description = "15% VAT on total"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Booking_Status", b =>
@@ -526,16 +643,43 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingId"), 1L, 1);
 
+                    b.Property<string>("Additional")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("Booking_StatusId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ContactNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Demo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("EntertainerId")
                         .HasColumnType("int");
+
+                    b.Property<int>("Entertainment_TypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Eventname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Instagram")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("BookingId");
 
@@ -543,7 +687,9 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     b.HasIndex("EntertainerId");
 
-                    b.ToTable("Bookings");
+                    b.HasIndex("Entertainment_TypeId");
+
+                    b.ToTable("bookings");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Entertainer", b =>
@@ -576,42 +722,33 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("EntertainerId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Entertainers");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Entertainer_EntertainmentType", b =>
                 {
-                    b.Property<int>("EntertainersEntertainerId")
+                    b.Property<int>("Entertainer_EntertainmentTypeId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("Entertainment_TypesEntertainment_TypeId")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Entertainer_EntertainmentTypeId"), 1L, 1);
 
-                    b.HasKey("EntertainersEntertainerId", "Entertainment_TypesEntertainment_TypeId");
-
-                    b.HasIndex("Entertainment_TypesEntertainment_TypeId");
+                    b.HasKey("Entertainer_EntertainmentTypeId");
 
                     b.ToTable("Entertainer_Entertainments");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Entertainer_Schedule", b =>
                 {
-                    b.Property<int>("EntertainersEntertainerId")
+                    b.Property<int>("Entertainer_ScheduleId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("SchedulesScheduleId")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Entertainer_ScheduleId"), 1L, 1);
 
-                    b.HasKey("EntertainersEntertainerId", "SchedulesScheduleId");
-
-                    b.HasIndex("SchedulesScheduleId");
+                    b.HasKey("Entertainer_ScheduleId");
 
                     b.ToTable("Entertainer_Schedules");
                 });
@@ -626,17 +763,47 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("EntertainerId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Entertainment_TypeId");
 
+                    b.HasIndex("EntertainerId");
+
                     b.ToTable("Entertainment_Type");
+
+                    b.HasData(
+                        new
+                        {
+                            Entertainment_TypeId = 1,
+                            Description = "Poetry recitations",
+                            Name = "Poetry"
+                        },
+                        new
+                        {
+                            Entertainment_TypeId = 2,
+                            Description = "One-liners for a comedic performance",
+                            Name = "StandUp Comedy"
+                        },
+                        new
+                        {
+                            Entertainment_TypeId = 3,
+                            Description = "Present dance as an art form, ballet, amapiano styles, hipHop dancers",
+                            Name = "Dance"
+                        },
+                        new
+                        {
+                            Entertainment_TypeId = 4,
+                            Description = "Artits who perform own music. All types of music",
+                            Name = "Music"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Event", b =>
@@ -650,16 +817,97 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<int?>("AdministratorId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("EventId");
 
                     b.HasIndex("AdministratorId");
 
                     b.ToTable("Events");
+
+                    b.HasData(
+                        new
+                        {
+                            EventId = 1,
+                            Description = "An event filled with spectacular music performances and art display ",
+                            Name = "Smooth Sunday"
+                        },
+                        new
+                        {
+                            EventId = 2,
+                            Description = "An event where various forms of entertainments take place",
+                            Name = "Wacky Wednesday"
+                        },
+                        new
+                        {
+                            EventId = 3,
+                            Description = " poets are invited to recite poems and another kind of artistry ",
+                            Name = "Poetry Musings"
+                        });
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Pending_Booking", b =>
+                {
+                    b.Property<int>("Pending_BookingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Pending_BookingId"), 1L, 1);
+
+                    b.Property<string>("Additional")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContactNumber")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Demo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Entertainment_TypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EventId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Eventname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Instagram")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Pending_BookingId");
+
+                    b.HasIndex("Entertainment_TypeId");
+
+                    b.HasIndex("EventId");
+
+                    b.ToTable("Pending_Bookings");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Schedule", b =>
@@ -676,22 +924,69 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("End_Time")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("End_Time")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EventId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("Schedule_StatusId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Start_Time")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Start_Time")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ScheduleId");
 
                     b.HasIndex("AdministratorId");
 
+                    b.HasIndex("EventId");
+
                     b.HasIndex("Schedule_StatusId");
 
                     b.ToTable("Schedules");
+
+                    b.HasData(
+                        new
+                        {
+                            ScheduleId = 1,
+                            Date = new DateTime(2023, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Musician can book performance",
+                            End_Time = "14:30 PM",
+                            EventId = 1,
+                            Start_Time = "14;00 PM",
+                            Title = "Music slot"
+                        },
+                        new
+                        {
+                            ScheduleId = 2,
+                            Date = new DateTime(2023, 8, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Contemporary Dance performance",
+                            End_Time = "21:30 PM",
+                            EventId = 2,
+                            Start_Time = "21;00 PM",
+                            Title = "Dance slot "
+                        },
+                        new
+                        {
+                            ScheduleId = 3,
+                            Date = new DateTime(2023, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Poet recital",
+                            End_Time = "19:15 PM",
+                            EventId = 3,
+                            Start_Time = "19;00 PM",
+                            Title = "Poetry"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Schedule_Status", b =>
@@ -712,6 +1007,42 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.ToTable("Schedule_Statuses");
                 });
 
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.DiscrepencyItem", b =>
+                {
+                    b.Property<int>("DiscrepId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DiscrepId"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Inventory_ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ItemName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("QuantityDifference")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("WriteOffStockWriteOffId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DiscrepId");
+
+                    b.HasIndex("WriteOffStockWriteOffId");
+
+                    b.ToTable("DiscrepencyItems");
+                });
+
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Inventory_Item", b =>
                 {
                     b.Property<int>("Inventory_ItemId")
@@ -728,13 +1059,16 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int?>("Inventory_TypeId")
+                    b.Property<int>("Inventory_TypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("ItemName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.HasKey("Inventory_ItemId");
 
@@ -743,6 +1077,184 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasIndex("Inventory_TypeId");
 
                     b.ToTable("Inventory_Items");
+
+                    b.HasData(
+                        new
+                        {
+                            Inventory_ItemId = 1,
+                            Description = "Freshly produced",
+                            Inventory_TypeId = 1,
+                            ItemName = "Lettuce",
+                            Quantity = 2
+                        },
+                        new
+                        {
+                            Inventory_ItemId = 2,
+                            Description = "Used for all chicken dishes",
+                            Inventory_TypeId = 1,
+                            ItemName = "Chicken",
+                            Quantity = 6
+                        },
+                        new
+                        {
+                            Inventory_ItemId = 3,
+                            Description = "Needs to be cooked well",
+                            Inventory_TypeId = 1,
+                            ItemName = "Mogodu",
+                            Quantity = 5
+                        },
+                        new
+                        {
+                            Inventory_ItemId = 4,
+                            Description = "Served in all drinks with the gin recipie",
+                            Inventory_TypeId = 3,
+                            ItemName = "Gin",
+                            Quantity = 15
+                        },
+                        new
+                        {
+                            Inventory_ItemId = 5,
+                            Description = "To Quench your Thirst",
+                            Inventory_TypeId = 2,
+                            ItemName = "Coke",
+                            Quantity = 24
+                        },
+                        new
+                        {
+                            Inventory_ItemId = 6,
+                            Description = "For those who like no taste",
+                            Inventory_TypeId = 2,
+                            ItemName = "Sarkling Water",
+                            Quantity = 30
+                        },
+                        new
+                        {
+                            Inventory_ItemId = 7,
+                            Description = "Many different types served",
+                            Inventory_TypeId = 3,
+                            ItemName = "Beer",
+                            Quantity = 12
+                        },
+                        new
+                        {
+                            Inventory_ItemId = 8,
+                            Description = "One of the starches served with each dish",
+                            Inventory_TypeId = 1,
+                            ItemName = "Rice",
+                            Quantity = 4
+                        },
+                        new
+                        {
+                            Inventory_ItemId = 9,
+                            Description = "One of the starches served with each dish",
+                            Inventory_TypeId = 1,
+                            ItemName = "Maize Meal",
+                            Quantity = 3
+                        },
+                        new
+                        {
+                            Inventory_ItemId = 10,
+                            Description = "For those who do not like fizz",
+                            Inventory_TypeId = 2,
+                            ItemName = "Apple Juice",
+                            Quantity = 24
+                        });
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Inventory_Price", b =>
+                {
+                    b.Property<int>("InventoryPrice_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InventoryPrice_Id"), 1L, 1);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Inventory_ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("InventoryPrice_Id");
+
+                    b.HasIndex("Inventory_ItemId");
+
+                    b.ToTable("Inventory_Prices");
+
+                    b.HasData(
+                        new
+                        {
+                            InventoryPrice_Id = 1,
+                            Date = new DateTime(2023, 8, 18, 19, 5, 29, 180, DateTimeKind.Local).AddTicks(5329),
+                            Inventory_ItemId = 1,
+                            Price = 25m
+                        },
+                        new
+                        {
+                            InventoryPrice_Id = 2,
+                            Date = new DateTime(2023, 8, 18, 19, 5, 29, 180, DateTimeKind.Local).AddTicks(5340),
+                            Inventory_ItemId = 2,
+                            Price = 250m
+                        },
+                        new
+                        {
+                            InventoryPrice_Id = 3,
+                            Date = new DateTime(2023, 8, 18, 19, 5, 29, 180, DateTimeKind.Local).AddTicks(5349),
+                            Inventory_ItemId = 3,
+                            Price = 200m
+                        },
+                        new
+                        {
+                            InventoryPrice_Id = 4,
+                            Date = new DateTime(2023, 8, 18, 19, 5, 29, 180, DateTimeKind.Local).AddTicks(5356),
+                            Inventory_ItemId = 4,
+                            Price = 38m
+                        },
+                        new
+                        {
+                            InventoryPrice_Id = 5,
+                            Date = new DateTime(2023, 8, 18, 19, 5, 29, 180, DateTimeKind.Local).AddTicks(5364),
+                            Inventory_ItemId = 5,
+                            Price = 45m
+                        },
+                        new
+                        {
+                            InventoryPrice_Id = 6,
+                            Date = new DateTime(2023, 8, 18, 19, 5, 29, 180, DateTimeKind.Local).AddTicks(5372),
+                            Inventory_ItemId = 6,
+                            Price = 75m
+                        },
+                        new
+                        {
+                            InventoryPrice_Id = 7,
+                            Date = new DateTime(2023, 8, 18, 19, 5, 29, 180, DateTimeKind.Local).AddTicks(5379),
+                            Inventory_ItemId = 7,
+                            Price = 100m
+                        },
+                        new
+                        {
+                            InventoryPrice_Id = 8,
+                            Date = new DateTime(2023, 8, 18, 19, 5, 29, 180, DateTimeKind.Local).AddTicks(5386),
+                            Inventory_ItemId = 8,
+                            Price = 40m
+                        },
+                        new
+                        {
+                            InventoryPrice_Id = 9,
+                            Date = new DateTime(2023, 8, 18, 19, 5, 29, 180, DateTimeKind.Local).AddTicks(5394),
+                            Inventory_ItemId = 9,
+                            Price = 28m
+                        },
+                        new
+                        {
+                            InventoryPrice_Id = 10,
+                            Date = new DateTime(2023, 8, 18, 19, 5, 29, 180, DateTimeKind.Local).AddTicks(5403),
+                            Inventory_ItemId = 10,
+                            Price = 35m
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Inventory_Type", b =>
@@ -755,17 +1267,90 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Inventory_TypeId");
 
                     b.ToTable("Inventory_Types");
+
+                    b.HasData(
+                        new
+                        {
+                            Inventory_TypeId = 1,
+                            Description = "For all food inventory items",
+                            Name = "Food"
+                        },
+                        new
+                        {
+                            Inventory_TypeId = 2,
+                            Description = "For all Non-Alcoholic Drink inventory items",
+                            Name = "Non-Alcoholic Drinks"
+                        },
+                        new
+                        {
+                            Inventory_TypeId = 3,
+                            Description = "For all Alcoholic Drink inventory items",
+                            Name = "Alcoholic Drinks"
+                        });
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.StockTake", b =>
+                {
+                    b.Property<int>("StockTake_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StockTake_Id"), 1L, 1);
+
+                    b.Property<int?>("Inventory_ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StockTake_Date")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("StockTake_Id");
+
+                    b.HasIndex("Inventory_ItemId");
+
+                    b.ToTable("StockTakes");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.StockTakeItem", b =>
+                {
+                    b.Property<int>("StockTakeItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StockTakeItemId"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Inventory_ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StockTake_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StockTake_Id1")
+                        .HasColumnType("int");
+
+                    b.HasKey("StockTakeItemId");
+
+                    b.HasIndex("Inventory_ItemId");
+
+                    b.HasIndex("StockTake_Id1");
+
+                    b.ToTable("StockTakeItems");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier", b =>
@@ -779,15 +1364,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<int?>("AdministratorId")
                         .HasColumnType("int");
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email_Address")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -799,21 +1376,13 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<string>("Physical_Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PostalCode")
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)");
-
-                    b.Property<string>("State")
-                        .HasMaxLength(2)
-                        .HasColumnType("nvarchar(2)");
-
-                    b.Property<int?>("Supplier_TypeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Surname")
+                    b.Property<string>("SupplierName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("Supplier_TypeId")
+                        .HasColumnType("int");
 
                     b.HasKey("SupplierId");
 
@@ -822,6 +1391,88 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasIndex("Supplier_TypeId");
 
                     b.ToTable("Suppliers");
+
+                    b.HasData(
+                        new
+                        {
+                            SupplierId = 1,
+                            Email_Address = "checkers@gmail.com",
+                            PhoneNumber = "0122345654",
+                            Physical_Address = "416 Kirkness St, Arcadia",
+                            SupplierName = "Checkers",
+                            Supplier_TypeId = 3
+                        },
+                        new
+                        {
+                            SupplierId = 2,
+                            Email_Address = "pnp@gmail.com",
+                            PhoneNumber = "0110456543",
+                            Physical_Address = "Hatfield Plaza 1122 Burnett Street",
+                            SupplierName = "Pick `n Pay",
+                            Supplier_TypeId = 3
+                        },
+                        new
+                        {
+                            SupplierId = 3,
+                            Email_Address = "liquorRack@gmail.com",
+                            PhoneNumber = "0656781230",
+                            Physical_Address = "Hatfield Plaza 1145 Burnett Street",
+                            SupplierName = "Liquor Rack",
+                            Supplier_TypeId = 1
+                        },
+                        new
+                        {
+                            SupplierId = 4,
+                            Email_Address = "bakerMan@gmail.com",
+                            PhoneNumber = "0714567890",
+                            Physical_Address = "HillCrest Boulevard 110 Lynnwood",
+                            SupplierName = "BakerMan",
+                            Supplier_TypeId = 4
+                        },
+                        new
+                        {
+                            SupplierId = 5,
+                            Email_Address = "MJButcher@gmail.com",
+                            PhoneNumber = "0865045674",
+                            Physical_Address = "143 Atterbury Street",
+                            SupplierName = "Mr Jacks Butcher",
+                            Supplier_TypeId = 2
+                        });
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier_Inventory", b =>
+                {
+                    b.Property<int>("SupplierItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SupplierItemId"), 1L, 1);
+
+                    b.Property<int>("Inventory_ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Ordered_Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SupplierId")
+                        .HasColumnType("int");
+
+                    b.HasKey("SupplierItemId");
+
+                    b.HasIndex("Inventory_ItemId");
+
+                    b.HasIndex("SupplierId");
+
+                    b.ToTable("Supplier_Inventorys");
+
+                    b.HasData(
+                        new
+                        {
+                            SupplierItemId = 1,
+                            Inventory_ItemId = 1,
+                            Ordered_Quantity = 33,
+                            SupplierId = 1
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier_InventoryItem", b =>
@@ -849,17 +1500,68 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Supplier_TypeId");
 
                     b.ToTable("Supplier_Types");
+
+                    b.HasData(
+                        new
+                        {
+                            Supplier_TypeId = 1,
+                            Description = "For Alcohol Suppliers",
+                            Name = "Alcohol"
+                        },
+                        new
+                        {
+                            Supplier_TypeId = 2,
+                            Description = "Suppliers who sell meat and poultry",
+                            Name = "Meat and Poultry"
+                        },
+                        new
+                        {
+                            Supplier_TypeId = 3,
+                            Description = "Stores that sell all types",
+                            Name = "General"
+                        },
+                        new
+                        {
+                            Supplier_TypeId = 4,
+                            Description = "Stores that supplier baking ingrediants",
+                            Name = "Bakery"
+                        });
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.WriteOffStock", b =>
+                {
+                    b.Property<int>("WriteOffId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WriteOffId"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StockTakeItemId")
+                        .HasColumnType("int");
+
+                    b.HasKey("WriteOffId");
+
+                    b.HasIndex("StockTakeItemId");
+
+                    b.ToTable("WriteOffs");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Login.AppUser", b =>
@@ -935,7 +1637,7 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DrinkId"), 1L, 1);
 
-                    b.Property<int?>("Drink_TypeId")
+                    b.Property<int>("Drink_TypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -948,6 +1650,44 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasIndex("Drink_TypeId");
 
                     b.ToTable("Drinks");
+
+                    b.HasData(
+                        new
+                        {
+                            DrinkId = 1,
+                            Drink_TypeId = 1,
+                            Name = "Margarita"
+                        },
+                        new
+                        {
+                            DrinkId = 2,
+                            Drink_TypeId = 1,
+                            Name = "Strawberry Daiquri"
+                        },
+                        new
+                        {
+                            DrinkId = 3,
+                            Drink_TypeId = 1,
+                            Name = "Blood Mary"
+                        },
+                        new
+                        {
+                            DrinkId = 4,
+                            Drink_TypeId = 2,
+                            Name = "Virgin Mojito"
+                        },
+                        new
+                        {
+                            DrinkId = 5,
+                            Drink_TypeId = 2,
+                            Name = "Cappuccino"
+                        },
+                        new
+                        {
+                            DrinkId = 6,
+                            Drink_TypeId = 2,
+                            Name = "Frozen lemonade"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Drink_Price", b =>
@@ -958,17 +1698,53 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Drink_PriceId"), 1L, 1);
 
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("DrinkId")
+                    b.Property<int>("DrinkId")
                         .HasColumnType("int");
 
                     b.HasKey("Drink_PriceId");
 
-                    b.HasIndex("DrinkId");
-
                     b.ToTable("Drink_Prices");
+
+                    b.HasData(
+                        new
+                        {
+                            Drink_PriceId = 1,
+                            Amount = 55m,
+                            DrinkId = 1
+                        },
+                        new
+                        {
+                            Drink_PriceId = 2,
+                            Amount = 75m,
+                            DrinkId = 2
+                        },
+                        new
+                        {
+                            Drink_PriceId = 3,
+                            Amount = 99m,
+                            DrinkId = 3
+                        },
+                        new
+                        {
+                            Drink_PriceId = 4,
+                            Amount = 45m,
+                            DrinkId = 4
+                        },
+                        new
+                        {
+                            Drink_PriceId = 5,
+                            Amount = 65m,
+                            DrinkId = 5
+                        },
+                        new
+                        {
+                            Drink_PriceId = 6,
+                            Amount = 100m,
+                            DrinkId = 6
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Drink_Type", b =>
@@ -987,6 +1763,18 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasKey("Drink_TypeId");
 
                     b.ToTable("Drink_Types");
+
+                    b.HasData(
+                        new
+                        {
+                            Drink_TypeId = 1,
+                            Name = "Alcohol"
+                        },
+                        new
+                        {
+                            Drink_TypeId = 2,
+                            Name = "Non-Alcohol"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Food_Type", b =>
@@ -1035,6 +1823,157 @@ namespace Africanacity_Team24_INF370_.Migrations
                             FoodTypeId = 4,
                             Description = "Meals suitable for Vegans",
                             Name = "Vegan"
+                        });
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.KitchenOrder", b =>
+                {
+                    b.Property<int>("KitchenOrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("KitchenOrderId"), 1L, 1);
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("KitchenOrderNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderedDrinks")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderedItems")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Subtotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("TableNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("VAT")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("KitchenOrderId");
+
+                    b.ToTable("KitchenOrders");
+
+                    b.HasData(
+                        new
+                        {
+                            KitchenOrderId = 1,
+                            Discount = 0m,
+                            KitchenOrderNumber = "TAKE-0001",
+                            OrderedDrinks = "Frozen lemonade, Margarita",
+                            OrderedItems = "Toatsed beef panini sandwich, Mexican salad",
+                            Subtotal = 193.59m,
+                            TableNumber = "",
+                            Total = 225.10m,
+                            VAT = 31.51m
+                        },
+                        new
+                        {
+                            KitchenOrderId = 2,
+                            Discount = 0m,
+                            KitchenOrderNumber = "SIT-0201",
+                            OrderedDrinks = "Strawberry Daiquri, Frozen lemonade, Margarita, Blood Mary",
+                            OrderedItems = "Chicken Feast",
+                            Subtotal = 373.54m,
+                            TableNumber = "Table 6",
+                            Total = 434.35m,
+                            VAT = 60.81m
+                        },
+                        new
+                        {
+                            KitchenOrderId = 3,
+                            Discount = 50m,
+                            KitchenOrderNumber = "SIT-0202",
+                            OrderedDrinks = "Strawberry Daiquri, Frozen lemonade",
+                            OrderedItems = "Chicken Feast, Chilli cheese poppers",
+                            Subtotal = 280.23m,
+                            TableNumber = "Table 2",
+                            Total = 275.85m,
+                            VAT = 45.62m
+                        },
+                        new
+                        {
+                            KitchenOrderId = 4,
+                            Discount = 21.07m,
+                            KitchenOrderNumber = "SIT-0203",
+                            OrderedDrinks = "Blood Mary,Virgin Mojito",
+                            OrderedItems = "Blueberry cheescake slice, Blueberry cheescake slice",
+                            Subtotal = 210.70m,
+                            TableNumber = "Table 1",
+                            Total = 223.93m,
+                            VAT = 34.30m
+                        },
+                        new
+                        {
+                            KitchenOrderId = 5,
+                            Discount = 12.56m,
+                            KitchenOrderNumber = "SIT-0204",
+                            OrderedDrinks = "Virgin Mojito",
+                            OrderedItems = "Blueberry cheescake slice, Blueberry cheescake slice",
+                            Subtotal = 125.56m,
+                            TableNumber = "Table 4",
+                            Total = 133.44m,
+                            VAT = 20.44m
+                        },
+                        new
+                        {
+                            KitchenOrderId = 6,
+                            Discount = 0m,
+                            KitchenOrderNumber = "TAKE-0002",
+                            OrderedDrinks = "Cappuccino",
+                            OrderedItems = "English Breakfast",
+                            Subtotal = 135.02m,
+                            TableNumber = "",
+                            Total = 157m,
+                            VAT = 21.98m
+                        },
+                        new
+                        {
+                            KitchenOrderId = 7,
+                            Discount = 0m,
+                            KitchenOrderNumber = "SIT-0205",
+                            OrderedDrinks = "Strawberry Daiquri, Strawberry Daiquri, Blood Mary,Magarita,Strawberry Daiquri ",
+                            OrderedItems = "",
+                            Subtotal = 325.94m,
+                            TableNumber = "Table 6",
+                            Total = 379m,
+                            VAT = 53.06m
+                        },
+                        new
+                        {
+                            KitchenOrderId = 8,
+                            Discount = 35.05m,
+                            KitchenOrderNumber = "TAKE-0003",
+                            OrderedDrinks = "Strawberry Daiquri, Strawberry Daiquri",
+                            OrderedItems = "The Braai feast",
+                            Subtotal = 301.43m,
+                            TableNumber = "",
+                            Total = 315.45m,
+                            VAT = 49.07m
+                        },
+                        new
+                        {
+                            KitchenOrderId = 9,
+                            Discount = 32.56m,
+                            KitchenOrderNumber = "SIT-0206",
+                            OrderedDrinks = "Virgin Mojito, Virgin Mojito",
+                            OrderedItems = "The Braai feast, Mexican salad",
+                            Subtotal = 280.02m,
+                            TableNumber = "Table 5",
+                            Total = 293.04m,
+                            VAT = 45.58m
                         });
                 });
 
@@ -1087,9 +2026,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<int?>("Food_TypeFoodTypeId1")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MenuItem_CategoryMenu_CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Menu_CategoryId")
                         .HasColumnType("int");
 
@@ -1109,8 +2045,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasIndex("FoodTypeId");
 
                     b.HasIndex("Food_TypeFoodTypeId1");
-
-                    b.HasIndex("MenuItem_CategoryMenu_CategoryId");
 
                     b.HasIndex("Menu_CategoryId");
 
@@ -1164,7 +2098,34 @@ namespace Africanacity_Team24_INF370_.Migrations
                             FoodTypeId = 3,
                             Menu_CategoryId = 4,
                             Menu_TypeId = 2,
-                            Name = "Blueberry cheescake"
+                            Name = "Blueberry cheescake slice"
+                        },
+                        new
+                        {
+                            MenuItemId = 6,
+                            Description = "Delicious everyday english breakfast with eggs and bacon",
+                            FoodTypeId = 1,
+                            Menu_CategoryId = 1,
+                            Menu_TypeId = 1,
+                            Name = "English Breakfast"
+                        },
+                        new
+                        {
+                            MenuItemId = 7,
+                            Description = "Smoothy bowl with blueberries, almond milk and honey",
+                            FoodTypeId = 4,
+                            Menu_CategoryId = 1,
+                            Menu_TypeId = 1,
+                            Name = "Blueberry smoothy bowl"
+                        },
+                        new
+                        {
+                            MenuItemId = 8,
+                            Description = "A toasted panini sandwich with beef sausages, tomatos and cheese",
+                            FoodTypeId = 2,
+                            Menu_CategoryId = 1,
+                            Menu_TypeId = 1,
+                            Name = "Toatsed beef panini sandwich"
                         });
                 });
 
@@ -1181,12 +2142,17 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int?>("MenuItem_CategoryMenu_CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Menu_CategoryId");
+
+                    b.HasIndex("MenuItem_CategoryMenu_CategoryId");
 
                     b.ToTable("MenuItem_Categories");
 
@@ -1234,9 +2200,62 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("MenuItemId")
+                        .HasColumnType("int");
+
                     b.HasKey("MenuItem_PriceId");
 
                     b.ToTable("MenuItem_Prices");
+
+                    b.HasData(
+                        new
+                        {
+                            MenuItem_PriceId = 1,
+                            Amount = 50.50m,
+                            MenuItemId = 5
+                        },
+                        new
+                        {
+                            MenuItem_PriceId = 2,
+                            Amount = 105.35m,
+                            MenuItemId = 1
+                        },
+                        new
+                        {
+                            MenuItem_PriceId = 3,
+                            Amount = 35.10m,
+                            MenuItemId = 4
+                        },
+                        new
+                        {
+                            MenuItem_PriceId = 5,
+                            Amount = 200.50m,
+                            MenuItemId = 2
+                        },
+                        new
+                        {
+                            MenuItem_PriceId = 6,
+                            Amount = 45.50m,
+                            MenuItemId = 3
+                        },
+                        new
+                        {
+                            MenuItem_PriceId = 10,
+                            Amount = 92.00m,
+                            MenuItemId = 6
+                        },
+                        new
+                        {
+                            MenuItem_PriceId = 11,
+                            Amount = 52.00m,
+                            MenuItemId = 7
+                        },
+                        new
+                        {
+                            MenuItem_PriceId = 12,
+                            Amount = 35.00m,
+                            MenuItemId = 8
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Order", b =>
@@ -1338,6 +2357,36 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.ToTable("Order_Statuses");
                 });
 
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.OrderType", b =>
+                {
+                    b.Property<int>("OrderType_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderType_ID"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("OrderType_ID");
+
+                    b.ToTable("OrderTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            OrderType_ID = 1,
+                            Name = "Sit-In"
+                        },
+                        new
+                        {
+                            OrderType_ID = 2,
+                            Name = "Takeaway"
+                        });
+                });
+
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Payment", b =>
                 {
                     b.Property<int>("PaymentId")
@@ -1385,12 +2434,131 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Table_NumberId"), 1L, 1);
 
-                    b.Property<int>("Number")
-                        .HasColumnType("int");
+                    b.Property<string>("TableID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Table_NumberId");
 
                     b.ToTable("Table_Numbers");
+
+                    b.HasData(
+                        new
+                        {
+                            Table_NumberId = 1,
+                            TableID = "Table 1"
+                        },
+                        new
+                        {
+                            Table_NumberId = 2,
+                            TableID = "Table 2"
+                        },
+                        new
+                        {
+                            Table_NumberId = 3,
+                            TableID = "Table 3"
+                        },
+                        new
+                        {
+                            Table_NumberId = 4,
+                            TableID = "Table 4"
+                        },
+                        new
+                        {
+                            Table_NumberId = 5,
+                            TableID = "Table 5"
+                        },
+                        new
+                        {
+                            Table_NumberId = 6,
+                            TableID = "Table 6"
+                        });
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ContactNumber")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EntertainmentType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Entertainment_TypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhysicalAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RefreshTokenExpiryTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ResetPasswordToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ResetPasswordTokenExpiry")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TitleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("User_RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Entertainment_TypeId");
+
+                    b.HasIndex("TitleId");
+
+                    b.HasIndex("User_RoleId");
+
+                    b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("EntertainerSchedule", b =>
+                {
+                    b.Property<int>("EntertainersEntertainerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SchedulesScheduleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("EntertainersEntertainerId", "SchedulesScheduleId");
+
+                    b.HasIndex("SchedulesScheduleId");
+
+                    b.ToTable("EntertainerSchedule");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -1526,28 +2694,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Admin.Help", b =>
-                {
-                    b.HasOne("Africanacity_Team24_INF370_.models.Administration.Administrator", null)
-                        .WithMany("Helps")
-                        .HasForeignKey("AdministratorId");
-
-                    b.HasOne("Africanacity_Team24_INF370_.models.Administration.Help_Category", null)
-                        .WithMany("Helps")
-                        .HasForeignKey("Help_CategoryId");
-                });
-
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Admin.User", b =>
-                {
-                    b.HasOne("Africanacity_Team24_INF370_.models.Admin.Title", null)
-                        .WithMany("Users")
-                        .HasForeignKey("TitleId");
-
-                    b.HasOne("Africanacity_Team24_INF370_.models.Administration.User_Role", null)
-                        .WithMany("Users")
-                        .HasForeignKey("User_RoleId");
-                });
-
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Access_UserRole", b =>
                 {
                     b.HasOne("Africanacity_Team24_INF370_.models.Administration.Access", null)
@@ -1563,13 +2709,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Administrator", b =>
-                {
-                    b.HasOne("Africanacity_Team24_INF370_.models.Admin.User", null)
-                        .WithMany("Administrators")
-                        .HasForeignKey("UserId");
-                });
-
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Discount", b =>
                 {
                     b.HasOne("Africanacity_Team24_INF370_.models.Administration.Administrator", null)
@@ -1579,20 +2718,39 @@ namespace Africanacity_Team24_INF370_.Migrations
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Employee", b =>
                 {
-                    b.HasOne("Africanacity_Team24_INF370_.models.Administration.Employee_Role", null)
+                    b.HasOne("Africanacity_Team24_INF370_.models.Administration.Employee_Role", "Employee_Role")
                         .WithMany("Employees")
-                        .HasForeignKey("Employee_RoleId");
+                        .HasForeignKey("Employee_RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Africanacity_Team24_INF370_.models.Admin.User", null)
-                        .WithMany("Employees")
-                        .HasForeignKey("UserId");
+                    b.HasOne("Africanacity_Team24_INF370_.models.Administration.Gender", "Gender")
+                        .WithMany()
+                        .HasForeignKey("GenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee_Role");
+
+                    b.Navigation("Gender");
                 });
 
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Password", b =>
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Gender", b =>
                 {
-                    b.HasOne("Africanacity_Team24_INF370_.models.Admin.User", null)
-                        .WithMany("Passwords")
-                        .HasForeignKey("UserId");
+                    b.HasOne("Africanacity_Team24_INF370_.models.Administration.Gender", null)
+                        .WithMany("Genders")
+                        .HasForeignKey("GenderId1");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Help", b =>
+                {
+                    b.HasOne("Africanacity_Team24_INF370_.models.Administration.Administrator", null)
+                        .WithMany("Helps")
+                        .HasForeignKey("AdministratorId");
+
+                    b.HasOne("Africanacity_Team24_INF370_.models.Administration.Help_Category", null)
+                        .WithMany("Helps")
+                        .HasForeignKey("Help_CategoryId");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Bookings", b =>
@@ -1604,43 +2762,21 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasOne("Africanacity_Team24_INF370_.models.Booking.Entertainer", null)
                         .WithMany("Booking")
                         .HasForeignKey("EntertainerId");
-                });
 
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Entertainer", b =>
-                {
-                    b.HasOne("Africanacity_Team24_INF370_.models.Admin.User", null)
-                        .WithMany("Entertainers")
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Entertainer_EntertainmentType", b =>
-                {
-                    b.HasOne("Africanacity_Team24_INF370_.models.Booking.Entertainer", null)
+                    b.HasOne("Africanacity_Team24_INF370_.models.Booking.Entertainment_Type", "EntertainmentType")
                         .WithMany()
-                        .HasForeignKey("EntertainersEntertainerId")
+                        .HasForeignKey("Entertainment_TypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Africanacity_Team24_INF370_.models.Booking.Entertainment_Type", null)
-                        .WithMany()
-                        .HasForeignKey("Entertainment_TypesEntertainment_TypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("EntertainmentType");
                 });
 
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Entertainer_Schedule", b =>
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Entertainment_Type", b =>
                 {
                     b.HasOne("Africanacity_Team24_INF370_.models.Booking.Entertainer", null)
-                        .WithMany()
-                        .HasForeignKey("EntertainersEntertainerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Africanacity_Team24_INF370_.models.Booking.Schedule", null)
-                        .WithMany()
-                        .HasForeignKey("SchedulesScheduleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Entertainment_Types")
+                        .HasForeignKey("EntertainerId");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Event", b =>
@@ -1650,15 +2786,45 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasForeignKey("AdministratorId");
                 });
 
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Pending_Booking", b =>
+                {
+                    b.HasOne("Africanacity_Team24_INF370_.models.Booking.Entertainment_Type", "EntertainmentType")
+                        .WithMany("Pending_Bookings")
+                        .HasForeignKey("Entertainment_TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Africanacity_Team24_INF370_.models.Booking.Event", null)
+                        .WithMany("Pending_Bookings")
+                        .HasForeignKey("EventId");
+
+                    b.Navigation("EntertainmentType");
+                });
+
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Schedule", b =>
                 {
                     b.HasOne("Africanacity_Team24_INF370_.models.Administration.Administrator", null)
                         .WithMany("Schedules")
                         .HasForeignKey("AdministratorId");
 
+                    b.HasOne("Africanacity_Team24_INF370_.models.Booking.Event", "Event")
+                        .WithMany("Schedules")
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Africanacity_Team24_INF370_.models.Booking.Schedule_Status", null)
                         .WithMany("Schedules")
                         .HasForeignKey("Schedule_StatusId");
+
+                    b.Navigation("Event");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.DiscrepencyItem", b =>
+                {
+                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.WriteOffStock", null)
+                        .WithMany("DiscrepencyItems")
+                        .HasForeignKey("WriteOffStockWriteOffId");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Inventory_Item", b =>
@@ -1667,9 +2833,48 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .WithMany("Inventorys")
                         .HasForeignKey("AdministratorId");
 
-                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.Inventory_Type", null)
-                        .WithMany("Inventorys")
-                        .HasForeignKey("Inventory_TypeId");
+                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.Inventory_Type", "Inventory_Type")
+                        .WithMany("Inventory_Items")
+                        .HasForeignKey("Inventory_TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Inventory_Type");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Inventory_Price", b =>
+                {
+                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.Inventory_Item", null)
+                        .WithMany("Inventory_Prices")
+                        .HasForeignKey("Inventory_ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.StockTake", b =>
+                {
+                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.Inventory_Item", null)
+                        .WithMany("StockTakes")
+                        .HasForeignKey("Inventory_ItemId");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.StockTakeItem", b =>
+                {
+                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.Inventory_Item", "Inventory_Item")
+                        .WithMany("StockTakeItems")
+                        .HasForeignKey("Inventory_ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.StockTake", "StockTake")
+                        .WithMany("StockTakeItems")
+                        .HasForeignKey("StockTake_Id1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Inventory_Item");
+
+                    b.Navigation("StockTake");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier", b =>
@@ -1678,9 +2883,32 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .WithMany("Suppliers")
                         .HasForeignKey("AdministratorId");
 
-                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.Supplier_Type", null)
+                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.Supplier_Type", "Supplier_Type")
                         .WithMany("Suppliers")
-                        .HasForeignKey("Supplier_TypeId");
+                        .HasForeignKey("Supplier_TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Supplier_Type");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier_Inventory", b =>
+                {
+                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.Inventory_Item", "Inventory_Item")
+                        .WithMany("Supplier_Inventorys")
+                        .HasForeignKey("Inventory_ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.Supplier", "Supplier")
+                        .WithMany("Supplier_Inventorys")
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Inventory_Item");
+
+                    b.Navigation("Supplier");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier_InventoryItem", b =>
@@ -1698,18 +2926,26 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Drink", b =>
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.WriteOffStock", b =>
                 {
-                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.Drink_Type", null)
-                        .WithMany("Drinks")
-                        .HasForeignKey("Drink_TypeId");
+                    b.HasOne("Africanacity_Team24_INF370_.models.Inventory.StockTakeItem", "StockTakeItem")
+                        .WithMany("WriteOffs")
+                        .HasForeignKey("StockTakeItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("StockTakeItem");
                 });
 
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Drink_Price", b =>
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Drink", b =>
                 {
-                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.Drink", null)
-                        .WithMany("DrinkPrices")
-                        .HasForeignKey("DrinkId");
+                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.Drink_Type", "Drink_Type")
+                        .WithMany("Drinks")
+                        .HasForeignKey("Drink_TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Drink_Type");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.MenuItem", b =>
@@ -1723,10 +2959,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.Food_Type", null)
                         .WithMany("MenuItems")
                         .HasForeignKey("Food_TypeFoodTypeId1");
-
-                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.MenuItem_Category", null)
-                        .WithMany("MenuItems")
-                        .HasForeignKey("MenuItem_CategoryMenu_CategoryId");
 
                     b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.MenuItem_Category", "MenuItem_Category")
                         .WithMany()
@@ -1749,6 +2981,13 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Navigation("MenuItem_Category");
 
                     b.Navigation("Menu_Type");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.MenuItem_Category", b =>
+                {
+                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.MenuItem_Category", null)
+                        .WithMany("MenuItems")
+                        .HasForeignKey("MenuItem_CategoryMenu_CategoryId");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Order", b =>
@@ -1807,6 +3046,40 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasForeignKey("Payment_MethodId");
                 });
 
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.User", b =>
+                {
+                    b.HasOne("Africanacity_Team24_INF370_.models.Booking.Entertainment_Type", "Entertainment_Type")
+                        .WithMany("Users")
+                        .HasForeignKey("Entertainment_TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Africanacity_Team24_INF370_.models.Administration.Title", null)
+                        .WithMany("Users")
+                        .HasForeignKey("TitleId");
+
+                    b.HasOne("Africanacity_Team24_INF370_.models.Administration.User_Role", null)
+                        .WithMany("Users")
+                        .HasForeignKey("User_RoleId");
+
+                    b.Navigation("Entertainment_Type");
+                });
+
+            modelBuilder.Entity("EntertainerSchedule", b =>
+                {
+                    b.HasOne("Africanacity_Team24_INF370_.models.Booking.Entertainer", null)
+                        .WithMany()
+                        .HasForeignKey("EntertainersEntertainerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Africanacity_Team24_INF370_.models.Booking.Schedule", null)
+                        .WithMany()
+                        .HasForeignKey("SchedulesScheduleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -1858,22 +3131,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Admin.Title", b =>
-                {
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Admin.User", b =>
-                {
-                    b.Navigation("Administrators");
-
-                    b.Navigation("Employees");
-
-                    b.Navigation("Entertainers");
-
-                    b.Navigation("Passwords");
-                });
-
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Administrator", b =>
                 {
                     b.Navigation("Discounts");
@@ -1899,9 +3156,19 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Navigation("Employees");
                 });
 
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Gender", b =>
+                {
+                    b.Navigation("Genders");
+                });
+
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Help_Category", b =>
                 {
                     b.Navigation("Helps");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.Title", b =>
+                {
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Administration.User_Role", b =>
@@ -1917,6 +3184,22 @@ namespace Africanacity_Team24_INF370_.Migrations
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Entertainer", b =>
                 {
                     b.Navigation("Booking");
+
+                    b.Navigation("Entertainment_Types");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Entertainment_Type", b =>
+                {
+                    b.Navigation("Pending_Bookings");
+
+                    b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Event", b =>
+                {
+                    b.Navigation("Pending_Bookings");
+
+                    b.Navigation("Schedules");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Booking.Schedule_Status", b =>
@@ -1924,9 +3207,35 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Navigation("Schedules");
                 });
 
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Inventory_Item", b =>
+                {
+                    b.Navigation("Inventory_Prices");
+
+                    b.Navigation("StockTakeItems");
+
+                    b.Navigation("StockTakes");
+
+                    b.Navigation("Supplier_Inventorys");
+                });
+
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Inventory_Type", b =>
                 {
-                    b.Navigation("Inventorys");
+                    b.Navigation("Inventory_Items");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.StockTake", b =>
+                {
+                    b.Navigation("StockTakeItems");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.StockTakeItem", b =>
+                {
+                    b.Navigation("WriteOffs");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier", b =>
+                {
+                    b.Navigation("Supplier_Inventorys");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Supplier_Type", b =>
@@ -1934,9 +3243,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Navigation("Suppliers");
                 });
 
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Drink", b =>
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.WriteOffStock", b =>
                 {
-                    b.Navigation("DrinkPrices");
+                    b.Navigation("DiscrepencyItems");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Drink_Type", b =>
