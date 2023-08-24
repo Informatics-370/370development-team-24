@@ -76,8 +76,8 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<MenuItem_Category> MenuItem_Categories { get; set; }
 		public DbSet<MenuItem_Price> MenuItem_Prices { get; set; }
 		public DbSet<Order> Orders { get; set; }
-		public DbSet<Order_Drink> Order_Drinks { get; set; }
-		public DbSet<Order_MenuItem> Order_MenuItems { get; set; }
+		//public DbSet<Order_Drink> Order_Drinks { get; set; }
+		//public DbSet<Order_MenuItem> Order_MenuItems { get; set; }
 		public DbSet<Order_Status> Order_Statuses { get; set; }
            
         public DbSet<OrderType> OrderTypes { get; set; }
@@ -86,7 +86,10 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<Table_Number> Table_Numbers { get; set; }
 
         public DbSet<KitchenOrder> KitchenOrders { get; set; }
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+        //Second option drink table
+        public DbSet<OtherDrink> OtherDrinks { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 		{
 
@@ -1651,7 +1654,13 @@ namespace Africanacity_Team24_INF370_.models
             .WithMany()
             .HasForeignKey(m => m.FoodTypeId);
 
-            
+
+            //one to many with Drink table
+            modelBuilder.Entity<Drink>()
+                        .HasOne(m => m.Drink_Type)
+                        .WithMany()
+                        .HasForeignKey(m => m.Drink_TypeId);
+
 
 
 
@@ -1689,12 +1698,12 @@ namespace Africanacity_Team24_INF370_.models
 				  tg => tg.HasOne<Inventory_Item>().WithMany());
 
 			// For the Order_Drink M2M payload (Uncomment code below and run migration to generate tables)
-			modelBuilder.Entity<Drink>()
-				.HasMany(t => t.Orders)
-				.WithMany(g => g.Drinks)
-				.UsingEntity<Order_Drink>
-				 (tg => tg.HasOne<Order>().WithMany(),
-				  tg => tg.HasOne<Drink>().WithMany());
+			//modelBuilder.Entity<Drink>()
+			//	.HasMany(t => t.Orders)
+			//	.WithMany(g => g.Drinks)
+			//	.UsingEntity<Order_Drink>
+			//	 (tg => tg.HasOne<Order>().WithMany(),
+			//	  tg => tg.HasOne<Drink>().WithMany());
 
 			// For the Order_MenuItem M2M payload (Uncomment code below and run migration to generate tables)
 			modelBuilder.Entity<Order>()

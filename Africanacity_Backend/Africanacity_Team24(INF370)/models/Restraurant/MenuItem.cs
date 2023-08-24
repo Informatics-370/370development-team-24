@@ -1,5 +1,5 @@
 ﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
-using Africanacity_Team24_INF370_.models.Inventory;
+
 using System.ComponentModel.DataAnnotations;
 
 
@@ -23,7 +23,7 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
 		public int Menu_CategoryId { get; set; }
 		public int FoodTypeId { get; set; }
 
-	
+	//linked tables
 		public  Menu_Type Menu_Type { get; set; }
 		public MenuItem_Category MenuItem_Category { get; set; }
 		public Food_Type Food_Type{ get; set; }
@@ -31,6 +31,7 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
 
         public List<Order> Orders { get; set; } = new List<Order>();
 
+		//collecting data of the menu item price table from the menu item form
         public virtual ICollection<MenuItem_Price> MenuItem_Prices { get; set; }
 
 

@@ -14,6 +14,8 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
 
 		public virtual ICollection<Drink> Drinks { get; set; }
 
-		//public List<Drink> Drinks { get; set; } = new List<Drink>();
-	}
+        public virtual ICollection<OtherDrink> OtherDrinks { get; set; }
+
+        //public List<Drink> Drinks { get; set; } = new List<Drink>();
+    }
 }
