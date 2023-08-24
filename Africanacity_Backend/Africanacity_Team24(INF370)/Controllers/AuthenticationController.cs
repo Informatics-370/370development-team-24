@@ -62,6 +62,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 			await smtpClient.SendMailAsync(mailMessage);
 		}
 
+		//********************************************************************************* Authenticate ******************************************************************
 		[HttpPost("Authenticate")]
 		//[Route("Authenticate")]
 		public async Task<IActionResult> Authenticate([FromBody] AdminInfor userObj)
@@ -94,6 +95,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 			});
 		}
 
+		//************************************************************************* Register *******************************************************************
 		[HttpPost]
 		[Route("Register")]
 		public async Task<IActionResult> AddUser([FromBody] AdminInfor userObj)
@@ -126,6 +128,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 			});
 		}
 
+
+		//**************************************************************************** Registration email *******************************************************************************
 		private async Task SendRegistrationConfirmationEmail(string recipientEmail, string recipientName)
 		{
 			string emailSubject = "Registration Confirmation";
@@ -157,12 +161,17 @@ namespace Africanacity_Team24_INF370_.Controllers
 			await SendEmailAsync(recipientEmail, emailSubject, emailBody);
 		}
 
+
+		//**************************************************************************** Email valiadtion *******************************************************************************
 		private Task<bool> CheckEmailExistAsync(string? email)
 			=> _authContext.Users.AnyAsync(x => x.Email == email);
 
+		//**************************************************************************** Username validation *******************************************************************************
 		private Task<bool> CheckUsernameExistAsync(string? username)
 			=> _authContext.Users.AnyAsync(x => x.Email == username);
 
+
+		//**************************************************************************** Password validation *******************************************************************************
 		private static string CheckPasswordStrength(string pass)
 		{
 			StringBuilder sb = new StringBuilder();
@@ -175,6 +184,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 			return sb.ToString();
 		}
 
+
+		//**************************************************************************** Create JWT *******************************************************************************
 		private string CreateJwt(AdminInfor user)
 		{
 			var jwtTokenHandler = new JwtSecurityTokenHandler();
@@ -204,6 +215,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 			return jwtTokenHandler.WriteToken(token);
 		}
 
+
+		//**************************************************************************** Create Refresh Token *******************************************************************************
 		private string CreateRefreshToken()
 		{
 			var tokenBytes = RandomNumberGenerator.GetBytes(64);
@@ -218,6 +231,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 			return refreshToken;
 		}
 
+
+		//**************************************************************************** Expired Token *******************************************************************************
 		private ClaimsPrincipal GetPrincipleFromExpiredToken(string token)
 		{
 			var key = Encoding.ASCII.GetBytes("veryverysceret.....");
@@ -242,12 +257,13 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 
 		//[Authorize]
-		//[HttpGet]
-		//public async Task<ActionResult<User>> GetAllUsers()
-		//{
-		//	return Ok(await _authContext.Users.ToListAsync());
-		//}
-
+		[HttpGet]
+		public async Task<ActionResult<User>> GetAllUsers()
+		{
+			return Ok(await _authContext.Users.ToListAsync());
+		}
+ 
+		 //**************************************************************** Get Entertainers **********************************************************
 
 		[HttpGet]
 		[Route("GetUsers")]
@@ -283,7 +299,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 			}
 		}
 
-
+		//************************************************************** Refresh ************************************************************8
 		[HttpPost]
 		[Route("Refresh")]
 		public async Task<IActionResult> Refresh([FromBody] TokenApiDto tokenApiDto)
@@ -308,6 +324,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 			});
 		}
 
+		//***************************************************** Send reset email **************************************************
 		[HttpPost]
 		[Route("send-reset-email/{email}")]
 		public async Task<IActionResult> SendEmail(string email)
@@ -337,6 +354,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 			});
 		}
 
+		// /******************************************************************* Reset Password ******************************************************************
 		[HttpPost]
 		[Route("Reset-password")]
 		public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)
@@ -371,31 +389,60 @@ namespace Africanacity_Team24_INF370_.Controllers
 			});
 		}
 
-		[HttpPost]
-		[Route("Change-password")]
-		public async Task<IActionResult> ChangePassword(ResetPasswordDto resetPasswordDto)
+		//*******************************************************************Change Password ******************************************************************
+		[HttpPost("ChangePassword")]
+		/*	[Authorize] */// Make sure the user is authenticated
+		public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordViewModel model)
 		{
-			var newToken = resetPasswordDto.EmailToken.Replace(" ", "+");
-			var user = await _authContext.Admins.AsNoTracking().FirstOrDefaultAsync(a => a.Email == resetPasswordDto.Email);
-			if (user == null)
+			try
 			{
-				return NotFound(new
+				// Retrieve the user based on the authenticated user or a token
+				var user = await _authContext.Admins.FirstOrDefaultAsync(u => u.Username == User.Identity.Name);
+
+				// Check if the user exists
+				if (user == null)
 				{
-					StatusCode = 404,
-					Message = "User does not exist"
-				});
+					return NotFound("User not found.");
+				}
+
+				// Check if the old password matches the stored password
+				if (!PasswordHasher.VerifyPassword(model.OldPassword, user.Password))
+				{
+					return BadRequest("Old password is incorrect.");
+				}
+
+				// Check if the new password is different from the old password
+				if (model.NewPassword == model.OldPassword)
+				{
+					return BadRequest("New password must be different from the old password.");
+				}
+
+				// Check if the new password and confirm password match
+				if (model.NewPassword != model.ConfirmPassword)
+				{
+					return BadRequest("New password and confirm password do not match.");
+				}
+
+				// Update the password
+				user.Password = PasswordHasher.HashPassword(model.NewPassword);
+				await _authContext.SaveChangesAsync();
+
+				return Ok(new { Message = "Password changed successfully." });
 			}
-			user.Password = PasswordHasher.HashPassword(resetPasswordDto.NewPassword);
-			_authContext.Entry(user).State = EntityState.Modified;
-			await _authContext.SaveChangesAsync();
-			return Ok(new
+			catch (Exception ex)
 			{
-				StatusCode = 200,
-				Message = "Password successfully reset"
-			});
+				// Log the exception
+				// You can use a logging library like Serilog or NLog for this
+				// logger.LogError(ex, "An error occurred while changing password.");
+
+				// Return a detailed error message to the client
+				return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "An error occurred while processing your request.", Details = ex.Message });
+			}
+
 		}
 
-		//getting User using id
+
+		//******************************************************************************getting User using id ***********************************************************
 		[HttpGet]
 		[Route("Profile/{UserId}")]
 		public async Task<ActionResult> GetUser(int UserId)
@@ -422,7 +469,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 			return Ok(await _authContext.Users.ToListAsync());
 		}
 
-		// Edit Entertainer
+		//********************************************************************************** Edit Entertainer *************************************************************
 		[HttpPut]
 		[Route("EditUser/{UserId}")]
 		public async Task<ActionResult<EntertainerViewModel>> EditUser(int UserId, EntertainerViewModel ftvm)
@@ -454,7 +501,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 		}
 
 
-		// Delete Entertainer
+		//***************************************************************************8 Delete Entertainer *********************************************************************
 		[HttpDelete]
 		[Route("DeleteUser/{UserId}")]
 		public async Task<IActionResult> DeleteUser(int UserId)
@@ -480,7 +527,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 			return BadRequest("Your request is invalid");
 		}
 
-		// Edit Admin
+		//********************************************************************************** Edit Admin ******************************************************************
 		[HttpPut]
 		[Route("EditAdmin/{UserId}")]
 		public async Task<ActionResult<User>> EditAdmin(int UserId, AdminVM ftvm)
@@ -511,7 +558,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 			return BadRequest("Your request is invalid");
 		}
 
-		// Delete Admin
+		//**************************************************************************** Delete Admin *******************************************************************************
 		[HttpDelete]
 		[Route("DeleteAdmin/{UserId}")]
 		public async Task<IActionResult> DeleteAdmin(int UserId)

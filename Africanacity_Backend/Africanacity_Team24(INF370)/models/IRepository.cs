@@ -23,7 +23,8 @@ namespace Africanacity_Team24_INF370_.models
         /* Review entities here*/
         void Add<T>(T entity) where T : class;
         void Delete<T>(T entity) where T : class;
-        Task<bool> SaveChangesAsync();
+		void Update<T>(T entity) where T : class;
+		Task<bool> SaveChangesAsync();
 
         //EMPLOYEE
         Task<Employee[]> GetAllEmployeesAsync();

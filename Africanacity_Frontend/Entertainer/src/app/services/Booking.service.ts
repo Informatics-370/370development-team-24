@@ -71,6 +71,12 @@ export class BookingService {
        return this.httpClient.put(`${this.apiUrl}Booking/EditBooking/${bookingId}`,booking, this.httpOptions)
      }
 
+// Update the EditBooking function to accept FormData
+      // EditBooking(bookingId: number, bookingData: FormData) {
+      // const url = `${this.apiUrl}Booking/EditBooking/${bookingId}`;
+      //  return this.httpClient.put(url, bookingData);
+      // }
+
      GetBookingInfor(email: string): Observable<any> {
       const url = `${this.apiUrl}Booking/GetBookingInfor/${email}`; 
       return this.httpClient.get<any>(url);

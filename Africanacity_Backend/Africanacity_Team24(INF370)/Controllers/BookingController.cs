@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging; // Import the logging namespace
 using System.Net.Mail;
 using System.Net;
+using Microsoft.AspNetCore.Http;
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
@@ -22,6 +23,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 			_logger = logger;
 		}
 
+
+		//**************************************************************************** Booking approval email *******************************************************************************
 		private async Task SendApprovalEmail(string recipientEmail, string recipientName, string recipientlastName, string recipientEvent)
 		{
 			string emailSubject = "Booking Approval Confirmation";
@@ -86,8 +89,9 @@ namespace Africanacity_Team24_INF370_.Controllers
 		await smtpClient.SendMailAsync(mailMessage);
 	}
 
-		//Event
-	    [HttpGet]
+
+		//**************************************************************************** Events *******************************************************************************t
+		[HttpGet]
 		[Route("GetAllEvents")]
 		public async Task<IActionResult> GetAllEvents()
 		{
@@ -102,7 +106,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 			}
 		}
 
-		// Entertainment Type
+
+		//**************************************************************************** Entertainment Type *******************************************************************************
 		[HttpGet]
 		[Route("EntertainmentTypes")]
 		public async Task<ActionResult> EntertainmentTypes()
@@ -120,42 +125,69 @@ namespace Africanacity_Team24_INF370_.Controllers
 			}
 		}
 
-		//Edit Booking
-		 [HttpPut]
-		[Route("EditBooking/{BookingId}")]
-		public async Task<ActionResult<BookingView>> EditBooking(int BookingId, BookingView cvm)
-		{
-			try
-			{
-				var existinBooking = await _repository.GetBookingAsync(BookingId);
 
-				//fix error message
-				if (existinBooking == null) return NotFound($"The booking does not exist");
+		//**************************************************************************** Edit Booking *******************************************************************************
+		//[HttpPut]
+		//[Route("EditBooking/{bookingId}")]
+		//public async Task<IActionResult> EditBooking(int bookingId, [FromForm] IFormCollection formData)
+		//{
+		//	try
+		//	{
+		//		// Retrieve the booking to be edited
+		//		var booking = await _repository.GetBookingAsync(bookingId);
+		//		if (booking == null)
+		//		{
+		//			return NotFound("Booking not found.");
+		//		}
 
-				existinBooking.LastName = cvm.LastName;
-				existinBooking.FirstName = cvm.FirstName;
-				existinBooking.Instagram = cvm.Instagram;
-				existinBooking.ContactNumber = cvm.ContactNumber;
-				existinBooking.Email = cvm.Email;
-				existinBooking.Eventname = cvm.Eventname;
-				existinBooking.Additional = cvm.Additional;
-				existinBooking.Demo = cvm.Demo;
-				existinBooking.Entertainment_TypeId = Convert.ToInt32(cvm.entertainmenttype);
+		//		// Parse entertainmenttype value from formData
+		//		if (!int.TryParse(formData["entertainmenttype"], out int entertainmentTypeId))
+		//		{
+		//			return BadRequest("Invalid entertainment type selected.");
+		//		}
 
-				if (await _repository.SaveChangesAsync())
-				{
+		//		// Check if the selected entertainmenttype exists
+		//		var entertainmentTypeExists = await _repository.GetEntertainmentTypeAsync(entertainmentTypeId);
+		//		if (entertainmentTypeExists==null)
+		//		{
+		//			return BadRequest("Selected entertainment type does not exist.");
+		//		}
 
-					return Ok(existinBooking);
-				}
-			}
-			catch (Exception)
-			{
-				return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
-			}
-			return BadRequest("Your request is invalid");
-		}
+		//		// Update booking properties
+		//		booking.LastName = formData["lastName"];
+		//		booking.FirstName = formData["firstName"];
+		//		booking.Entertainment_TypeId = entertainmentTypeId; // Update foreign key
+		//		booking.Email = formData["email"];
+		//		booking.ContactNumber = formData["contactNumber"];
+		//		booking.Eventname = formData["eventname"];
+		//		booking.Instagram = formData["instagram"];
+		//		booking.Additional = formData["additional"];
 
-		// Delete Booking
+		//		// Handle file upload if a file is provided
+		//		if (formData.Files.Count > 0)
+		//		{
+		//			var uploadedFile = formData.Files["demo"];
+		//			if (uploadedFile != null && uploadedFile.Length > 0)
+		//			{
+		//				booking.DemoFileName = uploadedFile.FileName;
+		//				booking.DemoFile = uploadedFile;
+		//			}
+		//		}
+
+		//		// Save changes to the database
+		//		await _repository.SaveChangesAsync();
+
+		//		return Ok("Booking updated successfully.");
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		return StatusCode(500, $"An error occurred while updating the booking: {ex.Message}");
+		//	}
+		//}
+
+
+
+		//**************************************************************************** Delete Booking *******************************************************************************
 		[HttpDelete]
 		[Route("DeleteBooking/{BookingId}")]
 		public async Task<IActionResult> DeleteBooking(int BookingId)
@@ -226,7 +258,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 		}
 
 
-		// Request booking deletion
+
+		//**************************************************************************** Request delete booking *******************************************************************************
 		[HttpDelete]
 		[Route("RequestDeleteBooking/{BookingId}")]
 		public async Task<IActionResult> RequestBookingDeletion(int BookingId)
@@ -281,7 +314,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 
 
-		//Manage Delete booking
+
+		//**************************************************************************** Manage Delete Booking *******************************************************************************
 		[HttpDelete]
 		[Route("ManageDeleteBooking/{BookingId}")]
 		public async Task<IActionResult> ManageDeleteBooking(int BookingId)
@@ -307,7 +341,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 			return BadRequest("Your request is invalid");
 		}
 
-		// Booking that where approved
+
+		//**************************************************************************** Approved Booking *******************************************************************************
 		[HttpGet]
 		[Route("BookedListing")]
 		public async Task<ActionResult> ManageBooked()
@@ -341,7 +376,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 		}
 
 
-		// Booking listing waiting approval
+
+		//**************************************************************************** Booking waiting approval *******************************************************************************
 		[HttpGet]
 		[Route("ManageBookedListing")]
 		public async Task<ActionResult> BookedListing()
@@ -374,7 +410,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 
 
-        [HttpPost, DisableRequestSizeLimit]
+		//**************************************************************************** Request Booking *******************************************************************************
+		[HttpPost, DisableRequestSizeLimit]
 	    [Route("RequestBk")]
 	    public async Task<IActionResult> RequestBook([FromForm] IFormCollection formData)
         	{
@@ -465,8 +502,9 @@ namespace Africanacity_Team24_INF370_.Controllers
 	}
 
 
-	// Add Booking
-	[HttpPost, DisableRequestSizeLimit]
+
+		//**************************************************************************** Make Booking *******************************************************************************
+		[HttpPost, DisableRequestSizeLimit]
 		[Route("AddBk")]
 		public async Task<IActionResult> AddBooking([FromForm] IFormCollection formData)
 		{
@@ -525,6 +563,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 			}
 		}
 
+
+		//**************************************************************************** Confirmed booking *******************************************************************************
 		[HttpPost]
 		[Route("MoveBookingToConfirmed/{BookingId}")]
 		public async Task<IActionResult> MoveBookingToConfirmed(int BookingId)
@@ -574,6 +614,9 @@ namespace Africanacity_Team24_INF370_.Controllers
 			}
 		}
 
+
+
+		//**************************************************************************** Get booking by id *******************************************************************************
 		[HttpGet]
 		[Route("GetBooking/{bookingId}")]
 		public async Task<IActionResult> GetBookingAsync(int bookingId)
@@ -593,6 +636,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 		}
 
 
+		//**************************************************************************** Get booking by email *******************************************************************************
 		[HttpGet("GetBookingInfor/{email}")]
 		public async Task<IActionResult> GetBookingInfor(string email)
 		{
@@ -616,7 +660,6 @@ namespace Africanacity_Team24_INF370_.Controllers
 					booking.Additional,
 					booking.Demo,
 					EntertainmentTypeName = booking.EntertainmentType.Name, // Assuming the entertainment type name is stored in the Name property of the EntertainmentType
-					/*Event = booking.Event.Name*/ // Assuming the entertainment type name is stored in the Name property of the EntertainmentType
 				});
 
 				return Ok(mappedResult);

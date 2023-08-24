@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Router } from '@angular/router';
 import {JwtHelperService} from '@auth0/angular-jwt'
 import { TokenApiModel } from '../shared/token-api.model';
 import { Observable } from 'rxjs';
+import { UpdatePassword } from '../shared/UpdatePassword';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,15 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {
     this.userPayload = this.decodedToken();
    }
-
+   
+   changePassword(request: UpdatePassword) {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('token')}` // Replace with your token retrieval method
+    });
+  
+    return this.http.post<any>(`${this.baseUrl}ChangePassword`, request, { headers });
+  }
+  
   signUp(userObj: any) {
     return this.http.post<any>(`${this.baseUrl}Register`, userObj)
   }
@@ -106,14 +115,5 @@ export class AuthService {
   renewToken(tokenApi : TokenApiModel){
     return this.http.post<any>(`${this.baseUrl}Refresh`, tokenApi)
   }
-
-  // getUserIdFromToken(): string {
-  //   if (this.userPayload) {
-  //     // Assuming 'userId' is the key containing the user ID in the decoded token
-  //     return this.userPayload.UserId;
-  //   }
-  //   return ''; // Return an appropriate default value or handle the case when there's no user ID.
-  // }
-
 
 }

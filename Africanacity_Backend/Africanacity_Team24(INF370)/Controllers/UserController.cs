@@ -67,37 +67,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 			await smtpClient.SendMailAsync(mailMessage);
 		}
 
-		//[HttpPost("Authenticate")]
-		////[Route("Authenticate")]
-		//public async Task<IActionResult> Authenticate([FromBody] User userObj)
-		//{
-		//	if (userObj == null)
-		//		return BadRequest();
 
-		//	var user = await _authContext.Users
-		//		.FirstOrDefaultAsync(x => x.Username == userObj.Username);
-
-		//	if (user == null)
-		//		return NotFound(new { Message = "User not found!" });
-
-		//	if (!PasswordHasher.VerifyPassword(userObj.Password, user.Password))
-		//	{
-		//		return BadRequest(new { Message = "Password is Incorrect" });
-		//	}
-
-		//	user.Token = CreateJwt(user);
-		//	var newAccessToken = user.Token;
-		//	var newRefreshToken = CreateRefreshToken();
-		//	user.RefreshToken = newRefreshToken;
-		//	user.RefreshTokenExpiryTime = DateTime.Now.AddDays(15);
-		//	await _authContext.SaveChangesAsync();
-
-		//	return Ok(new TokenApiDto()
-		//	{
-		//		AccessToken = newAccessToken,
-		//		RefreshToken = newRefreshToken
-		//	});
-		//}
+		//**************************************************************************** Login *******************************************************************************
 		[HttpPost("Authenticate")]
 		public async Task<IActionResult> Authenticate([FromBody] EntertainerViewModel entertainerViewModel)
 		{
@@ -130,37 +101,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 		}
 
 
-		//[HttpPost]
-		//[Route("Register")]
-		//public async Task<IActionResult> AddUser([FromBody] User userObj)
-		//{
-		//	if (userObj == null)
-		//		return BadRequest();
 
-		//	// check email
-		//	if (await CheckEmailExistAsync(userObj.Email))
-		//		return BadRequest(new { Message = "Email already exist" });
-
-		//	//check username
-		//	if (await CheckUsernameExistAsync(userObj.Username))
-		//		return BadRequest(new { Message = "Username already exist" });
-
-		//	var passMessage = CheckPasswordStrength(userObj.Password);
-		//	if (!string.IsNullOrEmpty(passMessage))
-		//		return BadRequest(new { Message = passMessage.ToString() });
-
-		//	userObj.Password = PasswordHasher.HashPassword(userObj.Password);
-		//	userObj.Role = "User";
-		//	userObj.Token = "";
-		//	await _authContext.AddAsync(userObj);
-		//	await _authContext.SaveChangesAsync();
-		//	return Ok(new
-		//	{
-		//		Status = 200,
-		//		Message = "Entertainer added successfully!"
-		//	});
-		//}
-
+		//**************************************************************************** Register *******************************************************************************
 		[HttpPost]
 		[Route("Register")]
 		public async Task<IActionResult> AddUser([FromBody] EntertainerViewModel entertainerViewModel)
@@ -210,6 +152,9 @@ namespace Africanacity_Team24_INF370_.Controllers
 			});
 		}
 
+
+		//**************************************************************************** Registration Email *******************************************************************************
+
 		private async Task SendRegistrationConfirmationEmail(string recipientEmail, string recipientName)
 		{
 			string emailSubject = "Registration Confirmation";
@@ -242,12 +187,18 @@ namespace Africanacity_Team24_INF370_.Controllers
 		}
 
 
+
+		//**************************************************************************** Email Validation *******************************************************************************
 		private Task<bool> CheckEmailExistAsync(string? email)
 			=> _authContext.Users.AnyAsync(x => x.Email == email);
 
+
+		//**************************************************************************** Username Validation *******************************************************************************
 		private Task<bool> CheckUsernameExistAsync(string? username)
 			=> _authContext.Users.AnyAsync(x => x.Email == username);
 
+
+		//**************************************************************************** Password Validation  *******************************************************************************
 		private static string CheckPasswordStrength(string pass)
 		{
 			StringBuilder sb = new StringBuilder();
@@ -260,6 +211,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 			return sb.ToString();
 		}
 
+
+		//**************************************************************************** Create JWT token *******************************************************************************
 		private string CreateJwt(User user)
 		{
 			var jwtTokenHandler = new JwtSecurityTokenHandler();
@@ -289,6 +242,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 			return jwtTokenHandler.WriteToken(token);
 		}
 
+
+		//**************************************************************************** Create Refresh token *******************************************************************************
 		private string CreateRefreshToken()
 		{
 			var tokenBytes = RandomNumberGenerator.GetBytes(64);
@@ -303,6 +258,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 			return refreshToken;
 		}
 
+
+		//**************************************************************************** Token Expiration *******************************************************************************
 		private ClaimsPrincipal GetPrincipleFromExpiredToken(string token)
 		{
 			var key = Encoding.ASCII.GetBytes("veryverysceret.....");
@@ -326,13 +283,16 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 
 
-		//[Authorize]
+
+		//**************************************************************************** Get Entertainers *******************************************************************************
 		[HttpGet]
 		public async Task<ActionResult<User>> GetAllUsers()
 		{
 			return Ok(await _authContext.Users.ToListAsync());
 		}
 
+
+		//**************************************************************************** Refresh *******************************************************************************
 		[HttpPost]
 		[Route("Refresh")]
 		public async Task<IActionResult> Refresh([FromBody] TokenApiDto tokenApiDto)
@@ -357,6 +317,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 			});
 		}
 
+
+		//**************************************************************************** Reset email *******************************************************************************
 		[HttpPost]
 		[Route("send-reset-email/{email}")]
 		public async Task<IActionResult> SendEmail(string email)
@@ -386,6 +348,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 			});
 		}
 
+
+		//**************************************************************************** Reset password *******************************************************************************
 		[HttpPost]
 		[Route("Reset-password")]
 		public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)
@@ -420,30 +384,9 @@ namespace Africanacity_Team24_INF370_.Controllers
 			});
 		}
 
-		[HttpPost]
-		[Route("Change-password")]
-		public async Task<IActionResult> ChangePassword(ResetPasswordDto resetPasswordDto)
-		{
-			var newToken = resetPasswordDto.EmailToken.Replace(" ", "+");
-			var user = await _authContext.Users.AsNoTracking().FirstOrDefaultAsync(a => a.Email == resetPasswordDto.Email);
-			if (user == null)
-			{
-				return NotFound(new
-				{
-					StatusCode = 404,
-					Message = "User does not exist"
-				});
-			}
-			user.Password = PasswordHasher.HashPassword(resetPasswordDto.NewPassword);
-			_authContext.Entry(user).State = EntityState.Modified;
-			await _authContext.SaveChangesAsync();
-			return Ok(new
-			{
-				StatusCode = 200,
-				Message = "Password successfully reset"
-			});
-		}
 
+
+		//**************************************************************************** Get user by id *******************************************************************************
 		//getting User using id
 		[HttpGet]
 		[Route("Profile/{UserId}")]
@@ -471,7 +414,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 			return Ok(await _authContext.Users.ToListAsync());
 		}
 
-		// Edit Entertainer
+
+		//**************************************************************************** Edit entertainer *******************************************************************************
 		[HttpPut]
 		[Route("EditUser/{UserId}")]
 		public async Task<ActionResult<EntertainerViewModel>> EditUser(int UserId, EntertainerViewModel ftvm)
@@ -502,7 +446,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 			return BadRequest("Your request is invalid");
 		}
 
-		// Delete Entertainer
+
+		//**************************************************************************** Delete Entertainer *******************************************************************************
 		[HttpDelete]
 		[Route("DeleteUser/{UserId}")]
 		public async Task<IActionResult> DeleteUser(int UserId)
@@ -529,63 +474,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 		}
 
 
-		[HttpPost]
-		[Route("Changepassword")]
-		public async Task<IActionResult> ChangePassword([FromBody] UpdatePasswordModel request)
-		{
-			try
-			{
-				// Retrieve the user based on the authenticated user or a token
-				var user = await _authContext.Users.SingleOrDefaultAsync(u => u.Username == User.Identity.Name);
 
-				// Check if the user exists
-				if (user == null)
-				{
-					return NotFound("User not found.");
-				}
-
-				// Check if the old password matches the stored password
-				if (!VerifyPasswordHash(request.OldPassword, user.Password))
-				{
-					return BadRequest("Old password is incorrect.");
-				}
-
-				// Check if the new password is different from the old password
-				if (request.NewPassword == request.OldPassword)
-				{
-					return BadRequest("New password must be different from the old password.");
-				}
-
-				// Update the password
-				user.Password = CreatePasswordHash(request.NewPassword);
-				await _authContext.SaveChangesAsync();
-
-				return Ok(new { Message = "Password changed successfully." });
-			}
-			catch (Exception ex)
-			{
-				// Log the exception for debugging purposes
-				// You can use a logging library like Serilog or NLog for this
-				// logger.LogError(ex, "An error occurred while changing password.");
-
-				// Return a generic error message to the client
-				return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "An error occurred while processing your request." });
-			}
-
-		}
-
-		private static string CreatePasswordHash(string password)
-		{
-			// You should use a proper password hashing algorithm, e.g., bcrypt or PBKDF2
-			return PasswordHasher.HashPassword(password);
-		}
-
-		private static bool VerifyPasswordHash(string password, string passwordHash)
-		{
-			// You should use a proper password hashing algorithm, e.g., bcrypt or PBKDF2
-			return PasswordHasher.VerifyPassword(password, passwordHash);
-		}
-
+		//**************************************************************************** Entertainment Type *******************************************************************************
 		[HttpGet]
 		[Route("EntertainmentTypes")]
 		public async Task<ActionResult> EntertainmentTypes()
@@ -603,39 +493,59 @@ namespace Africanacity_Team24_INF370_.Controllers
 			}
 		}
 
-	//	[HttpGet]
-	//	[Route("GetUsers")]
-	//	public async Task<IActionResult> GetUsers()
-	//	{
-	//		try
-	//		{
-	//			var results = await _repository.GetUsersAsync();
 
-				
 
-	//			// Transform the results
-	//			dynamic users = results.Select(e => new
-	//			{
-	//				e.Id,
-	//				e.Username,
-	//				e.FirstName,
-	//				e.LastName,
-	//				EntertainmenTypeName = e.Entertainment_Type.Name, // Use null-conditional operator
-	//				e.ContactNumber,
-	//				e.Email,
-	//				e.PhysicalAddress
-	//			});
-				
+		//**************************************************************************** Change Password *******************************************************************************
+		[HttpPost("ChangePassword")]
+	/*	[Authorize] */// Make sure the user is authenticated
+		public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordViewModel model)
+		{
+			try
+			{
+				// Retrieve the user based on the authenticated user or a token
+				var user = await _authContext.Users.SingleOrDefaultAsync(u => u.Username == User.Identity.Name);
 
-	//			return Ok(users);
-	//		}
-	//		catch (Exception ex)
-	//		{
-	//			// Log the exception
-	//			Debug.WriteLine($"Exception: {ex}");
-	//			return StatusCode(500, "Internal Server Error. Please contact support.");
-	//		}
-	//	}
+				// Check if the user exists
+				if (user == null)
+				{
+					return NotFound("User not found.");
+				}
+
+				// Check if the old password matches the stored password
+				if (!PasswordHasher.VerifyPassword(model.OldPassword, user.Password))
+				{
+					return BadRequest("Old password is incorrect.");
+				}
+
+				// Check if the new password is different from the old password
+				if (model.NewPassword == model.OldPassword)
+				{
+					return BadRequest("New password must be different from the old password.");
+				}
+
+				// Check if the new password and confirm password match
+				if (model.NewPassword != model.ConfirmPassword)
+				{
+					return BadRequest("New password and confirm password do not match.");
+				}
+
+				// Update the password
+				user.Password = PasswordHasher.HashPassword(model.NewPassword);
+				await _authContext.SaveChangesAsync();
+
+				return Ok(new { Message = "Password changed successfully." });
+			}
+			catch (Exception ex)
+			{
+				// Log the exception for debugging purposes
+				// You can use a logging library like Serilog or NLog for this
+				// logger.LogError(ex, "An error occurred while changing password.");
+
+				// Return a generic error message to the client
+				return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "An error occurred while processing your request." });
+			}
+		}
+
 
 	}
 

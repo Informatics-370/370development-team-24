@@ -124,7 +124,7 @@ onSubmit() {
     // ... existing code ...
     if (this.bookingForm.valid) {
           // ... your existing code to append form data to formData ...
-               this.formData.append('firstName', this.bookingForm.get('firstName')!.value);
+          this.formData.append('firstName', this.bookingForm.get('firstName')!.value);
            this.formData.append('lastName', this.bookingForm.get('lastName')!.value);
            this.formData.append('contactNumber', this.bookingForm.get('contactNumber')!.value);
            this.formData.append('email', this.bookingForm.get('email')!.value);

@@ -24,7 +24,7 @@ export class EditBookingComponent implements OnInit {
   fileNameUploaded = '';
   public role!:string;
   public fullName : string = "";
-  bookings: Booked[] = [];
+  bookings: Booking[] = [];
 
   updateBookingForm: FormGroup = new FormGroup({
     lastName: new FormControl('', [Validators.required]),
@@ -32,10 +32,11 @@ export class EditBookingComponent implements OnInit {
     entertainmenttype: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
     contactNumber: new FormControl('', [Validators.required]),
-    demo: new FormControl('', [Validators.required]),
+    // demo: new FormControl('', [Validators.required]),
     eventname: new FormControl('', [Validators.required]),
     instagram: new FormControl('', [Validators.required]),
-    additional : new FormControl('', [Validators.required])
+    additional : new FormControl('', [Validators.required]),
+    demo: new FormControl('', [Validators.required])
   });
 
   constructor(
@@ -44,17 +45,17 @@ export class EditBookingComponent implements OnInit {
     private activated: ActivatedRoute,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private auth: AuthService, 
+    private auth: AuthService,
     private userStore: UserStoreService
-  ) { 
-    this.updateBookingForm.controls['eventname'].disable();
+  ) {
+     this.updateBookingForm.controls['eventname'].disable();
   }
 
-  uploadFile = (files: any) => {
-    let fileToUpload = <File>files[0];
-    this.formData.append('demo', fileToUpload, fileToUpload.name);
-    this.fileNameUploaded = fileToUpload.name
-  }
+  // uploadFile = (files: any) => {
+  //   let fileToUpload = <File>files[0];
+  //   this.formData.append('demo', fileToUpload, fileToUpload.name);
+  //   this.fileNameUploaded = fileToUpload.name
+  // }
 
   ngOnInit(): void {
     this.userStore.getFullNameFromStore()
@@ -79,6 +80,7 @@ export class EditBookingComponent implements OnInit {
         this.updateBookingForm.controls['contactNumber'].setValue(this.editBooking.contactNumber);
         this.updateBookingForm.controls['eventname'].setValue(this.editBooking.eventname);
         this.updateBookingForm.controls['instagram'].setValue(this.editBooking.instagram);
+        // this.updateBookingForm.controls['demo'].setValue(this.editBooking.demo);
         this.updateBookingForm.controls['additional'].setValue(this.editBooking.additional);
 
         const selectedType = this.entertainmentTypeData.find(type => type.name === this.editBooking.entertainmenttypeName);
@@ -87,9 +89,10 @@ export class EditBookingComponent implements OnInit {
         }
       });
     });
-console.log(this.updateBookingForm)
-    this. GetAllEntertainment(); 
+console.log(this.updateBookingForm.value)
+    this. GetAllEntertainment();
   }
+  // console.log(this.updateBookingForm.value)
 
   cancel() {
     this.router.navigate(['/past-booking']);
@@ -104,11 +107,50 @@ console.log(this.updateBookingForm)
     });
   }
 
+
+  uploadFile(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.formData.append('demo', file, file.name);
+      this.fileNameUploaded = file.name;
+    }
+  }
+
+
+  // updateBooking() {
+  
+  //   const booking = new FormData();
+  //   booking.append('lastName', this.updateBookingForm.value.lastName);
+  //   booking.append('firstName', this.updateBookingForm.value.firstName);
+  //   booking.append('entertainmenttype', this.updateBookingForm.value.entertainmenttype);
+  //   booking.append('email', this.updateBookingForm.value.email);
+  //   booking.append('contactNumber', this.updateBookingForm.value.contactNumber);
+  //   booking.append('eventname', this.updateBookingForm.value.eventname);
+  //   booking.append('instagram', this.updateBookingForm.value.instagram);
+  //   booking.append('additional', this.updateBookingForm.value.additional);
+  //   booking.append('demo', this.formData.get('demo') as File); // Append the file here
+
+  //   this.bookingservice.EditBooking(this.editBooking.bookingId, booking).subscribe(
+  //       (response: any) => {
+  //       if (response.statusCode === 200) {
+  //         this.router.navigate(['./past-booking']);
+  //         window.location.reload();
+  //         this.showSuccessMessage('Booking Information updated successfully!');
+  //       } else {
+  //         // Handle error if needed
+  //       }
+  //     },
+  //     (error) => {
+  //       // Handle error if needed
+  //     }
+  //   );
+  // }
+
   updateBooking() {
     let booking = new Booking();
     booking.lastName = this.updateBookingForm.value.lastName;
     booking.firstName = this.updateBookingForm.value.firstName;
-    booking.entertainmenttypeName = this.updateBookingForm.value.entertainmenttype; 
+    booking.entertainmenttype = this.updateBookingForm.value.entertainmenttype;
     booking.email = this.updateBookingForm.value.email;
     booking.contactNumber = this.updateBookingForm.value.contactNumber;
     booking.demo = this.updateBookingForm.value.demo;
@@ -117,20 +159,21 @@ console.log(this.updateBookingForm)
     booking.additional = this.updateBookingForm.value.additional;
 
     this.bookingservice.EditBooking(this.editBooking.bookingId, booking).subscribe(
-      (response: any) => {
-        if (response.statusCode === 200) {
-          this.router.navigate(['./past-booking']);
-          window.location.reload();
-          this.showSuccessMessage('Booking Information updated successfully!');
-        } else {
-          // Handle error if needed
+        (response: any) => {
+            if (response.statusCode === 200) {
+                this.router.navigate(['./past-booking']);
+                window.location.reload();
+                this.showSuccessMessage('Booking Information updated successfully!');
+            } else {
+                // Handle error if needed
+            }
+        },
+        (error) => {
+            // Handle error if needed
         }
-      },
-      (error) => {
-        // Handle error if needed
-      }
     );
-  }
+}
+
 
   showSuccessMessage(message: string): void {
     const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(message, 'Ok', {
