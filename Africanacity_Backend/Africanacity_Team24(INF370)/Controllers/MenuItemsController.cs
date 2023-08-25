@@ -1,10 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Components.Routing;
 using Africanacity_Team24_INF370_.models;
 using System.Reflection.Metadata.Ecma335;
 using Africanacity_Team24_INF370_.models.Restraurant;
 using Africanacity_Team24_INF370_.View_Models;
+
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
@@ -170,35 +175,79 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 
 
-    
 
-    [HttpPut]
-        [Route("EditMenuItem/{MenuItemId}")]
-        public async Task<ActionResult<MenuItemViewModel>> EditMenuItem(int MenuItemId, [FromBody] MenuItemViewModel menuItemViewModel)
+
+        //[HttpPut]
+        //    [Route("EditMenuItem/{MenuItemId}")]
+        //    public async Task<ActionResult<MenuItemViewModel>> EditMenuItem(int MenuItemId, [FromBody] MenuItemViewModel menuItemViewModel)
+        //    {
+        //        try
+        //        {
+        //            var existingMeal = await _repository.GetMenuItemAsync(MenuItemId);
+        //            if (existingMeal == null) return NotFound($"The menu item does not exist");
+
+        //            existingMeal.Name = menuItemViewModel.Name;
+        //            existingMeal.Description = menuItemViewModel.Description;
+        //            existingMeal.Menu_TypeId = menuItemViewModel.MenuTypeId;
+        //            existingMeal.FoodTypeId = menuItemViewModel.FoodTypeId;
+        //            existingMeal.Menu_CategoryId = menuItemViewModel.MenuCategoryId;
+
+
+
+        //            if (await _repository.SaveChangesAsync())
+        //            {
+        //                return Ok(existingMeal);
+        //            }
+        //        }
+        //        catch (Exception)
+        //        {
+        //            return StatusCode(500, "Internal Server Error. Please contact support.");
+        //        }
+        //        return BadRequest("Your request is invalid.");
+        //    }
+
+
+
+
+        //edit menu item with price attribute
+        [HttpPut]
+        [Route("EditMenuItemWithPrice/{MenuItemId}")]
+        public async Task<IActionResult> EditMenuItemWithPrice(int MenuItemId, MenuItemViewModel menuItemViewModel, decimal amount)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             try
             {
-                var existingMeal = await _repository.GetMenuItemAsync(MenuItemId);
-                if (existingMeal == null) return NotFound($"The menu item does not exist");
+                int editMenuItem = await _repository.EditMenuItemAsync(MenuItemId, menuItemViewModel);
 
-                existingMeal.Name = menuItemViewModel.Name;
-                existingMeal.Description = menuItemViewModel.Description;
-                existingMeal.Menu_TypeId = menuItemViewModel.MenuTypeId;
-                existingMeal.FoodTypeId = menuItemViewModel.FoodTypeId;
-                existingMeal.Menu_CategoryId = menuItemViewModel.MenuCategoryId;
-                
-
-
-                if (await _repository.SaveChangesAsync())
+                if (editMenuItem == 404)
                 {
-                    return Ok(existingMeal);
+                    return NotFound("Menu item not found");
                 }
+
+                if (editMenuItem == 200)
+                {
+                    // Update the associated price
+                    var menuItemPrice = await _appDbContext.MenuItem_Prices.FirstOrDefaultAsync(mp => mp.MenuItemId == MenuItemId);
+                    if (menuItemPrice != null)
+                    {
+                        menuItemPrice.Amount = amount;
+                        _appDbContext.MenuItem_Prices.Update(menuItemPrice);
+                        await _appDbContext.SaveChangesAsync();
+                    }
+
+                    return Ok("Menu item edited successfully with price");
+                }
+
+                return BadRequest("Invalid transaction");
             }
             catch (Exception)
             {
-                return StatusCode(500, "Internal Server Error. Please contact support.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
             }
-            return BadRequest("Your request is invalid.");
         }
 
 

@@ -21,9 +21,15 @@ export class EditMenuItemComponent implements OnInit {
   menuTypes!: MenuTypes[];
   foodTypes!: FoodType[];
   menuCategory!: MenuItemCategory[];
+  menuItemPrices!: number;
+
+  editMenuItemForm!: FormGroup; 
+  //intialize form 
+
 
 
   constructor(private route: ActivatedRoute, private dataService: DataService,private router: Router,
+    private formBuilder: FormBuilder,
     private snackBar: MatSnackBar){}
 
   ngOnInit(): void {
@@ -31,13 +37,40 @@ export class EditMenuItemComponent implements OnInit {
       const id = params.get('id');
       if (id!==null){
         this.menuItemId = +id;
-        this.getAMenuItem();
+        this.loadMenuItem();
       }
     });
 
     this.getMenuTypes();
     this.getFoodTypes();
     this.getMenuCategories();
+
+     // Initialize the form group and controls
+     this.editMenuItemForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      description: [''],
+      menuTypeName: [''],
+      foodTypeName: [''],
+      menuCategoryName: [''],
+      amount: ['', Validators.required]
+    });
+
+
+    this.editMenuItemForm.valueChanges.subscribe(data => {
+      this.editMenuItemForm.patchValue({
+        name: this.menuItem.name,
+        description: this.menuItem.description,
+        menuTypeName: this.menuItem.menuTypeName,
+        foodTypeName: this.menuItem.foodTypeName,
+        menuCategoryName: this.menuItem.menuCategoryName,
+        amount: this.menuItem.menuItemsPrices
+      }, { emitEvent: false }); // Prevent infinite loop
+    });
+
+
+
+
+
   }
 
 
@@ -46,9 +79,33 @@ export class EditMenuItemComponent implements OnInit {
     this.dataService.GetMenuItemById(this.menuItemId).subscribe(
       response => {
         this.menuItem = response;
+        this.menuItemPrices = response.amount
       },
       error => {
         console.log(error);
+      }
+    );
+  }
+
+  loadMenuItem() {
+    this.dataService.GetMenuItemById(this.menuItemId).subscribe(
+      (response: MenuItem) => {
+        this.menuItem = response;
+        const menuItemPrice = response.menuItemsPrices[this.menuItemId];
+        this.menuItemPrices= menuItemPrice ? menuItemPrice : 0;
+
+        // Populate form controls with retrieved data
+        this.editMenuItemForm.patchValue({
+          name: this.menuItem.name,
+          description: this.menuItem.description,
+          menuTypeName: this.menuItem.menuTypeName, // Assuming this is the foreign key ID
+          foodTypeName: this.menuItem.foodTypeName, // Assuming this is the foreign key ID
+          menuCategoryName: this.menuItem.menuCategoryName, // Assuming this is the foreign key ID
+          amount: this.menuItem.menuItemsPrices
+        });
+      },
+      error => {
+        console.error('Error loading menu item:', error);
       }
     );
   }
@@ -100,6 +157,37 @@ export class EditMenuItemComponent implements OnInit {
       error => {
         console.log(error);
         this.showSnackBar('Error updating menu item. Please try again.');
+      }
+    );
+  }
+
+
+  //new edit method
+  editMenuItem() {
+    const formData = this.editMenuItemForm.value;
+    const menuItemWithUpdates: MenuItem = {
+      menuItem_Id: this.menuItem.menuItem_Id,
+      name: this.menuItem.name,
+      description: this.menuItem.description,
+      foodTypeName: this.menuItem.foodTypeName,
+      menuTypeName: this.menuItem.menuTypeName,
+      menuCategoryName: this.menuItem.menuCategoryName,
+      menuItemsPrices: {
+        [this.menuItemId]: this.menuItemPrices
+      }
+    };
+
+    const updatedAmount = formData.amount;
+
+    this.dataService.editMenuItemWithPrice(this.menuItemId, menuItemWithUpdates, updatedAmount).subscribe(
+      response => {
+        console.log('Menu item edited successfully:', response);
+        // Optionally, navigate to a different page or update the UI
+        this.router.navigate(['/menu-items']); // Redirect to menu items list
+      },
+      error => {
+        console.error('Error editing menu item:', error);
+        // Handle the error (e.g., show an error message)
       }
     );
   }

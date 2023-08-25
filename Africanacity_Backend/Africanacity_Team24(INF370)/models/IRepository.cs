@@ -50,6 +50,9 @@ namespace Africanacity_Team24_INF370_.models
 
         Task<int> EditMenuItemAsync(int MenuItemId, MenuItemViewModel menuItem);
 
+        Task<int> EditMenuItemWithPriceAsync(int MenuItemId, MenuItemViewModel menuItemViewModel, decimal amount);
+
+
 
         //MENU Types//
         Task<Menu_Type[]> GetAllMenuTypesAsync();

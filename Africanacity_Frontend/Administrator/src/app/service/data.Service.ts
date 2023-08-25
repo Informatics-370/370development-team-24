@@ -116,6 +116,12 @@ export class DataService {
     return this.httpClient.put<MenuItem>(`${this.apiUrl}MenuItems/EditMenuItem/${MenuItemId}`, menuItem,this.httpOptions);
   }
 
+  editMenuItemWithPrice(menuItemId: number, menuItem: MenuItem, amount: number): Observable<any> {
+    return this.httpClient.put(`${this.apiUrl}/EditMenuItemWithPrice/${menuItemId}`, { menuItem, amount });
+  }
+
+
+
   
     /*Delete Menu type*/
     deleteMenuItem(menu_ItemId: Number){

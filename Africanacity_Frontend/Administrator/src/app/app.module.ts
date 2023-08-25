@@ -115,7 +115,6 @@ import { ViewOtherDrinkComponent } from './administration/otherDrink/view-other-
 
 
 
-
 @NgModule({
   declarations: [
     AppComponent,

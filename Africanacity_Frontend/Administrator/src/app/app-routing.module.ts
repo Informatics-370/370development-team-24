@@ -86,6 +86,9 @@ import { WriteOffStockComponent } from './administration/Inventory Management/In
 import { ViewOtherDrinkComponent } from './administration/otherDrink/view-other-drink/view-other-drink.component';
 import { CreateOtherDrinkComponent } from './administration/otherDrink/create-other-drink/create-other-drink.component';
 
+
+
+
 const routes: Routes = [
   { path: '', component: EmployeeComponent },
   { path: 'home', component: HomeComponent },

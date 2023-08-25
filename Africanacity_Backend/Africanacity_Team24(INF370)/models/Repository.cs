@@ -242,6 +242,50 @@ namespace Africanacity_Team24_INF370_.models
         }
 
 
+        //edit menu item with price
+        public async Task<int> EditMenuItemWithPriceAsync(int MenuItemId, MenuItemViewModel menuItemViewModel, decimal amount)
+        {
+            MenuItem existingMenuItem = await _appDbContext.MenuItems
+                 .Include(mi => mi.Menu_Type)
+                 .Include(mi => mi.MenuItem_Category)
+                 .Include(mi => mi.Food_Type)
+                 .FirstOrDefaultAsync(mi => mi.MenuItemId == MenuItemId);
+
+            if (existingMenuItem == null)
+            {
+                return 404; // Not Found
+            }
+
+            existingMenuItem.Name = menuItemViewModel.Name;
+            existingMenuItem.Description = menuItemViewModel.Description;
+            existingMenuItem.Menu_TypeId = menuItemViewModel.Menu_TypeId;
+            existingMenuItem.Menu_CategoryId = menuItemViewModel.Menu_CategoryId;
+            existingMenuItem.FoodTypeId = menuItemViewModel.FoodTypeId;
+
+            try
+            {
+                _appDbContext.MenuItems.Update(existingMenuItem);
+
+                // Update the associated price
+                MenuItem_Price existingPrice = await _appDbContext.MenuItem_Prices.FirstOrDefaultAsync(mp => mp.MenuItemId == MenuItemId);
+                if (existingPrice != null)
+                {
+                    existingPrice.Amount = amount;
+                    _appDbContext.MenuItem_Prices.Update(existingPrice);
+                }
+
+                await _appDbContext.SaveChangesAsync();
+
+                return 200; // Success
+            }
+            catch (Exception)
+            {
+                return 400; // Bad Request
+            }
+        }
+
+
+
         //MENU TYPES//
         public async Task<Menu_Type[]> GetAllMenuTypesAsync()
         {
