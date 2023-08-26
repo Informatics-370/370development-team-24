@@ -749,9 +749,6 @@ namespace Africanacity_Team24_INF370_.models
             });
 
 
-
-
-
             //Many to many with MenuItem
             //modelBuilder.Entity<MenuItem>()
             //            .HasOne(m => m.Menu_Type)
@@ -858,6 +855,7 @@ namespace Africanacity_Team24_INF370_.models
                                       End_Time = "14:30 PM",
                                       Description = "Musician can book performance",
                                       EventId = 1,
+                                      Schedule_StatusId = 1,
                                   });
             modelBuilder.Entity<Schedule>()
                                 .HasData(
@@ -870,6 +868,7 @@ namespace Africanacity_Team24_INF370_.models
                                      End_Time = "21:30 PM",
                                      Description = "Contemporary Dance performance",
                                      EventId = 2,
+                                     Schedule_StatusId = 1,
                                  });
             modelBuilder.Entity<Schedule>()
                                 .HasData(
@@ -882,6 +881,7 @@ namespace Africanacity_Team24_INF370_.models
                                      End_Time = "19:15 PM",
                                      Description = "Poet recital",
                                      EventId = 3,
+                                     Schedule_StatusId = 2,
                                  });
             modelBuilder.Entity<Schedule>()
                               .HasData(
@@ -894,6 +894,7 @@ namespace Africanacity_Team24_INF370_.models
                                    End_Time = "19:50 PM",
                                    Description = "Contemporary dance slot",
                                    EventId = 2,
+                                   Schedule_StatusId = 1,
                                });
             modelBuilder.Entity<Schedule>()
                               .HasData(
@@ -906,13 +907,42 @@ namespace Africanacity_Team24_INF370_.models
                                    End_Time = "19:15 PM",
                                    Description = "Poet recital",
                                    EventId = 3,
+                                   Schedule_StatusId = 1,
                                });
 
+            //Create Seed Data For the Schedule Status Entity:
+            modelBuilder.Entity<Schedule_Status>()
+                     .HasData(
+                      new
+                      {
+                          Schedule_StatusId = 1,
+                          Name = "Available",
 
+                      });
+            modelBuilder.Entity<Schedule_Status>()
+                     .HasData(
+                      new
+                      {
+                          Schedule_StatusId = 2,
+                          Name = "Booked",
 
+                      });
+            modelBuilder.Entity<Schedule_Status>()
+                    .HasData(
+                     new
+                     {
+                         Schedule_StatusId = 3,
+                         Name = "Pending",
 
+                     });
+            modelBuilder.Entity<Schedule_Status>()
+                    .HasData(
+                     new
+                     {
+                         Schedule_StatusId = 4,
+                         Name = "Cancelled",
 
-
+                     });
 
             // Create Seed Data For the Menu Category Table:
             modelBuilder.Entity<MenuItem_Category>()
@@ -1353,6 +1383,17 @@ namespace Africanacity_Team24_INF370_.models
                            Start_Date = DateTime.Now,
                            End_Date = DateTime.Now.AddDays(10),
                        });
+
+            //Many to many with Schedule
+            modelBuilder.Entity<Schedule>()
+                        .HasOne(m => m.Schedule_Status)
+                        .WithMany()
+                        .HasForeignKey(m => m.Schedule_StatusId);
+
+            modelBuilder.Entity<Schedule>()
+            .HasOne(m => m.Event)
+            .WithMany()
+            .HasForeignKey(m => m.EventId);
 
 
 

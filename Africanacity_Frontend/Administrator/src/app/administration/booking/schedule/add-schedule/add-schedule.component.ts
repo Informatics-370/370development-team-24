@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { Component, Input, Inject, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'src/app/service/data.Service';
 import { BookingEvent } from 'src/app/shared/bookingevent';
@@ -16,12 +16,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class AddScheduleComponent implements OnInit{
 
   formData = new FormData();
+  @Input() events: any;
   bookingevents: BookingEvent[]=[];
-  newEvents: Event[] = [];
+  
 
-  //Date Validation 
-  // minDate: Date;
-  // maxDate: Date;
+  
 
   constructor( private dataService: DataService, 
     private fb: FormBuilder,
@@ -30,19 +29,13 @@ export class AddScheduleComponent implements OnInit{
     public dialogRef: MatDialogRef<AddScheduleComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    //Set min date to 20 years in the past and a year in the future
-    // const currentYear = new Date().getFullYear();
-    // this.minDate = new Date(currentYear - 20, 0, 1);
-    // this.maxDate = new Date(currentYear + 1, 11, 31);
   }
 
-     // Create an EventEmitter to emit the new event data
-    // @Output() eventAdded: EventEmitter<any> = new EventEmitter<any>();
-    // private customEventColor = '#2196F3';
-
+    //form controls
     scheduleform: FormGroup = this.fb.group({
       title: ['', Validators.required],
       start_time: [null, Validators.required],
+      date: [null, Validators.required],
       start_time_ampm: ['AM', Validators.required],
       end_time: [null, Validators.required],
       end_time_ampm: ['AM', Validators.required],
@@ -52,8 +45,11 @@ export class AddScheduleComponent implements OnInit{
 
     ngOnInit(): void {
       this.GetAllEvents()
+      if (this.data.event) {
+        this.scheduleform.patchValue(this.data.event);
+      }
     }
-
+ 
   //Retrieve Events method
   GetAllEvents()
   {
@@ -66,44 +62,39 @@ export class AddScheduleComponent implements OnInit{
     })
   }
 
-  onSubmit() {
-    const eventData = this.scheduleform.value;
-    this.dataService.AddSchedule(eventData).subscribe(() => {
-      // Handle success or navigate back to event list
-      this.router.navigate(['/schedule-display'])
-    });
+
+   //Save data from schedule form controls to the backend form
+ onSubmit() {
+  if(this.scheduleform.valid)
+  {
+     this.formData.append('title', this.scheduleform.get('title')!.value);
+    this.formData.append('eventName', this.scheduleform.get('eventName')!.value);
+     this.formData.append('start_Time', this.scheduleform.get('start_Time')!.value);
+     this.formData.append('end_Time', this.scheduleform.get('end_Time')!.value);
+     this.formData.append('description', this.scheduleform.get('description')!.value);
+     
+     this.dataService.AddSchedule(this.formData).subscribe(() => {
+       this.clearData()
+       this.router.navigateByUrl('schedule-display').then((navigated: boolean) => {
+         if(navigated) {
+           this.snackBar.open(this.scheduleform.get('title')!.value + ` created successfully`, 'X', {duration: 5000});
+         }
+      });
+     });
+    }
   }
 
-  // onSave(): void {
-  //   if (this.scheduleform.valid) {
-  //     const eventData: Schedule = {
-  //       title: this.scheduleform.get('title')!.value,
-  //       start_time: this.scheduleform.get('start_time')!.value,
-  //       scheduleid: 0,
-  //       end_time: this.scheduleform.get('end_time')!.value,
-  //       event: this.scheduleform.get('event')!.value,
-  //       description: this.scheduleform.get('description')!.value,
-  //     };
+  
+  //clear all input controls
+  clearData(){
+    this.formData.delete("title");
+    this.formData.delete("eventName");
+    this.formData.delete("start_Time");
+    this.formData.delete("end_Time");
+    this.formData.delete("description");
+  }
 
-       
-      
-  //     // Emit the new event data to the parent component (ScheduleDisplayComponent)
-  //     this.eventAdded.emit(eventData);
-
-  //     // Close the dialog after saving
-  //     this.dialogRef.close();
-
-  //     // Show a snackbar message indicating successful event creation
-  //     this.snackBar.open(eventData.title + ' created successfully', 'X', {
-  //       duration: 5000,
-  //     });
-  //   }
-  // }
-
-
-
-
-  //  onCancel(): void {
-  //   this.dialogRef.close();
-  //  }
+  onCancel(){
+    this.dialogRef.close();
+  }
 }

@@ -39,13 +39,14 @@ namespace Africanacity_Team24_INF370_.Controllers
 
                     s.End_Time,
 
-                    EventName = s.Event != null ? s.Event.Name : "Unknown Event",
+                    EventName = s.Event.Name,
 
-                    //EventName = s.Event.Name,
+                    ScheduleStatus = s.Schedule_Status.Name,
 
                     s.IsActive,
 
                     s.IsDeleted,
+
 
                 });
                 return Ok(schedule);
@@ -56,8 +57,7 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
         }
 
-        
-
+       
         [HttpGet]
         [Route("GetSchedule/{scheduleId}")]
         public async Task<IActionResult> GetScheduleAsync(int scheduleId)
@@ -76,40 +76,6 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
         }
 
-        //[HttpPost]
-        //[Route("AddSchedule")]
-        //public async Task<IActionResult> AddSchedule(IFormCollection formData)
-        //{
-
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-
-
-        //    var schedule = new Schedule
-        //    {
-        //        Title = formData["title"],
-        //        Description = formData["description"],
-        //        Date = new DateTime(date),
-        //        Start_Time = formData["start_time"],
-        //        End_Time = formData["end_time"],
-        //        EventId = Convert.ToInt32(formData["event"]),
-        //    };
-
-        //    try
-        //    {
-        //        _Repository.Add(schedule);
-        //        await _Repository.SaveChangesAsync();
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return BadRequest("Invalid Operation");
-        //    }
-
-        //    return Ok(schedule);
-        //}
 
         [HttpPost]
         [Route("AddSchedule")]
@@ -125,6 +91,12 @@ namespace Africanacity_Team24_INF370_.Controllers
                 return BadRequest("Invalid date format");
             }
 
+            // Create a new Schedule_Status with the default status "available"
+            var scheduleStatus = new Schedule_Status
+            {
+                Name = "available"
+            };
+
             var schedule = new Schedule
             {
                 Title = formData["title"],
@@ -133,6 +105,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                 Start_Time = formData["start_time"],
                 End_Time = formData["end_time"],
                 EventId = Convert.ToInt32(formData["event"]),
+                Schedule_Status = scheduleStatus // Set the status to "available"
             };
 
             try

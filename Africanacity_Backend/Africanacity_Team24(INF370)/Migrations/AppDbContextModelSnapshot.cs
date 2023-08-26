@@ -190,9 +190,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                             DiscountId = 1,
                             Amount = 0.10m,
                             Description = "10% Discount",
-                            End_Date = new DateTime(2023, 8, 24, 1, 3, 2, 625, DateTimeKind.Local).AddTicks(8561),
+                            End_Date = new DateTime(2023, 9, 3, 19, 36, 28, 25, DateTimeKind.Local).AddTicks(1108),
                             Name = "Month end discount",
-                            Start_Date = new DateTime(2023, 8, 14, 1, 3, 2, 625, DateTimeKind.Local).AddTicks(8553)
+                            Start_Date = new DateTime(2023, 8, 24, 19, 36, 28, 25, DateTimeKind.Local).AddTicks(1106)
                         });
                 });
 
@@ -849,7 +849,13 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<int>("EventId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Schedule_StatusId")
+                    b.Property<int?>("EventId1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Schedule_StatusId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Schedule_StatusId1")
                         .HasColumnType("int");
 
                     b.Property<string>("Start_Time")
@@ -866,7 +872,11 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     b.HasIndex("EventId");
 
+                    b.HasIndex("EventId1");
+
                     b.HasIndex("Schedule_StatusId");
+
+                    b.HasIndex("Schedule_StatusId1");
 
                     b.ToTable("Schedules");
 
@@ -878,6 +888,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                             Description = "Musician can book performance",
                             End_Time = "14:30 PM",
                             EventId = 1,
+                            Schedule_StatusId = 1,
                             Start_Time = "14;00 PM",
                             Title = "Music slot"
                         },
@@ -888,6 +899,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                             Description = "Contemporary Dance performance",
                             End_Time = "21:30 PM",
                             EventId = 2,
+                            Schedule_StatusId = 1,
                             Start_Time = "21;00 PM",
                             Title = "Dance slot "
                         },
@@ -898,6 +910,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                             Description = "Poet recital",
                             End_Time = "19:15 PM",
                             EventId = 3,
+                            Schedule_StatusId = 2,
                             Start_Time = "19;00 PM",
                             Title = "Poetry"
                         },
@@ -908,6 +921,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                             Description = "Contemporary dance slot",
                             End_Time = "19:50 PM",
                             EventId = 2,
+                            Schedule_StatusId = 1,
                             Start_Time = "19;30 PM",
                             Title = "Contemp Dance"
                         },
@@ -918,6 +932,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                             Description = "Poet recital",
                             End_Time = "19:15 PM",
                             EventId = 3,
+                            Schedule_StatusId = 1,
                             Start_Time = "19;00 PM",
                             Title = "Comedy"
                         });
@@ -933,12 +948,33 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Schedule_StatusId");
 
                     b.ToTable("Schedule_Statuses");
+
+                    b.HasData(
+                        new
+                        {
+                            Schedule_StatusId = 1,
+                            Name = "Available"
+                        },
+                        new
+                        {
+                            Schedule_StatusId = 2,
+                            Name = "Booked"
+                        },
+                        new
+                        {
+                            Schedule_StatusId = 3,
+                            Name = "Pending"
+                        },
+                        new
+                        {
+                            Schedule_StatusId = 4,
+                            Name = "Cancelled"
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Inventory_Item", b =>
@@ -1224,9 +1260,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             SupplierItemId = 1,
                             Inventory_ItemId = 1,
-                            Ordered_Date = new DateTime(2023, 8, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            Ordered_Date = new DateTime(2023, 8, 24, 0, 0, 0, 0, DateTimeKind.Local),
                             Ordered_Quantity = 33,
-                            Received_Date = new DateTime(2023, 8, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            Received_Date = new DateTime(2023, 8, 24, 0, 0, 0, 0, DateTimeKind.Local),
                             SupplierId = 1
                         });
                 });
@@ -2374,16 +2410,28 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasForeignKey("AdministratorId");
 
                     b.HasOne("Africanacity_Team24_INF370_.models.Booking.Event", "Event")
-                        .WithMany("Schedules")
+                        .WithMany()
                         .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Africanacity_Team24_INF370_.models.Booking.Event", null)
+                        .WithMany("Schedules")
+                        .HasForeignKey("EventId1");
+
+                    b.HasOne("Africanacity_Team24_INF370_.models.Booking.Schedule_Status", "Schedule_Status")
+                        .WithMany()
+                        .HasForeignKey("Schedule_StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Africanacity_Team24_INF370_.models.Booking.Schedule_Status", null)
                         .WithMany("Schedules")
-                        .HasForeignKey("Schedule_StatusId");
+                        .HasForeignKey("Schedule_StatusId1");
 
                     b.Navigation("Event");
+
+                    b.Navigation("Schedule_Status");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Inventory.Inventory_Item", b =>

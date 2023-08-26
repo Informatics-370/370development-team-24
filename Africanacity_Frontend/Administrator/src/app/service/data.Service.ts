@@ -278,9 +278,9 @@ GetSchedule(scheduleId: number) {
 }
 
 
-AddSchedule(schedule : Schedule)
+AddSchedule(file: FormData)
 {
-  return this.httpClient.post(`${this.apiUrl}Schedule/AddSchedule`, schedule, this.httpOptions)
+  return this.httpClient.post(`${this.apiUrl}Schedule/AddSchedule`, file)
 }
 
 EditSchedule(scheduleId: Number, schedule: Schedule)
@@ -288,9 +288,9 @@ EditSchedule(scheduleId: Number, schedule: Schedule)
   return this.httpClient.put(`${this.apiUrl}Schedule/EditSchedule/${scheduleId}`, schedule, this.httpOptions)
 }
 
-DeleteSchedule(scheduleId: Number)
+RemoveSchedule(scheduleId: Number)
 {
-  return this.httpClient.delete<string>(`${this.apiUrl}Schedule/DeleteSchedule` + "/" + scheduleId, this.httpOptions)
+  return this.httpClient.delete<string>(`${this.apiUrl}Schedule/RemoveSchedule` + "/" + scheduleId, this.httpOptions)
 }
 
 /************************************EVENTS******************************/

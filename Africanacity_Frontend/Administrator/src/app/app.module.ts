@@ -94,6 +94,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { ResetComponent } from './login/reset/reset.component';
 import { LoginComponent } from './login/login/login.component';
 import { ChangePasswordComponent } from './login/change-password/change-password.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 
 
@@ -226,6 +228,10 @@ import { ChangePasswordComponent } from './login/change-password/change-password
     MatDialogModule,
     FullCalendarModule,
     ModalModule.forRoot(), 
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    })
   ],
   providers: [DataService],
   bootstrap: [AppComponent],

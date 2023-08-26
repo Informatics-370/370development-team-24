@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Africanacity_Team24_INF370_.Migrations
 {
-    public partial class Mmino : Migration
+    public partial class Africanacity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -364,7 +364,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                 {
                     Schedule_StatusId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -874,8 +874,10 @@ namespace Africanacity_Team24_INF370_.Migrations
                     End_Time = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EventId = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Schedule_StatusId = table.Column<int>(type: "int", nullable: false),
                     AdministratorId = table.Column<int>(type: "int", nullable: true),
-                    Schedule_StatusId = table.Column<int>(type: "int", nullable: true)
+                    EventId1 = table.Column<int>(type: "int", nullable: true),
+                    Schedule_StatusId1 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -892,8 +894,19 @@ namespace Africanacity_Team24_INF370_.Migrations
                         principalColumn: "EventId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_Schedules_Events_EventId1",
+                        column: x => x.EventId1,
+                        principalTable: "Events",
+                        principalColumn: "EventId");
+                    table.ForeignKey(
                         name: "FK_Schedules_Schedule_Statuses_Schedule_StatusId",
                         column: x => x.Schedule_StatusId,
+                        principalTable: "Schedule_Statuses",
+                        principalColumn: "Schedule_StatusId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Schedules_Schedule_Statuses_Schedule_StatusId1",
+                        column: x => x.Schedule_StatusId1,
                         principalTable: "Schedule_Statuses",
                         principalColumn: "Schedule_StatusId");
                 });
@@ -1130,7 +1143,7 @@ namespace Africanacity_Team24_INF370_.Migrations
             migrationBuilder.InsertData(
                 table: "Discounts",
                 columns: new[] { "DiscountId", "AdministratorId", "Amount", "Description", "End_Date", "Name", "Start_Date" },
-                values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 8, 24, 1, 3, 2, 625, DateTimeKind.Local).AddTicks(8561), "Month end discount", new DateTime(2023, 8, 14, 1, 3, 2, 625, DateTimeKind.Local).AddTicks(8553) });
+                values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 9, 3, 19, 36, 28, 25, DateTimeKind.Local).AddTicks(1108), "Month end discount", new DateTime(2023, 8, 24, 19, 36, 28, 25, DateTimeKind.Local).AddTicks(1106) });
 
             migrationBuilder.InsertData(
                 table: "Drink_Prices",
@@ -1260,6 +1273,17 @@ namespace Africanacity_Team24_INF370_.Migrations
                 values: new object[] { 2, "Takeaway" });
 
             migrationBuilder.InsertData(
+                table: "Schedule_Statuses",
+                columns: new[] { "Schedule_StatusId", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Available" },
+                    { 2, "Booked" },
+                    { 3, "Pending" },
+                    { 4, "Cancelled" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Supplier_Types",
                 columns: new[] { "Supplier_TypeId", "Description", "Name" },
                 values: new object[,]
@@ -1356,14 +1380,14 @@ namespace Africanacity_Team24_INF370_.Migrations
 
             migrationBuilder.InsertData(
                 table: "Schedules",
-                columns: new[] { "ScheduleId", "AdministratorId", "Date", "Description", "End_Time", "EventId", "Schedule_StatusId", "Start_Time", "Title" },
+                columns: new[] { "ScheduleId", "AdministratorId", "Date", "Description", "End_Time", "EventId", "EventId1", "Schedule_StatusId", "Schedule_StatusId1", "Start_Time", "Title" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(2023, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "Musician can book performance", "14:30 PM", 1, null, "14;00 PM", "Music slot" },
-                    { 2, null, new DateTime(2023, 8, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "Contemporary Dance performance", "21:30 PM", 2, null, "21;00 PM", "Dance slot " },
-                    { 3, null, new DateTime(2023, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "Poet recital", "19:15 PM", 3, null, "19;00 PM", "Poetry" },
-                    { 4, null, new DateTime(2023, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "Contemporary dance slot", "19:50 PM", 2, null, "19;30 PM", "Contemp Dance" },
-                    { 5, null, new DateTime(2023, 8, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "Poet recital", "19:15 PM", 3, null, "19;00 PM", "Comedy" }
+                    { 1, null, new DateTime(2023, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "Musician can book performance", "14:30 PM", 1, null, 1, null, "14;00 PM", "Music slot" },
+                    { 2, null, new DateTime(2023, 8, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "Contemporary Dance performance", "21:30 PM", 2, null, 1, null, "21;00 PM", "Dance slot " },
+                    { 3, null, new DateTime(2023, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "Poet recital", "19:15 PM", 3, null, 2, null, "19;00 PM", "Poetry" },
+                    { 4, null, new DateTime(2023, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "Contemporary dance slot", "19:50 PM", 2, null, 1, null, "19;30 PM", "Contemp Dance" },
+                    { 5, null, new DateTime(2023, 8, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "Poet recital", "19:15 PM", 3, null, 1, null, "19;00 PM", "Comedy" }
                 });
 
             migrationBuilder.InsertData(
@@ -1389,7 +1413,7 @@ namespace Africanacity_Team24_INF370_.Migrations
             migrationBuilder.InsertData(
                 table: "Supplier_Inventorys",
                 columns: new[] { "SupplierItemId", "Inventory_ItemId", "Ordered_Date", "Ordered_Quantity", "Received_Date", "SupplierId" },
-                values: new object[] { 1, 1, new DateTime(2023, 8, 14, 0, 0, 0, 0, DateTimeKind.Local), 33, new DateTime(2023, 8, 14, 0, 0, 0, 0, DateTimeKind.Local), 1 });
+                values: new object[] { 1, 1, new DateTime(2023, 8, 24, 0, 0, 0, 0, DateTimeKind.Local), 33, new DateTime(2023, 8, 24, 0, 0, 0, 0, DateTimeKind.Local), 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Access_UserRoles_User_RolesUser_RoleId",
@@ -1581,9 +1605,19 @@ namespace Africanacity_Team24_INF370_.Migrations
                 column: "EventId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Schedules_EventId1",
+                table: "Schedules",
+                column: "EventId1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Schedules_Schedule_StatusId",
                 table: "Schedules",
                 column: "Schedule_StatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Schedules_Schedule_StatusId1",
+                table: "Schedules",
+                column: "Schedule_StatusId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Supplier_InventoryItems_SuppliersSupplierId",
