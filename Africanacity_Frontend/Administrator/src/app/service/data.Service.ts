@@ -102,8 +102,8 @@ export class DataService {
   
   
     //fetch menu item food
-    GetMenuItemById(menu_ItemId: Number): Observable<any>{
-      return this.httpClient.get(`${this.apiUrl}MenuItems/GetMenuItem/${menu_ItemId}`);
+    GetMenuItemById(menuItemId: number): Observable<any>{
+      return this.httpClient.get(`${this.apiUrl}MenuItems/GetMenuItem/${menuItemId}`);
     }
 
     //add a new menu item
@@ -116,8 +116,8 @@ export class DataService {
     return this.httpClient.put<MenuItem>(`${this.apiUrl}MenuItems/EditMenuItem/${MenuItemId}`, menuItem,this.httpOptions);
   }
 
-  editMenuItemWithPrice(menuItemId: number, menuItem: MenuItem, amount: number): Observable<any> {
-    return this.httpClient.put(`${this.apiUrl}/EditMenuItemWithPrice/${menuItemId}`, { menuItem, amount });
+  editMenuItemWithPrice(menuItemId: number, updatedMenuItem: any): Observable<any> {
+    return this.httpClient.put(`${this.apiUrl}/EditMenuItemWithPrice/${menuItemId}`, {updatedMenuItem});
   }
 
 

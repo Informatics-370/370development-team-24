@@ -216,7 +216,7 @@ namespace Africanacity_Team24_INF370_.models
 
         public async Task<MenuItem> GetMenuItemAsync(int MenuItemId)
         {
-            IQueryable<MenuItem> query = _appDbContext.MenuItems.Where(c => c.MenuItemId == MenuItemId);
+            IQueryable<MenuItem> query = _appDbContext.MenuItems.Where(c => c.MenuItemId == MenuItemId).Include(p => p.Menu_Type).Include(p => p.Food_Type).Include(p => p.MenuItem_Category);
             return await query.FirstOrDefaultAsync();
         }
 
@@ -508,9 +508,9 @@ namespace Africanacity_Team24_INF370_.models
             IQueryable<MenuItem_Price> query = _appDbContext.MenuItem_Prices;
             return await query.ToArrayAsync();
         }
-        public async Task<MenuItem_Price> GetAMenuItemPriceAsync(int MenuItem_PriceId)
+        public async Task<MenuItem_Price> GetAMenuItemPriceAsync(int menuItemId)
         {
-            IQueryable<MenuItem_Price> query = _appDbContext.MenuItem_Prices.Where(c => c.MenuItem_PriceId == MenuItem_PriceId);
+            IQueryable<MenuItem_Price> query = _appDbContext.MenuItem_Prices.Where(c => c.MenuItemId == menuItemId);
             return await query.FirstOrDefaultAsync();
         }
 

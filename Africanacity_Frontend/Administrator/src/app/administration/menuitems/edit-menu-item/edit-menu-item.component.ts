@@ -17,11 +17,12 @@ import { MenuitemsComponent } from '../menuitems.component';
 export class EditMenuItemComponent implements OnInit {
  
   menuItemId!: number;
-  menuItem!: MenuItem; //= new MenuItem();
+  menuItem: MenuItem = {} as MenuItem;
   menuTypes!: MenuTypes[];
   foodTypes!: FoodType[];
   menuCategory!: MenuItemCategory[];
   menuItemPrices!: number;
+  updatedMenuItem: any = {};
 
   editMenuItemForm!: FormGroup; 
   //intialize form 
@@ -56,7 +57,7 @@ export class EditMenuItemComponent implements OnInit {
     });
 
 
-    this.editMenuItemForm.valueChanges.subscribe(data => {
+    /*this.editMenuItemForm.valueChanges.subscribe(data => {
       this.editMenuItemForm.patchValue({
         name: this.menuItem.name,
         description: this.menuItem.description,
@@ -65,7 +66,7 @@ export class EditMenuItemComponent implements OnInit {
         menuCategoryName: this.menuItem.menuCategoryName,
         amount: this.menuItem.menuItemsPrices
       }, { emitEvent: false }); // Prevent infinite loop
-    });
+    });*/
 
 
 
@@ -89,19 +90,31 @@ export class EditMenuItemComponent implements OnInit {
 
   loadMenuItem() {
     this.dataService.GetMenuItemById(this.menuItemId).subscribe(
-      (response: MenuItem) => {
-        this.menuItem = response;
-        const menuItemPrice = response.menuItemsPrices[this.menuItemId];
-        this.menuItemPrices= menuItemPrice ? menuItemPrice : 0;
+      (response: any) => {
+        this.menuItem =response;
+        this.menuItemPrices = response.amount;
+        console.log('Retreived menu item', this.menuItem); //check if it is retrieved from api
+        
+          // Map related data
+      /*this.menuItem.menuTypeName = response.menu_Type?.name || '';
+      this.menuItem.menuCategoryName = response.menuItem_Category?.name || '';
+      this.menuItem.foodTypeName = response.food_Type?.name || '';
+      this.menuItem.menuItemsPrices = response.menuItem_Prices || {};
+      if (response.menuItem_Prices) {
+        for (const price of response.menuItem_Prices) {
+          this.menuItem.menuItemsPrices[price.menuItem_Id] = price.amount;
+        }
+      }*/
+        //this.menuItemPrices= menuItemPrice ? menuItemPrice : 0;
 
         // Populate form controls with retrieved data
-        this.editMenuItemForm.patchValue({
+        this.editMenuItemForm.setValue({
           name: this.menuItem.name,
           description: this.menuItem.description,
           menuTypeName: this.menuItem.menuTypeName, // Assuming this is the foreign key ID
           foodTypeName: this.menuItem.foodTypeName, // Assuming this is the foreign key ID
           menuCategoryName: this.menuItem.menuCategoryName, // Assuming this is the foreign key ID
-          amount: this.menuItem.menuItemsPrices
+          amount: this.menuItem.menuItemsPrices || 0
         });
       },
       error => {
@@ -109,6 +122,8 @@ export class EditMenuItemComponent implements OnInit {
       }
     );
   }
+
+
 
   //get the menu types
   getMenuTypes() {
@@ -164,22 +179,21 @@ export class EditMenuItemComponent implements OnInit {
 
   //new edit method
   editMenuItem() {
-    const formData = this.editMenuItemForm.value;
+   
     const menuItemWithUpdates: MenuItem = {
       menuItem_Id: this.menuItem.menuItem_Id,
       name: this.menuItem.name,
       description: this.menuItem.description,
-      foodTypeName: this.menuItem.foodTypeName,
       menuTypeName: this.menuItem.menuTypeName,
+      foodTypeName: this.menuItem.foodTypeName,
       menuCategoryName: this.menuItem.menuCategoryName,
       menuItemsPrices: {
         [this.menuItemId]: this.menuItemPrices
       }
     };
 
-    const updatedAmount = formData.amount;
-
-    this.dataService.editMenuItemWithPrice(this.menuItemId, menuItemWithUpdates, updatedAmount).subscribe(
+  
+    this.dataService.editMenuItemWithPrice(this.menuItemId, menuItemWithUpdates).subscribe(
       response => {
         console.log('Menu item edited successfully:', response);
         // Optionally, navigate to a different page or update the UI

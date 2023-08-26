@@ -78,12 +78,23 @@ namespace Africanacity_Team24_INF370_.Controllers
         {
             try
             {
-                var menuItem = await _repository.GetMenuItemAsync(MenuItemId);
+                var result = await _repository.GetMenuItemAsync(MenuItemId);
 
-                if (menuItem == null)
+                if (result == null)
                 {
-                    return NotFound();
+                    return NotFound(); // Return 404 if the menu item is not found
                 }
+
+                var menuItem = new
+                {
+                    result.MenuItemId,
+                    result.Name,
+                    result.Description,
+                    MenuTypeName = result.Menu_Type.Name,
+                    FoodTypeName = result.Food_Type.Name,
+                    MenuCategoryName = result.MenuItem_Category.Name,
+                    
+                };
 
                 return Ok(menuItem);
             }
@@ -212,43 +223,59 @@ namespace Africanacity_Team24_INF370_.Controllers
         //edit menu item with price attribute
         [HttpPut]
         [Route("EditMenuItemWithPrice/{MenuItemId}")]
-        public async Task<IActionResult> EditMenuItemWithPrice(int MenuItemId, MenuItemViewModel menuItemViewModel, decimal amount)
+        
+        public async Task<IActionResult> EditMenuItemWithPrice(int menuItemId, [FromBody] MenuItem updatedMenuItem)
         {
-            if (!ModelState.IsValid)
+            if (menuItemId != updatedMenuItem.MenuItemId)
             {
-                return BadRequest(ModelState);
+                return BadRequest();
             }
 
             try
             {
-                int editMenuItem = await _repository.EditMenuItemAsync(MenuItemId, menuItemViewModel);
+                // Retrieve the existing menu item with related data
+                var existingMenuItem = await _repository.GetMenuItemAsync(menuItemId);
 
-                if (editMenuItem == 404)
+                if (existingMenuItem == null)
                 {
-                    return NotFound("Menu item not found");
+                    return NotFound();
                 }
 
-                if (editMenuItem == 200)
+                // Update the properties of the existing menu item
+                existingMenuItem.Name = updatedMenuItem.Name;
+                existingMenuItem.Description = updatedMenuItem.Description;
+
+                // Update the related data
+                existingMenuItem.Menu_Type = await _repository.GetMenuTypeAsync(updatedMenuItem.Menu_TypeId);
+                existingMenuItem.Food_Type = await _repository.GetFoodTypeAsync(updatedMenuItem.FoodTypeId);
+                existingMenuItem.MenuItem_Category = await _repository.GetMenuItemCategoryAsync(updatedMenuItem.Menu_CategoryId);
+                
+
+
+                //prices
+                foreach (var price in updatedMenuItem.MenuItem_Prices)
                 {
-                    // Update the associated price
-                    var menuItemPrice = await _appDbContext.MenuItem_Prices.FirstOrDefaultAsync(mp => mp.MenuItemId == MenuItemId);
-                    if (menuItemPrice != null)
+                    // Update the prices for the existing menu item
+                    var existingPrice = existingMenuItem.MenuItem_Prices.FirstOrDefault(p => p.MenuItem_PriceId == price.MenuItem_PriceId);
+
+                    if (existingPrice != null)
                     {
-                        menuItemPrice.Amount = amount;
-                        _appDbContext.MenuItem_Prices.Update(menuItemPrice);
-                        await _appDbContext.SaveChangesAsync();
+                        existingPrice.Amount = price.Amount;
                     }
-
-                    return Ok("Menu item edited successfully with price");
                 }
 
-                return BadRequest("Invalid transaction");
+                // Save changes to the database
+                await _repository.SaveChangesAsync();
+
+                return Ok();
             }
             catch (Exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+                // Handle exceptions appropriately
+                return StatusCode(500, "Internal server error");
             }
         }
+
 
 
 

@@ -62,7 +62,7 @@ namespace Africanacity_Team24_INF370_.models
 
         //Menu Items prices
         Task<MenuItem_Price[]> GetAllMenuItemPricesAsync();
-        Task<MenuItem_Price> GetAMenuItemPriceAsync(int MenuItem_PriceId);
+        Task<MenuItem_Price> GetAMenuItemPriceAsync(int menuItemId);
 
         Task<int> EditMenuItemPriceAsync(int MenuItem_PriceId, MenuItemPriceViewModel menuItemPriceViewModel);
 

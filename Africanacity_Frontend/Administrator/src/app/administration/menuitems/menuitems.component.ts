@@ -68,6 +68,7 @@ deleteMenuItem(menuItemId: number){
 
 //edit menu item html link
 editMenuItem(menuItemId: number): void {
+  
   this.router.navigate(['/edit-menu-item', menuItemId]);
 }
 
