@@ -43,6 +43,13 @@ namespace Africanacity_Team24_INF370_.models
             return await query.FirstOrDefaultAsync();
         }
 
+        //FOR IONIC APP 
+        public async Task<Employee> GetEmployeeByEmailAsync(string Email_Address)
+        {
+            IQueryable<Employee> query = _appDbContext.Employees.Where(e => e.Email_Address == Email_Address);
+            return await query.FirstOrDefaultAsync();
+        }
+
         public async Task<Gender[]> GetAllGendersAsync()
         {
             IQueryable<Gender> query = _appDbContext.Genders;

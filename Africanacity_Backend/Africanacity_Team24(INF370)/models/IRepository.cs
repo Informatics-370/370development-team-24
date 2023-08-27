@@ -31,6 +31,8 @@ namespace Africanacity_Team24_INF370_.models
         Task<Employee[]> GetAllEmployeesAsync();
         Task<Employee> GetEmployeeAsync(int EmployeeId);
 
+        Task<Employee> GetEmployeeByEmailAsync(string Email_Address);
+
         //HELP
 
         Task<Help[]> GetAllHelpAsync();
