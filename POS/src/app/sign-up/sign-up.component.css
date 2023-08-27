@@ -1,0 +1,38 @@
+
+  .sign-up-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%; /* Make the container take up the available height */
+  }
+
+  .sign-up-form {
+    border: 5px solid #ccc; /* Border with a color of your choice */
+    padding: 20px; /* Add some padding to the form */
+    /* Optionally set a background color */
+    border-radius: 8px; /* Optionally add rounded corners */
+    width: 35%;
+  
+  }
+
+  /* In your component's CSS file */
+  ion-item {
+    --highlight-background-color: transparent;
+    --ion-color-base: black;
+  }
+
+  ion-item ::part {
+    outline: 1px solid #333; /* Change the outline color to a different color */
+  }
+
+  .form-container {
+    display: flex;
+    flex-direction: column; /* Arrange content vertically */
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    height: 100vh; /* Use the entire viewport height */
+  }
+  
+
+

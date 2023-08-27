@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +7,20 @@ import { Router } from '@angular/router';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(private router: Router) {}
+  showTabs=false;
+  constructor(private router: Router) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        // Check if the current route should display tabs
+        this.showTabs = event.urlAfterRedirects.includes('/home') || 
+                        event.urlAfterRedirects.includes('/table')||
+                        event.urlAfterRedirects.includes('/order') || 
+                        event.urlAfterRedirects.includes('/kitchen-screen') ||
+                        event.urlAfterRedirects.includes('/notification') ||
+                        event.urlAfterRedirects.includes('/payment');
+      }
+    });
+  } 
+
 }
+

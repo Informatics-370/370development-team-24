@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Login } from '../shared/login';
 import { Register } from '../shared/register';
 import { User } from '../shared/user';
@@ -12,6 +12,8 @@ import { Drink } from '../shared/drink';
 import { DrinkType } from '../shared/drink-type';
 import { DrinkPrice } from '../shared/drink-price';
 import { KitchenOrder} from '../shared/kitchen-order';
+import { SignUp } from '../shared/sign-up';
+import{ map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +26,7 @@ export class MainService {
   
 
   //linking to backend
-  apiUrl = 'http://localhost:49991/api/'
+  apiUrl = 'https://localhost:49991/api/'
 
   httpOptions ={
     headers: new HttpHeaders({
@@ -33,6 +35,31 @@ export class MainService {
   }
 
   constructor(private httpClient: HttpClient) { }
+
+
+  //Sign up user
+  /*signUp(username: string, email_address: string, password: string): Observable<any> {
+    const url = `${this.apiUrl}/EmployeeAppSignUp/SignUp`
+    const body = {
+      username: username,
+      email_address: email_address,
+      password: password
+    };
+return this.httpClient.post(url, body);
+  }*/
+
+  signUp(signUpData: SignUp): Observable<any> {
+    // Send a POST request to the sign-up endpoint with the sign-up data
+    return this.httpClient.post(`${this.apiUrl}EmployeeAppSignUp/SignUp`, signUpData,{responseType: 'text'}).pipe(
+      map((response: string) =>{
+        return response;
+      })
+    );
+  }
+
+
+
+
 
   //register user 
   RegisterUser(registerUser: Login){

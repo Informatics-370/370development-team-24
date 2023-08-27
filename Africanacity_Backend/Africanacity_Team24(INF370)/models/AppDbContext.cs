@@ -37,6 +37,7 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<AdminInfor> Admins { get; set; }
 		public DbSet<User_Role> User_Roles { get; set; }
 		public DbSet<VAT> Vats { get; set; }
+        public DbSet<IonicAppUser>  IonicAppUsers { get; set; }
 
 		//Booking model
 		public DbSet<Bookings> bookings { get; set; }

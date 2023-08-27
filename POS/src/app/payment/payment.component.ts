@@ -4,9 +4,9 @@ import { OrderService } from '../service/order.service';
 import { KitchenOrder } from '../shared/kitchen-order';
 import { ModalController } from '@ionic/angular';
 import { PrintReceiptComponent } from '../print-receipt/print-receipt.component';
-import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
-import { saveAs } from 'file-saver'; // Import file-saver for saving the PDF
+//import jsPDF from 'jspdf';
+//import autoTable from 'jspdf-autotable';
+//import { saveAs } from 'file-saver'; // Import file-saver for saving the PDF
 
 @Component({
   selector: 'app-payment',
@@ -43,7 +43,7 @@ export class PaymentComponent  implements OnInit {
     
     
 
-   async onPaidButtonClick() {
+   /*async onPaidButtonClick() {
       console.log('Paid button clicked!');
 
         // Show the print receipt modal here
@@ -102,7 +102,7 @@ export class PaymentComponent  implements OnInit {
     // Save the Blob to a file
     saveAs(file, 'receipt.pdf');
       
-    }
+    }*/
 
   
     goBackToKitchenScreen() {

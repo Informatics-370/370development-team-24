@@ -10,6 +10,7 @@ import { NotificationComponent } from './notification/notification.component';
 import { PaymentComponent } from './payment/payment.component';
 import { Component } from 'ionicons/dist/types/stencil-public-runtime';
 import { PrintReceiptComponent } from './print-receipt/print-receipt.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 
 const routes: Routes = [
@@ -21,8 +22,10 @@ const routes: Routes = [
   {path: 'kitchen-screen', component: KitchenScreenComponent},
   {path: 'notification', component: NotificationComponent},
   {path: 'payment/:kitchenOrderNumber', component:PaymentComponent},
-  {path: '', redirectTo: '/home', pathMatch:'full'},
-  {path: '**', redirectTo: '/home', pathMatch:'full'},
+  {path: 'sign-up', component:SignUpComponent},
+  {path: 'login', redirectTo: '/login', pathMatch:'full'},
+  {path: '**', redirectTo: '/login', pathMatch:'full'},
+  
   
   
 

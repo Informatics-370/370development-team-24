@@ -10,6 +10,9 @@ export class OrderService {
   constructor() { }
 
 
+  
+
+
   // Save kitchen orders to local storage
   saveKitchenOrders(orders: KitchenOrder[]): void {
     localStorage.setItem(this.kitchenOrdersKey, JSON.stringify(orders));

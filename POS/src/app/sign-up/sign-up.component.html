@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Sign Up</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+
+<ion-content class="sign-up-container">
+<div class="form-container">
+  <form [formGroup]="signUpForm" (ngSubmit)="signUpUser()" class="sign-up-form">
+    <h3>Sign Up</h3>
+    <ion-item class="form-group">
+      <ion-label position="floating">Username</ion-label>
+      <ion-input [(ngModel)]="signUpData.username" formControlName="username"></ion-input>
+    </ion-item>
+
+    <ion-item class="form-group">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input [(ngModel)]="signUpData.email_address" formControlName="email_address"></ion-input>
+    </ion-item>
+
+    <ion-item class="form-group">
+      <ion-label position="floating">Password</ion-label>
+      <ion-input [(ngModel)]="signUpData.password" type="password"  formControlName="password"></ion-input>
+    </ion-item>
+
+    <ion-button expand="full" type="submit">Sign Up</ion-button>
+  </form>
+
+  <ion-alert *ngIf="showSuccessMessage" header="Success" message="Sign-up successful!" buttons="OK" (ionAlertDidDismiss)="resetMessage()"></ion-alert>
+
+ 
+  <ion-alert *ngIf="showErrorMessage" header="Error" message="Email does not exist." buttons="OK" (ionAlertDidDismiss)="resetMessage()"></ion-alert>
+</div>
+</ion-content>
+
+
+

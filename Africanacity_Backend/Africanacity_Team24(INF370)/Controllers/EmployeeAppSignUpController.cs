@@ -1,6 +1,7 @@
 ﻿using Africanacity_Team24_INF370_.models;
 using Africanacity_Team24_INF370_.models.Administration;
 using Africanacity_Team24_INF370_.models.Restraurant;
+using Africanacity_Team24_INF370_.models.Login;
 using Africanacity_Team24_INF370_.View_Models;
 using Africanacity_Team24_INF370_.ViewModel;
 using Microsoft.AspNetCore.Mvc;
@@ -59,7 +60,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                 }
 
                 // Check if the provided email matches the existing employee's email
-                if (employee.Email_Address != model.Email_Address)
+                if (model.Email_Address != employee.Email_Address)
                 {
                     return BadRequest("Provided email does not match an existing employee's email.");
                 }
@@ -86,11 +87,11 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
         }
 
-        private string HashPassword(string password)
+        private string HashPassword(string Password)
         {
             // Use a secure password hashing library, such as BCrypt, to hash the password.
             // Example using BCrypt.Net:
-            return BCrypt.Net.BCrypt.HashPassword(password);
+            return BCrypt.Net.BCrypt.HashPassword(Password);
         }
 
 

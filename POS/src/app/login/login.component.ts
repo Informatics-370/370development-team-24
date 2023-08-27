@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material/card';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent  implements OnInit {
+  showTabs = false;
 
   //variables needed
   password: string = '';

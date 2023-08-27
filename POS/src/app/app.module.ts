@@ -24,6 +24,7 @@ import { NotificationService } from './service/notification.service';
 import { CommonModule } from '@angular/common';
 import { PaymentComponent } from './payment/payment.component';
 import { PrintReceiptComponent } from './print-receipt/print-receipt.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 
 
@@ -37,7 +38,8 @@ import { PrintReceiptComponent } from './print-receipt/print-receipt.component';
   KitchenScreenComponent,
   NotificationComponent,
   PaymentComponent,
-  PrintReceiptComponent],
+  PrintReceiptComponent,
+  SignUpComponent],
 
  
 
