@@ -255,7 +255,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 		}
 
 
-
+		//**************************************************************** Get Entertainers **********************************************************
 		//[Authorize]
 		[HttpGet]
 		public async Task<ActionResult<User>> GetAllUsers()
@@ -354,7 +354,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 			});
 		}
 
-		// /******************************************************************* Reset Password ******************************************************************
+		//*********************************************************************** Reset Password ******************************************************************
 		[HttpPost]
 		[Route("Reset-password")]
 		public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)

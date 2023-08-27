@@ -18,7 +18,7 @@ export class ResetComponent implements OnInit {
   resetPasswordForm!: FormGroup;
   emailToReset!: string;
   emailToken!: string;
-  resetPasswordObj = new ResetPassword();
+  resetPassword = new ResetPassword();
   type1: string = 'confirmPassword';
   isText1: boolean = false;
   eyeIcon1: string = 'fa-eye-slash';
@@ -57,27 +57,16 @@ ngOnInit(): void {
     })
 }
 
-hideShowPass() {
-  this.isText = !this.isText;
-  this.isText ? (this.eyeIcon = 'fa-eye') : (this.eyeIcon = 'fa-eye-slash');
-  this.isText ? (this.type = 'text') : (this.type = 'newPassword');
-}
-
-hideShowPass1() {
-  this.isText1 = !this.isText1;
-  this.isText1 ? (this.eyeIcon1 = 'fa-eye') : (this.eyeIcon1 = 'fa-eye-slash');
-  this.isText1 ? (this.type1 = 'text') : (this.type1 = 'confirmPassword');
-}
 
 
     reset(){
         if(this.resetPasswordForm.valid){
-         this.resetPasswordObj.email=this.emailToReset;
-         this.resetPasswordObj.newPassword=this.resetPasswordForm.value.newPassword;
-         this.resetPasswordObj.confirmPassword=this.resetPasswordForm.value.confirmPassword;
-         this.resetPasswordObj.emailToken=this.emailToReset;
+         this.resetPassword.email=this.emailToReset;
+         this.resetPassword.newPassword=this.resetPasswordForm.value.newPassword;
+         this.resetPassword.confirmPassword=this.resetPasswordForm.value.confirmPassword;
+         this.resetPassword.emailToken=this.emailToken;
 
-         this.resetService.resetPassword(this.resetPasswordObj)
+         this.resetService.resetPassword(this.resetPassword)
          .subscribe({
             next:(res)=>{
               this.toast.success({
@@ -85,7 +74,8 @@ hideShowPass1() {
                 summary: 'Password reset Successful!',
                 duration: 3000,
               });
-              this.router.navigate([['/login']])
+              this.router.navigate(['login'])
+              this.router.navigate(['/login'])
         },
         error:(err)=>{
             this.toast.error({
