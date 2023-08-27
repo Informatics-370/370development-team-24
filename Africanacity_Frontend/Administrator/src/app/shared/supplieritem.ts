@@ -17,7 +17,9 @@ export class Supplier_Inventory {
   inventoryItemName!: string;
   supplierName!: string;
   supplierNames!: number;
-  itemName!: number;
+  //itemName!: number;
+  received_Date!: Date;
+  ordered_Date!: Date;
 }
 
   

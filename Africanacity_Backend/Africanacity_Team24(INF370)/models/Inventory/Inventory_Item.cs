@@ -23,7 +23,7 @@ namespace Africanacity_Team24_INF370_.models.Inventory
 
         public List<Supplier> Suppliers { get; set; } = new List<Supplier>();
 
-        public virtual ICollection<Supplier_Inventory> Supplier_Inventorys { get; set; }
+        //public virtual ICollection<Supplier_Inventory> Supplier_Inventorys { get; set; }
 
         public Inventory_Type Inventory_Type { get; set; }
 

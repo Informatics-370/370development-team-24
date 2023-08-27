@@ -127,6 +127,7 @@ button{
 .table-container {
   margin-top: 10px;
   padding-top: 40px; 
+  padding: 5px;
 }
 .table-hover tr:hover {
     background-color: grey;
@@ -147,8 +148,6 @@ button{
     flex-grow: 1; 
     margin-right: 10px;
     border: 1px solid rgb(8, 8, 8);
-   
-
   }
   .icon-cell {
     text-align: center;

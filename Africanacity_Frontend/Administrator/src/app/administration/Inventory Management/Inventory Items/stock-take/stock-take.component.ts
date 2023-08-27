@@ -22,6 +22,7 @@ export class StockTakeComponent implements OnInit {
   inventoryItems: InventoryItem[] = [];
   items!: FormArray;
   dialogRef!: MatDialogRef<WriteOffStockComponent>;
+  inputReason: string = '';
 
 
   constructor(private fb: FormBuilder, private inventoryService: InventoryService, private dialog: MatDialog) {
@@ -88,19 +89,6 @@ export class StockTakeComponent implements OnInit {
     );
   }
 
-  // openDiscrepancyModal(discrepancyItems: any[]): void {
-  //   this.dialogRef = this.dialog.open(WriteOffStockComponent, {
-  //     width: '400px',
-  //     data: {
-  //       items: discrepancyItems,
-  //     },
-  //   });
-
-
-  //   this.dialogRef.afterClosed().subscribe(() => {
-  //     console.log('Discrepancy modal closed');
-  //   });
-  // }
   openDiscrepancyModal(discrepancyItems: any[]): void {
     this.dialogRef = this.dialog.open(WriteOffStockComponent, {
       width: '400px',
@@ -109,13 +97,40 @@ export class StockTakeComponent implements OnInit {
       },
     });
 
+
     this.dialogRef.afterClosed().subscribe(() => {
       console.log('Discrepancy modal closed');
     });
   }
-  
+//   openDiscrepancyModal(discrepancyItems: any[]): void {
+//     this.dialogRef = this.dialog.open(WriteOffStockComponent, {
+//       width: '400px',
+//       data: {
+//         items: discrepancyItems,
+//       },
+//     });
+
+//     this.dialogRef.afterClosed().subscribe(() => {
+//       console.log('Discrepancy modal closed');
+//     });
+//   }
+//   saveWriteOffReasons(reasons: any[]): void {
+//     // Call the API to save reasons to the WriteOff table
+//     this.inventoryService.AddWriteOffRecord(reasons).subscribe(
+//         (response: any) => {
+//             console.log('Write-off records added successfully:', response);
+//             // You can perform additional actions if needed
+//         },
+//         (error: any) => {
+//             console.error('Error adding write-off records:', error);
+//             // Handle error response
+//         }
+//     );
+// }
   
 }
+
+
 
 
 

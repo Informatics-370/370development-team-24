@@ -425,7 +425,7 @@ namespace Africanacity_Team24_INF370_.models
 
         public async Task<Supplier_Inventory[]> GetAllInventoryOrdersAsync()
         {
-            IQueryable<Supplier_Inventory> query = _appDbContext.Supplier_Inventorys.Include(i => i.Inventory_Item).Include(i => i.Supplier);
+            IQueryable<Supplier_Inventory> query = _appDbContext.Supplier_Inventorys.Include(i => i.Supplier);
 
             return await query.ToArrayAsync();
         }

@@ -15,6 +15,6 @@ namespace Africanacity_Team24_INF370_.models.Inventory
         public virtual ICollection<WriteOffStock> WriteOffs { get; set; }
 
         public string Description { get; set; } // Add Description property
-      
+
     }
 }

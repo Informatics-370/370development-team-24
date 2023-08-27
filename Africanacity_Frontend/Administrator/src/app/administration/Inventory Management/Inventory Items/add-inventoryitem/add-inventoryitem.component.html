@@ -5,37 +5,38 @@
       <app-navbar></app-navbar>
     </div>
     <div class="col-md-10 order-md-2">
-      <h4 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px;">Add Inventory Item</h4>
-      <hr>
-      <div class="container">
-        <div class="row">
-          <form [formGroup]="inventoryItemForm" class="form-horizontal" (ngSubmit)="onSubmit()">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="text-center mb-4">Add Inventory Item</h4>
+          <hr>
+          <div class="container">
+            <div class="row">
+<form [formGroup]="inventoryItemForm" class="form-horizontal"  (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label class="col-md-1" style="font-weight: bold;" for="itemName">Name:</label>
+    <div class="col-md-6">
+      <input class="form-control" placeholder="Enter Inventory Name" [required]="true" name="itemName"
+        formControlName="itemName">
+    </div>
+  </div>
+      
+  <div class="form-group">
+    <label class="col-md-1" style="font-weight: bold;" for="inventoryType">Inventory Type</label>
+    <div class="col-md-6">
+      <select class="form-control" id="inventoryType" formControlName="inventoryType">
+        <option *ngFor="let item of inventoryTypesData" [value]="item.inventory_TypeId">{{ item.name }}</option>
+      </select>
+    </div>
+  </div>
+    
+  <div class="form-group">
+    <label class="col-md-1" style="font-weight: bold;" for="price">Price:</label>
+    <div class="col-md-6">
+      <input class="form-control" placeholder="Enter Inventory Price" required name="price" formControlName="price">
+    </div>
+  </div>
 
-            <div class="form-group">
-              <label class="col-md-1" style="font-weight: bold;" for="itemName">Name:</label>
-              <div class="col-md-6">
-                <input class="form-control" placeholder="Enter Inventory Name" [required]="true" name="itemName"
-                  formControlName="itemName">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="col-md-1" style="font-weight: bold;" for="inventoryType">Inventory Type</label>
-              <div class="col-md-6">
-                <select class="form-control" id="inventoryType" formControlName="inventoryType">
-                  <option *ngFor="let item of inventoryTypesData" [value]="item.inventory_TypeId">{{ item.name }}</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-md-1" style="font-weight: bold;" for="price">Price:</label>
-              <div class="col-md-6">
-                <input class="form-control" placeholder="Enter Inventory Price" required name="price" formControlName="price">
-              </div>
-            </div>
-            
-
-            <div class="form-group">
+       <div class="form-group">
               <span>
                 <label class="col-sm-1" style="font-weight: bold;" for="description">Description</label>
                 <div class="col-sm-6">
@@ -44,32 +45,35 @@
                 </div>
               </span>
             </div>
-
-            <div class="form-group">
-              <label class="col-sm-1" style="font-weight: bold;">Quantity</label>
-              <div class="col-sm-6">
-                <div class="input-group">
-                  <input type="number" class="form-control" formControlName="quantity">
-                  <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button" (click)="incrementQuantity()">+</button>
-                    <button class="btn btn-outline-secondary" type="button" (click)="decrementQuantity()">-</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <div class="col-sm-offset-1 col-sm-6">
-                <button style="margin-right:1em;" type="submit" [disabled]="!inventoryItemForm.valid"
-                  class="btn btn-sm btn-success">Add</button>
-                <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button>
-              </div>
-            </div>
-          </form>
+    
+    <div class="form-group">
+      <label class="col-sm-1" style="font-weight: bold;">Quantity</label>
+      <div class="col-sm-6">
+        <div class="input-group">
+          <input type="number" class="form-control" formControlName="quantity"  min="1">
         </div>
       </div>
     </div>
+      <div class="col-sm-offset-1 col-sm-6 center-buttons">
+      <div class="buttons">
+        <span>
+        <button style="margin-right:1em;" type="submit" [disabled]="!inventoryItemForm.valid" class="btn btn-sm btn-success">Add</button>
+        <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button>
+      </span>
+      </div>
+      </div>
+  </form>
+  </div>
+ </div> 
+  </div>
   </div>
 </div>
+
+
+
+  
+
+
+
 
 

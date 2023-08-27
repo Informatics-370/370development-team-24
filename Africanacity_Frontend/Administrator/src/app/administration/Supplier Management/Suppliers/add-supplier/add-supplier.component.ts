@@ -6,6 +6,29 @@ import { Router } from '@angular/router';
 import { SupplierService } from 'src/app/service/supplier.service';
 import { SupplierType } from 'src/app/shared/SupplierTypes';
 import { Supplier } from 'src/app/shared/supplier';
+import { AbstractControl } from '@angular/forms';
+
+function phoneNumberValidator(control: AbstractControl): { [key: string]: any } | null {
+  const phoneNumber = control.value;
+  const digitsOnly = phoneNumber.replace(/\D/g, '');
+
+  if (digitsOnly.length !== 10 || !phoneNumber.startsWith('0')) {
+    return { 'invalidPhoneNumber': true };
+  }
+
+  return null;
+}
+
+function emailFormatValidator(control: AbstractControl): { [key: string]: any } | null {
+  const email = control.value;
+  const emailPattern = /^[a-zA-Z0-9]+@gmail\.com$/;
+
+  if (!emailPattern.test(email)) {
+    return { 'invalidEmailFormat': true };
+  }
+
+  return null;
+}
 
 @Component({
   selector: 'app-add-supplier',
@@ -22,9 +45,9 @@ export class AddSupplierComponent implements OnInit{
    supplierForm: FormGroup = new FormGroup({
      supplierName: new FormControl('',[Validators.required]),
      supplierType: new FormControl([Validators.required]),
-     email_Address: new FormControl('',[Validators.required]),
+     email_Address: new FormControl('', [Validators.required, emailFormatValidator]),
      physical_Address: new FormControl('',[Validators.required]),
-     phoneNumber: new FormControl('',[Validators.required])
+     phoneNumber: new FormControl('', [Validators.required, phoneNumberValidator]),
 
    })
 
@@ -67,8 +90,5 @@ export class AddSupplierComponent implements OnInit{
       { duration: 5000 }
     );
   }
-  
-
-
 
 }

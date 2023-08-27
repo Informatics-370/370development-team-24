@@ -46,6 +46,9 @@ button{
   border-collapse: collapse;
 
 }
+th{
+  background-color: rgb(165, 113, 207);
+}
 
 .outlined-table th,
 .outlined-table td {
@@ -67,11 +70,13 @@ padding: 10px;
   width: 100%; /* Cover the full width of the page */
 }
 
-.search-bar {
-  flex-grow: 1; /* Allow the search bar to expand and take available space */
-  margin-right: 10px; /* Add some space between the search bar and add icon */
-}
 
 .form-control {
   width: 100%; /* Make the search bar take the full width available */
+}
+
+.search-bar {
+  flex-grow: 1; 
+  margin-right: 10px;
+  border: 1px solid rgb(8, 8, 8);
 }

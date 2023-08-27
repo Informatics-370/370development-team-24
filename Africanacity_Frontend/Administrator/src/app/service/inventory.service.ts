@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, Subject, throwError } from 'rxjs';
 import { InventoryType } from '../shared/inventorytype';
@@ -225,8 +225,15 @@ import { StockTake } from '../shared/stocktakeitem';
     .pipe(map(result => result))
   }
 
+  // AddWriteOffRecord(writeOffData: any): Observable<any> {
+  //   return this.httpClient.post(`${this.apiUrl}InventoryItem/AddWriteOffRecord`, writeOffData);
+  // }
+
   AddWriteOffRecord(writeOffData: any): Observable<any> {
-    return this.httpClient.post(`${this.apiUrl}InventoryItem/AddWriteOffRecord`, writeOffData);
+    return this.httpClient.post(`${this.apiUrl}InventoryItem/AddWriteOffRecord`, writeOffData)
   }
+
+
+  
 
 }

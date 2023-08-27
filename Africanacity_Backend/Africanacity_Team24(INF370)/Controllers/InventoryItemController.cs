@@ -7,6 +7,7 @@ using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Data.Entity.Infrastructure;
 using Africanacity_Team24_INF370_.models.Restraurant;
 using System.Threading.Tasks.Dataflow;
+using Org.BouncyCastle.Asn1.X509;
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
@@ -104,7 +105,6 @@ namespace Africanacity_Team24_INF370_.Controllers
                     Inventory_ItemId = inventoryitem.Inventory_ItemId,
                     Price = Convert.ToDecimal(ivm.Price),
                     Date = DateTime.Now
-
                 };
 
                 _Repository.Add(inventoryItemPrice);
@@ -221,10 +221,10 @@ namespace Africanacity_Team24_INF370_.Controllers
         {
             var supplieritem = new Supplier_Inventory
             {
-                Inventory_ItemId = Convert.ToInt32(sivm.ItemName), // Assuming InventoryItem is an int property
+                InventoryItemName = sivm.InventoryItemName,// Assuming InventoryItem is an int property
                 SupplierId = Convert.ToInt32(sivm.SupplierNames), // Assuming Supplier is an int property
-                                                                  // Ordered_Date = DateTime.ParseExact(sivm.Ordered_Date, "yyyy-MM-dd", CultureInfo.InvariantCulture),
-                                                                  // Received_Date = DateTime.ParseExact(sivm.Received_Date, "yyyy-MM-dd", CultureInfo.InvariantCulture),
+                Ordered_Date = sivm.Ordered_Date,
+                Received_Date = sivm.Received_Date,
                 Ordered_Quantity = sivm.Ordered_Quantity
             };
 
@@ -269,13 +269,13 @@ namespace Africanacity_Team24_INF370_.Controllers
                 dynamic inventoryorders = results.Select(i => new
                 {
 
-                    InventoryItemName = i.Inventory_Item.ItemName,
+                    i.InventoryItemName,
 
                     i.Supplier.SupplierName,
 
-                    // i.Ordered_Date,
+                    i.Ordered_Date,
 
-                    // i.Received_Date,
+                    i.Received_Date,
 
                     i.Ordered_Quantity
 
@@ -317,7 +317,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                     if (inventoryItem != null && inventoryItem.Quantity != stockTakeItem.Quantity)
                     {
                         stockTakeItem.Description = inventoryItem.Description; // Include description for discrepancies
-       
+
                         stockTake.StockTakeItems.Add(stockTakeItem); // Add the item to the stock take
 
                         // Calculate the quantity difference
@@ -333,15 +333,15 @@ namespace Africanacity_Team24_INF370_.Controllers
                         };
                         discrepancyItems.Add(discrepancyItem);
 
-                       // Create a new WriteOff record
-                       //var writeOff = new WriteOffStock
-                       //{
-                       //    StockTakeItem = stockTakeItem,
-                       //    Description = stockTakeItem.Description,// Link the WriteOff to the StockTakeItem
-                       //    Reason = stockTakeItem.Reason
-                       //};
+                        // Create a new WriteOff record
+                        var writeOff = new WriteOffStock
+                        {
+                            StockTakeItem = stockTakeItem,
+                            Description = stockTakeItem.Description,// Link the WriteOff to the StockTakeItem
+                            Reason = "its a stock take"
+                        };
 
-                       // _appDbContext.WriteOffs.Add(writeOff); // Save the write-off record
+                        _appDbContext.WriteOffs.Add(writeOff); // Save the write-off record
                     }
                 }
 
@@ -367,14 +367,6 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
 
         }
-        //[HttpGet]
-        //[Route("StockTake")]
-        //public ActionResult<IEnumerable<StockTakeItem>> GetAllStockTakes()
-        //{
-        //    var stockTakes = _appDbContext.StockTakes.ToList();
-        //    return Ok(stockTakes);
-        //}
-
 
 
         [HttpGet]
@@ -409,55 +401,22 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
         }
 
-        //[HttpPost]
-        //[Route("AddWriteOffRecord")]
-        //public IActionResult AddWriteOffRecord(List<WriteOffViewModel> writeOffItems)
-        //{
-        //    try
-        //    {
-        //        foreach (var item in writeOffItems)
-        //        {
-        //            var writeOff = new WriteOffStock
-        //            {
-        //                StockTakeItemId = item.StockTakeItemId,
-        //                Reason = item.Reason
-        //            };
 
-        //            _appDbContext.WriteOffs.Add(writeOff);
-        //        }
-
-        //        _appDbContext.SaveChanges();
-
-        //        return Ok("Write-off records added successfully");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Log or display the inner exception details
-        //        var innerException = ex.InnerException;
-        //        while (innerException != null)
-        //        {
-        //            // Log or display innerException.Message and innerException.StackTrace
-        //            innerException = innerException.InnerException;
-        //        }
-
-        //        return BadRequest($"Error adding write-off records: {ex.Message}");
-        //    }
-        //}
         [HttpPost]
         [Route("AddWriteOffRecord")]
-        public IActionResult AddWriteOffRecord(List<WriteOffViewModel> writeOffItems)
+        public IActionResult AddWriteOffRecord(List<DiscrepencyItem> writeOffItems)
         {
             try
             {
                 foreach (var item in writeOffItems)
                 {
-                    var writeOff = new WriteOffStock
+                    var writeOff = new DiscrepencyItem
                     {
-                        StockTakeItemId = item.StockTakeItemId,
+                        Inventory_ItemId = item.Inventory_ItemId,
                         Reason = item.Reason
                     };
 
-                    _appDbContext.WriteOffs.Add(writeOff);
+                    _appDbContext.DiscrepencyItems.Add(writeOff);
                 }
 
                 _appDbContext.SaveChanges();
@@ -466,19 +425,13 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
             catch (Exception ex)
             {
-                // Log the full exception details, including inner exceptions
-                Console.WriteLine($"Error adding write-off records: {ex}");
-                if (ex.InnerException != null)
-                {
-                    Console.WriteLine($"Inner Exception: {ex.InnerException}");
-                }
+                // Handle exceptions and return appropriate responses
                 return BadRequest("An error occurred while adding write-off records. Please check the logs for more details.");
             }
         }
 
     }
 }
-
 
 
 

@@ -25,7 +25,7 @@ export class WriteOffStockComponent implements OnInit{
     @Inject(MAT_DIALOG_DATA) public data: { items: any[] }
   ) {}
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    //throw new Error('Method not implemented.');
   }
 
   onOkButtonClick(): void {
@@ -46,4 +46,9 @@ export class WriteOffStockComponent implements OnInit{
       }
     );
   }
+
+
 }
+
+
+

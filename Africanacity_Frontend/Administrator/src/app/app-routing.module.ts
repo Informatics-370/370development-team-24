@@ -77,7 +77,7 @@ import { StockTakeListComponent } from './administration/Inventory Management/In
 import { WriteOffStockComponent } from './administration/Inventory Management/Inventory Items/stock-take/write-off-stock/write-off-stock.component';
 
 const routes: Routes = [
-  {path:'login', component: LoginComponent},
+  {path:'login', component: HomeComponent},
   {path:'signup', component:SignupComponent},
   {path:'reset', component:ResetComponent},
   {path:'view-profile',component:ViewProfileComponent, canActivate:[AuthGuard]},

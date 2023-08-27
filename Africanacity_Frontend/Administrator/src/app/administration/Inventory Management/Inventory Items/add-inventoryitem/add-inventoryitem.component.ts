@@ -22,8 +22,8 @@ export class AddInventoryitemComponent {
     itemName: new FormControl('', [Validators.required]),
     inventoryType: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
-    quantity: new FormControl('', [Validators.required]),
-    price: new FormControl('', [Validators.required]) 
+    quantity: new FormControl(['', [Validators.required, Validators.min(1)]])
+
   });
   
    ngOnInit(): void {

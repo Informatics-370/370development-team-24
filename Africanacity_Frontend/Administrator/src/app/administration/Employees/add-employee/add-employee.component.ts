@@ -11,7 +11,29 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NotificationDialogComponent } from '../notification-dialog/notification-dialog.component';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { Gender } from 'src/app/shared/gender';
+import { AbstractControl } from '@angular/forms';
 
+function phoneNumberValidator(control: AbstractControl): { [key: string]: any } | null {
+  const phoneNumber = control.value;
+  const digitsOnly = phoneNumber.replace(/\D/g, '');
+
+  if (digitsOnly.length !== 10 || !phoneNumber.startsWith('0')) {
+    return { 'invalidPhoneNumber': true };
+  }
+
+  return null;
+}
+
+function emailFormatValidator(control: AbstractControl): { [key: string]: any } | null {
+  const email = control.value;
+  const emailPattern = /^[a-zA-Z0-9]+@gmail\.com$/;
+
+  if (!emailPattern.test(email)) {
+    return { 'invalidEmailFormat': true };
+  }
+
+  return null;
+}
 
 
 @Component({
@@ -48,12 +70,12 @@ export class AddEmployeeComponent implements OnInit {
      employeeForm: FormGroup = new FormGroup({
        surname: new FormControl('',[Validators.required]),
        firstName: new FormControl('',[Validators.required]),
-       email_Address: new FormControl('',[Validators.required]),
+       email_Address: new FormControl('', [Validators.required, emailFormatValidator]),
        physical_Address: new FormControl('',[Validators.required]),
-       phoneNumber: new FormControl('',[Validators.required]),
+       phoneNumber: new FormControl('', [Validators.required, phoneNumberValidator]),
        employeeRole: new FormControl('',[Validators.required]),
        gender: new FormControl('',[Validators.required]),
-       employment_Date: new FormControl('',[Validators.required])
+       employment_Date: new FormControl([new Date().toISOString().slice(0, 10)])
     
      })
   //EmailVerification
@@ -117,7 +139,8 @@ export class AddEmployeeComponent implements OnInit {
     if (this.employeeForm.invalid) {
       return;
     }
-  
+    const currentDate = new Date();
+
     let employee = new Employee();
     employee.surname = this.employeeForm.value.surname;
     employee.firstName = this.employeeForm.value.firstName;
@@ -125,7 +148,7 @@ export class AddEmployeeComponent implements OnInit {
     employee.email_Address = this.employeeForm.value.email_Address;
     employee.physical_Address = this.employeeForm.value.physical_Address;
     employee.phoneNumber = this.employeeForm.value.phoneNumber;
-    employee.employment_Date = this.employeeForm.value.employment_Date;
+    employee.employment_Date = currentDate as Date; 
     employee.gender = this.employeeForm.value.gender;
   
     this.employeeservice.AddEmployee(employee).subscribe(result => {
@@ -148,8 +171,5 @@ export class AddEmployeeComponent implements OnInit {
             this.toastContainer.clear();
           });
   }
-}
-function GetAllEmployeeRoles() {
-  throw new Error('Function not implemented.');
 }
 

@@ -9,5 +9,6 @@ export class InventoryItem{
     isChecked!: boolean;
     ordered: boolean = false;
     price!: number;
+    isModified: boolean = false;
 
 }
