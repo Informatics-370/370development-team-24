@@ -74,8 +74,8 @@ ngOnInit(): void {
                 summary: 'Password reset Successful!',
                 duration: 3000,
               });
-              this.router.navigate(['login'])
-              this.router.navigate(['/login'])
+              // this.router.navigate(['login'])
+              // this.router.navigate(['/login'])
         },
         error:(err)=>{
             this.toast.error({

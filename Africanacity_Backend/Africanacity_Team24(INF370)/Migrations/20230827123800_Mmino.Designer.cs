@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Africanacity_Team24_INF370_.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230823110003_Mmino")]
+    [Migration("20230827123800_Mmino")]
     partial class Mmino
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -192,9 +192,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                             DiscountId = 1,
                             Amount = 0.10m,
                             Description = "10% Discount",
-                            End_Date = new DateTime(2023, 9, 2, 13, 0, 3, 111, DateTimeKind.Local).AddTicks(6489),
+                            End_Date = new DateTime(2023, 9, 6, 14, 37, 59, 437, DateTimeKind.Local).AddTicks(8422),
                             Name = "Month end discount",
-                            Start_Date = new DateTime(2023, 8, 23, 13, 0, 3, 111, DateTimeKind.Local).AddTicks(6489)
+                            Start_Date = new DateTime(2023, 8, 27, 14, 37, 59, 437, DateTimeKind.Local).AddTicks(8421)
                         });
                 });
 
@@ -1342,9 +1342,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             SupplierItemId = 1,
                             Inventory_ItemId = 1,
-                            Ordered_Date = new DateTime(2023, 8, 23, 0, 0, 0, 0, DateTimeKind.Local),
+                            Ordered_Date = new DateTime(2023, 8, 27, 0, 0, 0, 0, DateTimeKind.Local),
                             Ordered_Quantity = 33,
-                            Received_Date = new DateTime(2023, 8, 23, 0, 0, 0, 0, DateTimeKind.Local),
+                            Received_Date = new DateTime(2023, 8, 27, 0, 0, 0, 0, DateTimeKind.Local),
                             SupplierId = 1
                         });
                 });
@@ -2260,6 +2260,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                         new
                         {
                             Id = 1,
+                            ContactNumber = "0848887563",
                             Email = "VanessaJames@gmail.com",
                             Entertainment_TypeId = 1,
                             FirstName = "Vanessa",
@@ -2267,15 +2268,16 @@ namespace Africanacity_Team24_INF370_.Migrations
                             Password = "Vanessa123",
                             PhysicalAddress = "404 Jacob Street",
                             RefreshToken = "",
-                            RefreshTokenExpiryTime = new DateTime(2023, 8, 23, 11, 0, 3, 111, DateTimeKind.Utc).AddTicks(5758),
+                            RefreshTokenExpiryTime = new DateTime(2023, 8, 27, 12, 37, 59, 437, DateTimeKind.Utc).AddTicks(7174),
                             ResetPasswordToken = "",
-                            ResetPasswordTokenExpiry = new DateTime(2023, 8, 23, 11, 0, 3, 111, DateTimeKind.Utc).AddTicks(5761),
+                            ResetPasswordTokenExpiry = new DateTime(2023, 8, 27, 12, 37, 59, 437, DateTimeKind.Utc).AddTicks(7177),
                             Role = "User",
                             Username = "Vanessa"
                         },
                         new
                         {
                             Id = 2,
+                            ContactNumber = "0848887564",
                             Email = "SerenaWilliams@gmail.com",
                             Entertainment_TypeId = 2,
                             FirstName = "Serena",
@@ -2283,15 +2285,16 @@ namespace Africanacity_Team24_INF370_.Migrations
                             Password = "Serena.123",
                             PhysicalAddress = "404 Williams Street",
                             RefreshToken = "",
-                            RefreshTokenExpiryTime = new DateTime(2023, 8, 23, 11, 0, 3, 111, DateTimeKind.Utc).AddTicks(5770),
+                            RefreshTokenExpiryTime = new DateTime(2023, 8, 27, 12, 37, 59, 437, DateTimeKind.Utc).AddTicks(7197),
                             ResetPasswordToken = "",
-                            ResetPasswordTokenExpiry = new DateTime(2023, 8, 23, 11, 0, 3, 111, DateTimeKind.Utc).AddTicks(5771),
+                            ResetPasswordTokenExpiry = new DateTime(2023, 8, 27, 12, 37, 59, 437, DateTimeKind.Utc).AddTicks(7198),
                             Role = "User",
                             Username = "Serena"
                         },
                         new
                         {
                             Id = 3,
+                            ContactNumber = "0848887565",
                             Email = "VenusWilliams@gmail.com",
                             Entertainment_TypeId = 3,
                             FirstName = "Williams",
@@ -2299,15 +2302,16 @@ namespace Africanacity_Team24_INF370_.Migrations
                             Password = "Venus.123",
                             PhysicalAddress = "100 Venus Street",
                             RefreshToken = "",
-                            RefreshTokenExpiryTime = new DateTime(2023, 8, 23, 11, 0, 3, 111, DateTimeKind.Utc).AddTicks(5776),
+                            RefreshTokenExpiryTime = new DateTime(2023, 8, 27, 12, 37, 59, 437, DateTimeKind.Utc).AddTicks(7207),
                             ResetPasswordToken = "",
-                            ResetPasswordTokenExpiry = new DateTime(2023, 8, 23, 11, 0, 3, 111, DateTimeKind.Utc).AddTicks(5777),
+                            ResetPasswordTokenExpiry = new DateTime(2023, 8, 27, 12, 37, 59, 437, DateTimeKind.Utc).AddTicks(7208),
                             Role = "User",
                             Username = "Venus"
                         },
                         new
                         {
                             Id = 4,
+                            ContactNumber = "0848887566",
                             Email = "Beast@gmail.com",
                             Entertainment_TypeId = 4,
                             FirstName = "Beast",
@@ -2315,15 +2319,16 @@ namespace Africanacity_Team24_INF370_.Migrations
                             Password = "Beast.123",
                             PhysicalAddress = "808 Beast Street",
                             RefreshToken = "",
-                            RefreshTokenExpiryTime = new DateTime(2023, 8, 23, 11, 0, 3, 111, DateTimeKind.Utc).AddTicks(5782),
+                            RefreshTokenExpiryTime = new DateTime(2023, 8, 27, 12, 37, 59, 437, DateTimeKind.Utc).AddTicks(7217),
                             ResetPasswordToken = "",
-                            ResetPasswordTokenExpiry = new DateTime(2023, 8, 23, 11, 0, 3, 111, DateTimeKind.Utc).AddTicks(5782),
+                            ResetPasswordTokenExpiry = new DateTime(2023, 8, 27, 12, 37, 59, 437, DateTimeKind.Utc).AddTicks(7217),
                             Role = "User",
                             Username = "Bee"
                         },
                         new
                         {
                             Id = 5,
+                            ContactNumber = "0848887567",
                             Email = "KidDanger@gmail.com",
                             Entertainment_TypeId = 3,
                             FirstName = "Danger",
@@ -2331,15 +2336,16 @@ namespace Africanacity_Team24_INF370_.Migrations
                             Password = "Danger.123",
                             PhysicalAddress = "500 Danger Street",
                             RefreshToken = "",
-                            RefreshTokenExpiryTime = new DateTime(2023, 8, 23, 11, 0, 3, 111, DateTimeKind.Utc).AddTicks(5788),
+                            RefreshTokenExpiryTime = new DateTime(2023, 8, 27, 12, 37, 59, 437, DateTimeKind.Utc).AddTicks(7227),
                             ResetPasswordToken = "",
-                            ResetPasswordTokenExpiry = new DateTime(2023, 8, 23, 11, 0, 3, 111, DateTimeKind.Utc).AddTicks(5788),
+                            ResetPasswordTokenExpiry = new DateTime(2023, 8, 27, 12, 37, 59, 437, DateTimeKind.Utc).AddTicks(7227),
                             Role = "User",
                             Username = "KidDanger"
                         },
                         new
                         {
                             Id = 6,
+                            ContactNumber = "0848887568",
                             Email = "AdultDanger@gmail.com",
                             Entertainment_TypeId = 4,
                             FirstName = "Danger",
@@ -2347,9 +2353,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                             Password = "Adult.123",
                             PhysicalAddress = "404 Adult Street",
                             RefreshToken = "",
-                            RefreshTokenExpiryTime = new DateTime(2023, 8, 23, 11, 0, 3, 111, DateTimeKind.Utc).AddTicks(5794),
+                            RefreshTokenExpiryTime = new DateTime(2023, 8, 27, 12, 37, 59, 437, DateTimeKind.Utc).AddTicks(7239),
                             ResetPasswordToken = "",
-                            ResetPasswordTokenExpiry = new DateTime(2023, 8, 23, 11, 0, 3, 111, DateTimeKind.Utc).AddTicks(5794),
+                            ResetPasswordTokenExpiry = new DateTime(2023, 8, 27, 12, 37, 59, 437, DateTimeKind.Utc).AddTicks(7239),
                             Role = "User",
                             Username = "AdultDanger"
                         });

@@ -21,6 +21,8 @@ using Microsoft.AspNetCore.Authorization;
 using System.Net.Mail;
 using System.Net;
 
+
+
 namespace Africanacity_Team24_INF370_.Controllers
 
 {
@@ -155,6 +157,8 @@ namespace Africanacity_Team24_INF370_.Controllers
             <p>Hello {recipientName},</p>
             <p>Your registration with us is now confirmed. Welcome aboard!</p>
             <p>Feel free to explore and enjoy our services.</p>
+              <p> Kind Regards, <br><br>
+              MMINO Restaurant Team</p>
         </body>
         </html>";
 
@@ -355,22 +359,36 @@ namespace Africanacity_Team24_INF370_.Controllers
 		}
 
 		//*********************************************************************** Reset Password ******************************************************************
+
+
 		[HttpPost]
-		[Route("Reset-password")]
+		[Route("reset-password")]
 		public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)
 		{
 			var newToken = resetPasswordDto.EmailToken.Replace(" ", "+");
-			var user = await _authContext.Admins.AsNoTracking().FirstOrDefaultAsync(a => a.Email == resetPasswordDto.Email);
+
+			// Check if the user exists in the Users table
+			var user = await _authContext.Users.FirstOrDefaultAsync(u => u.Email == resetPasswordDto.Email);
 			if (user == null)
 			{
-				return NotFound(new
+				// User not found in the Users table, let's check the Admins table
+				var admin = await _authContext.Admins.FirstOrDefaultAsync(a => a.Email == resetPasswordDto.Email);
+				if (admin == null)
 				{
-					StatusCode = 404,
-					Message = "User does not exist"
-				});
+					return NotFound(new
+					{
+						StatusCode = 404,
+						Message = "User does not exist"
+					});
+				}
+
+				// Handle admin password reset here
+				// ...
 			}
+
 			var tokenCode = user.ResetPasswordToken;
 			DateTime emailTokenExpiry = user.ResetPasswordTokenExpiry;
+
 			if (tokenCode != resetPasswordDto.EmailToken || emailTokenExpiry < DateTime.Now)
 			{
 				return NotFound(new
@@ -379,15 +397,50 @@ namespace Africanacity_Team24_INF370_.Controllers
 					Message = "Invalid Reset link"
 				});
 			}
+
 			user.Password = PasswordHasher.HashPassword(resetPasswordDto.NewPassword);
 			_authContext.Entry(user).State = EntityState.Modified;
 			await _authContext.SaveChangesAsync();
+
 			return Ok(new
 			{
 				StatusCode = 200,
 				Message = "Password successfully reset"
 			});
 		}
+		//[HttpPost]
+		//[Route("Reset-password")]
+		//public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)
+		//{
+		//	var newToken = resetPasswordDto.EmailToken.Replace(" ", "+");
+		//	var user = await _authContext.Admins.AsNoTracking().FirstOrDefaultAsync(a => a.Email == resetPasswordDto.Email);
+		//	if (user == null)
+		//	{
+		//		return NotFound(new
+		//		{
+		//			StatusCode = 404,
+		//			Message = "User does not exist"
+		//		});
+		//	}
+		//	var tokenCode = user.ResetPasswordToken;
+		//	DateTime emailTokenExpiry = user.ResetPasswordTokenExpiry;
+		//	if (tokenCode != resetPasswordDto.EmailToken || emailTokenExpiry < DateTime.Now)
+		//	{
+		//		return NotFound(new
+		//		{
+		//			StatusCode = 400,
+		//			Message = "Invalid Reset link"
+		//		});
+		//	}
+		//	user.Password = PasswordHasher.HashPassword(resetPasswordDto.NewPassword);
+		//	_authContext.Entry(user).State = EntityState.Modified;
+		//	await _authContext.SaveChangesAsync();
+		//	return Ok(new
+		//	{
+		//		StatusCode = 200,
+		//		Message = "Password successfully reset"
+		//	});
+		//}
 
 		//*******************************************************************Change Password ******************************************************************
 		[HttpPost("ChangePassword")]

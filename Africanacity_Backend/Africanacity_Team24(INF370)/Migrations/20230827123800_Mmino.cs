@@ -1146,7 +1146,7 @@ namespace Africanacity_Team24_INF370_.Migrations
             migrationBuilder.InsertData(
                 table: "Discounts",
                 columns: new[] { "DiscountId", "AdministratorId", "Amount", "Description", "End_Date", "Name", "Start_Date" },
-                values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 9, 2, 13, 0, 3, 111, DateTimeKind.Local).AddTicks(6489), "Month end discount", new DateTime(2023, 8, 23, 13, 0, 3, 111, DateTimeKind.Local).AddTicks(6489) });
+                values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 9, 6, 14, 37, 59, 437, DateTimeKind.Local).AddTicks(8422), "Month end discount", new DateTime(2023, 8, 27, 14, 37, 59, 437, DateTimeKind.Local).AddTicks(8421) });
 
             migrationBuilder.InsertData(
                 table: "Drink_Prices",
@@ -1407,12 +1407,12 @@ namespace Africanacity_Team24_INF370_.Migrations
                 columns: new[] { "Id", "ContactNumber", "Email", "EntertainmentType", "Entertainment_TypeId", "FirstName", "LastName", "Password", "PhysicalAddress", "RefreshToken", "RefreshTokenExpiryTime", "ResetPasswordToken", "ResetPasswordTokenExpiry", "Role", "TitleId", "Token", "User_RoleId", "Username" },
                 values: new object[,]
                 {
-                    { 1, null, "VanessaJames@gmail.com", null, 1, "Vanessa", "James", "Vanessa123", "404 Jacob Street", "", new DateTime(2023, 8, 23, 11, 0, 3, 111, DateTimeKind.Utc).AddTicks(5758), "", new DateTime(2023, 8, 23, 11, 0, 3, 111, DateTimeKind.Utc).AddTicks(5761), "User", null, null, null, "Vanessa" },
-                    { 2, null, "SerenaWilliams@gmail.com", null, 2, "Serena", "Williams", "Serena.123", "404 Williams Street", "", new DateTime(2023, 8, 23, 11, 0, 3, 111, DateTimeKind.Utc).AddTicks(5770), "", new DateTime(2023, 8, 23, 11, 0, 3, 111, DateTimeKind.Utc).AddTicks(5771), "User", null, null, null, "Serena" },
-                    { 3, null, "VenusWilliams@gmail.com", null, 3, "Williams", "Venus", "Venus.123", "100 Venus Street", "", new DateTime(2023, 8, 23, 11, 0, 3, 111, DateTimeKind.Utc).AddTicks(5776), "", new DateTime(2023, 8, 23, 11, 0, 3, 111, DateTimeKind.Utc).AddTicks(5777), "User", null, null, null, "Venus" },
-                    { 4, null, "Beast@gmail.com", null, 4, "Beast", "Bestie", "Beast.123", "808 Beast Street", "", new DateTime(2023, 8, 23, 11, 0, 3, 111, DateTimeKind.Utc).AddTicks(5782), "", new DateTime(2023, 8, 23, 11, 0, 3, 111, DateTimeKind.Utc).AddTicks(5782), "User", null, null, null, "Bee" },
-                    { 5, null, "KidDanger@gmail.com", null, 3, "Danger", "Kid", "Danger.123", "500 Danger Street", "", new DateTime(2023, 8, 23, 11, 0, 3, 111, DateTimeKind.Utc).AddTicks(5788), "", new DateTime(2023, 8, 23, 11, 0, 3, 111, DateTimeKind.Utc).AddTicks(5788), "User", null, null, null, "KidDanger" },
-                    { 6, null, "AdultDanger@gmail.com", null, 4, "Danger", "Adult", "Adult.123", "404 Adult Street", "", new DateTime(2023, 8, 23, 11, 0, 3, 111, DateTimeKind.Utc).AddTicks(5794), "", new DateTime(2023, 8, 23, 11, 0, 3, 111, DateTimeKind.Utc).AddTicks(5794), "User", null, null, null, "AdultDanger" }
+                    { 1, "0848887563", "VanessaJames@gmail.com", null, 1, "Vanessa", "James", "Vanessa123", "404 Jacob Street", "", new DateTime(2023, 8, 27, 12, 37, 59, 437, DateTimeKind.Utc).AddTicks(7174), "", new DateTime(2023, 8, 27, 12, 37, 59, 437, DateTimeKind.Utc).AddTicks(7177), "User", null, null, null, "Vanessa" },
+                    { 2, "0848887564", "SerenaWilliams@gmail.com", null, 2, "Serena", "Williams", "Serena.123", "404 Williams Street", "", new DateTime(2023, 8, 27, 12, 37, 59, 437, DateTimeKind.Utc).AddTicks(7197), "", new DateTime(2023, 8, 27, 12, 37, 59, 437, DateTimeKind.Utc).AddTicks(7198), "User", null, null, null, "Serena" },
+                    { 3, "0848887565", "VenusWilliams@gmail.com", null, 3, "Williams", "Venus", "Venus.123", "100 Venus Street", "", new DateTime(2023, 8, 27, 12, 37, 59, 437, DateTimeKind.Utc).AddTicks(7207), "", new DateTime(2023, 8, 27, 12, 37, 59, 437, DateTimeKind.Utc).AddTicks(7208), "User", null, null, null, "Venus" },
+                    { 4, "0848887566", "Beast@gmail.com", null, 4, "Beast", "Bestie", "Beast.123", "808 Beast Street", "", new DateTime(2023, 8, 27, 12, 37, 59, 437, DateTimeKind.Utc).AddTicks(7217), "", new DateTime(2023, 8, 27, 12, 37, 59, 437, DateTimeKind.Utc).AddTicks(7217), "User", null, null, null, "Bee" },
+                    { 5, "0848887567", "KidDanger@gmail.com", null, 3, "Danger", "Kid", "Danger.123", "500 Danger Street", "", new DateTime(2023, 8, 27, 12, 37, 59, 437, DateTimeKind.Utc).AddTicks(7227), "", new DateTime(2023, 8, 27, 12, 37, 59, 437, DateTimeKind.Utc).AddTicks(7227), "User", null, null, null, "KidDanger" },
+                    { 6, "0848887568", "AdultDanger@gmail.com", null, 4, "Danger", "Adult", "Adult.123", "404 Adult Street", "", new DateTime(2023, 8, 27, 12, 37, 59, 437, DateTimeKind.Utc).AddTicks(7239), "", new DateTime(2023, 8, 27, 12, 37, 59, 437, DateTimeKind.Utc).AddTicks(7239), "User", null, null, null, "AdultDanger" }
                 });
 
             migrationBuilder.InsertData(
@@ -1431,7 +1431,7 @@ namespace Africanacity_Team24_INF370_.Migrations
             migrationBuilder.InsertData(
                 table: "Supplier_Inventorys",
                 columns: new[] { "SupplierItemId", "Inventory_ItemId", "Ordered_Date", "Ordered_Quantity", "Received_Date", "SupplierId" },
-                values: new object[] { 1, 1, new DateTime(2023, 8, 23, 0, 0, 0, 0, DateTimeKind.Local), 33, new DateTime(2023, 8, 23, 0, 0, 0, 0, DateTimeKind.Local), 1 });
+                values: new object[] { 1, 1, new DateTime(2023, 8, 27, 0, 0, 0, 0, DateTimeKind.Local), 33, new DateTime(2023, 8, 27, 0, 0, 0, 0, DateTimeKind.Local), 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Access_UserRoles_User_RolesUser_RoleId",
