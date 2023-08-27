@@ -57,9 +57,9 @@ namespace Africanacity_Team24_INF370_.Controllers
                 <h1>Booking Approval Confirmation</h1>
                 <p>Hello {recipientName},</p>
                 <p>Your booking has been approved and confirmed. Here are the details:</p>
-                 <p><strong>Email:</strong> {recipientEvent}</p>
+                 <p><strong>Event:</strong> {recipientEvent}</p>
                 <p><strong>First Name:</strong> {recipientName}</p>
-                <p><strong>Email:</strong> {recipientlastName}</p>
+                <p><strong>Last Name:</strong> {recipientlastName}</p>
                 <p><strong>Email:</strong> {recipientEmail}</p>
             </div>
         </body>
