@@ -1,74 +1,26 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Login</ion-title>
-  </ion-toolbar>
-</ion-header>
 
+<div class="container"> 
 <ion-content class="login-content">
-  <ion-grid class="ion-no-padding ion-align-items-center">
-  <ion-card class="login-card">
-    
-    <ion-card-header>
-      <ion-img src="../../assets/images/Africanacity.png" class="card-image"></ion-img>
-      <ion-card-title style="font-size: x-large;" class="card-title">Login</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-item style="background-color: black;">
-        <ion-label position="floating"><ion-icon name="person-circle-outline"></ion-icon>     Username</ion-label>
-        <ion-input type="UserName"></ion-input>
-      </ion-item>
-
-      <ion-item class="ion-item">
-        <ion-label position="floating"><ion-icon name="eye-off-outline"></ion-icon>     Password</ion-label>
-        <ion-input type="Password"></ion-input>
-      </ion-item>
-
-      
-        <ion-button expand="full" color="primary" (click)="LoginUser()" class="button" shape="round" fill="outline">Log in</ion-button>
-        <p style="font-size:medium;"> Don't have an account?<ion-router-link routerLink="/sign-up" routerDirection="forward">
-    
-          Register here
-        </ion-router-link></p>
-    </ion-card-content>
-  </ion-card>
-
-  
-
  
-</ion-grid>
-</ion-content>
-
-
-
-<!--div class="outer">
-  <div class="container">
-      <div class="row">
-          <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
-              <div class="panel border bg-white">
-                  <div class="panel-heading">
-                      <h3 class="pt-3 font-weight-bold">
-                        <img src="../../assets/images/Africanacity.png" alt="Avatar" class="avatar">
-                        Login
-                    </h3>
-                  </div>
-                  <div class="panel-body p-3">
-                      <form [formGroup]="loginForm" (ngSubmit)="LoginUser()">
-                          <div class="form-group pt-3">
-                              <div class="input-field" [class.error]="loginForm.controls['UserName'].dirty && loginForm.hasError('required','UserName')"> <span class="fa fa-user p-2"></span> <input formControlName="UserName" type="text" placeholder="Username" required> </div>
-                          </div>
-                          <small *ngIf="loginForm.controls['UserName'].dirty && loginForm.hasError('required','UserName')" class="text-danger">*Username is required*</small>
-                          <div class="form-group pt-3">
-                              <div class="input-field" [class.error]="loginForm.controls['Password'].dirty && loginForm.hasError('required','Password')"> <span class="fa fa-lock px-2"></span> <input formControlName="Password" placeholder="Password"> <button type="button" class="bg-white text-muted"> <span ></span> </button></div>
-                          </div>
-                          <small *ngIf="loginForm.controls['Password'].dirty && loginForm.hasError('required','Password')" class="text-danger">*Password is required*</small>
-                          <div class="form-inline fr mt-4"> <a id="forgot" data-bs-toggle="modal" data-bs-target="#exampleModal" class="font-weight-bold">Forgot password?</a> </div>
-                      
-                          <button type="submit"  class="btn btn-primary btn-block mt-4 w-100">Login</button>
-                          <div class="text-center pt-4 text-muted">Don't have an account? <a id="forgot" href="#" routerLink="/register">Register</a> </div>
-                      </form>
-                  </div>
-              </div>
-          </div>
-      </div>
+    
+  <ion-list class="login-form">
+    <div class="logo-container">
+      <img src="../../assets/images/Africanacity.png" alt="Avatar" class="logo">
+    </div>
+    <div class="form-body">
+    <h1 style="margin-left: 4.5%; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Login</h1>
+    <ion-item>
+      <ion-label position="floating" style="font-family:Arial, Helvetica, sans-serif; position: relative;">Username</ion-label>
+      <ion-input [(ngModel)]="username" name="username" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating" style="font-family:Arial, Helvetica, sans-serif">Password</ion-label>
+      <ion-input [(ngModel)]="password" name="password" type="password"></ion-input>
+    </ion-item>
+    <ion-button expand="full" (click)="login()" style="margin-left: 4.5%;">Login</ion-button>
+    <p class="signup-link" style="margin-left: 4.5%;">Don't have an account? <a routerLink="/sign-up">Sign Up here</a></p>
   </div>
-</div--> 
+  </ion-list>
+
+</ion-content>
+</div>

@@ -16,6 +16,7 @@ export class LoginComponent  implements OnInit {
   showTabs = false;
 
   //variables needed
+  username: string = '';
   password: string = '';
   visablePassword: boolean = false;
   hide = false;
@@ -23,8 +24,8 @@ export class LoginComponent  implements OnInit {
 
   //login form 
   loginForm: FormGroup = this.fb.group({
-    UserName: ['', [Validators.required, Validators.email]],
-    Password: ['', Validators.required],
+    username: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required],
   })
 
 
@@ -68,6 +69,41 @@ export class LoginComponent  implements OnInit {
     }
 
     console.log(this.loginForm.valid)
+  }
+
+  async login() {
+    try {
+      const loginData = {
+        username: this.username,
+        password: this.password,
+      };
+
+      // Send a POST request to your server to authenticate the user
+      const response = await this.mainService.login(loginData);
+      console.log('Login response:', response);
+
+      // Assuming your server returns an access token
+      const accessToken = response;
+
+      // Store the access token securely on the client (e.g., in local storage)
+      localStorage.setItem('access_token', response);
+
+      // Redirect to the home page or another protected route
+      this.router.navigate(['/home']);
+    } catch (error) {
+      // Handle login errors (e.g., display an error message)
+      console.error('Login error:', error);
+
+      // Display an error message as a snackbar
+      this.snackBar.open('Login failed. Incorrect username or password.', 'X', {
+      duration: 5000, // Duration in milliseconds
+      verticalPosition: 'top', // Position of the snackbar
+      horizontalPosition: 'center',
+      panelClass: ['error-snackbar'], // Add custom CSS class for styling
+    });
+
+    }
+    
   }
 
 }

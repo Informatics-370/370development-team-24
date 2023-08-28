@@ -1,56 +1,63 @@
-
-.card-image{
-    max-width: 80px;
-    border-radius: 150px;
-    margin-left: 130px;
-   
+.error-snackbar {
+  background-color: #f44336; /* Red background color */
+  color: white; /* Text color */
+  font-size: 14px;
 }
-
-
-  .login-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
   
-  .login-card {
-    max-width: 400px; /* adjust the width as per your preference */
-    background-color:rgb(19, 16, 16);
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    margin-left:515px ;
-    margin-top: 150px;
-    border-radius: 25px;
-    max-height: 600px;
-    border-style:ridge;
-    border-color:rgb(153, 2, 228);
-    border-width: 7px;
-
-
-}
-
-  .card-title{
-   font-size: x-large;
-   color:grey;
-   
-  }
-
-.button{
-    width:150px;
-    margin-left:100px;
-    
-}
-
-.ion-item{
-  background-color: black;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color:black;
-  box-sizing: border-box;
+/* Center the login form vertically and horizontally */
+.login-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
  
- 
-  
 }
 
-  
+/* Style the login form with a thin solid border */
+.login-form {
+  background-color: #fff; /* Background color for the form */
+  border-radius: 8px; /* Rounded corners */
+  width: 40%;
+  justify-content: center;
+  border: 5px solid #ccc; /* Border with a color of your choice */
+  padding: 20px; /* Add some padding to the form */
+  font-family:Arial, Helvetica, sans-serif;/* Optionally set a background color */
+}
+.container {
+  display: flex;
+  flex-direction: column; /* Arrange content vertically */
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  height: 100vh;
+  margin-top:18%;
+  margin-left: 30%;
+  width: 100%;
+   /* Use the entire viewport height */
+}
+
+/* Center the logo horizontally and vertically */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 15%; /* Adjust the height as needed */
+}
+
+/* Style the logo image */
+.logo {
+  max-width: 200px; /* Set the maximum width of your logo */
+  max-height: 200px; 
+  justify-content: center;/* Set the maximum height of your logo */
+  align-items: center;
+  border-radius: 50%;
+
+}
+
+.form-body{
+  align-items: start;
+}
+
 
   
   

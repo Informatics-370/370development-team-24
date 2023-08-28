@@ -1,40 +1,40 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Sign Up</ion-title>
-  </ion-toolbar>
-</ion-header>
 
 
 
 
-<ion-content class="sign-up-container">
 <div class="form-container">
+<ion-content class="sign-up-container">
+
   <form [formGroup]="signUpForm" (ngSubmit)="signUpUser()" class="sign-up-form">
-    <h3>Sign Up</h3>
+    <div class="logo-container">
+      <img src="../../assets/images/Africanacity.png" alt="Avatar" class="logo">
+    </div>
+    <h1 style="margin-left: 4.5%; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Sign Up</h1>
     <ion-item class="form-group">
-      <ion-label position="floating">Username</ion-label>
+      <ion-label position="floating" style="font-family:Arial, Helvetica, sans-serif">Username</ion-label>
       <ion-input [(ngModel)]="signUpData.username" formControlName="username"></ion-input>
     </ion-item>
 
     <ion-item class="form-group">
-      <ion-label position="floating">Email</ion-label>
+      <ion-label position="floating" style="font-family:Arial, Helvetica, sans-serif">Email</ion-label>
       <ion-input [(ngModel)]="signUpData.email_address" formControlName="email_address"></ion-input>
     </ion-item>
 
     <ion-item class="form-group">
-      <ion-label position="floating">Password</ion-label>
+      <ion-label position="floating" style="font-family:Arial, Helvetica, sans-serif">Password</ion-label>
       <ion-input [(ngModel)]="signUpData.password" type="password"  formControlName="password"></ion-input>
     </ion-item>
 
-    <ion-button expand="full" type="submit">Sign Up</ion-button>
+    <ion-button expand="full" type="submit" style="margin-left: 4.5%;">Sign Up</ion-button>
+    <p class="signup-link" style="margin-left: 4.5%;">Already have an account? <a routerLink="/login">Return to login</a></p>
   </form>
 
   <ion-alert *ngIf="showSuccessMessage" header="Success" message="Sign-up successful!" buttons="OK" (ionAlertDidDismiss)="resetMessage()"></ion-alert>
 
  
   <ion-alert *ngIf="showErrorMessage" header="Error" message="Email does not exist." buttons="OK" (ionAlertDidDismiss)="resetMessage()"></ion-alert>
-</div>
-</ion-content>
 
+</ion-content>
+</div>
 
 

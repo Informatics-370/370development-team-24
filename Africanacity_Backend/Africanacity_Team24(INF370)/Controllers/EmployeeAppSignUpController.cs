@@ -1,15 +1,25 @@
-﻿using Africanacity_Team24_INF370_.models;
-using Africanacity_Team24_INF370_.models.Administration;
-using Africanacity_Team24_INF370_.models.Restraurant;
-using Africanacity_Team24_INF370_.models.Login;
-using Africanacity_Team24_INF370_.View_Models;
-using Africanacity_Team24_INF370_.ViewModel;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Org.BouncyCastle.Crypto.Generators;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using System.Text;
+using Africanacity_Team24_INF370_.Helpers;
+using System.Security.Cryptography;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using BCrypt.Net;
+using Microsoft.EntityFrameworkCore;
+using System;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Africanacity_Team24_INF370_.EmailService;
+using Africanacity_Team24_INF370_.models.Dto;
+using Africanacity_Team24_INF370_.models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using Africanacity_Team24_INF370_.View_Models;
+using Africanacity_Team24_INF370_.models.Administration;
+using Africanacity_Team24_INF370_.models.Login;
+using Newtonsoft.Json;
+using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
@@ -19,11 +29,13 @@ namespace Africanacity_Team24_INF370_.Controllers
     {
         private readonly IRepository _repository;
         private readonly AppDbContext _appDBContext;
+        private readonly IConfiguration _configuration;
 
-        public EmployeeAppSignUpController(IRepository Repository, AppDbContext context)
+        public EmployeeAppSignUpController(IRepository Repository, AppDbContext context, IConfiguration configuration)
         {
             _repository = Repository;
             _appDBContext = context;
+            _configuration = configuration;
         }
 
 
@@ -93,6 +105,110 @@ namespace Africanacity_Team24_INF370_.Controllers
             // Example using BCrypt.Net:
             return BCrypt.Net.BCrypt.HashPassword(Password);
         }
+
+
+        //Login
+        //[HttpPost]
+        //[Route("IonicAppLogin")]
+        //[AllowAnonymous] // Allow anonymous access to this endpoint
+        //public async Task<IActionResult> IonicAppLogin([FromBody] IonicAppLogin model)
+        //{
+        //    var employee = await _repository.GetEmployeeByUsernameAsync(model.Username);
+
+        //    if (employee == null || await _repository.CheckPasswordAsync( model.Password) == null)
+        //    {
+        //        return Unauthorized("Invalid login credentials");
+        //    }
+
+        //    var tokenHandler = new JwtSecurityTokenHandler();
+        //    var key = Encoding.ASCII.GetBytes(_configuration["JwtSettings:SecretKey"]);
+        //    var tokenDescriptor = new SecurityTokenDescriptor
+        //    {
+        //        Subject = new ClaimsIdentity(new[]
+        //        {
+        //    new Claim(ClaimTypes.Name, employee.Username),
+        //    new Claim(ClaimTypes.Email, employee.Email_Address)
+        //}),
+        //        Expires = DateTime.UtcNow.AddHours(1), // Token expiration time
+        //        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+        //    };
+
+        //    var token = tokenHandler.CreateToken(tokenDescriptor);
+        //    var tokenString = tokenHandler.WriteToken(token);
+
+        //    return Ok(new { Token = tokenString });
+        //}
+
+
+        [HttpPost("IonicAppLogin")]
+        //[Route("Authenticate")]
+        public async Task<IActionResult> IonicAppLogin([FromBody] IonicAppLoginViewModel loginModel)
+        {
+            if (loginModel == null)
+                return BadRequest();
+
+            var user = await _appDBContext.IonicAppUsers.FirstOrDefaultAsync(x => x.Username == loginModel.Username);
+
+            if (user == null)
+                return NotFound(new { Message = "User not found!" });
+
+            // Verify if the provided password matches the one in the database
+            if (!BCrypt.Net.BCrypt.Verify(loginModel.Password, user.Password))
+            {
+                return BadRequest(new { Message = "Password is Incorrect" });
+            }
+            // Customize the claims you want to include in the token
+            var claims = new List<Claim>
+    {
+        new Claim(ClaimTypes.Name, user.Username),
+        new Claim(ClaimTypes.Email, user.Email_Address),
+        // Add more claims as needed for your application
+    };
+
+            // Customize token options, such as expiration
+            var tokenOptions = new JwtSecurityTokenOptions
+            {
+                Issuer = "YourIssuer",
+                Audience = "YourAudience",
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.UtcNow.AddHours(1), // Token expiration time
+                SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes("YourSecretKey")),
+                    SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            // Create the token
+            var token = new JwtSecurityTokenHandler().CreateToken(tokenOptions);
+
+            // Serialize the token to a string
+            var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+
+            // Generate a new refresh token
+            var newRefreshToken = CreateRefreshToken();
+            user.RefreshToken = newRefreshToken;
+            user.RefreshTokenExpiryTime = DateTime.Now.AddDays(15);
+
+            // Save changes to the database
+            await _appDBContext.SaveChangesAsync();
+
+            return Ok(new TokenApiDto()
+            {
+                AccessToken = tokenString,
+                RefreshToken = newRefreshToken
+            });
+        }
+
+        private string CreateRefreshToken()
+        {
+            var randomNumber = new byte[32];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(randomNumber);
+                return Convert.ToBase64String(randomNumber);
+            }
+        }
+
+
 
 
 

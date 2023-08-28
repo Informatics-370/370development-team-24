@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Africanacity_Team24_INF370_.models.Inventory;
 
 using static Org.BouncyCastle.Asn1.Cmp.Challenge;
+using Africanacity_Team24_INF370_.models.Login;
 
 namespace Africanacity_Team24_INF370_.models
 {
@@ -32,6 +33,10 @@ namespace Africanacity_Team24_INF370_.models
         Task<Employee> GetEmployeeAsync(int EmployeeId);
 
         Task<Employee> GetEmployeeByEmailAsync(string Email_Address);
+
+        Task<IonicAppUser> GetEmployeeByUsernameAsync(string Username);
+
+        Task<IonicAppUser> CheckPasswordAsync(string Password);
 
         //HELP
 

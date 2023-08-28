@@ -57,6 +57,13 @@ return this.httpClient.post(url, body);
     );
   }
 
+  async login(credentials: { username: string; password: string }) {
+    const url = `${this.apiUrl}EmployeeAppSignUp/IonicAppLogin`;
+
+    // Send a POST request to your server with the user's credentials
+    return this.httpClient.post<any>(url, credentials).toPromise();
+  }
+
 
 
 

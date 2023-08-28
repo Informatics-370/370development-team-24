@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Africanacity_Team24_INF370_.models.Inventory;
 using System.Linq;
 ﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
+using Africanacity_Team24_INF370_.models.Login;
 
 using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.AspNetCore.DataProtection;
@@ -23,12 +24,14 @@ namespace Africanacity_Team24_INF370_.models
     public class Repository: IRepository
 	{
 		private readonly AppDbContext _appDbContext;
+        
 
         public object EmployeeViewModel => throw new NotImplementedException();
 
         public Repository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
+            
         }
 
         // EMPLOYEES
@@ -44,11 +47,47 @@ namespace Africanacity_Team24_INF370_.models
         }
 
         //FOR IONIC APP 
+        //for sign up
         public async Task<Employee> GetEmployeeByEmailAsync(string Email_Address)
         {
             IQueryable<Employee> query = _appDbContext.Employees.Where(e => e.Email_Address == Email_Address);
             return await query.FirstOrDefaultAsync();
         }
+
+        //for login
+        public async Task<IonicAppUser> GetEmployeeByUsernameAsync(string Username)
+        {
+            IQueryable<IonicAppUser> query = _appDbContext.IonicAppUsers.Where(e => e.Username == Username);
+            return await query.FirstOrDefaultAsync();
+        }
+        public async Task<IonicAppUser> CheckPasswordAsync(string Password)
+        {
+            IQueryable<IonicAppUser> query = _appDbContext.IonicAppUsers.Where(e => e.Password == Password);
+            return await query.FirstOrDefaultAsync();
+        }
+
+        /*public async Task<IonicAppUser> CheckPasswordAsync(string Username, string Password)
+        {
+            var user = await _userManager.FindByNameAsync(Username);
+
+            if (user == null)
+            {
+                // User not found
+                return null;
+            }
+
+            var result = await _signInManager.CheckPasswordSignInAsync(user, Password, false);
+
+            if (result.Succeeded)
+            {
+                // Password is correct, return the user
+                return user;
+            }
+
+            // Password is incorrect
+            return null;
+        }*/
+
 
         public async Task<Gender[]> GetAllGendersAsync()
         {
