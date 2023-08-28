@@ -16,13 +16,16 @@
 
 /* Style the login form with a thin solid border */
 .login-form {
-  background-color: #fff; /* Background color for the form */
+  background-color:ivory; /* Background color for the form */
   border-radius: 8px; /* Rounded corners */
   width: 40%;
   justify-content: center;
   border: 5px solid #ccc; /* Border with a color of your choice */
   padding: 20px; /* Add some padding to the form */
   font-family:Arial, Helvetica, sans-serif;/* Optionally set a background color */
+  border-color: darkslateblue;
+  border-width: 10px;
+  border-style: groove;
 }
 .container {
   display: flex;
@@ -56,6 +59,11 @@
 
 .form-body{
   align-items: start;
+}
+.button{
+  border-radius: 30%;
+  width: 90%;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 
