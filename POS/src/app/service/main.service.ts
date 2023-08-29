@@ -111,29 +111,29 @@ return this.httpClient.post(url, body);
 
   //get all drinks
   GetAllDrinkItems() {
-    return this.httpClient.get(`${this.apiUrl}OtherDrink/DrinkItemListing`)
+    return this.httpClient.get(`${this.apiUrl}OtherDrink/GetAllDrinks`)
     .pipe(map(result => result))
   }
 
   //get drink items prices
   GetAllDrinkItemPrices(): Observable<DrinkPrice[]>{
-    return this.httpClient.get<DrinkPrice[]>(`${this.apiUrl}DrinkPrice/GetAllDrinkItemPrices`).pipe(map(result => result))
+    return this.httpClient.get<DrinkPrice[]>(`${this.apiUrl}OtherDrink/GetAllDrinkItemPrices`).pipe(map(result => result))
   }
 
   //get drink item prices by id 
-  GetADrinkItemPriceById(drink_PriceId: number): Observable<any>{
-    return this.httpClient.get(`${this.apiUrl}DrinkPrice/GetADrinkItemPrice/${drink_PriceId}`);
+  GetADrinkItemPriceById(otherDrinkPriceId: number): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}OtherDrink/GetADrinkItemPrice/${otherDrinkPriceId}`);
   }
 
   //get drink types
   GetAllDrinkTypes() {
-    return this.httpClient.get(`${this.apiUrl}drinkTypeController/GetAllDrinkTypes`)
+    return this.httpClient.get(`${this.apiUrl}DrinkType/GetAllDrinkTypes`)
     .pipe(map(result => result))
   }
 
   //get a drink type
   GetDrinkTypeById(drink_TypeId: Number): Observable<any>{
-    return this.httpClient.get(`${this.apiUrl}drinkTypeController/GetDrinkType/${drink_TypeId}`);
+    return this.httpClient.get(`${this.apiUrl}DrinkType/GetDrinkType/${drink_TypeId}`);
   }
 
   //get all table numbers

@@ -1,4 +1,4 @@
-export interface DrinkType {
-    drink_TypeId: number;
-    name: string;
+export class DrinkType {
+    drink_TypeId!: number;
+    name!: string;
 }

@@ -48,6 +48,58 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
 
+        //get all drinks where foreign keys are saved as integers
+        [HttpGet]
+        [Route("GetAllDrinks")]
+        public async Task<IActionResult> GetAllDrinks()
+        {
+            try
+            {
+                var results = await _repository.GetAllDrinkItemsAsync();
+                return Ok(results);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+
+
+        [HttpGet]
+        [Route("GetDrinkItem/{OtherDrinkId}")]
+        public async Task<IActionResult> GetADrinkItem(int OtherDrinkId)
+        {
+            try
+            {
+                var result = await _repository.GetADrinkItemAsync(OtherDrinkId);
+
+                if (result == null)
+                {
+                    return NotFound(); // Return 404 if the menu item is not found
+                }
+
+                var drink = new
+                {
+                    result.OtherDrinkId,
+                    result.Name,
+                    result.Description,
+                    DrinkTypeName = result.Drink_Type.Name,
+                    
+
+                };
+
+                return Ok(drink);
+            }
+
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support");
+            }
+
+
+        }
+
+
         //ADD A DRINK
         [HttpPost]
         [Route("AddDrinkItem")]

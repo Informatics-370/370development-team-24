@@ -376,7 +376,7 @@ namespace Africanacity_Team24_INF370_.models
 
         public async Task<OtherDrink> GetADrinkItemAsync(int OtherDrinkId)
         {
-            IQueryable<OtherDrink> query = _appDbContext.OtherDrinks.Where(c => c.OtherDrinkId == OtherDrinkId);
+            IQueryable<OtherDrink> query = _appDbContext.OtherDrinks.Where(c => c.OtherDrinkId == OtherDrinkId).Include(p => p.Drink_Type);
             return await query.FirstOrDefaultAsync();
         }
 

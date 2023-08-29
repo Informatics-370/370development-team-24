@@ -1,8 +1,8 @@
 import { DecimalPipe } from "@angular/common";
 
 export interface DrinkPrice {
-    drink_PriceId: number;
+    otherDrinkPriceId: number;
+    otherDrinkId: number;
     amount: number;
-    drinkId: number;
 
 }

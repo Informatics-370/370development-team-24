@@ -12,6 +12,7 @@ import { KitchenOrder } from '../shared/kitchen-order';
 import { OrderedItem } from '../shared/ordered-item';
 import { OrderedDrink } from '../shared/ordered-drink';
 import { OrderService } from '../service/order.service';
+import { DrinkType } from '../shared/drink-type';
 
 @Component({
   selector: 'app-order',
@@ -31,6 +32,7 @@ export class OrderComponent  implements OnInit {
   filteredDrinkItems: Drink[] = [];
   orderedDrinks: OrderedDrink[] = [];
   drinkPrices: DrinkPrice[]= [];
+  drinkType: DrinkType [] = [];
 
   isDrinkSelected = false;
   kitchenOrderNumber: string = '';
@@ -66,10 +68,12 @@ export class OrderComponent  implements OnInit {
     this.mainService.GetAllDrinkItems().subscribe((result: any) => {
       this.drinkItems = result;
       this.filteredDrinkItems = this.drinkItems;
+      console.log('All drinks', this.filteredDrinkItems)
     });
 
     this.mainService.GetAllDrinkItemPrices().subscribe((prices: DrinkPrice[]) => {
       this.drinkPrices = prices;
+      console.log('Prices of drinks', this.drinkPrices)
     });
 
    
@@ -141,7 +145,7 @@ export class OrderComponent  implements OnInit {
       existingDrink.quantity += 1;
     } else {
       // If it's a new drink, set the quantity to 1
-      const newOrderItem: OrderedDrink = { name: drink.name, quantity: 1 , drinkId: drink.drinkId, price: drink.price};
+      const newOrderItem: OrderedDrink = { name: drink.name, quantity: 1 , drinkId: drink.otherDrinkId, price: drink.price};
       this.orderedDrinks.push(newOrderItem);
     }
     this.updateSubtotal();
@@ -224,7 +228,7 @@ export class OrderComponent  implements OnInit {
   }
 
   fetchDrinkItemPrice(drinkId: number): number {
-    const drinkItemPrice = this.drinkPrices.find((price) => price.drinkId === drinkId);
+    const drinkItemPrice = this.drinkPrices.find((price) => price.otherDrinkId === drinkId);
     return drinkItemPrice ? drinkItemPrice.amount : 0;
   }
 
@@ -235,7 +239,7 @@ export class OrderComponent  implements OnInit {
   }
   
   getSelectedDrinkItemPrice(drinkId: number): number {
-    const drinkItemPrice = this.drinkPrices.find((price) => price.drinkId === drinkId);
+    const drinkItemPrice = this.drinkPrices.find((price) => price.otherDrinkId === drinkId);
     return drinkItemPrice ? drinkItemPrice.amount : 0;
   }
 
