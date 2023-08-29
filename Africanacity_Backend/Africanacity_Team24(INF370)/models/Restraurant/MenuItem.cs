@@ -31,7 +31,8 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
 
         public List<Order> Orders { get; set; } = new List<Order>();
 
-		//collecting data of the menu item price table from the menu item form
+        public List<KitchenOrder> KitchenOrders { get; set; } = new List<KitchenOrder>();
+        //collecting data of the menu item price table from the menu item form
         public virtual ICollection<MenuItem_Price> MenuItem_Prices { get; set; }
 
 
