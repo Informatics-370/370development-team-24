@@ -39,6 +39,8 @@ export class OrderComponent  implements OnInit {
   tableNumber: string | null = null;
   selectedMenuItems: MenuItem[] = [];
   selectedDrinks: Drink[] = [];
+
+  //for the amounts
  
 
   constructor(private mainService: MainService,

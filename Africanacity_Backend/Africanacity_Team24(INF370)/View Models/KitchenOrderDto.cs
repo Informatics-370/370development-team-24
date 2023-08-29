@@ -18,11 +18,7 @@ namespace Africanacity_Team24_INF370_.View_Models
        
 
         // Empty constructor required for deserializationa
-        public KitchenOrderViewModel()
-        {
-            OrderedItems = new List<string>();
-            OrderedDrinks = new List<string>();
-        }
+       
 
 
     }

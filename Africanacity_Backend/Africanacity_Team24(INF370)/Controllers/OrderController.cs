@@ -161,13 +161,13 @@ namespace Africanacity_Team24_INF370_.Controllers
             // Example: Apply a discount if the subtotal is above a certain threshold
             if (subtotal > 100)
             {
-                discount = subtotal * 0.1M;
+                discount = subtotal * 0.1m;
             }
 
             return discount;
         }
 
-        public decimal CalculateVAT(decimal subtotal)
+        private decimal CalculateVAT(decimal subtotal)
         {
             // Define your VAT rate as a decimal (e.g., 15% VAT)
             decimal vatRate = 0.15M;
@@ -178,7 +178,7 @@ namespace Africanacity_Team24_INF370_.Controllers
             return vat;
         }
 
-        public decimal CalculateTotal(decimal subtotal, decimal vat, decimal discount)
+        private decimal CalculateTotal(decimal subtotal, decimal vat, decimal discount)
         {
             // Calculate total by subtracting discount from subtotal and adding VAT
             decimal total = (subtotal - discount) + vat;
@@ -198,7 +198,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 
         //get MenuItem Price
-        public decimal GetMenuItemPriceById(int menuItemId)
+        private decimal GetMenuItemPriceById(int menuItemId)
         {
             var menuItemPrice = _appDbContext.MenuItem_Prices
                 .FirstOrDefault(p => p.MenuItemId == menuItemId);
@@ -211,7 +211,7 @@ namespace Africanacity_Team24_INF370_.Controllers
             return 0; // Handle the case where the price is not found.
         }
 
-        public decimal GetDrinkPriceById(int drinkId)
+        private decimal GetDrinkPriceById(int drinkId)
         {
             var drinkPrice = _appDbContext.OtherDrinkPrices
                 .FirstOrDefault(p => p.OtherDrinkId == drinkId);
