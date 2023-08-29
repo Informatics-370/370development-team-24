@@ -25,6 +25,7 @@ import { CommonModule } from '@angular/common';
 import { PaymentComponent } from './payment/payment.component';
 import { PrintReceiptComponent } from './print-receipt/print-receipt.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { CustomAlertComponent } from './success-custom-alert/custom-alert.component';
 
 
 
@@ -39,7 +40,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
   NotificationComponent,
   PaymentComponent,
   PrintReceiptComponent,
-  SignUpComponent],
+  SignUpComponent,
+  CustomAlertComponent],
 
  
 

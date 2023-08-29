@@ -1273,6 +1273,32 @@ namespace Africanacity_Team24_INF370_.models
                            Drink_TypeId = 1,
                        });
 
+            //seed data for the otherdrink price table
+            modelBuilder.Entity<OtherDrinkPrice>()
+                       .HasData(
+                       new
+                       {
+                           OtherDrinkPriceId = 1,
+                           OtherDrinkId = 1,
+                           Amount = 69m
+                       }); 
+            modelBuilder.Entity<OtherDrinkPrice>()
+                        .HasData(
+                        new
+                        {
+                            OtherDrinkPriceId = 2,
+                            OtherDrinkId = 2,
+                            Amount = 60m
+                        });
+            modelBuilder.Entity<OtherDrinkPrice>()
+                       .HasData(
+                       new
+                       {
+                           OtherDrinkPriceId = 3,
+                           OtherDrinkId = 3,
+                           Amount = 75m
+                       });
+
             //create seed data drink prices 
             modelBuilder.Entity<Drink_Price>()
                         .HasData(

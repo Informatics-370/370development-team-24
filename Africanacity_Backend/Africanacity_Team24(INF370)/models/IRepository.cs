@@ -94,8 +94,8 @@ namespace Africanacity_Team24_INF370_.models
         //Task<Drink[]> GetAllDrinksAsync();
         Task<Drink> GetDrinkAsync(int Drink_TypeId);
         //DRINK ITEM PRICES
-        Task<Drink_Price[]> GetAllDrinkItemPricesAsync();
-        Task<Drink_Price> GetADrinkItemPriceAsync(int Drink_PriceId);
+        Task<OtherDrinkPrice[]> GetAllDrinkItemPricesAsync();
+        Task<OtherDrinkPrice> GetADrinkItemPriceAsync(int OtherDrinkPriceId);
 
 
         // MENU ITEM CATEGORY

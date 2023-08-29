@@ -25,14 +25,14 @@
       <ion-input [(ngModel)]="signUpData.password" type="password"  formControlName="password"></ion-input>
     </ion-item>
 
-    <ion-button expand="full" type="submit" style="margin-left: 4.5%;">Sign Up</ion-button>
+    <ion-button  type="submit" style="margin-left: 4.5%;" class="button">Sign Up</ion-button>
     <p class="signup-link" style="margin-left: 4.5%;">Already have an account? <a routerLink="/login">Return to login</a></p>
   </form>
 
-  <ion-alert *ngIf="showSuccessMessage" header="Success" message="Sign-up successful!" buttons="OK" (ionAlertDidDismiss)="resetMessage()"></ion-alert>
+  <ion-alert *ngIf="showSuccessMessage" header="Success" message="Sign-up successful!" buttons="OK" (ionAlertDidDismiss)="resetMessage()" class="successAlert"></ion-alert>
 
  
-  <ion-alert *ngIf="showErrorMessage" header="Error" message="Email does not exist." buttons="OK" (ionAlertDidDismiss)="resetMessage()"></ion-alert>
+  <ion-alert *ngIf="showErrorMessage" header="Error" message="Email does not exist." buttons="OK" (ionAlertDidDismiss)="resetMessage()" class="errorAlert"></ion-alert>
 
 </ion-content>
 </div>

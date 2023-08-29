@@ -4,6 +4,7 @@ import { MainService } from '../service/main.service';
 import { AlertController } from '@ionic/angular';
 import { SignUp } from '../shared/sign-up';
 
+
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -105,7 +106,8 @@ export class SignUpComponent   {
     const alert = await this.alertController.create({
       header: 'Error',
       message: message,
-      buttons: ['OK']
+      buttons: ['OK'],
+      
     });
 
     await alert.present();

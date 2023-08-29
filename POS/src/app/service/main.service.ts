@@ -111,7 +111,7 @@ return this.httpClient.post(url, body);
 
   //get all drinks
   GetAllDrinkItems() {
-    return this.httpClient.get(`${this.apiUrl}controller/GetAllDrinks`)
+    return this.httpClient.get(`${this.apiUrl}OtherDrink/DrinkItemListing`)
     .pipe(map(result => result))
   }
 

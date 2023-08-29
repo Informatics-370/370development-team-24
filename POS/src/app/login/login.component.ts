@@ -71,6 +71,9 @@ export class LoginComponent  implements OnInit {
     console.log(this.loginForm.valid)
   }
 
+
+
+  //alt login method
   async login() {
     try {
       const loginData = {
@@ -85,21 +88,45 @@ export class LoginComponent  implements OnInit {
       // Assuming your server returns an access token
       const accessToken = response;
 
-      // Store the access token securely on the client (e.g., in local storage)
-      localStorage.setItem('access_token', response);
+      if (response.accessToken) {
+        // Successful login
 
-      // Redirect to the home page or another protected route
-      this.router.navigate(['/home']);
-    } catch (error) {
-      // Handle login errors (e.g., display an error message)
-      console.error('Login error:', error);
+        // Store the access token securely on the client (e.g., in local storage)
+        localStorage.setItem('access_token', response.accessToken);
 
-      // Display an error message as a snackbar
-      this.snackBar.open('Login failed. Incorrect username or password.', 'X', {
-      duration: 5000, // Duration in milliseconds
-      verticalPosition: 'top', // Position of the snackbar
-      horizontalPosition: 'center',
-      panelClass: ['error-snackbar'], // Add custom CSS class for styling
+        // Redirect to the home page or another protected route
+        this.router.navigate(['/home']);
+    } else {
+        // Handle specific error messages from the API
+        if (response.error == 404) {
+            this.snackBar.open('User not found. Please check your username.', 'X', {
+                duration: 5000,
+                verticalPosition: 'top',
+                horizontalPosition: 'center',
+                panelClass: ['error-snackbar'],
+            });
+        } else if (response.error == 400) {
+            this.snackBar.open('Username or password is incorrect. Please try again.', 'X', {
+                duration: 5000,
+                verticalPosition: 'top',
+                horizontalPosition: 'center',
+                panelClass: ['error-snackbar'],
+            });
+        } else {
+            // Handle other potential error cases here
+            console.error('Login error:', response.message);
+        }
+    }
+} catch (error) {
+    // Handle other unexpected errors
+    console.error('Login error:', error);
+
+    // Display a generic error message as a snackbar
+    this.snackBar.open('Username or password is incorrect. Please try again.', 'X', {
+        duration: 5000,
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+        panelClass: ['error-snackbar'],
     });
 
     }

@@ -99,8 +99,41 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
 
+        //the prices
+        //Get drink items'prices
+        [HttpGet]
+        [Route("GetAllDrinkItemPrices")]
+        public async Task<IActionResult> GetAllDrinkItemPrices()
+        {
+            try
+            {
+                var drinkItemPrices = await _repository.GetAllDrinkItemPricesAsync();
+                return Ok(drinkItemPrices);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
 
+        //get a specific menu item's price
+        [HttpGet]
+        [Route("GetADrinkItemPrice/{OtherDrinkPriceId}")]
+        public async Task<IActionResult> GetADrinkItemPriceAsync(int OtherDrinkPriceId)
+        {
+            try
+            {
+                var result = await _repository.GetADrinkItemPriceAsync(OtherDrinkPriceId);
 
+                if (result == null) return NotFound("Course does not exist");
+
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support");
+            }
+        }
 
 
 

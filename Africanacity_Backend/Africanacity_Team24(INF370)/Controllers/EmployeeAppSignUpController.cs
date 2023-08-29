@@ -145,12 +145,18 @@ namespace Africanacity_Team24_INF370_.Controllers
         public async Task<IActionResult> IonicAppLogin([FromBody] IonicAppLoginViewModel loginModel)
         {
             if (loginModel == null)
+            {
                 return BadRequest();
+            }
+                
 
             var user = await _appDBContext.IonicAppUsers.FirstOrDefaultAsync(x => x.Username == loginModel.Username);
 
             if (user == null)
+            {
                 return NotFound(new { Message = "User not found!" });
+            }
+                
 
             // Verify if the provided password matches the one in the database
             if (!BCrypt.Net.BCrypt.Verify(loginModel.Password, user.Password))
