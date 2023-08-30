@@ -1127,13 +1127,12 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TableNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     KitchenOrderNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OrderedMenuItems = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OrderedDrinks = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Subtotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     VAT = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    MenuItemId = table.Column<int>(type: "int", nullable: true)
+                    MenuItemId = table.Column<int>(type: "int", nullable: true),
+                    OtherDrinkId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1143,6 +1142,11 @@ namespace Africanacity_Team24_INF370_.Migrations
                         column: x => x.MenuItemId,
                         principalTable: "MenuItems",
                         principalColumn: "MenuItemId");
+                    table.ForeignKey(
+                        name: "FK_KitchenOrders_OtherDrinks_OtherDrinkId",
+                        column: x => x.OtherDrinkId,
+                        principalTable: "OtherDrinks",
+                        principalColumn: "OtherDrinkId");
                 });
 
             migrationBuilder.CreateTable(
@@ -1265,7 +1269,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Order_MenuItem",
+                name: "MenuItemOrder",
                 columns: table => new
                 {
                     MenuItemsMenuItemId = table.Column<int>(type: "int", nullable: false),
@@ -1273,15 +1277,15 @@ namespace Africanacity_Team24_INF370_.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Order_MenuItem", x => new { x.MenuItemsMenuItemId, x.OrdersOrderId });
+                    table.PrimaryKey("PK_MenuItemOrder", x => new { x.MenuItemsMenuItemId, x.OrdersOrderId });
                     table.ForeignKey(
-                        name: "FK_Order_MenuItem_MenuItems_MenuItemsMenuItemId",
+                        name: "FK_MenuItemOrder_MenuItems_MenuItemsMenuItemId",
                         column: x => x.MenuItemsMenuItemId,
                         principalTable: "MenuItems",
                         principalColumn: "MenuItemId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Order_MenuItem_Orders_OrdersOrderId",
+                        name: "FK_MenuItemOrder_Orders_OrdersOrderId",
                         column: x => x.OrdersOrderId,
                         principalTable: "Orders",
                         principalColumn: "OrderId",
@@ -1314,6 +1318,64 @@ namespace Africanacity_Team24_INF370_.Migrations
                         column: x => x.StockTake_Id1,
                         principalTable: "StockTakes",
                         principalColumn: "StockTake_Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Order_Drinks",
+                columns: table => new
+                {
+                    OtherDrinkId = table.Column<int>(type: "int", nullable: false),
+                    KitchenOrderId = table.Column<int>(type: "int", nullable: false),
+                    OrderDrinkId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    OtherDrinkId1 = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Order_Drinks", x => new { x.KitchenOrderId, x.OtherDrinkId });
+                    table.ForeignKey(
+                        name: "FK_Order_Drinks_KitchenOrders_KitchenOrderId",
+                        column: x => x.KitchenOrderId,
+                        principalTable: "KitchenOrders",
+                        principalColumn: "KitchenOrderId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Order_Drinks_OtherDrinks_OtherDrinkId",
+                        column: x => x.OtherDrinkId,
+                        principalTable: "OtherDrinks",
+                        principalColumn: "OtherDrinkId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Order_Drinks_OtherDrinks_OtherDrinkId1",
+                        column: x => x.OtherDrinkId1,
+                        principalTable: "OtherDrinks",
+                        principalColumn: "OtherDrinkId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Order_MenuItems",
+                columns: table => new
+                {
+                    MenuItemId = table.Column<int>(type: "int", nullable: false),
+                    KitchenOrderId = table.Column<int>(type: "int", nullable: false),
+                    OrderMenuItemId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Order_MenuItems", x => new { x.KitchenOrderId, x.MenuItemId });
+                    table.ForeignKey(
+                        name: "FK_Order_MenuItems_KitchenOrders_KitchenOrderId",
+                        column: x => x.KitchenOrderId,
+                        principalTable: "KitchenOrders",
+                        principalColumn: "KitchenOrderId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Order_MenuItems_MenuItems_MenuItemId",
+                        column: x => x.MenuItemId,
+                        principalTable: "MenuItems",
+                        principalColumn: "MenuItemId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -1364,7 +1426,7 @@ namespace Africanacity_Team24_INF370_.Migrations
             migrationBuilder.InsertData(
                 table: "Discounts",
                 columns: new[] { "DiscountId", "AdministratorId", "Amount", "Description", "End_Date", "Name", "Start_Date" },
-                values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 9, 8, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(6937), "Month end discount", new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(6936) });
+                values: new object[] { 1, null, 0.10m, "10% Discount", new DateTime(2023, 9, 9, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(6371), "Month end discount", new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(6370) });
 
             migrationBuilder.InsertData(
                 table: "Drink_Prices",
@@ -1461,31 +1523,11 @@ namespace Africanacity_Team24_INF370_.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "KitchenOrders",
-                columns: new[] { "KitchenOrderId", "Discount", "KitchenOrderNumber", "MenuItemId", "OrderedDrinks", "OrderedMenuItems", "Subtotal", "TableNumber", "Total", "VAT" },
-                values: new object[,]
-                {
-                    { 1, 0m, "TAKE-0001", null, "Frozen lemonade, Margarita", "Toatsed beef panini sandwich, Mexican salad", 193.59m, "", 225.10m, 31.51m },
-                    { 2, 0m, "SIT-0201", null, "Strawberry Daiquri, Frozen lemonade, Margarita, Blood Mary", "Chicken Feast", 373.54m, "Table 6", 434.35m, 60.81m },
-                    { 3, 50m, "SIT-0202", null, "Strawberry Daiquri, Frozen lemonade", "Chicken Feast, Chilli cheese poppers", 280.23m, "Table 2", 275.85m, 45.62m },
-                    { 4, 21.07m, "SIT-0203", null, "Blood Mary,Virgin Mojito", "Blueberry cheescake slice, Blueberry cheescake slice", 210.70m, "Table 1", 223.93m, 34.30m },
-                    { 5, 12.56m, "SIT-0204", null, "Virgin Mojito", "Blueberry cheescake slice, Blueberry cheescake slice", 125.56m, "Table 4", 133.44m, 20.44m },
-                    { 6, 0m, "TAKE-0002", null, "Cappuccino", "English Breakfast", 135.02m, "", 157m, 21.98m },
-                    { 7, 0m, "SIT-0205", null, "Strawberry Daiquri, Strawberry Daiquri, Blood Mary,Magarita,Strawberry Daiquri ", "", 325.94m, "Table 6", 379m, 53.06m },
-                    { 8, 35.05m, "TAKE-0003", null, "Strawberry Daiquri, Strawberry Daiquri", "The Braai feast", 301.43m, "", 315.45m, 49.07m },
-                    { 9, 32.56m, "SIT-0206", null, "Virgin Mojito, Virgin Mojito", "The Braai feast, Mexican salad", 280.02m, "Table 5", 293.04m, 45.58m }
-                });
-
-            migrationBuilder.InsertData(
-                table: "MenuItem_Categories",
-                columns: new[] { "Menu_CategoryId", "Description", "MenuItem_CategoryMenu_CategoryId", "Name" },
-                values: new object[] { 1, "Meals between 7am to 12pm", null, "Breakfast" });
-
-            migrationBuilder.InsertData(
                 table: "MenuItem_Categories",
                 columns: new[] { "Menu_CategoryId", "Description", "MenuItem_CategoryMenu_CategoryId", "Name" },
                 values: new object[,]
                 {
+                    { 1, "Meals between 7am to 12pm", null, "Breakfast" },
                     { 2, "Appetisers", null, "Starter" },
                     { 3, "Big and Filling meals", null, "Main" },
                     { 4, "Special things for those with a sweet tooth", null, "Dessert" },
@@ -1513,9 +1555,13 @@ namespace Africanacity_Team24_INF370_.Migrations
             migrationBuilder.InsertData(
                 table: "Supplier_Types",
                 columns: new[] { "Supplier_TypeId", "Description", "Name" },
+                values: new object[] { 1, "For Alcohol Suppliers", "Alcohol" });
+
+            migrationBuilder.InsertData(
+                table: "Supplier_Types",
+                columns: new[] { "Supplier_TypeId", "Description", "Name" },
                 values: new object[,]
                 {
-                    { 1, "For Alcohol Suppliers", "Alcohol" },
                     { 2, "Suppliers who sell meat and poultry", "Meat and Poultry" },
                     { 3, "Stores that sell all types", "General" },
                     { 4, "Stores that supplier baking ingrediants", "Bakery" }
@@ -1561,16 +1607,16 @@ namespace Africanacity_Team24_INF370_.Migrations
                 columns: new[] { "EmployeeId", "Email_Address", "Employee_RoleId", "Employment_Date", "FirstName", "GenderId", "PhoneNumber", "Physical_Address", "Surname" },
                 values: new object[,]
                 {
-                    { 1, "VanessaJames@gmail.com", 1, new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(5772), "Vanessa", 2, "0847541236", "404 Jacob Street", "James" },
-                    { 2, "SerenaWilliams@gmail.com", 2, new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(5794), "Serena", 2, "0842341236", "132 Harriet Street", "Williams" },
-                    { 3, "EdrisElba@gmail.com", 1, new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(5802), "Edris", 1, "0212378798", "245 homelyn Street", "Elba" },
-                    { 4, "NyongoLupita@gmail.com", 2, new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(5810), "Lupita", 2, "0455783475", "254 Summer Street", "Nyongo" },
-                    { 5, "MicheaJackson@gmail.com", 2, new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(5817), "Micheal", 3, "0874567836", "567 Winter Street", "Jackson" },
-                    { 6, "TaehyungKim@gmial.com", 1, new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(5827), "Taehyung", 1, "0874562134", "345 Shallow  Street", "Kim" },
-                    { 7, "ZendayaColeman@gmail.com", 1, new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(5835), "Zendaya", 2, "0212378798", "243 Super Street ", "Coleman" },
-                    { 8, "RogerFederal@gmail.com", 1, new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(5842), "Roger", 3, "0612346487", "987 Wall Street", "Federal" },
-                    { 9, "JenniferLOpez@gmail.com", 2, new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(5849), "Jennifer", 3, "0874834576", "967 Ballard Street", "Lopez" },
-                    { 10, "ChadwickBoseman@gmail.com", 2, new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(5858), "Chadwick", 1, "0923456789", "483 Alien Street", "Boseman" }
+                    { 1, "VanessaJames@gmail.com", 1, new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(5400), "Vanessa", 2, "0847541236", "404 Jacob Street", "James" },
+                    { 2, "SerenaWilliams@gmail.com", 2, new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(5419), "Serena", 2, "0842341236", "132 Harriet Street", "Williams" },
+                    { 3, "EdrisElba@gmail.com", 1, new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(5426), "Edris", 1, "0212378798", "245 homelyn Street", "Elba" },
+                    { 4, "NyongoLupita@gmail.com", 2, new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(5433), "Lupita", 2, "0455783475", "254 Summer Street", "Nyongo" },
+                    { 5, "MicheaJackson@gmail.com", 2, new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(5440), "Micheal", 3, "0874567836", "567 Winter Street", "Jackson" },
+                    { 6, "TaehyungKim@gmial.com", 1, new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(5449), "Taehyung", 1, "0874562134", "345 Shallow  Street", "Kim" },
+                    { 7, "ZendayaColeman@gmail.com", 1, new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(5455), "Zendaya", 2, "0212378798", "243 Super Street ", "Coleman" },
+                    { 8, "RogerFederal@gmail.com", 1, new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(5461), "Roger", 3, "0612346487", "987 Wall Street", "Federal" },
+                    { 9, "JenniferLOpez@gmail.com", 2, new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(5468), "Jennifer", 3, "0874834576", "967 Ballard Street", "Lopez" },
+                    { 10, "ChadwickBoseman@gmail.com", 2, new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(5475), "Chadwick", 1, "0923456789", "483 Alien Street", "Boseman" }
                 });
 
             migrationBuilder.InsertData(
@@ -1654,16 +1700,16 @@ namespace Africanacity_Team24_INF370_.Migrations
                 columns: new[] { "InventoryPrice_Id", "Date", "Inventory_ItemId", "Price" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(7057), 1, 25m },
-                    { 2, new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(7067), 2, 250m },
-                    { 3, new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(7078), 3, 200m },
-                    { 4, new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(7086), 4, 38m },
-                    { 5, new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(7093), 5, 45m },
-                    { 6, new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(7102), 6, 75m },
-                    { 7, new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(7109), 7, 100m },
-                    { 8, new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(7115), 8, 40m },
-                    { 9, new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(7122), 9, 28m },
-                    { 10, new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(7130), 10, 35m }
+                    { 1, new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(6416), 1, 25m },
+                    { 2, new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(6423), 2, 250m },
+                    { 3, new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(6431), 3, 200m },
+                    { 4, new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(6438), 4, 38m },
+                    { 5, new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(6445), 5, 45m },
+                    { 6, new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(6452), 6, 75m },
+                    { 7, new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(6458), 7, 100m },
+                    { 8, new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(6464), 8, 40m },
+                    { 9, new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(6470), 9, 28m },
+                    { 10, new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(6477), 10, 35m }
                 });
 
             migrationBuilder.InsertData(
@@ -1841,6 +1887,11 @@ namespace Africanacity_Team24_INF370_.Migrations
                 column: "MenuItemId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_KitchenOrders_OtherDrinkId",
+                table: "KitchenOrders",
+                column: "OtherDrinkId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_MenuItem_Categories_MenuItem_CategoryMenu_CategoryId",
                 table: "MenuItem_Categories",
                 column: "MenuItem_CategoryMenu_CategoryId");
@@ -1849,6 +1900,11 @@ namespace Africanacity_Team24_INF370_.Migrations
                 name: "IX_MenuItem_Prices_MenuItemId",
                 table: "MenuItem_Prices",
                 column: "MenuItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MenuItemOrder_OrdersOrderId",
+                table: "MenuItemOrder",
+                column: "OrdersOrderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MenuItems_Food_TypeFoodTypeId1",
@@ -1876,9 +1932,19 @@ namespace Africanacity_Team24_INF370_.Migrations
                 column: "Menu_TypeId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_MenuItem_OrdersOrderId",
-                table: "Order_MenuItem",
-                column: "OrdersOrderId");
+                name: "IX_Order_Drinks_OtherDrinkId",
+                table: "Order_Drinks",
+                column: "OtherDrinkId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Order_Drinks_OtherDrinkId1",
+                table: "Order_Drinks",
+                column: "OtherDrinkId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Order_MenuItems_MenuItemId",
+                table: "Order_MenuItems",
+                column: "MenuItemId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_EmployeeId",
@@ -2058,13 +2124,16 @@ namespace Africanacity_Team24_INF370_.Migrations
                 name: "IonicAppUsers");
 
             migrationBuilder.DropTable(
-                name: "KitchenOrders");
-
-            migrationBuilder.DropTable(
                 name: "MenuItem_Prices");
 
             migrationBuilder.DropTable(
-                name: "Order_MenuItem");
+                name: "MenuItemOrder");
+
+            migrationBuilder.DropTable(
+                name: "Order_Drinks");
+
+            migrationBuilder.DropTable(
+                name: "Order_MenuItems");
 
             migrationBuilder.DropTable(
                 name: "OrderTypes");
@@ -2118,13 +2187,10 @@ namespace Africanacity_Team24_INF370_.Migrations
                 name: "Help_Categories");
 
             migrationBuilder.DropTable(
-                name: "MenuItems");
-
-            migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "OtherDrinks");
+                name: "KitchenOrders");
 
             migrationBuilder.DropTable(
                 name: "Suppliers");
@@ -2148,15 +2214,6 @@ namespace Africanacity_Team24_INF370_.Migrations
                 name: "Schedule_Statuses");
 
             migrationBuilder.DropTable(
-                name: "Food_Types");
-
-            migrationBuilder.DropTable(
-                name: "Menu_Types");
-
-            migrationBuilder.DropTable(
-                name: "MenuItem_Categories");
-
-            migrationBuilder.DropTable(
                 name: "Employees");
 
             migrationBuilder.DropTable(
@@ -2169,7 +2226,10 @@ namespace Africanacity_Team24_INF370_.Migrations
                 name: "Table_Numbers");
 
             migrationBuilder.DropTable(
-                name: "Drink_Types");
+                name: "MenuItems");
+
+            migrationBuilder.DropTable(
+                name: "OtherDrinks");
 
             migrationBuilder.DropTable(
                 name: "Supplier_Types");
@@ -2185,6 +2245,18 @@ namespace Africanacity_Team24_INF370_.Migrations
 
             migrationBuilder.DropTable(
                 name: "Genders");
+
+            migrationBuilder.DropTable(
+                name: "Food_Types");
+
+            migrationBuilder.DropTable(
+                name: "Menu_Types");
+
+            migrationBuilder.DropTable(
+                name: "MenuItem_Categories");
+
+            migrationBuilder.DropTable(
+                name: "Drink_Types");
 
             migrationBuilder.DropTable(
                 name: "Inventory_Items");

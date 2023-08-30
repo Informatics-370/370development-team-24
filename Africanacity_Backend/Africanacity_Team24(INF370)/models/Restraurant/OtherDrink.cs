@@ -23,6 +23,8 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
 
         //collecting data of the menu item price table from the menu item form
         public virtual ICollection<OtherDrinkPrice> OtherDrinkPrices { get; set; }
+        public virtual ICollection<KitchenOrder> KitchenOrders { get; set; }
+        public virtual ICollection<Order_Drink> OrderedDrinks { get; set; }
 
     }
 }

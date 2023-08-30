@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Africanacity_Team24_INF370_.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230829214420_Mmino")]
+    [Migration("20230830173013_Mmino")]
     partial class Mmino
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -192,9 +192,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                             DiscountId = 1,
                             Amount = 0.10m,
                             Description = "10% Discount",
-                            End_Date = new DateTime(2023, 9, 8, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(6937),
+                            End_Date = new DateTime(2023, 9, 9, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(6371),
                             Name = "Month end discount",
-                            Start_Date = new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(6936)
+                            Start_Date = new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(6370)
                         });
                 });
 
@@ -251,7 +251,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                             EmployeeId = 1,
                             Email_Address = "VanessaJames@gmail.com",
                             Employee_RoleId = 1,
-                            Employment_Date = new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(5772),
+                            Employment_Date = new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(5400),
                             FirstName = "Vanessa",
                             GenderId = 2,
                             PhoneNumber = "0847541236",
@@ -263,7 +263,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                             EmployeeId = 2,
                             Email_Address = "SerenaWilliams@gmail.com",
                             Employee_RoleId = 2,
-                            Employment_Date = new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(5794),
+                            Employment_Date = new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(5419),
                             FirstName = "Serena",
                             GenderId = 2,
                             PhoneNumber = "0842341236",
@@ -275,7 +275,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                             EmployeeId = 3,
                             Email_Address = "EdrisElba@gmail.com",
                             Employee_RoleId = 1,
-                            Employment_Date = new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(5802),
+                            Employment_Date = new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(5426),
                             FirstName = "Edris",
                             GenderId = 1,
                             PhoneNumber = "0212378798",
@@ -287,7 +287,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                             EmployeeId = 4,
                             Email_Address = "NyongoLupita@gmail.com",
                             Employee_RoleId = 2,
-                            Employment_Date = new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(5810),
+                            Employment_Date = new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(5433),
                             FirstName = "Lupita",
                             GenderId = 2,
                             PhoneNumber = "0455783475",
@@ -299,7 +299,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                             EmployeeId = 5,
                             Email_Address = "MicheaJackson@gmail.com",
                             Employee_RoleId = 2,
-                            Employment_Date = new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(5817),
+                            Employment_Date = new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(5440),
                             FirstName = "Micheal",
                             GenderId = 3,
                             PhoneNumber = "0874567836",
@@ -311,7 +311,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                             EmployeeId = 6,
                             Email_Address = "TaehyungKim@gmial.com",
                             Employee_RoleId = 1,
-                            Employment_Date = new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(5827),
+                            Employment_Date = new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(5449),
                             FirstName = "Taehyung",
                             GenderId = 1,
                             PhoneNumber = "0874562134",
@@ -323,7 +323,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                             EmployeeId = 7,
                             Email_Address = "ZendayaColeman@gmail.com",
                             Employee_RoleId = 1,
-                            Employment_Date = new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(5835),
+                            Employment_Date = new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(5455),
                             FirstName = "Zendaya",
                             GenderId = 2,
                             PhoneNumber = "0212378798",
@@ -335,7 +335,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                             EmployeeId = 8,
                             Email_Address = "RogerFederal@gmail.com",
                             Employee_RoleId = 1,
-                            Employment_Date = new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(5842),
+                            Employment_Date = new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(5461),
                             FirstName = "Roger",
                             GenderId = 3,
                             PhoneNumber = "0612346487",
@@ -347,7 +347,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                             EmployeeId = 9,
                             Email_Address = "JenniferLOpez@gmail.com",
                             Employee_RoleId = 2,
-                            Employment_Date = new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(5849),
+                            Employment_Date = new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(5468),
                             FirstName = "Jennifer",
                             GenderId = 3,
                             PhoneNumber = "0874834576",
@@ -359,7 +359,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                             EmployeeId = 10,
                             Email_Address = "ChadwickBoseman@gmail.com",
                             Employee_RoleId = 2,
-                            Employment_Date = new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(5858),
+                            Employment_Date = new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(5475),
                             FirstName = "Chadwick",
                             GenderId = 1,
                             PhoneNumber = "0923456789",
@@ -1190,70 +1190,70 @@ namespace Africanacity_Team24_INF370_.Migrations
                         new
                         {
                             InventoryPrice_Id = 1,
-                            Date = new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(7057),
+                            Date = new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(6416),
                             Inventory_ItemId = 1,
                             Price = 25m
                         },
                         new
                         {
                             InventoryPrice_Id = 2,
-                            Date = new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(7067),
+                            Date = new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(6423),
                             Inventory_ItemId = 2,
                             Price = 250m
                         },
                         new
                         {
                             InventoryPrice_Id = 3,
-                            Date = new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(7078),
+                            Date = new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(6431),
                             Inventory_ItemId = 3,
                             Price = 200m
                         },
                         new
                         {
                             InventoryPrice_Id = 4,
-                            Date = new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(7086),
+                            Date = new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(6438),
                             Inventory_ItemId = 4,
                             Price = 38m
                         },
                         new
                         {
                             InventoryPrice_Id = 5,
-                            Date = new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(7093),
+                            Date = new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(6445),
                             Inventory_ItemId = 5,
                             Price = 45m
                         },
                         new
                         {
                             InventoryPrice_Id = 6,
-                            Date = new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(7102),
+                            Date = new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(6452),
                             Inventory_ItemId = 6,
                             Price = 75m
                         },
                         new
                         {
                             InventoryPrice_Id = 7,
-                            Date = new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(7109),
+                            Date = new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(6458),
                             Inventory_ItemId = 7,
                             Price = 100m
                         },
                         new
                         {
                             InventoryPrice_Id = 8,
-                            Date = new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(7115),
+                            Date = new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(6464),
                             Inventory_ItemId = 8,
                             Price = 40m
                         },
                         new
                         {
                             InventoryPrice_Id = 9,
-                            Date = new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(7122),
+                            Date = new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(6470),
                             Inventory_ItemId = 9,
                             Price = 28m
                         },
                         new
                         {
                             InventoryPrice_Id = 10,
-                            Date = new DateTime(2023, 8, 29, 23, 44, 17, 491, DateTimeKind.Local).AddTicks(7130),
+                            Date = new DateTime(2023, 8, 30, 19, 30, 11, 555, DateTimeKind.Local).AddTicks(6477),
                             Inventory_ItemId = 10,
                             Price = 35m
                         });
@@ -1879,13 +1879,8 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<int?>("MenuItemId")
                         .HasColumnType("int");
 
-                    b.Property<string>("OrderedDrinks")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OrderedMenuItems")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("OtherDrinkId")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Subtotal")
                         .HasColumnType("decimal(18,2)");
@@ -1904,117 +1899,9 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     b.HasIndex("MenuItemId");
 
-                    b.ToTable("KitchenOrders");
+                    b.HasIndex("OtherDrinkId");
 
-                    b.HasData(
-                        new
-                        {
-                            KitchenOrderId = 1,
-                            Discount = 0m,
-                            KitchenOrderNumber = "TAKE-0001",
-                            OrderedDrinks = "Frozen lemonade, Margarita",
-                            OrderedMenuItems = "Toatsed beef panini sandwich, Mexican salad",
-                            Subtotal = 193.59m,
-                            TableNumber = "",
-                            Total = 225.10m,
-                            VAT = 31.51m
-                        },
-                        new
-                        {
-                            KitchenOrderId = 2,
-                            Discount = 0m,
-                            KitchenOrderNumber = "SIT-0201",
-                            OrderedDrinks = "Strawberry Daiquri, Frozen lemonade, Margarita, Blood Mary",
-                            OrderedMenuItems = "Chicken Feast",
-                            Subtotal = 373.54m,
-                            TableNumber = "Table 6",
-                            Total = 434.35m,
-                            VAT = 60.81m
-                        },
-                        new
-                        {
-                            KitchenOrderId = 3,
-                            Discount = 50m,
-                            KitchenOrderNumber = "SIT-0202",
-                            OrderedDrinks = "Strawberry Daiquri, Frozen lemonade",
-                            OrderedMenuItems = "Chicken Feast, Chilli cheese poppers",
-                            Subtotal = 280.23m,
-                            TableNumber = "Table 2",
-                            Total = 275.85m,
-                            VAT = 45.62m
-                        },
-                        new
-                        {
-                            KitchenOrderId = 4,
-                            Discount = 21.07m,
-                            KitchenOrderNumber = "SIT-0203",
-                            OrderedDrinks = "Blood Mary,Virgin Mojito",
-                            OrderedMenuItems = "Blueberry cheescake slice, Blueberry cheescake slice",
-                            Subtotal = 210.70m,
-                            TableNumber = "Table 1",
-                            Total = 223.93m,
-                            VAT = 34.30m
-                        },
-                        new
-                        {
-                            KitchenOrderId = 5,
-                            Discount = 12.56m,
-                            KitchenOrderNumber = "SIT-0204",
-                            OrderedDrinks = "Virgin Mojito",
-                            OrderedMenuItems = "Blueberry cheescake slice, Blueberry cheescake slice",
-                            Subtotal = 125.56m,
-                            TableNumber = "Table 4",
-                            Total = 133.44m,
-                            VAT = 20.44m
-                        },
-                        new
-                        {
-                            KitchenOrderId = 6,
-                            Discount = 0m,
-                            KitchenOrderNumber = "TAKE-0002",
-                            OrderedDrinks = "Cappuccino",
-                            OrderedMenuItems = "English Breakfast",
-                            Subtotal = 135.02m,
-                            TableNumber = "",
-                            Total = 157m,
-                            VAT = 21.98m
-                        },
-                        new
-                        {
-                            KitchenOrderId = 7,
-                            Discount = 0m,
-                            KitchenOrderNumber = "SIT-0205",
-                            OrderedDrinks = "Strawberry Daiquri, Strawberry Daiquri, Blood Mary,Magarita,Strawberry Daiquri ",
-                            OrderedMenuItems = "",
-                            Subtotal = 325.94m,
-                            TableNumber = "Table 6",
-                            Total = 379m,
-                            VAT = 53.06m
-                        },
-                        new
-                        {
-                            KitchenOrderId = 8,
-                            Discount = 35.05m,
-                            KitchenOrderNumber = "TAKE-0003",
-                            OrderedDrinks = "Strawberry Daiquri, Strawberry Daiquri",
-                            OrderedMenuItems = "The Braai feast",
-                            Subtotal = 301.43m,
-                            TableNumber = "",
-                            Total = 315.45m,
-                            VAT = 49.07m
-                        },
-                        new
-                        {
-                            KitchenOrderId = 9,
-                            Discount = 32.56m,
-                            KitchenOrderNumber = "SIT-0206",
-                            OrderedDrinks = "Virgin Mojito, Virgin Mojito",
-                            OrderedMenuItems = "The Braai feast, Mexican salad",
-                            Subtotal = 280.02m,
-                            TableNumber = "Table 5",
-                            Total = 293.04m,
-                            VAT = 45.58m
-                        });
+                    b.ToTable("KitchenOrders");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Menu_Type", b =>
@@ -2343,19 +2230,51 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.ToTable("Orders");
                 });
 
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Order_Drink", b =>
+                {
+                    b.Property<int>("KitchenOrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OtherDrinkId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderDrinkId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("OtherDrinkId1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("KitchenOrderId", "OtherDrinkId");
+
+                    b.HasIndex("OtherDrinkId");
+
+                    b.HasIndex("OtherDrinkId1");
+
+                    b.ToTable("Order_Drinks");
+                });
+
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Order_MenuItem", b =>
                 {
-                    b.Property<int>("MenuItemsMenuItemId")
+                    b.Property<int>("KitchenOrderId")
                         .HasColumnType("int");
 
-                    b.Property<int>("OrdersOrderId")
+                    b.Property<int>("MenuItemId")
                         .HasColumnType("int");
 
-                    b.HasKey("MenuItemsMenuItemId", "OrdersOrderId");
+                    b.Property<int>("OrderMenuItemId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("OrdersOrderId");
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
-                    b.ToTable("Order_MenuItem");
+                    b.HasKey("KitchenOrderId", "MenuItemId");
+
+                    b.HasIndex("MenuItemId");
+
+                    b.ToTable("Order_MenuItems");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Order_Status", b =>
@@ -2690,6 +2609,21 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasIndex("SchedulesScheduleId");
 
                     b.ToTable("EntertainerSchedule");
+                });
+
+            modelBuilder.Entity("MenuItemOrder", b =>
+                {
+                    b.Property<int>("MenuItemsMenuItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrdersOrderId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MenuItemsMenuItemId", "OrdersOrderId");
+
+                    b.HasIndex("OrdersOrderId");
+
+                    b.ToTable("MenuItemOrder");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -3088,6 +3022,10 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.MenuItem", null)
                         .WithMany("KitchenOrders")
                         .HasForeignKey("MenuItemId");
+
+                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.OtherDrink", null)
+                        .WithMany("KitchenOrders")
+                        .HasForeignKey("OtherDrinkId");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.MenuItem", b =>
@@ -3160,19 +3098,46 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .HasForeignKey("Table_NumberId");
                 });
 
-            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Order_MenuItem", b =>
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Order_Drink", b =>
                 {
-                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.MenuItem", null)
-                        .WithMany()
-                        .HasForeignKey("MenuItemsMenuItemId")
+                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.KitchenOrder", "KitchenOrder")
+                        .WithMany("OrderedDrinks")
+                        .HasForeignKey("KitchenOrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.Order", null)
+                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.OtherDrink", "OtherDrink")
                         .WithMany()
-                        .HasForeignKey("OrdersOrderId")
+                        .HasForeignKey("OtherDrinkId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.OtherDrink", null)
+                        .WithMany("OrderedDrinks")
+                        .HasForeignKey("OtherDrinkId1");
+
+                    b.Navigation("KitchenOrder");
+
+                    b.Navigation("OtherDrink");
+                });
+
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Order_MenuItem", b =>
+                {
+                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.KitchenOrder", "KitchenOrder")
+                        .WithMany("OrderedMenuItems")
+                        .HasForeignKey("KitchenOrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.MenuItem", "MenuItem")
+                        .WithMany("OrderedMenuItems")
+                        .HasForeignKey("MenuItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("KitchenOrder");
+
+                    b.Navigation("MenuItem");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.OtherDrink", b =>
@@ -3247,6 +3212,21 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.HasOne("Africanacity_Team24_INF370_.models.Booking.Schedule", null)
                         .WithMany()
                         .HasForeignKey("SchedulesScheduleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MenuItemOrder", b =>
+                {
+                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.MenuItem", null)
+                        .WithMany()
+                        .HasForeignKey("MenuItemsMenuItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Africanacity_Team24_INF370_.models.Restraurant.Order", null)
+                        .WithMany()
+                        .HasForeignKey("OrdersOrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -3429,6 +3409,13 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Navigation("MenuItems");
                 });
 
+            modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.KitchenOrder", b =>
+                {
+                    b.Navigation("OrderedDrinks");
+
+                    b.Navigation("OrderedMenuItems");
+                });
+
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Menu_Type", b =>
                 {
                     b.Navigation("MenuItems");
@@ -3439,6 +3426,8 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Navigation("KitchenOrders");
 
                     b.Navigation("MenuItem_Prices");
+
+                    b.Navigation("OrderedMenuItems");
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.MenuItem_Category", b =>
@@ -3453,6 +3442,10 @@ namespace Africanacity_Team24_INF370_.Migrations
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.OtherDrink", b =>
                 {
+                    b.Navigation("KitchenOrders");
+
+                    b.Navigation("OrderedDrinks");
+
                     b.Navigation("OtherDrinkPrices");
                 });
 
