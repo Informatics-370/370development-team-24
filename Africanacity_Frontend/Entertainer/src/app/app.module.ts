@@ -22,7 +22,7 @@ import { AboutComponent } from './General Home/about/about.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './models/material.modules';
 import { EditBookingComponent } from './components/edit-booking/edit-booking.component';
-import { GalleryComponent } from './components/gallery/gallery.component';
+import { HelpComponent } from './components/help/help.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,7 @@ import { GalleryComponent } from './components/gallery/gallery.component';
     WelcomeComponent,
     AboutComponent,
     EditBookingComponent,
-    GalleryComponent
+    HelpComponent
   ],
   imports: [
     BrowserModule,

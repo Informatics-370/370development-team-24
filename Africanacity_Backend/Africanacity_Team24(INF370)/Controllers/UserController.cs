@@ -197,7 +197,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 		//**************************************************************************** Username Validation *******************************************************************************
 		private Task<bool> CheckUsernameExistAsync(string? username)
-			=> _authContext.Users.AnyAsync(x => x.Email == username);
+			=> _authContext.Users.AnyAsync(x => x.Username == username);
 
 
 		//**************************************************************************** Password Validation  *******************************************************************************
@@ -355,7 +355,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 
 		[HttpPost]
-		[Route("reset-password")]
+		[Route("Reset-password")]
 		public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)
 		{
 			var newToken = resetPasswordDto.EmailToken.Replace(" ", "+");

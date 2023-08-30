@@ -23,6 +23,48 @@ namespace Africanacity_Team24_INF370_.Controllers
 			_logger = logger;
 		}
 
+		//**************************************************************************** Edit Booking email *******************************************************************************
+		private async Task SendBookingUpdateNotificationEmail(string recipientEmail, string recipientName, string bookingEvent)
+		{
+			string emailSubject = "Booking Update Notification";
+			string emailBody = $@"
+        <html>
+        <head>
+          <style>
+                body {{
+                    font-family: Arial, sans-serif;
+                    margin: 0;
+                    padding: 20px;
+                    background-color: #f2f2f2;
+                }}
+                .container {{
+                    background-color: #ffffff;
+                    border-radius: 10px;
+                    padding: 20px;
+                    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                }}
+                h1 {{
+                    margin-bottom: 20px;
+                }}
+                p {{
+                    margin: 10px 0;
+                }}
+            </style>
+        </head>
+        <body>
+            <div class='container'>
+                <h1>Booking Update Notification</h1>
+                <p>Hello Mmino Restaurant Admin,</p>
+                <p>The following booking has been updated:</p>
+                <p><strong>Event:</strong> {bookingEvent}</p>
+                <p><strong>Customer Name:</strong> {recipientName}</p>
+                <p><strong>Email:</strong> {recipientEmail}</p>
+            </div>
+        </body>
+        </html>";
+
+			await SendEmailAsync("africanacitymmino@gmail.com", emailSubject, emailBody);
+		}
 
 		//**************************************************************************** Booking approval email *******************************************************************************
 		private async Task SendApprovalEmail(string recipientEmail, string recipientName, string recipientlastName, string recipientEvent)
@@ -141,7 +183,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 					}
 
 				// Update booking properties from the form data
-			    	existingBooking.FirstName = formData["firstName"];
+				existingBooking.FirstName = formData["firstName"];
 					existingBooking.LastName = formData["lastName"];
 					existingBooking.Instagram = formData["Instagram"];
 					existingBooking.Email = formData["email"];
@@ -167,8 +209,10 @@ namespace Africanacity_Team24_INF370_.Controllers
 					// Save changes to the repository
 					_repository.Update(existingBooking);
 					await _repository.SaveChangesAsync();
+				// Send booking update notification email to mmino restaurant admin
+				await SendBookingUpdateNotificationEmail(existingBooking.Email, "Mmino Restaurant Admin", existingBooking.Eventname);
 
-					return Ok(existingBooking);
+				return Ok(existingBooking);
 				}
 				catch (Exception ex)
 				{

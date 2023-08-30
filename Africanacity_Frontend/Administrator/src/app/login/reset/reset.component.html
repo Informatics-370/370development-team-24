@@ -20,7 +20,8 @@
                             *ngIf="resetPasswordForm.hasError('confirmPassowrdValidator','confirmPassword')" 
                             class="text-danger">*Password do not match*</small>
 
-                            <button (click)="reset()" type="submit" class="btn btn-primary btn-block mt-4 w-100">Reset Password</button>
+                            <button [disabled]="!resetPasswordForm.valid" (click)="reset()" type="submit" class="btn btn-primary btn-block mt-4 w-100">Reset Password</button>
+                            <div class="text-center pt-4 text-muted">Remember your password? <a id="forgot" routerLink="/login" >Login</a> </div>
                         </form>
                     </div>
   

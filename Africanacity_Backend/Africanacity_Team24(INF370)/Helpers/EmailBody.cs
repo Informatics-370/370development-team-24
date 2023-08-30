@@ -19,6 +19,8 @@
              <a href=""http://localhost:4200/reset?email={email}&code={emailToken}"" target=""_blank"" style=""background:#0d6ef;padding:10px;border:none;
               color:white;border-radius:4px;display:block;margin:0 auto;width:50%;text-align:center;text-decoration:none""><u>Reset Password </u></a><br>
 
+              <p> The Reset password link will expire in 15 minutes </p>
+
                <p> Kind Regards, <br><br>
               MMINO Restaurant Team</p>
            </div>

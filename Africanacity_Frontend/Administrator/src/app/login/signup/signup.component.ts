@@ -14,6 +14,7 @@ export class SignupComponent implements OnInit {
   passwordHasLowerCase: boolean = false;
   passwordHasUpperCase: boolean = false;
   passwordHasDigit: boolean = false;
+  isHovering: boolean = false;
 
   public signUpForm!: FormGroup;
   type: string = 'password';
@@ -90,4 +91,20 @@ export class SignupComponent implements OnInit {
     }
   }
 
+  passwordMeetsRequirements(): boolean {
+    const passwordControl = this.signUpForm.get('password');
+    if (passwordControl) {
+      const password = passwordControl.value;
+      const hasLowerCase = /[a-z]/.test(password);
+      const hasUpperCase = /[A-Z]/.test(password);
+      const hasDigit = /\d/.test(password);
+  
+      return password.length >= 8 && hasLowerCase && hasUpperCase && hasDigit;
+    }
+    return false;
+  }
+
+  toggleHoverState() {
+    this.isHovering = !this.isHovering;
+  }
 }

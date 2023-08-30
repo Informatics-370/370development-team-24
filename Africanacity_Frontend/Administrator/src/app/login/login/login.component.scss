@@ -125,3 +125,25 @@
   .toast-right-top {
     height: auto !important;
   }
+
+  /* Add this to your component's CSS file or global styles */
+.countdown-card {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999; /* Ensure the card is above other content */
+}
+
+.countdown-card .card {
+  width: 200px;
+  background-color: #f8f9fa;
+}
+
+.countdown-card .card-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.countdown-card .card-text {
+  font-size: 16px;
+}
