@@ -13,6 +13,7 @@ import { OrderedItem } from '../shared/ordered-item';
 import { OrderedDrink } from '../shared/ordered-drink';
 import { OrderService } from '../service/order.service';
 import { DrinkType } from '../shared/drink-type';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-order',
@@ -61,7 +62,8 @@ export class OrderComponent  implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private http: HttpClient,
-    private orderService: OrderService,) { }
+    private orderService: OrderService,
+    private alertController: AlertController) { }
 
   ngOnInit() {
 
@@ -242,6 +244,14 @@ export class OrderComponent  implements OnInit {
   if (!this.orderDrinkDtos) {
     this.orderDrinkDtos = [];
   }
+
+  if (this.tableNumber) {
+      
+    this.kitchenOrderNumber = `SIT-${this.generateOrderNumber()}`;
+  } else {
+    this.tableNumber = '';
+    this.kitchenOrderNumber = `TAKE-${this.generateOrderNumber()}`;
+  }
     // Gather all the necessary order details
     const tableNumber = this.tableNumber;
     const kitchenOrderNumber = this.kitchenOrderNumber;
@@ -260,6 +270,9 @@ export class OrderComponent  implements OnInit {
       quantity: drink.quantity
     }));
 
+    try{
+
+    
     // Call the service to send the order data to the backend
     this.mainService.addKitchenOrder(
       tableNumber,
@@ -272,15 +285,27 @@ export class OrderComponent  implements OnInit {
       orderedDrinks,
       orderedMenuItemDtos,
       orderedDrinkDtos
-    ).then(() => {
+    );
       // The order was successfully submitted
       // You can add any additional logic here, e.g., clear the order form
-     
-    }).catch(error => {
+      this.presentSuccessAlert();
+
+    } catch(error) {
       // Handle any errors that occur during the submission
       console.error('Error submitting order:', error);
       // You can also display an error message to the user
+    }
+  }
+
+  async presentSuccessAlert() {
+    console.log('present alert');
+    const alert = await this.alertController.create({
+      header: 'Success',
+      message: 'Order Submitted!',
+      buttons: ['OK'],
     });
+  
+    await alert.present();
   }
   
 
