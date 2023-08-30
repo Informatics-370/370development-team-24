@@ -1441,7 +1441,7 @@ namespace Africanacity_Team24_INF370_.models
                         new
                         {
                             VatId = 1,
-                            Description = "10% VAT on total",
+                           
                             Amount = 0.10m,
                         });
             modelBuilder.Entity<VAT>()
@@ -1449,7 +1449,7 @@ namespace Africanacity_Team24_INF370_.models
                        new
                        {
                            VatId = 2,
-                           Description = "15% VAT on total",
+                        
                            Amount = 0.15m,
                        });
             //seed data for Discount

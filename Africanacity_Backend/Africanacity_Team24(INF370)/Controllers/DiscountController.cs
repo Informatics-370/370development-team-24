@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
-    public class VatController : ControllerBase
+    public class DiscountController : ControllerBase
     {
         private readonly IRepository _repository;
 
-        public VatController(IRepository repository)
+        public DiscountController(IRepository repository)
         {
             _repository = repository;
         }
@@ -15,13 +15,13 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         //Get all Vat amounts
         [HttpGet]
-        [Route("GetAllVatPercentages")]
-        public async Task<IActionResult> GetAllVatPercentages()
+        [Route("GetAllDiscountPercentages")]
+        public async Task<IActionResult> GetAllDiscountPercentages()
         {
             try
             {
-                var vatPercentages = await _repository.GetAllVatPercentagesAsync();
-                return Ok(vatPercentages);
+                var discountPercentages = await _repository.GetAllDiscountPercentagesAsync();
+                return Ok(discountPercentages);
             }
             catch (Exception)
             {
@@ -30,12 +30,12 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
         [HttpGet]
-        [Route("GetAVatPercentage/{VatId}")]
-        public async Task<IActionResult> GetAVatPercentageAsync(int VatId)
+        [Route("GetADiscountPercentage/{DiscountId}")]
+        public async Task<IActionResult> GetADiscountPercentageAsync(int DiscountId)
         {
             try
             {
-                var result = await _repository.GetAVatPercentageAsync(VatId);
+                var result = await _repository.GetADiscountPercentageAsync(DiscountId);
 
                 if (result == null) return NotFound("Course does not exist");
 
