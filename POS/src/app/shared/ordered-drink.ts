@@ -1,6 +1,6 @@
 export interface OrderedDrink {
     name: string;
     quantity: number;
-    drinkId: number;
+    otherDrinkId: number;
     price: number;
 }

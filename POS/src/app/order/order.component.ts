@@ -43,6 +43,20 @@ export class OrderComponent  implements OnInit {
   //for the amounts
  
 
+
+  //Vat and discount'
+   // Initialize VAT and Discount to 0
+   vat: number = 0;
+   discount: number = 0;
+   totalVat: number = 0;
+  totalDiscount: number = 0;
+  finalTotal: number = 0;
+  subtotal : number = 0;
+  orderMenuItemDtos: any;
+  orderDrinkDtos: any;
+
+
+
   constructor(private mainService: MainService,
     private router: Router,
     private route: ActivatedRoute,
@@ -77,6 +91,10 @@ export class OrderComponent  implements OnInit {
       this.drinkPrices = prices;
       console.log('Prices of drinks', this.drinkPrices)
     });
+
+      // Fetch VAT and Discount values from the DataService
+      this.fetchVatById(1); // Replace 1 with the actual VAT ID you want to fetch
+      this.fetchDiscountById(1);
 
    
 
@@ -137,6 +155,7 @@ export class OrderComponent  implements OnInit {
     }
   
     this.updateSubtotal();
+    this.updateSubtotalAndTotals();
   }
 
   addToDrinkOrder(drink: Drink) {
@@ -147,14 +166,15 @@ export class OrderComponent  implements OnInit {
       existingDrink.quantity += 1;
     } else {
       // If it's a new drink, set the quantity to 1
-      const newOrderItem: OrderedDrink = { name: drink.name, quantity: 1 , drinkId: drink.otherDrinkId, price: drink.price};
+      const newOrderItem: OrderedDrink = { name: drink.name, quantity: 1 , otherDrinkId: drink.otherDrinkId, price: drink.price};
       this.orderedDrinks.push(newOrderItem);
     }
     this.updateSubtotal();
+    this.updateSubtotalAndTotals();
   }
 
   //to submit to kitchen screen function
-   submitOrder() {
+   /*submitOrder() {
     if (this.tableNumber) {
       
       this.kitchenOrderNumber = `SIT-${this.generateOrderNumber()}`;
@@ -210,10 +230,58 @@ export class OrderComponent  implements OnInit {
     
 
     
-  }
+  }*/
 
 
   //NEW SUBMIT METHOD
+  submitOrder() {
+    // Ensure that orderedMenuItemDtos and orderedDrinkDtos are initialized as empty arrays
+  if (!this.orderMenuItemDtos) {
+    this.orderMenuItemDtos = [];
+  }
+  if (!this.orderDrinkDtos) {
+    this.orderDrinkDtos = [];
+  }
+    // Gather all the necessary order details
+    const tableNumber = this.tableNumber;
+    const kitchenOrderNumber = this.kitchenOrderNumber;
+    const subtotal = this.subtotal;
+    const vat = this.totalVat;
+    const discount = this.totalDiscount;
+    const total = this.finalTotal;
+    const orderedMenuItems = this.orderedItems
+    const orderedDrinks = this.orderedDrinks
+    const orderedMenuItemDtos = this.orderedItems.map(item => ({
+      menuItemId: item.menuItemId,
+      quantity: item.quantity
+    }));
+    const orderedDrinkDtos = this.orderedDrinks.map(drink => ({
+      otherDrinkId: drink.otherDrinkId,
+      quantity: drink.quantity
+    }));
+
+    // Call the service to send the order data to the backend
+    this.mainService.addKitchenOrder(
+      tableNumber,
+      kitchenOrderNumber,
+      subtotal,
+      vat,
+      discount,
+      total,
+      orderedMenuItems,
+      orderedDrinks,
+      orderedMenuItemDtos,
+      orderedDrinkDtos
+    ).then(() => {
+      // The order was successfully submitted
+      // You can add any additional logic here, e.g., clear the order form
+     
+    }).catch(error => {
+      // Handle any errors that occur during the submission
+      console.error('Error submitting order:', error);
+      // You can also display an error message to the user
+    });
+  }
   
 
   //generateOrderNumber
@@ -246,7 +314,22 @@ export class OrderComponent  implements OnInit {
   }
 
   //method to calculate the subtotal
-  updateSubtotal(): number {
+  updateSubtotal(): void{
+    this.subtotal = 0;
+  
+    for (const orderedItem of this.orderedItems) {
+      const menuItemPrice = this.getSelectedMenuItemPrice(orderedItem.menuItemId);
+      this.subtotal += menuItemPrice * orderedItem.quantity;
+    }
+  
+    for (const orderedDrink of this.orderedDrinks) {
+      const drinkItemPrice = this.getSelectedDrinkItemPrice(orderedDrink.otherDrinkId);
+      this.subtotal += drinkItemPrice * orderedDrink.quantity;
+    }
+  }
+
+  //update all totals
+  updateSubtotalAndTotals(): void {
     let subtotal = 0;
   
     for (const orderedItem of this.orderedItems) {
@@ -255,12 +338,60 @@ export class OrderComponent  implements OnInit {
     }
   
     for (const orderedDrink of this.orderedDrinks) {
-      const drinkItemPrice = this.getSelectedDrinkItemPrice(orderedDrink.drinkId);
+      const drinkItemPrice = this.getSelectedDrinkItemPrice(orderedDrink.otherDrinkId);
       subtotal += drinkItemPrice * orderedDrink.quantity;
     }
   
-    return subtotal;
+    // Calculate VAT and Discount based on fetched values
+    const vatAmount = this.calculateVat(subtotal);
+    const discountAmount = this.calculateDiscount(subtotal);
+
+    console.log('Subtotal:', subtotal);
+  console.log('VAT Amount:', vatAmount);
+  console.log('Discount Amount:', discountAmount);
+
+  
+    
+
+  
+     // Calculate the final total
+     this.finalTotal = subtotal + vatAmount - discountAmount;
+    // Update the total VAT and total Discount
+    this.totalVat = vatAmount;
+    this.totalDiscount = discountAmount;
   }
+  
+
+
+  //fetching a vat %
+  fetchVatById(vatId: number) {
+    this.mainService.GetVatItemById(vatId).subscribe((data: any) => {
+      this.vat = data.amount;
+    });
+  }
+
+  //fetching a discount %
+  fetchDiscountById(discountId: number) {
+    this.mainService.GetDiscountItemById(discountId).subscribe((data: any) => {
+      this.discount = data.amount;
+    });
+  }
+
+   // Calculate VAT and set the vat property
+   calculateVat(subtotal: number): number {
+    const vatAmount = (this.vat) * subtotal;
+     return vatAmount;
+  }
+
+  // Calculate Discount and set the discount property
+  calculateDiscount(subtotal: number): number {
+    // Calculate Discount based on the subtotal
+  const discountAmount = (this.discount) * subtotal;
+  return discountAmount;
+  }
+
+  // Update subtotal, VAT, and Discount when ordered items change
+  
 }
   
 

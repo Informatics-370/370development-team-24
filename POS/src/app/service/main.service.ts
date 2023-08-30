@@ -159,13 +159,13 @@ return this.httpClient.post(url, body);
 
 
   //get Vat by Id
-  GetVatItemById(vatId: Number): Observable<any>{
-    return this.httpClient.get(`${this.apiUrl}Order/GetVatItem/${vatId}`);
+  GetVatItemById(vatId: number): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}Vat/GetAVatPercentage/${vatId}`);
   }
 
   //get Discount by Id
-  GetDiscountItemById(discountId: Number): Observable<any>{
-    return this.httpClient.get(`${this.apiUrl}Order/GetDiscountItem/${discountId}`);
+  GetDiscountItemById(discountId: number): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}Discount/GetADiscountPercentage/${discountId}`);
   }
 
   setOrderSummary(orderSummary: KitchenOrder) {
@@ -180,7 +180,46 @@ return this.httpClient.post(url, body);
     this.orderSummary = null;
   }
 
-  ///NOTIFICATION
+ ///add kitchen order 
+ addKitchenOrder(
+  tableNumber: string | null,
+  kitchenOrderNumber: string,
+  subtotal: number,
+  vat: number,
+  discount: number,
+  total: number,
+  orderedMenuItems: { menuItemId: number; quantity: number }[],
+  orderedDrinks: { otherDrinkId: number; quantity: number }[],
+  orderMenuItemDtos: { menuItemId: number; quantity: number }[],
+  orderDrinkDtos: { otherDrinkId: number; quantity: number }[]
+): Promise<void> {
+  // Prepare the data to send to the backend
+  if (!orderMenuItemDtos) {
+    orderMenuItemDtos = [];
+  }
+  if (!orderDrinkDtos) {
+    orderDrinkDtos = [];
+  }
+  const orderData = {
+    tableNumber,
+    kitchenOrderNumber,
+    subtotal,
+    vat,
+    discount,
+    total,
+    orderedMenuItems,
+    orderedDrinks,
+    orderMenuItemDtos, // Include an empty array for orderMenuItemDtos
+    orderDrinkDtos, // Include an empty array for orderDrinkDtos
+    
+
+  };
+
+  // Send a POST request to the backend API to save the order
+  return this.httpClient
+    .post<void>(`${this.apiUrl}Order/AddKitchenOrder`, orderData)
+    .toPromise();
+}
 
 
 

@@ -140,6 +140,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                     KitchenOrderNumber = kitchenOrderDto.KitchenOrderNumber,
                     Subtotal = kitchenOrderDto.Subtotal,
                     VAT = kitchenOrderDto.VAT,
+                    Discount = kitchenOrderDto.Discount,
                     Total = kitchenOrderDto.Total,
                     OrderedMenuItems = new List<Order_MenuItem>(),
                     OrderedDrinks = new List<Order_Drink>()
@@ -321,29 +322,7 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
         //get Vat by Id
-        [HttpGet]
-        [Route("GetVatItem/{VatId}")]
-        public async Task<IActionResult> GetVatItemAsync(int VatId)
-        {
-            try
-            {
-                var vatItem = await _repository.GetVatItemAsync(VatId);
-
-                if (vatItem == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(vatItem);
-            }
-
-            catch (Exception)
-            {
-                return StatusCode(500, "Internal Server Error. Please contact support");
-            }
-
-
-        }
+       
 
         //get Discount by Id
         [HttpGet]

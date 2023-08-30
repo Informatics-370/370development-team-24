@@ -60,26 +60,42 @@
           
         </ion-item>
         <ion-item>
-          
           <p>Kitchen Order Number: {{ kitchenOrderNumber }}</p>
         </ion-item>
         
         <ion-list>
           <ion-item *ngFor="let orderedItem of orderedItems">
            
-            <p>{{ orderedItem.name}}  <span class="span" style="margin-left: 20px;">{{ getSelectedMenuItemPrice(orderedItem.menuItemId) | currency: '       R' }}</span> </p> 
+            <p>{{ orderedItem.name}}  <span class="span" style="margin-left: 20px;">{{ getSelectedMenuItemPrice(orderedItem.menuItemId) | currency: '       R' }}</span> </p> <br>
+           
+            
             <ion-input type="number" [(ngModel)]="orderedItem.quantity" (ionChange)="updateSubtotal()" class="small-input" style="margin-right: 50px;"></ion-input>
           </ion-item>
         </ion-list>
         <ion-list>
           <ion-item *ngFor="let orderedDrink of orderedDrinks">
-            <p>{{ orderedDrink.name }}  <span class="span" style="margin-left: 20px;">{{ getSelectedDrinkItemPrice(orderedDrink.drinkId) | currency: 'R ' }} </span> </p> 
+            <p>{{ orderedDrink.name }}  <span class="span" style="margin-left: 20px;">{{ getSelectedDrinkItemPrice(orderedDrink.otherDrinkId) | currency: 'R ' }} </span> </p> 
+            
+
             <ion-input type="number" [(ngModel)]="orderedDrink.quantity" (ionChange)="updateSubtotal()" class="small-input" style="margin-right: 50px;"></ion-input>
           </ion-item>
         </ion-list>
         <ion-item>
-          <h3>Subtotal: {{ updateSubtotal() | currency:'R ' }}</h3>
+          <p>Subtotal: {{ subtotal | currency:'R ' }}</p>
         </ion-item>
+        <ion-item>
+          <p>Total VAT: {{ totalVat | currency:'R ' }}</p>
+        </ion-item>
+        
+        <ion-item>
+          <p>Total Discount: {{ totalDiscount | currency:'R ' }}</p>
+        </ion-item>
+        
+        <ion-item>
+          <p>Final Total: {{ finalTotal | currency:'R ' }}</p>
+        </ion-item>
+        
+       
         
 
         <ion-button  fill="clear" expand="full" (click)="submitOrder()" class="ion-button" style="color: black;">Submit Order</ion-button>

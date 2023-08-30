@@ -1460,7 +1460,7 @@ namespace Africanacity_Team24_INF370_.models
                            DiscountId = 1,
                            Name = "Month end discount",
                            Description = "10% Discount",
-                           Amount = 0.10m,
+                           Amount = 0.05m,
                            Start_Date = DateTime.Now,
                            End_Date = DateTime.Now.AddDays(10),
                        });
