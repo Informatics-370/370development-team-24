@@ -70,9 +70,15 @@ export class AddSupplierComponent implements OnInit{
 
    onSubmit() {
     if (this.supplierForm.invalid) {
+      this.showErrorMessage('Please fill in all required fields.');
+      // Highlight invalid controls
+      Object.keys(this.supplierForm.controls).forEach(controlName => {
+        if (this.supplierForm.controls[controlName].invalid) {
+          this.supplierForm.controls[controlName].markAsTouched();
+        }
+      });
       return;
     }
-  
     let supplier = new Supplier();
     supplier.supplierName = this.supplierForm.value.supplierName;
     supplier.supplierType = this.supplierForm.value.supplierType;
@@ -90,5 +96,14 @@ export class AddSupplierComponent implements OnInit{
       { duration: 5000 }
     );
   }
+
+  showErrorMessage(message: string): void {
+    const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(message, 'Ok', {
+      duration: 5000, // Duration in milliseconds
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom'
+    });
+}
+
 
 }

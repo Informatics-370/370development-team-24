@@ -393,7 +393,7 @@ namespace Africanacity_Team24_INF370_.models
         //STOCK TAKE
         public async Task<StockTakeItem[]> GetAllReconItemsAsync()
         {
-            IQueryable<StockTakeItem> query = _appDbContext.StockTakeItems.Include(st => st.Inventory_Item);
+            IQueryable<StockTakeItem> query = _appDbContext.StockTakeItems.Include(st => st.Inventory_Item).Include(st => st.StockTake);
             return await query.ToArrayAsync();
         }
 
@@ -421,6 +421,17 @@ namespace Africanacity_Team24_INF370_.models
         {
             IQueryable<Inventory_Item> query = _appDbContext.Inventory_Items.Where(i => i.Inventory_TypeId == inventory_TypeId);
             return await query.ToArrayAsync();
+        }
+        public async Task<List<Inventory_Price>> GetPricesByInventoryItemAsync(int inventory_ItemId)
+        {
+            return await _appDbContext.Inventory_Prices
+                .Where(price => price.Inventory_ItemId == inventory_ItemId)
+                .ToListAsync();
+        }
+        public async Task<Inventory_Price> GetInventoryPriceAsync(int inventoryPrice_Id)
+        {
+            IQueryable<Inventory_Price> query = _appDbContext.Inventory_Prices.Where(i => i.InventoryPrice_Id == inventoryPrice_Id);
+            return await query.FirstOrDefaultAsync();
         }
 
         public async Task<Supplier_Inventory[]> GetAllInventoryOrdersAsync()

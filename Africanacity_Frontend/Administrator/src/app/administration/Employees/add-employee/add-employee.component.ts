@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EmployeeService } from '../../../service/employee.service';
 import { DataService } from 'src/app/service/data.Service';
@@ -12,17 +12,19 @@ import { NotificationDialogComponent } from '../notification-dialog/notification
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { Gender } from 'src/app/shared/gender';
 import { AbstractControl } from '@angular/forms';
+import { HelpAddemployeesComponent } from './help-addemployees/help-addemployees.component';
 
-function phoneNumberValidator(control: AbstractControl): { [key: string]: any } | null {
-  const phoneNumber = control.value;
-  const digitsOnly = phoneNumber.replace(/\D/g, '');
+// function phoneNumberValidator(control: AbstractControl): { [key: string]: any } | null {
+//   const phoneNumber = control.value;
+//   const digitsOnly = phoneNumber.replace(/\D/g, '');
 
-  if (digitsOnly.length !== 10 || !phoneNumber.startsWith('0')) {
-    return { 'invalidPhoneNumber': true };
-  }
+//   if (digitsOnly.length !== 10 || !phoneNumber.startsWith('0')) {
+//     return { 'invalidPhoneNumber': true };
+//   }
 
-  return null;
-}
+//   return null;
+// }
+
 
 function emailFormatValidator(control: AbstractControl): { [key: string]: any } | null {
   const email = control.value;
@@ -30,6 +32,30 @@ function emailFormatValidator(control: AbstractControl): { [key: string]: any } 
 
   if (!emailPattern.test(email)) {
     return { 'invalidEmailFormat': true };
+  }
+
+  return null;
+}
+
+// function noWhitespaceValidator(): ValidatorFn {
+//   return (control: AbstractControl): { [key: string]: boolean } | null => {
+//     if (control.value && /^\s+$/.test(control.value)) {
+//       return { 'whitespace': true };
+//     }
+//     return null;
+//   };
+// }
+function southAfricanPhoneNumberValidator(control: AbstractControl): { [key: string]: any } | null {
+  const phoneNumber = control.value;
+  const digitsOnly = phoneNumber.replace(/\D/g, '');
+
+  if (
+    digitsOnly.length !== 10 ||
+    !phoneNumber.startsWith('0') ||
+    !phoneNumber.startsWith('27') ||
+    !/^\d+$/.test(digitsOnly)
+  ) {
+    return { 'invalidSouthAfricanPhoneNumber': true };
   }
 
   return null;
@@ -68,11 +94,11 @@ export class AddEmployeeComponent implements OnInit {
    constructor(private employeeservice: EmployeeService, private dataService: DataService, emailservice: EmailService,  private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar) { }
 
      employeeForm: FormGroup = new FormGroup({
-       surname: new FormControl('',[Validators.required]),
+       surname: new FormControl('', [Validators.required]),
        firstName: new FormControl('',[Validators.required]),
        email_Address: new FormControl('', [Validators.required, emailFormatValidator]),
        physical_Address: new FormControl('',[Validators.required]),
-       phoneNumber: new FormControl('', [Validators.required, phoneNumberValidator]),
+       phoneNumber: new FormControl('', [Validators.required, southAfricanPhoneNumberValidator]),
        employeeRole: new FormControl('',[Validators.required]),
        gender: new FormControl('',[Validators.required]),
        employment_Date: new FormControl([new Date().toISOString().slice(0, 10)])
@@ -134,9 +160,28 @@ export class AddEmployeeComponent implements OnInit {
       });
     });
   }
+  isControlInvalid(controlName: string): boolean {
+    const control = this.employeeForm.get(controlName);
+
+    if (!control) {
+      return false;
+    }
+
+    const isInvalid = control.invalid && control.touched;
+    const hasOnlyWhitespace = /^\s*$/.test(control.value);
+
+    return isInvalid || hasOnlyWhitespace;
+  }
   
   onSubmit() {
     if (this.employeeForm.invalid) {
+      this.showErrorMessage('Please fill in all required fields.');
+      // Highlight invalid controls
+      Object.keys(this.employeeForm.controls).forEach(controlName => {
+        if (this.employeeForm.controls[controlName].invalid) {
+          this.employeeForm.controls[controlName].markAsTouched();
+        }
+      });
       return;
     }
     const currentDate = new Date();
@@ -171,5 +216,24 @@ export class AddEmployeeComponent implements OnInit {
             this.toastContainer.clear();
           });
   }
+  showErrorMessage(message: string): void {
+    const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(message, 'Ok', {
+      duration: 5000, // Duration in milliseconds
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom'
+    });
+}
+openHelpModal(field: string): void {
+  const dialogRef = this.dialog.open(HelpAddemployeesComponent, {
+    width: '500px',
+    data: { field } // Pass the field name to the modal
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    // Handle modal close if needed
+  });
+}
+
+
 }
 

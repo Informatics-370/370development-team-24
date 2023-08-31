@@ -177,6 +177,12 @@ namespace Africanacity_Team24_INF370_.Controllers
             try
             {
                 var itemsOfType = await _Repository.GetInventoryItemsByTypeAsync(inventory_TypeId);
+
+                foreach (var item in itemsOfType)
+                {
+                    item.Inventory_Prices = await _Repository.GetPricesByInventoryItemAsync(item.Inventory_ItemId);
+                }
+
                 return Ok(itemsOfType);
             }
             catch (Exception)
@@ -185,8 +191,64 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
         }
 
+        [HttpGet("prices/{inventory_ItemId}")]
+        public async Task<ActionResult<List<Inventory_Price>>> GetPricesByInventoryItem(int inventory_ItemId)
+        {
+            try
+            {
+                var prices = await _Repository.GetPricesByInventoryItemAsync(inventory_ItemId);
+                return Ok(prices);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+
+
+        [HttpGet]
+        [Route("GetInventoryPrice/{inventoryPrice_Id}")]
+        public async Task<IActionResult> GetInventoryPriceAsync(int inventoryPrice_Id)
+        {
+            try
+            {
+                var result = await _Repository.GetInventoryPriceAsync(inventoryPrice_Id);
+
+                if (result == null) return NotFound("Inventory Item does not exist. You need to create an Inventory Item first");
+
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support");
+            }
+        }
 
         [HttpPut]
+        [Route("EditInventoryPrice/{inventoryPrice_Id}")]
+        public async Task<ActionResult<InventoryPriceViewModel>> EditInventoryPrice(int inventoryPrice_Id, InventoryPriceViewModel ivm)
+        {
+            try
+            {
+                var currentItem = await _Repository.GetInventoryPriceAsync(inventoryPrice_Id);
+                if (currentItem == null) return NotFound($"The inventory item does not exist");
+
+                currentItem.Price = Convert.ToDecimal(ivm.Price);
+
+                if (await _Repository.SaveChangesAsync())
+                {
+                    return Ok(currentItem);
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+            return BadRequest("Your request is invalid.");
+        }
+    
+
+    [HttpPut]
         [Route("UpdateItems/{inventory_ItemId}")]
         public async Task<IActionResult> UpdateItems(int inventory_ItemId, [FromBody] InventoryViewModel inventoryitem)
         {
@@ -242,6 +304,42 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
 
+        //[HttpPost]
+        //[Route("AddReceivedOrder")]
+        //public async Task<IActionResult> AddReceivedOrder([FromBody] SupplierInventoryVM sivm)
+        //{
+        //    var supplieritem = new Supplier_Inventory
+        //    {
+        //        InventoryItemName = sivm.InventoryItemName,
+        //        SupplierId = Convert.ToInt32(sivm.SupplierNames),
+        //        Ordered_Date = sivm.Ordered_Date,
+        //        Received_Date = sivm.Received_Date,
+        //        Ordered_Quantity = sivm.Ordered_Quantity
+        //    };
+
+        //    try
+        //    {
+        //        _Repository.Add(supplieritem);
+        //        await _Repository.SaveChangesAsync();
+
+        //        // Update the corresponding inventory item quantity
+        //        var inventoryItem = await _Repository.GetInventoryItemByName(sivm.InventoryItemName); // Implement this method to retrieve the inventory item
+        //        if (inventoryItem != null)
+        //        {
+        //            inventoryItem.Quantity += sivm.Ordered_Quantity;
+        //            await _Repository.SaveChangesAsync();
+        //        }
+
+        //        return Ok(inventoryItem); // Return the updated inventory item
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return BadRequest("Invalid Transaction");
+        //    }
+        //}
+
+
+
         [HttpGet("GetInventoryItemByName/{itemName}")]
         public IActionResult GetInventoryItemByName(string itemName)
         {
@@ -289,9 +387,11 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
         }
 
+
+
         [HttpPost]
         [Route("CreateStockTake")]
-        public IActionResult CreateStockTake(StockTakeViewModel stockTakeData)
+        public IActionResult CreateStockTake(StockTakeViewModel stockTakeData, string adminReason)
         {
             try
             {
@@ -338,13 +438,17 @@ namespace Africanacity_Team24_INF370_.Controllers
                         {
                             StockTakeItem = stockTakeItem,
                             Description = stockTakeItem.Description,// Link the WriteOff to the StockTakeItem
-                            Reason = "its a stock take"
+                            Reason = "Reason"
                         };
+
+                        //StockTakeFunction();
+
+
 
                         _appDbContext.WriteOffs.Add(writeOff); // Save the write-off record
                     }
                 }
-
+        
                 _appDbContext.StockTakes.Add(stockTake);
                 _appDbContext.SaveChanges();
 
@@ -367,7 +471,17 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
 
         }
+        private void AddWriteOffRecord(StockTakeItem stockTakeItem, DiscrepencyItem discrepancyItem, string reason)
+        {
+            var writeOff = new WriteOffStock
+            {
+                StockTakeItem = stockTakeItem,
+                Description = stockTakeItem.Description,
+                Reason = reason
+            };
 
+            _appDbContext.WriteOffs.Add(writeOff);
+        }
 
         [HttpGet]
         [Route("GetAllReconItems")]
@@ -389,9 +503,12 @@ namespace Africanacity_Team24_INF370_.Controllers
 
                     s.Quantity,
 
-                    QuantityDifference = s.Inventory_Item.Quantity - s.Quantity
+                    QuantityDifference = s.Inventory_Item.Quantity - s.Quantity,
+
+                    StockTake_Date = s.StockTake.StockTake_Date,
 
                 });
+           
 
                 return Ok(reconitems);
             }
@@ -414,7 +531,10 @@ namespace Africanacity_Team24_INF370_.Controllers
                     {
                         Inventory_ItemId = item.Inventory_ItemId,
                         Reason = item.Reason
+
                     };
+
+                    StockTakeFunction();
 
                     _appDbContext.DiscrepencyItems.Add(writeOff);
                 }
@@ -430,8 +550,62 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
         }
 
+        internal int StockTakeFunction()
+        {
+            return 0;
+        }
+
+
+        //internal int StockTakeFunction(List<StockTakeBatchViewModel> stockTakeItems)
+        //{
+        //    int discrepancies = 0;
+
+        //    foreach (var item in stockTakeItems)
+        //    {
+        //        var stockTakeItem = new StockTakeItem
+        //        {
+        //            Quantity = item.Quantity,
+        //            Inventory_ItemId = item.Inventory_ItemId
+        //        };
+
+        //        var inventoryItem = _appDbContext.Inventory_Items.FirstOrDefault(i => i.Inventory_ItemId == stockTakeItem.Inventory_ItemId);
+
+        //        if (inventoryItem != null && inventoryItem.Quantity != stockTakeItem.Quantity)
+        //        {
+        //            discrepancies++; // Increment the discrepancies count
+        //        }
+        //    }
+
+        //    return discrepancies;
+        //}
+
+
+        //private void AddWriteOffRecords(List<StockTakeItem> stockTakeItems, string adminReason)
+        //{
+        //    foreach (var stockTakeItem in stockTakeItems)
+        //    {
+        //        // Add write-off record for each item with admin reason
+        //        AddWriteOffRecord(stockTakeItem, adminReason);
+        //    }
+        //}
+
+        //private void AddWriteOffRecord(StockTakeItem stockTakeItem, string reason)
+        //{
+        //    var writeOff = new WriteOffStock
+        //    {
+        //        StockTakeItem = stockTakeItem,
+        //        Description = stockTakeItem.Description,
+        //        Reason = reason
+        //    };
+
+        //    _appDbContext.WriteOffs.Add(writeOff);
+        //}
+
+
     }
 }
+
+
 
 
 

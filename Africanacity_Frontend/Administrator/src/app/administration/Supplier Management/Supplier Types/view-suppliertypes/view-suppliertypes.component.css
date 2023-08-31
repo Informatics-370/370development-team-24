@@ -1,82 +1,313 @@
-.heading{
-  /* background-color: darkmagenta; */
-  height: 50px;
-  text-align: center;
-  padding-top: 7px;
-  font-family: 'Times New Roman', Times, serif;
+/* .heading{
+  
+    height: 50px;
+    text-align: center;
+    padding-top: 7px;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .edit-form{
-  align-items: center;
+    align-items: center;
 }
 
 .label{
-  margin-bottom: 5px;
-  padding-bottom: 5px;
-} */
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+} 
 
 table{
-  padding-top: 60px;
+    padding-top: 60px;
 }
 .form-control {
-  
-  background-color: rgba(250, 246, 246, 0.966);
-  border-radius: 8px;
-  border-color: black;
+    
+    background-color: rgba(250, 246, 246, 0.966);
+    border-radius: 8px;
+    border-color: black;
+}
+.input-group{
+    width: 400px;
+    
 }
 
 
 .table-striped>tbody>tr:nth-child(odd)>td,
 .table-striped>tbody>tr:nth-child(odd)>th {
-background-color: lightgray;
-color: rgb(0, 0, 0);
+  background-color: lightgray;
+  color: rgb(0, 0, 0);
 }
 button{
-  border-radius: 50px;
-  border-color: black;
+    border-radius: 50px;
+    border-color: black;
 }
 .table-striped{
-  padding-top: 200px;
+    padding-top: 200px;
 }
 .tableColor{
-  background-color: rgb(165, 113, 207);
+    background-color: rgb(165, 113, 207);
 }
 .outlined-table{
-  border: 1px solid #000; 
-  border-collapse: collapse;
+    border: 1px solid #000; 
+    border-collapse: collapse;
 
 }
-th{
-  background-color: rgb(165, 113, 207);
+.input-group{
+    margin-top: 25px;
 }
 
 .outlined-table th,
 .outlined-table td {
-border: 1px solid rgb(165, 113, 207);; 
-padding: 10px; 
+  border: 1px solid rgb(165, 113, 207);; 
+  padding: 10px; 
 }
 .table-container{
-  margin-top: 60px
+    margin-top: 60px
 }
 .table-hover tr:hover {
-  background-color: grey;
+    background-color: grey;
+  }
+
+  .heading{
+
+    height: 50px;
+    text-align: center;
+    padding-top: 7px;
+    font-family: 'Times New Roman', Times, serif;
 }
 
-.input-group {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 50px;
-  width: 100%; /* Cover the full width of the page */
+.edit-form{
+    align-items: center;
+}
+
+.label{
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+} 
+
+table{
+    padding-top: 30px;
+    padding-right: 1000px;
+}
+/* .form-control {
+    
+    background-color: rgba(250, 246, 246, 0.966);
+    border-radius: 8px;
+    border-color: black;
+} */
+/* .input-group{
+    width: 200px;
+    
 }
 
 
+.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-child(odd)>th {
+  background-color: rgb(255, 249, 249);
+  color: rgb(0, 0, 0);
+}
+button{
+    border-radius: 50px;
+    border-color: black;
+}
+.table-striped{
+    padding-top: 200px;
+}
+.tableColor{
+    background-color: rgb(165, 113, 207);
+}
+.outlined-table{
+    border: 1px solid #000; 
+    border-collapse: collapse;
+
+}
+.input-group{
+    margin-top: 25px;
+}
+
+
+.table-container {
+  margin-top: 10px;
+  padding-top: 40px; 
+  padding: 5px;
+}
+.table-hover tr:hover {
+    background-color: grey;
+  }
+  .icon {
+    font-size: 30px; 
+  }
+
+  .input-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 50px;
+    width: 100%; 
+  }
+  
+  .search-bar {
+    flex-grow: 1; 
+    margin-right: 10px;
+    border: 1px solid rgb(8, 8, 8);
+  }
+  .icon-cell {
+    text-align: center;
+  }
+  .row-ordered {
+    background-color: rgb(193, 225, 193); 
+  }  */
+ 
+  
+/* Adjust button size */
+.btn-sm {
+  padding: 0.15rem 0.5rem; /* Decrease padding to make button smaller */
+  font-size: 10px; /* Decrease font size to make button text smaller */
+}
+
+.heading{
+    /* background-color: darkmagenta; */
+    height: 50px;
+    text-align: center;
+    padding-top: 7px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.edit-form{
+    align-items: center;
+}
+
+.label{
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+} */
+
+table{
+    padding-top: 30px;
+    padding-right: 1000px;
+}
 .form-control {
-  width: 100%; /* Make the search bar take the full width available */
+    
+    background-color: rgba(250, 246, 246, 0.966);
+    border-radius: 8px;
+    border-color: black;
+}
+.input-group{
+    width: 200px;
+    
+}
+
+
+.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-child(odd)>th {
+  background-color: rgb(255, 249, 249);
+  color: rgb(0, 0, 0);
+}
+button{
+    border-radius: 50px;
+    border-color: black;
+}
+.table-striped{
+    padding-top: 200px;
+}
+.tableColor{
+    background-color: rgb(165, 113, 207);
+}
+.outlined-table{
+    border: 1px solid #000; 
+    border-collapse: collapse;
+
+}
+.input-group{
+    margin-top: 25px;
+}
+
+.outlined-table th,
+.outlined-table td {
+  border: 1px solid rgb(0, 0, 0);
+  padding: 10px;
+}
+.table-container {
+  margin-top: 10px;
+  padding-top: 40px; /* Add some padding to the top to avoid overlapping with the search bar */
+}
+.table-hover tr:hover {
+    background-color: grey;
+  }
+  .icon {
+    font-size: 30px; /* Adjust the font size as needed */
+  }
+
+  .input-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 50px;
+    width: 100%; /* Cover the full width of the page */
+  }
+  
+  .search-bar {
+    flex-grow: 1; /* Allow the search bar to expand and take available space */
+    margin-right: 10px; /* Add some space between the search bar and add icon */
+  }
+  .icon-cell {
+    text-align: center;
+  }
+  .row-ordered {
+    background-color: rgb(193, 225, 193); /* Green background color */
+  }
+
+  /* Example CSS to style the table */
+.table-container {
+  margin-top: 10px;
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-container th,
+.table-container td {
+  padding: 5px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+.tableColor {
+  background-color: #d6c2e0; /* Light purple color for the header */
+  color: rgb(8, 8, 8); /* Text color for the header */
+}
+
+/* Add alternate row background color for better readability */
+.table-container tbody tr:nth-child(odd) {
+  background-color: #f5f5f5; /* Light gray background for odd rows */
 }
 
 .search-bar {
   flex-grow: 1; 
   margin-right: 10px;
   border: 1px solid rgb(8, 8, 8);
+
 }
+.quantity-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-controls i {
+  margin: 0 5px; 
+}
+
+.quantity-controls span {
+  margin: 0 10px; 
+}
+
+.low-quantity {
+  color: red;
+}
+

@@ -94,6 +94,7 @@ namespace Africanacity_Team24_INF370_.models
 			base.OnModelCreating(modelBuilder);
 
             // modelBuilder.Entity<StockTake>().HasMany(st => st.StockTakeItems).WithOne().OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<Gender>()
                     .HasData(
                     new

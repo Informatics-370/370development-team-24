@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { InventoryService } from 'src/app/service/inventory.service';
 import { InventoryItem } from 'src/app/shared/inventoryitem';
 import { InventoryType } from 'src/app/shared/inventorytype';
+import { HelpEditinventoryitemComponent } from './help-editinventoryitem/help-editinventoryitem.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-edit-inventoryitem',
@@ -15,14 +17,15 @@ export class EditInventoryitemComponent {
 
   constructor(private inventoryservice: InventoryService, 
     private router: Router, 
-    private activated:ActivatedRoute) { }
+    private activated:ActivatedRoute,
+    private dialog: MatDialog) { }
   
     editInventoryItem: InventoryItem = new InventoryItem();
   
     editInventoryItemForm: FormGroup = new FormGroup({
        itemName: new FormControl('',[Validators.required]),
        description: new FormControl('',[Validators.required]),
-       inventoryType: new FormControl('',[Validators.required])
+       inventoryType: new FormControl('',[Validators.required]),
     })
   
     ngOnInit(): void {
@@ -62,6 +65,16 @@ export class EditInventoryitemComponent {
       this.inventoryservice.EditInventoryItem(this.editInventoryItem.inventory_ItemId, inventoryitem).subscribe((result:any) => {
   
         this.router.navigate(['/selected-inventorytype'])
+      });
+    }
+    openHelpModal(field: string): void {
+      const dialogRef = this.dialog.open(HelpEditinventoryitemComponent, {
+        width: '500px',
+        data: { field } // Pass the field name to the modal
+      });
+    
+      dialogRef.afterClosed().subscribe(result => {
+        // Handle modal close if needed
       });
     }
 }

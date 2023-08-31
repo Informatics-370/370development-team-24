@@ -3,10 +3,10 @@
 
     public class SupplierInventoryVM
     {
-        //public int ItemName { get; set; }
+       
         public int SupplierNames { get; set; }
         public DateTime Ordered_Date { get; set; }
-        public DateTime Received_Date { get; set; } // Change this to string
+        public DateTime Received_Date { get; set; }
         public int Ordered_Quantity { get; set; }
 
         public string InventoryItemName { get; set; }

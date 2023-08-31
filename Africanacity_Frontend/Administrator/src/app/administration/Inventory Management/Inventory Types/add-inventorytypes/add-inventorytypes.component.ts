@@ -31,6 +31,16 @@ export class AddInventorytypesComponent {
     }
   
     onSubmit(){
+      if (this.inventoryTypeForm.invalid) {
+        this.showErrorMessage('Please fill in all required fields.');
+        // Highlight invalid controls
+        Object.keys(this.inventoryTypeForm.controls).forEach(controlName => {
+          if (this.inventoryTypeForm.controls[controlName].invalid) {
+            this.inventoryTypeForm.controls[controlName].markAsTouched();
+          }
+        });
+        return;
+      }
 
       let inventorytype = new InventoryType();
       inventorytype.name = this.inventoryTypeForm.value.name;
@@ -51,5 +61,12 @@ export class AddInventorytypesComponent {
         verticalPosition: 'bottom'
       });
     }
+    showErrorMessage(message: string): void {
+      const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(message, 'Ok', {
+        duration: 5000, // Duration in milliseconds
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom'
+      });
+  }
 
 }

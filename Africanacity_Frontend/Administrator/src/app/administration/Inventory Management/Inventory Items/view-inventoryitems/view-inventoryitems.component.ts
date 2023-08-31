@@ -6,6 +6,13 @@ import { InventoryService } from 'src/app/service/inventory.service';
 import { InventoryItem } from 'src/app/shared/inventoryitem';
 import { InventoryType } from 'src/app/shared/inventorytype';
 import { ChecklistComponent } from '../checklist/checklist.component';
+import { Inventory_Prices } from 'src/app/shared/inventoryPrices';
+import { PriceModalComponent } from './price-modal/price-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MatDialog } from '@angular/material/dialog';
+import { HelpViewinventoryitemComponent } from './help-viewinventoryitem/help-viewinventoryitem.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 @Component({
   selector: 'app-view-inventoryitems',
@@ -16,6 +23,7 @@ export class ViewInventoryitemsComponent implements OnInit {
 
   typeId?: number;
   inventoryItems: InventoryItem[] = [];
+  prices: Inventory_Prices[] = [];
   selectedType: InventoryType | null = null;
   inventoryitem?: number;
   predefinedLevel: number = 5;
@@ -25,7 +33,9 @@ export class ViewInventoryitemsComponent implements OnInit {
     private route: ActivatedRoute,
     private inventoryservice: InventoryService,
     private snackBar: MatSnackBar,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private modalService: NgbModal,
+    private dialog: MatDialog
   ) {}
 
   deleteItem(): void {
@@ -118,9 +128,6 @@ deleteItemFromServer(): void {
     this.inventoryservice.addToChecklist(item);
   }
   
-  
-  
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
   
@@ -135,6 +142,36 @@ deleteItemFromServer(): void {
   DeleteInventoryItem(inventory_ItemId: Number){
     this.inventoryservice.DeleteInventoryItem(inventory_ItemId).subscribe(result => {
       this.deleteItem();
+      });
+    }
+    viewPrices(inventoryItem: InventoryItem): void {
+      this.inventoryservice.GetPricesByInventoryItem(inventoryItem.inventory_ItemId)
+        .subscribe(
+          (prices) => {
+            console.log('Fetched prices:', prices);
+            inventoryItem.Inventory_Prices = prices;
+            this.openPriceModal(inventoryItem); // Open the modal with fetched prices
+          },
+          (error) => {
+            console.error('Failed to fetch prices:', error);
+          }
+        );
+    }
+    
+    openPriceModal(inventoryItem: InventoryItem): void {
+      const modalRef = this.modalService.open(PriceModalComponent);
+      modalRef.componentInstance.prices = inventoryItem.Inventory_Prices;
+      modalRef.componentInstance.inventoryItem = inventoryItem; // Pass the inventoryItem to the modal
+    }
+    
+    openHelpModal(field: string): void {
+      const dialogRef = this.dialog.open(HelpViewinventoryitemComponent, {
+        width: '500px',
+        data: { field } // Pass the field name to the modal
+      });
+    
+      dialogRef.afterClosed().subscribe(result => {
+        // Handle modal close if needed
       });
     }
 }

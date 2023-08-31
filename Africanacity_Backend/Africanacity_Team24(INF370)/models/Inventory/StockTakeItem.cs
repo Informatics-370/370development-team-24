@@ -2,7 +2,7 @@
 
 namespace Africanacity_Team24_INF370_.models.Inventory
 {
-    public class StockTakeItem
+    public class StockTakeItem//ordered menu items
     {
         [Key]
         public int StockTakeItemId { get; set; }

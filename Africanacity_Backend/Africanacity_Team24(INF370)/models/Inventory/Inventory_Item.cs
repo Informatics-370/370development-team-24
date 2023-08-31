@@ -29,7 +29,7 @@ namespace Africanacity_Team24_INF370_.models.Inventory
 
         public virtual ICollection<Inventory_Price> Inventory_Prices { get; set; }
 
-        public virtual ICollection<StockTake> StockTakes { get; set; }
+        //public virtual ICollection<StockTake> StockTakes { get; set; }
         public virtual ICollection<StockTakeItem> StockTakeItems { get; set; }
 
     }

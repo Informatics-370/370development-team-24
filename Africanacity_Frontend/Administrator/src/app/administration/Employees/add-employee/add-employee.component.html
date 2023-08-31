@@ -16,16 +16,17 @@
     <span>
       <label class="tb col-sm-1" style="font-weight: bold;" for="surname"> Surname:</label>
       <div class="col-sm-6">
-        <input class="form-control"  placeholder="Enter Last Name" [required]="true" name="surname" formControlName="surname">
+        <input type="text" formControlName="surname" placeholder="Enter Surname"  [class.is-invalid]="isControlInvalid('surname')">
       </div>
     </span>
+
   </div>
-  
+
     <div class="form-group">
       <span>
         <label class="tb col-sm-1" style="font-weight: bold;" for="firstName">First Name:</label>
         <div class="col-sm-6">
-          <input class="form-control"  placeholder="Enter First Name" [required]="true" name="firstName" formControlName="firstName">
+          <input class="form-control"  placeholder="Enter First Name" [required]="true" name="firstName" formControlName="firstName" [ngClass]="{'invalid-control': isControlInvalid('firstName')}">
         </div>
       </span>
     </div>
@@ -33,18 +34,17 @@
     <div class="form-group">
       <label class="col-md-1" style="font-weight: bold;" for="gender">Gender:</label>
       <div class="col-md-6">
-      <select class="form-control" id="gender" formControlName="gender">
+      <select class="form-control" id="gender" formControlName="gender" [ngClass]="{'invalid-control': isControlInvalid('gender')}">
         <option *ngFor="let item of gender" [value]="item.genderId">{{ item.name }}</option>
       </select>
     </div>
     </div>
      
     
-    
     <div class="form-group">
       <label class="col-md-1" style="font-weight: bold;" for="employeeRole">Employee Role</label>
       <div class="col-md-6">
-      <select class="form-control" id="employeeRole" formControlName="employeeRole">
+      <select class="form-control" id="employeeRole" formControlName="employeeRole" [ngClass]="{'invalid-control': isControlInvalid('employeeRole')}">
         <option *ngFor="let item of employeeRole" [value]="item.employee_RoleId">{{ item.name }}</option>
       </select>
     </div>
@@ -56,7 +56,7 @@
       <span>
         <label class="col-sm-1" style="font-weight: bold;" for="email_Address">Email Address:</label>
         <div class="col-sm-6">
-          <input class="form-control"  placeholder="xxxxx@gmail.com" [required]="true" name="email_Address" formControlName="email_Address">
+          <input class="form-control"  placeholder="xxxxx@gmail.com" [required]="true" name="email_Address" formControlName="email_Address" [ngClass]="{'invalid-control': isControlInvalid('email_Address')}" >
           <div *ngIf="employeeForm.get('email_Address')?.hasError('invalidEmailFormat')" class="text-danger">
             <div style="font-size: small;">*Email must have the above format.</div>
           </div>
@@ -68,7 +68,7 @@
       <span>
         <label class="col-sm-1" style="font-weight: bold;" for="physical_Address">Physical Address:</label>
         <div class="col-sm-6">
-          <input class="form-control"  placeholder="Enter Physical Address" [required]="true" name="physical_Address" formControlName="physical_Address">
+          <input class="form-control"  placeholder="Enter Physical Address" [required]="true" name="physical_Address" formControlName="physical_Address" [ngClass]="{'invalid-control': isControlInvalid('physical_Address')}">
         </div>
       </span>
     </div>
@@ -77,16 +77,18 @@
       <span>
         <label class="col-sm-1" style="font-weight: bold;" for="phoneNumber">Phone Number:</label>
         <div class="col-sm-6">
-          <input class="form-control"  placeholder="Enter valid 10-digit number" [required]="true" name="phoneNumber" formControlName="phoneNumber">
-          <div *ngIf="employeeForm.get('phoneNumber')?.hasError('invalidPhoneNumber')" class="text-danger">
-            <div style="font-size: small;">*Number must be a valid 10-digit number.</div>
-          </div>
+          <input class="form-control" placeholder="Enter valid 10-digit number"
+          [required]="true" name="phoneNumber" formControlName="phoneNumber"
+          [ngClass]="{'invalid-control': isControlInvalid('phoneNumber')}">
+   <div *ngIf="employeeForm.get('phoneNumber')?.hasError('invalidPhoneNumber')" class="text-danger">
+     <div style="font-size: small;">*Number must be a valid South African 10-digit number.</div>
+   </div>
         </div>
       </span>
     </div>
     
     <div class="form-group">
-      <label class="col-sm-1" style="font-weight: bold;" for="employment_Date">Employement Date:</label>
+      <label class="col-sm-1" style="font-weight: bold;" for="employment_Date">Employment Date:</label>
       <div class="col-sm-6">
       <input type="date" formControlName="employment_Date" [attr.readonly]="true" class="form-control">
       </div>
@@ -96,18 +98,28 @@
       <div class="col-sm-offset-1 col-sm-6 center-buttons">
       <div class="buttons">
         <span>
-        <button style="margin-right:1em;" type="submit" [disabled]="!employeeForm.valid" class="btn btn-sm btn-success">Add</button>
+        <button style="margin-right:1em;" type="submit"  class="btn btn-sm btn-success">Add</button>
         <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button>
       </span>
       </div>
       </div>
     <!-- </div> -->
-  </form>
-  </div>
+
+</form>
+<!-- <div *ngIf="isControlInvalid('surname')" class="error-message">
+  <ng-container *ngIf="employeeForm.get('surname')?.hasError('whitespace')">Input cannot be whitespace</ng-container>
+  <ng-container *ngIf="employeeForm.get('surname')?.hasError('required')">Last name is required</ng-container>
+</div> -->
+<button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help">
+  <mat-icon>help</mat-icon>
+</button>
  </div> 
   </div>
   </div>
 </div>
+    </div>
+  </div>
+
 
 
 

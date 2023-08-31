@@ -10,7 +10,7 @@
     <form [formGroup]="stockTakeForm" (ngSubmit)="createStockTake()">
       <div class="form-group">
         <label for="stockTakeDate">Stock Take Date:</label>
-        <input type="date" formControlName="stockTakeDate" class="form-control">
+        <input type="date" formControlName="stockTakeDate" class="form-control" [attr.readonly]="true">
       </div>
       
       <div formArrayName="items">

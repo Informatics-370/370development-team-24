@@ -31,6 +31,17 @@ export class AddSuppliertypeComponent {
     }
   
     onSubmit(){
+      if (this.supplierTypeForm.invalid) {
+        this.showErrorMessage('Please fill in all required fields.');
+        // Highlight invalid controls
+        Object.keys(this.supplierTypeForm.controls).forEach(controlName => {
+          if (this.supplierTypeForm.controls[controlName].invalid) {
+            this.supplierTypeForm.controls[controlName].markAsTouched();
+          }
+        });
+        return;
+      }
+
 
       let suppliertype = new SupplierType();
       suppliertype.name = this.supplierTypeForm.value.name;
@@ -51,6 +62,13 @@ export class AddSuppliertypeComponent {
         verticalPosition: 'bottom'
       });
     }
+    showErrorMessage(message: string): void {
+      const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(message, 'Ok', {
+        duration: 5000, // Duration in milliseconds
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom'
+      });
+  }
   
 
 

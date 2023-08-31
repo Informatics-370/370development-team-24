@@ -7,6 +7,7 @@ import { BehaviorSubject} from 'rxjs';
 import { Supplier } from '../shared/supplier';
 import { Supplier_Inventory } from '../shared/supplieritem';
 import { StockTake } from '../shared/stocktakeitem';
+import { Inventory_Prices } from '../shared/inventoryPrices';
 
 @Injectable({
     providedIn: 'root'
@@ -232,6 +233,28 @@ import { StockTake } from '../shared/stocktakeitem';
   AddWriteOffRecord(writeOffData: any): Observable<any> {
     return this.httpClient.post(`${this.apiUrl}InventoryItem/AddWriteOffRecord`, writeOffData)
   }
+
+  GetPricesByInventoryItem(inventory_ItemId: number): Observable<Inventory_Prices[]> {
+    return this.httpClient.get<Inventory_Prices[]>(`${this.apiUrl}InventoryItem/prices/${inventory_ItemId}`)
+      .pipe(
+        catchError(error => {
+          console.error('Error retrieving inventory items:', error);
+          return throwError(error);
+        })
+      );
+  }
+
+  EditInventoryPrice(inventoryPrice_Id: number, prices: Inventory_Prices)
+  {
+    return this.httpClient.put(`${this.apiUrl}InventoryItem/EditInventoryPrice/${inventoryPrice_Id}`,prices, this.httpOptions)
+  }
+
+  GetInventoryPrice(inventoryPrice_Id: Number) {
+    return this.httpClient.get(`${this.apiUrl}InventoryItem/GetInventoryPrice` + "/" + inventoryPrice_Id)
+    .pipe(map(result => result))
+  }
+
+  
 
 
   

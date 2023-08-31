@@ -27,7 +27,7 @@ export class StockTakeComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private inventoryService: InventoryService, private dialog: MatDialog) {
     this.stockTakeForm = this.fb.group({
-      stockTakeDate: ['', Validators.required],
+      stockTakeDate: [new Date().toISOString().slice(0, 10)],
       items: this.fb.array([])
     });
 
@@ -62,9 +62,10 @@ export class StockTakeComponent implements OnInit {
     if (this.stockTakeForm.invalid) {
       return;
     }
-  
+    
+    const currentDate = new Date();
     const stockTakeData = {
-      stockTakeDate: this.stockTakeForm.value.stockTakeDate,
+      stockTakeDate: currentDate as Date,
       items: this.stockTakeForm.value.items.map((item: any) => ({
         inventory_ItemId: item.inventory_ItemId,
         quantity: item.quantity
@@ -89,45 +90,34 @@ export class StockTakeComponent implements OnInit {
     );
   }
 
+  // openDiscrepancyModal(discrepancyItems: any[]): void {
+  //   this.dialogRef = this.dialog.open(WriteOffStockComponent, {
+  //     width: '400px',
+  //     data: {
+  //       items: discrepancyItems,
+  //     },
+  //   });
+
+
+  //   this.dialogRef.afterClosed().subscribe(() => {
+  //     console.log('Discrepancy modal closed');
+  //   });
+  // }
+
   openDiscrepancyModal(discrepancyItems: any[]): void {
     this.dialogRef = this.dialog.open(WriteOffStockComponent, {
       width: '400px',
       data: {
         items: discrepancyItems,
+        adminReason: this.inputReason  // Pass the admin reason to the dialog
       },
     });
-
-
+  
     this.dialogRef.afterClosed().subscribe(() => {
       console.log('Discrepancy modal closed');
     });
   }
-//   openDiscrepancyModal(discrepancyItems: any[]): void {
-//     this.dialogRef = this.dialog.open(WriteOffStockComponent, {
-//       width: '400px',
-//       data: {
-//         items: discrepancyItems,
-//       },
-//     });
 
-//     this.dialogRef.afterClosed().subscribe(() => {
-//       console.log('Discrepancy modal closed');
-//     });
-//   }
-//   saveWriteOffReasons(reasons: any[]): void {
-//     // Call the API to save reasons to the WriteOff table
-//     this.inventoryService.AddWriteOffRecord(reasons).subscribe(
-//         (response: any) => {
-//             console.log('Write-off records added successfully:', response);
-//             // You can perform additional actions if needed
-//         },
-//         (error: any) => {
-//             console.error('Error adding write-off records:', error);
-//             // Handle error response
-//         }
-//     );
-// }
-  
 }
 
 

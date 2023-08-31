@@ -11,6 +11,7 @@ export class StockTakeRecon{
   inventoryQuantity!: number;
   quantity!: number;
   quantityDifference!: number;
+  stockTake_Date!: Date;
 }
 
 export class WriteOffViewModel {

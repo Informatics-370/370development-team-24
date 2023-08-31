@@ -97,6 +97,13 @@ import { StockTakeComponent } from './administration/Inventory Management/Invent
 import { StockTakeListComponent } from './administration/Inventory Management/Inventory Items/stock-take/stock-take-list/stock-take-list.component';
 import { WriteOffStockComponent } from './administration/Inventory Management/Inventory Items/stock-take/write-off-stock/write-off-stock.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { PriceModalComponent } from './administration/Inventory Management/Inventory Items/view-inventoryitems/price-modal/price-modal.component';
+import { EditItempriceComponent } from './administration/Inventory Management/Inventory Items/view-inventoryitems/price-modal/edit-itemprice/edit-itemprice.component';
+import { HelpAddinventoryComponent } from './administration/Inventory Management/Inventory Items/add-inventoryitem/help-addinventory/help-addinventory.component';
+import { HelpEditinventoryitemComponent } from './administration/Inventory Management/Inventory Items/edit-inventoryitem/help-editinventoryitem/help-editinventoryitem.component';
+import { HelpViewinventoryitemComponent } from './administration/Inventory Management/Inventory Items/view-inventoryitems/help-viewinventoryitem/help-viewinventoryitem.component';
+import { HelpAddinventorytypeComponent } from './administration/Inventory Management/Inventory Types/add-inventorytypes/help-addinventorytype/help-addinventorytype.component';
+import { HelpAddemployeesComponent } from './administration/Employees/add-employee/help-addemployees/help-addemployees.component';
 
 
 
@@ -206,6 +213,13 @@ import { MatDialogModule } from '@angular/material/dialog';
     StockTakeComponent,
     StockTakeListComponent,
     WriteOffStockComponent,
+    PriceModalComponent,
+    EditItempriceComponent,
+    HelpAddinventoryComponent,
+    HelpEditinventoryitemComponent,
+    HelpViewinventoryitemComponent,
+    HelpAddinventorytypeComponent,
+    HelpAddemployeesComponent,
     
 
   ],

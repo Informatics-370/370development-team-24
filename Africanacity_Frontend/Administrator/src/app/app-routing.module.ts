@@ -75,9 +75,10 @@ import { MenuitemsComponent } from './administration/menuitems/menuitems.compone
 import { StockTakeComponent } from './administration/Inventory Management/Inventory Items/stock-take/stock-take.component';
 import { StockTakeListComponent } from './administration/Inventory Management/Inventory Items/stock-take/stock-take-list/stock-take-list.component';
 import { WriteOffStockComponent } from './administration/Inventory Management/Inventory Items/stock-take/write-off-stock/write-off-stock.component';
+import { EditItempriceComponent } from './administration/Inventory Management/Inventory Items/view-inventoryitems/price-modal/edit-itemprice/edit-itemprice.component';
 
 const routes: Routes = [
-  {path:'login', component: HomeComponent},
+  {path:'login', component: LoginComponent},
   {path:'signup', component:SignupComponent},
   {path:'reset', component:ResetComponent},
   {path:'view-profile',component:ViewProfileComponent, canActivate:[AuthGuard]},
@@ -160,6 +161,7 @@ const routes: Routes = [
   {path: 'stock-take', component:StockTakeComponent},
   {path: 'stock-take-list', component:StockTakeListComponent},
   {path: 'write-off-stock', component:WriteOffStockComponent},
+  {path: 'edit-itemprice/:id', component:EditItempriceComponent},
 // for schedule
   { path: '', redirectTo: 'login', pathMatch:'full'},
   
