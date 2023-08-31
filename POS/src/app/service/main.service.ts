@@ -236,6 +236,16 @@ return this.httpClient.post(url, body);
     return this.httpClient.get(`${this.apiUrl}Order/GetAllKitchenOrders`);
   }
 
+  //Get all ordered menu items
+  GetAllOrderedMenuItems(): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}Order/GetAllOrderedMenuItems`).pipe(map(result=> result))
+  }
+
+  GetAllOrderedDrinksItems(): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}Order/GetAllOrderedDrinksItems`).pipe(map(result=> result))
+  }
+
+
 
 
 

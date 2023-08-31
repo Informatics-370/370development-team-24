@@ -11,6 +11,8 @@ using System.Text.Json.Serialization;
 using System.Text.Json;
 using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
+using System.Data.Entity.Infrastructure;
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
@@ -275,6 +277,65 @@ namespace Africanacity_Team24_INF370_.Controllers
             {
                 // Handle exceptions, log errors, and return an error response
                 return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        //GET ALL OPTION 2 - ORDER_MENUITEM
+        [HttpGet]
+        [Route("GetAllOrderedMenuItems")]
+        public async Task<ActionResult> GetAllOrderedMenuItems()
+        {
+            try
+            {
+
+                var results = await _repository.GetAllOrderedMenuItemsAsync();
+
+
+                dynamic reconitems = results.Select(s => new
+                {
+                    s.OrderMenuItemId,
+                    KitchenOrderNumber = s.KitchenOrder.KitchenOrderNumber,
+                    TableNumber = s.KitchenOrder.TableNumber,
+                    MenuItemName = s.MenuItem.Name,
+                    s.Quantity,
+
+                });
+
+                return Ok(reconitems);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+            }
+        }
+
+
+        //GET ALL OPTION 2 - ORDER_DRIN
+        [HttpGet]
+        [Route("GetAllOrderedDrinksItems")]
+        public async Task<ActionResult> GetAllOrderedDrinksItems()
+        {
+            try
+            {
+
+                var results = await _repository.GetAllOrderedDrinksItemsAsync();
+
+
+                dynamic reconitems = results.Select(s => new
+                {
+                    s.OrderDrinkId,
+                    KitchenOrderNumber = s.KitchenOrder.KitchenOrderNumber,
+                    TableNumber = s.KitchenOrder.TableNumber,
+                    DrinkItemName = s.OtherDrink.Name,
+                    s.Quantity,
+
+                });
+
+                return Ok(reconitems);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
             }
         }
 

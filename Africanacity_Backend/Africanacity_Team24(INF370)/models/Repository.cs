@@ -664,5 +664,20 @@ namespace Africanacity_Team24_INF370_.models
             return await query.FirstOrDefaultAsync();
         }
 
+        //Get all ordered menu items 
+        public async Task<Order_MenuItem[]> GetAllOrderedMenuItemsAsync()
+        {
+            IQueryable<Order_MenuItem> query = _appDbContext.Order_MenuItems.Include(p => p.MenuItem).Include(p => p.KitchenOrder);
+
+            return await query.ToArrayAsync();
+        }
+
+        //Get all ordered drinks
+        public async Task<Order_Drink[]> GetAllOrderedDrinksItemsAsync()
+        {
+            IQueryable<Order_Drink> query = _appDbContext.Order_Drinks.Include(p => p.OtherDrink).Include(p => p.KitchenOrder);
+
+            return await query.ToArrayAsync();
+        }
     }
 }

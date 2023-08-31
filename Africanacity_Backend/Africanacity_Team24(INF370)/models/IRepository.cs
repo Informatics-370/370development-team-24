@@ -180,5 +180,11 @@ namespace Africanacity_Team24_INF370_.models
         //DISCOUNT
         Task<Discount[]> GetAllDiscountPercentagesAsync();
         Task<Discount> GetADiscountPercentageAsync(int VDiscountId);
+
+        //Ordered Menu Items
+        Task<Order_MenuItem[]> GetAllOrderedMenuItemsAsync();
+
+        //Ordered drinks Items
+        Task<Order_Drink[]> GetAllOrderedDrinksItemsAsync();
     }
 }
