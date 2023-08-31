@@ -72,6 +72,7 @@ import { MenuTypesComponent } from './administration/menu-types/menu-types.compo
 import { AddMenuItemComponent } from './administration/menuitems/add-menu-item/add-menu-item.component';
 import { EditMenuItemComponent } from './administration/menuitems/edit-menu-item/edit-menu-item.component';
 import { MenuitemsComponent } from './administration/menuitems/menuitems.component';
+import { EventDetailsDailogComponent } from './administration/booking/schedule/event-details-dailog/event-details-dailog.component';
 
 const routes: Routes = [
   {path:'login', component:LoginComponent},
@@ -116,6 +117,8 @@ const routes: Routes = [
   {path:'schedule-display', component: ScheduleDisplayComponent},
   {path:'edit-schedule/:id', component: EditScheduleComponent},
   {path:'add-schedule', component: AddScheduleComponent},
+  //event details dialog
+  {path:'event-details-dailog', component:EventDetailsDailogComponent},
  ///EVENTS
  {path:'view-events', component: ViewEventsComponent},
  {path:'edit-event/:id', component: EditEventComponent},

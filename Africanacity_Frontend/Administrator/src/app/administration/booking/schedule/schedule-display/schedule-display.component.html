@@ -1,50 +1,24 @@
-<div class="calendar-container">
-  <div class="calendar-header">
-    <button mat-icon-button (click)="goToPreviousWeek()">
-      <mat-icon>keyboard_arrow_left</mat-icon>
-    </button>
-    <h2>{{ currentWeekStartDate | date: 'MMMM d, y' }} - {{ currentWeekEndDate | date: 'MMMM d, y' }}</h2>
-    <button mat-icon-button (click)="goToNextWeek()">
-      <mat-icon>keyboard_arrow_right</mat-icon>
-    </button>
-  </div>
-
-  <div class="calendar-grid">
-    <div class="timesheet " >
-      <!-- Create a table for the weekly calendar timesheet -->
-      <table>
-        <thead>
-          <tr>
-            <th>Time</th>
-            <!-- Display dates for the week -->
-            <th *ngFor="let date of weekDates">{{ date | date: 'EEE dd/MM' }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let timeSlot of timeSlots">
-            <td>{{ timeSlot }}</td>
-            <td *ngFor="let date of weekDates" (dragover)="onDragOver($event)" (drop)="onDrop($event, date, timeSlot)">
-              <!-- Display events dropped onto the timesheet for each date -->
-              <div class="timesheet-cell" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (dragend)="onDragEnd($event)" (click)="onCellClick(date, timeSlot)">
-                {{ getEventTitle(date, timeSlot) }}
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <app-navbar></app-navbar>
     </div>
+    <div class="col-md-8 order-md-1">
+      <h3 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px; font-weight: bolder;">
+        Schedule
+      </h3>
 
-    <div class="events-list">
-      <!-- Display events retrieved from getAllSchedules method -->
-      <div *ngFor="let schedule of schedules" class="event-block" (dragstart)="onDragStart($event, schedule)" [draggable]="true">
-        <div class="event-title">{{ schedule.title }}</div>
-        <div class="event-name">{{ schedule.eventName }}</div>
-        <div class="event-availability">{{ schedule.scheduleStatus }}</div>
+      <div class="row">
+          <full-calendar
+            [options]="calendarOptions"
+            [events]="calendarEvents"
+          ></full-calendar>
+          
       </div>
+
     </div>
   </div>
 </div>
-
 
 
 

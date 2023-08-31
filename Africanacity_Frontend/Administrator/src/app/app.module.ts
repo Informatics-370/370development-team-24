@@ -96,7 +96,8 @@ import { LoginComponent } from './login/login/login.component';
 import { ChangePasswordComponent } from './login/change-password/change-password.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { EventDetailsDailogComponent } from './administration/booking/schedule/event-details-dailog/event-details-dailog.component';
 
 
 
@@ -203,6 +204,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     ViewProfileComponent,
     SignupComponent,
     UpdateProfileComponent,
+    EventDetailsDailogComponent,
     
 
   ],
@@ -226,6 +228,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
+    NgxMaterialTimepickerModule,
     FullCalendarModule,
     ModalModule.forRoot(), 
     CalendarModule.forRoot({

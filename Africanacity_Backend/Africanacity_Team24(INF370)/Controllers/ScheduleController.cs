@@ -77,6 +77,7 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
 
+       
         [HttpPost]
         [Route("AddSchedule")]
         public async Task<IActionResult> AddSchedule(IFormCollection formData)
@@ -86,26 +87,36 @@ namespace Africanacity_Team24_INF370_.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (!DateTime.TryParse(formData["date"], out DateTime eventDate))
+            // Declare variables for eventDate, startTime, and endTime
+            DateTime eventDate;
+            DateTime startTime;
+            DateTime endTime;
+
+            // Parse date from formdata as a string and convert to DateTime
+            if (!DateTime.TryParse(formData["date"], out eventDate))
             {
                 return BadRequest("Invalid date format");
             }
 
-            // Create a new Schedule_Status with the default status "available"
-            var scheduleStatus = new Schedule_Status
+            // Parse time data from the formdata as a string and convert to DateTime
+            if (!DateTime.TryParse(formData["start_Time"], out startTime) ||
+                !DateTime.TryParse(formData["end_Time"], out endTime))
             {
-                Name = "available"
-            };
-
+                return BadRequest("Invalid time format");
+            }
+               // Create a new Schedule_Status with the default status "available"
+               //var scheduleStatus = new Schedule_Status
+               //{
+              //    Name = "available"
+              //};
             var schedule = new Schedule
             {
                 Title = formData["title"],
-                Description = formData["description"],
                 Date = eventDate,
-                Start_Time = formData["start_time"],
-                End_Time = formData["end_time"],
+                Start_Time = startTime,
+                End_Time = endTime,
                 EventId = Convert.ToInt32(formData["event"]),
-                Schedule_Status = scheduleStatus // Set the status to "available"
+                Description = formData["description"],
             };
 
             try

@@ -3,64 +3,58 @@
  import { Schedule } from 'src/app/shared/schedule';
  import { MatDialog } from '@angular/material/dialog';
  import { BookingEvent } from 'src/app/shared/bookingevent';
+ import { Router } from '@angular/router';
  import { MatSnackBar } from '@angular/material/snack-bar';
- import { AddScheduleComponent } from '../add-schedule/add-schedule.component';
+ import dayGridPlugin from '@fullcalendar/daygrid'; // Import the DayGrid plugin
+ import interactionPlugin from '@fullcalendar/interaction'; // Import the Interaction plugin
+ import { CalendarOptions } from '@fullcalendar/core'; 
+ import { EventInput } from '@fullcalendar/core';
+ import { EventDetailsDailogComponent } from '../event-details-dailog/event-details-dailog.component';
+ import { CalendarService } from 'src/app/calendar.service';
+ import { DatePipe } from '@angular/common';
+
 
 
  @Component({
    selector: 'app-schedule-display',
    templateUrl: './schedule-display.component.html',
-   styleUrls: ['./schedule-display.component.css']
+   styleUrls: ['./schedule-display.component.css'],
+   providers: [DatePipe], 
  })
  
  export class ScheduleDisplayComponent implements OnInit {
    schedules: Schedule[] = []; // Array to store events retrieved from the backend
-   bookingevents : BookingEvent[] = []
-   viewDate: Date = new Date();
-   formData = new FormData();
-
-    // Define the weekDays and timeSlots arrays according to your requirements
-    //weekDays: string[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday','Sunday'];
-    weekDates: Date[]=[];
-    timeSlots: string[] = ['8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', 
-       '1:00 PM', '2:00 PM', '3:00 PM','4:00 PM','5:00 PM', '6:00 PM', '7:00 PM','8:00 PM','9:00 PM','10:00 PM', '11:00 PM'];
-   timesheet: any;
-    //two date variables to track the start and end dates of the current week
-    currentWeekStartDate: Date = new Date();
-    currentWeekEndDate: Date = new Date();
+   bookingevents : BookingEvent[] = [] //events array
+   calendarEvents: EventInput[] = [];  // Define an array to store events for the FullCalendar component
+      
 
    constructor(private dataService: DataService,
-     public dialog: MatDialog,
+     private dialog: MatDialog,
      private snackBar: MatSnackBar,
+     private router: Router, private calendarService: CalendarService,  private datePipe: DatePipe,
      
      ) { }
 
-
   ngOnInit(): void {
-    this.currentWeekStartDate = this.getStartOfWeek(this.viewDate);
-    this.currentWeekEndDate = this.getEndOfWeek(this.viewDate);
-    this.populateWeekDates();
     this.GetAllSchedules();
+    this.GetEvents();
+    this.calendarEvents = this.calendarService.getCalendarEvents();
+    
+
    }
 
-   populateWeekDates() {
-    const currentDate = new Date(this.currentWeekStartDate);
-    this.weekDates = [];
-  
-    while (currentDate <= this.currentWeekEndDate) {
-      this.weekDates.push(new Date(currentDate));
-      currentDate.setDate(currentDate.getDate() + 1);
-    }
-  }
-
    //Method to retrieve all schedule slots from the backend through the dataService
- GetAllSchedules(){
-  this.dataService.ScheduleDisplay().subscribe(result => {
+   GetAllSchedules(){
+   this.dataService.ScheduleDisplay().subscribe(result => {
     let scheduleList:any[] = result
     scheduleList.forEach((element) => {
       this.schedules.push(element) //push the schedule object to the array 
     });
-  })
+
+    // Call formatEventsForCalendar here, after data retrieval
+    this.calendarEvents = this.formatEventsForCalendar();
+
+   });
  }
 
  //Method to retrieve the events from the backend that will be used for the event dropdown
@@ -88,168 +82,97 @@
   });
  }
  
-  // Create a property to store the dragged event
-  draggedEvent: Schedule | null = null;
+ 
+ calendarOptions: CalendarOptions = {
+  plugins: [dayGridPlugin, interactionPlugin], // Load the DayGrid and Interaction plugins
+  initialView: 'dayGridMonth', // Initial view
+  headerToolbar: {
+    left: 'prev,next today',
+    center: 'title',
+    right: 'dayGridMonth,dayGridWeek,dayGridDay', // Adjust the views as needed
+  },
+  events: this.formatEventsForCalendar.bind(this), // Use the method to load events
+  eventClick: this.handleEventClick.bind(this), // Handle date clicks
+ 
+ };
 
-   // Method to handle drag start to transfer data
-   onDragStart(event: DragEvent, schedule: Schedule) {
-    event.dataTransfer?.setData('text/plain', JSON.stringify(schedule));
-    this.draggedEvent = schedule;
-  }
-  
 
-    // Method to handle drag over
-    onDragOver(event: DragEvent) {
-      event.preventDefault();
-    }
+ formatEventsForCalendar(): EventInput[] {
+   const events: EventInput[] = [];
+    this.schedules.forEach((schedule) => {
+      const event: EventInput = {
+      title: schedule.title,
+      start: schedule.start_Time,
+      end: schedule.end_Time,
+      extendedProps: {  // Add extendedProps with start_Time and end_Time
+        start_Time: schedule.start_Time,
+        end_Time: schedule.end_Time,
+      },
+      // Other event properties as needed
+    };
+    events.push(event);
+    });
 
-   // Method to handle drop
-   onDrop(event: DragEvent, date: Date, timeSlot: string) {
-    event.preventDefault();
-    if (this.draggedEvent) {
-      // New object to represent the event on the timesheet
-      const eventOnTimesheet: Schedule = {
-        title: this.draggedEvent.title,
-        eventName: this.draggedEvent.eventName,
-        scheduleStatus: this.draggedEvent.scheduleStatus,
-      };
+   return events;
+ }
+
+
   
-      // Update data structure to store the event on the timesheet based on day and timeSlot
-      // Have an array or map to store events for each day and timeSlot.
-      const dayIndex = this.weekDates.indexOf(date);
-      const timeSlotIndex = this.timeSlots.indexOf(timeSlot);
+  // Listen for event click in the calendar
+  handleEventClick(info: any) {
+    console.log('Event clicked', info.event);
+    // Format start and end times
+    const formattedStartTime = this.formatDateTime(info.event.extendedProps.start_Time);
+    const formattedEndTime = this.formatDateTime(info.event.extendedProps.end_Time);
   
-      // Ensure that the dayIndex and timeSlotIndex are valid
-      if (dayIndex >= 0 && timeSlotIndex >= 0) {
-        // Initialize the timesheet if it's not already
-        if (!this.timesheet) {
-          this.timesheet = [];
+  
+    // Ensure that formatted times are not empty
+   if (!formattedStartTime || !formattedEndTime) {
+      // Handle the case where times are not formatted correctly
+      console.error('Invalid time format');
+     return;
+   }
+     // Find the corresponding booking event by matching the start_Time
+     const schedule: Schedule | undefined = this.schedules.find(event => event.start_Time === info.event.extendedProps.start_Time);
+     console.log('Matching Schedule:', schedule);
+     if(schedule){
+      console.log('Event Name:', schedule.event);
+      const dialogRef = this.dialog.open(EventDetailsDailogComponent,{
+        data: {
+          title:info.event.title,
+          startStr: formattedStartTime,
+          endStr: formattedEndTime,
+          eventName: schedule.event,
         }
-  
-        if (!this.timesheet[dayIndex]) {
-          this.timesheet[dayIndex] = [];
-        }
-  
-        // Add the event to the timesheet
-        this.timesheet[dayIndex][timeSlotIndex] = eventOnTimesheet;
+      });
+       // Subscribe to dialog close event
+      dialogRef.afterClosed().subscribe(result => {
+       if (result === 'edit') {
+          // Handle edit event here
+          // You can open the edit form with the event data
+          this.router.navigate(['/edit-schedule', info.event.id]);
+          // Implement this logic in EventDetailsDialogComponent
+        } else if (result === 'delete') {
+        // Handle delete event here
+        // Implement this logic in EventDetailsDialogComponent
       }
+      });
     }
-  
-    // Clear the dragged event
-    this.draggedEvent = null;
+}
+
+formatDateTime(dateTime: string | null): string {
+  if (!dateTime) {
+    return ''; // Handle null case by returning an empty string or some other default value
   }
-  
-
-
-  // Method to get the title of the event on a specific day and timeSlot
-  getEventTitle(date: Date, timeSlot: string): string {
-    // Implement logic to retrieve the event title for the specified day and timeSlot
-    // based on your data structure.
-    return ''; // Return the event title here
+  try {
+    const date = new Date(dateTime);
+    // Format the DateTime to your desired format, e.g., 'hh:mm a'
+    return this.datePipe.transform(date, 'hh:mm a') || '';
+  } catch (error) {
+    console.error('Invalid time format:', dateTime);
+    return ''; // Handle invalid date format by returning an empty string
   }
-
-    // Method to handle drag enter
-    onDragEnter(event: DragEvent) {
-      event.preventDefault();
-      event.stopPropagation();
-  
-      if (this.draggedEvent) {
-        const targetCell = event.target as HTMLElement;
-  
-        // Check if the event is entering a valid drop target (timesheet cell)
-        if (targetCell.classList.contains('timesheet-cell')) {
-          targetCell.classList.add('drag-over'); // Add a visual indication of the drag-over state
-        }
-      }
-    }
-
-    
-  // Method to handle drag leave
-  onDragLeave(event: DragEvent) {
-    event.preventDefault();
-    event.stopPropagation();
-
-    if (this.draggedEvent) {
-      const targetCell = event.target as HTMLElement;
-
-      // Remove the visual indication of the drag-over state
-      if (targetCell.classList.contains('timesheet-cell')) {
-        targetCell.classList.remove('drag-over');
-      }
-    }
-  }
-
-    // Method to handle drag end
-    onDragEnd(event: DragEvent) {
-      event.preventDefault();
-      event.stopPropagation();
-  
-      if (this.draggedEvent) {
-        // Clear the visual indication of the drag-over state from all timesheet cells
-        const timesheetCells = document.querySelectorAll('.timesheet-cell');
-        timesheetCells.forEach((cell) => {
-          cell.classList.remove('drag-over');
-        });
-      }
-    }
-
-     // Method to handle cell click
-  onCellClick(date: Date, timeSlot: string) {
-    // Implement the logic to handle the click on a timesheet cell.
-    // You can open a dialog, display event details, or perform any other action based on the cell's day and timeSlot.
-    console.log(`Clicked on ${date} at ${timeSlot}`);
-  }
-
-
-  getStartOfWeek(date: Date): Date {
-    const dayOfWeek = date.getDay();
-    const diff = date.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1);
-    const startOfWeek = new Date(date);
-    startOfWeek.setDate(diff);
-    startOfWeek.setHours(0, 0, 0, 0);
-    return startOfWeek;
-  }
-  
-  getEndOfWeek(date: Date): Date {
-    const startOfWeek = this.getStartOfWeek(date);
-    const endOfWeek = new Date(startOfWeek);
-    endOfWeek.setDate(endOfWeek.getDate() + 6);
-    endOfWeek.setHours(23, 59, 59, 999);
-    return endOfWeek;
-  }
-  
-  goToPreviousWeek() {
-    this.viewDate.setDate(this.viewDate.getDate() - 7);
-    this.currentWeekStartDate = this.getStartOfWeek(this.viewDate);
-    this.currentWeekEndDate = this.getEndOfWeek(this.viewDate);
-    this.populateWeekDates();
-    // Fetch schedules for the updated week if needed
-  }
-  
-  goToNextWeek() {
-    this.viewDate.setDate(this.viewDate.getDate() + 7);
-    this.currentWeekStartDate = this.getStartOfWeek(this.viewDate);
-    this.currentWeekEndDate = this.getEndOfWeek(this.viewDate);
-    this.populateWeekDates();
-    // Fetch schedules for the updated week if needed
-  }
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 }
 

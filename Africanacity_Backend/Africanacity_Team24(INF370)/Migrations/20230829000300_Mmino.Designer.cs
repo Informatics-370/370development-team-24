@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Africanacity_Team24_INF370_.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230824173629_Africanacity")]
-    partial class Africanacity
+    [Migration("20230829000300_Mmino")]
+    partial class Mmino
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -192,9 +192,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                             DiscountId = 1,
                             Amount = 0.10m,
                             Description = "10% Discount",
-                            End_Date = new DateTime(2023, 9, 3, 19, 36, 28, 25, DateTimeKind.Local).AddTicks(1108),
+                            End_Date = new DateTime(2023, 9, 8, 2, 2, 43, 796, DateTimeKind.Local).AddTicks(3450),
                             Name = "Month end discount",
-                            Start_Date = new DateTime(2023, 8, 24, 19, 36, 28, 25, DateTimeKind.Local).AddTicks(1106)
+                            Start_Date = new DateTime(2023, 8, 29, 2, 2, 43, 796, DateTimeKind.Local).AddTicks(3447)
                         });
                 });
 
@@ -844,9 +844,8 @@ namespace Africanacity_Team24_INF370_.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("End_Time")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("End_Time")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("EventId")
                         .HasColumnType("int");
@@ -860,9 +859,8 @@ namespace Africanacity_Team24_INF370_.Migrations
                     b.Property<int?>("Schedule_StatusId1")
                         .HasColumnType("int");
 
-                    b.Property<string>("Start_Time")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("Start_Time")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -888,10 +886,10 @@ namespace Africanacity_Team24_INF370_.Migrations
                             ScheduleId = 1,
                             Date = new DateTime(2023, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Musician can book performance",
-                            End_Time = "14:30 PM",
+                            End_Time = new DateTime(2023, 6, 25, 15, 0, 0, 0, DateTimeKind.Unspecified),
                             EventId = 1,
                             Schedule_StatusId = 1,
-                            Start_Time = "14;00 PM",
+                            Start_Time = new DateTime(2023, 6, 25, 14, 30, 0, 0, DateTimeKind.Unspecified),
                             Title = "Music slot"
                         },
                         new
@@ -899,10 +897,10 @@ namespace Africanacity_Team24_INF370_.Migrations
                             ScheduleId = 2,
                             Date = new DateTime(2023, 8, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Contemporary Dance performance",
-                            End_Time = "21:30 PM",
+                            End_Time = new DateTime(2023, 8, 2, 12, 30, 0, 0, DateTimeKind.Unspecified),
                             EventId = 2,
                             Schedule_StatusId = 1,
-                            Start_Time = "21;00 PM",
+                            Start_Time = new DateTime(2023, 8, 2, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Dance slot "
                         },
                         new
@@ -910,10 +908,10 @@ namespace Africanacity_Team24_INF370_.Migrations
                             ScheduleId = 3,
                             Date = new DateTime(2023, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Poet recital",
-                            End_Time = "19:15 PM",
+                            End_Time = new DateTime(2023, 7, 22, 21, 30, 0, 0, DateTimeKind.Unspecified),
                             EventId = 3,
                             Schedule_StatusId = 2,
-                            Start_Time = "19;00 PM",
+                            Start_Time = new DateTime(2023, 7, 22, 21, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Poetry"
                         },
                         new
@@ -921,21 +919,21 @@ namespace Africanacity_Team24_INF370_.Migrations
                             ScheduleId = 4,
                             Date = new DateTime(2023, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Contemporary dance slot",
-                            End_Time = "19:50 PM",
+                            End_Time = new DateTime(2023, 7, 22, 17, 45, 0, 0, DateTimeKind.Unspecified),
                             EventId = 2,
                             Schedule_StatusId = 1,
-                            Start_Time = "19;30 PM",
+                            Start_Time = new DateTime(2023, 7, 22, 17, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Contemp Dance"
                         },
                         new
                         {
                             ScheduleId = 5,
-                            Date = new DateTime(2023, 8, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2023, 9, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Poet recital",
-                            End_Time = "19:15 PM",
+                            End_Time = new DateTime(2023, 9, 12, 13, 20, 0, 0, DateTimeKind.Unspecified),
                             EventId = 3,
                             Schedule_StatusId = 1,
-                            Start_Time = "19;00 PM",
+                            Start_Time = new DateTime(2023, 9, 12, 13, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Comedy"
                         });
                 });
@@ -1262,9 +1260,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                         {
                             SupplierItemId = 1,
                             Inventory_ItemId = 1,
-                            Ordered_Date = new DateTime(2023, 8, 24, 0, 0, 0, 0, DateTimeKind.Local),
+                            Ordered_Date = new DateTime(2023, 8, 29, 0, 0, 0, 0, DateTimeKind.Local),
                             Ordered_Quantity = 33,
-                            Received_Date = new DateTime(2023, 8, 24, 0, 0, 0, 0, DateTimeKind.Local),
+                            Received_Date = new DateTime(2023, 8, 29, 0, 0, 0, 0, DateTimeKind.Local),
                             SupplierId = 1
                         });
                 });

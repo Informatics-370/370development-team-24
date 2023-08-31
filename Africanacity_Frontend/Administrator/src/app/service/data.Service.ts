@@ -277,7 +277,6 @@ GetSchedule(scheduleId: number) {
   return this.httpClient.get<any>(`${this.apiUrl}Schedule/GetSchedule/${scheduleId}`).pipe(map(result => result));
 }
 
-
 AddSchedule(file: FormData)
 {
   return this.httpClient.post(`${this.apiUrl}Schedule/AddSchedule`, file)

@@ -1,13 +1,89 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <app-navbar></app-navbar>
+    </div>
 
-<form [formGroup]="scheduleform" (ngSubmit)="onSubmit()">
-  <input type="text" formControlName="title" placeholder="Title">
-  <input type="date" formControlName="date">
-  <input type="time" formControlName="start_time">
-  <input type="time" formControlName="end_time">
-  <textarea formControlName="description" placeholder="Description"></textarea>
-  <button type="submit">Save</button>
-  <button type="button" (click)="onCancel()">Delete</button>
-</form>
+    <div class="col-md-10 order-md-2">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="text-center mb-4">Add Event Schedule Slot</h4>
+          <hr>
+          <div class="container">
+            <div class="row">
+              <form [formGroup]="scheduleform" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+                <mat-form-field class="full-width">
+                  <mat-label>Slot Title</mat-label>
+                  <input matInput placeholder="Provide the slot title" formControlName="title">
+                </mat-form-field>
+                
+                <mat-form-field class="full-width">
+                  <mat-label>Date</mat-label>
+                  <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="Select a date" formControlName="date">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              
+                <!-- Start Time -->
+                <mat-form-field class="full-width">
+                  <mat-label>Start Time</mat-label>
+                  <input
+                    matInput
+                    [ngxTimepicker]="fullTimeStart"
+                    [format]="24"
+                    readonly
+                    placeholder="Select the start time"
+                    formControlName="start_Time"
+                  >
+                  <ngx-material-timepicker #fullTimeStart></ngx-material-timepicker>
+                </mat-form-field>
+              
+                <!-- End Time -->
+                <mat-form-field class="full-width">
+                  <mat-label>End Time</mat-label>
+                  <input
+                    matInput
+                    [ngxTimepicker]="fullTimeEnd"
+                    [format]="24"
+                    readonly
+                    placeholder="Select an end time"
+                    formControlName="end_Time"
+                  >
+                  <ngx-material-timepicker #fullTimeEnd></ngx-material-timepicker>
+                </mat-form-field>
+              
+                <mat-form-field class="full-width">
+                  <mat-label>Event Name</mat-label>
+                  <mat-select formControlName="event">
+                    <mat-option *ngFor="let event of bookingevents" [value]="event.name">{{ event.name }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              
+                <mat-form-field class="full-width">
+                  <mat-label>Description</mat-label>
+                  <textarea
+                    matInput
+                    placeholder="Provide a description for the event slot"
+                    formControlName="description"
+                    rows="3"
+                  ></textarea>
+                </mat-form-field>
+              
+                <div class="center-buttons">
+                  <button mat-raised-button color="warn" (click)="onCancel()">Discard</button>
+                  <button mat-raised-button color="primary" type="submit">Add</button>
+                </div>
+              </form>
+              
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 

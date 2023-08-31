@@ -1,13 +1,13 @@
 
+
 export class Schedule{
 
-  //scheduleId!: number;
+  scheduleId?: number;
   title!: string;
-  //start_Time!: string;
-  //date!: Date;
-  //end_Time!: string;
-  eventName!: string;
-  //description!: string;
-  scheduleStatus!:string;
+  date!: Date;
+  start_Time!: string; 
+  end_Time!: string; 
+  event!: string;
+  description!: string;
     
 }
