@@ -19,7 +19,7 @@
         </ion-list>
       </ion-col>
 
-      <ion-col size="5">
+      <ion-col size="4">
         <!-- Menu Item Listing -->
         <ng-container *ngIf="!isDrinkSelected">
         <h1 class="heading"  >MENU ITEMS</h1>
@@ -52,7 +52,7 @@
       </ion-col>
    
 
-      <ion-col size="4" class="ion-card" id="orderSummary">
+      <ion-col size="5" class="ion-card" id="orderSummary">
         <!-- Order Summary for Menu Items -->
         <h2 class="heading2">Order Summary </h2>
         <ion-item>
@@ -67,32 +67,28 @@
           <ion-item *ngFor="let orderedItem of orderedItems">
            
             <p>{{ orderedItem.name}}  <span class="span" style="margin-left: 20px;">{{ getSelectedMenuItemPrice(orderedItem.menuItemId) | currency: '       R' }}</span> </p> <br>
-           
-            
-            <ion-input type="number" [(ngModel)]="orderedItem.quantity" (ionChange)="updateSubtotal()" class="small-input" style="margin-right: 50px;"></ion-input>
+            <ion-input type="number" [(ngModel)]="orderedItem.quantity" (ionChange)="updateSubtotal()" class="small-input" style="margin-right: -10px"></ion-input>
           </ion-item>
         </ion-list>
         <ion-list>
           <ion-item *ngFor="let orderedDrink of orderedDrinks">
             <p>{{ orderedDrink.name }}  <span class="span" style="margin-left: 20px;">{{ getSelectedDrinkItemPrice(orderedDrink.otherDrinkId) | currency: 'R ' }} </span> </p> 
-            
-
-            <ion-input type="number" [(ngModel)]="orderedDrink.quantity" (ionChange)="updateSubtotal()" class="small-input" style="margin-right: 50px;"></ion-input>
+            <ion-input type="number" [(ngModel)]="orderedDrink.quantity" (ionChange)="updateSubtotal()" class="small-input" style="margin-right: -10px;"></ion-input>
           </ion-item>
         </ion-list>
         <ion-item>
-          <p>Subtotal: {{ subtotal | currency:'R ' }}</p>
+          <p><b>Subtotal:</b> {{ subtotal | currency:'R ' }}</p>
         </ion-item>
         <ion-item>
-          <p>Total VAT: {{ totalVat | currency:'R ' }}</p>
-        </ion-item>
-        
-        <ion-item>
-          <p>Total Discount: {{ totalDiscount | currency:'R ' }}</p>
+          <p><b>Total VAT:</b> {{ totalVat | currency:'R ' }}</p>
         </ion-item>
         
         <ion-item>
-          <p>Final Total: {{ finalTotal | currency:'R ' }}</p>
+          <p><b>Total Discount:</b> {{ totalDiscount | currency:'R ' }}</p>
+        </ion-item>
+        
+        <ion-item>
+          <p><b>Final Total:</b> {{ finalTotal | currency:'R ' }}</p>
         </ion-item>
         
        

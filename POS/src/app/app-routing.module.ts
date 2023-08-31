@@ -11,6 +11,7 @@ import { PaymentComponent } from './payment/payment.component';
 import { Component } from 'ionicons/dist/types/stencil-public-runtime';
 import { PrintReceiptComponent } from './print-receipt/print-receipt.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { ViewKitchenOrdersComponent } from './view-kitchen-orders/view-kitchen-orders.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'order', component: OrderComponent},
   {path: 'table', component: TableComponent},
   {path: 'kitchen-screen', component: KitchenScreenComponent},
+  {path: 'view-kitchen-orders', component: ViewKitchenOrdersComponent},
   {path: 'notification', component: NotificationComponent},
   {path: 'payment/:kitchenOrderNumber', component:PaymentComponent},
   {path: 'sign-up', component:SignUpComponent},

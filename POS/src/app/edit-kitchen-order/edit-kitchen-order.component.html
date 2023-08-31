@@ -1,0 +1,34 @@
+<div class="container">
+  <h2>Edit Kitchen Order</h2>
+
+  <!-- Display kitchen order details -->
+  <div>
+    <p><strong>Order Number:</strong> {{ kitchenOrder.kitchenOrderNumber }}</p>
+    <p><strong>Table Number:</strong> {{ kitchenOrder.tableNumber }}</p>
+    <!-- Display other kitchen order details as needed -->
+  </div>
+
+  <!-- Edit ordered menu items -->
+  <div>
+    <h3>Edit Ordered Menu Items</h3>
+    <ul>
+      <li *ngFor="let item of kitchenOrder.orderedMenuItems">
+        {{ item.menuItemName }} (Quantity: {{ item.quantity }})
+        <!-- Provide controls to edit the quantity if needed -->
+      </li>
+    </ul>
+  </div>
+
+  <!-- Edit ordered drinks -->
+  <div>
+    <h3>Edit Ordered Drinks</h3>
+    <ul>
+      <li *ngFor="let drink of kitchenOrder.orderedDrinks">
+        {{ drink.drinkName }} (Quantity: {{ drink.quantity }})
+        <!-- Provide controls to edit the quantity if needed -->
+      </li>
+    </ul>
+  </div>
+
+  <!-- Add additional UI elements and controls for editing -->
+</div>

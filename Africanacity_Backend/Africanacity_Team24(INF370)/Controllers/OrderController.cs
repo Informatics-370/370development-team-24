@@ -6,6 +6,11 @@ using System.Reflection.Metadata.Ecma335;
 using Africanacity_Team24_INF370_.models.Restraurant;
 using Africanacity_Team24_INF370_.View_Models;
 using System.Security.Cryptography.Xml;
+using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
+using System.Text.Json;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
@@ -204,6 +209,138 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
         }
 
+
+        //GET KITCHEN ORDER BY ID
+        [HttpGet]
+        [Route("GetKitchenOrderById/{KitchenOrderId}")]
+        public IActionResult GetKitchenOrderById(int KitchenOrderId)
+        {
+            try
+            {
+                // Create JsonSerializerOptions with ReferenceHandler.Preserve
+                var jsonSerializerOptions = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    // Other options as needed
+                };
+                var kitchenOrder = _appDbContext.KitchenOrders
+                    .Include(o => o.OrderedMenuItems) // Include related ordered menu items
+                    .Include(o => o.OrderedDrinks) // Include related ordered drinks
+                    .FirstOrDefault(o => o.KitchenOrderId == KitchenOrderId);
+
+                if (kitchenOrder == null)
+                {
+                    return NotFound(); // Return a 404 Not Found response
+                }
+
+                var jsonKitchenOrder = JsonSerializer.Serialize(kitchenOrder, jsonSerializerOptions);
+
+                // Return a 200 OK response with the serialized kitchen order
+                return Ok(jsonKitchenOrder); // Return a 200 OK response with the kitchen order
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions, log errors, and return an error response
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+
+        //GET ALL KITCHEN ORDERS
+        [HttpGet]
+        [Route("GetAllKitchenOrders")]
+        public IActionResult GetAllKitchenOrders()
+        {
+            try
+            {
+
+
+                // Retrieve all kitchen orders including related ordered menu items and drinks
+                var kitchenOrders = _appDbContext.KitchenOrders
+                    .Include(o => o.OrderedMenuItems)
+                    .Include(o => o.OrderedDrinks)
+                    .ToList();
+
+
+                var jsonSettings = new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+
+                var json = JsonConvert.SerializeObject(kitchenOrders, Formatting.Indented, jsonSettings);
+
+                return Ok(json); // Return a 200 OK response with the list of kitchen orders
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions, log errors, and return an error response
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+
+        //EDIT KITCHEN ORDER
+        [HttpPut]
+        [Route("UpdateKitchenOrder/{KitchenOrderId}")]
+        public IActionResult UpdateKitchenOrder(int kitchenOrderId, KitchenOrderDto updatedKitchenOrder)
+        {
+            try
+            {
+                var existingKitchenOrder = _appDbContext.KitchenOrders
+                    .Include(o => o.OrderedMenuItems) // Include related ordered menu items
+                    .Include(o => o.OrderedDrinks) // Include related ordered drinks
+                    .FirstOrDefault(o => o.KitchenOrderId == kitchenOrderId);
+
+                if (existingKitchenOrder == null)
+                {
+                    return NotFound(); // Return a 404 Not Found response
+                }
+
+                // Update the existing kitchen order properties
+                existingKitchenOrder.TableNumber = updatedKitchenOrder.TableNumber;
+                existingKitchenOrder.KitchenOrderNumber = updatedKitchenOrder.KitchenOrderNumber;
+                existingKitchenOrder.Subtotal = updatedKitchenOrder.Subtotal;
+                existingKitchenOrder.VAT = updatedKitchenOrder.VAT;
+                existingKitchenOrder.Discount = updatedKitchenOrder.Discount;
+                existingKitchenOrder.Total = updatedKitchenOrder.Total;
+
+                // Update ordered menu items
+                existingKitchenOrder.OrderedMenuItems.Clear();
+                foreach (var menuItemDto in updatedKitchenOrder.orderMenuItemDtos)
+                {
+                    var menuItem = new Order_MenuItem
+                    {
+                        MenuItemId = menuItemDto.MenuItemId,
+                        Quantity = menuItemDto.Quantity
+                    };
+                    existingKitchenOrder.OrderedMenuItems.Add(menuItem);
+                }
+
+                // Update ordered drinks
+                existingKitchenOrder.OrderedDrinks.Clear();
+                foreach (var drinkDto in updatedKitchenOrder.orderDrinkDtos)
+                {
+                    var drink = new Order_Drink
+                    {
+                        OtherDrinkId = drinkDto.OtherDrinkId,
+                        Quantity = drinkDto.Quantity
+                    };
+                    existingKitchenOrder.OrderedDrinks.Add(drink);
+                }
+
+                _appDbContext.SaveChanges();
+
+                return Ok(existingKitchenOrder); // Return a 200 OK response with the updated kitchen order
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions, log errors, and return an error response
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+
+
         private decimal CalculateSubtotal(List<MenuItem> orderedMenuItems, List<OtherDrink> orderedDrinks)
         {
             // Implement your subtotal calculation logic here based on the ordered items and drinks in orderDto
@@ -306,20 +443,20 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 
         //get kitchen order
-        [HttpGet]
-        [Route("GetAllKitchenOrders")]
-        public async Task<ActionResult<List<KitchenOrderDto>>> GetAllKitchenOrders()
-        {
-            try
-            {
-                var kitchenOrders = await _repository.GetAllKitchenOrdersAsync();
-                return Ok(kitchenOrders);
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Internal Server Error. Please contact support.");
-            }
-        }
+        //[HttpGet]
+        //[Route("GetAllKitchenOrders")]
+        //public async Task<ActionResult<List<KitchenOrderDto>>> GetAllKitchenOrders()
+        //{
+        //    try
+        //    {
+        //        var kitchenOrders = await _repository.GetAllKitchenOrdersAsync();
+        //        return Ok(kitchenOrders);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return StatusCode(500, "Internal Server Error. Please contact support.");
+        //    }
+        //}
 
         //get Vat by Id
        

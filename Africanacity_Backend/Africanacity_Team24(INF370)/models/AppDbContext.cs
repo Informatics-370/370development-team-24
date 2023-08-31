@@ -102,8 +102,8 @@ namespace Africanacity_Team24_INF370_.models
 			base.OnModelCreating(modelBuilder);
 
             
-            modelBuilder.Entity<MenuItem>().HasMany(st => st.OrderedMenuItems).WithOne().OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<KitchenOrder>().HasMany(st => st.OrderedDrinks).WithOne().OnDelete(DeleteBehavior.Cascade);
+            //modelBuilder.Entity<MenuItem>().HasMany(st => st.OrderedMenuItems).WithOne().OnDelete(DeleteBehavior.Cascade);
+            //modelBuilder.Entity<KitchenOrder>().HasMany(st => st.OrderedDrinks).WithOne().OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Gender>()
                     .HasData(
                     new

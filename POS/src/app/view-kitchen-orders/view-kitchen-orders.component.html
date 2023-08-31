@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Submitted Orders</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card class="ion-card" *ngFor="let order of filteredKitchenOrders">
+    <ion-card-header>
+      <ion-card-title>{{ order.kitchenOrderId}}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <!-- Add relevant properties for drinks -->
+      <p>ORDER NO:{{ order.kitchenOrderNumber}}</p>
+      <p>TABLE: {{order.tableNumber}}</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+ 
+

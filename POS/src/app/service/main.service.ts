@@ -152,9 +152,7 @@ return this.httpClient.post(url, body);
   //get all kitchen orders
   //get all kitchen orders
 //get all kitchen orders
-  getAllKitchenOrders(): Observable<KitchenOrder[]> {
-  return this.httpClient.get<KitchenOrder[]>(`${this.apiUrl}Order/GetAllKitchenOrders`);
-  }
+ 
 
 
 
@@ -220,6 +218,23 @@ return this.httpClient.post(url, body);
     .post<void>(`${this.apiUrl}Order/AddKitchenOrder`, orderData)
     .toPromise();
 }
+
+
+  // Method to get a specific kitchen order by ID
+  getKitchenOrderById(kitchenOrderId: number): Observable<any> {
+    return this.httpClient.get(`${this.apiUrl}Order/GetKitchenOrderById/${kitchenOrderId}`);
+  }
+
+  // Method to update a kitchen order
+  updateKitchenOrder(kitchenOrderId: number, kitchenOrderData: any): Observable<any> {
+    return this.httpClient.put(`${this.apiUrl}Order/UpdateKitchenOrder/${kitchenOrderId}`, kitchenOrderData);
+  }
+
+
+  //get all kitchen orders
+  getAllKitchenOrders(): Observable<any> {
+    return this.httpClient.get(`${this.apiUrl}Order/GetAllKitchenOrders`);
+  }
 
 
 

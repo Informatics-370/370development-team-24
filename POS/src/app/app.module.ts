@@ -26,6 +26,8 @@ import { PaymentComponent } from './payment/payment.component';
 import { PrintReceiptComponent } from './print-receipt/print-receipt.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { CustomAlertComponent } from './success-custom-alert/custom-alert.component';
+import { EditKitchenOrderComponent } from './edit-kitchen-order/edit-kitchen-order.component';
+import { ViewKitchenOrdersComponent } from './view-kitchen-orders/view-kitchen-orders.component';
 
 
 
@@ -41,7 +43,9 @@ import { CustomAlertComponent } from './success-custom-alert/custom-alert.compon
   PaymentComponent,
   PrintReceiptComponent,
   SignUpComponent,
-  CustomAlertComponent],
+  CustomAlertComponent,
+  EditKitchenOrderComponent,
+  ViewKitchenOrdersComponent],
 
  
 
