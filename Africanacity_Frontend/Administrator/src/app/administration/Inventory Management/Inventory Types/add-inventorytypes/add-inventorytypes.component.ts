@@ -4,6 +4,8 @@ import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InventoryService } from 'src/app/service/inventory.service';
 import { InventoryType } from 'src/app/shared/inventorytype';
+import { HelpAddinventorytypeComponent } from './help-addinventorytype/help-addinventorytype.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-inventorytypes',
@@ -16,7 +18,7 @@ export class AddInventorytypesComponent {
 
   constructor(private inventoryservice: InventoryService, private router: Router, 
     private activated: ActivatedRoute,
-    private snackBar: MatSnackBar) {}
+    private snackBar: MatSnackBar,  private dialog: MatDialog) {}
 
     inventoryTypeForm: FormGroup = new FormGroup({
       name: new FormControl('',[Validators.required]),
@@ -67,6 +69,16 @@ export class AddInventorytypesComponent {
         horizontalPosition: 'center',
         verticalPosition: 'bottom'
       });
+  }
+  openHelpModal(field: string): void {
+    const dialogRef = this.dialog.open(HelpAddinventorytypeComponent, {
+      width: '500px',
+      data: { field } // Pass the field name to the modal
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle modal close if needed
+    });
   }
 
 }

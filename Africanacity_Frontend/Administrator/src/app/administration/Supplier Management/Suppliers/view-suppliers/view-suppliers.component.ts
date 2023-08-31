@@ -7,6 +7,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { SupplierService } from 'src/app/service/supplier.service';
 import { Router } from '@angular/router';
 import { Supplier } from 'src/app/shared/supplier';
+import { MatDialog } from '@angular/material/dialog';
+import { HelpViewsupplierComponent } from './help-viewsupplier/help-viewsupplier.component';
 
 
 
@@ -24,7 +26,7 @@ export class ViewSuppliersComponent {
   suppliers: Supplier[] = []
   filteredsuppliers: Supplier[] = [];
   
-  constructor(private supplierservice: SupplierService, private snackBar: MatSnackBar, private httpClient: HttpClient, private router: Router){}
+  constructor(private supplierservice: SupplierService, private snackBar: MatSnackBar, private httpClient: HttpClient, private router: Router, private dialog: MatDialog){}
 
   deleteItem(): void {
     const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete this supplier?', 'Delete, Cancel',{
@@ -84,6 +86,16 @@ deleteItemFromServer(): void {
   DeleteSupplier(supplierId: Number){
     this.supplierservice.DeleteSupplier(supplierId).subscribe(result => {
       this.deleteItem();
+      });
+    }
+    openHelpModal(field: string): void {
+      const dialogRef = this.dialog.open(HelpViewsupplierComponent, {
+        width: '500px',
+        data: { field } // Pass the field name to the modal
+      });
+    
+      dialogRef.afterClosed().subscribe(result => {
+        // Handle modal close if needed
       });
     }
 

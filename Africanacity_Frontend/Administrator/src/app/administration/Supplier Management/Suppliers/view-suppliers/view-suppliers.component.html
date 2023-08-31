@@ -8,7 +8,16 @@
     <h3 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px; font-weight: bolder;">Supplier Listing </h3>
 
       <label></label>
-      <input type="text" class="form-control" (input)="applyFilter($event)" placeholder="Search Columns">
+      <div class="input-group">
+        <div class="search-bar">
+        <input type="text" class="form-control" (input)="applyFilter($event)" placeholder="Search Columns">
+        </div>
+      <div class="addButton">
+        <button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help"  matTooltip="Help">
+            <mat-icon style="font-size: 24px;">help</mat-icon>
+          </button>
+      </div> 
+        </div>
 
     <table class="table table-striped table-hover table-container outlined-table">
         <thead class="tableColor">
@@ -30,8 +39,8 @@
                 <td>{{supplier.phoneNumber}}</td>
                 <td>{{supplier.physical_Address}}</td>
                 
-                  <td> <i class="fa fa-pencil" [routerLink]="['/edit-supplier', supplier.supplierId]" aria-hidden="true"></i></td>
-                  <td><i class="fa fa-trash"  (click)="DeleteSupplier(supplier.supplierId)" aria-hidden="true"></i></td>
+                  <td> <i class="fa fa-pencil" [routerLink]="['/edit-supplier', supplier.supplierId]" aria-hidden="true"  matTooltip="Edit"></i></td>
+                  <td><i class="fa fa-trash"  (click)="DeleteSupplier(supplier.supplierId)" aria-hidden="true"  matTooltip="Delete"></i></td>
             </tr>
         </tbody>
     </table>

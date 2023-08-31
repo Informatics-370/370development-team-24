@@ -7,6 +7,7 @@ import { SupplierService } from 'src/app/service/supplier.service';
 import { SupplierType } from 'src/app/shared/SupplierTypes';
 import { Supplier } from 'src/app/shared/supplier';
 import { AbstractControl } from '@angular/forms';
+import { HelpAddsupplierComponent } from './help-addsupplier/help-addsupplier.component';
 
 function phoneNumberValidator(control: AbstractControl): { [key: string]: any } | null {
   const phoneNumber = control.value;
@@ -104,6 +105,17 @@ export class AddSupplierComponent implements OnInit{
       verticalPosition: 'bottom'
     });
 }
+openHelpModal(field: string): void {
+  const dialogRef = this.dialog.open(HelpAddsupplierComponent, {
+    width: '500px',
+    data: { field } // Pass the field name to the modal
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    // Handle modal close if needed
+  });
+}
+
 
 
 }

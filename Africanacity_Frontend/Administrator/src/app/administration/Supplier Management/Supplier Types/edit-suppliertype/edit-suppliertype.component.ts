@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SupplierService } from 'src/app/service/supplier.service';
 import { SupplierType } from 'src/app/shared/SupplierTypes';
+import { HelpEditsuppliertypeComponent } from './help-editsuppliertype/help-editsuppliertype.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-edit-suppliertype',
@@ -13,7 +15,8 @@ export class EditSuppliertypeComponent implements OnInit {
 
   constructor(private supplierservice: SupplierService, 
     private router: Router, 
-    private activated:ActivatedRoute) { }
+    private activated:ActivatedRoute,
+    private dialog: MatDialog) { }
   
     editSupplierType: SupplierType = new SupplierType();
   
@@ -47,5 +50,16 @@ export class EditSuppliertypeComponent implements OnInit {
       this.router.navigate(['view-suppliertypes'])
       });
     }
+    openHelpModal(field: string): void {
+      const dialogRef = this.dialog.open(HelpEditsuppliertypeComponent, {
+        width: '500px',
+        data: { field } // Pass the field name to the modal
+      });
+    
+      dialogRef.afterClosed().subscribe(result => {
+        // Handle modal close if needed
+      });
+    }
+    
 
 }

@@ -4,6 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { InventoryService } from 'src/app/service/inventory.service';
 import { InventoryType } from 'src/app/shared/inventorytype';
+import { HelpViewinventorytypeComponent } from './help-viewinventorytype/help-viewinventorytype.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-view-inventorytypes',
@@ -15,7 +17,8 @@ export class ViewInventorytypesComponent {
   inventorytypes: InventoryType[] = []
   filteredInventoryTypes: InventoryType[] = [];
   
-  constructor(private inventoryservice: InventoryService, private snackBar: MatSnackBar, private httpClient: HttpClient, private router: Router){}
+  constructor(private inventoryservice: InventoryService, private snackBar: MatSnackBar, private httpClient: HttpClient, private router: Router, private dialog: MatDialog
+    ){}
 
   deleteItem(): void {
     const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete this inventory type?', 'Delete, Cancel',{
@@ -77,6 +80,17 @@ deleteItemFromServer(): void {
       this.deleteItem();
       });
     }
-
-
+    openHelpModal(field: string): void {
+      const dialogRef = this.dialog.open(HelpViewinventorytypeComponent, {
+        width: '500px',
+        data: { field } // Pass the field name to the modal
+      });
+    
+      dialogRef.afterClosed().subscribe(result => {
+        // Handle modal close if needed
+      });
+    }
 }
+
+
+

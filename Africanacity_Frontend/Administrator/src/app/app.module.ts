@@ -106,6 +106,16 @@ import { HelpAddinventorytypeComponent } from './administration/Inventory Manage
 import { HelpAddemployeesComponent } from './administration/Employees/add-employee/help-addemployees/help-addemployees.component';
 import { HelpEditemployeeComponent } from './administration/Employees/view-employees/edit-employee/help-editemployee/help-editemployee.component';
 import { HelpViewemployeesComponent } from './administration/Employees/view-employees/help-viewemployees/help-viewemployees.component';
+import { HelpAddsuppliertypeComponent } from './administration/Supplier Management/Supplier Types/add-suppliertype/help-addsuppliertype/help-addsuppliertype.component';
+import { HelpEditsuppliertypeComponent } from './administration/Supplier Management/Supplier Types/edit-suppliertype/help-editsuppliertype/help-editsuppliertype.component';
+import { HelpViewsuppliertypesComponent } from './administration/Supplier Management/Supplier Types/view-suppliertypes/help-viewsuppliertypes/help-viewsuppliertypes.component';
+import { HelpAddsupplierComponent } from './administration/Supplier Management/Suppliers/add-supplier/help-addsupplier/help-addsupplier.component';
+import { HelpEditsupplierComponent } from './administration/Supplier Management/Suppliers/edit-supplier/help-editsupplier/help-editsupplier.component';
+import { HelpViewsupplierComponent } from './administration/Supplier Management/Suppliers/view-suppliers/help-viewsupplier/help-viewsupplier.component';
+import { HelpViewinventorytypeComponent } from './administration/Inventory Management/Inventory Types/view-inventorytypes/help-viewinventorytype/help-viewinventorytype.component';
+import { HelpEditinvetorytypeComponent } from './administration/Inventory Management/Inventory Types/edit-intventorytype/help-editinvetorytype/help-editinvetorytype.component';
+import { HelpStocktakeComponent } from './administration/Inventory Management/Inventory Items/stock-take/help-stocktake/help-stocktake.component';
+import { HelpReceiveorderComponent } from './administration/Inventory Management/Inventory Items/receive-order/help-receiveorder/help-receiveorder.component';
 
 
 
@@ -224,6 +234,16 @@ import { HelpViewemployeesComponent } from './administration/Employees/view-empl
     HelpAddemployeesComponent,
     HelpEditemployeeComponent,
     HelpViewemployeesComponent,
+    HelpAddsuppliertypeComponent,
+    HelpEditsuppliertypeComponent,
+    HelpViewsuppliertypesComponent,
+    HelpAddsupplierComponent,
+    HelpEditsupplierComponent,
+    HelpViewsupplierComponent,
+    HelpViewinventorytypeComponent,
+    HelpEditinvetorytypeComponent,
+    HelpStocktakeComponent,
+    HelpReceiveorderComponent,
     
 
   ],
