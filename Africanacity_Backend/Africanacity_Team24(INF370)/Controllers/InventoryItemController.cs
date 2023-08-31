@@ -438,17 +438,16 @@ namespace Africanacity_Team24_INF370_.Controllers
                         {
                             StockTakeItem = stockTakeItem,
                             Description = stockTakeItem.Description,// Link the WriteOff to the StockTakeItem
-                            Reason = "Reason"
+                            Reason = "Food went bad"
                         };
 
                         //StockTakeFunction();
 
-
-
                         _appDbContext.WriteOffs.Add(writeOff); // Save the write-off record
                     }
                 }
-        
+             
+
                 _appDbContext.StockTakes.Add(stockTake);
                 _appDbContext.SaveChanges();
 
@@ -471,17 +470,23 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
 
         }
-        private void AddWriteOffRecord(StockTakeItem stockTakeItem, DiscrepencyItem discrepancyItem, string reason)
-        {
-            var writeOff = new WriteOffStock
-            {
-                StockTakeItem = stockTakeItem,
-                Description = stockTakeItem.Description,
-                Reason = reason
-            };
 
-            _appDbContext.WriteOffs.Add(writeOff);
+        private int StockTakeFunction(List<StockTakeBatchViewModel> items)
+        {
+            throw new NotImplementedException();
         }
+
+        //private void AddWriteOffRecord(StockTakeItem stockTakeItem, DiscrepencyItem discrepancyItem, string reason)
+        //{
+        //    var writeOff = new WriteOffStock
+        //    {
+        //        StockTakeItem = stockTakeItem,
+        //        Description = stockTakeItem.Description,
+        //        Reason = reason
+        //    };
+
+        //    _appDbContext.WriteOffs.Add(writeOff);
+        //}
 
         [HttpGet]
         [Route("GetAllReconItems")]
@@ -519,41 +524,41 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
 
-        [HttpPost]
-        [Route("AddWriteOffRecord")]
-        public IActionResult AddWriteOffRecord(List<DiscrepencyItem> writeOffItems)
-        {
-            try
-            {
-                foreach (var item in writeOffItems)
-                {
-                    var writeOff = new DiscrepencyItem
-                    {
-                        Inventory_ItemId = item.Inventory_ItemId,
-                        Reason = item.Reason
+        //[HttpPost]
+        //[Route("AddWriteOffRecord")]
+        //public IActionResult AddWriteOffRecord(List<DiscrepencyItem> writeOffItems)
+        //{
+        //    try
+        //    {
+        //        foreach (var item in writeOffItems)
+        //        {
+        //            var writeOff = new DiscrepencyItem
+        //            {
+        //                Inventory_ItemId = item.Inventory_ItemId,
+        //                Reason = item.Reason
 
-                    };
+        //            };
 
-                    StockTakeFunction();
+        //            StockTakeFunction();
 
-                    _appDbContext.DiscrepencyItems.Add(writeOff);
-                }
+        //            _appDbContext.DiscrepencyItems.Add(writeOff);
+        //        }
 
-                _appDbContext.SaveChanges();
+        //        _appDbContext.SaveChanges();
 
-                return Ok("Write-off records added successfully");
-            }
-            catch (Exception ex)
-            {
-                // Handle exceptions and return appropriate responses
-                return BadRequest("An error occurred while adding write-off records. Please check the logs for more details.");
-            }
-        }
+        //        return Ok("Write-off records added successfully");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Handle exceptions and return appropriate responses
+        //        return BadRequest("An error occurred while adding write-off records. Please check the logs for more details.");
+        //    }
+        //}
 
-        internal int StockTakeFunction()
-        {
-            return 0;
-        }
+        //internal int StockTakeFunction()
+        //{
+        //    return 0;
+        //}
 
 
         //internal int StockTakeFunction(List<StockTakeBatchViewModel> stockTakeItems)
@@ -578,7 +583,6 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         //    return discrepancies;
         //}
-
 
         //private void AddWriteOffRecords(List<StockTakeItem> stockTakeItems, string adminReason)
         //{

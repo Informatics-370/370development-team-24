@@ -104,6 +104,8 @@ import { HelpEditinventoryitemComponent } from './administration/Inventory Manag
 import { HelpViewinventoryitemComponent } from './administration/Inventory Management/Inventory Items/view-inventoryitems/help-viewinventoryitem/help-viewinventoryitem.component';
 import { HelpAddinventorytypeComponent } from './administration/Inventory Management/Inventory Types/add-inventorytypes/help-addinventorytype/help-addinventorytype.component';
 import { HelpAddemployeesComponent } from './administration/Employees/add-employee/help-addemployees/help-addemployees.component';
+import { HelpEditemployeeComponent } from './administration/Employees/view-employees/edit-employee/help-editemployee/help-editemployee.component';
+import { HelpViewemployeesComponent } from './administration/Employees/view-employees/help-viewemployees/help-viewemployees.component';
 
 
 
@@ -220,6 +222,8 @@ import { HelpAddemployeesComponent } from './administration/Employees/add-employ
     HelpViewinventoryitemComponent,
     HelpAddinventorytypeComponent,
     HelpAddemployeesComponent,
+    HelpEditemployeeComponent,
+    HelpViewemployeesComponent,
     
 
   ],

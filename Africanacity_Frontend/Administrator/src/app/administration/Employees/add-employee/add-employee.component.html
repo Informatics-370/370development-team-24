@@ -110,7 +110,7 @@
   <ng-container *ngIf="employeeForm.get('surname')?.hasError('whitespace')">Input cannot be whitespace</ng-container>
   <ng-container *ngIf="employeeForm.get('surname')?.hasError('required')">Last name is required</ng-container>
 </div> -->
-<button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help">
+<button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help" matTooltip="Help">
   <mat-icon>help</mat-icon>
 </button>
  </div> 

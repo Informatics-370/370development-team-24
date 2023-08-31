@@ -11,7 +11,7 @@
         <input type="text" class="form-control" (input)="applyFilter($event)" placeholder="Search Columns">
         </div>
       <div class="addButton">
-        <i class="fa fa-download fa-lg icon" aria-hidden="true" (click)="downloadPDF()"></i>
+        <i class="fa fa-download fa-lg icon" aria-hidden="true" (click)="downloadPDF()" matTooltip="Download"></i>
     
       </div> 
         </div>
@@ -45,8 +45,8 @@
                 <td>{{employee.employment_Date | date}}</td>
                 
                 
-                  <td> <i class="fa fa-pencil" [routerLink]="['/edit-employee', employee.employeeId]" aria-hidden="true"></i></td>
-                  <td><i class="fa fa-trash"  (click)="DeleteEmployee(employee.employeeId)" aria-hidden="true"></i></td>
+                  <td> <i class="fa fa-pencil" [routerLink]="['/edit-employee', employee.employeeId]" aria-hidden="true" matTooltip="Edit"></i></td>
+                  <td><i class="fa fa-trash"  (click)="DeleteEmployee(employee.employeeId)" aria-hidden="true" matTooltip="Delete"></i></td>
             </tr>
         </tbody>
     </table>
