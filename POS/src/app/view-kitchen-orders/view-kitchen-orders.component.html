@@ -1,4 +1,4 @@
-<ion-header>
+<!--ion-header>
   <ion-toolbar>
     <ion-title>Submitted Orders</ion-title>
   </ion-toolbar>
@@ -10,7 +10,7 @@
     </ion-card-header>
 
     <ion-card-content>
-      <!-- Add relevant properties for drinks -->
+      
       <p>ORDER NO:{{ order.kitchenOrderNumber}}</p>
       <p>TABLE: {{order.tableNumber}}</p>
     </ion-card-content>
@@ -21,12 +21,44 @@
     </ion-card-header>
 
     <ion-card-content>
-      <!-- Add relevant properties for drinks -->
+    
       <p>ORDER NO:{{ order.kitchenOrderNumber}}</p>
       <p>TABLE: {{order.tableNumber}}</p>
     </ion-card-content>
   </ion-card>
+</ion-content-->
+<ion-content *ngIf="kitchenOrders.length > 0">
+  <ion-card *ngFor="let order of kitchenOrders">
+    <h3>Order Number: {{ order.KitchenOrderNumber }}</h3>
+  <p>{{ order.TableNumber }}</p>
+  <p *ngFor="let omi of order.OrderedMenuItems"> {{omi.MenuItem.Name}} x {{omi.Quantity}}</p>
+  <p *ngFor="let od of order.OrderedDrinkItems"> {{od.OtherDrink.Name}} x {{od.Quantity}}</p>
+  <p>Subtotal: {{ order.Subtotal }}</p>
+  <p>VAT: {{ order.VAT }}</p>
+  <p>Discount: {{ order.Discount }}</p>
+  <p>Total: {{ order.Total }}</p>
+  <ion-button type="button" (click)="editOrder(order)" class="btn btn-primary">Edit</ion-button>
+
+  <!--h4>Ordered Menu Items:</h4>
+  <ul
+    <li *ngFor="let omi of order.OrderedMenuItems">
+      {{ omi.quantity }} x {{ omi.menuItem.name }} 
+    </li>
+  </ul>
+
+  <h4>Ordered Drinks:</h4>
+  <ul>
+    <li *ngFor="let od of order.OrderedDrinkItems">
+      {{ od.quantity }} x {{ od.otherDrink.name }} 
+    </li>
+  </ul-->
+
+  </ion-card>
 </ion-content>
+
+
+
+
 
  
 

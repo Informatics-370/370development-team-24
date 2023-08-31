@@ -15,9 +15,11 @@ export class AppComponent {
         this.showTabs = event.urlAfterRedirects.includes('/home') || 
                         event.urlAfterRedirects.includes('/table')||
                         event.urlAfterRedirects.includes('/order') || 
-                        event.urlAfterRedirects.includes('/kitchen-screen') ||
-                        event.urlAfterRedirects.includes('/notification') ||
-                        event.urlAfterRedirects.includes('/payment');
+                        event.urlAfterRedirects.includes('/kitchen-screen')
+                        
+ 
+                        
+                       
       }
     });
   } 

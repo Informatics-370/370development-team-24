@@ -226,8 +226,8 @@ return this.httpClient.post(url, body);
   }
 
   // Method to update a kitchen order
-  updateKitchenOrder(kitchenOrderId: number, kitchenOrderData: any): Observable<any> {
-    return this.httpClient.put(`${this.apiUrl}Order/UpdateKitchenOrder/${kitchenOrderId}`, kitchenOrderData);
+  updateKitchenOrder(kitchenOrder: any): Observable<any> {
+    return this.httpClient.put(`${this.apiUrl}Order/EditKitchenOrder`, kitchenOrder);
   }
 
 

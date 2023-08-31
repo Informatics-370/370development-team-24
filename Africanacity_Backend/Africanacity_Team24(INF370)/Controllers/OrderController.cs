@@ -259,8 +259,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 
                 // Retrieve all kitchen orders including related ordered menu items and drinks
                 var kitchenOrders = _appDbContext.KitchenOrders
-                    .Include(o => o.OrderedMenuItems)
-                    .Include(o => o.OrderedDrinks)
+                    .Include(o => o.OrderedMenuItems).ThenInclude(omi => omi.MenuItem)
+                    .Include(o => o.OrderedDrinks).ThenInclude(od => od.OtherDrink)
                     .ToList();
 
 
@@ -339,66 +339,6 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
         }
 
-
-        //EDIT KITCHEN ORDER
-        [HttpPut]
-        [Route("UpdateKitchenOrder/{KitchenOrderId}")]
-        public IActionResult UpdateKitchenOrder(int kitchenOrderId, KitchenOrderDto updatedKitchenOrder)
-        {
-            try
-            {
-                var existingKitchenOrder = _appDbContext.KitchenOrders
-                    .Include(o => o.OrderedMenuItems) // Include related ordered menu items
-                    .Include(o => o.OrderedDrinks) // Include related ordered drinks
-                    .FirstOrDefault(o => o.KitchenOrderId == kitchenOrderId);
-
-                if (existingKitchenOrder == null)
-                {
-                    return NotFound(); // Return a 404 Not Found response
-                }
-
-                // Update the existing kitchen order properties
-                existingKitchenOrder.TableNumber = updatedKitchenOrder.TableNumber;
-                existingKitchenOrder.KitchenOrderNumber = updatedKitchenOrder.KitchenOrderNumber;
-                existingKitchenOrder.Subtotal = updatedKitchenOrder.Subtotal;
-                existingKitchenOrder.VAT = updatedKitchenOrder.VAT;
-                existingKitchenOrder.Discount = updatedKitchenOrder.Discount;
-                existingKitchenOrder.Total = updatedKitchenOrder.Total;
-
-                // Update ordered menu items
-                existingKitchenOrder.OrderedMenuItems.Clear();
-                foreach (var menuItemDto in updatedKitchenOrder.orderMenuItemDtos)
-                {
-                    var menuItem = new Order_MenuItem
-                    {
-                        MenuItemId = menuItemDto.MenuItemId,
-                        Quantity = menuItemDto.Quantity
-                    };
-                    existingKitchenOrder.OrderedMenuItems.Add(menuItem);
-                }
-
-                // Update ordered drinks
-                existingKitchenOrder.OrderedDrinks.Clear();
-                foreach (var drinkDto in updatedKitchenOrder.orderDrinkDtos)
-                {
-                    var drink = new Order_Drink
-                    {
-                        OtherDrinkId = drinkDto.OtherDrinkId,
-                        Quantity = drinkDto.Quantity
-                    };
-                    existingKitchenOrder.OrderedDrinks.Add(drink);
-                }
-
-                _appDbContext.SaveChanges();
-
-                return Ok(existingKitchenOrder); // Return a 200 OK response with the updated kitchen order
-            }
-            catch (Exception ex)
-            {
-                // Handle exceptions, log errors, and return an error response
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
 
 
 
@@ -499,30 +439,6 @@ namespace Africanacity_Team24_INF370_.Controllers
             return 0; // Handle the case where the price is not found.
         }
 
-
-
-
-
-        //get kitchen order
-        //[HttpGet]
-        //[Route("GetAllKitchenOrders")]
-        //public async Task<ActionResult<List<KitchenOrderDto>>> GetAllKitchenOrders()
-        //{
-        //    try
-        //    {
-        //        var kitchenOrders = await _repository.GetAllKitchenOrdersAsync();
-        //        return Ok(kitchenOrders);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return StatusCode(500, "Internal Server Error. Please contact support.");
-        //    }
-        //}
-
-        //get Vat by Id
-       
-
-        //get Discount by Id
         [HttpGet]
         [Route("GetDiscountItem/{DiscountId}")]
         public async Task<IActionResult> GetDiscountItemAsync(int DiscountId)
@@ -546,6 +462,105 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 
         }
+
+        //Edit 
+        [HttpPut]
+        [Route("EditKitchenOrder/{kitchenOrderId}")]
+        public IActionResult EditKitchenOrder(int kitchenOrderId, KitchenOrderEditDto kitchenOrderEditDto)
+        {
+            try
+            {
+                var existingOrder = _appDbContext.KitchenOrders
+                    .Include(o => o.OrderedMenuItems)
+                    .Include(o => o.OrderedDrinks)
+                    .FirstOrDefault(o => o.KitchenOrderId == kitchenOrderId);
+
+                if (existingOrder == null)
+                {
+                    return NotFound(); // Return a 404 Not Found response if the order doesn't exist
+                }
+
+                // Update properties of the existing order with values from kitchenOrderEditDto
+                existingOrder.Subtotal = kitchenOrderEditDto.Subtotal;
+                existingOrder.VAT = kitchenOrderEditDto.VAT;
+                existingOrder.Discount = kitchenOrderEditDto.Discount;
+                existingOrder.Total = kitchenOrderEditDto.Total;
+
+                // Handle adding/removing menu items and drinks
+                UpdateMenuOrderedItems(existingOrder.OrderedMenuItems, kitchenOrderEditDto.OrderedItems);
+                UpdateDrinkOrderedItems(existingOrder.OrderedDrinks, kitchenOrderEditDto.OrderedDrinks);
+
+                // Save changes to the database
+                _appDbContext.SaveChanges();
+
+                return Ok(); // Return a 200 OK response indicating success
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions, log errors, and return an error response
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        // Helper method to update ordered items
+        private void UpdateMenuOrderedItems(ICollection<Order_MenuItem> existingItems, List<BothOrderItemEditDto> updatedItems)
+        {
+            // Iterate through the updated items
+            foreach (var updatedItem in updatedItems)
+            {
+                if (updatedItem.IsRemoved)
+                {
+                    // Remove the item if IsRemoved is true
+                    var existingItem = existingItems.FirstOrDefault(item => item.OrderMenuItemId == updatedItem.BothOrderItemId);
+                    if (existingItem != null)
+                    {
+                        existingItems.Remove(existingItem);
+                    }
+                }
+                else
+                {
+                    // Update quantity and description for existing items
+                    var existingItem = existingItems.FirstOrDefault(item => item.OrderMenuItemId == updatedItem.BothOrderItemId);
+                    if (existingItem != null)
+                    {
+                        existingItem.Quantity = updatedItem.Quantity;
+                        // You can update the description here if needed
+                    }
+                }
+            }
+
+            // Handle adding new items here if IsAdded is true in updatedItems
+        }
+
+        private void UpdateDrinkOrderedItems(ICollection<Order_Drink> existingItems, List<BothOrderItemEditDto> updatedItems)
+        {
+            // Iterate through the updated items
+            foreach (var updatedItem in updatedItems)
+            {
+                if (updatedItem.IsRemoved)
+                {
+                    // Remove the item if IsRemoved is true
+                    var existingItem = existingItems.FirstOrDefault(item => item.OrderDrinkId == updatedItem.BothOrderItemId);
+                    if (existingItem != null)
+                    {
+                        existingItems.Remove(existingItem);
+                    }
+                }
+                else
+                {
+                    // Update quantity and description for existing items
+                    var existingItem = existingItems.FirstOrDefault(item => item.OrderDrinkId == updatedItem.BothOrderItemId);
+                    if (existingItem != null)
+                    {
+                        existingItem.Quantity = updatedItem.Quantity;
+                        // You can update the description here if needed
+                    }
+                }
+            }
+
+            // Handle adding new items here if IsAdded is true in updatedItems
+        }
+
 
 
 
