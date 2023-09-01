@@ -25,6 +25,7 @@
               <th scope="col">Inventory Qty</th>
               <th scope="col">Stock Take Qty</th>
               <th scope="col">Quantity Difference</th>
+              <th scope="col">Stock Take Date</th>
 
       </thead>
       <tbody>
@@ -34,6 +35,7 @@
               <td>{{reconItem.inventoryQuantity}}</td>
               <td>{{reconItem.quantity}}</td>
               <td>{{reconItem.quantityDifference}}</td>
+              <td>{{reconItem.stockTake_Date | date}}</td>
           </tr>
       </tbody>
   </table>

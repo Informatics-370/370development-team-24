@@ -11,10 +11,27 @@ export class StockTakeRecon{
   inventoryQuantity!: number;
   quantity!: number;
   quantityDifference!: number;
+  stockTake_Date!: Date;
 }
 
-export interface WriteOffViewModel {
-  stockTakeItemId: number;
+export class WriteOffViewModel {
+  inventory_ItemId!: number;
+  reason!: string;
+  itemName!: string;
+  quantityDifference!: number;
+  description!: string;
+  discrepId!: number;
+
+
+  //discrepencyItems: DiscrepencyItem[];
+}
+
+export interface DiscrepencyItem {
+  inventory_ItemId: number;
   reason: string;
+  itemName: string;
+  quantityDifference: number;
+  description: string;
+  discrepId: number;
   //discrepencyItems: DiscrepencyItem[];
 }

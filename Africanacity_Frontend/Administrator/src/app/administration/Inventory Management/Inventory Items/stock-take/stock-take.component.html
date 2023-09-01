@@ -10,10 +10,10 @@
     <form [formGroup]="stockTakeForm" (ngSubmit)="createStockTake()">
       <div class="form-group">
         <label for="stockTakeDate">Stock Take Date:</label>
-        <input type="date" formControlName="stockTakeDate" class="form-control">
+        <input type="date" formControlName="stockTakeDate" class="form-control" [attr.readonly]="true">
       </div>
       
-      <div formArrayName="items">
+    <div formArrayName="items">
         <table class="table">
           <thead>
             <tr>
@@ -41,7 +41,6 @@
           </tbody>
         </table>
       </div>
-      
       <button type="button" (click)="addItem()" class="btn btn-secondary">Add Item</button>
       <button type="submit" class="btn btn-primary">Create Stock Take</button>
     </form>
@@ -51,4 +50,5 @@
   
   
   
+
 

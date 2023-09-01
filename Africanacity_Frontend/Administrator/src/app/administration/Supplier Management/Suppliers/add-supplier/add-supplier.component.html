@@ -30,13 +30,14 @@
     </div>
     </div>
     
-   
-
     <div class="form-group">
       <span>
         <label class="col-sm-1" style="font-weight: bold;" for="email_Address">Email Address:</label>
         <div class="col-sm-6">
           <input class="form-control"  placeholder="xxxxx@gmail.com" [required]="true" name="email_Address" formControlName="email_Address">
+          <div *ngIf="supplierForm.get('email_Address')?.hasError('invalidEmailFormat')" class="text-danger">
+            <div style="font-size: small;">*Email must have the above format.</div>
+          </div>
         </div>
       </span>
     </div>
@@ -55,21 +56,24 @@
         <label class="col-sm-1" style="font-weight: bold;" for="phoneNumber">Phone Number:</label>
         <div class="col-sm-6">
           <input class="form-control"  placeholder="Enter valid 10-digit number" [required]="true" name="phoneNumber" formControlName="phoneNumber">
+          <div *ngIf="supplierForm.get('phoneNumber')?.hasError('invalidPhoneNumber')" class="text-danger">
+            <div style="font-size: small;">*Number must be a valid 10-digit number.</div>
+          </div>
         </div>
       </span>
     </div>
-
-    <!-- <div class="form-group"> -->
       <div class="col-sm-offset-1 col-sm-6 center-buttons">
       <div class="buttons">
         <span>
-        <button style="margin-right:1em;" type="submit" [disabled]="!supplierForm.valid" class="btn btn-sm btn-success">Add</button>
+        <button style="margin-right:1em;" type="submit" class="btn btn-sm btn-success">Add</button>
         <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button>
       </span>
       </div>
       </div>
-    <!-- </div> -->
   </form>
+  <button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help" matTooltip="Help">
+    <mat-icon>help</mat-icon>
+  </button>
   </div>
  </div> 
   </div>

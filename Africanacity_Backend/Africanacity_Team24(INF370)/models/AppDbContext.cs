@@ -95,6 +95,7 @@ namespace Africanacity_Team24_INF370_.models
 			base.OnModelCreating(modelBuilder);
 
             // modelBuilder.Entity<StockTake>().HasMany(st => st.StockTakeItems).WithOne().OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<Gender>()
                     .HasData(
                     new
@@ -1111,17 +1112,18 @@ namespace Africanacity_Team24_INF370_.models
               Quantity = 24
           });
 
-          modelBuilder.Entity<Supplier_Inventory>()
-              .HasData(
-            new
-            {
-                  SupplierItemId = 1,
-                 SupplierId = 1,
-                  Inventory_ItemId = 1,
-                 Ordered_Quantity = 33,
-                 //Ordered_Date = DateTime.Today,
-                 // Received_Date = DateTime.Today
-            });
+          //modelBuilder.Entity<Supplier_Inventory>()
+          //    .HasData(
+          //  new
+          //  {
+          //       SupplierItemId = 1,
+          //       SupplierId = 1,
+          //       Inventory_ItemId = 1,
+          //       Ordered_Quantity = 33,
+          //       Ordered_Date = DateTime.Now,
+          //       Received_Date = DateTime.Now,
+                 
+          //  });
 
 
 

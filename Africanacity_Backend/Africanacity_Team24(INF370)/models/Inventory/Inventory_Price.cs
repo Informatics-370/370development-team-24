@@ -14,5 +14,7 @@ namespace Africanacity_Team24_INF370_.models.Inventory
       
         public int Inventory_ItemId { get; set; }
 
+       // public Inventory_Item Inventory_Items { get; set; }
+
     }
 }

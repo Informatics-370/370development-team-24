@@ -1,0 +1,30 @@
+/* Add this CSS to your styles.css or component's style file */
+.container-fluid {
+    padding: 20px;
+  }
+  
+  .card {
+    width: 50%; /* Adjust the width as needed */
+    margin: 0 auto;
+    box-shadow: 0 4px 20px rgba(7, 7, 7, 0.1);
+    border-color: black;
+    margin-left: 360px;
+  }
+  
+  .card-body {
+    padding: 40x;
+  }
+  
+  h4 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 32px;
+    font-weight: bold;
+  }
+  
+  /* Form styles */
+  .form-group {
+    margin-bottom: 5px;
+    
+  }
+
+  

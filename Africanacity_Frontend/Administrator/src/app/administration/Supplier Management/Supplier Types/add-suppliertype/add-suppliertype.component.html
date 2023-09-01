@@ -7,7 +7,7 @@
     <div class="col-md-10 order-md-2">
       <div class="card">
         <div class="card-body">
-          <h4 class="text-center mb-4">Add Supplier</h4>
+          <h4 class="text-center mb-4">Add Supplier Type</h4>
           <hr>
           <div class="container">
             <div class="row">
@@ -34,13 +34,16 @@
       <div class="col-sm-offset-1 col-sm-6 center-buttons">
       <div class="buttons">
         <span>
-        <button style="margin-right:1em;" type="submit" [disabled]="!supplierTypeForm.valid" class="btn btn-sm btn-success">Add</button>
+        <button style="margin-right:1em;" type="submit" class="btn btn-sm btn-success">Add</button>
         <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button>
       </span>
       </div>
       </div>
     <!-- </div> -->
   </form>
+  <button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help"  matTooltip="Help">
+    <mat-icon style="font-size: 24px;">help</mat-icon>
+  </button>
   </div>
  </div> 
   </div>

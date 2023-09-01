@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { InventoryService } from 'src/app/service/inventory.service';
 import { InventoryItem } from 'src/app/shared/inventoryitem';
 import { InventoryType } from 'src/app/shared/inventorytype';
+import { HelpAddinventoryComponent } from './help-addinventory/help-addinventory.component';
 
 @Component({
   selector: 'app-add-inventoryitem',
@@ -22,8 +23,9 @@ export class AddInventoryitemComponent {
     itemName: new FormControl('', [Validators.required]),
     inventoryType: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
-    quantity: new FormControl('', [Validators.required]),
-    price: new FormControl('', [Validators.required]) 
+    price: new FormControl('', [Validators.required]),
+    quantity: new FormControl(['', [Validators.required, Validators.min(1)]])
+
   });
   
    ngOnInit(): void {
@@ -59,6 +61,13 @@ export class AddInventoryitemComponent {
 
    onSubmit() {
     if (this.inventoryItemForm.invalid) {
+      this.showErrorMessage('Please fill in all required fields.');
+      // Highlight invalid controls
+      Object.keys(this.inventoryItemForm.controls).forEach(controlName => {
+        if (this.inventoryItemForm.controls[controlName].invalid) {
+          this.inventoryItemForm.controls[controlName].markAsTouched();
+        }
+      });
       return;
     }
   
@@ -80,5 +89,23 @@ export class AddInventoryitemComponent {
       { duration: 5000 }
     );
   }
+
+  showErrorMessage(message: string): void {
+    const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(message, 'Ok', {
+      duration: 5000, // Duration in milliseconds
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom'
+    });
+}
+openHelpModal(field: string): void {
+  const dialogRef = this.dialog.open(HelpAddinventoryComponent, {
+    width: '500px',
+    data: { field } // Pass the field name to the modal
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    // Handle modal close if needed
+  });
+}
   
 }

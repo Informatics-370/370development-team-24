@@ -11,7 +11,7 @@
         <input type="text" class="form-control" (input)="applyFilter($event)" placeholder="Search Columns">
         </div>
       <div class="addButton">
-        <i class="fa fa-download fa-lg icon" aria-hidden="true" (click)="downloadPDF()"></i>
+        <i class="fa fa-download fa-lg icon" aria-hidden="true" (click)="downloadPDF()" matTooltip="Download"></i>
     
       </div> 
         </div>
@@ -42,14 +42,17 @@
                 <td>{{employee.email_Address}}</td>
                 <td>{{employee.phoneNumber}}</td>
                 <td>{{employee.physical_Address}}</td>
-                <td>{{employee.employment_Date}}</td>
+                <td>{{employee.employment_Date | date}}</td>
                 
                 
-                  <td> <i class="fa fa-pencil" [routerLink]="['/edit-employee', employee.employeeId]" aria-hidden="true"></i></td>
-                  <td><i class="fa fa-trash"  (click)="DeleteEmployee(employee.employeeId)" aria-hidden="true"></i></td>
+                  <td> <i class="fa fa-pencil" [routerLink]="['/edit-employee', employee.employeeId]" aria-hidden="true" matTooltip="Edit"></i></td>
+                  <td><i class="fa fa-trash"  (click)="DeleteEmployee(employee.employeeId)" aria-hidden="true" matTooltip="Delete"></i></td>
             </tr>
         </tbody>
     </table>
+    <button style="margin-left: 1100x; margin-top: 50px;"  mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help"  matTooltip="Help">
+      <mat-icon style="font-size: 24px;">help</mat-icon>
+    </button>
     </div>
     </div>
 

@@ -7,6 +7,7 @@ import { Employee_Role } from 'src/app/shared/EmployeeRole';
 import { Employee } from 'src/app/shared/employee';
 import { EmployeeService } from 'src/app/service/employee.service';
 import { Gender } from 'src/app/shared/gender';
+import { HelpEditemployeeComponent } from './help-editemployee/help-editemployee.component';
 
 
 @Component({
@@ -120,6 +121,16 @@ export class EditEmployeeComponent implements OnInit {
       duration: 3000, // Duration in milliseconds
       horizontalPosition: 'center',
       verticalPosition: 'bottom'
+    });
+  }
+  openHelpModal(field: string): void {
+    const dialogRef = this.dialog.open(HelpEditemployeeComponent, {
+      width: '500px',
+      data: { field } // Pass the field name to the modal
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle modal close if needed
     });
   }
 }

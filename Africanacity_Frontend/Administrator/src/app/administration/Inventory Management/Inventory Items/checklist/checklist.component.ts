@@ -103,7 +103,6 @@ export class ChecklistComponent {
     this.emitInventoryItemsChanged(this.checklistItems);
   }
 
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
   
@@ -115,16 +114,16 @@ export class ChecklistComponent {
   }
   
  
-  orderItem(item: InventoryItem) {
-    item.ordered = !item.ordered;
-    this.showNotification(`Item ${item.itemName} is ${item.ordered ? 'ordered' : 'not ordered'}.`);
+  // orderItem(item: InventoryItem) {
+  //   item.ordered = !item.ordered;
+  //   this.showNotification(`Item ${item.itemName} is ${item.ordered ? 'ordered' : 'not ordered'}.`);
     
-    // Save the updated state of checklistItems to local storage
-    localStorage.setItem('checklistItems', JSON.stringify(this.checklistItems));
-  }
+  //   // Save the updated state of checklistItems to local storage
+  //   localStorage.setItem('checklistItems', JSON.stringify(this.checklistItems));
+  // }
   
   queryItem(item: InventoryItem) {
-    // Implement the logic to query the item
+    this.router.navigate(['/view-suppliers']);
   }
   
   receiveItem(item: InventoryItem) {

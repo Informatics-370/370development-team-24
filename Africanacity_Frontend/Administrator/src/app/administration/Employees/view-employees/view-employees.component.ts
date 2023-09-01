@@ -7,6 +7,8 @@ import { EmployeeService } from 'src/app/service/employee.service';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { saveAs } from 'file-saver'; // Import file-saver for saving the PDF
+import { HelpViewemployeesComponent } from './help-viewemployees/help-viewemployees.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-view-employees',
@@ -22,7 +24,7 @@ export class ViewEmployeesComponent {
   employees: Employee[] = []
   filteredemployees: Employee[] = [];
   
-  constructor(private employeeservice: EmployeeService, private snackBar: MatSnackBar, private httpClient: HttpClient, private router: Router){}
+  constructor(private employeeservice: EmployeeService, private snackBar: MatSnackBar, private httpClient: HttpClient, private router: Router, private dialog: MatDialog){}
 
   deleteItem(): void {
     const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete this employee?', 'Delete, Cancel',{
@@ -121,5 +123,15 @@ deleteItemFromServer(): void {
     
       // Save the Blob to a file
       saveAs(file, 'employee_listing.pdf');
+    }
+    openHelpModal(field: string): void {
+      const dialogRef = this.dialog.open(HelpViewemployeesComponent, {
+        width: '500px',
+        data: { field } // Pass the field name to the modal
+      });
+    
+      dialogRef.afterClosed().subscribe(result => {
+        // Handle modal close if needed
+      });
     }
 }

@@ -11,7 +11,18 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DatePipe } from '@angular/common';
 import { Supplier_Inventory } from 'src/app/shared/supplieritem';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 
+function orderedDateValidator(control: AbstractControl): ValidationErrors | null {
+  const orderedDate = new Date(control.value);
+  const currentDate = new Date();
+
+  if (orderedDate > currentDate) {
+    return { orderedDateInvalid: true };
+  }
+
+  return null;
+}
 @Component({
   selector: 'app-receive-order',
   templateUrl: './receive-order.component.html',
@@ -25,12 +36,9 @@ export class ReceiveOrderComponent implements OnInit {
   editInventory: InventoryItem = new InventoryItem();
   supplieritems: Supplier_Inventory[] = []; // Add the supplieritems property
   filteredsupplieritems: Supplier_Inventory[] = [];
-  datePipe = new DatePipe('en-US');
-  selectedItemName: string = '';
-  selectedSupplierName: string = '';
-  //orderDate: Date = new Date();
-  //receivedDate: Date = new Date();
-  orderedQuantity: number = 0;
+  orderedDateControl: AbstractControl | null = null; // Initialize it as null
+
+
 
   constructor(
     private route: ActivatedRoute,
@@ -43,29 +51,34 @@ export class ReceiveOrderComponent implements OnInit {
    
   ) {
     this.receiveOrderForm = this.fb.group({
-      itemName: ['', Validators.required],
-      supplierId: ['', Validators.required],
-      //ordered_Date: ['', Validators.required],
-      //received_Date: [new Date().toISOString().slice(0, 10)],
-      ordered_Quantity: ['', [Validators.required, Validators.min(1)]]
+      inventoryItemName: new FormControl('',[Validators.required]),
+      supplierNames: new FormControl('',[Validators.required]),
+      ordered_Date: new FormControl('',[Validators.required, orderedDateValidator ]),
+      received_Date: [new Date().toISOString().slice(0, 10)],
+      ordered_Quantity: new FormControl(['', [Validators.required, Validators.min(1)]])
     });
-    this.receiveOrderForm.controls['itemName'].disable();
-    
+    // this.receiveOrderForm.controls['inventoryItemName'].disable();
+
+
   }
 
-  onReceiveOrderClick(itemName: string) {
-    this.router.navigate(['/receive-order'], { queryParams: { itemName: itemName } });
-  }
+
 
   ngOnInit(): void {
+
+
+    this.getAllSuppliers();
+
     this.route.params.subscribe(params => {
       this.inventoryservice.GetInventoryItem(params['id']).subscribe(res => {
         this.editInventory = res as InventoryItem;
-        this.receiveOrderForm.controls['itemName'].setValue(this.editInventory.itemName);
+        this.receiveOrderForm.controls['inventoryItemName'].setValue(this.editInventory.itemName);
       });
     });
 
-    this.getAllSuppliers();
+    this.GetAllInventoryItems()
+
+    this.receiveOrderForm.get('ordered_Date')!.setValidators([orderedDateValidator]);
   }
 
   getAllSuppliers(): void {
@@ -74,60 +87,50 @@ export class ReceiveOrderComponent implements OnInit {
     });
   }
 
-  // ...
+  GetAllInventoryItems()
+  {
+    this.inventoryservice.GetAllInventoryItems().subscribe(result => {
+      let itemList:any[] = result
+      itemList.forEach((element) => {
+        this.inventoryItems.push(element)
 
- onSubmit() {
-  if (this.receiveOrderForm.invalid) {
-     return;
-   }
-
-  //  const formattedOrderedDate = this.datePipe.transform(
-  //    this.receiveOrderForm.value.ordered_Date,
-  //   'yyyy-MM-dd'
-  //  );
-
-  // const currentDate = new Date();
-
-   let receiveorder = new Supplier_Inventory();
-   //receiveorder.itemName = parseInt(this.receiveOrderForm.value.itemName, 10); // Parse to int
-   receiveorder.inventoryItemName = this.receiveOrderForm.value.inventoryItemName; 
-   receiveorder.supplierNames = parseInt(this.receiveOrderForm.value.supplierNames, 10);
-   //receiveorder.ordered_Date = formattedOrderedDate!;
-   //receiveorder.received_Date = currentDate.toISOString().slice(0, 10);
-   receiveorder.ordered_Quantity = this.receiveOrderForm.value.ordered_Quantity;
-
-   this.inventoryservice.AddReceivedOrder(receiveorder).subscribe(
-     (result) => {
-      // After adding the order, refresh the order list
-      this.router.navigate(['/view-orders'])
-     },
-     (error) => {
-       console.error('Error in AddReceivedOrder:', error);
-       // Show an error message to the user if desired
-     }
-   );
-
-   this.snackBar.open(
-     this.receiveOrderForm.get('itemName')!.value + ` created successfully`,
-     'X',
-     { duration: 5000 }
-   );
- }
-
-
-GetAllInventoryOrders() {
-  this.inventoryservice.GetAllInventoryOrders().subscribe((result) => {
-    this.supplieritems = result;
-    this.filteredsupplieritems = this.supplieritems;
-  });
-}
-// ...
-
-
-  onCancel() {
-    // Here you can specify the route or action to navigate when the cancel button is clicked.
-    // For example, you might want to navigate back to the previous page:
-    this.router.navigate(['/checklist']);
+      });
+    })
   }
 
+
+  onSubmit() {
+    if (this.receiveOrderForm.invalid) {
+      return;
+    }
+  
+    const currentDate = new Date();
+
+    let receiveorder = new Supplier_Inventory();
+    receiveorder.inventoryItemName = this.receiveOrderForm.value.inventoryItemName; 
+    receiveorder.supplierNames = this.receiveOrderForm.value.supplierNames;
+    receiveorder.ordered_Date = this.receiveOrderForm.value.ordered_Date;
+    receiveorder.received_Date = currentDate as Date; // Explicit type assertion
+    receiveorder.ordered_Quantity = this.receiveOrderForm.value.ordered_Quantity;
+    this.inventoryservice.AddReceivedOrder(receiveorder).subscribe(
+      (result) => {
+        //this.inventoryservice.removeFromChecklist(this.editInventory);
+        this.router.navigate(['/view-orders'])
+      },
+      (error) => {
+        console.error('Error in AddReceivedOrder:', error);
+      }
+    );
+  
+    this.snackBar.open(
+      this.receiveOrderForm.get('inventoryItemName')!.value + ` created successfully`,
+      'X',
+      { duration: 5000 }
+    );
+  }
+
+  onCancel() {
+
+    this.router.navigate(['/checklist']);
+  }
 }

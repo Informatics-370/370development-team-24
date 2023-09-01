@@ -89,6 +89,40 @@ button{
   .row-ordered {
     background-color: rgb(193, 225, 193); /* Green background color */
   }
+
+  /* Example CSS to style the table */
+.table-container {
+  margin-top: 10px;
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-container th,
+.table-container td {
+  padding: 5px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+.tableColor {
+  background-color: #d6c2e0; /* Light purple color for the header */
+  color: white; /* Text color for the header */
+}
+
+/* Add alternate row background color for better readability */
+.table-container tbody tr:nth-child(odd) {
+  background-color: #f5f5f5; /* Light gray background for odd rows */
+}
+
+.search-bar {
+  flex-grow: 1; 
+  margin-right: 10px;
+  border: 1px solid rgb(8, 8, 8);
+
+}
   
 
 

@@ -1,3 +1,5 @@
+import { Inventory_Prices } from "./inventoryPrices";
+
 export class InventoryItem{
     inventory_ItemId!: number;
     itemName!: string;
@@ -9,5 +11,8 @@ export class InventoryItem{
     isChecked!: boolean;
     ordered: boolean = false;
     price!: number;
+    isModified: boolean = false;
+    
+    Inventory_Prices!: Inventory_Prices[];
 
 }

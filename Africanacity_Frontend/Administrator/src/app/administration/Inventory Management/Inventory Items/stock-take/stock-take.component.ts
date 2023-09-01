@@ -22,11 +22,12 @@ export class StockTakeComponent implements OnInit {
   inventoryItems: InventoryItem[] = [];
   items!: FormArray;
   dialogRef!: MatDialogRef<WriteOffStockComponent>;
+  inputReason: string = '';
 
 
   constructor(private fb: FormBuilder, private inventoryService: InventoryService, private dialog: MatDialog) {
     this.stockTakeForm = this.fb.group({
-      stockTakeDate: ['', Validators.required],
+      stockTakeDate: [new Date().toISOString().slice(0, 10)],
       items: this.fb.array([])
     });
 
@@ -61,9 +62,10 @@ export class StockTakeComponent implements OnInit {
     if (this.stockTakeForm.invalid) {
       return;
     }
-  
+    
+    const currentDate = new Date();
     const stockTakeData = {
-      stockTakeDate: this.stockTakeForm.value.stockTakeDate,
+      stockTakeDate: currentDate as Date,
       items: this.stockTakeForm.value.items.map((item: any) => ({
         inventory_ItemId: item.inventory_ItemId,
         quantity: item.quantity
@@ -101,21 +103,32 @@ export class StockTakeComponent implements OnInit {
   //     console.log('Discrepancy modal closed');
   //   });
   // }
-  openDiscrepancyModal(discrepancyItems: any[]): void {
-    this.dialogRef = this.dialog.open(WriteOffStockComponent, {
-      width: '400px',
-      data: {
-        items: discrepancyItems,
-      },
-    });
 
-    this.dialogRef.afterClosed().subscribe(() => {
-      console.log('Discrepancy modal closed');
-    });
+  openDiscrepancyModal(discrepancyItems: any[]): void {
+    // Filter the discrepancy items to include only those with quantityDifference > 0
+    const itemsWithQuantityDifference = discrepancyItems.filter(item => item.quantityDifference > 0);
+  
+    // Only open the modal if there are items with quantityDifference > 0
+    if (itemsWithQuantityDifference.length > 0) {
+      this.dialogRef = this.dialog.open(WriteOffStockComponent, {
+        width: '400px',
+        data: {
+          items: itemsWithQuantityDifference, // Pass the filtered items
+          adminReason: this.inputReason
+        },
+      });
+  
+      this.dialogRef.afterClosed().subscribe(() => {
+        console.log('Discrepancy modal closed');
+      });
+    }
   }
   
   
+
 }
+
+
 
 
 

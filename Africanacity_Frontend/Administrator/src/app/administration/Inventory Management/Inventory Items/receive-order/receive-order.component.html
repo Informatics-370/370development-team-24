@@ -8,32 +8,34 @@
 <h1 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px; font-weight: bolder;">Receive Order</h1>
 <form [formGroup]="receiveOrderForm" (ngSubmit)="onSubmit()">
   <div>
-    <label for="itemName">Inventory Item Name:</label>
-    <input type="text" formControlName="itemName">
-    <div *ngIf="receiveOrderForm.get('itemName')?.invalid && receiveOrderForm.get('itemName')?.touched">
+    <label for="inventoryItemName">Inventory Item Name:</label>
+    <input type="text" formControlName="inventoryItemName" [readonly]="true" style="background-color: lightgrey;">
+    <div *ngIf="receiveOrderForm.get('inventoryItemName')?.invalid && receiveOrderForm.get('inventoryItemName')?.touched">
     </div>
   </div>
 
   <div>
-    <label for="supplierId">Select Supplier:</label>
-    <select formControlName="supplierId">
+    <label for="supplierNames">Select Supplier:</label>
+    <select formControlName="supplierNames">
       <option value="">-- Select a supplier --</option>
       <!-- Populate the options with suppliers from the backend -->
       <option *ngFor="let supplier of supplierData" [value]="supplier.supplierId">{{ supplier.supplierName }}</option>
     </select>
-    <div *ngIf="receiveOrderForm.get('supplierId')"></div>
-  </div>
-
-  <!-- <div>
-    <label for="ordered_Date">Ordered Date:</label>
-    <input type="date" formControlName="ordered_Date">
-    <div *ngIf="receiveOrderForm.get('ordered_Date')"></div>
   </div>
 
   <div>
+    <label for="ordered_Date">Ordered Date:</label>
+    <input type="date" formControlName="ordered_Date">
+    <div *ngIf="orderedDateControl?.hasError('orderedDateInvalid')">
+      Ordered date cannot be after the current date.
+    </div>
+  </div>
+  
+
+  <div>
     <label for="received_Date">Received Date:</label>
-    <input type="date" formControlName="received_Date" [readonly]="true">
-  </div> -->
+    <input type="date" formControlName="received_Date" [attr.readonly]="true">
+  </div> 
 
   <div>
     <label for="ordered_Quantity">Ordered Quantity:</label>

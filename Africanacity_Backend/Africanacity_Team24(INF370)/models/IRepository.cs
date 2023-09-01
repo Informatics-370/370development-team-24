@@ -100,6 +100,8 @@ namespace Africanacity_Team24_INF370_.models
         Task<Inventory_Item[]> GetAllInventoryItemsAsync();
         Task<Inventory_Item> GetInventoryItemAsync(int Inventory_ItemId);
         Task<Inventory_Item[]> GetInventoryItemsByTypeAsync(int inventory_TypeId);
+        Task<List<Inventory_Price>> GetPricesByInventoryItemAsync(int inventory_ItemId);
+        Task<Inventory_Price> GetInventoryPriceAsync(int InventoryPrice_Id);
 
         //STOCK TAKE
         Task<StockTakeItem[]> GetAllReconItemsAsync();
