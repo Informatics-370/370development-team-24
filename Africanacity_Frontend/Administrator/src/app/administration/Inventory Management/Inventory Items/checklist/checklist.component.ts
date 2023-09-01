@@ -103,7 +103,6 @@ export class ChecklistComponent {
     this.emitInventoryItemsChanged(this.checklistItems);
   }
 
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
   

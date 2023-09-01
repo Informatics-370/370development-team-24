@@ -114,6 +114,7 @@ export class ReceiveOrderComponent implements OnInit {
     receiveorder.ordered_Quantity = this.receiveOrderForm.value.ordered_Quantity;
     this.inventoryservice.AddReceivedOrder(receiveorder).subscribe(
       (result) => {
+        //this.inventoryservice.removeFromChecklist(this.editInventory);
         this.router.navigate(['/view-orders'])
       },
       (error) => {

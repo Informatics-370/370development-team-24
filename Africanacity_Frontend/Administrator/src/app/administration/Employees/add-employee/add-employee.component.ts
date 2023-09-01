@@ -14,16 +14,16 @@ import { Gender } from 'src/app/shared/gender';
 import { AbstractControl } from '@angular/forms';
 import { HelpAddemployeesComponent } from './help-addemployees/help-addemployees.component';
 
-// function phoneNumberValidator(control: AbstractControl): { [key: string]: any } | null {
-//   const phoneNumber = control.value;
-//   const digitsOnly = phoneNumber.replace(/\D/g, '');
+function phoneNumberValidator(control: AbstractControl): { [key: string]: any } | null {
+  const phoneNumber = control.value;
+  const digitsOnly = phoneNumber.replace(/\D/g, '');
 
-//   if (digitsOnly.length !== 10 || !phoneNumber.startsWith('0')) {
-//     return { 'invalidPhoneNumber': true };
-//   }
+  if (digitsOnly.length !== 10 || !phoneNumber.startsWith('0')) {
+    return { 'invalidPhoneNumber': true };
+  }
 
-//   return null;
-// }
+  return null;
+}
 
 
 function emailFormatValidator(control: AbstractControl): { [key: string]: any } | null {
@@ -45,21 +45,7 @@ function emailFormatValidator(control: AbstractControl): { [key: string]: any } 
 //     return null;
 //   };
 // }
-function southAfricanPhoneNumberValidator(control: AbstractControl): { [key: string]: any } | null {
-  const phoneNumber = control.value;
-  const digitsOnly = phoneNumber.replace(/\D/g, '');
 
-  if (
-    digitsOnly.length !== 10 ||
-    !phoneNumber.startsWith('0') ||
-    !phoneNumber.startsWith('27') ||
-    !/^\d+$/.test(digitsOnly)
-  ) {
-    return { 'invalidSouthAfricanPhoneNumber': true };
-  }
-
-  return null;
-}
 
 
 @Component({
@@ -98,7 +84,7 @@ export class AddEmployeeComponent implements OnInit {
        firstName: new FormControl('',[Validators.required]),
        email_Address: new FormControl('', [Validators.required, emailFormatValidator]),
        physical_Address: new FormControl('',[Validators.required]),
-       phoneNumber: new FormControl('', [Validators.required, southAfricanPhoneNumberValidator]),
+       phoneNumber: new FormControl('', [Validators.required, phoneNumberValidator]),
        employeeRole: new FormControl('',[Validators.required]),
        gender: new FormControl('',[Validators.required]),
        employment_Date: new FormControl([new Date().toISOString().slice(0, 10)])

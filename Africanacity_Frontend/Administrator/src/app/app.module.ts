@@ -116,6 +116,7 @@ import { HelpViewinventorytypeComponent } from './administration/Inventory Manag
 import { HelpEditinvetorytypeComponent } from './administration/Inventory Management/Inventory Types/edit-intventorytype/help-editinvetorytype/help-editinvetorytype.component';
 import { HelpStocktakeComponent } from './administration/Inventory Management/Inventory Items/stock-take/help-stocktake/help-stocktake.component';
 import { HelpReceiveorderComponent } from './administration/Inventory Management/Inventory Items/receive-order/help-receiveorder/help-receiveorder.component';
+import { InventoryService } from './service/inventory.service';
 
 
 
@@ -270,10 +271,10 @@ import { HelpReceiveorderComponent } from './administration/Inventory Management
     FullCalendarModule,
     ModalModule.forRoot(), 
   ],
-  providers: [DataService,{
+  providers: [DataService,  InventoryService,{
     provide:HTTP_INTERCEPTORS,
     useClass:TokenInterceptor,
-    multi:true
+    multi:true,
   }],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

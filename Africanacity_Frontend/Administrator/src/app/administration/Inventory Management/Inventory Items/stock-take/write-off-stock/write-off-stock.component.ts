@@ -61,7 +61,8 @@ import { InventoryService } from 'src/app/service/inventory.service';
   encapsulation: ViewEncapsulation.None 
 })
 export class WriteOffStockComponent implements OnInit {
-  adminReason: string = '';  // Initialize adminReason
+  adminReason: string = ''; 
+  hasItemsWithQuantityDifference: boolean = false; // Initialize adminReason
 
   constructor(
     private inventoryService: InventoryService,
@@ -71,6 +72,7 @@ export class WriteOffStockComponent implements OnInit {
 
   ngOnInit(): void {
     this.adminReason = this.data.adminReason;  // Assign adminReason received from parent component
+    this.hasItemsWithQuantityDifference = this.data.items.some(item => item.quantityDifference > 0);
   }
 
   onOkButtonClick(): void {

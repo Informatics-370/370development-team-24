@@ -105,18 +105,26 @@ export class StockTakeComponent implements OnInit {
   // }
 
   openDiscrepancyModal(discrepancyItems: any[]): void {
-    this.dialogRef = this.dialog.open(WriteOffStockComponent, {
-      width: '400px',
-      data: {
-        items: discrepancyItems,
-        adminReason: this.inputReason  // Pass the admin reason to the dialog
-      },
-    });
+    // Filter the discrepancy items to include only those with quantityDifference > 0
+    const itemsWithQuantityDifference = discrepancyItems.filter(item => item.quantityDifference > 0);
   
-    this.dialogRef.afterClosed().subscribe(() => {
-      console.log('Discrepancy modal closed');
-    });
+    // Only open the modal if there are items with quantityDifference > 0
+    if (itemsWithQuantityDifference.length > 0) {
+      this.dialogRef = this.dialog.open(WriteOffStockComponent, {
+        width: '400px',
+        data: {
+          items: itemsWithQuantityDifference, // Pass the filtered items
+          adminReason: this.inputReason
+        },
+      });
+  
+      this.dialogRef.afterClosed().subscribe(() => {
+        console.log('Discrepancy modal closed');
+      });
+    }
   }
+  
+  
 
 }
 

@@ -9,7 +9,7 @@ namespace Africanacity_Team24_INF370_.models.Inventory
         [Key]
         public int WriteOffId { get; set; }
         public int StockTakeItemId { get; set; }
-        public string Reason { get; set; }
+        public string AdminReason { get; set; }
 
         public string Description { get; set; }
 
