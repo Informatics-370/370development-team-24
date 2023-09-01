@@ -28,6 +28,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { CustomAlertComponent } from './success-custom-alert/custom-alert.component';
 import { EditKitchenOrderComponent } from './edit-kitchen-order/edit-kitchen-order.component';
 import { ViewKitchenOrdersComponent } from './view-kitchen-orders/view-kitchen-orders.component';
+import { AddKitchenOrderComponent } from './add-kitchen-order/add-kitchen-order.component';
 
 
 
@@ -45,7 +46,8 @@ import { ViewKitchenOrdersComponent } from './view-kitchen-orders/view-kitchen-o
   SignUpComponent,
   CustomAlertComponent,
   EditKitchenOrderComponent,
-  ViewKitchenOrdersComponent],
+  ViewKitchenOrdersComponent,
+  AddKitchenOrderComponent],
 
  
 

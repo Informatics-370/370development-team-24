@@ -1,64 +1,115 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { KitchenOrder } from '../shared/kitchen-order';
 import { MainService } from '../service/main.service';
-import { MenuItem } from '../shared/menu-item.model';
-import { Drink } from '../shared/drink';
-import { OrderService } from '../service/order.service';
-import { NotificationService } from '../service/notification.service';
-import { NotificationComponent } from '../notification/notification.component';
+import { KitchenOrder } from '../shared/kitchen-order';
+import { OrderedItem } from '../shared/ordered-item';
+import { OrderedMenuItem } from '../shared/ordered-menu-item';
+import { OrderedDrinkItem } from '../shared/ordered-drink-item';
+import { KitchenOrderView } from '../shared/kitchen-order-view';
+import { ModalController } from '@ionic/angular';
+import { EditKitchenOrderComponent } from '../edit-kitchen-order/edit-kitchen-order.component';
+import { Router, ActivatedRoute } from '@angular/router';
+import { IonToast } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-kitchen-screen',
   templateUrl: './kitchen-screen.component.html',
   styleUrls: ['./kitchen-screen.component.scss'],
 })
-export class KitchenScreenComponent implements OnInit {
-  kitchenOrders: KitchenOrder[] = [];
+export class KitchenScreenComponent  implements OnInit {
+  completionToast: HTMLIonToastElement | undefined;
 
+  //kitchenOrders: KitchenOrder[] = [];
+  filteredKitchenOrders: KitchenOrder [] = [];
+  kitchenOrders: KitchenOrderView [] = [];
 
-  constructor(
+  orderedMenuItems: OrderedMenuItem [] = [];
+  filteredOrderedMenuItems: OrderedMenuItem [] = [];
+
+  orderedDrinkItems: OrderedDrinkItem [] = [];
+  filteredOrderedDrinkItems: OrderedDrinkItem [] = [];
+
+  //for edit purposes
+
+  // Create a property to store the selected order for editing
+  selectedOrder!: KitchenOrderView;
+  // Create a boolean flag to control the visibility of the edit form
+  isEditFormVisible: boolean = false;
+
+  
+  orderData: KitchenOrderView | undefined;
+  
+  
+  constructor(private mainService: MainService,
+    private modalController: ModalController, 
+    private router: Router,
     private route: ActivatedRoute,
-    private http: HttpClient,
-    private mainService: MainService, 
-    private orderService: OrderService,
-    private notificationService: NotificationService,
-    private router: Router
-  ) {}
+    public toastController: ToastController) { 
+      
+    }
 
   ngOnInit() {
-    // Fetch all kitchen orders
-    this.kitchenOrders = this.orderService.getKitchenOrders();
-    
+     // Fetch all kitchen orders when the component is initialized
+     this.mainService.getAllKitchenOrders().subscribe((orders: KitchenOrderView[]) => {
+      this.kitchenOrders = orders;
+
+      
+    });
+    const KitchenOrderId = 1; 
+    this.mainService.getKitchenOrderById(KitchenOrderId).subscribe((order: KitchenOrderView) => {
+      this.orderData = order; // Assign the fetched order data to orderData
+    });
+  
+
+
+       // Fetch all kitchen orders when the component is initialized
+   this.mainService.GetAllOrderedMenuItems().subscribe((result: any) => {
+    this.orderedMenuItems = result;
+    this.filteredOrderedMenuItems = this.orderedMenuItems;
+    console.log('Menu Items orders: ', this.filteredOrderedMenuItems)
+  });
+
+  this.mainService.GetAllOrderedDrinksItems().subscribe((result: any) => {
+    this.orderedDrinkItems = result;
+    this.filteredOrderedDrinkItems = this.orderedDrinkItems;
+    console.log('Drink orders: ', this.filteredOrderedDrinkItems)
+  });
+
   }
 
+  // Function to open the edit form for a specific order
+  editOrder(order: KitchenOrderView) {
+    console.log("edit button clicked! for order:", order)
+    this.router.navigate(['/edit-kitchen-order/:KitchenOrderId', { KitchenOrderId: order.KitchenOrderId }]);
+  }
 
-  markOrderAsComplete(order: KitchenOrder) {
-    // Update the order status or perform any other logic here
-     
-
-    // Generate the notification message
-    const message = `Kitchen Order ${order.kitchenOrderNumber} is completed!`;
-    console.log('Complete button clicked. Sending notification.');
-    // Send the notification using the NotificationService
-    this.notificationService.addNotification(message);
-
-    // Update the kitchen order's status (assuming you have a status property in the KitchenOrder model)
-    order.status = 'completed';
-
-    // Save the updated kitchen orders to local storage
-    this.orderService.saveKitchenOrders(this.kitchenOrders);
-
-      // Navigate to the payment screen with the order details
-      const kitchenOrderNumber = 'your_kitchen_order_number_here';
-      this.router.navigate(['/payment', order.kitchenOrderNumber]);
-
-    
-    
+  // Call showCompletionNotification with the orderData when needed
+showNotification() {
+  if (this.orderData) {
+    this.showCompletionNotification(this.orderData);
   }
 }
 
+  // Function to show the completion status notification
+// Function to show the completion status notification
+async showCompletionNotification(orderData: KitchenOrderView) {
+  // Create a toast notification
+  console.log('Complete button clicked!', orderData)
+  this.completionToast = await this.toastController.create({
+    message: `Order ${orderData.KitchenOrderNumber} is complete!`,
+    duration: 3000, // Duration in milliseconds
+    position: 'bottom', // Position of the notification
+    buttons: [
+      {
+        text: 'Close',
+        role: 'cancel',
+      },
+    ],
+  });
 
-  
-
+  // Present the toast notification
+  if (this.completionToast) {
+    await this.completionToast.present();
+  }
+}
+}

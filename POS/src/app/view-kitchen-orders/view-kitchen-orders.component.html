@@ -27,34 +27,66 @@
     </ion-card-content>
   </ion-card>
 </ion-content-->
+
+<!--Second option/ works -->
+
 <ion-content *ngIf="kitchenOrders.length > 0">
   <ion-card *ngFor="let order of kitchenOrders">
     <h3>Order Number: {{ order.KitchenOrderNumber }}</h3>
+    <p>{{ order.TableNumber }}</p>
+    <p *ngFor="let omi of order.OrderedMenuItems" (click)="editMenuItem(order, omi)"> {{ omi.MenuItem.Name }} x {{ omi.Quantity }}</p>
+    <p *ngFor="let od of order.OrderedDrinks" (click)="editDrinkItem(order, od)"> {{ od.OtherDrink.Name }} x {{ od.Quantity }}</p>
+    <p>Subtotal: {{ order.Subtotal }}</p>
+    <p>VAT: {{ order.VAT }}</p>
+    <p>Discount: {{ order.Discount }}</p>
+    <p>Total: {{ order.Total }}</p>
+    <!-- the routerLink to use the correct property name-->
+    <ion-button [routerLink]="['/edit-kitchen-order', order.KitchenOrderId]">Edit</ion-button>
+  </ion-card>
+</ion-content>
+
+<!--Third option for inline editing-->
+<!-- view-kitchen-orders.component.html -->
+
+<!--ion-card *ngFor="let order of kitchenOrders">
+  <h3>Order Number: {{ order.KitchenOrderNumber }}</h3>
   <p>{{ order.TableNumber }}</p>
-  <p *ngFor="let omi of order.OrderedMenuItems"> {{omi.MenuItem.Name}} x {{omi.Quantity}}</p>
-  <p *ngFor="let od of order.OrderedDrinkItems"> {{od.OtherDrink.Name}} x {{od.Quantity}}</p>
+  
+ 
+  <ion-list>
+   
+    <ion-item *ngFor="let omi of order.OrderedMenuItems; let i = index">
+      <ion-label>{{ omi.MenuItem.Name }}</ion-label>
+      <ion-input [(ngModel)]="omi.Quantity" name="quantity-{{ i }}" type="number"></ion-input>
+      <ion-button (click)="editMenuItem(order, omi)">Edit</ion-button>
+      <ion-button (click)="removeMenuItem(order, i)">Remove</ion-button>
+      <ion-button (click)="addMenuItemToOrder(order)">Add Item</ion-button>
+    </ion-item>
+  
+    
+    <ion-item *ngFor="let od of order.OrderedDrinks; let i = index">
+      <ion-label>{{ od.OtherDrink.Name }}</ion-label>
+      <ion-input [(ngModel)]="od.Quantity" name="drink-quantity-{{ i }}" type="number"></ion-input>
+      <ion-button (click)="editDrinkItem(order, od)">Edit</ion-button>
+      <ion-button (click)="removeDrinkItem(order, i)">Remove</ion-button>
+      <ion-button (click)="addDrinkItemToOrder(order)">Add Item</ion-button>
+    </ion-item>
+  </ion-list>
+  
+
+
+
   <p>Subtotal: {{ order.Subtotal }}</p>
   <p>VAT: {{ order.VAT }}</p>
   <p>Discount: {{ order.Discount }}</p>
   <p>Total: {{ order.Total }}</p>
-  <ion-button type="button" (click)="editOrder(order)" class="btn btn-primary">Edit</ion-button>
 
-  <!--h4>Ordered Menu Items:</h4>
-  <ul
-    <li *ngFor="let omi of order.OrderedMenuItems">
-      {{ omi.quantity }} x {{ omi.menuItem.name }} 
-    </li>
-  </ul>
 
-  <h4>Ordered Drinks:</h4>
-  <ul>
-    <li *ngFor="let od of order.OrderedDrinkItems">
-      {{ od.quantity }} x {{ od.otherDrink.name }} 
-    </li>
-  </ul-->
+  <ion-button [routerLink]="['/edit-kitchen-order', order.KitchenOrderId]">Edit Order</ion-button>
+</ion-card-->
 
-  </ion-card>
-</ion-content>
+
+
 
 
 

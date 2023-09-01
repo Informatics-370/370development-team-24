@@ -13,6 +13,7 @@ import { PrintReceiptComponent } from './print-receipt/print-receipt.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ViewKitchenOrdersComponent } from './view-kitchen-orders/view-kitchen-orders.component';
 import { EditKitchenOrderComponent } from './edit-kitchen-order/edit-kitchen-order.component';
+import { AddKitchenOrderComponent } from './add-kitchen-order/add-kitchen-order.component';
 
 
 const routes: Routes = [
@@ -23,7 +24,9 @@ const routes: Routes = [
   {path: 'table', component: TableComponent},
   {path: 'kitchen-screen', component: KitchenScreenComponent},
   {path: 'view-kitchen-orders', component: ViewKitchenOrdersComponent},
-  {path: 'edit-kitchen-order/:id', component: EditKitchenOrderComponent},
+  {path: 'edit-kitchen-order/:KitchenOrderId', component: EditKitchenOrderComponent },
+  //{path: 'edit-kitchen-order', component: EditKitchenOrderComponent},
+  {path: 'add-kitchen-order', component: AddKitchenOrderComponent},
   {path: 'notification', component: NotificationComponent},
   {path: 'payment/:kitchenOrderNumber', component:PaymentComponent},
   {path: 'sign-up', component:SignUpComponent},

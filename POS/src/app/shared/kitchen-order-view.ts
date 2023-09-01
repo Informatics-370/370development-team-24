@@ -9,8 +9,8 @@ export class KitchenOrderView{
     Discount!:number;
     Total!:number;
     description!: string;
-    OrderedMenuItems!: OrderedMenuItem[];
-    OrderedDrinkItems!: OrderedDrink[];
+    OrderedMenuItems!:{ MenuItem: MenuItem; Quantity: number }[];
+    OrderedDrinks!: { OtherDrink: OtherDrink; Quantity: number }[];
 }
 
 export class OrderedMenuItem {

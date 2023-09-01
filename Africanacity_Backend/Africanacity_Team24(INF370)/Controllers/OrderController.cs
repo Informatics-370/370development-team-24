@@ -220,14 +220,10 @@ namespace Africanacity_Team24_INF370_.Controllers
             try
             {
                 // Create JsonSerializerOptions with ReferenceHandler.Preserve
-                var jsonSerializerOptions = new JsonSerializerOptions
-                {
-                    ReferenceHandler = ReferenceHandler.Preserve,
-                    // Other options as needed
-                };
+                
                 var kitchenOrder = _appDbContext.KitchenOrders
-                    .Include(o => o.OrderedMenuItems) // Include related ordered menu items
-                    .Include(o => o.OrderedDrinks) // Include related ordered drinks
+                    .Include(o => o.OrderedMenuItems).ThenInclude(omi => omi.MenuItem) // Include related ordered menu items
+                    .Include(o => o.OrderedDrinks).ThenInclude(od => od.OtherDrink)// Include related ordered drinks
                     .FirstOrDefault(o => o.KitchenOrderId == KitchenOrderId);
 
                 if (kitchenOrder == null)
@@ -235,10 +231,14 @@ namespace Africanacity_Team24_INF370_.Controllers
                     return NotFound(); // Return a 404 Not Found response
                 }
 
-                var jsonKitchenOrder = JsonSerializer.Serialize(kitchenOrder, jsonSerializerOptions);
+                var jsonSettings = new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
 
-                // Return a 200 OK response with the serialized kitchen order
-                return Ok(jsonKitchenOrder); // Return a 200 OK response with the kitchen order
+                var json = JsonConvert.SerializeObject(kitchenOrder, Formatting.Indented, jsonSettings);
+
+                return Ok(json); // Return a 200 OK response with the kitchen order
             }
             catch (Exception ex)
             {

@@ -1,62 +1,43 @@
-<div *ngIf="orderData">
+<!--div *ngIf="orderData">
   <h2>Edit Kitchen Order</h2>
   <form (ngSubmit)="updateKitchenOrder()">
     <div class="form-group">
-      <label for="tableNumber">Table Number:</label>
-      <input type="text" id="tableNumber" name="tableNumber" [(ngModel)]="orderData.TableNumber" class="form-control" required>
+      <label for="TableNumber">Table Number:</label>
+      <input type="text" id="TableNumber" name="TableNumber" [(ngModel)]="orderData.TableNumber" class="form-control" required>
     </div>
 
     <div class="form-group">
-      <label for="kitchenOrderNumber">Kitchen Order Number:</label>
-      <input type="text" id="kitchenOrderNumber" name="kitchenOrderNumber" [(ngModel)]="orderData.KitchenOrderNumber" class="form-control" required>
+      <label for="KitchenOrderNumber">Kitchen Order Number:</label>
+      <input type="text" id="KitchenOrderNumber" name="KitchenOrderNumber" [(ngModel)]="orderData.KitchenOrderNumber" class="form-control" required>
     </div>
 
-    <!-- Add fields for subtotal, VAT, Discount, and Total -->
-    <div class="form-group">
-      <label for="subtotal">Subtotal:</label>
-      <input type="number" id="subtotal" name="subtotal" [(ngModel)]="orderData.Subtotal" class="form-control" required>
-    </div>
+   
 
-    <div class="form-group">
-      <label for="vat">VAT:</label>
-      <input type="number" id="vat" name="vat" [(ngModel)]="orderData.VAT" class="form-control" required>
-    </div>
+   
+<h3>Ordered Menu Items</h3>
+<div *ngFor="let menuItem of orderData.OrderedMenuItems; let i = index">
+  <div class="form-group">
+    <label for="menuItem{{i}}">Menu Item {{i + 1}}:</label>
+    <input type="text" id="menuItem{{i}}" name="menuItem{{i}}" [(ngModel)]="menuItem.MenuItem.Name" class="form-control">
+    <input type="number" id="menuItemQuantity{{i}}" name="menuItemQuantity{{i}}" [(ngModel)]="menuItem.Quantity" class="form-control" placeholder="Quantity">
+    <button type="button">Remove</button>
+    <button type="button">Add Menu Item</button>
+  </div>
+</div>
 
-    <div class="form-group">
-      <label for="discount">Discount:</label>
-      <input type="number" id="discount" name="discount" [(ngModel)]="orderData.Discount" class="form-control" required>
-    </div>
+<h3>Ordered Drinks</h3>
+<div *ngFor="let drink of orderData.OrderedDrinks; let i = index">
+  <div class="form-group">
+    <label for="drink{{i}}">Drink {{i + 1}}:</label>
+    <input type="text" id="drink{{i}}" name="drink{{i}}" [(ngModel)]="drink.OtherDrink.Name" class="form-control">
+    <input type="number" id="drinkQuantity{{i}}" name="drinkQuantity{{i}}" [(ngModel)]="drink.Quantity" class="form-control" placeholder="Quantity">
+    <button type="button">Remove</button>
+    <button type="button">Add Drink</button>
+  </div>
+</div>
 
-    <div class="form-group">
-      <label for="total">Total:</label>
-      <input type="number" id="total" name="total" [(ngModel)]="orderData.Total" class="form-control" required>
-    </div>
 
-    <!-- Add a section for editing ordered menu items -->
-    <h3>Ordered Menu Items</h3>
-    <div *ngFor="let menuItem of orderData.OrderedMenuItems; let i = index">
-      <div class="form-group">
-        <label for="menuItem{{i}}">Menu Item {{i + 1}}:</label>
-        <input type="text" id="menuItem{{i}}" name="menuItem{{i}}" [(ngModel)]="menuItem.MenuItem.Name" class="form-control">
-        <input type="number" id="menuItemQuantity{{i}}" name="menuItemQuantity{{i}}" [(ngModel)]="menuItem.Quantity" class="form-control" placeholder="Quantity">
-        <button type="button" >Remove</button>
-        <button type="button" >Add Menu Item</button>
-      </div>
-    </div>
-
-    <!-- Add a section for editing ordered drinks -->
-    <h3>Ordered Drinks</h3>
-    <div *ngFor="let drink of orderData.OrderedDrinkItems; let i = index">
-      <div class="form-group">
-        <label for="drink{{i}}">Drink {{i + 1}}:</label>
-        <input type="text" id="drink{{i}}" name="drink{{i}}" [(ngModel)]="drink.OtherDrink.Name" class="form-control">
-        <input type="number" id="drinkQuantity{{i}}" name="drinkQuantity{{i}}" [(ngModel)]="drink.Quantity" class="form-control" placeholder="Quantity">
-        <button type="button" >Remove</button>
-        <button type="button" >Add Drink</button>
-      </div>
-    </div>
-
-    <!-- Add a section for adding small description -->
+    
     <div class="form-group">
       <label for="description">Description (for notes):</label>
       <textarea id="description" name="description" [(ngModel)]="orderData.description" class="form-control"></textarea>
@@ -64,4 +45,42 @@
 
     <button type="submit" class="btn btn-primary" (click)="closeModal()">Update Kitchen Order</button>
   </form>
-</div>
+</div-->
+
+<!-- edit-kitchen-order.component.html -->
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Edit Kitchen Order</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <!-- Input fields for editing the kitchen order -->
+    <ion-item>
+      <ion-label>Order Number</ion-label>
+      <ion-input [(ngModel)]="orderData.KitchenOrderNumber" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item *ngFor="let omi of orderData.OrderedMenuItems; let i = index">
+      <ion-input [(ngModel)]="omi.MenuItem.Name" type="text"></ion-input>
+      
+      <ion-input [(ngModel)]="omi.Quantity" type="number"></ion-input>
+    </ion-item>
+    <ion-item *ngFor="let od of orderData.OrderedDrinks; let i = index">
+      <ion-input [(ngModel)]="od.OtherDrink.Name" type="text"></ion-input>
+      
+      <ion-input [(ngModel)]="od.Quantity" type="number"></ion-input>
+    </ion-item>
+
+    <!-- Add more input fields for other properties you want to edit -->
+
+    <!-- Save and Cancel buttons -->
+    
+  </ion-list>
+    <ion-button (click)="onSubmit()">Save</ion-button>
+  
+</ion-content>
+
+
