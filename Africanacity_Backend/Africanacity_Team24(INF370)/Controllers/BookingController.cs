@@ -5,6 +5,9 @@ using Africanacity_Team24_INF370_.models.Restraurant;
 using Africanacity_Team24_INF370_.View_Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging; // Import the logging namespace
+using System.Net.Mail;
+using System.Net;
+using Microsoft.AspNetCore.Http;
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
@@ -20,7 +23,116 @@ namespace Africanacity_Team24_INF370_.Controllers
 			_logger = logger;
 		}
 
+		//**************************************************************************** Edit Booking email *******************************************************************************
+		private async Task SendBookingUpdateNotificationEmail(string recipientEmail, string recipientName, string bookingEvent)
+		{
+			string emailSubject = "Booking Update Notification";
+			string emailBody = $@"
+        <html>
+        <head>
+          <style>
+                body {{
+                    font-family: Arial, sans-serif;
+                    margin: 0;
+                    padding: 20px;
+                    background-color: #f2f2f2;
+                }}
+                .container {{
+                    background-color: #ffffff;
+                    border-radius: 10px;
+                    padding: 20px;
+                    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                }}
+                h1 {{
+                    margin-bottom: 20px;
+                }}
+                p {{
+                    margin: 10px 0;
+                }}
+            </style>
+        </head>
+        <body>
+            <div class='container'>
+                <h1>Booking Update Notification</h1>
+                <p>Hello Mmino Restaurant Admin,</p>
+                <p>The following booking has been updated:</p>
+                <p><strong>Event:</strong> {bookingEvent}</p>
+                <p><strong>Customer Name:</strong> {recipientName}</p>
+                <p><strong>Email:</strong> {recipientEmail}</p>
+            </div>
+        </body>
+        </html>";
 
+			await SendEmailAsync("africanacitymmino@gmail.com", emailSubject, emailBody);
+		}
+
+		//**************************************************************************** Booking approval email *******************************************************************************
+		private async Task SendApprovalEmail(string recipientEmail, string recipientName, string recipientlastName, string recipientEvent)
+		{
+			string emailSubject = "Booking Approval Confirmation";
+			string emailBody = $@"
+        <html>
+        <head>
+            <style>
+                body {{
+                    font-family: Arial, sans-serif;
+                    margin: 0;
+                    padding: 20px;
+                    background-color: #f2f2f2;
+                }}
+                .container {{
+                    background-color: #ffffff;
+                    border-radius: 10px;
+                    padding: 20px;
+                    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                }}
+                h1 {{
+                    margin-bottom: 20px;
+                }}
+                p {{
+                    margin: 10px 0;
+                }}
+            </style>
+        </head>
+        <body>
+            <div class='container'>
+                <h1>Booking Approval Confirmation</h1>
+                <p>Hello {recipientName},</p>
+                <p>Your booking has been approved and confirmed. Here are the details:</p>
+                 <p><strong>Event:</strong> {recipientEvent}</p>
+                <p><strong>First Name:</strong> {recipientName}</p>
+                <p><strong>Last Name:</strong> {recipientlastName}</p>
+                <p><strong>Email:</strong> {recipientEmail}</p>
+            </div>
+        </body>
+        </html>";
+
+			await SendEmailAsync(recipientEmail, emailSubject, emailBody);
+		}
+
+		private async Task SendEmailAsync(string recipientEmail, string subject, string body)
+	    {
+		 var smtpClient = new SmtpClient("smtp.gmail.com")
+		{
+			Port = 587,
+			Credentials = new NetworkCredential("africanacitymmino@gmail.com", "xuaqebsjnbxopjtx"),
+			EnableSsl = true,
+		};
+
+		var mailMessage = new MailMessage
+		{
+			From = new MailAddress("africanacitymmino@gmail.com"),
+			Subject = subject,
+			Body = body,
+			IsBodyHtml = true,
+		};
+		mailMessage.To.Add(recipientEmail);
+
+		await smtpClient.SendMailAsync(mailMessage);
+	}
+
+
+		//**************************************************************************** Events *******************************************************************************t
 		[HttpGet]
 		[Route("GetAllEvents")]
 		public async Task<IActionResult> GetAllEvents()
@@ -37,6 +149,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 		}
 
 
+		//**************************************************************************** Entertainment Type *******************************************************************************
 		[HttpGet]
 		[Route("EntertainmentTypes")]
 		public async Task<ActionResult> EntertainmentTypes()
@@ -54,42 +167,63 @@ namespace Africanacity_Team24_INF370_.Controllers
 			}
 		}
 
-		// Edit Booking
-		[HttpPut]
-		[Route("EditBooking/{BookingId}")]
-		public async Task<ActionResult<BookingView>> EditBooking(int BookingId, BookingView cvm)
-		{
-			try
+
+			//**************************************************************************** Edit Booking *******************************************************************************
+			[HttpPut]
+			[Route("EditBooking/{bookingId}")]
+			public async Task<IActionResult> EditBooking(int bookingId, [FromForm] IFormCollection formData)
 			{
-				var existinBooking = await _repository.GetBookingAsync(BookingId);
-
-				// fix error message
-				if (existinBooking == null) return NotFound($"The booking does not exist");
-
-				existinBooking.LastName = cvm.LastName;
-				existinBooking.FirstName = cvm.FirstName;
-				existinBooking.Instagram = cvm.Instagram;
-				existinBooking.ContactNumber = cvm.ContactNumber;
-				existinBooking.Email = cvm.Email;
-				existinBooking.Eventname = cvm.Eventname;
-				existinBooking.Additional = cvm.Additional;
-				existinBooking.Demo = cvm.Demo;
-				existinBooking.Entertainment_TypeId = Convert.ToInt32(cvm.entertainmenttype);
-
-				if (await _repository.SaveChangesAsync())
+				try
 				{
-					return Ok(existinBooking);
+					var existingBooking = await _repository.GetBookingAsync(bookingId);
+
+					if (existingBooking == null)
+					{
+						return NotFound($"The booking with ID {bookingId} does not exist");
+					}
+
+				// Update booking properties from the form data
+				existingBooking.FirstName = formData["firstName"];
+					existingBooking.LastName = formData["lastName"];
+					existingBooking.Instagram = formData["Instagram"];
+					existingBooking.Email = formData["email"];
+					existingBooking.Eventname = formData["Eventname"];
+					existingBooking.Additional = formData["Additional"];
+				    //existingBooking.Entertainment_TypeId = entertainmentTypeId; 
+				    existingBooking.Entertainment_TypeId = Convert.ToInt32(formData["entertainmenttype"]);
+					existingBooking.ContactNumber = formData["contactNumber"];
+
+					// Check if a new demo image was uploaded
+					var file = formData.Files.FirstOrDefault();
+					if (file != null && file.Length > 0)
+					{
+						using (var ms = new MemoryStream())
+						{
+							file.CopyTo(ms);
+							var fileBytes = ms.ToArray();
+							string base64 = Convert.ToBase64String(fileBytes);
+							existingBooking.Demo = base64;
+						}
+					}
+
+					// Save changes to the repository
+					_repository.Update(existingBooking);
+					await _repository.SaveChangesAsync();
+				// Send booking update notification email to mmino restaurant admin
+				await SendBookingUpdateNotificationEmail(existingBooking.Email, "Mmino Restaurant Admin", existingBooking.Eventname);
+
+				return Ok(existingBooking);
+				}
+				catch (Exception ex)
+				{
+					return StatusCode(500, $"Internal server error: {ex}");
 				}
 			}
-			catch (Exception)
-			{
-				return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
-			}
-			return BadRequest("Your request is invalid");
-		}
 
-		// Delete booking
-		[HttpDelete]
+
+
+	//**************************************************************************** Delete Booking *******************************************************************************
+	[HttpDelete]
 		[Route("DeleteBooking/{BookingId}")]
 		public async Task<IActionResult> DeleteBooking(int BookingId)
 		{
@@ -97,8 +231,52 @@ namespace Africanacity_Team24_INF370_.Controllers
 			{
 				var existingBooking = await _repository.GetBookingAsync(BookingId);
 
-				// fix error message
 				if (existingBooking == null) return NotFound($"The booking does not exist");
+
+				// Retrieve the user's email address from the booking
+				string userEmailAddress = existingBooking.Email;
+
+				// Create a nicely formatted HTML email body
+				string bookingDetails = $@"
+            <html>
+            <head>
+                <style>
+                    body {{
+                        font-family: Arial, sans-serif;
+                        margin: 0;
+                        padding: 20px;
+                        background-color: #f2f2f2;
+                    }}
+                    .container {{
+                        background-color: #ffffff;
+                        border-radius: 10px;
+                        padding: 20px;
+                        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                    }}
+                    h1 {{
+                        margin-bottom: 20px;
+                    }}
+                    p {{
+                        margin: 10px 0;
+                    }}
+                </style>
+            </head>
+            <body>
+                <div class='container'>
+                    <h1>Booking Deletion Confirmation</h1>
+                    <p>Hello,</p>
+                    <p>Your booking has been successfully deleted. Here are the details:</p>
+                    <p><strong>Event:</strong> {existingBooking.Eventname}</p>
+                    <p><strong>First Name:</strong> {existingBooking.FirstName}</p>
+                    <p><strong>Last Name:</strong> {existingBooking.LastName}</p>
+                    <p><strong>Phone Number:</strong> {existingBooking.ContactNumber}</p>
+
+                </div>
+            </body>
+            </html>";
+
+				// Send the nicely formatted HTML email to the user's email address
+				await SendEmailAsync(userEmailAddress, "Booking Deletion Confirmation", bookingDetails);
 
 				_repository.Delete(existingBooking);
 
@@ -115,7 +293,64 @@ namespace Africanacity_Team24_INF370_.Controllers
 		}
 
 
-		//Manage Delete booking
+
+		//**************************************************************************** Request delete booking *******************************************************************************
+		[HttpDelete]
+		[Route("RequestDeleteBooking/{BookingId}")]
+		public async Task<IActionResult> RequestBookingDeletion(int BookingId)
+		{
+			try
+			{
+				var existingBooking = await _repository.GetBookingAsync(BookingId);
+
+				if (existingBooking == null) return NotFound($"The booking does not exist");
+
+				// Retrieve the email address from the booking
+				string senderEmail = existingBooking.Email;
+
+				// Create a nicely formatted HTML email body
+				string bookingDetails = $@"
+            <html>
+            <head>
+                <style>
+                    body {{
+                        font-family: Arial, sans-serif;
+                        margin: 0;
+                        padding: 20px;
+                    }}
+                    h1 {{
+                        margin-bottom: 20px;
+                    }}
+                    p {{
+                        margin: 10px 0;
+                    }}
+                </style>
+            </head>
+            <body>
+                <h1>Booking Deletion Request</h1>
+                <p><strong>Booking Event:</strong> {existingBooking.Eventname}</p>
+                <p><strong>First Name:</strong> {existingBooking.FirstName}</p>
+                <p><strong>Last Name:</strong> {existingBooking.LastName}</p>
+                <p><strong>Phone Number:</strong> {existingBooking.ContactNumber}</p>
+                <p><strong>Email:</strong> {existingBooking.Email}</p>
+            </body>
+            </html>";
+
+				// Send nicely formatted HTML email to africanacitymmino@gmail.com
+				await SendEmailAsync("africanacitymmino@gmail.com", "Booking Deletion Request", bookingDetails);
+
+				return Ok("Booking deletion request sent successfully");
+			}
+			catch (Exception)
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+			}
+		}
+
+
+
+
+		//**************************************************************************** Manage Delete Booking *******************************************************************************
 		[HttpDelete]
 		[Route("ManageDeleteBooking/{BookingId}")]
 		public async Task<IActionResult> ManageDeleteBooking(int BookingId)
@@ -140,7 +375,9 @@ namespace Africanacity_Team24_INF370_.Controllers
 			}
 			return BadRequest("Your request is invalid");
 		}
-		// Booking that where approved
+
+
+		//**************************************************************************** Approved Booking *******************************************************************************
 		[HttpGet]
 		[Route("BookedListing")]
 		public async Task<ActionResult> ManageBooked()
@@ -174,40 +411,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 		}
 
 
-		////Booking listing waiting approval
-		//[HttpGet]
-		//[Route("ManageBookedListing")]
-		//public async Task<ActionResult> BookedListing()
-		//{
-		//	try
-		//	{
-		//		var results = await _repository.GetPendingsAsync();
 
-		//		dynamic bookings = results.Select(p => new
-		//		{
-		//			p.Pending_BookingId,
-		//			p.FirstName,
-		//			p.Instagram,
-		//			p.LastName,
-		//			EntertainmentTypeName = p.EntertainmentType.Name,
-		//			p.ContactNumber,
-		//			p.Additional,
-		//			p.Eventname,
-		//			p.Email,
-		//			p.Demo,
-
-		//		});
-
-		//		return Ok(bookings);
-		//	}
-		//	catch (Exception)
-		//	{
-
-		//		return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
-		//	}
-		//}
-
-		// Booking listing waiting approval
+		//**************************************************************************** Booking waiting approval *******************************************************************************
 		[HttpGet]
 		[Route("ManageBookedListing")]
 		public async Task<ActionResult> BookedListing()
@@ -238,74 +443,16 @@ namespace Africanacity_Team24_INF370_.Controllers
 			}
 		}
 
-		//[HttpPost, DisableRequestSizeLimit]
-		//[Route("RequestBk")]
-		//public async Task<IActionResult> RequestBook([FromForm] IFormCollection formData)
-		//{
-		//	try
-		//	{
-		//		var formCollection = await Request.ReadFormAsync();
 
-		//		var file = formCollection.Files.First();
-		//		if (file.Length > 0)
-		//		{
-		//			// Generate a unique filename
-		//			var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
 
-		//			// Store the file on disk
-		//			var filePath = Path.Combine("path_to_your_upload_folder", uniqueFileName);
-		//			using (var stream = new FileStream(filePath, FileMode.Create))
-		//			{
-		//				await file.CopyToAsync(stream);
-		//			}
-
-		//			var booking = new Pending_Booking
-		//			{
-		//				// Populate other fields from formData
-		//				FirstName = formData["firstName"],
-		//				Instagram = formData["Instagram"],
-
-		//				LastName = formData["lastName"]
-		//									,
-		//				Email = formData["email"]
-		//									,
-		//				Eventname = formData["Eventname"]
-		//									,
-		//				Additional = formData["Additional"]
-		//									,
-
-		//				Entertainment_TypeId = Convert.ToInt32(formData["entertainmenttype"]),
-		//				// ...
-
-		//				// Store the file path
-		//				Demo = filePath,
-		//				ContactNumber = formData["contactNumber"]
-		//			};
-
-		//			_repository.Add(booking);
-		//			await _repository.SaveChangesAsync();
-
-		//			return Ok();
-		//		}
-		//		else
-		//		{
-		//			return BadRequest();
-		//		}
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		return StatusCode(500, $"Internal server error: {ex}");
-		//	}
-		//}
-
-		//Request to make booking
+		//**************************************************************************** Request Booking *******************************************************************************
 		[HttpPost, DisableRequestSizeLimit]
-		[Route("RequestBk")]
-		public async Task<IActionResult> RequestBook([FromForm] IFormCollection formData)
-		{
-			try
-			{
-
+	    [Route("RequestBk")]
+	    public async Task<IActionResult> RequestBook([FromForm] IFormCollection formData)
+        	{
+	        	try
+		          {
+				// ... Your existing code ...
 				var formCollection = await Request.ReadFormAsync();
 
 				var file = formCollection.Files.First();
@@ -343,9 +490,38 @@ namespace Africanacity_Team24_INF370_.Controllers
 						};
 
 
+						// Send booking details via email
+						string recipientEmail = "africanacitymmino@gmail.com"; // Email from form data
+						string senderEmail = "africanacitymmino@gmail.com"; // Your sender email
+						string senderPassword = "xuaqebsjnbxopjtx"; // Your sender email password
+						string smtpServer = "smtp.gmail.com"; // SMTP server for Gmail
+						int smtpPort = 587; // SMTP port for Gmail
+
+						using (var client = new SmtpClient(smtpServer, smtpPort))
+						{
+							client.UseDefaultCredentials = false;
+							client.Credentials = new NetworkCredential(senderEmail, senderPassword);
+							client.EnableSsl = true;
+
+							var mailMessage = new MailMessage(senderEmail, recipientEmail)
+							{
+								Subject = "Booking Confirmation",
+								Body = "Booking Request. Here are the entertainers booking details:\n\n" +
+								       $"Event: {formData["Eventname"]}\n" +
+									   $"First Name: {formData["firstName"]}\n" +
+									   $"Last Name: {formData["lastName"]}\n" +
+									   $"Phone Number: {formData["contactNumber"]}\n" +  
+									   $"Email: {formData["email"]}\n" 
+									  
+			                };
+
+							await client.SendMailAsync(mailMessage);
+						}
+
+						
 						_repository.Add(booking);
 						await _repository.SaveChangesAsync();
-					}
+					};
 
 					return Ok();
 				}
@@ -353,14 +529,16 @@ namespace Africanacity_Team24_INF370_.Controllers
 				{
 					return BadRequest();
 				}
-			}
-			catch (Exception ex)
-			{
-				return StatusCode(500, $"Internal server error: {ex}");
-			}
+				}
+		catch (Exception ex)
+		{
+			return StatusCode(500, $"Internal server error: {ex}");
 		}
+	}
 
-		// Add Booking
+
+
+		//**************************************************************************** Make Booking *******************************************************************************
 		[HttpPost, DisableRequestSizeLimit]
 		[Route("AddBk")]
 		public async Task<IActionResult> AddBooking([FromForm] IFormCollection formData)
@@ -420,6 +598,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 			}
 		}
 
+
+		//**************************************************************************** Confirmed booking *******************************************************************************
 		[HttpPost]
 		[Route("MoveBookingToConfirmed/{BookingId}")]
 		public async Task<IActionResult> MoveBookingToConfirmed(int BookingId)
@@ -432,7 +612,6 @@ namespace Africanacity_Team24_INF370_.Controllers
 				// Create a new Booking object based on the pending booking
 				var confirmedBooking = new Bookings
 				{
-
 					FirstName = pendingBooking.FirstName,
 					LastName = pendingBooking.LastName,
 					Instagram = pendingBooking.Instagram,
@@ -449,6 +628,9 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 				if (await _repository.SaveChangesAsync())
 				{
+					// Send approval email to the user
+					await SendApprovalEmail(confirmedBooking.Email, confirmedBooking.FirstName, confirmedBooking.LastName, confirmedBooking.Eventname);
+
 					return Ok(confirmedBooking);
 				}
 				else
@@ -457,17 +639,19 @@ namespace Africanacity_Team24_INF370_.Controllers
 				}
 			}
 			catch (Exception ex)
-
 			{
 				// Log the exception message and stack trace
-				var innerExcept = ex.InnerException?.Message;
+				var innerExceptionMessage = ex.InnerException?.Message;
 
 				_logger.LogError(ex, "An error occurred while moving the booking to confirmed.");
 
-				return BadRequest($"Invalid transaction. Error. {ex.Message}. Inner Exception: {innerExcept}");
+				return BadRequest($"Invalid transaction. Error: {ex.Message}. Inner Exception: {innerExceptionMessage}");
 			}
 		}
 
+
+
+		//**************************************************************************** Get booking by id *******************************************************************************
 		[HttpGet]
 		[Route("GetBooking/{bookingId}")]
 		public async Task<IActionResult> GetBookingAsync(int bookingId)
@@ -487,6 +671,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 		}
 
 
+		//**************************************************************************** Get booking by email *******************************************************************************
 		[HttpGet("GetBookingInfor/{email}")]
 		public async Task<IActionResult> GetBookingInfor(string email)
 		{
@@ -510,7 +695,6 @@ namespace Africanacity_Team24_INF370_.Controllers
 					booking.Additional,
 					booking.Demo,
 					EntertainmentTypeName = booking.EntertainmentType.Name, // Assuming the entertainment type name is stored in the Name property of the EntertainmentType
-					/*Event = booking.Event.Name*/ // Assuming the entertainment type name is stored in the Name property of the EntertainmentType
 				});
 
 				return Ok(mappedResult);
@@ -520,7 +704,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 				return StatusCode(500, "Internal Server Error. Please contact support");
 			}
 		}
-
+			
+		}
 
 	}
-}
+

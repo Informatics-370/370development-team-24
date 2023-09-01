@@ -14,7 +14,17 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { WelcomeComponent } from './General Home/about/welcome/welcome.component';
 import { AboutComponent } from './General Home/about/about.component';
 import { EditBookingComponent } from './components/edit-booking/edit-booking.component';
-import { GalleryComponent } from './components/gallery/gallery.component';
+import { HelpComponent } from './components/help/help.component';
+import { BookingHelpComponent } from './components/booking/booking-help/booking-help.component';
+import { SignHelpComponent } from './components/signup/sign-help/sign-help.component';
+import { ChangeHelpComponent } from './components/change-password/change-help/change-help.component';
+import { EditHelpComponent } from './components/edit-booking/edit-help/edit-help.component';
+import { HomeHelpComponent } from './components/home/home-help/home-help.component';
+import { LoginHelpComponent } from './components/login/login-help/login-help.component';
+import { PastHelpComponent } from './components/past-booking/past-help/past-help.component'; 
+import { ResetHelpComponent } from './components/reset/reset-help/reset-help.component';
+import { UpdateHelpComponent } from './components/update-profile/update-help/update-help.component';
+import { ViewHelpComponent } from './components/view-profile/view-help/view-help.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'welcome', pathMatch:'full'},
@@ -31,7 +41,18 @@ const routes: Routes = [
   {path:'welcome',component:WelcomeComponent},
   {path:'past-booking', component: PastBookingComponent, canActivate:[AuthGuard]},
   {path:'edit-booking/:id', component:  EditBookingComponent, canActivate:[AuthGuard]},
-  {path:'gallery', component:  GalleryComponent, canActivate:[AuthGuard]}
+  {path:'help', component:  HelpComponent, canActivate:[AuthGuard]},
+  {path:'booking-help', component: BookingHelpComponent, canActivate:[AuthGuard]},
+  {path:'sign-help', component: SignHelpComponent, canActivate:[AuthGuard]},
+  {path:'edit-help', component:  EditHelpComponent, canActivate:[AuthGuard]},
+  {path:'change-help', component:  ChangeHelpComponent, canActivate:[AuthGuard]},
+  {path:'home-help', component:  HomeHelpComponent, canActivate:[AuthGuard]},
+  {path:'login-help', component:  LoginHelpComponent, canActivate:[AuthGuard]},
+  {path:'past-help', component:  PastHelpComponent, canActivate:[AuthGuard]},
+  {path:'reset-help', component:  ResetHelpComponent, canActivate:[AuthGuard]},
+  {path:'update-help', component:  UpdateHelpComponent, canActivate:[AuthGuard]},
+  {path:'view-help', component:  ViewHelpComponent, canActivate:[AuthGuard]}
+
 
 ];
 

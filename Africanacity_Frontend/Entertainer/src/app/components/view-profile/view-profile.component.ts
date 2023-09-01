@@ -4,6 +4,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
 import { Profile } from 'src/app/models/Profile';
 import { Router } from '@angular/router';
+import { ViewHelpComponent } from './view-help/view-help.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-view-profile',
@@ -27,7 +29,8 @@ export class ViewProfileComponent implements OnInit {
     private auth: AuthService, 
     private api : ApiService, 
     private userStore: UserStoreService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog 
     ) { }
 
   ngOnInit() {
@@ -122,6 +125,17 @@ view(): void {
         );
     }
    }
+
+   openHelpModal(field: string): void {
+    const dialogRef = this.dialog.open(ViewHelpComponent, {
+      width: '500px',
+      data: { field } // Pass the field name to the modal
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle modal close if needed
+    });
+  }
   }
   
 

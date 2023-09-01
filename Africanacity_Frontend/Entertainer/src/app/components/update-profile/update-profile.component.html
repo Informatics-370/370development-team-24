@@ -20,8 +20,11 @@
 </div>
 </header>
 
-<div class="container" style="margin-left: 15%; width: auto;">
+<div class="container" style="margin-left: 20rem; width: auto;">
   <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+    <button style="margin-left: 63rem;" mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help">
+      <mat-icon>help</mat-icon>
+    </button>
     <h2 class="pt-3 font-weight-bold" style="text-align: center;">
       Update Profile
     </h2>  
@@ -45,30 +48,34 @@
       </div>
     </div>
     <div class="form-group pt-3">
-      <div class="input-field" [class.error]="updateForm.controls['contactNumber'].dirty && updateForm.hasError('required', 'contactNumber')">
-        <span class="fa fa-user p-2"></span>
-        <input id="contactNumber" type="text" placeholder="Contact Number" formControlName="contactNumber">
+      <div class="input-field"
+        [class.error]="updateForm.controls['contactNumber'].dirty && (updateForm.hasError('required', 'contactNumber') || updateForm.hasError('noSpaces', 'contactNumber') || updateForm.hasError('pattern', 'contactNumber') || updateForm.hasError('allZeros', 'contactNumber'))">
+        <span class="fa fa-phone p-2"></span>
+        <input id="contactNumber" formControlName="contactNumber" type="text" placeholder="Contact Number">
       </div>
-      <small *ngIf="updateForm.controls['contactNumber'].dirty && updateForm.controls['contactNumber'].errors?.['minlength']" class="text-danger">
-        *Contact number must be 10 digits.*
-      </small>
     </div>
+    <small *ngIf="updateForm.controls['contactNumber'].dirty && (updateForm.hasError('required', 'contactNumber') || updateForm.hasError('noSpaces', 'contactNumber') || updateForm.hasError('pattern', 'contactNumber') || updateForm.hasError('allZeros', 'contactNumber'))"
+      class="text-danger">
+      *{{ updateForm.hasError('noSpaces', 'contactNumber') ? 'Contact Number cannot be just spaces' :
+      updateForm.hasError('pattern', 'contactNumber') ? 'Invalid Contact Number' :
+      updateForm.hasError('allZeros', 'contactNumber') ? 'Invalid South African Number' : 'Contact Number is required' }}*
+    </small>
     <div class="form-group pt-3">
       <div class="input-field" [class.error]="updateForm.controls['email'].dirty && updateForm.hasError('required','email')">
-        <span class="fa fa-user p-2"></span>
+        <span class="fa fa-envelope p-2"></span>
         <input  style="width: 100%;" id="email" type="text" placeholder="Email" formControlName="email">
       </div>
     </div> 
     <div class="form-group pt-3">
       <div class="input-field" [class.error]="updateForm.controls['physicalAddress'].dirty && updateForm.hasError('required','physicalAddress')">
-        <span class="fa fa-user p-2"></span>
+        <span class="fa fa-address-book-o p-2"></span>
         <textarea  style="width: 100%;" id="physicalAddress" type="text" placeholder="Physical Address" formControlName="physicalAddress"></textarea>
       </div>
     </div>
 
     <div class="form-group">
       <div class="col-sm-offset-1 col-sm-6">
-        <button style="margin-right:1em; width: 40%;" type="submit" class="btn btn-sm btn-light">Submit</button>
+        <button  [disabled]="!updateForm.valid" style="margin-right:1em; width: 40%;" type="submit" class="btn btn-sm btn-light">Submit</button>
         <button style="width: 40%;" type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button>
       </div>
     </div>

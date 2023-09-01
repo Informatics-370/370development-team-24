@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BookingService } from 'src/app/UserService/Booking.service';
 import { ApiService } from 'src/app/UserService/api.service';
 import { AuthService } from 'src/app/UserService/auth.service';
 import { UserStoreService } from 'src/app/UserService/user-store.service';
 import { Booking } from 'src/app/shared/Booking';
+import { BookingHelpComponent } from './booking-help/booking-help.component';
 
 @Component({
   selector: 'app-booking-listing',
@@ -12,44 +14,24 @@ import { Booking } from 'src/app/shared/Booking';
   styleUrls: ['./booking-listing.component.css']
 })
 export class BookingListingComponent {
-  
+
   bookings: Booking[] = [];
-  filteredbookings: Booking[] = []; 
+  filteredbookings: Booking[] = [];
+  loading: boolean = true;
+
 
   public users:any = [];
   public role!:string;
 
   public fullName : string = "";
   constructor(
-    private api : ApiService, 
-    private auth: AuthService, 
+    private api : ApiService,
+    private auth: AuthService,
     private userStore: UserStoreService,
     private book: BookingService,
     private snackBar: MatSnackBar,
+    private dialog: MatDialog 
     ) { }
-
-    deleteItem(): void {
-      const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete this booking?', 'Confirm, Cancel',{
-        duration: 5000, // Display duration in milliseconds
-  
-      });
-  
-      
-      //  cancel(){
-      //    this.router.navigate(['/home'])
-      //  }
-    
-  
-      confirmationSnackBar.onAction().subscribe(() => {
-        // Perform the deletion action here
-        this.deleteItemFromServer();
-        window.location.reload();
-      });
-    }
-  
-  deleteItemFromServer(): void {
-    this.DeleteBooking;
-  }
 
   ngOnInit() {
 
@@ -70,6 +52,17 @@ export class BookingListingComponent {
       this.role = val || roleFromToken;
     });
 
+    this.book.getBooks().subscribe(
+      (books: any) => {
+        this.filteredbookings = books;
+        this.loading = false; // Hide the loader
+      },
+      (error) => {
+        console.error('Error fetching bookings:', error);
+        this.loading = false; // Hide the loader in case of error as well
+      }
+    );
+
     this.book.getBooks().subscribe((books:any) => {this.filteredbookings = books});
 
     this.filteredbookings= this.bookings
@@ -79,23 +72,39 @@ export class BookingListingComponent {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
-  
+
     this.filteredbookings = this.bookings.filter(booking => {
       const column2Value = booking.firstName.toLowerCase() || booking.firstName.toUpperCase();
       const column3Value = booking.lastName.toLowerCase();
- 
-  
-  
-      return column2Value.includes(filterValue) || 
-      column3Value.includes(filterValue) 
+      return column2Value.includes(filterValue) ||
+      column3Value.includes(filterValue)
     });
   }
 
 
-  DeleteBooking(bookId: Number){
-    this.book.DeleteBooking(bookId).subscribe(result => {
-      this.deleteItem();
-      });
+
+    DeleteBooking(bookingId: number): void {
+      const confirmed = confirm('Are you sure you want to delete the booking?');
+      if (confirmed) {
+        this.book.DeleteBooking(bookingId).subscribe(
+          () => {
+            // Remove the deleted booking from the list
+            this.filteredbookings = this.filteredbookings.filter((booking) => booking.bookingId !== bookingId);
+  
+            // Display a success message
+            this.snackBar.open('Booking deleted successfully!', 'Close', {
+              duration: 3000,
+            });
+          },
+          (error) => {
+            console.error('Error deleting booking:', error);
+            // Display an error message
+            this.snackBar.open('An error occurred while deleting the booking.', 'Close', {
+              duration: 3000,
+            });
+          }
+        );
+      }
     }
 
   logout(){
@@ -103,38 +112,19 @@ export class BookingListingComponent {
   }
   selectedBooking: Booking | undefined; // Define a variable to store the selected booking
 
-  // ... (existing code) ...
-
   openModal(booking: Booking) {
     this.selectedBooking = booking; // Set the selected booking when "View" is clicked
     console.log(this.selectedBooking);
   }
 
-  downloadPDF() {
-    // const doc = new jsPDF();
-    // const headers = [['ID', 'Name', 'Surname', 'Role', 'Email', 'Phone Number', 'Address']];
-    
-    // // Map the checklistItems to generate the data array
-    // const data = this.employees.map(employee => [employee.employeeId, employee.firstName, employee.surname, employee.employeeRole, employee.email_Address, employee.phoneNumber, employee.physical_Address]);
+  openHelpModal(field: string): void {
+    const dialogRef = this.dialog.open(BookingHelpComponent, {
+      width: '500px',
+      data: { field } // Pass the field name to the modal
+    });
   
-    // doc.setFontSize(12);
-  
-    // // Generate the table using autoTable
-    // // startY is the initial position for the table
-    // autoTable(doc, {
-    //   head: headers,
-    //   body: data,
-    //   startY: 20,
-    //   // Other options for styling the table if needed
-    // });
-    
-    // // Convert the PDF blob to a Base64 string
-    // const pdfBlob = doc.output('blob');
-  
-    // // Create a file-saver Blob object
-    // const file = new Blob([pdfBlob], { type: 'application/pdf' });
-  
-    // // Save the Blob to a file
-    // saveAs(file, 'employee_listing.pdf');
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle modal close if needed
+    });
   }
 }

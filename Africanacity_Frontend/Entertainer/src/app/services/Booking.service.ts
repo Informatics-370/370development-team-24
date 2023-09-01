@@ -54,22 +54,29 @@ export class BookingService {
        return this.httpClient.post(`${this.apiUrl}Booking/RequestBooking`, booking, this.httpOptions)
     }
 
-     
+    DeleteBooking(bookingId: number) {
+      const url = `${this.apiUrl}Booking/RequestDeleteBooking/${bookingId}`;
+      return this.httpClient.delete(url, this.httpOptions);
+    }
+
+    
     AddBooking(booking: Booking)
     {
        return this.httpClient.post(`${this.apiUrl}Booking/AddBooking`, booking, this.httpOptions)
     }
   
   
-    DeleteBooking(bookingId: Number)
-    {
-      return this.httpClient.delete<string>(`${this.apiUrl}Booking/DeleteBooking` + "/" + bookingId, this.httpOptions)
-    }
-  
-    EditBooking(bookingId: number, booking: Booking)
-     {
-       return this.httpClient.put(`${this.apiUrl}Booking/EditBooking/${bookingId}`,booking, this.httpOptions)
-     }
+    // DeleteBooking(bookingId: Number)
+    // {
+    //   return this.httpClient.delete<string>(`${this.apiUrl}Booking/RequestDeleteBooking` + "/" + bookingId, this.httpOptions)
+    // }
+
+
+// Update the EditBooking function to accept FormData
+      EditBooking(bookingId: number, bookingData: FormData) {
+      const url = `${this.apiUrl}Booking/EditBooking/${bookingId}`;
+       return this.httpClient.put(url, bookingData);
+      }
 
      GetBookingInfor(email: string): Observable<any> {
       const url = `${this.apiUrl}Booking/GetBookingInfor/${email}`; 

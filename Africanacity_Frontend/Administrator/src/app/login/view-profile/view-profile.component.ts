@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/UserService/api.service';
 import { AuthService } from 'src/app/UserService/auth.service';
 import { UserStoreService } from 'src/app/UserService/user-store.service';
 import { Profile } from 'src/app/shared/Profile';
+import { ViewHelpComponent } from './view-help/view-help.component';
 
 @Component({
   selector: 'app-view-profile',
@@ -21,13 +23,15 @@ export class ViewProfileComponent implements OnInit {
   public Phone : string = "";
   public Address : string = "";
   public fullName : string = "";
-  public isDisabled: boolean = true; // or false depending on your logic
+  public isDisabled: boolean = true; 
+
 
   constructor(
     private auth: AuthService, 
     private api : ApiService, 
     private userStore: UserStoreService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog 
     ) { }
 
   ngOnInit() {
@@ -121,6 +125,17 @@ view(): void {
         );
     }
    }
+
+   openHelpModal(field: string): void {
+    const dialogRef = this.dialog.open(ViewHelpComponent, {
+      width: '500px',
+      data: { field } // Pass the field name to the modal
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle modal close if needed
+    });
+  }
   }
   
 

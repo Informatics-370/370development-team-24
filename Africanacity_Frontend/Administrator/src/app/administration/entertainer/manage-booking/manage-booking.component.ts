@@ -7,8 +7,9 @@ import { ApiService } from 'src/app/UserService/api.service';
 import { AuthService } from 'src/app/UserService/auth.service';
 import { UserStoreService } from 'src/app/UserService/user-store.service';
 import { Booking } from 'src/app/shared/Booking';
-import { MatTableDataSource } from '@angular/material/table';
 import { Pending } from 'src/app/shared/Pending';
+import { MatDialog } from '@angular/material/dialog';
+import { ManageHelpComponent } from './manage-help/manage-help.component';
 
 @Component({
   selector: 'app-manage-booking',
@@ -19,6 +20,8 @@ export class ManageBookingComponent {
 
   bookings: Pending[] = [];
   filteredbookings: Pending[] = []; 
+  loading: boolean = true;
+
 
   public users:any = [];
   public role!:string;
@@ -30,30 +33,8 @@ export class ManageBookingComponent {
     private userStore: UserStoreService,
     private book: BookingService,
     private snackBar: MatSnackBar,
+    private dialog: MatDialog
     ) { }
-
-    deleteItem(): void {
-      const confirmationSnackBar = this.snackBar.open('Are you sure you want to cancel this booking?', 'Confirm, Cancel',{
-        duration: 5000, // Display duration in milliseconds
-  
-      });
-  
-      
-      //  cancel(){
-      //    this.router.navigate(['/home'])
-      //  }
-    
-  
-      confirmationSnackBar.onAction().subscribe(() => {
-        // Perform the deletion action here
-        this.deleteItemFromServer();
-        window.location.reload();
-      });
-    }
-  
-  deleteItemFromServer(): void {
-    this.DeleteBooking;
-  }
 
   ngOnInit() {
 
@@ -74,33 +55,57 @@ export class ManageBookingComponent {
       this.role = val || roleFromToken;
     });
 
-    this.book.getRequestBooks().subscribe((books:any) => {this.filteredbookings = books});
+    this.book.getRequestBooks().subscribe(
+      (books: any) => {
+        this.filteredbookings = books;
+        this.loading = false; // Hide the loader
+      },
+      (error) => {
+        console.error('Error fetching bookings:', error);
+        this.loading = false; // Hide the loader in case of error as well
+      }
+    );
 
-    this.filteredbookings= this.bookings
+    // this.book.getRequestBooks().subscribe((books:any) => {this.filteredbookings = books});
+
+    // this.filteredbookings= this.bookings
     console.log(this.filteredbookings)
   }
 
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
-  
     this.filteredbookings = this.bookings.filter(booking => {
       const column2Value = booking.firstName.toLowerCase() || booking.firstName.toUpperCase();
       const column3Value = booking.lastName.toLowerCase();
- 
-  
-  
       return column2Value.includes(filterValue) || 
       column3Value.includes(filterValue) 
     });
   }
 
+  DeleteBooking(bookingId: number): void {
+    const confirmed = confirm('Are you sure you want to decline the booking?');
+    if (confirmed) {
+      this.book.ManageDeleteBooking(bookingId).subscribe(
+        () => {
+          // Remove the deleted booking from the list
+          this.filteredbookings = this.filteredbookings.filter((booking) => booking.pending_BookingId !== bookingId);
 
-  DeleteBooking(bookId: Number){
-    this.book. ManageDeleteBooking(bookId).subscribe(result => {
-      this.deleteItem();
-      });
+          // Display a success message
+          this.snackBar.open('Booking removed successfully!', 'Close', {
+            duration: 3000,
+          });
+        },
+        (error) => {
+          console.error('Error removing booking:', error);
+          // Display an error message
+          this.snackBar.open('An error occurred while removing the booking.', 'Close', {
+            duration: 3000,
+          });
+        }
+      );
     }
+  }
 
   logout(){
     this.auth.signOut();
@@ -133,31 +138,15 @@ export class ManageBookingComponent {
       }
     );
   }
-  downloadPDF() {
-    // const doc = new jsPDF();
-    // const headers = [['ID', 'Name', 'Surname', 'Role', 'Email', 'Phone Number', 'Address']];
-    
-    // // Map the checklistItems to generate the data array
-    // const data = this.employees.map(employee => [employee.employeeId, employee.firstName, employee.surname, employee.employeeRole, employee.email_Address, employee.phoneNumber, employee.physical_Address]);
+
+  openHelpModal(field: string): void {
+    const dialogRef = this.dialog.open(ManageHelpComponent, {
+      width: '500px',
+      data: { field } // Pass the field name to the modal
+    });
   
-    // doc.setFontSize(12);
-  
-    // // Generate the table using autoTable
-    // // startY is the initial position for the table
-    // autoTable(doc, {
-    //   head: headers,
-    //   body: data,
-    //   startY: 20,
-    //   // Other options for styling the table if needed
-    // });
-    
-    // // Convert the PDF blob to a Base64 string
-    // const pdfBlob = doc.output('blob');
-  
-    // // Create a file-saver Blob object
-    // const file = new Blob([pdfBlob], { type: 'application/pdf' });
-  
-    // // Save the Blob to a file
-    // saveAs(file, 'employee_listing.pdf');
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle modal close if needed
+    });
   }
 }

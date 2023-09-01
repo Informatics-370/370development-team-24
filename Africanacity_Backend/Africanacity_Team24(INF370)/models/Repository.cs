@@ -86,6 +86,11 @@ namespace Africanacity_Team24_INF370_.models
             _appDbContext.Remove(entity);
         }
 
+		public void Update<T>(T entity) where T : class
+		{
+			_appDbContext.Update(entity);
+		}
+
 		//FOOD TYPE
 		public async Task<Food_Type[]>GetAllFoodTypesAsync()
 		{

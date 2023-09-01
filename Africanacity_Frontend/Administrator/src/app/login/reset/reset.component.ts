@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { ResetPasswordService } from 'src/app/UserService/reset-password.service';
 import { confirmPassowrdValidator } from 'src/app/helpers/confirm-password.validator';
 import ValidateForm from 'src/app/helpers/validationform';
 import { ResetPassword } from 'src/app/shared/reset-password.model';
+import { ResetHelpComponent } from './reset-help/reset-help.component';
 
 
 
@@ -19,10 +21,8 @@ export class ResetComponent implements OnInit {
   resetPasswordForm!: FormGroup;
   emailToReset!: string;
   emailToken!: string;
-  resetPasswordObj = new ResetPassword();
-  type1: string = 'confirmPassword';
-  isText1: boolean = false;
-  eyeIcon1: string = 'fa-eye-slash';
+  resetPassword = new ResetPassword();
+
   type: string = 'newPassword';
   isText: boolean = false;
   eyeIcon: string = 'fa-eye-slash';
@@ -32,7 +32,8 @@ export class ResetComponent implements OnInit {
     private toast: NgToastService,
     private router: Router,
     private activate : ActivatedRoute,
-    private resetService: ResetPasswordService) { }
+    private resetService: ResetPasswordService,
+    private dialog: MatDialog ) { }
 
 ngOnInit(): void {
     this.resetPasswordForm = this.fb.group({
@@ -53,21 +54,9 @@ ngOnInit(): void {
           this.emailToken = uriToken.replace(/ /g, '+');
         }
     
-        // console.log(this.emailToReset);
-        // console.log(this.emailToken);
+        console.log(this.emailToReset);
+        console.log(this.emailToken);
     })
-}
-
-hideShowPass() {
-  this.isText = !this.isText;
-  this.isText ? (this.eyeIcon = 'fa-eye') : (this.eyeIcon = 'fa-eye-slash');
-  this.isText ? (this.type = 'text') : (this.type = 'newPassword');
-}
-
-hideShowPass1() {
-  this.isText1 = !this.isText1;
-  this.isText1 ? (this.eyeIcon1 = 'fa-eye') : (this.eyeIcon1 = 'fa-eye-slash');
-  this.isText1 ? (this.type1 = 'text') : (this.type1 = 'confirmPassword');
 }
 
 
@@ -75,12 +64,12 @@ reset(){
 
         if(this.resetPasswordForm.valid)
         {
-         this.resetPasswordObj.email=this.emailToReset;
-         this.resetPasswordObj.newPassword=this.resetPasswordForm.value.newPassword;
-         this.resetPasswordObj.confirmPassword=this.resetPasswordForm.value.confirmPassword;
-         this.resetPasswordObj.emailToken=this.emailToReset;
+         this.resetPassword.email=this.emailToReset;
+         this.resetPassword.newPassword=this.resetPasswordForm.value.newPassword;
+         this.resetPassword.confirmPassword=this.resetPasswordForm.value.confirmPassword;
+         this.resetPassword.emailToken=this.emailToken;
 
-         this.resetService.resetPassword(this.resetPasswordObj)
+         this.resetService.resetPassword(this.resetPassword)
          .subscribe({
             next:(res)=>{
               this.toast.success({
@@ -88,7 +77,8 @@ reset(){
                 summary: 'Password reset Successful!',
                 duration: 3000,
               });
-              this.router.navigate([['/login']])
+              this.router.navigate(['/login'])
+              this.router.navigate(['login'])
         },
         error:(err)=>{
             this.toast.error({
@@ -103,4 +93,17 @@ reset(){
             ValidateForm.validateAllFormFields(this.resetPasswordForm); 
         }
   }
+
+  openHelpModal(field: string): void {
+    const dialogRef = this.dialog.open(ResetHelpComponent, {
+      width: '500px',
+      data: { field } // Pass the field name to the modal
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle modal close if needed
+    });
+  }
 }
+
+

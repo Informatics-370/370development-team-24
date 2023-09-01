@@ -1,13 +1,13 @@
 
     <app-navbar></app-navbar> 
 
-<div class="container" style="margin-top: -55%;">
+<div class="container" style="margin-top: -60rem;">
  <div class="row"> 
   <div class="col">
     <form >
       <div class="row">
         <div class="col-lg-4">
-          <div class="card mb-4" style="margin-left: 25%; width: 100%;">
+          <div class="card mb-4" style="margin-left: 25%; width: 100%; margin-top: 3rem;">
             <div class="card-body text-center"  style="margin-left: 1%;">
               <img src="../../assets/Nav_image/Avatar.jpeg"  alt="Avatar" class="avatar"
                 class="rounded-circle img-fluid" style="width: 150px;">
@@ -22,6 +22,9 @@
           </div>
         </div> 
         <div class="col-lg-8">
+          <button style="margin-left: 50rem;" mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help">
+            <mat-icon>help</mat-icon>
+          </button>  
           <div class="card mb-4" style="margin-left: 10%;">
             <div class="card-body">
               <div class="row">

@@ -25,7 +25,7 @@
     <form >
       <div class="row">
         <div class="col-lg-4">
-          <div class="card mb-4" style="margin-left: 25%; width: 100%;">
+          <div class="card mb-4" style="margin-left: 30%; width: 100%; margin-top: 3rem;">
             <div class="card-body text-center"  style="margin-left: 1%;">
               <img src="../../assets/Nav_image/Avatar.jpeg"  alt="Avatar" class="avatar"
                 class="rounded-circle img-fluid" style="width: 150px;">
@@ -40,7 +40,10 @@
           </div>
         </div> 
         <div class="col-lg-8">
-          <div class="card mb-4" style="margin-left: 10%;">
+          <button style="margin-left: 50rem;" mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help">
+            <mat-icon>help</mat-icon>
+          </button>  
+          <div class="card mb-4" style="margin-left: 15%;">
             <div class="card-body">
               <div class="row">
                 <div class="col-sm-3">
@@ -105,7 +108,7 @@
                 </div>
               </div><br><br><br>
                 <a (click)="view()"><i class="fa fa-pencil fa-fw"></i> Update Profile</a><br><br>
-                <a (click)="deleteUser()"><i class="fa fa-trash-o fa-fw"></i> Delete</a>           
+                <a (click)="deleteUser()"><i class="fa fa-trash-o fa-fw"></i> Delete Account</a>         
              </div>
             </div>
           </div>

@@ -12,6 +12,7 @@ using Africanacity_Team24_INF370_.models;
 using Microsoft.Extensions.Logging;
 using Org.BouncyCastle.Utilities.Collections;
 using System.Diagnostics;
+using Africanacity_Team24_INF370_.View_Models;
 
 namespace Africanacity_Team24_INF370_.models
 {
@@ -267,9 +268,337 @@ namespace Africanacity_Team24_INF370_.models
                             Employment_Date = DateTime.Now
 
                         });
-            // Create Seed Data For the Help Q&A Table:
 
-            modelBuilder.Entity<Help>()
+			//********************************************************************************************************* Create Seed Data For the  Booking Table: **********************************************************************************
+
+			modelBuilder.Entity<Bookings>()
+		   .HasData(
+		   new
+		   {
+
+			  BookingId = 1,
+			   LastName = "James",
+			   FirstName = "Vanessa",
+			   Instagram = "Vanessa123",
+			   Email = "VanessaJames@gmail.com",
+			   ContactNumber = "0847541236",
+			   Eventname = "Smooth Sunday",
+			   Additional = "Thank you",
+			   Demo = "Image 1",
+			   Entertainment_TypeId = 1,
+		   });
+			
+			modelBuilder.Entity<Bookings>()
+						 .HasData(
+						 new
+						 {
+							 BookingId = 2,
+							 LastName = "Williams",
+							 FirstName = "Serena",
+							 Instagram = "Serena",
+							 Email = "SerenaWilliams@gmail.com",
+							 ContactNumber = "0847541238",
+							 Eventname = "Wacky Wednesday",
+							 Additional = "None",
+							 Demo = "Image 2",
+							 Entertainment_TypeId = 2,
+
+
+						 });
+			modelBuilder.Entity<Bookings>()
+						 .HasData(
+						 new
+						 {
+							 BookingId = 3,
+							 LastName = "Williams",
+							 FirstName = "Venus",
+							 Instagram = "Venus",
+							 Email = "VenusWilliams@gmail.com",
+							 ContactNumber = "0847541238",
+							 Eventname = "Smooth Sunday",
+							 Additional = "None",
+							 Demo = "Image 3",
+							 Entertainment_TypeId = 3,
+
+						 });
+			modelBuilder.Entity<Bookings>()
+						.HasData(
+						new
+						{
+							BookingId = 4,
+							LastName = "Bestie",
+							FirstName = "Beast",
+							Instagram = "Bee",
+							Email = "Beast@gmail.com",
+							ContactNumber = "0847541238",
+							Eventname = "Wacky Wednesday",
+							Additional = "None",
+							Demo = "Image 4",
+							Entertainment_TypeId = 4,
+
+						});
+			modelBuilder.Entity<Bookings>()
+						.HasData(
+						new
+						{
+							BookingId = 5,
+							LastName = "Kid",
+							FirstName = "Danger",
+							Instagram = "KidDanger",
+							Email = "KidDanger@gmail.com",
+							ContactNumber ="0848887563",
+							Eventname = "Wacky Wednesday",
+							Additional = "None",
+							Demo = "Image 5",
+							Entertainment_TypeId = 1,
+
+						});
+			modelBuilder.Entity<Bookings>()
+						.HasData(
+						new
+						{
+							BookingId = 6,
+							LastName = "Adult",
+							FirstName = "Danger",
+							Instagram = "AdultDanger",
+							Email = "AdultDanger@gmail.com",
+							ContactNumber = "0847541236",
+							Eventname = "Wacky Wednesday",
+							Additional = "None",
+							Demo = "Image 6",
+							Entertainment_TypeId = 2,
+
+						});
+
+
+			// ************************************************************************Create Seed Data For the Pending Booking Table ************************************************************************************************************
+
+			modelBuilder.Entity<Pending_Booking>()
+			   .HasData(
+			   new
+			   {
+
+				   Pending_BookingId = 1,
+				   LastName = "James",
+				   FirstName = "Vanessa",
+				   Instagram = "Vanessa123",
+                   Email = "VanessaJames@gmail.com",
+				   ContactNumber = "0847541236",
+                   Eventname = "Smooth Sunday",
+                   Additional ="Thank you",
+                   Demo = "Image 1",
+                   Entertainment_TypeId = 1,
+			   });
+			;
+			modelBuilder.Entity<Pending_Booking>()
+						 .HasData(
+						 new
+						 {
+							 Pending_BookingId = 2,
+							 LastName = "Williams",
+							 FirstName = "Serena",
+							 Instagram = "Serena",
+							 Email = "SerenaWilliams@gmail.com",
+							 ContactNumber = "0847541238",
+							 Eventname = "Wacky Wednesday",
+							 Additional = "None",
+							 Demo = "Image 2",
+							 Entertainment_TypeId = 2,
+	
+
+						 });
+			modelBuilder.Entity<Pending_Booking> ()
+						 .HasData(
+						 new
+						 {
+							 Pending_BookingId = 3,
+							 LastName = "Williams",
+							 FirstName = "Venus",
+							 Instagram = "Venus",
+							 Email = "VenusWilliams@gmail.com",
+							 ContactNumber = "0847541238",
+							 Eventname = "Smooth Sunday",
+							 Additional = "None",
+							 Demo = "Image 3",
+							 Entertainment_TypeId = 3,
+
+						 });
+			modelBuilder.Entity<Pending_Booking>()
+						.HasData(
+						new
+						{
+							Pending_BookingId = 4,
+							LastName = "Bestie",
+							FirstName = "Beast",
+							Instagram = "Bee",
+							Email = "Beast@gmail.com",
+							ContactNumber = "0847541238",
+							Eventname = "Wacky Wednesday",
+							Additional = "None",
+							Demo = "Image 4",
+							Entertainment_TypeId = 4,
+
+						});
+			modelBuilder.Entity<Pending_Booking > ()
+						.HasData(
+						new
+						{
+							Pending_BookingId = 5,
+							LastName = "Kid",
+							FirstName = "Danger",
+							Instagram = "KidDanger",
+							Email = "KidDanger@gmail.com",
+							ContactNumber = "0848887563",
+							Eventname = "Wacky Wednesday",
+							Additional = "None",
+							Demo = "Image 5",
+							Entertainment_TypeId = 1,
+							
+						});
+			modelBuilder.Entity<Pending_Booking>()
+						.HasData(
+						new
+						{
+							Pending_BookingId = 6,
+							LastName = "Adult",
+							FirstName = "Danger",
+							Instagram = "AdultDanger",
+							Email = "AdultDanger@gmail.com",
+							ContactNumber = "0847541236",
+							Eventname = "Wacky Wednesday",
+							Additional = "None",
+							Demo = "Image 6",
+							Entertainment_TypeId = 2,
+
+						});
+
+
+
+
+			//****************************************************************************************************** Create Seed Data For the Entertainer Table: ******************************************************************************************
+
+			modelBuilder.Entity<User>()
+			   .HasData(
+			   new
+			   {
+				   Id = 1,
+				   LastName = "James",
+				   FirstName = "Vanessa",
+                   Username ="Vanessa",
+                   Password = "Vanessa123",
+				   Email = "VanessaJames@gmail.com",
+                   Role="User",
+				   Entertainment_TypeId = 1,
+				   RefreshToken = "",
+				   RefreshTokenExpiryTime = DateTime.UtcNow, // Set as needed
+				   ResetPasswordToken = "",
+				   ResetPasswordTokenExpiry = DateTime.UtcNow, // Set as needed
+				   PhysicalAddress = "404 Jacob Street",
+				   ContactNumber = "0848887563",
+			   });
+			;
+			modelBuilder.Entity<User>()
+						 .HasData(
+						 new
+						 {
+							 Id = 2,
+							 LastName = "Williams",
+							 FirstName = "Serena",
+							 Username = "Serena",
+							 Password = "Serena.123",
+							 Email = "SerenaWilliams@gmail.com",
+							 Role = "User",
+							 Entertainment_TypeId = 2,
+							 RefreshToken = "",
+							 RefreshTokenExpiryTime = DateTime.UtcNow, // Set as needed
+							 ResetPasswordToken = "",
+							 ResetPasswordTokenExpiry = DateTime.UtcNow, // Set as needed
+							 PhysicalAddress = "404 Williams Street",
+							 ContactNumber = "0848887564",
+
+						 });
+			modelBuilder.Entity<User> ()
+						 .HasData(
+						 new
+						 {
+							 Id = 3,
+							 LastName = "Venus",
+							 FirstName = "Williams",
+							 Username = "Venus",
+							 Password = "Venus.123",
+							 Email = "VenusWilliams@gmail.com",
+							 Role = "User",
+							 Entertainment_TypeId = 3,
+							 RefreshToken = "",
+							 RefreshTokenExpiryTime = DateTime.UtcNow, // Set as needed
+							 ResetPasswordToken = "",
+							 ResetPasswordTokenExpiry = DateTime.UtcNow, // Set as needed
+							 PhysicalAddress = "100 Venus Street",
+							 ContactNumber = "0848887565",
+						 });
+			modelBuilder.Entity<User>()
+						.HasData(
+						new
+						{
+							Id = 4,
+							LastName = "Bestie",
+							FirstName = "Beast",
+							Username = "Bee",
+							Password = "Beast.123",
+							Email = "Beast@gmail.com",
+							Role = "User",
+							Entertainment_TypeId = 4,
+							RefreshToken = "",
+							RefreshTokenExpiryTime = DateTime.UtcNow, // Set as needed
+							ResetPasswordToken = "",
+							ResetPasswordTokenExpiry = DateTime.UtcNow, // Set as needed
+							PhysicalAddress = "808 Beast Street",
+							ContactNumber = "0848887566",
+
+						});
+			modelBuilder.Entity<User>()
+						.HasData(
+						new
+						{
+							Id = 5,
+							LastName = "Kid",
+							FirstName = "Danger",
+							Username = "KidDanger",
+							Password = "Danger.123",
+							Email = "KidDanger@gmail.com",
+							Role = "User",
+							Entertainment_TypeId = 3,
+							RefreshToken = "",
+							RefreshTokenExpiryTime = DateTime.UtcNow, // Set as needed
+							ResetPasswordToken = "",
+							ResetPasswordTokenExpiry = DateTime.UtcNow, // Set as needed
+							PhysicalAddress = "500 Danger Street",
+							ContactNumber = "0848887567",
+						});
+			modelBuilder.Entity<User>()
+						.HasData(
+						new
+						{
+							Id = 6,
+							LastName = "Adult",
+							FirstName = "Danger",
+							Username = "AdultDanger",
+							Password = "Adult.123",
+							Email = "AdultDanger@gmail.com",
+							Role = "User",
+							Entertainment_TypeId = 4,
+							RefreshToken = "",
+							RefreshTokenExpiryTime = DateTime.UtcNow, // Set as needed
+							ResetPasswordToken = "",
+							ResetPasswordTokenExpiry = DateTime.UtcNow, // Set as needed
+							PhysicalAddress = "404 Adult Street",
+							ContactNumber = "0848887568",
+
+						});
+			
+			// Create Seed Data For the Help Q&A Table:
+
+			modelBuilder.Entity<Help>()
                         .HasData(
                         new
                         {

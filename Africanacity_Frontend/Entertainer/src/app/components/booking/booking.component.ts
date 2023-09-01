@@ -2,16 +2,17 @@ import { AuthService } from './../../services/auth.service';
 import { ApiService } from './../../services/api.service';
 import { Component, OnInit } from '@angular/core';
 import { UserStoreService } from 'src/app/services/user-store.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Entertainment } from 'src/app/models/Entertainment';
 import { BookingService } from 'src/app/services/Booking.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Booking } from 'src/app/models/Booking';
 import { HttpClient } from '@angular/common/http';
-import { InventoryItem } from 'src/app/models/inventoryitem';
+import { MatDialog } from '@angular/material/dialog';
 import { DataService } from 'src/app/services/data.Service';
 import { BookingEvent } from 'src/app/models/bookingevent';
+import { BookingHelpComponent } from './booking-help/booking-help.component';
 
 @Component({
   selector: 'app-booking',
@@ -29,18 +30,20 @@ export class BookingComponent implements OnInit {
   public role!:string;
   public fullName : string = "";
   formData = new FormData();
-  fileNameUploaded = ''
+  fileNameUploaded = '';
+  submittingBooking: boolean = false; // Flag to track submission state
+  successMessage: string = '';
 
   bookingForm: FormGroup = this.fb.group({
-   firstName: ['', Validators.required],
-   demo: ['', Validators.required],
-   lastName: ['', Validators.required],
-   contactNumber: [null, Validators.required],
+   firstName: ['', [Validators.required, this.noSpacesValidator]],
+   demo: ['', [Validators.required, this.noSpacesValidator]],
+   lastName: ['', [Validators.required, this.noSpacesValidator]],
+   contactNumber: ['', [ Validators.required, Validators.pattern(/^\d{10}$/), this.validateSouthAfricanNumber]],
    entertainmenttype: [null, Validators.required],
-   email: ['', Validators.required],
-   eventname: ['', Validators.required],
-   Instagram: ['', Validators.required],
-   additional: ['', Validators.required]
+   email: ['', [Validators.required, this.noSpacesValidator]],
+   eventname: ['', [Validators.required, this.noSpacesValidator]],
+   Instagram: ['', [Validators.required, this.noSpacesValidator]],
+   additional: ['', [Validators.required, this.noSpacesValidator]],
  });
 
  constructor(
@@ -52,7 +55,8 @@ export class BookingComponent implements OnInit {
    private auth: AuthService,
    private route: ActivatedRoute,
    private userStore: UserStoreService,
-   private dataService:DataService ) {
+   private dataService:DataService,
+   private dialog: MatDialog ) {
 
     this.bookingForm.controls['eventname'].disable();
    }
@@ -114,66 +118,43 @@ GetAllEvents()
    this.fileNameUploaded = fileToUpload.name
  }
 
-//  onSubmit() {
-//    if(this.bookingForm.valid)
-//    {
-//      this.formData.append('firstName', this.bookingForm.get('firstName')!.value);
-//      this.formData.append('lastName', this.bookingForm.get('lastName')!.value);
-//      this.formData.append('contactNumber', this.bookingForm.get('contactNumber')!.value);
-//      this.formData.append('email', this.bookingForm.get('email')!.value);
-//      this.formData.append('Instagram', this.bookingForm.get('Instagram')!.value);
-//     //  this.formData.append('entertainmenttype', this.bookingForm.get('entertainmenttype')!.value);
-//     //  this.formData.append('events', this.bookingForm.get('events')!.value);
-//     const entertainmentTypeId = parseInt(this.bookingForm.get('entertainmenttype')!.value);
-//     const eventId = parseInt(this.bookingForm.get('events')!.value);
 
-// // Then use these parsed values in your FormData
-// this.formData.append('entertainmenttype', entertainmentTypeId.toString());
-// this.formData.append('events', eventId.toString());
-
-
-//      this.apiService.addBooking(this.formData).subscribe(() => {
-//        this.clearData()
-//        this.router.navigateByUrl('home').then((navigated: boolean) => {
-//          if(navigated) {
-//            this.snackBar.open(this.bookingForm.get('firstName')!.value + ` Booking request successfully`, 'X', {duration: 5000});
-//          }
-//       });
-//      });
-//    }
-//  }
 onSubmit() {
   if (this.bookingForm.valid) {
-    // ... your existing code to append form data to formData ...
-         this.formData.append('firstName', this.bookingForm.get('firstName')!.value);
-     this.formData.append('lastName', this.bookingForm.get('lastName')!.value);
-     this.formData.append('contactNumber', this.bookingForm.get('contactNumber')!.value);
-     this.formData.append('email', this.bookingForm.get('email')!.value);
-     this.formData.append('Instagram', this.bookingForm.get('Instagram')!.value);
-     this.formData.append('entertainmenttype', this.bookingForm.get('entertainmenttype')!.value);
-    this.formData.append('eventname', this.bookingForm.get('eventname')!.value);
-    this.formData.append('additional', this.bookingForm.get('additional')!.value);
+    this.submittingBooking = true; // Set the flag to show loader
 
+    // ... existing code ...
+    if (this.bookingForm.valid) {
+          // ... your existing code to append form data to formData ...
+          this.formData.append('firstName', this.bookingForm.get('firstName')!.value);
+           this.formData.append('lastName', this.bookingForm.get('lastName')!.value);
+           this.formData.append('contactNumber', this.bookingForm.get('contactNumber')!.value);
+           this.formData.append('email', this.bookingForm.get('email')!.value);
+           this.formData.append('Instagram', this.bookingForm.get('Instagram')!.value);
+           this.formData.append('entertainmenttype', this.bookingForm.get('entertainmenttype')!.value);
+          this.formData.append('eventname', this.bookingForm.get('eventname')!.value);
+          this.formData.append('additional', this.bookingForm.get('additional')!.value);
 
     this.apiService.addBooking(this.formData).subscribe(
       () => {
         this.clearData();
-        this.router.navigateByUrl('home').then((navigated: boolean) => {
-          if (navigated) {
-            this.snackBar.open(
-              this.bookingForm.get('firstName')!.value + ` Booking request successfully`,
-              'X',
-              { duration: 5000 }
-            );
-          }
-        });
+        this.successMessage = 'Booking request submitted successfully!';
+        this.submittingBooking = false; // Clear loader flag
+        setTimeout(() => {
+          this.successMessage = ''; // Clear success message after a delay
+          this.router.navigateByUrl('home');
+        }, 5000); // Display success message for 5 seconds
       },
       (error) => {
         console.error('Error submitting booking:', error);
+        this.submittingBooking = false; // Clear loader flag in case of error
       }
     );
   }
+ }
 }
+// ...
+
 
 cancel() {
   this.router.navigate(['/home']);
@@ -186,7 +167,7 @@ cancel() {
    this.formData.delete("lastName");
    this.formData.delete("contactNumber");
    this.formData.delete("email");
-   this.formData.delete("Intsagram");
+   this.formData.delete("Instagram");
    this.formData.delete("entertainmenttype");
    this.formData.delete("additional");
    this.formData.delete("eventname");
@@ -195,6 +176,36 @@ cancel() {
   logout(){
     this.auth.signOut();
   }
+
+     // Custom validator to check for spaces
+     noSpacesValidator(control: AbstractControl): { [key: string]: boolean } | null {
+      if (control.value && control.value.trim().length === 0) {
+        return { 'noSpaces': true };
+      }
+      return null;
+    }
+
+        // Custom validator to validate South African phone numbers
+        validateSouthAfricanNumber(control: AbstractControl): { [key: string]: boolean } | null {
+          const value = control.value;
+          const isAllZeros = /^0+$/.test(value);
+      
+          if (isAllZeros) {
+            return { 'allZeros': true };
+          }
+          return null;
+        }
+
+        openHelpModal(field: string): void {
+          const dialogRef = this.dialog.open(BookingHelpComponent, {
+            width: '500px',
+            data: { field } // Pass the field name to the modal
+          });
+        
+          dialogRef.afterClosed().subscribe(result => {
+            // Handle modal close if needed
+          });
+        }
 
 }
 

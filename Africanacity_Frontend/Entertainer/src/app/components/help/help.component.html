@@ -1,0 +1,96 @@
+<div class="col-md-2">
+    <app-navbar></app-navbar> 
+</div>
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">
+    <img src="../../assets/Nav_image/Africanacity.png" class="avatar" alt="" >
+    Hello {{fullName}}<h6>
+    </h6></a>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+ 
+  <div class="navbar-nav">
+      <div class="nav-item text-nowrap">
+          <a style="background: red;
+          color: #fff;
+          border-radius: 4px;
+          margin: 10px;" class="nav-link px-3 cursor-pointer" (click)="logout()">Sign out</a>
+      </div>
+  </div>
+</header><br>
+
+<header class="header">
+    <div class="container">
+        <h1 class="logo">Help Center</h1>
+    </div>
+</header>
+
+<div class="container">
+    <div class="search">
+        <input type="text" [(ngModel)]="searchQuery" placeholder="Search for answers">
+        <button style="margin-right: 1rem" (click)="search()">Search</button>
+        <button (click)="showAllData()">Show All Data</button>
+    </div>
+    
+
+    <!-- Display filtered sections if there are results -->
+        <section *ngIf="(filteredSections.length > 0 || searchQuery.length > 0) && !showAll">
+        <div *ngFor="let section of filteredSections" class="dropdown" [id]="section.id">
+            <h2>{{ section.title }}</h2>
+            <p>{{ section.description }}</p>
+            <ol>
+                <li *ngFor="let step of section.steps">{{ step }}</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- Display all information initially -->
+        <section *ngIf="(filteredSections.length === 0 && searchQuery.length === 0) || showAll">
+        
+        <section class="categories">
+            <!-- ... Categories content ... -->
+            <h2>Categories</h2>
+            <ul>
+                <li *ngFor="let category of categories"><a href="#">{{ category }}</a></li>
+            </ul>
+        </section><br>
+
+        <section class="Frequent">
+            <h2>Popular Questions</h2>
+            <!-- ... Popular Questions content ... -->
+        </section><br>
+
+        <section *ngFor="let section of sections" class="dropdown" [id]="section.id">
+            <h2>{{ section.title }}</h2>
+            <p>{{ section.description }}</p>
+            <ol>
+                <li *ngFor="let step of section.steps">{{ step }}</li>
+            </ol>
+        </section>
+    </section>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2023 Help Center. All rights reserved.</p>
+    </div>
+</footer>
+
+        <!-- <section class="articles" >
+            <h2 >Popular Articles</h2>
+            <div class="article">
+                <h3><a href="#">How to Make a Booking</a></h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <div class="article">
+                <h3><a href="#">How to view your profile</a></h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <!-- Add more articles 
+        </section> <br> -->
+
+
+
+
+

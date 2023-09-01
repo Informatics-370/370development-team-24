@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
+import { UpdateHelpComponent } from './update-help/update-help.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-update-profile',
@@ -28,16 +30,17 @@ export class UpdateProfileComponent implements OnInit {
     private userStore: UserStoreService,
     private router: Router,
     private fb: FormBuilder,
+    private dialog: MatDialog 
   ) { }
 
   ngOnInit() {
     this.updateForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      username: ['', Validators.required],
-      email: ['', Validators.required],
-      physicalAddress: ['', Validators.required],
-      contactNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]]
+      firstName:['', [Validators.required, this.noSpacesValidator]],
+      lastName: ['', [Validators.required, this.noSpacesValidator]],
+      username: ['', [Validators.required, this.noSpacesValidator]],
+      email: ['', [Validators.required, this.noSpacesValidator]],
+      physicalAddress: ['', [Validators.required, this.noSpacesValidator]],
+      contactNumber:  ['', [ Validators.required, Validators.pattern(/^\d{10}$/), this.validateSouthAfricanNumber]]
     });
   
     this.api.getUsers().subscribe(res => {
@@ -110,4 +113,34 @@ export class UpdateProfileComponent implements OnInit {
   cancel() {
     this.router.navigate(['/view-profile']);
   }
+
+     // Custom validator to check for spaces
+     noSpacesValidator(control: AbstractControl): { [key: string]: boolean } | null {
+      if (control.value && control.value.trim().length === 0) {
+        return { 'noSpaces': true };
+      }
+      return null;
+    }
+
+        // Custom validator to validate South African phone numbers
+        validateSouthAfricanNumber(control: AbstractControl): { [key: string]: boolean } | null {
+          const value = control.value;
+          const isAllZeros = /^0+$/.test(value);
+      
+          if (isAllZeros) {
+            return { 'allZeros': true };
+          }
+          return null;
+        }
+
+        openHelpModal(field: string): void {
+          const dialogRef = this.dialog.open(UpdateHelpComponent, {
+            width: '500px',
+            data: { field } // Pass the field name to the modal
+          });
+        
+          dialogRef.afterClosed().subscribe(result => {
+            // Handle modal close if needed
+          });
+        }
 }

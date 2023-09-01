@@ -2,10 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
+import { AuthService } from 'src/app/UserService/auth.service';
 import { ResetPasswordService } from 'src/app/UserService/reset-password.service';
+import { UserStoreService } from 'src/app/UserService/user-store.service';
 import { confirmPassowrdValidator } from 'src/app/helpers/confirm-password.validator';
 import ValidateForm from 'src/app/helpers/validationform';
 import { ResetPassword } from 'src/app/shared/reset-password.model';
+import { ChangeHelpComponent } from './change-help/change-help.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 
@@ -16,122 +20,142 @@ import { ResetPassword } from 'src/app/shared/reset-password.model';
 })
 export class ChangePasswordComponent implements OnInit {
 
-  public changePasswordForm!: FormGroup;
-  type: string = 'newPassword';
-  isText: boolean = false;
-  eyeIcon: string = 'fa-eye-slash';
-  public resetPasswordEmail! : string;
-  public isValidEmail! : boolean
-  emailToReset!: string;
-  emailToken!: string;
-  resetPasswordObj = new ResetPassword();
-
-  type1: string = 'confirmPassword';
-  isText1: boolean = false;
-  eyeIcon1: string = 'fa-eye-slash';
+  changePasswordForm!: FormGroup;
+  submitted = false;
+  successMessage: string | null = null;
+  errorMessage: string | null = null;
+  public fullName : string = "";
 
   constructor(
-    private fb : FormBuilder, 
-    private toast: NgToastService,
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private auth: AuthService,
+    private userStore: UserStoreService,
     private router: Router,
-    private activate : ActivatedRoute,
-    private resetService: ResetPasswordService) { }
+    private dialog: MatDialog
+  ) {}
 
-ngOnInit(): void {
-    this.changePasswordForm = this.fb.group({
-        newPassword: [null, Validators.required],
-        confirmPassword: [null, Validators.required],
-    },
-    
-    {
-       validator: confirmPassowrdValidator("newPassword","confirmPassword")
+  ngOnInit() {
+    this.userStore.getFullNameFromStore()
+    .subscribe(val=>{
+      const fullNameFromToken = this.auth.getfullNameFromToken();
+      this.fullName = val || fullNameFromToken
     });
-    
 
-    this.activate.queryParams.subscribe(val=>{
-        this.emailToReset = val['email'];
-        let uriToken =  val['code'];
-        // this.emailToken = uriToken.replace(/ /g,'+');
-        if (uriToken) {
-          this.emailToken = uriToken.replace(/ /g, '+');
-        }
-    
-        // console.log(this.emailToReset);
-        // console.log(this.emailToken);
-    })
-}
-
-hideShowPass() {
-  this.isText = !this.isText;
-  this.isText ? (this.eyeIcon = 'fa-eye') : (this.eyeIcon = 'fa-eye-slash');
-  this.isText ? (this.type = 'text') : (this.type = 'oldPassword');
-}
-
-hideShowPass1() {
-  this.isText = !this.isText;
-  this.isText ? (this.eyeIcon1 = 'fa-eye') : (this.eyeIcon1 = 'fa-eye-slash');
-  this.isText ? (this.type = 'text') : (this.type = 'confirmPassword');
-}
-
-passwordMatchValidator(formGroup: FormGroup) {
-  const Password = formGroup.get('oldPassword')?.value;
-  const ConfirmPassword = formGroup.get('newPassword')?.value;
-
-  if (Password !== ConfirmPassword) {
-    return { 'mismatch': true };
+    this.changePasswordForm = this.formBuilder.group({
+      oldPassword: ['', Validators.required],
+      newPassword: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', Validators.required] // Add this line
+    });
   }
-  return null;
-}
 
-
-    onSubmit(){
-      if (this.changePasswordForm.valid) {
-        this.resetService.resetPassword(this.resetPasswordObj)
-         .subscribe({
-            next:(res)=>{
-              this.toast.success({
-                detail: 'Success',
-                summary: 'Unique Password reset Successful!',
-                duration: 3000,
-              });
-        },
-        error:(err)=>{
-            this.toast.error({
-                detail: 'ERROR',
-                summary: 'Old Password and New password should not match!',
-                duration: 3000,
-              });
-        }
-      })
-
-        if(this.changePasswordForm.valid){
-         this.resetPasswordObj.email=this.emailToReset;
-         this.resetPasswordObj.newPassword=this.changePasswordForm.value.newPassword;
-         this.resetPasswordObj.confirmPassword=this.changePasswordForm.value.confirmPassword;
-         this.resetPasswordObj.emailToken=this.emailToReset;
-
-         this.resetService.resetPassword(this.resetPasswordObj)
-         .subscribe({
-            next:(res)=>{
-              this.toast.success({
-                detail: 'Success',
-                summary: 'Password reset Successful!',
-                duration: 3000,
-              });
-              this.router.navigate([['/view-profile']])
-        },
-        error:(err)=>{
-            this.toast.error({
-                detail: 'ERROR',
-                summary: 'Password reset unsuccessful!',
-                duration: 3000,
-              });
-        }
-    })
-}
-        else{
-            ValidateForm.validateAllFormFields(this.changePasswordForm); 
-        }
+  get formControls() {
+    return this.changePasswordForm.controls;
   }
-}
+ 
+
+  onSubmit() {
+    if (this.changePasswordForm.invalid) {
+      return;
+    }
+  
+    if (this.formControls['newPassword'].value !== this.formControls['confirmPassword'].value) {
+      this.errorMessage = 'Passwords do not match.';
+      return;
+    }
+  
+    const request = {
+      oldPassword: this.formControls['oldPassword'].value,
+      newPassword: this.formControls['newPassword'].value,
+      confirmPassword: this.formControls['confirmPassword'].value
+    };
+  
+    this.authService.changePassword(request).subscribe(
+      () => {
+        this.successMessage = 'Password changed successfully.';
+        this.errorMessage = null;
+        this.changePasswordForm.reset();
+        this.submitted = false;
+
+        this.router.navigate(['/login']); // Adjust the route as needed
+      },
+      (error) => {
+        this.errorMessage = error.error.Message;
+        this.successMessage = null;
+      }
+    );
+  }
+  
+  calculatePasswordStrength(password: string): string {
+    const minLengthRegex = /(?=.{8,})/;
+    const alphaNumericRegex = /(?=.*[a-zA-Z])(?=.*\d)/;
+    const uniqueCharacterRegex = /^(?!.*(.).*\1)/;
+  
+    if (minLengthRegex.test(password) && alphaNumericRegex.test(password) && uniqueCharacterRegex.test(password)) {
+      return 'Strong';
+    } else if (minLengthRegex.test(password) && alphaNumericRegex.test(password)) {
+      return 'Medium';
+    } else {
+      return 'Weak';
+    }
+  }
+  
+  passwordStrength: string = 'Weak';
+  passwordStrengthClass: string = 'weak';
+  passwordStrength1: string = 'Weak';
+  passwordStrengthClass1: string = 'weak';
+  passwordsMatch: boolean = false;
+
+  updatePasswordStrength() {
+    const newPassword = this.formControls['newPassword'].value;
+    const oldPassword = this.formControls['oldPassword'].value;
+    
+    this.passwordsMatch = newPassword === oldPassword;
+  
+    const strength = this.calculatePasswordStrength(newPassword);
+  
+    this.passwordStrength = strength;
+  
+    if (strength === 'Strong') {
+      this.passwordStrengthClass = 'strong';
+    } else if (strength === 'Medium') {
+      this.passwordStrengthClass = 'medium';
+    } else {
+      this.passwordStrengthClass = 'weak';
+    }
+  }
+  
+
+  updateConfirmPasswordStrength() {
+    const confirmPassword = this.formControls['confirmPassword'].value;
+    const strength1 = this.calculatePasswordStrength(confirmPassword);
+  
+    this.passwordStrength1 = strength1;
+  
+    if (strength1 === 'Strong') {
+      this.passwordStrengthClass1 = 'strong';
+    } else if (strength1 === 'Medium') {
+      this.passwordStrengthClass1 = 'medium';
+    } else {
+      this.passwordStrengthClass1 = 'weak';
+    }
+  }
+  
+
+  logout(){
+    this.auth.signOut();
+  }
+  cancel(){
+    this.router.navigate(['/view-profile'])
+  }
+  openHelpModal(field: string): void {
+    const dialogRef = this.dialog.open(ChangeHelpComponent, {
+      width: '500px',
+      data: { field } // Pass the field name to the modal
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle modal close if needed
+    });
+  }
 }

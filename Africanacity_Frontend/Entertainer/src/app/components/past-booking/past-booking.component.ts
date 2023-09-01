@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Booked } from 'src/app/models/Booked';
 import { Booking } from 'src/app/models/Booking';
 import { BookingService } from 'src/app/services/Booking.service';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
+import { PastHelpComponent } from './past-help/past-help.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-past-booking',
@@ -20,6 +22,7 @@ export class PastBookingComponent implements OnInit {
   bookings: Booked[] = [];
   filteredbookings: Booked[] =[]; 
   public role!:string;
+  loading: boolean = true;
 
   public fullName : string = "";
   constructor(
@@ -28,7 +31,9 @@ export class PastBookingComponent implements OnInit {
     private userStore: UserStoreService,
     private book: BookingService,
     private snackBar: MatSnackBar,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private router: Router,
+    private dialog: MatDialog ) { }
 
   ngOnInit() {
 
@@ -66,31 +71,7 @@ export class PastBookingComponent implements OnInit {
   logout(){
     this.auth.signOut();
   }
-
-
-    deleteItem(): void {
-      const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete this booking?', 'Confirm, Cancel',{
-        duration: 5000, // Display duration in milliseconds
-  
-      });
-  
-      
-      //  cancel(){
-      //    this.router.navigate(['/home'])
-      //  }
-    
-  
-      confirmationSnackBar.onAction().subscribe(() => {
-        // Perform the deletion action here
-        this.deleteItemFromServer();
-        window.location.reload();
-      });
-    }
-  
-  deleteItemFromServer(): void {
-    this.DeleteBooking;
-  }
-
+ 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
   
@@ -103,34 +84,57 @@ export class PastBookingComponent implements OnInit {
     });
   }
 
-
-  DeleteBooking(bookId: Number){
-    this.book.DeleteBooking(bookId).subscribe(result => {
-      this.deleteItem();
-      });
+  // DeleteBooking(bookingId: number): void {
+  //   const confirmed = confirm('Are you sure you want to delete the booking?');
+  //   if (confirmed) {
+  //     this.book.DeleteBooking(bookingId).subscribe(
+  //       () => {
+  //         // // Remove the deleted booking from the list
+  //         // this.filteredbookings = this.filteredbookings.filter((booking) => booking.bookingId !== bookingId);
+  
+  //         // Display a success message
+  //         this.snackBar.open('Booking deletion request sent successfully', 'Close', {
+  //           duration: 3000,
+  //         });
+  //       },
+  //       (error) => {
+  //          console.error('Error deleting booking:', error);
+  //         // Display an error message
+  //         this.snackBar.open('An error occurred while sending the booking deletion request.', 'Close', {
+  //           duration: 3000,
+  //         });
+  //       }
+  //     );
+  //   }
+  // }
+  
+  DeleteBooking(bookingId: number): void {
+    const confirmed = confirm('Are you sure you want to delete the booking?');
+    if (confirmed) {
+      this.book.DeleteBooking(bookingId) // Use bookingId here
+        .subscribe(
+          () => {
+            alert('Booking deletion request sent successfully!');
+            // Refresh the list of bookings after deletion
+            this.router.navigate(['home'])
+           
+            
+          },
+          (error) => {
+            console.error('Error deleting booking:', error);
+            alert('An error occurred while sending the booking deletion request.');
+          }
+        );
     }
-
+  }
 
   selectedBooking: Booking | undefined; // Define a variable to store the selected booking
 
-  // ... (existing code) ...
 
   openModal(booking: Booking) {
     this.selectedBooking = booking; // Set the selected booking when "View" is clicked
     console.log(this.selectedBooking);
   }
-
-  // getBooking(email: string) {
-  //   this.book.GetBookingInfor(email)
-  //     .subscribe(
-  //       (data: any) => {
-  //         this.filteredbookings = data;
-  //       },
-  //       (error: any) => {
-  //         console.error('An error occurred:', error);
-  //       }
-  //     );
-  // }
 
  getBooking(email: string) {
   this.book.GetBookingInfor(email).subscribe(
@@ -143,6 +147,15 @@ export class PastBookingComponent implements OnInit {
     }
   );
 }
-  
+openHelpModal(field: string): void {
+  const dialogRef = this.dialog.open(PastHelpComponent, {
+    width: '500px',
+    data: { field } // Pass the field name to the modal
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    // Handle modal close if needed
+  });
+}
   
 }

@@ -16,11 +16,13 @@
              <p> You're receiving an e-mail because you requested a password reset. </p>
              <p> Please tab the link below to choose a new password.</p>
 
-             <a href=""http://localhost:4200/reset?email={email}&co9de={emailToken}"" target=""_blank"" style=""background:#0d6ef;padding:10px;border:none;
+             <a href=""http://localhost:4200/reset?email={email}&code={emailToken}"" target=""_blank"" style=""background:#0d6ef;padding:10px;border:none;
               color:white;border-radius:4px;display:block;margin:0 auto;width:50%;text-align:center;text-decoration:none""><u>Reset Password </u></a><br>
 
-              <p> Kind Regards, <br><br>
-              Africanacity Team</p>
+              <p> The Reset password link will expire in 15 minutes </p>
+
+               <p> Kind Regards, <br><br>
+              MMINO Restaurant Team</p>
            </div>
          </div>
      </div>

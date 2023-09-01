@@ -7,6 +7,8 @@ import { NgToastService } from 'ng-angular-popup';
 import { UserStoreService } from 'src/app/services/user-store.service';
 import { ResetPasswordService } from 'src/app/services/reset-password.service';
 import { Profile } from 'src/app/models/Profile';
+import { LoginHelpComponent } from './login-help/login-help.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +21,9 @@ export class LoginComponent implements OnInit {
   isText: boolean = false;
   eyeIcon: string = 'fa-eye-slash';
   public resetPasswordEmail! : string;
-  public isValidEmail! : boolean
+  public isValidEmail! : boolean;
+  public countdown: number = 900; // 15 minutes in seconds
+  public isTimerActive: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -27,7 +31,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private toast: NgToastService,
     private userStore: UserStoreService,
-    private resetPassword: ResetPasswordService
+    private resetPassword: ResetPasswordService,
+    private dialog: MatDialog 
   ) {}
 
   ngOnInit() {
@@ -60,7 +65,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['home'])
         },
         error: (err) => {
-          this.toast.error({detail:"ERROR", summary:"Something when wrong!, please sign up", duration: 5000});
+          this.toast.error({detail:"ERROR", summary:"Something when wrong, please sign up", duration: 5000});
           console.log(err);
         },
       });
@@ -86,9 +91,19 @@ export class LoginComponent implements OnInit {
              summary: 'Reset Successful!',
              duration: 3000,
            });
-           this.resetPasswordEmail = "";
-           const buttonRef = document.getElementById("close");
-           buttonRef?.click();
+            this.resetPasswordEmail = '';
+
+          // Start the countdown timer
+          this.startTimer();
+
+          const buttonRef = document.getElementById('close');
+          buttonRef?.click();
+
+          // Clear the countdown timer after 15 minutes
+          setTimeout(() => {
+            this.countdown = 0;
+            this.isTimerActive = false;
+          }, 900000); // 15 minutes in milliseconds
          },
          error:(err)=>{
            this.toast.error({
@@ -100,4 +115,32 @@ export class LoginComponent implements OnInit {
        })
      }
    }
+
+     startTimer() {
+    this.isTimerActive = true;
+    const timerInterval = setInterval(() => {
+      this.countdown--;
+      if (this.countdown <= 0) {
+        clearInterval(timerInterval);
+        this.isTimerActive = false;
+      }
+    }, 1000);
+  }
+
+  formatTime(seconds: number): string {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  }
+
+  openHelpModal(field: string): void {
+    const dialogRef = this.dialog.open(LoginHelpComponent, {
+      width: '500px',
+      data: { field } // Pass the field name to the modal
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle modal close if needed
+    });
+  }
 }
