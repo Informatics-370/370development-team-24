@@ -328,11 +328,11 @@ namespace Africanacity_Team24_INF370_.Controllers
             </head>
             <body>
                 <h1>Booking Deletion Request</h1>
-                <p><strong>Booking ID:</strong> {existingBooking.Eventname}</p>
+                <p><strong>Booking Event:</strong> {existingBooking.Eventname}</p>
                 <p><strong>First Name:</strong> {existingBooking.FirstName}</p>
                 <p><strong>Last Name:</strong> {existingBooking.LastName}</p>
                 <p><strong>Phone Number:</strong> {existingBooking.ContactNumber}</p>
-                <p><strong>Event:</strong> {existingBooking.Email}</p>
+                <p><strong>Email:</strong> {existingBooking.Email}</p>
             </body>
             </html>";
 

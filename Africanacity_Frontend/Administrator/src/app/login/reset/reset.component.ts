@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { ResetPasswordService } from 'src/app/UserService/reset-password.service';
 import { confirmPassowrdValidator } from 'src/app/helpers/confirm-password.validator';
 import ValidateForm from 'src/app/helpers/validationform';
 import { ResetPassword } from 'src/app/shared/reset-password.model';
+import { ResetHelpComponent } from './reset-help/reset-help.component';
 
 
 
@@ -30,7 +32,8 @@ export class ResetComponent implements OnInit {
     private toast: NgToastService,
     private router: Router,
     private activate : ActivatedRoute,
-    private resetService: ResetPasswordService) { }
+    private resetService: ResetPasswordService,
+    private dialog: MatDialog ) { }
 
 ngOnInit(): void {
     this.resetPasswordForm = this.fb.group({
@@ -89,6 +92,17 @@ reset(){
         else{
             ValidateForm.validateAllFormFields(this.resetPasswordForm); 
         }
+  }
+
+  openHelpModal(field: string): void {
+    const dialogRef = this.dialog.open(ResetHelpComponent, {
+      width: '500px',
+      data: { field } // Pass the field name to the modal
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle modal close if needed
+    });
   }
 }
 

@@ -58,6 +58,64 @@ export class HelpComponent implements OnInit {
   // Sample sections, replace with your actual sections
   sections: any[] = [
     {
+      id: 'make-booking',
+      title: 'Make Booking',
+      description: 'If you wish to make a booking, follow these steps:',
+      steps: [
+        'Log in to your account using your current credentials.',
+        'You will be redirected to the Events page',
+        'Click the "Make Booking" button on the event you want to take part in.',
+        'You will be redirected to the Make Booking page where you can add your booking details, including your name, email, and other information.',
+        'Enter your information in the provided fields.',
+        'Make sure your information meets the specified criteria for security.',
+        'Click the "Submit" button to confirm the booking.',
+        'Your booking will now be saved, and you will be redirected to the Events page. '
+      ]
+    },
+    {
+      id: 'view-booking',
+      title: 'View booking',
+      description: 'To view your booking information, follow these steps:',
+      steps: [
+        'Click on your View Booking located in the side navigation bar.',
+        'You will be redirected to your view booking page.',
+        'Enter your email address that you made the booking with in the provided field.',
+        'The system will load the booking information and you will be able to view, delete and edit your booking information.',
+      ]
+    },
+    {
+      id: 'delete-booking',
+      title: 'Delete booking',
+      description: 'To delete your booking information, follow these steps:',
+      steps: [
+        'Click on your View Booking located in the side navigation bar.',
+        'You will be redirected to your view booking page.',
+        'Enter your email address that you made the booking with in the provided field.',
+        'The system will load the booking information and you will be able to view, delete and edit your booking information.',
+        'Click on the "Delete icon" option.',
+        'Follow the on-screen prompts to complete the account deletion process.',
+        'Keep in mind that deleting your booking is irreversible and will result in the loss of all your account data.'
+      ]
+    },
+    {
+      id: 'edit-booking',
+      title: 'Edit booking',
+      description: 'To edit your booking information, follow these steps:',
+      steps: [
+        'Click on your View Booking located in the side navigation bar.',
+        'You will be redirected to your view booking page.',
+        'Enter your email address that you made the booking with in the provided field.',
+        'The system will load the booking information and you will be able to view, delete and edit your booking information.',
+        'Click on the "Edit icon" option.',
+        'You will be redirected to your edit booking page.',
+        'Enter your information in the provided fields.',
+        'Make sure your information meets the specified criteria for security.',
+        'Click the "Submit" button to confirm the booking.',
+        'Your booking will now be updated, and you will be redirected to the View booking page. '
+        
+      ]
+    },
+    {
       id: 'view-profile',
       title: 'View Your Profile',
       description: 'To view your profile information, follow these steps:',

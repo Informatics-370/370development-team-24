@@ -9,7 +9,7 @@
 .container {
   width: 100%;
   height: auto;
-  margin-top: -10%;
+  margin-top: -10rem;
   margin: 0;
       background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), url('https://images.unsplash.com/photo-1514890084135-f16d926f4d03?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NTc4NzU4NzE&ixlib=rb-1.2.1&q=80');
       background-repeat: no-repeat;
@@ -165,3 +165,12 @@ input[type="submit1"] {
   z-index: 1000;
 }
 
+.dropdown-icon {
+  position: absolute;
+  margin-left: -1rem;
+margin-top: 1.5rem;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #333; /* Adjust the color as needed */
+  pointer-events: none; /* Prevent the icon from blocking interactions */
+}

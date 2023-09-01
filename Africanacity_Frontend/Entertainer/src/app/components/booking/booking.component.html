@@ -28,7 +28,7 @@ filter: blur(8px);
 -webkit-filter: blur(8px);
 
 /* Full height */
-height: 160%;
+height: 82rem;
 width: 100%;
 
 /* Center and scale the image nicely */
@@ -42,7 +42,7 @@ color: white;
 font-weight: bold;
 border: 3px solid #f1f1f1;
 position: absolute;
-top: 85%;
+top: 45rem;
 left: 50%;
 margin-left: 8%;
 transform: translate(-50%, -50%);
@@ -56,6 +56,9 @@ padding: 20px;
     <div class="loader"></div>
     <div class="loading-message">Loading...</div>
   </div>
+  <button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help">
+    <mat-icon>help</mat-icon>
+  </button>
        <h1>Make Booking</h1>
         <p>Please fill out this form with the required information</p>
         <form action="" [formGroup]="bookingForm" class="form-horizontal" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
@@ -93,6 +96,7 @@ padding: 20px;
               <select class="form-control" id="entertainmenttype" formControlName="entertainmenttype">
                 <option *ngFor="let item of entertainmentTypeData" [value]="item.entertainment_TypeId">{{ item.name }}</option>
               </select>
+              <span class="fa fa-caret-down dropdown-icon"></span>
             </label><br>        
             <div>
               <input formControlName="demo" type="file" id="demo" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;"> Choose file

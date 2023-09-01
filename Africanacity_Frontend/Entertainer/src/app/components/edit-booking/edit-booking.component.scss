@@ -48,4 +48,12 @@
     z-index: 1000;
   }
   
-  
+  .dropdown-icon {
+    position: absolute;
+    margin-left: 33rem;
+    margin-top: -1rem;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #333; /* Adjust the color as needed */
+    pointer-events: none; /* Prevent the icon from blocking interactions */
+  }

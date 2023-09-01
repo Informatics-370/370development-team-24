@@ -72,6 +72,15 @@ import { MenuTypesComponent } from './administration/menu-types/menu-types.compo
 import { AddMenuItemComponent } from './administration/menuitems/add-menu-item/add-menu-item.component';
 import { EditMenuItemComponent } from './administration/menuitems/edit-menu-item/edit-menu-item.component';
 import { MenuitemsComponent } from './administration/menuitems/menuitems.component';
+import { ChangeHelpComponent } from './login/change-password/change-help/change-help.component';
+import { LoginHelpComponent } from './login/login/login-help/login-help.component';
+import { ResetHelpComponent } from './login/reset/reset-help/reset-help.component';
+import { SignHelpComponent } from './login/signup/sign-help/sign-help.component';
+import { UpdateHelpComponent } from './login/update-profile/update-help/update-help.component';
+import { ViewHelpComponent } from './login/view-profile/view-help/view-help.component';
+import { EntertainerHelpComponent } from './administration/entertainer/entertainer-help/entertainer-help.component';
+import { BookingHelpComponent } from './administration/entertainer/booking-listing/booking-help/booking-help.component';
+import { ManageHelpComponent } from './administration/entertainer/manage-booking/manage-help/manage-help.component';
 
 const routes: Routes = [
   {path:'login', component:LoginComponent},
@@ -154,8 +163,17 @@ const routes: Routes = [
   { path: 'inventory-reconciliation',component: InventoryReconciliationComponent }, // for inventory reconciliation report
   { path: 'sales',component: SalesComponent }, // for sales report
   { path: 'schedule',component: ScheduleComponent },
+  {path:'sign-help', component: SignHelpComponent, canActivate:[AuthGuard]},
+  {path:'change-help', component:  ChangeHelpComponent, canActivate:[AuthGuard]},
+  {path:'login-help', component:  LoginHelpComponent, canActivate:[AuthGuard]},
+  {path:'reset-help', component:  ResetHelpComponent, canActivate:[AuthGuard]},
+  {path:'update-help', component:  UpdateHelpComponent, canActivate:[AuthGuard]},
+  {path:'view-help', component:  ViewHelpComponent, canActivate:[AuthGuard]},
+  {path:'entertainer-help', component:  EntertainerHelpComponent, canActivate:[AuthGuard]},
+  {path:'booking-help', component:  BookingHelpComponent, canActivate:[AuthGuard]},
+  {path:'manage-help', component:   ManageHelpComponent, canActivate:[AuthGuard]},
 // for schedule
-  { path: '', redirectTo: 'login', pathMatch:'full'},
+  { path: '', redirectTo: 'login', pathMatch:'full'}
   
 ];
 

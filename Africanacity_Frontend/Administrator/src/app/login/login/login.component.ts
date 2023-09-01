@@ -1,11 +1,13 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import  ValidateForm  from '../../helpers/validationform';
 import { AuthService } from 'src/app/UserService/auth.service';
 import { ResetPasswordService } from 'src/app/UserService/reset-password.service';
 import { UserStoreService } from 'src/app/UserService/user-store.service';
 import { NgToastService } from 'ng-angular-popup';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginHelpComponent } from './login-help/login-help.component';
 
 
 @Component({
@@ -30,7 +32,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private toast: NgToastService,
     private userStore: UserStoreService,
-    private resetPassword: ResetPasswordService
+    private resetPassword: ResetPasswordService,
+    private dialog: MatDialog 
   ) {}
 
   ngOnInit() {
@@ -130,4 +133,23 @@ export class LoginComponent implements OnInit {
     const remainingSeconds = seconds % 60;
     return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
   }
+
+    // Custom validator to check for spaces
+    noSpacesValidator(control: AbstractControl): { [key: string]: boolean } | null {
+      if (control.value && control.value.trim().length === 0) {
+        return { 'noSpaces': true };
+      }
+      return null;
+    }
+
+    openHelpModal(field: string): void {
+      const dialogRef = this.dialog.open(LoginHelpComponent, {
+        width: '500px',
+        data: { field } // Pass the field name to the modal
+      });
+    
+      dialogRef.afterClosed().subscribe(result => {
+        // Handle modal close if needed
+      });
+    }
 }

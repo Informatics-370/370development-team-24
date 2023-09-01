@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -9,6 +9,7 @@ import { Entertainment } from 'src/app/models/Entertainment';
 import { BookingService } from 'src/app/services/Booking.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
+import { EditHelpComponent } from './edit-help/edit-help.component';
 
 @Component({
   selector: 'app-edit-booking',
@@ -29,15 +30,15 @@ export class EditBookingComponent implements OnInit {
   successMessage: string = '';
 
   updateBookingForm: FormGroup = new FormGroup({
-    lastName: new FormControl('', [Validators.required]),
-    firstName: new FormControl('', [Validators.required]),
-    entertainmenttype: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required]),
-    contactNumber: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{10}$')]),
-    eventname: new FormControl('', [Validators.required]),
-    instagram: new FormControl('', [Validators.required]),
-    additional : new FormControl('', [Validators.required]),
-    demo: new FormControl('', [Validators.required])
+    lastName: new FormControl(['', [Validators.required, this.noSpacesValidator]]),
+    firstName: new FormControl(['', [Validators.required, this.noSpacesValidator]]),
+    entertainmenttype: new FormControl(['', [Validators.required, this.noSpacesValidator]]),
+    email: new FormControl(['', [Validators.required, this.noSpacesValidator]]),
+    contactNumber: new FormControl(['', [ Validators.required, Validators.pattern(/^\d{10}$/), this.validateSouthAfricanNumber]]),
+    eventname: new FormControl(['', [Validators.required, this.noSpacesValidator]]),
+    instagram: new FormControl(['', [Validators.required, this.noSpacesValidator]]),
+    additional : new FormControl(['', [Validators.required, this.noSpacesValidator]]),
+    demo: new FormControl(['', [Validators.required, this.noSpacesValidator]])
   });
 
   constructor(
@@ -47,7 +48,7 @@ export class EditBookingComponent implements OnInit {
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private auth: AuthService,
-    private userStore: UserStoreService
+    private userStore: UserStoreService,
   ) {
      this.updateBookingForm.controls['eventname'].disable();
   }
@@ -180,4 +181,33 @@ clearData(){
     this.auth.signOut();
   }
 
+     // Custom validator to check for spaces
+     noSpacesValidator(control: AbstractControl): { [key: string]: boolean } | null {
+      if (control.value && control.value.trim().length === 0) {
+        return { 'noSpaces': true };
+      }
+      return null;
+    }
+
+        // Custom validator to validate South African phone numbers
+        validateSouthAfricanNumber(control: AbstractControl): { [key: string]: boolean } | null {
+          const value = control.value;
+          const isAllZeros = /^0+$/.test(value);
+      
+          if (isAllZeros) {
+            return { 'allZeros': true };
+          }
+          return null;
+        }
+
+        openHelpModal(field: string): void {
+          const dialogRef = this.dialog.open(EditHelpComponent, {
+            width: '500px',
+            data: { field } // Pass the field name to the modal
+          });
+        
+          dialogRef.afterClosed().subscribe(result => {
+            // Handle modal close if needed
+          });
+        }
 }

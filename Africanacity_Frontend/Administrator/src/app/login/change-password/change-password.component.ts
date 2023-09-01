@@ -8,6 +8,8 @@ import { UserStoreService } from 'src/app/UserService/user-store.service';
 import { confirmPassowrdValidator } from 'src/app/helpers/confirm-password.validator';
 import ValidateForm from 'src/app/helpers/validationform';
 import { ResetPassword } from 'src/app/shared/reset-password.model';
+import { ChangeHelpComponent } from './change-help/change-help.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 
@@ -29,7 +31,8 @@ export class ChangePasswordComponent implements OnInit {
     private authService: AuthService,
     private auth: AuthService,
     private userStore: UserStoreService,
-    private router: Router// Replace with your actual AuthService
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -145,5 +148,14 @@ export class ChangePasswordComponent implements OnInit {
   cancel(){
     this.router.navigate(['/view-profile'])
   }
-
+  openHelpModal(field: string): void {
+    const dialogRef = this.dialog.open(ChangeHelpComponent, {
+      width: '500px',
+      data: { field } // Pass the field name to the modal
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle modal close if needed
+    });
+  }
 }

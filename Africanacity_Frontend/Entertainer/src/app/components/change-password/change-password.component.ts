@@ -11,6 +11,8 @@ import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ResetPasswordService } from 'src/app/services/reset-password.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
+import { ChangeHelpComponent } from './change-help/change-help.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-change-password',
@@ -30,7 +32,8 @@ export class ChangePasswordComponent implements OnInit {
     private authService: AuthService,
     private auth: AuthService,
     private userStore: UserStoreService,
-    private router: Router// Replace with your actual AuthService
+    private router: Router,
+    private dialog: MatDialog // Replace with your actual AuthService
   ) {}
 
   ngOnInit() {
@@ -146,7 +149,16 @@ export class ChangePasswordComponent implements OnInit {
   cancel(){
     this.router.navigate(['/view-profile'])
   }
-
+  openHelpModal(field: string): void {
+    const dialogRef = this.dialog.open(ChangeHelpComponent, {
+      width: '500px',
+      data: { field } // Pass the field name to the modal
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle modal close if needed
+    });
+  }
 }
 
 

@@ -4,3 +4,14 @@
     height: 40px;
     border-radius: 50%;
   }
+
+  .dropdown-icon {
+    position: absolute;
+    margin-left: 21rem;
+    top: 76%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #333; /* Adjust the color as needed */
+    pointer-events: none; /* Prevent the icon from blocking interactions */
+  }
+  

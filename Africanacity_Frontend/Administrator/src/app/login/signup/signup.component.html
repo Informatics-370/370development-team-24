@@ -7,6 +7,9 @@
               <h3 class="pt-3 font-weight-bold">
                 <img src="../../assets/Nav_image/Africanacity.png" alt="Avatar" class="avatar">
                 Create Account
+                <button  mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help">
+                  <mat-icon>help</mat-icon>
+                </button>
               </h3>
             </div>
             <div class="panel-body p-3" style="margin-left: 10%;">
@@ -24,15 +27,25 @@
                 </div>
                 <small *ngIf="signUpForm.controls['username'].dirty && signUpForm.hasError('required','username')" class="text-danger">*Username is required*</small>
                 <div class="form-group pt-3">
-                    <div class="input-field" [class.error]="signUpForm.controls['contactNumber'].dirty && signUpForm.hasError('required','contactNumber')"> <span class="fa fa-user p-2"></span> <input id="contactNumber" formControlName="contactNumber" type="text" placeholder="Contact Number"> </div>
+                  <div class="input-field"
+                    [class.error]="signUpForm.controls['contactNumber'].dirty && (signUpForm.hasError('required', 'contactNumber') || signUpForm.hasError('noSpaces', 'contactNumber') || signUpForm.hasError('pattern', 'contactNumber') || signUpForm.hasError('allZeros', 'contactNumber'))">
+                    <span class="fa fa-phone p-2"></span>
+                    <input id="contactNumber" formControlName="contactNumber" type="text" placeholder="Contact Number">
+                  </div>
                 </div>
-                <small  *ngIf="signUpForm.controls['contactNumber'].dirty && signUpForm.hasError('required','contactNumber')" class="text-danger">*Contact Number must be 10 digits*</small>
+                <small *ngIf="signUpForm.controls['contactNumber'].dirty && (signUpForm.hasError('required', 'contactNumber') || signUpForm.hasError('noSpaces', 'contactNumber') || signUpForm.hasError('pattern', 'contactNumber') || signUpForm.hasError('allZeros', 'contactNumber'))"
+                  class="text-danger">
+                  *{{ signUpForm.hasError('noSpaces', 'contactNumber') ? 'Contact Number cannot be just spaces' :
+                  signUpForm.hasError('pattern', 'contactNumber') ? 'Invalid Contact Number' :
+                  signUpForm.hasError('allZeros', 'contactNumber') ? 'Invalid South African Number' : 'Contact Number is required' }}*
+                </small>
+                
                 <div class="form-group pt-3">
-                    <div class="input-field" [class.error]="signUpForm.controls['physicalAddress'].dirty && signUpForm.hasError('required','physicalAddress')"> <span class="fa fa-user p-2"></span> <input id="physicalAddress" formControlName="physicalAddress" type="text" placeholder="Phyiscal Address"> </div>
+                    <div class="input-field" [class.error]="signUpForm.controls['physicalAddress'].dirty && signUpForm.hasError('required','physicalAddress')"> <span class="fa fa-address-book-o p-2"></span> <input id="physicalAddress" formControlName="physicalAddress" type="text" placeholder="Phyiscal Address"> </div>
                 </div>
                 <small  *ngIf="signUpForm.controls['physicalAddress'].dirty && signUpForm.hasError('required','physicalAddress')" class="text-danger">*Physical Address is required*</small>
                 <div class="form-group pt-3">
-                  <div class="input-field" [class.error]="signUpForm.controls['email'].dirty && signUpForm.hasError('required','email')"> <span class="fa fa-user p-2"></span> <input id="email" formControlName="email" type="text" placeholder="Email"> </div>
+                  <div class="input-field" [class.error]="signUpForm.controls['email'].dirty && signUpForm.hasError('required','email')"> <span class="fa fa-envelope p-2"></span> <input id="email" formControlName="email" type="text" placeholder="Email"> </div>
               </div>
               <small  *ngIf="signUpForm.controls['email'].dirty && signUpForm.hasError('required','email')" class="text-danger">*Email is required*</small>
               <div class="form-group pt-3">
@@ -61,7 +74,7 @@
                              </ul>
                           </div>
                  
-                <!-- Submit button and other form elements here -->
+
                 <button type="submit" [disabled]="!signUpForm.valid" class="btn btn-primary btn-block mt-4 w-100">Signup</button>
                 <div class="text-center pt-4 text-muted">Already have an account? <a id="forgot" routerLink="/login" href="#">Login</a> </div>
               </form>
@@ -71,4 +84,5 @@
       </div>
     </div>
   </div>
+
   

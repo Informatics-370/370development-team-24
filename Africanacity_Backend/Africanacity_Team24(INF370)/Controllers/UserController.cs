@@ -51,7 +51,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 			var smtpClient = new SmtpClient("smtp.gmail.com")
 			{
 				Port = 587,
-				Credentials = new NetworkCredential("africanacitymmino@gmail.com", "xuaqebsjnbxopjtx"),
+				Credentials = new NetworkCredential("africanacitymmino@gmail.com", "swcxmrsbjmhmxpny"),
 				EnableSsl = true,
 			};
 
@@ -401,40 +401,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 				Message = "Password successfully reset"
 			});
 		}
-		//[HttpPost]
-		//[Route("Reset-password")]
-		//public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)
-		//{
-		//	var newToken = resetPasswordDto.EmailToken.Replace(" ", "+");
-		//	var user = await _authContext.Users.AsNoTracking().FirstOrDefaultAsync(a => a.Email == resetPasswordDto.Email);
-		//	if (user == null)
-		//	{
-		//		return NotFound(new
-		//		{
-		//			StatusCode = 404,
-		//			Message = "User does not exist"
-		//		});
-		//	}
-		//	var tokenCode = user.ResetPasswordToken;
-		//	DateTime emailTokenExpiry = user.ResetPasswordTokenExpiry;
-		//	if (tokenCode != resetPasswordDto.EmailToken || emailTokenExpiry < DateTime.Now)
-		//	{
-		//		return NotFound(new
-		//		{
-		//			StatusCode = 400,
-		//			Message = "Invalid Reset link"
-		//		});
-		//	}
-		//	user.Password = PasswordHasher.HashPassword(resetPasswordDto.NewPassword);
-		//	_authContext.Entry(user).State = EntityState.Modified;
-		//	await _authContext.SaveChangesAsync();
-		//	return Ok(new
-		//	{
-		//		StatusCode = 200,
-		//		Message = "Password successfully reset"
-		//	});
-		//}
-
+		
 
 
 		//**************************************************************************** Get user by id *******************************************************************************

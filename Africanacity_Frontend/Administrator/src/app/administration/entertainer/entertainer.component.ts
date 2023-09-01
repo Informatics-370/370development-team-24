@@ -5,6 +5,8 @@ import { AuthService } from 'src/app/UserService/auth.service';
 import { UserStoreService } from 'src/app/UserService/user-store.service';
 import { Profile } from 'src/app/shared/Profile';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { EntertainerHelpComponent } from './entertainer-help/entertainer-help.component';
 
 @Component({
   selector: 'app-entertainer',
@@ -20,42 +22,33 @@ export class EntertainerComponent {
   entertainers: Profile[] = [];
   filteredentertainers: Profile[] = [];
 
-  deleteItem(): void {
-    const confirmationSnackBar = this.snackBar.open(
-      'Are you sure you want to delete this entertainer?',
-      'Delete',
-      {
-        duration: 5000, // Display duration in milliseconds
-        panelClass: 'confirmation-snackbar',
-      }
-    );
-  
-    confirmationSnackBar.onAction().subscribe(() => {
-      // Delete logic goes here
-      console.log('Entertainer deleted.');
-      window.location.reload();
-    });
-  
-    confirmationSnackBar.afterDismissed().subscribe((dismissed) => {
-      if (dismissed.dismissedByAction) {
-        console.log('Deletion cancelled by user.');
-      } else {
-        console.log('Deletion timed out.');
-      }
-    });
+ 
+  deleteEntertainer(entertainerId: number): void {
+    const confirmed = confirm('Are you sure you want to delete the entertainer?');
+    if (confirmed) {
+      this.api.deleteUser(entertainerId) // Use entertainerId here
+        .subscribe(
+          () => {
+            alert('Entertainer deleted successfully!');
+            // Refresh the list of entertainers after deletion
+            this.GetEntertainers();
+          },
+          (error) => {
+            console.error('Error deleting entertainer:', error);
+            alert('An error occurred while deleting the entertainer.');
+          }
+        );
+    }
   }
-
-
-  deleteItemFromServer(): void {
-  this.deleteEntertainer;
-  }
+  
 
   constructor(
     private api : ApiService, 
     private auth: AuthService, 
     private userStore: UserStoreService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
     ) { }
 
   ngOnInit() {
@@ -117,37 +110,14 @@ export class EntertainerComponent {
 
     }
     
-    deleteEntertainer(id: number){
-      this.api.deleteUser(id).subscribe(result => {
-        this.deleteItem();
-        });
-      }
-
-      downloadPDF() {
-        // const doc = new jsPDF();
-        // const headers = [['ID', 'Name', 'Surname', 'Role', 'Email', 'Phone Number', 'Address']];
-        
-        // // Map the checklistItems to generate the data array
-        // const data = this.employees.map(employee => [employee.employeeId, employee.firstName, employee.surname, employee.employeeRole, employee.email_Address, employee.phoneNumber, employee.physical_Address]);
-      
-        // doc.setFontSize(12);
-      
-        // // Generate the table using autoTable
-        // // startY is the initial position for the table
-        // autoTable(doc, {
-        //   head: headers,
-        //   body: data,
-        //   startY: 20,
-        //   // Other options for styling the table if needed
-        // });
-        
-        // // Convert the PDF blob to a Base64 string
-        // const pdfBlob = doc.output('blob');
-      
-        // // Create a file-saver Blob object
-        // const file = new Blob([pdfBlob], { type: 'application/pdf' });
-      
-        // // Save the Blob to a file
-        // saveAs(file, 'employee_listing.pdf');
-      }
+    openHelpModal(field: string): void {
+      const dialogRef = this.dialog.open(EntertainerHelpComponent, {
+        width: '500px',
+        data: { field } // Pass the field name to the modal
+      });
+    
+      dialogRef.afterClosed().subscribe(result => {
+        // Handle modal close if needed
+      });
+    }
 }

@@ -23,6 +23,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './models/material.modules';
 import { EditBookingComponent } from './components/edit-booking/edit-booking.component';
 import { HelpComponent } from './components/help/help.component';
+import { LoginHelpComponent } from './components/login/login-help/login-help.component';
+import { SignHelpComponent } from './components/signup/sign-help/sign-help.component';
+import { BookingHelpComponent } from './components/booking/booking-help/booking-help.component';
+import { ChangeHelpComponent } from './components/change-password/change-help/change-help.component';
+import { EditHelpComponent } from './components/edit-booking/edit-help/edit-help.component';
+import { HomeHelpComponent } from './components/home/home-help/home-help.component';
+import { PastHelpComponent } from './components/past-booking/past-help/past-help.component';
+import { ResetHelpComponent } from './components/reset/reset-help/reset-help.component';
+import { UpdateHelpComponent } from './components/update-profile/update-help/update-help.component';
+import { ViewHelpComponent } from './components/view-profile/view-help/view-help.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +50,17 @@ import { HelpComponent } from './components/help/help.component';
     WelcomeComponent,
     AboutComponent,
     EditBookingComponent,
-    HelpComponent
+    HelpComponent,
+    LoginHelpComponent,
+    SignHelpComponent,
+    BookingHelpComponent,
+    ChangeHelpComponent,
+    EditHelpComponent,
+    HomeHelpComponent,
+    PastHelpComponent,
+    ResetHelpComponent,
+    UpdateHelpComponent,
+    ViewHelpComponent
   ],
   imports: [
     BrowserModule,

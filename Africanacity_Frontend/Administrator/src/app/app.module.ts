@@ -94,10 +94,15 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { ResetComponent } from './login/reset/reset.component';
 import { LoginComponent } from './login/login/login.component';
 import { ChangePasswordComponent } from './login/change-password/change-password.component';
-
-
-
-
+import { ChangeHelpComponent } from './login/change-password/change-help/change-help.component';
+import { LoginHelpComponent } from './login/login/login-help/login-help.component';
+import { ResetHelpComponent } from './login/reset/reset-help/reset-help.component';
+import { SignHelpComponent } from './login/signup/sign-help/sign-help.component';
+import { UpdateHelpComponent } from './login/update-profile/update-help/update-help.component';
+import { ViewHelpComponent } from './login/view-profile/view-help/view-help.component';
+import { EntertainerHelpComponent } from './administration/entertainer/entertainer-help/entertainer-help.component';
+import { BookingHelpComponent } from './administration/entertainer/booking-listing/booking-help/booking-help.component';
+import { ManageHelpComponent } from './administration/entertainer/manage-booking/manage-help/manage-help.component';
 
 
 @NgModule({
@@ -201,6 +206,15 @@ import { ChangePasswordComponent } from './login/change-password/change-password
     ViewProfileComponent,
     SignupComponent,
     UpdateProfileComponent,
+    LoginHelpComponent,
+    SignHelpComponent,
+    ChangeHelpComponent,
+    ResetHelpComponent,
+    UpdateHelpComponent,
+    ViewHelpComponent,
+    EntertainerHelpComponent,
+    BookingHelpComponent,
+    ManageHelpComponent
     
 
   ],

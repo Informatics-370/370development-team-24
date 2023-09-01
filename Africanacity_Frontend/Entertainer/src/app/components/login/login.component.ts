@@ -7,6 +7,8 @@ import { NgToastService } from 'ng-angular-popup';
 import { UserStoreService } from 'src/app/services/user-store.service';
 import { ResetPasswordService } from 'src/app/services/reset-password.service';
 import { Profile } from 'src/app/models/Profile';
+import { LoginHelpComponent } from './login-help/login-help.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +31,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private toast: NgToastService,
     private userStore: UserStoreService,
-    private resetPassword: ResetPasswordService
+    private resetPassword: ResetPasswordService,
+    private dialog: MatDialog 
   ) {}
 
   ngOnInit() {
@@ -128,5 +131,16 @@ export class LoginComponent implements OnInit {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  }
+
+  openHelpModal(field: string): void {
+    const dialogRef = this.dialog.open(LoginHelpComponent, {
+      width: '500px',
+      data: { field } // Pass the field name to the modal
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle modal close if needed
+    });
   }
 }
