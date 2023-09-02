@@ -302,17 +302,12 @@ import { InventoryService } from './service/inventory.service';
     HelpAddemployeeroleComponent,
     HelpEditemployeeroleComponent,
     HelpViewemployeeroleComponent,
-  
     SupplierComponent,
     BookingComponent,
     MenuReportComponent,
     ViewDrinkComponent,
     CreateOtherDrinkComponent,
     ViewOtherDrinkComponent,
-    
-    
-    
-    
 
   ],
   imports: [
