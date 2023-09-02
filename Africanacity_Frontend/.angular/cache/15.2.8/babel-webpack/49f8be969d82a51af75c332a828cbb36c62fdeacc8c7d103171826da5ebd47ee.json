@@ -1,1 +1,0 @@
-{"ast":null,"code":"//  export interface Employee{\n//    employeeId: Number;\n//    surname: string;\n//    firstName: string; \n//    email_Address: string; \n//    physical_Address: string;\n//    phoneNumber: string; \n//  }\nexport class Employee {}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

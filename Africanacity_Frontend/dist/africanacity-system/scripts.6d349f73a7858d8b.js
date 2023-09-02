@@ -1,1 +1,0 @@
-function myFunction(){document.getElementById("myDropdown").classList.toggle("show")}window.onclick=function(n){if(!n.target.matches(".dropbtn")){var t=document.getElementById("myDropdown");t.classList.contains("show")&&t.classList.remove("show")}};

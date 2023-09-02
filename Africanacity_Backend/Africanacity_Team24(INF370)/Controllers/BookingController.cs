@@ -115,7 +115,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 		 var smtpClient = new SmtpClient("smtp.gmail.com")
 		{
 			Port = 587,
-			Credentials = new NetworkCredential("africanacitymmino@gmail.com", "xuaqebsjnbxopjtx"),
+			Credentials = new NetworkCredential("africanacitymmino@gmail.com", "swcxmrsbjmhmxpny"),
 			EnableSsl = true,
 		};
 
