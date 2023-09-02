@@ -129,7 +129,6 @@ import { MenuReportComponent } from './administration/Reports/menu/menu.componen
     AppComponent,
     HomeComponent,
     NavbarComponent,
-    LoginComponent,
     AddEmployeeComponent, 
     ViewEmployeesComponent, 
     AddHelpComponent, 
@@ -270,11 +269,11 @@ import { MenuReportComponent } from './administration/Reports/menu/menu.componen
     ModalModule.forRoot(),
     NgChartsModule, 
   ],
-  providers: [DataService,{
+  /*providers: [DataService,{
     provide:HTTP_INTERCEPTORS,
     useClass:TokenInterceptor,
     multi:true
-  }],
+  }],*/
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

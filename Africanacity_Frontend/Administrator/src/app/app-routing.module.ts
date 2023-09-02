@@ -142,7 +142,7 @@ const routes: Routes = [
   {path:'login', component: LoginComponent},
   {path:'signup', component:SignupComponent},
   {path:'reset', component:ResetComponent},
-  /*{path:'view-profile',component:ViewProfileComponent, canActivate:[AuthGuard]},
+  {path:'view-profile',component:ViewProfileComponent, canActivate:[AuthGuard]},
   {path:'change-password',component:ChangePasswordComponent, canActivate:[AuthGuard]},
   {path:'update-profile', component:UpdateProfileComponent, canActivate:[AuthGuard]},
   {path: 'navbar',component: NavbarComponent},
@@ -150,7 +150,7 @@ const routes: Routes = [
   {path: 'menu', component: MenuComponent, canActivate:[AuthGuard]}, 
   {path: 'entertainer', component: EntertainerComponent, canActivate:[AuthGuard]}, 
   {path: 'booking-listing', component: BookingListingComponent, canActivate:[AuthGuard]}, 
-  {path: 'manage-booking', component:  ManageBookingComponent, canActivate:[AuthGuard]}, */
+  {path: 'manage-booking', component:  ManageBookingComponent, canActivate:[AuthGuard]}, 
   // open on this page
   // { path: '', component: ViewOrdersComponent },
   // { path: 'home', component: HomeComponent },

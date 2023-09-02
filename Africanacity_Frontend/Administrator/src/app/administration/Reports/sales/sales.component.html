@@ -8,13 +8,20 @@
             <!-- heading -->
             <div>
                 <h1 class="heading">Sales Report</h1>
-                <!--canvas baseChart
-                    [datasets]="barChartData"
-                    [labels]="barChartLabels"
-                    [options]="barChartOptions"
-                    [legend]="barChartLegend"
-                    [chartType]="barChartType">
-                </canvas-->
+                <br> <br>
+
+                <div class="table-container">
+                    <ng-container *ngFor="let order of KitchenOrders">
+                        <h2>{{ order.kitchenOrderNumber }}</h2>
+                        <table class="table table-striped tabe-hover outlined-table">
+                            <tr> <th scope="col">Date: </th> <td>{{ order.Order_Date}}</td></tr>
+                            <tr> <th scope="col">Subtotal: </th> <td>{{ order.Subtotal}}</td></tr>
+                            <tr> <th scope="col">Vat: </th> <td>{{ order.Vat}}</td></tr>
+                            <tr> <th scope="col">Discount: </th> <td>{{ order.Discount}}</td></tr>
+                            <tr> <th scope="col">Total: </th> <td>{{ order.Total}}</td></tr>
+                        </table>
+                    </ng-container>
+                </div>
             </div>  
         </div>
     </div>

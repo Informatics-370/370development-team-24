@@ -14,6 +14,9 @@ import { BookingEvent } from '../shared/bookingevent';
 import { Entertainment_Type } from '../shared/entertainmentType';
 import { DrinkType } from '../shared/Drink_Type';
 import { Drink } from '../shared/Drink';
+import { KitchenOrder } from '../shared/Kitchen_Order';
+import { Discount } from '../shared/Discount';
+import { VAT } from '../shared/Vat';
 
 
 @Injectable({
@@ -337,8 +340,36 @@ export class DataService {
     return this.httpClient.delete<string>(`${this.apiUrl}controller/DeleteDrink` + "/" + drinkId, this.httpOptions)
   }
 
+ // KITCHEN ORDER METHODS
 
+ private orderSummary: KitchenOrder | null = null;
 
+ //get all table numbers
+  GetAllTableNumbers() {
+    return this.httpClient.get(`${this.apiUrl}Order/GetAllTableNumbers`)
+    .pipe(map(result => result))
+  }
 
+  //get all kitchen orders
+  getAllKitchenOrders(): Observable<KitchenOrder[]> {
+  return this.httpClient.get<KitchenOrder[]>(`${this.apiUrl}Order/GetAllKitchenOrders`);
+  }
 
+  //get Vat by Id
+  GetVatItemById(vatId: Number): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}Order/GetVatItem/${vatId}`);
+  }
+
+  //get Discount by Id
+  GetDiscountItemById(discountId: Number): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}Order/GetDiscountItem/${discountId}`);
+  }
+
+  setOrderSummary(orderSummary: KitchenOrder) {
+    this.orderSummary = orderSummary;
+  }
+
+  getOrderSummary(): KitchenOrder | null {
+    return this.orderSummary;
+  }
 }
