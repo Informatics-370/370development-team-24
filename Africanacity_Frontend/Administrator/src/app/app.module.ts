@@ -14,10 +14,9 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { SignupComponent } from './login/signup/signup.component';
 import { UpdateProfileComponent } from './login/update-profile/update-profile.component';
 import { ViewProfileComponent } from './login/view-profile/view-profile.component';
-//import { NgToastModule } from 'ng-angular-popup';
+import { NgToastModule } from 'ng-angular-popup';
 import { ManageBookingComponent } from './administration/entertainer/manage-booking/manage-booking.component';
 import { BookingListingComponent } from './administration/entertainer/booking-listing/booking-listing.component';
-//import { MaterialModule } from './shared/material.modules';
 import { AddEmployeeRoleComponent } from './administration/EmployeeRole/add-employee-role/add-employee-role.component';
 import { EmployeeRoleComponent } from './administration/EmployeeRole/employee-role/employee-role.component';
 import { EditEmployeeRoleComponent } from './administration/EmployeeRole/edit-employee-role/edit-employee-role.component';
@@ -34,7 +33,6 @@ import { AddEmployeeComponent } from './administration/Employees/add-employee/ad
 import { ViewEmployeesComponent } from './administration/Employees/view-employees/view-employees.component';
 import { EditEmployeeComponent } from './administration/Employees/view-employees/edit-employee/edit-employee.component';
 import { EditHelpComponent } from './administration/Help Management/view-help-list/edit-help/edit-help.component';
-//import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { MatSelectModule } from '@angular/material/select';
 import { NotificationDialogComponent } from './administration/Employees/notification-dialog/notification-dialog.component';
 import { FoodTypeComponent } from './administration/Food Type/view-food-type/food-type.component';
@@ -64,7 +62,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import dayGridPlugin from '@fullcalendar/daygrid'; // Import the dayGrid plugin
 import interactionPlugin from '@fullcalendar/interaction';
-//import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; // Import the interaction plugin
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { DrinkTypeComponent } from './administration/Drink Type/view-drink-type/view-drink-type.component';
 import { CreateDrinkTypeComponent } from './administration/Drink Type/create-drink-type/create-drink-type.component';
@@ -105,7 +102,6 @@ import { WriteOffStockComponent } from './administration/Inventory Management/In
 import { MatDialogModule } from '@angular/material/dialog';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-// import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { EventDetailsDailogComponent } from './administration/booking/schedule/event-details-dailog/event-details-dailog.component';
 import { HelpAddeventComponent } from './administration/booking/events/add-event/help-addevent/help-addevent.component';
 import { HelpEditeventsComponent } from './administration/booking/events/edit-event/help-editevents/help-editevents.component';
@@ -252,9 +248,9 @@ import { InventoryService } from './service/inventory.service';
    InventoryReconciliationComponent, 
     SalesComponent, 
     ScheduleComponent,
-    //ResetComponent,
-    //LoginComponent,
-    //ChangePasswordComponent,
+    ResetComponent,
+    LoginComponent,
+    ChangePasswordComponent,
     ViewProfileComponent,
     SignupComponent,
     UpdateProfileComponent,
@@ -312,7 +308,7 @@ import { InventoryService } from './service/inventory.service';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    //NgToastModule,
+    NgToastModule,
     BrowserAnimationsModule,
     MaterialModule,
     BrowserModule,
@@ -338,7 +334,6 @@ import { InventoryService } from './service/inventory.service';
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    // NgxMaterialTimepickerModule,
     FullCalendarModule,
     ModalModule.forRoot(), 
     CalendarModule.forRoot({

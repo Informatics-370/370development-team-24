@@ -94,60 +94,60 @@ import { EventDetailsDailogComponent } from './administration/booking/schedule/e
 const routes: Routes = [
   { path: '', component: ViewOrdersComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'add-employee', component: AddEmployeeComponent }, // for add employee page
-  { path: 'edit-employee/:id', component: EditEmployeeComponent},//Edit employee
-  { path: 'view-employees', component: ViewEmployeesComponent }, // for view employees page
-  { path: 'add-help', component: AddHelpComponent }, // for add help page
-  { path: 'view-help-list', component: ViewHelpListComponent }, // for view help list page 
-  { path: 'edit-help/:id', component: EditHelpComponent }, // for edit help page
-  { path: 'edit-menu-type/:id', component: EditMenuTypeComponent},//edit menu type 
-  { path: 'add-employee-role', component: AddEmployeeRoleComponent },// for add employee role
-  { path: 'edit-employee-role/:id', component: EditEmployeeRoleComponent },//for edit employee role
-  { path: 'employee-role', component: EmployeeRoleComponent },// for view employee role
-  { path: 'menu-types', component: MenuTypesComponent }, // for menu page
-  { path: 'add-menu-type', component: AddMenuTypeComponent}, //add menu type page
-  { path: 'menuitems', component: MenuitemsComponent},//For the menu item page
-  { path: 'employee-role',component: EmployeeRoleComponent },
-  { path: 'food-type', component: FoodTypeComponent }, // for foodType page
-  { path: 'menu-item-category', component: MenuItemCategoryComponent }, // for Menu Item Category page
-  { path: 'edit-food-type/:id', component: EditFoodTypeComponent }, // for edit food type
-  { path: 'create-food-type', component: CreateFoodTypeComponent },
-  { path: 'edit-menu-item-category/:id', component: EditMenuItemCategoryComponent}, // for edit Menu Item Category page
-  { path: 'create-menu-item-category', component: CreateMenuItemCategoryComponent },
+  { path: 'add-employee', component: AddEmployeeComponent, canActivate:[AuthGuard] }, // for add employee page
+  { path: 'edit-employee/:id', component: EditEmployeeComponent, canActivate:[AuthGuard]},//Edit employee
+  { path: 'view-employees', component: ViewEmployeesComponent, canActivate:[AuthGuard] }, // for view employees page
+  { path: 'add-help', component: AddHelpComponent, canActivate:[AuthGuard] }, // for add help page
+  { path: 'view-help-list', component: ViewHelpListComponent, canActivate:[AuthGuard] }, // for view help list page 
+  { path: 'edit-help/:id', component: EditHelpComponent, canActivate:[AuthGuard] }, // for edit help page
+  { path: 'edit-menu-type/:id', component: EditMenuTypeComponent, canActivate:[AuthGuard]},//edit menu type 
+  { path: 'add-employee-role', component: AddEmployeeRoleComponent, canActivate:[AuthGuard] },// for add employee role
+  { path: 'edit-employee-role/:id', component: EditEmployeeRoleComponent , canActivate:[AuthGuard]},//for edit employee role
+  { path: 'employee-role', component: EmployeeRoleComponent, canActivate:[AuthGuard] },// for view employee role
+  { path: 'menu-types', component: MenuTypesComponent, canActivate:[AuthGuard] }, // for menu page
+  { path: 'add-menu-type', component: AddMenuTypeComponent, canActivate:[AuthGuard]}, //add menu type page
+  { path: 'menuitems', component: MenuitemsComponent, canActivate:[AuthGuard]},//For the menu item page
+  { path: 'employee-role',component: EmployeeRoleComponent, canActivate:[AuthGuard] },
+  { path: 'food-type', component: FoodTypeComponent, canActivate:[AuthGuard] }, // for foodType page
+  { path: 'menu-item-category', component: MenuItemCategoryComponent, canActivate:[AuthGuard] }, // for Menu Item Category page
+  { path: 'edit-food-type/:id', component: EditFoodTypeComponent, canActivate:[AuthGuard] }, // for edit food type
+  { path: 'create-food-type', component: CreateFoodTypeComponent , canActivate:[AuthGuard]},
+  { path: 'edit-menu-item-category/:id', component: EditMenuItemCategoryComponent, canActivate:[AuthGuard]}, // for edit Menu Item Category page
+  { path: 'create-menu-item-category', component: CreateMenuItemCategoryComponent , canActivate:[AuthGuard]},
    ///SCHEDULE
-  {path:'schedule-display', component: ScheduleDisplayComponent},
-  {path:'edit-schedule/:id', component: EditScheduleComponent},
-  {path:'add-schedule', component: AddScheduleComponent},
+  {path:'schedule-display', component: ScheduleDisplayComponent, canActivate:[AuthGuard]},
+  {path:'edit-schedule/:id', component: EditScheduleComponent, canActivate:[AuthGuard]},
+  {path:'add-schedule', component: AddScheduleComponent, canActivate:[AuthGuard]},
  ///EVENTS
- {path:'view-events', component: ViewEventsComponent},
- {path:'edit-event/:id', component: EditEventComponent},
- {path:'add-event', component: AddEventComponent},
+ {path:'view-events', component: ViewEventsComponent, canActivate:[AuthGuard]},
+ {path:'edit-event/:id', component: EditEventComponent, canActivate:[AuthGuard]},
+ {path:'add-event', component: AddEventComponent, canActivate:[AuthGuard]},
  ///ENTERTAINMENT TYPES
-  {path:'entertainment-types', component: EntertainmentTypesComponent},
-  {path:'edit-entertainment-type/:id', component: EditEntertainmentTypeComponent},
-  {path:'add-entertainment-type', component: AddEntertainmentTypeComponent},
+  {path:'entertainment-types', component: EntertainmentTypesComponent, canActivate:[AuthGuard]},
+  {path:'edit-entertainment-type/:id', component: EditEntertainmentTypeComponent, canActivate:[AuthGuard]},
+  {path:'add-entertainment-type', component: AddEntertainmentTypeComponent, canActivate:[AuthGuard]},
 
   { path: 'navbar',component: NavbarComponent },
-  {path:'view-suppliers', component: ViewSuppliersComponent}, // for View Suppliers
-  {path: 'edit-supplier/:id', component: EditSupplierComponent},
-  {path: 'add-supplier', component:AddSupplierComponent},
-  {path:'view-suppliertypes', component: ViewSuppliertypesComponent},
-  {path: 'add-suppliertype', component: AddSuppliertypeComponent},
-  {path: 'edit-suppliertype/:id', component: EditSuppliertypeComponent},
-  {path: 'view-inventorytypes', component: ViewInventorytypesComponent},
-  {path: 'add-inventorytypes', component: AddInventorytypesComponent},
-  {path: 'edit-inventorytype/:id', component: EditIntventorytypeComponent},
-  {path: 'view-inventoryitems/:typeId', component: ViewInventoryitemsComponent},
-  {path: 'add-inventoryitem', component: AddInventoryitemComponent},
-  {path: 'edit-inventoryitem/:id', component: EditInventoryitemComponent},
-  {path: 'selected-inventorytype', component: SelectedInventorytypeComponent},
-  {path: 'checklist', component:ChecklistComponent},
-  {path: 'inventory-stocktype', component: InventoryStocktypeComponent},
-  {path: 'receive-order/:id', component:ReceiveOrderComponent},
-  {path: 'view-orders', component:ViewOrdersComponent},
-  {path:'login', component: LoginComponent},
-  {path:'signup', component:SignupComponent},
-  {path:'reset', component:ResetComponent},
+  {path:'view-suppliers', component: ViewSuppliersComponent, canActivate:[AuthGuard]}, // for View Suppliers
+  {path: 'edit-supplier/:id', component: EditSupplierComponent, canActivate:[AuthGuard]},
+  {path: 'add-supplier', component:AddSupplierComponent, canActivate:[AuthGuard]},
+  {path:'view-suppliertypes', component: ViewSuppliertypesComponent, canActivate:[AuthGuard]},
+  {path: 'add-suppliertype', component: AddSuppliertypeComponent, canActivate:[AuthGuard]},
+  {path: 'edit-suppliertype/:id', component: EditSuppliertypeComponent, canActivate:[AuthGuard]},
+  {path: 'view-inventorytypes', component: ViewInventorytypesComponent, canActivate:[AuthGuard]},
+  {path: 'add-inventorytypes', component: AddInventorytypesComponent, canActivate:[AuthGuard]},
+  {path: 'edit-inventorytype/:id', component: EditIntventorytypeComponent, canActivate:[AuthGuard]},
+  {path: 'view-inventoryitems/:typeId', component: ViewInventoryitemsComponent, canActivate:[AuthGuard]},
+  {path: 'add-inventoryitem', component: AddInventoryitemComponent, canActivate:[AuthGuard]},
+  {path: 'edit-inventoryitem/:id', component: EditInventoryitemComponent, canActivate:[AuthGuard]},
+  {path: 'selected-inventorytype', component: SelectedInventorytypeComponent, canActivate:[AuthGuard]},
+  {path: 'checklist', component:ChecklistComponent, canActivate:[AuthGuard]},
+  {path: 'inventory-stocktype', component: InventoryStocktypeComponent, canActivate:[AuthGuard]},
+  {path: 'receive-order/:id', component:ReceiveOrderComponent, canActivate:[AuthGuard]},
+  {path: 'view-orders', component:ViewOrdersComponent, canActivate:[AuthGuard]},
+  {path:'login', component: LoginComponent, canActivate:[AuthGuard]},
+  {path:'signup', component:SignupComponent, canActivate:[AuthGuard]},
+  {path:'reset', component:ResetComponent, canActivate:[AuthGuard]},
   {path:'view-profile',component:ViewProfileComponent, canActivate:[AuthGuard]},
   {path:'change-password',component:ChangePasswordComponent, canActivate:[AuthGuard]},
   {path:'update-profile', component:UpdateProfileComponent, canActivate:[AuthGuard]},
@@ -157,75 +157,75 @@ const routes: Routes = [
   {path: 'entertainer', component: EntertainerComponent, canActivate:[AuthGuard]}, 
   {path: 'booking-listing', component: BookingListingComponent, canActivate:[AuthGuard]}, 
   {path: 'manage-booking', component:  ManageBookingComponent, canActivate:[AuthGuard]}, 
-  { path: 'add-employee', component: AddEmployeeComponent }, // for add employee page
-  { path: 'edit-employee/:id', component: EditEmployeeComponent},//Edit employee
-  { path: 'view-employees', component: ViewEmployeesComponent }, // for view employees page
-  { path: 'add-help', component: AddHelpComponent }, // for add help page
-  { path: 'view-help-list', component: ViewHelpListComponent }, // for view help list page 
-  { path: 'edit-help/:id', component: EditHelpComponent }, // for edit help page
-  { path: 'edit-menu-type/:id', component: EditMenuTypeComponent},//edit menu type 
-  { path: 'add-employee-role', component: AddEmployeeRoleComponent },// for add employee role
-  { path: 'edit-employee-role/:id', component: EditEmployeeRoleComponent },//for edit employee role
-  { path: 'employee-role', component: EmployeeRoleComponent },// for view employee role
-  { path: 'menu-types', component: MenuTypesComponent }, // for menu page
-  { path: 'add-menu-type', component: AddMenuTypeComponent}, //add menu type page
-  { path: 'menuitems', component: MenuitemsComponent},//For the menu item page
-  { path: 'add-menu-item',component:AddMenuItemComponent},//for add menu item page
-  { path: 'edit-menu-item/:id', component:EditMenuItemComponent}, // for edit menu item page
-  { path: 'employee-role',component: EmployeeRoleComponent },
-  { path: 'food-type', component: FoodTypeComponent }, // for foodType page
-  { path: 'menu-item-category', component: MenuItemCategoryComponent }, // for Menu Item Category page
-  { path: 'edit-food-type/:id', component: EditFoodTypeComponent }, // for edit food type
-  { path: 'create-food-type', component: CreateFoodTypeComponent },
-  { path: 'edit-menu-item-category/:id', component: EditMenuItemCategoryComponent}, // for edit Menu Item Category page
-  { path: 'create-menu-item-category', component: CreateMenuItemCategoryComponent },
+  { path: 'add-employee', component: AddEmployeeComponent , canActivate:[AuthGuard]}, // for add employee page
+  { path: 'edit-employee/:id', component: EditEmployeeComponent, canActivate:[AuthGuard]},//Edit employee
+  { path: 'view-employees', component: ViewEmployeesComponent , canActivate:[AuthGuard]}, // for view employees page
+  { path: 'add-help', component: AddHelpComponent, canActivate:[AuthGuard] }, // for add help page
+  { path: 'view-help-list', component: ViewHelpListComponent, canActivate:[AuthGuard] }, // for view help list page 
+  { path: 'edit-help/:id', component: EditHelpComponent , canActivate:[AuthGuard]}, // for edit help page
+  { path: 'edit-menu-type/:id', component: EditMenuTypeComponent, canActivate:[AuthGuard]},//edit menu type 
+  { path: 'add-employee-role', component: AddEmployeeRoleComponent , canActivate:[AuthGuard]},// for add employee role
+  { path: 'edit-employee-role/:id', component: EditEmployeeRoleComponent , canActivate:[AuthGuard]},//for edit employee role
+  { path: 'employee-role', component: EmployeeRoleComponent , canActivate:[AuthGuard]},// for view employee role
+  { path: 'menu-types', component: MenuTypesComponent , canActivate:[AuthGuard]}, // for menu page
+  { path: 'add-menu-type', component: AddMenuTypeComponent, canActivate:[AuthGuard]}, //add menu type page
+  { path: 'menuitems', component: MenuitemsComponent, canActivate:[AuthGuard]},//For the menu item page
+  { path: 'add-menu-item',component:AddMenuItemComponent, canActivate:[AuthGuard]},//for add menu item page
+  { path: 'edit-menu-item/:id', component:EditMenuItemComponent, canActivate:[AuthGuard]}, // for edit menu item page
+  { path: 'employee-role',component: EmployeeRoleComponent , canActivate:[AuthGuard]},
+  { path: 'food-type', component: FoodTypeComponent , canActivate:[AuthGuard]}, // for foodType page
+  { path: 'menu-item-category', component: MenuItemCategoryComponent, canActivate:[AuthGuard] }, // for Menu Item Category page
+  { path: 'edit-food-type/:id', component: EditFoodTypeComponent, canActivate:[AuthGuard] }, // for edit food type
+  { path: 'create-food-type', component: CreateFoodTypeComponent, canActivate:[AuthGuard] },
+  { path: 'edit-menu-item-category/:id', component: EditMenuItemCategoryComponent, canActivate:[AuthGuard]}, // for edit Menu Item Category page
+  { path: 'create-menu-item-category', component: CreateMenuItemCategoryComponent , canActivate:[AuthGuard]},
    ///SCHEDULE
-  {path:'schedule-display', component: ScheduleDisplayComponent},
-  {path:'edit-schedule/:id', component: EditScheduleComponent},
-  {path:'add-schedule', component: AddScheduleComponent},
+  {path:'schedule-display', component: ScheduleDisplayComponent, canActivate:[AuthGuard]},
+  {path:'edit-schedule/:id', component: EditScheduleComponent, canActivate:[AuthGuard]},
+  {path:'add-schedule', component: AddScheduleComponent, canActivate:[AuthGuard]},
   //event details dialog
-  {path:'event-details-dailog', component:EventDetailsDailogComponent},
+  {path:'event-details-dailog', component:EventDetailsDailogComponent, canActivate:[AuthGuard]},
  ///EVENTS
- {path:'view-events', component: ViewEventsComponent},
- {path:'edit-event/:id', component: EditEventComponent},
- {path:'add-event', component: AddEventComponent},
+ {path:'view-events', component: ViewEventsComponent, canActivate:[AuthGuard]},
+ {path:'edit-event/:id', component: EditEventComponent, canActivate:[AuthGuard]},
+ {path:'add-event', component: AddEventComponent, canActivate:[AuthGuard]},
  ///ENTERTAINMENT TYPES
-  {path:'entertainment-types', component: EntertainmentTypesComponent},
-  {path:'edit-entertainment-type/:id', component: EditEntertainmentTypeComponent},
-  {path:'add-entertainment-type', component: AddEntertainmentTypeComponent},
-  { path: 'navbar',component: NavbarComponent },
-  { path: 'home', component: HomeComponent }, // for home page
-  {path:'view-suppliers', component: ViewSuppliersComponent}, // for View Suppliers
-  {path: 'edit-supplier/:id', component: EditSupplierComponent},
-  {path: 'add-supplier', component:AddSupplierComponent},
-  {path:'view-suppliertypes', component: ViewSuppliertypesComponent},
-  {path: 'add-suppliertype', component: AddSuppliertypeComponent},
-  {path: 'edit-suppliertype/:id', component: EditSuppliertypeComponent},
-  {path: 'view-inventorytypes', component: ViewInventorytypesComponent},
-  {path: 'add-inventorytypes', component: AddInventorytypesComponent},
-  {path: 'edit-inventorytype/:id', component: EditIntventorytypeComponent},
-  {path: 'view-inventoryitems/:typeId', component: ViewInventoryitemsComponent},
-  {path: 'add-inventoryitem', component: AddInventoryitemComponent},
-  {path: 'edit-inventoryitem/:id', component: EditInventoryitemComponent},
-  {path: 'selected-inventorytype', component: SelectedInventorytypeComponent},
-  {path: 'checklist', component:ChecklistComponent},
-  {path: 'inventory-stocktype', component: InventoryStocktypeComponent},
-  {path: 'receive-order/:id', component:ReceiveOrderComponent},
-  {path: 'view-orders', component:ViewOrdersComponent},
-  { path: 'view-drink-type', component: DrinkTypeComponent }, //for drink type page
-  { path: 'create-drink-type', component: CreateDrinkTypeComponent }, // for create drink type page
-  { path: 'edit-drink-type/:id', component: EditDrinkTypeComponent }, // for edit drink type page
-  { path: 'view-drink', component: ViewDrinkComponent }, //for drink page
-  { path: 'create-drink', component: CreateDrinkComponent }, // for create drink page
-  { path: 'edit-drink/:id', component: EditDrinkComponent }, // for edit drink page
-  { path: 'employee',component: EmployeeComponent }, // for employee report
-  { path: 'inventory',component: InventoryComponent }, // for inventory report
-  { path: 'inventory-reconciliation',component: InventoryReconciliationComponent }, // for inventory reconciliation report
-  { path: 'sales',component: SalesComponent }, // for sales report
-  { path: 'schedule',component: ScheduleComponent },
-  {path: 'stock-take', component:StockTakeComponent},
-  {path: 'stock-take-list', component:StockTakeListComponent},
-  {path: 'write-off-stock', component:WriteOffStockComponent},
+  {path:'entertainment-types', component: EntertainmentTypesComponent, canActivate:[AuthGuard]},
+  {path:'edit-entertainment-type/:id', component: EditEntertainmentTypeComponent, canActivate:[AuthGuard]},
+  {path:'add-entertainment-type', component: AddEntertainmentTypeComponent, canActivate:[AuthGuard]},
+  {path: 'navbar',component: NavbarComponent , canActivate:[AuthGuard]},
+  {path: 'home', component: HomeComponent , canActivate:[AuthGuard]}, // for home page
+  {path:'view-suppliers', component: ViewSuppliersComponent , canActivate:[AuthGuard]}, // for View Suppliers
+  {path: 'edit-supplier/:id', component: EditSupplierComponent , canActivate:[AuthGuard]},
+  {path: 'add-supplier', component:AddSupplierComponent , canActivate:[AuthGuard]},
+  {path:'view-suppliertypes', component: ViewSuppliertypesComponent , canActivate:[AuthGuard]},
+  {path: 'add-suppliertype', component: AddSuppliertypeComponent , canActivate:[AuthGuard]},
+  {path: 'edit-suppliertype/:id', component: EditSuppliertypeComponent , canActivate:[AuthGuard]},
+  {path: 'view-inventorytypes', component: ViewInventorytypesComponent , canActivate:[AuthGuard]},
+  {path: 'add-inventorytypes', component: AddInventorytypesComponent , canActivate:[AuthGuard]},
+  {path: 'edit-inventorytype/:id', component: EditIntventorytypeComponent , canActivate:[AuthGuard]},
+  {path: 'view-inventoryitems/:typeId', component: ViewInventoryitemsComponent , canActivate:[AuthGuard]},
+  {path: 'add-inventoryitem', component: AddInventoryitemComponent , canActivate:[AuthGuard]},
+  {path: 'edit-inventoryitem/:id', component: EditInventoryitemComponent , canActivate:[AuthGuard]},
+  {path: 'selected-inventorytype', component: SelectedInventorytypeComponent , canActivate:[AuthGuard]},
+  {path: 'checklist', component:ChecklistComponent , canActivate:[AuthGuard]},
+  {path: 'inventory-stocktype', component: InventoryStocktypeComponent , canActivate:[AuthGuard]},
+  {path: 'receive-order/:id', component:ReceiveOrderComponent , canActivate:[AuthGuard]},
+  {path: 'view-orders', component:ViewOrdersComponent , canActivate:[AuthGuard]},
+  { path: 'view-drink-type', component: DrinkTypeComponent  , canActivate:[AuthGuard]}, //for drink type page
+  { path: 'create-drink-type', component: CreateDrinkTypeComponent  , canActivate:[AuthGuard]}, // for create drink type page
+  { path: 'edit-drink-type/:id', component: EditDrinkTypeComponent  , canActivate:[AuthGuard]}, // for edit drink type page
+  { path: 'view-drink', component: ViewDrinkComponent  , canActivate:[AuthGuard]}, //for drink page
+  { path: 'create-drink', component: CreateDrinkComponent , canActivate:[AuthGuard] }, // for create drink page
+  { path: 'edit-drink/:id', component: EditDrinkComponent , canActivate:[AuthGuard] }, // for edit drink page
+  { path: 'employee',component: EmployeeComponent  , canActivate:[AuthGuard]}, // for employee report
+  { path: 'inventory',component: InventoryComponent  , canActivate:[AuthGuard]}, // for inventory report
+  { path: 'inventory-reconciliation',component: InventoryReconciliationComponent  , canActivate:[AuthGuard]}, // for inventory reconciliation report
+  { path: 'sales',component: SalesComponent  , canActivate:[AuthGuard]}, // for sales report
+  { path: 'schedule',component: ScheduleComponent  , canActivate:[AuthGuard]},
+  {path: 'stock-take', component:StockTakeComponent , canActivate:[AuthGuard]},
+  {path: 'stock-take-list', component:StockTakeListComponent , canActivate:[AuthGuard]},
+  {path: 'write-off-stock', component:WriteOffStockComponent , canActivate:[AuthGuard]},
 // for schedule
   {path:'sign-help', component: SignHelpComponent, canActivate:[AuthGuard]},
   {path:'change-help', component:  ChangeHelpComponent, canActivate:[AuthGuard]},
@@ -236,7 +236,7 @@ const routes: Routes = [
   {path:'entertainer-help', component:  EntertainerHelpComponent, canActivate:[AuthGuard]},
   {path:'booking-help', component:  BookingHelpComponent, canActivate:[AuthGuard]},
   {path:'manage-help', component:   ManageHelpComponent, canActivate:[AuthGuard]},
-  {path: 'edit-itemprice/:id', component:EditItempriceComponent},
+  {path: 'edit-itemprice/:id', component:EditItempriceComponent , canActivate:[AuthGuard]},
   { path: '', redirectTo: 'login', pathMatch:'full'},
   
 ];
