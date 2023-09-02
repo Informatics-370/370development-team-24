@@ -343,11 +343,11 @@ import { InventoryService } from './service/inventory.service';
     MatButtonModule,
     MatDialogModule,
     FullCalendarModule,
+    NgChartsModule, 
     ModalModule.forRoot(), 
     ModalModule.forRoot(),
-    NgChartsModule, 
     CalendarModule.forRoot({
-      provide: DateAdapter,
+    provide: DateAdapter,
       useFactory: adapterFactory
     })
   ],
