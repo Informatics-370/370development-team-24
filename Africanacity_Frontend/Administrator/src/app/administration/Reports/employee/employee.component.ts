@@ -12,6 +12,7 @@ import { Employee_Role } from 'src/app/shared/EmployeeRole';
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css']
 })
+
 export class EmployeeComponent implements OnInit {
   employees: Employee[] = [];
   employeeRoles: Employee_Role[] = [];

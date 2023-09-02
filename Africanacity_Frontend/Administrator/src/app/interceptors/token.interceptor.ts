@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { NgToastService } from 'ng-angular-popup';
+//import { NgToastService } from 'ng-angular-popup';
 import { Injectable } from '@angular/core';
 import {
   HttpRequest,
@@ -17,7 +17,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
   constructor(
     private auth: AuthService, 
-    private toast: NgToastService, 
+    //private toast: NgToastService, 
     private router: Router) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
@@ -60,7 +60,7 @@ export class TokenInterceptor implements HttpInterceptor {
       }),
       catchError((err)=>{
         return throwError(()=>{
-          this.toast.warning({detail:"Warning", summary:"Token is expired, Please Login again"});
+          //this.toast.warning({detail:"Warning", summary:"Token is expired, Please Login again"});
           this.router.navigate(['login'])
         })
       })

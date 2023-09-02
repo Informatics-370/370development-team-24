@@ -70,3 +70,14 @@ button{
     flex-grow: 2; /* Allow the search bar to expand and take available space */
     margin-right: 10px; /* Add some space between the search bar and add icon */
   }
+
+  .image-container {
+    position: relative;   
+  }
+  
+  img {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border-radius: 5%;
+  }

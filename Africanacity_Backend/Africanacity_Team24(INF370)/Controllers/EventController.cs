@@ -50,48 +50,106 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
         }
 
-        [HttpPost]
+    
+        [HttpPost, DisableRequestSizeLimit]
         [Route("AddNewEvent")]
-        public async Task<IActionResult> AddNewEvent(EventViewModel evm)
+        public async Task<IActionResult> AddNewEvent([FromForm] IFormCollection formData)
         {
-            var NewEvent = new Event { Name = evm.Name, Description = evm.Description };
             try
             {
-                _Repository.Add(NewEvent);
-                await _Repository.SaveChangesAsync();
+                var formCollection = await Request.ReadFormAsync();
+
+                var file = formCollection.Files.First();
+
+                if (file.Length > 0)
+                {
+
+                    using (var ms = new MemoryStream())
+                    {
+                        file.CopyTo(ms);
+                        var fileBytes = ms.ToArray();
+                        string base64 = Convert.ToBase64String(fileBytes);
+
+
+                        var bookingevent = new Event
+                        {
+                            Name = formData["name"]
+                            ,
+                            Description = formData["description"]
+                            ,
+                            Date = formData["date"]
+                            ,
+                            Image = base64
+                        };
+
+
+                        _Repository.Add(bookingevent);
+                        await _Repository.SaveChangesAsync();
+                    }
+
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
             }
-            catch(Exception)
+            catch (Exception ex)
             {
-                return BadRequest("Invalid Operation");
+                return StatusCode(500, $"Internal server error: {ex}");
             }
-            return Ok(NewEvent);
         }
 
 
         [HttpPut]
         [Route("EditEvent/{eventId}")]
-        public async Task<ActionResult<EventViewModel>> EditEvent(int eventId, EventViewModel eventViewModel)
+        public async Task<IActionResult> EditEvent(int eventId, [FromForm] IFormCollection formData)
         {
             try
             {
-                var existingEvent = await _Repository.GetEventAsync(eventId);
-                if (existingEvent == null) return NotFound($"The event does not exist");
+                var existingBookingEvent = await _Repository.GetEventAsync(eventId);
 
-                
-                existingEvent.Name = eventViewModel.Name;
-                existingEvent.Description = eventViewModel.Description;
+                if (existingBookingEvent == null)
+                {
+                    return NotFound($"The booking with ID {eventId} does not exist");
+                }
 
+                // Update event properties from the form data
+                existingBookingEvent.Name = formData["name"];
+                existingBookingEvent.Date = formData["date"];
+                existingBookingEvent.Description = formData["description"];
+
+                // Check if a new cover image was uploaded
+                var file = formData.Files.FirstOrDefault();
+                if (file != null && file.Length > 0)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        file.CopyTo(ms);
+                        var fileBytes = ms.ToArray();
+                        string base64 = Convert.ToBase64String(fileBytes);
+                        existingBookingEvent.Image = base64;
+                    }
+                }
+
+                // Save changes to the repository
                 if (await _Repository.SaveChangesAsync())
                 {
-                    return Ok(existingEvent);
+                    return Ok(existingBookingEvent);
+                }
+                else
+                {
+                    // Return an appropriate response when changes are not saved
+                    return StatusCode(500, "Failed to save changes to the repository.");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+                // Return an appropriate response for the exception case
+                return StatusCode(500, $"Internal server error: {ex}");
             }
-            return BadRequest("Your request is invalid.");
         }
+
 
         [HttpDelete]
         [Route("DeleteEvent/{eventId}")]

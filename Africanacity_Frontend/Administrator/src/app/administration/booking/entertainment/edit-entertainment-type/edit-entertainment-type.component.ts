@@ -1,9 +1,11 @@
 import { Component,OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { DataService } from 'src/app/service/data.Service';
+import { MatDialog } from '@angular/material/dialog';
 import { Entertainment_Type } from 'src/app/shared/entertainmentType';
+import { HelpEditentertainmentComponent } from './help-editentertainment/help-editentertainment.component';
 
 @Component({
   selector: 'app-edit-entertainment-type',
@@ -25,14 +27,14 @@ export class EditEntertainmentTypeComponent implements OnInit{
   constructor( private dataService: DataService, 
     private router: Router, 
     private activated:ActivatedRoute,
-    private snackBar: MatSnackBar){}
+    private snackBar: MatSnackBar,  private dialog: MatDialog,){}
 
 
     editType: Entertainment_Type = new Entertainment_Type();
 
    updateTypeForm: FormGroup = new FormGroup({
-    name: new FormControl('',[Validators.required]),
-    description: new FormControl('',[Validators.required])
+    name: new FormControl('',[Validators.required,this.noSpacesValidator]),
+    description: new FormControl('',[Validators.required,this.noSpacesValidator])
    })
 
    cancel(){
@@ -67,4 +69,23 @@ export class EditEntertainmentTypeComponent implements OnInit{
     });
   }
 
+  openHelpModal(field: string): void {
+    const dialogRef = this.dialog.open(HelpEditentertainmentComponent, {
+      width: '500px',
+      data: { field } // Pass the field name to the modal
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle modal close if needed
+    });
+  }
+
+  
+     // Custom validator to check for spaces
+     noSpacesValidator(control: AbstractControl): { [key: string]: boolean } | null {
+      if (control.value && control.value.trim().length === 0) {
+        return { 'noSpaces': true };
+      }
+      return null;
+    }
 }

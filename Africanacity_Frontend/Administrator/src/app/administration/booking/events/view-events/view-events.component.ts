@@ -3,7 +3,9 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BookingEvent } from 'src/app/shared/bookingevent';
+import { MatDialog } from '@angular/material/dialog';
 import { DataService } from 'src/app/service/data.Service';
+import { HelpVieweventsComponent } from './help-viewevents/help-viewevents.component';
 
 @Component({
   selector: 'app-view-events',
@@ -15,7 +17,8 @@ export class ViewEventsComponent implements OnInit{
   bookingevents: BookingEvent[]=[]
   Filteredevents : BookingEvent[]=[]
  
-  constructor(private dataService:DataService ,private snackBar: MatSnackBar, private httpClient: HttpClient, private router: Router){}
+  constructor(private dataService:DataService ,private snackBar: MatSnackBar, private httpClient: HttpClient, 
+    private router: Router,  private dialog: MatDialog){}
 
    
    
@@ -74,6 +77,16 @@ export class ViewEventsComponent implements OnInit{
 
 
 
+    openHelpModal(field: string): void {
+      const dialogRef = this.dialog.open(HelpVieweventsComponent, {
+        width: '500px',
+        data: { field } // Pass the field name to the modal
+      });
+    
+      dialogRef.afterClosed().subscribe(result => {
+        // Handle modal close if needed
+      });
+    }
 
 
 

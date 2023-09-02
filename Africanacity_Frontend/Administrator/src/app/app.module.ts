@@ -77,7 +77,7 @@ import { InventoryComponent } from './administration/Reports/inventory/inventory
 import { InventoryReconciliationComponent } from './administration/Reports/inventory-reconciliation/inventory-reconciliation.component';
 import { SalesComponent } from './administration/Reports/sales/sales.component';
 import { ScheduleComponent } from './administration/Reports/schedule/schedule.component';
-//import { NgChartsModule} from 'ng2-charts';
+import { NgChartsModule} from 'ng2-charts';
 import { AddMenuItemComponent } from './administration/menuitems/add-menu-item/add-menu-item.component';
 import { EditMenuItemComponent } from './administration/menuitems/edit-menu-item/edit-menu-item.component';
 import { AddEntertainmentTypeComponent } from './administration/booking/entertainment/add-entertainment-type/add-entertainment-type.component';
@@ -103,6 +103,22 @@ import { StockTakeComponent } from './administration/Inventory Management/Invent
 import { StockTakeListComponent } from './administration/Inventory Management/Inventory Items/stock-take/stock-take-list/stock-take-list.component';
 import { WriteOffStockComponent } from './administration/Inventory Management/Inventory Items/stock-take/write-off-stock/write-off-stock.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+// import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { EventDetailsDailogComponent } from './administration/booking/schedule/event-details-dailog/event-details-dailog.component';
+import { HelpAddeventComponent } from './administration/booking/events/add-event/help-addevent/help-addevent.component';
+import { HelpEditeventsComponent } from './administration/booking/events/edit-event/help-editevents/help-editevents.component';
+import { HelpVieweventsComponent } from './administration/booking/events/view-events/help-viewevents/help-viewevents.component';
+import { HelpAddscheduleComponent } from './administration/booking/schedule/add-schedule/help-addschedule/help-addschedule.component';
+import { HelpEditscheduleComponent } from './administration/booking/schedule/edit-schedule/help-editschedule/help-editschedule.component';
+import { HelpViewscheduleComponent } from './administration/booking/schedule/schedule-display/help-viewschedule/help-viewschedule.component';
+import { HelpAddentertainmentComponent } from './administration/booking/entertainment/add-entertainment-type/help-addentertainment/help-addentertainment.component';
+import { HelpEditentertainmentComponent } from './administration/booking/entertainment/edit-entertainment-type/help-editentertainment/help-editentertainment.component';
+import { HelpViewentertainmentComponent } from './administration/booking/entertainment/entertainment-types/help-viewentertainment/help-viewentertainment.component';
+import { HelpAddemployeeroleComponent } from './administration/EmployeeRole/add-employee-role/help-addemployeerole/help-addemployeerole.component';
+import { HelpEditemployeeroleComponent } from './administration/EmployeeRole/edit-employee-role/help-editemployeerole/help-editemployeerole.component';
+import { HelpViewemployeeroleComponent } from './administration/EmployeeRole/employee-role/help-viewemployeerole/help-viewemployeerole.component';
 
 import { ChangeHelpComponent } from './login/change-password/change-help/change-help.component';
 import { LoginHelpComponent } from './login/login/login-help/login-help.component';
@@ -236,9 +252,9 @@ import { InventoryService } from './service/inventory.service';
    InventoryReconciliationComponent, 
     SalesComponent, 
     ScheduleComponent,
-    ResetComponent,
-    LoginComponent,
-    ChangePasswordComponent,
+    //ResetComponent,
+    //LoginComponent,
+    //ChangePasswordComponent,
     ViewProfileComponent,
     SignupComponent,
     UpdateProfileComponent,
@@ -273,6 +289,20 @@ import { InventoryService } from './service/inventory.service';
     HelpEditinvetorytypeComponent,
     HelpStocktakeComponent,
     HelpReceiveorderComponent,
+    EventDetailsDailogComponent,
+    HelpAddeventComponent,
+    HelpEditeventsComponent,
+    HelpVieweventsComponent,
+    HelpAddscheduleComponent,
+    HelpEditscheduleComponent,
+    HelpViewscheduleComponent,
+    HelpAddentertainmentComponent,
+    HelpEditentertainmentComponent,
+    HelpViewentertainmentComponent,
+    HelpAddemployeeroleComponent,
+    HelpEditemployeeroleComponent,
+    HelpViewemployeeroleComponent,
+  
     
 
   ],
@@ -308,14 +338,15 @@ import { InventoryService } from './service/inventory.service';
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
+    // NgxMaterialTimepickerModule,
     FullCalendarModule,
     ModalModule.forRoot(), 
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    })
   ],
-  providers: [DataService,{
-    provide:HTTP_INTERCEPTORS,
-    useClass:TokenInterceptor,
-    multi:true
-  }],
+  providers: [DataService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

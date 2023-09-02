@@ -4,6 +4,8 @@ import { DataService } from 'src/app/service/data.Service';
 import { Employee_Role } from 'src/app/shared/EmployeeRole';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { HelpViewemployeeroleComponent } from './help-viewemployeerole/help-viewemployeerole.component';
 
 
 @Component({
@@ -21,7 +23,7 @@ filteredemployeeroles:Employee_Role[]=[];
 constructor(private dataService: DataService, 
   private router: Router, 
   private http:HttpClient,
-  private snackBar: MatSnackBar) { }
+  private snackBar: MatSnackBar, private dialog: MatDialog) { }
 
   // message box
   deleteItem(): void{
@@ -80,7 +82,16 @@ constructor(private dataService: DataService,
     });
   }
 
-    
+  openHelpModal(field: string): void {
+    const dialogRef = this.dialog.open(HelpViewemployeeroleComponent, {
+      width: '500px',
+      data: { field } // Pass the field name to the modal
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle modal close if needed
+    });
+  }
 
     
 }

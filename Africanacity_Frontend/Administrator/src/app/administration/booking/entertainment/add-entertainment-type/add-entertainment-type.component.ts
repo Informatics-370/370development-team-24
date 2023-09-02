@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/service/data.Service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { Entertainment_Type } from 'src/app/shared/entertainmentType';
+import { HelpAddentertainmentComponent } from './help-addentertainment/help-addentertainment.component';
 
 
 @Component({
@@ -57,4 +58,23 @@ export class AddEntertainmentTypeComponent implements OnInit {
       { duration: 5000 }
     );
   }
+
+       // Custom validator to check for spaces
+       noSpacesValidator(control: AbstractControl): { [key: string]: boolean } | null {
+        if (control.value && control.value.trim().length === 0) {
+          return { 'noSpaces': true };
+        }
+        return null;
+      }
+
+      openHelpModal(field: string): void {
+        const dialogRef = this.dialog.open(HelpAddentertainmentComponent, {
+          width: '500px',
+          data: { field } // Pass the field name to the modal
+        });
+      
+        dialogRef.afterClosed().subscribe(result => {
+          // Handle modal close if needed
+        });
+      }
 }

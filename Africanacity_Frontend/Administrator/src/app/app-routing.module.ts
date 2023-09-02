@@ -89,6 +89,7 @@ import { EntertainerHelpComponent } from './administration/entertainer/entertain
 import { BookingHelpComponent } from './administration/entertainer/booking-listing/booking-help/booking-help.component';
 import { ManageHelpComponent } from './administration/entertainer/manage-booking/manage-help/manage-help.component';
 import { EditItempriceComponent } from './administration/Inventory Management/Inventory Items/view-inventoryitems/price-modal/edit-itemprice/edit-itemprice.component';
+import { EventDetailsDailogComponent } from './administration/booking/schedule/event-details-dailog/event-details-dailog.component';
 
 const routes: Routes = [
   { path: '', component: ViewOrdersComponent },
@@ -182,6 +183,8 @@ const routes: Routes = [
   {path:'schedule-display', component: ScheduleDisplayComponent},
   {path:'edit-schedule/:id', component: EditScheduleComponent},
   {path:'add-schedule', component: AddScheduleComponent},
+  //event details dialog
+  {path:'event-details-dailog', component:EventDetailsDailogComponent},
  ///EVENTS
  {path:'view-events', component: ViewEventsComponent},
  {path:'edit-event/:id', component: EditEventComponent},

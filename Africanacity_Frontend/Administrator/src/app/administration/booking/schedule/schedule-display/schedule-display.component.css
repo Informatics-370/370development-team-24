@@ -1,7 +1,60 @@
-/* calendar.component.css */
 .calendar-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.drag-over {
+  background-color: #e0e0e0; /* Change background color to indicate drag-over state */
+}
+
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Adjust the number of columns as needed */
+  gap: 2rem; /* Adjust the gap between the timesheet and events list */
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.timesheet,
+.events-list {
+  border: 1px solid #ddd; /* Add borders for better separation */
+  padding: 1rem;
+  background-color: #fff; /* Add background color if needed */
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+}
+
+.event-block {
+  background-color: #f0f0f0;
+  padding: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+} 
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  text-align: center;
+  padding: 5px;
+}
+
+.timesheet-cell {
+  border: 1px solid #ccc;
+  min-height: 50px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+/* Add additional CSS styling as needed */

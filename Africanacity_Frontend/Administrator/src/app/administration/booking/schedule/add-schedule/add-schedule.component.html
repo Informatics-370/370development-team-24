@@ -1,52 +1,96 @@
-<div mat-dialog-content>
-  <form [formGroup]="scheduleform">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <app-navbar></app-navbar>
+    </div>
 
-    <mat-form-field class="full-width-input">
-      <mat-label>Title</mat-label>
-      <input matInput formControlName="title" placeholder="Schedule Title">
-    </mat-form-field>
+    <div class="col-md-10 order-md-2">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="text-center mb-4">Add Event Schedule Slot</h4>
+          <hr>
+          <div class="container">
+            <div class="row">
+              <form [formGroup]="scheduleform" (ngSubmit)="onSubmit()">
+                <mat-form-field class="full-width">
+                  <mat-label>Slot Title</mat-label>
+                  <input matInput placeholder="Provide the slot title" formControlName="title">
+                </mat-form-field>
 
-    <mat-form-field class="full-width-input">
-      <mat-label>Event</mat-label>
-      <mat-select formControlName="event">
-        <mat-option *ngFor="let item of bookingevents" [value]="item.eventId">{{ item.name }}</mat-option>
-      </mat-select>
-    </mat-form-field>
+                <mat-form-field class="full-width">
+                  <mat-label>Date</mat-label>
+                  <input
+                    matInput
+                    type="date"
+                    [min]="minDate | date:'yyyy-MM-dd'"
+                    [max]="maxDate | date:'yyyy-MM-dd'"
+                    placeholder="Select a date"
+                    formControlName="date"
+                  >
+                </mat-form-field>
 
-    <mat-form-field class="full-width-input">
-      <mat-label>Start Time</mat-label>
-      <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="startTimePicker" formControlName="start_time" placeholder="Start Time">
-      <mat-datepicker-toggle matSuffix [for]="startTimePicker"></mat-datepicker-toggle>
-      <mat-datepicker #startTimePicker></mat-datepicker>
+                <!-- Start Time -->
+               <mat-form-field class="full-width">
+                <mat-label>Start Time</mat-label>
+                <input
+                  matInput
+                  type="time"
+                  placeholder="Select the start time"
+                  formControlName="start_Time"
+                >
+              </mat-form-field>
+              
+                <!-- End Time -->
+            <mat-form-field class="full-width">
+             <mat-label>End Time</mat-label>
+             <input
+               matInput
+               type="time"
+               placeholder="Select the start time"
+               formControlName="end_Time"
+             >
+           </mat-form-field>
+           
+                <mat-form-field class="full-width">
+                  <mat-label>Event Name</mat-label>
+                  <mat-select formControlName="event">
+                    <mat-option *ngFor="let event of bookingevents" [value]="event.eventId">{{ event.name }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
 
-      <!-- <input matInput formControlName="start_time" placeholder="Start Time" type="time"> -->
-      <mat-select formControlName="start_time_ampm">
-        <mat-option value="AM">AM</mat-option>
-        <mat-option value="PM">PM</mat-option>
-      </mat-select>
-    </mat-form-field>
+                <mat-form-field class="full-width">
+                  <mat-label>Schedule Status</mat-label>
+                  <mat-select formControlName="scheduleStatus">
+                    <mat-option *ngFor="let status of statuses" [value]="status.schedule_StatusId">{{ status.name }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              
+              
+                <mat-form-field class="full-width">
+                  <mat-label>Description</mat-label>
+                  <textarea
+                    matInput
+                    placeholder="Provide a description for the event slot"
+                    formControlName="description"
+                    rows="3"
+                  ></textarea>
+                </mat-form-field>
+              
+                <div class="center-buttons">
+                  <button mat-raised-button color="warn" (click)="onCancel()">Discard</button>
+                  <button mat-raised-button color="primary" type="submit">Add</button>
+                </div>
+              </form>
+              <button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help" matTooltip="Help">
+                <mat-icon>help</mat-icon>
+              </button>
 
-    <mat-form-field class="full-width-input">
-      <mat-label>End Time</mat-label>
-
-      <input matInput formControlName="end_time" placeholder="End Time" type="time">
-      <mat-select formControlName="end_time_ampm">
-        <mat-option value="AM">AM</mat-option>
-        <mat-option value="PM">PM</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field class="full-width-input" appearance="fill">
-      <mat-label>Description</mat-label>
-      <input matInput formControlName="description">
-    </mat-form-field>
-
-  </form>
-</div>
-
-<div mat-dialog-actions>
-  <button mat-button color="warn" (click)="onCancel()">Cancel</button>
-  <button mat-button color="primary" (click)="onSave()">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 

@@ -1,10 +1,17 @@
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, Inject, OnInit, Output } from '@angular/core';
+import { AbstractControl,FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'src/app/service/data.Service';
 import { BookingEvent } from 'src/app/shared/bookingevent';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Schedule } from 'src/app/shared/schedule';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { DateAdapter } from '@angular/material/core';
+import { EventEmitter } from '@angular/core';
+import { CalendarService } from 'src/app/calendar.service';
+import { format } from 'date-fns';
+import { Schedule_Status } from 'src/app/shared/schedulestatus';
+import { MatDialog } from '@angular/material/dialog';
+import { HelpAddscheduleComponent } from './help-addschedule/help-addschedule.component';
 
 @Component({
   selector: 'app-add-schedule',
@@ -15,43 +22,48 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class AddScheduleComponent implements OnInit{
 
   formData = new FormData();
-  bookingevents: BookingEvent[]=[];
-  newEvents: Event[] = [];
-
-  //Date Validation 
+  bookingevents: BookingEvent[] = []; //events array 
+  schedules: Schedule[] = [];
+  statuses:Schedule_Status[] = []; //Push to schedule array
   minDate: Date;
   maxDate: Date;
+  
 
-  constructor( private dataService: DataService, private fb: FormBuilder,
+  constructor( private dataService: DataService, 
+    private fb: FormBuilder,
+    private router: Router,
     private snackBar: MatSnackBar,
-    public dialogRef: MatDialogRef<AddScheduleComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    private dateAdapter: DateAdapter<any>,// Inject DateAdapter
+    private calendarService: CalendarService, // calendar service
+    private dialog: MatDialog
   ) {
-    //Set min date to 20 years in the past and a year in the future
+    //Set minimum date to only this year and December 31 a year in the future
     const currentYear = new Date().getFullYear();
-    this.minDate = new Date(currentYear - 20, 0, 1);
+    this.minDate = new Date(currentYear - 0, 0, 0);
     this.maxDate = new Date(currentYear + 1, 11, 31);
   }
 
-     // Create an EventEmitter to emit the new event data
-    @Output() eventAdded: EventEmitter<any> = new EventEmitter<any>();
-    private customEventColor = '#2196F3';
 
+   @Output() eventAdded: EventEmitter<void> = new EventEmitter<void>();
+    //form controls
     scheduleform: FormGroup = this.fb.group({
-      title: ['', Validators.required],
-      start_time: [null, Validators.required],
-      start_time_ampm: ['AM', Validators.required],
-      end_time: [null, Validators.required],
-      end_time_ampm: ['AM', Validators.required],
+      title: ['', [Validators.required,this.noSpacesValidator]],
+      date: ['', Validators.required],
+      start_Time: ['', Validators.required],
+      end_Time: ['', Validators.required],
       event: [null, Validators.required],
-      description:['',Validators.required]
+      description:['',[Validators.required,this.noSpacesValidator]],
+      scheduleStatus:['',Validators.required],
     })
 
     ngOnInit(): void {
-      this.GetAllEvents()
+      this.GetAllEvents();
+      this.dateAdapter.setLocale('en'); // Set your preferred 
+    
+      this.GetAllScheduleStatus();
     }
-
-  //Retrieve Events method
+ 
+    //Method to retrieve the events from the backend that will be used for the event dropdown
   GetAllEvents()
   {
     this.dataService.GetAllEvents().subscribe(result => {
@@ -62,37 +74,83 @@ export class AddScheduleComponent implements OnInit{
       });
     })
   }
+  GetAllScheduleStatus()
+  {
+    this.dataService.GetAllScheduleStatus().subscribe(result => {
+      let schedulestatusList:any[] = result
+      schedulestatusList.forEach((element) => {
+        this.statuses.push(element)
+        
+      });
+    })
+  }
+   
 
-  // onSave(): void {
-  //   if (this.scheduleform.valid) {
-  //     const eventData: Schedule = {
-  //       title: this.scheduleform.get('title')!.value,
-  //       start_time: this.scheduleform.get('start_time')!.value,
-  //       scheduleid: 0,
-  //       end_time: this.scheduleform.get('end_time')!.value,
-  //       event: this.scheduleform.get('event')!.value,
-  //       description: this.scheduleform.get('description')!.value,
-  //     };
+  onSubmit() {
+    if (this.scheduleform.valid) {
+        const title = this.scheduleform.get('title')!.value;
+        const date = this.scheduleform.get('date')!.value;
+        const start_Time = this.scheduleform.get('start_Time')!.value;
+        const end_Time = this.scheduleform.get('end_Time')!.value;
+        const event = this.scheduleform.get('event')!.value;
+        const description = this.scheduleform.get('description')!.value;
+        const scheduleStatus = this.scheduleform.get('scheduleStatus')!.value;
+        
+        
 
-       
-      
-  //     // Emit the new event data to the parent component (ScheduleDisplayComponent)
-  //     this.eventAdded.emit(eventData);
+        // Create the schedule object
+        const schedule = new Schedule();
+        schedule.title = title;
+        schedule.date = date;
+        schedule.start_Time = start_Time;
+        schedule.end_Time = end_Time;
+        schedule.event = event;
+        schedule.description = description;
+        schedule.scheduleStatus = scheduleStatus;
+        
+        // Send the data to the backend
+        this.dataService.AddSchedule(schedule).subscribe(
+            (result) => {
+                const newSchedule: Schedule = result as Schedule;
+                this.schedules.push(newSchedule);
+                this.calendarService.updateCalendarEvents();
+                this.router.navigateByUrl('schedule-display').then((navigated: boolean) => {
+                    if (navigated) {
+                        this.snackBar.open(title + ` created successfully`, 'X', { duration: 5000 });
+                    }
+                });
+                this.eventAdded.emit();
+                console.log('Schedule saved successfully');
+            },
+            (error) => {
+                // Handle error here (e.g., display an error message to the user)
+            }
+        );
+    }
+}
 
-  //     // Close the dialog after saving
-  //     this.dialogRef.close();
+openHelpModal(field: string): void {
+  const dialogRef = this.dialog.open(HelpAddscheduleComponent, {
+    width: '500px',
+    data: { field } // Pass the field name to the modal
+  });
 
-  //     // Show a snackbar message indicating successful event creation
-  //     this.snackBar.open(eventData.title + ' created successfully', 'X', {
-  //       duration: 5000,
-  //     });
-  //   }
-  // }
+  dialogRef.afterClosed().subscribe(result => {
+    // Handle modal close if needed
+  });
+}
 
 
+  //When cancel button is clicked method is executed
+  onCancel(){
+    this.router.navigate(['/schedule-display'])
+  }
 
-
-  //  onCancel(): void {
-  //   this.dialogRef.close();
-  //  }
+   // Custom validator to check for spaces
+   noSpacesValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    if (control.value && control.value.trim().length === 0) {
+      return { 'noSpaces': true };
+    }
+    return null;
+  }
 }

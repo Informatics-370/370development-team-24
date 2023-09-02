@@ -1126,9 +1126,6 @@ namespace Africanacity_Team24_INF370_.models
           //  });
 
 
-
-
-
             //Many to many with MenuItem
             //modelBuilder.Entity<MenuItem>()
             //            .HasOne(m => m.Menu_Type)
@@ -1165,7 +1162,9 @@ namespace Africanacity_Team24_INF370_.models
                          {
                              EventId = 1,
                              Name = "Smooth Sunday",
-                             Description = "An event filled with spectacular music performances and art display "
+                             Description = "An event filled with spectacular music performances and art display ",
+                             Date = "Every Second Sunday of the Month",
+                             Image = "image 1",
                             
                          });
             modelBuilder.Entity<Event>()
@@ -1174,7 +1173,9 @@ namespace Africanacity_Team24_INF370_.models
                          {
                              EventId = 2,
                              Name = "Wacky Wednesday",
-                             Description = "An event where various forms of entertainments take place"
+                             Description = "An event where various forms of entertainments take place",
+                             Date = "Every Wednesday",
+                             Image = "image 2",
 
                          });
             modelBuilder.Entity<Event>()
@@ -1183,9 +1184,22 @@ namespace Africanacity_Team24_INF370_.models
                         {
                             EventId = 3,
                             Name = "Poetry Musings",
-                            Description = " poets are invited to recite poems and another kind of artistry "
+                            Description = " poets are invited to recite poems and another kind of artistry ",
+                            Date = "Last Thursdays of the month",
+                            Image = "image 3",
 
                         });
+            modelBuilder.Entity<Event>()
+            .HasData(
+            new
+            {
+                EventId = 4,
+                Name = "Art display",
+                Description = " artists are invited to market their art",
+                Date = "Every Friday",
+                Image = "image 4",
+
+            });
             // Create Seed Data For the Entertainments Type Table:
             modelBuilder.Entity<Entertainment_Type>()
                        .HasData(
@@ -1230,11 +1244,12 @@ namespace Africanacity_Team24_INF370_.models
                                   {
                                       ScheduleId = 1,
                                       Title = "Music slot",
-                                      Date = new DateTime(2023,06,25),
-                                      Start_Time = "14;00 PM",
-                                      End_Time = "14:30 PM",
+                                      Date = "2023/06/25",
+                                      Start_Time = "14:30",
+                                      End_Time = "15:00",
                                       Description = "Musician can book performance",
-                                      EventId = 1
+                                      EventId = 1,
+                                      Schedule_StatusId = 1,
                                   });
             modelBuilder.Entity<Schedule>()
                                 .HasData(
@@ -1242,11 +1257,12 @@ namespace Africanacity_Team24_INF370_.models
                                  {
                                      ScheduleId = 2,
                                      Title = "Dance slot ",
-                                     Date = new DateTime(2023,08,02),
-                                     Start_Time = "21;00 PM",
-                                     End_Time = "21:30 PM",
+                                     Date = "2023/08/02",
+                                     Start_Time = "12:00",
+                                     End_Time = "12:30",
                                      Description = "Contemporary Dance performance",
-                                     EventId = 2
+                                     EventId = 2,
+                                     Schedule_StatusId = 1,
                                  });
             modelBuilder.Entity<Schedule>()
                                 .HasData(
@@ -1254,16 +1270,73 @@ namespace Africanacity_Team24_INF370_.models
                                  {
                                      ScheduleId = 3,
                                      Title = "Poetry",
-                                     Date = new DateTime(2023,07,22),
-                                     Start_Time = "19;00 PM",
-                                     End_Time = "19:15 PM",
+                                     Date = "2023/07/22",
+                                     Start_Time = "21:00",
+                                     End_Time = "21:30",
                                      Description = "Poet recital",
-                                     EventId = 3
+                                     EventId = 3,
+                                     Schedule_StatusId = 2,
                                  });
+            modelBuilder.Entity<Schedule>()
+                              .HasData(
+                               new
+                               {
+                                   ScheduleId = 4,
+                                   Title = "Contemp Dance",
+                                   Date = "2023/07/22",
+                                   Start_Time = "17:00",
+                                   End_Time = "17:45",
+                                   Description = "Contemporary dance slot",
+                                   EventId = 2,
+                                   Schedule_StatusId = 1,
+                               });
+            modelBuilder.Entity<Schedule>()
+                              .HasData(
+                               new
+                               {
+                                   ScheduleId = 5,
+                                   Title = "Comedy",
+                                   Date = "2023/09/12",
+                                   Start_Time = "13:00",
+                                   End_Time = "13:20",
+                                   Description = "Poet recital",
+                                   EventId = 3,
+                                   Schedule_StatusId = 1,
+                               });
 
+            //Create Seed Data For the Schedule Status Entity:
+            modelBuilder.Entity<Schedule_Status>()
+                     .HasData(
+                      new
+                      {
+                          Schedule_StatusId = 1,
+                          Name = "Available",
 
+                      });
+            modelBuilder.Entity<Schedule_Status>()
+                     .HasData(
+                      new
+                      {
+                          Schedule_StatusId = 2,
+                          Name = "Booked",
 
+                      });
+            modelBuilder.Entity<Schedule_Status>()
+                    .HasData(
+                     new
+                     {
+                         Schedule_StatusId = 3,
+                         Name = "Pending",
 
+                     });
+            modelBuilder.Entity<Schedule_Status>()
+                    .HasData(
+                     new
+                     {
+                         Schedule_StatusId = 4,
+                         Name = "Cancelled",
+
+                     });
 
             // Create Seed Data For the Menu Category Table:
             modelBuilder.Entity<MenuItem_Category>()
@@ -1963,6 +2036,16 @@ namespace Africanacity_Team24_INF370_.models
                          Date = DateTime.Now
 
                      });
+            //Many to many with Schedule
+            modelBuilder.Entity<Schedule>()
+                        .HasOne(m => m.Schedule_Status)
+                        .WithMany()
+                        .HasForeignKey(m => m.Schedule_StatusId);
+
+            modelBuilder.Entity<Schedule>()
+            .HasOne(m => m.Event)
+            .WithMany()
+            .HasForeignKey(m => m.EventId);
 
 
 

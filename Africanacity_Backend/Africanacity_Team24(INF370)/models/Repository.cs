@@ -177,7 +177,7 @@ namespace Africanacity_Team24_INF370_.models
         //SCHEDULE 
         public async Task<Schedule[]> ScheduleDisplayAsync()
         {
-            IQueryable<Schedule> query = _appDbContext.Schedules;
+            IQueryable<Schedule> query = _appDbContext.Schedules.Include(e => e.Event).Include(e => e.Schedule_Status);
             return await query.ToArrayAsync();
         }
         public async Task<Schedule> GetScheduleAsync(int scheduleId)
@@ -185,7 +185,11 @@ namespace Africanacity_Team24_INF370_.models
             IQueryable<Schedule> query = _appDbContext.Schedules.Where(s => s.ScheduleId == scheduleId);
             return await query.FirstOrDefaultAsync();
         }
-
+        public async Task<Schedule_Status[]> GetAllScheduleStatusAsync()
+        {
+            IQueryable<Schedule_Status> query = _appDbContext.Schedule_Statuses;
+            return await query.ToArrayAsync();
+        }
         //EVENTS
         public async Task<Event[]> GetAllEventsAsync()
         {
