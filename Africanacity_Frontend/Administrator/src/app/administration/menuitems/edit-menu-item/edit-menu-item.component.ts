@@ -114,7 +114,7 @@ export class EditMenuItemComponent implements OnInit {
           menuTypeName: this.menuItem.menuTypeName, // Assuming this is the foreign key ID
           foodTypeName: this.menuItem.foodTypeName, // Assuming this is the foreign key ID
           menuCategoryName: this.menuItem.menuCategoryName, // Assuming this is the foreign key ID
-          amount: this.menuItem.menuItemsPrices || 0
+          amount: this.menuItem.menuItemsPrices
         });
       },
       error => {

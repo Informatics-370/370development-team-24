@@ -34,8 +34,8 @@
   <ion-card *ngFor="let order of kitchenOrders">
     <h3>Order Number: {{ order.KitchenOrderNumber }}</h3>
     <p>{{ order.TableNumber }}</p>
-    <p *ngFor="let omi of order.OrderedMenuItems" (click)="editMenuItem(order, omi)"> {{ omi.MenuItem.Name }} x {{ omi.Quantity }}</p>
-    <p *ngFor="let od of order.OrderedDrinks" (click)="editDrinkItem(order, od)"> {{ od.OtherDrink.Name }} x {{ od.Quantity }}</p>
+    <p *ngFor="let omi of order.OrderedMenuItems" > {{ omi.MenuItem.Name }} x {{ omi.Quantity }}</p>
+    <p *ngFor="let od of order.OrderedDrinks" > {{ od.OtherDrink.Name }} x {{ od.Quantity }}</p>
     <p>Subtotal: {{ order.Subtotal }}</p>
     <p>VAT: {{ order.VAT }}</p>
     <p>Discount: {{ order.Discount }}</p>

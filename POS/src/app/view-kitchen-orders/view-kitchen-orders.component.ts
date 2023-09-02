@@ -77,7 +77,7 @@ export class ViewKitchenOrdersComponent  implements OnInit {
 
 
   //inline editing option
-  async editMenuItem(order: KitchenOrderView, menuItem: KitchenOrderView['OrderedMenuItems'][0]) {
+  /*async editMenuItem(order: KitchenOrderView, menuItem: KitchenOrderView['OrderedMenuItems'][0]) {
     const modal = await this.modalController.create({
       component: EditKitchenOrderComponent,
       componentProps: {
@@ -176,7 +176,7 @@ export class ViewKitchenOrdersComponent  implements OnInit {
       // Add the new menu item to the order
       order.OrderedDrinks.push(data.newDrinkItem);
     }
-  }
+  }*/
   
 
 
