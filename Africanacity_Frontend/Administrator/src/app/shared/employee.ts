@@ -12,4 +12,3 @@
    genderName!: string;
    employment_Date!: Date;
  }
-

@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add Kitchen Order</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="my-custom-modal-content">
+  <ion-list>
+    <!-- Input fields for creating a new kitchen order -->
+    <ion-item>
+      <ion-label>Order Number</ion-label>
+      <ion-input [(ngModel)]="order.KitchenOrderNumber" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item *ngFor="let omi of order.OrderedMenuItems; let i = index">
+      <ion-label>Menu Item Name</ion-label>
+      <ion-input [(ngModel)]="omi.MenuItem.Name" type="text"></ion-input>
+      <ion-label>Quantity</ion-label>
+      <ion-input [(ngModel)]="omi.Quantity" type="number"></ion-input>
+    </ion-item>
+    <ion-item *ngFor="let od of order.OrderedDrinks; let i = index">
+      <ion-label>Menu Item Name</ion-label>
+      <ion-input [(ngModel)]="od.OtherDrink.Name" type="text"></ion-input>
+      <ion-label>Quantity</ion-label>
+      <ion-input [(ngModel)]="od.Quantity" type="number"></ion-input>
+    </ion-item>
+
+    <!-- Add more input fields for other properties you want to set for the new order -->
+
+    <!-- Save and Cancel buttons -->
+    <ion-button (click)="addNewItem()">Save</ion-button>
+    <ion-button (click)="cancel()">Cancel</ion-button>
+  </ion-list>
+</ion-content>

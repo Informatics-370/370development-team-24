@@ -1,0 +1,91 @@
+
+  .sign-up-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%; /* Make the container take up the available height */
+  }
+
+  .sign-up-form {
+    border: 5px solid #ccc; /* Border with a color of your choice */
+    padding: 20px; /* Add some padding to the form */
+    /* Optionally set a background color */
+    border-radius: 8px; /* Optionally add rounded corners */
+    width: 35%;
+    font-family:Arial, Helvetica, sans-serif;
+    border-color: darkslateblue;
+    border-width: 10px;
+    border-style: groove;
+  
+  }
+
+  /* In your component's CSS file */
+  ion-item {
+    --highlight-background-color: transparent;
+    --ion-color-base: black;
+  }
+
+  ion-item ::part {
+    outline: 1px solid #333; /* Change the outline color to a different color */
+  }
+
+  .form-container {
+    display: flex;
+    flex-direction: column; /* Arrange content vertically */
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    height: 100vh; /* Use the entire viewport height */
+    margin-top:10%;
+    margin-left: 35%;
+    width: 70%;
+  }
+
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15%; /* Adjust the height as needed */
+  }
+
+  .logo {
+    max-width: 200px; /* Set the maximum width of your logo */
+    max-height: 200px; 
+    justify-content: center;/* Set the maximum height of your logo */
+    align-items: center;
+    border-radius: 50%;
+  
+  }
+  .button{
+    border-radius: 40%;
+    width: 90%;
+    font-family: Arial, Helvetica, sans-serif;
+    box-shadow: 0px 10px 15px 0 rgba(49, 2, 61, 0.25);
+  }
+
+  /* YourComponent.css or global.css */
+
+.custom-alert .alert-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 16px;
+}
+
+.custom-alert ion-icon {
+  font-size: 24px;
+  color: red; /* Customize the icon color here */
+}
+
+ion-alert.successAlert ion-header {
+  background-color: #00ff00; /* Green background for success alert header */
+}
+
+ion-alert.errorAlert ion-header {
+  background-color: #ff0000; /* Red background for error alert header */
+}
+
+  
+
+

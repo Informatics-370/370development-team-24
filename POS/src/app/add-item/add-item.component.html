@@ -1,0 +1,102 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Order</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="3">
+        <!-- Side Navigation Bar for Menu Items -->
+        <ion-list class="ion-list">
+          <ion-item button (click)="filterMenuItems(1)">Breakfast</ion-item>
+          <ion-item button (click)="filterMenuItems(2)">All Day</ion-item>
+          <ion-item button (click)="filterDrinkItems(1)">Alcohol</ion-item>
+          <ion-item button (click)="filterDrinkItems(2)">Non-alcohol</ion-item>
+
+          <!-- Add more menu types as needed -->
+        </ion-list>
+      </ion-col>
+
+      <ion-col size="4">
+        <!-- Menu Item Listing -->
+        <ng-container *ngIf="!isDrinkSelected">
+        <h1 class="heading"  >MENU ITEMS</h1>
+        <ion-card class="ion-card" *ngFor="let menuItem of filteredMenuItems">
+          <ion-card-header>
+            <ion-card-title>{{ menuItem.name }}</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <p>Price: {{ fetchMenuItemPrice(menuItem.menuItemId) | currency: 'R ' }}</p>
+            <ion-button fill="clear" (click)="addToMenuItemOrder(menuItem)" class="ion-button" style="color: black;">Add to Order</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ng-container>
+
+        <ng-container  *ngIf="isDrinkSelected">
+        <h2 class="heading">BEVERAGES</h2>
+        <ion-card class="ion-card" *ngFor="let drinkItem of filteredDrinkItems">
+          <ion-card-header>
+            <ion-card-title>{{ drinkItem.name }}</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <!-- Add relevant properties for drinks -->
+            <p>Price:  {{ fetchDrinkItemPrice(drinkItem.otherDrinkId) | currency: 'R '}} </p>
+            <ion-button fill ="clear" (click)="addToDrinkOrder(drinkItem)" class="ion-button" style="color: black;">Add to Order</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ng-container>
+      </ion-col>
+   
+
+      <ion-col size="5" class="ion-card" id="orderSummary">
+        <!-- Order Summary for Menu Items -->
+        <h2 class="heading2">Order Summary </h2>
+        <ion-item>
+          <p *ngIf="tableNumber">Table Number: {{ tableNumber }}</p>
+          
+        </ion-item>
+        <ion-item>
+          <p>Kitchen Order Number: {{ kitchenOrderNumber }}</p>
+        </ion-item>
+        
+        <ion-list>
+          <ion-item *ngFor="let orderedItem of orderedItems">
+           
+            <p>{{ orderedItem.name}}  <span class="span" style="margin-left: 20px;">{{ getSelectedMenuItemPrice(orderedItem.menuItemId) | currency: '       R' }}</span> </p> <br>
+            <ion-input type="number" [(ngModel)]="orderedItem.quantity" (ionChange)="updateSubtotal()" class="small-input" style="margin-right: -10px"></ion-input>
+          </ion-item>
+        </ion-list>
+        <ion-list>
+          <ion-item *ngFor="let orderedDrink of orderedDrinks">
+            <p>{{ orderedDrink.name }}  <span class="span" style="margin-left: 20px;">{{ getSelectedDrinkItemPrice(orderedDrink.otherDrinkId) | currency: 'R ' }} </span> </p> 
+            <ion-input type="number" [(ngModel)]="orderedDrink.quantity" (ionChange)="updateSubtotal()" class="small-input" style="margin-right: -10px;"></ion-input>
+          </ion-item>
+        </ion-list>
+        <ion-item>
+          <p><b>Subtotal:</b> {{ subtotal | currency:'R ' }}</p>
+        </ion-item>
+        <ion-item>
+          <p><b>Total VAT:</b> {{ totalVat | currency:'R ' }}</p>
+        </ion-item>
+        
+        <ion-item>
+          <p><b>Total Discount:</b> {{ totalDiscount | currency:'R ' }}</p>
+        </ion-item>
+        
+        <ion-item>
+          <p><b>Final Total:</b> {{ finalTotal | currency:'R ' }}</p>
+        </ion-item>
+        
+       
+        
+
+        <ion-button  fill="clear" expand="full" (click)="submitOrder()" class="ion-button" style="color: black;">Submit Order</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+

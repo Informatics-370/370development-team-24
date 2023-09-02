@@ -74,7 +74,6 @@ import { InventoryComponent } from './administration/Reports/inventory/inventory
 import { InventoryReconciliationComponent } from './administration/Reports/inventory-reconciliation/inventory-reconciliation.component';
 import { SalesComponent } from './administration/Reports/sales/sales.component';
 import { ScheduleComponent } from './administration/Reports/schedule/schedule.component';
-import { NgChartsModule} from 'ng2-charts';
 import { AddMenuItemComponent } from './administration/menuitems/add-menu-item/add-menu-item.component';
 import { EditMenuItemComponent } from './administration/menuitems/edit-menu-item/edit-menu-item.component';
 import { AddEntertainmentTypeComponent } from './administration/booking/entertainment/add-entertainment-type/add-entertainment-type.component';
@@ -115,7 +114,12 @@ import { HelpViewentertainmentComponent } from './administration/booking/enterta
 import { HelpAddemployeeroleComponent } from './administration/EmployeeRole/add-employee-role/help-addemployeerole/help-addemployeerole.component';
 import { HelpEditemployeeroleComponent } from './administration/EmployeeRole/edit-employee-role/help-editemployeerole/help-editemployeerole.component';
 import { HelpViewemployeeroleComponent } from './administration/EmployeeRole/employee-role/help-viewemployeerole/help-viewemployeerole.component';
-
+import { SupplierComponent } from './administration/Reports/supplier/supplier.component';
+import { BookingComponent } from './administration/Reports/booking/booking.component';
+import { NgChartsModule } from 'ng2-charts';
+import { MenuReportComponent } from './administration/Reports/menu/menu.component';
+import { CreateOtherDrinkComponent } from './administration/otherDrink/create-other-drink/create-other-drink.component';
+import { ViewOtherDrinkComponent } from './administration/otherDrink/view-other-drink/view-other-drink.component';
 import { ChangeHelpComponent } from './login/change-password/change-help/change-help.component';
 import { LoginHelpComponent } from './login/login/login-help/login-help.component';
 import { ResetHelpComponent } from './login/reset/reset-help/reset-help.component';
@@ -299,6 +303,15 @@ import { InventoryService } from './service/inventory.service';
     HelpEditemployeeroleComponent,
     HelpViewemployeeroleComponent,
   
+    SupplierComponent,
+    BookingComponent,
+    MenuReportComponent,
+    ViewDrinkComponent,
+    CreateOtherDrinkComponent,
+    ViewOtherDrinkComponent,
+    
+    
+    
     
 
   ],
@@ -336,6 +349,8 @@ import { InventoryService } from './service/inventory.service';
     MatDialogModule,
     FullCalendarModule,
     ModalModule.forRoot(), 
+    ModalModule.forRoot(),
+    NgChartsModule, 
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory

@@ -1,0 +1,12 @@
+/* Adjust the z-index to a higher value */
+.my-custom-modal-content {
+    z-index: 9999; /* Adjust this value as needed */
+  }
+  
+  /* Center the modal vertically and horizontally */
+  ion-modal .ion-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  

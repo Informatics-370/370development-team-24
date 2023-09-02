@@ -1,10 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Components.Routing;
 using Africanacity_Team24_INF370_.models;
 using System.Reflection.Metadata.Ecma335;
 using Africanacity_Team24_INF370_.models.Restraurant;
 using Africanacity_Team24_INF370_.View_Models;
+
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
@@ -13,9 +18,11 @@ namespace Africanacity_Team24_INF370_.Controllers
     public class MenuItemsController : ControllerBase
     {
         private readonly IRepository _repository;
-        public MenuItemsController(IRepository repository)
+        private readonly AppDbContext _appDbContext;
+        public MenuItemsController(IRepository repository, AppDbContext appDbContext)
         {
             _repository = repository;
+            _appDbContext = appDbContext;
         }
 
         //getting a list of the table menu items
@@ -71,12 +78,23 @@ namespace Africanacity_Team24_INF370_.Controllers
         {
             try
             {
-                var menuItem = await _repository.GetMenuItemAsync(MenuItemId);
+                var result = await _repository.GetMenuItemAsync(MenuItemId);
 
-                if (menuItem == null)
+                if (result == null)
                 {
-                    return NotFound();
+                    return NotFound(); // Return 404 if the menu item is not found
                 }
+
+                var menuItem = new
+                {
+                    result.MenuItemId,
+                    result.Name,
+                    result.Description,
+                    MenuTypeName = result.Menu_Type.Name,
+                    FoodTypeName = result.Food_Type.Name,
+                    MenuCategoryName = result.MenuItem_Category.Name,
+                    
+                };
 
                 return Ok(menuItem);
             }
@@ -87,6 +105,32 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
 
             
+        }
+
+        //get the prices
+        [HttpGet]
+        [Route("GetMenuItemPrice/{MenuItemId}")]
+        public IActionResult GetMenuItemPrice(int MenuItemId)
+        {
+            try
+            {
+                var price = _appDbContext.MenuItem_Prices
+                    .Where(price => price.MenuItemId == MenuItemId)
+                    .FirstOrDefault()?.Amount;
+
+                if (price != null)
+                {
+                    return Ok(new { price });
+                }
+                else
+                {
+                    return NotFound("Price not found for the given inventory item.");
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+            }
         }
 
         //adding a menu item
@@ -142,36 +186,98 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 
 
-    
 
-    [HttpPut]
-        [Route("EditMenuItem/{MenuItemId}")]
-        public async Task<ActionResult<MenuItemViewModel>> EditMenuItem(int MenuItemId, [FromBody] MenuItemViewModel menuItemViewModel)
+
+        //[HttpPut]
+        //    [Route("EditMenuItem/{MenuItemId}")]
+        //    public async Task<ActionResult<MenuItemViewModel>> EditMenuItem(int MenuItemId, [FromBody] MenuItemViewModel menuItemViewModel)
+        //    {
+        //        try
+        //        {
+        //            var existingMeal = await _repository.GetMenuItemAsync(MenuItemId);
+        //            if (existingMeal == null) return NotFound($"The menu item does not exist");
+
+        //            existingMeal.Name = menuItemViewModel.Name;
+        //            existingMeal.Description = menuItemViewModel.Description;
+        //            existingMeal.Menu_TypeId = menuItemViewModel.MenuTypeId;
+        //            existingMeal.FoodTypeId = menuItemViewModel.FoodTypeId;
+        //            existingMeal.Menu_CategoryId = menuItemViewModel.MenuCategoryId;
+
+
+
+        //            if (await _repository.SaveChangesAsync())
+        //            {
+        //                return Ok(existingMeal);
+        //            }
+        //        }
+        //        catch (Exception)
+        //        {
+        //            return StatusCode(500, "Internal Server Error. Please contact support.");
+        //        }
+        //        return BadRequest("Your request is invalid.");
+        //    }
+
+
+
+
+        //edit menu item with price attribute
+        [HttpPut]
+        [Route("EditMenuItemWithPrice/{MenuItemId}")]
+        
+        public async Task<IActionResult> EditMenuItemWithPrice(int menuItemId, [FromBody] MenuItem updatedMenuItem)
         {
+            if (menuItemId != updatedMenuItem.MenuItemId)
+            {
+                return BadRequest();
+            }
+
             try
             {
-                var existingMeal = await _repository.GetMenuItemAsync(MenuItemId);
-                if (existingMeal == null) return NotFound($"The menu item does not exist");
+                // Retrieve the existing menu item with related data
+                var existingMenuItem = await _repository.GetMenuItemAsync(menuItemId);
 
-                existingMeal.Name = menuItemViewModel.Name;
-                existingMeal.Description = menuItemViewModel.Description;
-                existingMeal.Menu_TypeId = menuItemViewModel.MenuTypeId;
-                existingMeal.FoodTypeId = menuItemViewModel.FoodTypeId;
-                existingMeal.Menu_CategoryId = menuItemViewModel.MenuCategoryId;
+                if (existingMenuItem == null)
+                {
+                    return NotFound();
+                }
+
+                // Update the properties of the existing menu item
+                existingMenuItem.Name = updatedMenuItem.Name;
+                existingMenuItem.Description = updatedMenuItem.Description;
+
+                // Update the related data
+                existingMenuItem.Menu_Type = await _repository.GetMenuTypeAsync(updatedMenuItem.Menu_TypeId);
+                existingMenuItem.Food_Type = await _repository.GetFoodTypeAsync(updatedMenuItem.FoodTypeId);
+                existingMenuItem.MenuItem_Category = await _repository.GetMenuItemCategoryAsync(updatedMenuItem.Menu_CategoryId);
                 
 
 
-                if (await _repository.SaveChangesAsync())
+                //prices
+                foreach (var price in updatedMenuItem.MenuItem_Prices)
                 {
-                    return Ok(existingMeal);
+                    // Update the prices for the existing menu item
+                    var existingPrice = existingMenuItem.MenuItem_Prices.FirstOrDefault(p => p.MenuItem_PriceId == price.MenuItem_PriceId);
+
+                    if (existingPrice != null)
+                    {
+                        existingPrice.Amount = price.Amount;
+                    }
                 }
+
+                // Save changes to the database
+                await _repository.SaveChangesAsync();
+
+                return Ok();
             }
             catch (Exception)
             {
-                return StatusCode(500, "Internal Server Error. Please contact support.");
+                // Handle exceptions appropriately
+                return StatusCode(500, "Internal server error");
             }
-            return BadRequest("Your request is invalid.");
         }
+
+
+
 
         [HttpDelete]
         [Route("DeleteMenuItem/{MenuItemId}")]
@@ -196,4 +302,6 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
     }
+
+    
 }

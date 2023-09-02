@@ -53,6 +53,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 
                     i.Quantity,
 
+                    
+
                 });
 
                 return Ok(inventoryitems);
@@ -473,7 +475,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         [HttpPost]
         [Route("CreateStockTake")]
-        public IActionResult CreateStockTake(StockTakeViewModel stockTakeData)
+        public async Task<IActionResult> CreateStockTake(StockTakeViewModel stockTakeData)
         {
             try
             {
@@ -490,7 +492,8 @@ namespace Africanacity_Team24_INF370_.Controllers
                     var stockTakeItem = new StockTakeItem
                     {
                         Quantity = item.Quantity,
-                        Inventory_ItemId = item.Inventory_ItemId
+                        Inventory_ItemId = item.Inventory_ItemId,
+                        //StockTake_Id = item.StockTake_Id
                     };
 
                     // Fetch the corresponding inventory item from the database
@@ -625,7 +628,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                 // Handle exceptions and return appropriate responses
                 return BadRequest("An error occurred while adding write-off records. Please check the logs for more details.");
             }
-        }
+        }*/
 
         internal int StockTakeFunction()
         {

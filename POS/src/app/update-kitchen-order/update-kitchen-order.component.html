@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Edit Kitchen Order</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <!-- Input fields for editing the kitchen order -->
+    <ion-item>
+      <ion-label>Kitchen Order Number</ion-label>
+      <ion-input [(ngModel)]="orderData.KitchenOrderNumber" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Table Number</ion-label>
+      <ion-input [(ngModel)]="orderData.TableNumber" type="text"></ion-input>
+    </ion-item>
+
+    <!-- Display Ordered Menu Items -->
+    <ion-item *ngFor="let omi of orderData.OrderedMenuItems; let i = index">
+      <ion-label>Menu Item {{ i + 1 }}</ion-label>
+      <ion-input [(ngModel)]="omi.MenuItem.Name" type="text"></ion-input>
+      <ion-input [(ngModel)]="omi.Quantity" type="number"></ion-input>
+    </ion-item>
+
+    <!-- Display Ordered Drinks -->
+    <ion-item *ngFor="let od of orderData.OrderedDrinks; let i = index">
+      <ion-label>Drink {{ i + 1 }}</ion-label>
+      <ion-input [(ngModel)]="od.OtherDrink.Name" type="text"></ion-input>
+      <ion-input [(ngModel)]="od.Quantity" type="number"></ion-input>
+    </ion-item>
+    
+    <!-- Add more input fields for other properties you want to edit -->
+    <!--Add button opening another order screen-->
+    <ion-button (click)="navigateToAddItem()">Add Item</ion-button>
+
+    <!-- Save and Cancel buttons -->
+
+    <ion-button (click)="onSubmit()">Update Order</ion-button>
+  </ion-list>
+</ion-content>

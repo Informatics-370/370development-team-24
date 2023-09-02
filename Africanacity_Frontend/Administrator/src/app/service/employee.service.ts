@@ -113,10 +113,4 @@ export class EmployeeService {
     return this.httpClient.put(`${this.apiUrl}Controller/EditHelp/${helpId}`,help, this.httpOptions)
   }
 
-  GetAllEmployeeRoles(): Observable<any>{
-    return this.httpClient.get(`${this.apiUrl}EmployeeRole/GetAllEmployeeRoles`)
-    .pipe(map(results => results))
-    
-  }
-
 }

@@ -10,6 +10,12 @@ import { NotificationComponent } from './notification/notification.component';
 import { PaymentComponent } from './payment/payment.component';
 import { Component } from 'ionicons/dist/types/stencil-public-runtime';
 import { PrintReceiptComponent } from './print-receipt/print-receipt.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { ViewKitchenOrdersComponent } from './view-kitchen-orders/view-kitchen-orders.component';
+import { EditKitchenOrderComponent } from './edit-kitchen-order/edit-kitchen-order.component';
+import { AddKitchenOrderComponent } from './add-kitchen-order/add-kitchen-order.component';
+import { UpdateKitchenOrderComponent } from './update-kitchen-order/update-kitchen-order.component';
+import { AddItemComponent } from './add-item/add-item.component';
 
 
 const routes: Routes = [
@@ -19,10 +25,18 @@ const routes: Routes = [
   {path: 'order', component: OrderComponent},
   {path: 'table', component: TableComponent},
   {path: 'kitchen-screen', component: KitchenScreenComponent},
+  {path: 'view-kitchen-orders', component: ViewKitchenOrdersComponent},
+  {path: 'edit-kitchen-order/:KitchenOrderId', component: EditKitchenOrderComponent },
+  //{path: 'edit-kitchen-order', component: EditKitchenOrderComponent},
+  {path: 'add-kitchen-order', component: AddKitchenOrderComponent},
+  {path: 'update-kitchen-order/:KitchenOrderId', component: UpdateKitchenOrderComponent},
+  {path:'add-item', component:AddItemComponent},
   {path: 'notification', component: NotificationComponent},
   {path: 'payment/:kitchenOrderNumber', component:PaymentComponent},
-  {path: '', redirectTo: '/home', pathMatch:'full'},
-  {path: '**', redirectTo: '/home', pathMatch:'full'},
+  {path: 'sign-up', component:SignUpComponent},
+  {path: 'login', redirectTo: '/login', pathMatch:'full'},
+  {path: '**', redirectTo: '/login', pathMatch:'full'},
+  
   
   
 

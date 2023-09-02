@@ -13,8 +13,10 @@ import { MatCardModule } from '@angular/material/card';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent  implements OnInit {
+  showTabs = false;
 
   //variables needed
+  username: string = '';
   password: string = '';
   visablePassword: boolean = false;
   hide = false;
@@ -22,8 +24,8 @@ export class LoginComponent  implements OnInit {
 
   //login form 
   loginForm: FormGroup = this.fb.group({
-    UserName: ['', [Validators.required, Validators.email]],
-    Password: ['', Validators.required],
+    username: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required],
   })
 
 
@@ -67,6 +69,68 @@ export class LoginComponent  implements OnInit {
     }
 
     console.log(this.loginForm.valid)
+  }
+
+
+
+  //alt login method
+  async login() {
+    try {
+      const loginData = {
+        username: this.username,
+        password: this.password,
+      };
+
+      // Send a POST request to your server to authenticate the user
+      const response = await this.mainService.login(loginData);
+      console.log('Login response:', response);
+
+      // Assuming your server returns an access token
+      const accessToken = response;
+
+      if (response.accessToken) {
+        // Successful login
+
+        // Store the access token securely on the client (e.g., in local storage)
+        localStorage.setItem('access_token', response.accessToken);
+
+        // Redirect to the home page or another protected route
+        this.router.navigate(['/home']);
+    } else {
+        // Handle specific error messages from the API
+        if (response.error == 404) {
+            this.snackBar.open('User not found. Please check your username.', 'X', {
+                duration: 5000,
+                verticalPosition: 'top',
+                horizontalPosition: 'center',
+                panelClass: ['error-snackbar'],
+            });
+        } else if (response.error == 400) {
+            this.snackBar.open('Username or password is incorrect. Please try again.', 'X', {
+                duration: 5000,
+                verticalPosition: 'top',
+                horizontalPosition: 'center',
+                panelClass: ['error-snackbar'],
+            });
+        } else {
+            // Handle other potential error cases here
+            console.error('Login error:', response.message);
+        }
+    }
+} catch (error) {
+    // Handle other unexpected errors
+    console.error('Login error:', error);
+
+    // Display a generic error message as a snackbar
+    this.snackBar.open('Username or password is incorrect. Please try again.', 'X', {
+        duration: 5000,
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+        panelClass: ['error-snackbar'],
+    });
+
+    }
+    
   }
 
 }

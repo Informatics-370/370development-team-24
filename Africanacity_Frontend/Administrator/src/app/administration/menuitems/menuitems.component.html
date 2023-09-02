@@ -1,31 +1,75 @@
 <div class="container-fluid">
+  <!-- navbar -->
   <div class="row">
       <div class="col-md-2">
           <app-navbar></app-navbar>
       </div>
-  <div class="col-md-10 order-md-1">
- 
-<table>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Description</th>
-      <th>FoodType</th>
-      <th>MenuType</th>
-      <th>MenuCategory</th>
-    </tr>
-    <tr *ngFor="let menuItem of menuItems">
-      <td>{{ menuItem.menuItem_Id }}</td>
-      <td>{{ menuItem.name }}</td>
-      <td>{{ menuItem.description }}</td>
-      <td>{{ menuItem.foodTypeName }}</td>
-      <td>{{ menuItem.menuTypeName }}</td>
-      <td>{{ menuItem.menuCategoryName }}</td>
-      <td><button type="button" class="btn btn-danger" (click)="deleteMenuItem(menuItem.menuItem_Id)">Delete</button></td>
-    </tr>
-  </table>
-  </div>
-  </div>
-</div>
-
   
+     <div class="col-md-10 order-md-1">
+          <!-- heading -->
+          <h3 class="heading">Menu Items</h3>
+      
+          <div class="input-group">
+              <div class="search-bar">
+                  <!-- search bar-->
+                  <input type="text" class="form-control" (input)="applyFilter($event)" placeholder="Search Columns">
+              </div>
+       
+              <div class="addButton">
+                  <i type="button" class="fa fa-plus-circle fa-3x" [routerLink]="'/add-menu-item'"></i>
+              </div>
+          </div>
+
+
+<div class="mat-elevation-z8">
+ 
+  <table mat-table [dataSource]="dataSource" matSort>
+  
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="menuTypeName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Menu Type </th>
+      <td mat-cell *matCellDef="let element"> {{element.menuTypeName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="foodTypeName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Food Type </th>
+      <td mat-cell *matCellDef="let element"> {{element.foodTypeName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="menuCategoryName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Menu Category </th>
+      <td mat-cell *matCellDef="let element"> {{element.menuCategoryName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-stroked-button color="warn" (click)="deleteMenuItem(element.menuItemId)">
+          <mat-button>Delete</mat-button>
+        </button>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-stroked-button color="primary"(click)="editMenuItem(element.menuItemId)">
+          <mat-button>Edit</mat-button>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row class="mat-row" *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    
+  </table>
+</div>  

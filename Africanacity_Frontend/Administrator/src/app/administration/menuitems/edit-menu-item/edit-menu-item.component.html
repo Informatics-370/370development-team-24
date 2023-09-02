@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<!-- <div class="container-fluid">
   <div class="row">
       <div class="col-md-2">
           <app-navbar></app-navbar>
@@ -46,4 +46,91 @@
   </mat-card>
   </div>
   </div>
+   -->
+
+
+
+   <div class="container-fluid" >
+    <div class="row">
+      <div class="col-md-2">
+        <app-navbar></app-navbar>
+      </div>
+      <div class="col-md-10 order-md-2" >
+        <h4 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px;">Update Menu Item</h4>
+        <hr>
+        <div class="container" >
+          <div class="row">
+            <form [formGroup]="editMenuItemForm"     (submit)="editMenuItem()" enctype="multipart/form-data" >
   
+              <div class="form-group">
+                <label class="col-md-1" style="font-weight: bold;" for="name">Name:</label>
+                <div class="col-md-6">
+                  <input class="form-control" id="name" [(ngModel)]="menuItem.name" [required]="true" formControlName="name"
+                    >
+                </div>
+              </div>
+  
+              <div class="form-group">
+                <label class="col-md-1" style="font-weight: bold;" for="description">Description:</label>
+                <div class="col-md-6">
+                  <textarea class="form-control"  id="description" [(ngModel)]="menuItem.description" [required]="true" formControlName="description"
+                    ></textarea>
+                </div>
+              </div>
+  
+              <div class="form-group">
+                <label class="col-md-1" style="font-weight: bold;" for="menuTypeName">Menu Type</label>
+                <div class="col-md-6">
+                  <select class="form-control" id="menuTypeName"  [(ngModel)]="menuItem.menuTypeName"  [required]="true" formControlName="menuTypeName" >
+                    <option *ngFor="let type of menuTypes" [value]="type.name">{{ type.name }}</option>
+                  </select>
+            
+                </div>
+              </div>
+  
+              <div class="form-group">
+                <label class="col-md-1" style="font-weight: bold;" for="foodTypeName">Food Type</label>
+                <div class="col-md-6">
+                  <select class="form-control" id ="foodTypeName" [(ngModel)]="menuItem.foodTypeName"  formControlName="foodTypeName">
+                    <option *ngFor="let type of foodTypes" [value]="type.name">{{ type.name }}</option>
+                  </select>
+                </div>
+              </div>
+  
+              <div class="form-group">
+                <label class="col-md-1" style="font-weight: bold;" for="menuCategoryName">Menu Category</label>
+                <div class="col-md-6">
+                  <select class="form-control" id="menuCategoryName" [(ngModel)]="menuItem.menuCategoryName"  formControlName="menuCategoryName">
+                    <option *ngFor="let category of menuCategory" [value]="category.name">{{ category.name }}</option>
+                  </select>
+                </div>
+              </div>
+  
+              <div class="form-group">
+                <label class="col-md-1" style="font-weight: bold;" for="amount">Price:</label>
+                <div class="col-md-6">
+                  <input class="form-control"  id="amount" name="amount" formControlName="amount">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-6">
+                  <button style="margin-right:1em;" type="button"
+                    class="btn btn-sm btn-primary" (click)="loadMenuItem()">Load</button>
+                  <!-- <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button> -->
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-6">
+                  <button style="margin-right:1em;" type="submit"
+                    class="btn btn-sm btn-success">Update</button>
+                  <!-- <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button> -->
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+   

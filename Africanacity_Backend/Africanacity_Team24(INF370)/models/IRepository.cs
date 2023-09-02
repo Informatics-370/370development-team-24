@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Africanacity_Team24_INF370_.models.Inventory;
 
 using static Org.BouncyCastle.Asn1.Cmp.Challenge;
+using Africanacity_Team24_INF370_.models.Login;
 
 namespace Africanacity_Team24_INF370_.models
 {
@@ -32,6 +33,12 @@ namespace Africanacity_Team24_INF370_.models
         Task<Employee[]> GetAllEmployeesAsync();
         Task<Employee> GetEmployeeAsync(int EmployeeId);
 
+        Task<Employee> GetEmployeeByEmailAsync(string Email_Address);
+
+        Task<IonicAppUser> GetEmployeeByUsernameAsync(string Username);
+
+        Task<IonicAppUser> CheckPasswordAsync(string Password);
+
         //HELP
 
         Task<Help[]> GetAllHelpAsync();
@@ -51,6 +58,9 @@ namespace Africanacity_Team24_INF370_.models
 
         Task<int> EditMenuItemAsync(int MenuItemId, MenuItemViewModel menuItem);
 
+        Task<int> EditMenuItemWithPriceAsync(int MenuItemId, MenuItemViewModel menuItemViewModel, decimal amount);
+
+
 
         //MENU Types//
         Task<Menu_Type[]> GetAllMenuTypesAsync();
@@ -60,7 +70,7 @@ namespace Africanacity_Team24_INF370_.models
 
         //Menu Items prices
         Task<MenuItem_Price[]> GetAllMenuItemPricesAsync();
-        Task<MenuItem_Price> GetAMenuItemPriceAsync(int MenuItem_PriceId);
+        Task<MenuItem_Price> GetAMenuItemPriceAsync(int menuItemId);
 
         Task<int> EditMenuItemPriceAsync(int MenuItem_PriceId, MenuItemPriceViewModel menuItemPriceViewModel);
 
@@ -70,7 +80,12 @@ namespace Africanacity_Team24_INF370_.models
         Task<Drink[]> GetAllDrinksAsync();
         Task<Drink> GetDrinkItemAsync(int DrinkId);
 
-     
+
+        //OTHER DRINK
+        Task<OtherDrink[]> GetAllDrinkItemsAsync();
+
+        Task<OtherDrink> GetADrinkItemAsync(int OtherDrinkId);
+
 
         // DRINK ITEM TYPE
         Task<Drink_Type[]> GetAllDrinkTypesAsync();
@@ -80,8 +95,8 @@ namespace Africanacity_Team24_INF370_.models
         //Task<Drink[]> GetAllDrinksAsync();
         Task<Drink> GetDrinkAsync(int Drink_TypeId);
         //DRINK ITEM PRICES
-        Task<Drink_Price[]> GetAllDrinkItemPricesAsync();
-        Task<Drink_Price> GetADrinkItemPriceAsync(int Drink_PriceId);
+        Task<OtherDrinkPrice[]> GetAllDrinkItemPricesAsync();
+        Task<OtherDrinkPrice> GetADrinkItemPriceAsync(int OtherDrinkPriceId);
 
 
         // MENU ITEM CATEGORY
@@ -133,8 +148,7 @@ namespace Africanacity_Team24_INF370_.models
         Task<KitchenOrder[]> GetAllKitchenOrdersAsync();
 
 
-        //VAT
-        Task<VAT> GetVatItemAsync(int VatId);
+       
 
         //DISCOUNT
         Task<Discount> GetDiscountItemAsync(int DiscountId);
@@ -162,5 +176,19 @@ namespace Africanacity_Team24_INF370_.models
 		//Pending Booking
 		Task<Pending_Booking[]> GetPendingsAsync();
 		Task<Pending_Booking> GetPendingAsync(int BookingId);
-	}
+
+        //VAT
+        Task<VAT[]> GetAllVatPercentagesAsync();
+        Task<VAT> GetAVatPercentageAsync(int VatId);
+
+        //DISCOUNT
+        Task<Discount[]> GetAllDiscountPercentagesAsync();
+        Task<Discount> GetADiscountPercentageAsync(int VDiscountId);
+
+        //Ordered Menu Items
+        Task<Order_MenuItem[]> GetAllOrderedMenuItemsAsync();
+
+        //Ordered drinks Items
+        Task<Order_Drink[]> GetAllOrderedDrinksItemsAsync();
+    }
 }

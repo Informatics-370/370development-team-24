@@ -1,6 +1,7 @@
 export interface Drink {
-    drinkId: number;
+    otherDrinkId: number;
     name: string;
+    description: string;
     drink_TypeId: number;
     price: number;
     quantity: number;

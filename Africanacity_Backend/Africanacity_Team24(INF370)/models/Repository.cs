@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Africanacity_Team24_INF370_.models.Inventory;
 using System.Linq;
 ﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
+using Africanacity_Team24_INF370_.models.Login;
 
 using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.AspNetCore.DataProtection;
@@ -23,12 +24,14 @@ namespace Africanacity_Team24_INF370_.models
     public class Repository: IRepository
 	{
 		private readonly AppDbContext _appDbContext;
+        
 
         public object EmployeeViewModel => throw new NotImplementedException();
 
         public Repository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
+            
         }
 
         // EMPLOYEES
@@ -42,6 +45,49 @@ namespace Africanacity_Team24_INF370_.models
             IQueryable<Employee> query = _appDbContext.Employees.Where(e => e.EmployeeId == employeeId);
             return await query.FirstOrDefaultAsync();
         }
+
+        //FOR IONIC APP 
+        //for sign up
+        public async Task<Employee> GetEmployeeByEmailAsync(string Email_Address)
+        {
+            IQueryable<Employee> query = _appDbContext.Employees.Where(e => e.Email_Address == Email_Address);
+            return await query.FirstOrDefaultAsync();
+        }
+
+        //for login
+        public async Task<IonicAppUser> GetEmployeeByUsernameAsync(string Username)
+        {
+            IQueryable<IonicAppUser> query = _appDbContext.IonicAppUsers.Where(e => e.Username == Username);
+            return await query.FirstOrDefaultAsync();
+        }
+        public async Task<IonicAppUser> CheckPasswordAsync(string Password)
+        {
+            IQueryable<IonicAppUser> query = _appDbContext.IonicAppUsers.Where(e => e.Password == Password);
+            return await query.FirstOrDefaultAsync();
+        }
+
+        /*public async Task<IonicAppUser> CheckPasswordAsync(string Username, string Password)
+        {
+            var user = await _userManager.FindByNameAsync(Username);
+
+            if (user == null)
+            {
+                // User not found
+                return null;
+            }
+
+            var result = await _signInManager.CheckPasswordSignInAsync(user, Password, false);
+
+            if (result.Succeeded)
+            {
+                // Password is correct, return the user
+                return user;
+            }
+
+            // Password is incorrect
+            return null;
+        }*/
+
 
         public async Task<Gender[]> GetAllGendersAsync()
         {
@@ -150,14 +196,14 @@ namespace Africanacity_Team24_INF370_.models
         }
 
         //DRINK ITEM PRICES
-        public async Task<Drink_Price[]> GetAllDrinkItemPricesAsync()
+        public async Task<OtherDrinkPrice[]> GetAllDrinkItemPricesAsync()
         {
-            IQueryable<Drink_Price> query = _appDbContext.Drink_Prices;
+            IQueryable<OtherDrinkPrice> query = _appDbContext.OtherDrinkPrices;
             return await query.ToArrayAsync();
         }
-        public async Task<Drink_Price> GetADrinkItemPriceAsync(int Drink_PriceId)
+        public async Task<OtherDrinkPrice> GetADrinkItemPriceAsync(int OtherDrinkPriceId)
         {
-            IQueryable<Drink_Price> query = _appDbContext.Drink_Prices.Where(c => c.Drink_PriceId == Drink_PriceId);
+            IQueryable<OtherDrinkPrice> query = _appDbContext.OtherDrinkPrices.Where(c => c.OtherDrinkPriceId == OtherDrinkPriceId);
             return await query.FirstOrDefaultAsync();
         }
 
@@ -225,7 +271,7 @@ namespace Africanacity_Team24_INF370_.models
 
         public async Task<MenuItem> GetMenuItemAsync(int MenuItemId)
         {
-            IQueryable<MenuItem> query = _appDbContext.MenuItems.Where(c => c.MenuItemId == MenuItemId);
+            IQueryable<MenuItem> query = _appDbContext.MenuItems.Where(c => c.MenuItemId == MenuItemId).Include(p => p.Menu_Type).Include(p => p.Food_Type).Include(p => p.MenuItem_Category);
             return await query.FirstOrDefaultAsync();
         }
 
@@ -249,6 +295,50 @@ namespace Africanacity_Team24_INF370_.models
             }
             return code;
         }
+
+
+        //edit menu item with price
+        public async Task<int> EditMenuItemWithPriceAsync(int MenuItemId, MenuItemViewModel menuItemViewModel, decimal amount)
+        {
+            MenuItem existingMenuItem = await _appDbContext.MenuItems
+                 .Include(mi => mi.Menu_Type)
+                 .Include(mi => mi.MenuItem_Category)
+                 .Include(mi => mi.Food_Type)
+                 .FirstOrDefaultAsync(mi => mi.MenuItemId == MenuItemId);
+
+            if (existingMenuItem == null)
+            {
+                return 404; // Not Found
+            }
+
+            existingMenuItem.Name = menuItemViewModel.Name;
+            existingMenuItem.Description = menuItemViewModel.Description;
+            existingMenuItem.Menu_TypeId = menuItemViewModel.Menu_TypeId;
+            existingMenuItem.Menu_CategoryId = menuItemViewModel.Menu_CategoryId;
+            existingMenuItem.FoodTypeId = menuItemViewModel.FoodTypeId;
+
+            try
+            {
+                _appDbContext.MenuItems.Update(existingMenuItem);
+
+                // Update the associated price
+                MenuItem_Price existingPrice = await _appDbContext.MenuItem_Prices.FirstOrDefaultAsync(mp => mp.MenuItemId == MenuItemId);
+                if (existingPrice != null)
+                {
+                    existingPrice.Amount = amount;
+                    _appDbContext.MenuItem_Prices.Update(existingPrice);
+                }
+
+                await _appDbContext.SaveChangesAsync();
+
+                return 200; // Success
+            }
+            catch (Exception)
+            {
+                return 400; // Bad Request
+            }
+        }
+
 
 
         //MENU TYPES//
@@ -281,6 +371,22 @@ namespace Africanacity_Team24_INF370_.models
                 await _appDbContext.SaveChangesAsync();
             }
             return code;
+        }
+
+
+        //UNATI
+        //OtherDrink
+        public async Task<OtherDrink[]> GetAllDrinkItemsAsync()
+        {
+            IQueryable<OtherDrink> query = _appDbContext.OtherDrinks.Include(p => p.Drink_Type);
+
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<OtherDrink> GetADrinkItemAsync(int OtherDrinkId)
+        {
+            IQueryable<OtherDrink> query = _appDbContext.OtherDrinks.Where(c => c.OtherDrinkId == OtherDrinkId).Include(p => p.Drink_Type);
+            return await query.FirstOrDefaultAsync();
         }
 
         //SUPPLIER
@@ -468,9 +574,9 @@ namespace Africanacity_Team24_INF370_.models
             IQueryable<MenuItem_Price> query = _appDbContext.MenuItem_Prices;
             return await query.ToArrayAsync();
         }
-        public async Task<MenuItem_Price> GetAMenuItemPriceAsync(int MenuItem_PriceId)
+        public async Task<MenuItem_Price> GetAMenuItemPriceAsync(int menuItemId)
         {
-            IQueryable<MenuItem_Price> query = _appDbContext.MenuItem_Prices.Where(c => c.MenuItem_PriceId == MenuItem_PriceId);
+            IQueryable<MenuItem_Price> query = _appDbContext.MenuItem_Prices.Where(c => c.MenuItemId == menuItemId);
             return await query.FirstOrDefaultAsync();
         }
 
@@ -552,5 +658,46 @@ namespace Africanacity_Team24_INF370_.models
 			return await query.FirstOrDefaultAsync();
 		}
 
-	}
+
+        //VAT
+        public async Task<VAT[]> GetAllVatPercentagesAsync()
+        {
+            IQueryable<VAT> query = _appDbContext.Vats;
+            return await query.ToArrayAsync();
+        }
+        public async Task<VAT> GetAVatPercentageAsync(int VatId)
+        {
+            IQueryable<VAT> query = _appDbContext.Vats.Where(c => c.VatId == VatId);
+            return await query.FirstOrDefaultAsync();
+        }
+
+
+        //DISCOUNT
+        public async Task<Discount[]> GetAllDiscountPercentagesAsync()
+        {
+            IQueryable<Discount> query = _appDbContext.Discounts;
+            return await query.ToArrayAsync();
+        }
+        public async Task<Discount> GetADiscountPercentageAsync(int DiscountId)
+        {
+            IQueryable<Discount> query = _appDbContext.Discounts.Where(c => c.DiscountId == DiscountId);
+            return await query.FirstOrDefaultAsync();
+        }
+
+        //Get all ordered menu items 
+        public async Task<Order_MenuItem[]> GetAllOrderedMenuItemsAsync()
+        {
+            IQueryable<Order_MenuItem> query = _appDbContext.Order_MenuItems.Include(p => p.MenuItem).Include(p => p.KitchenOrder);
+
+            return await query.ToArrayAsync();
+        }
+
+        //Get all ordered drinks
+        public async Task<Order_Drink[]> GetAllOrderedDrinksItemsAsync()
+        {
+            IQueryable<Order_Drink> query = _appDbContext.Order_Drinks.Include(p => p.OtherDrink).Include(p => p.KitchenOrder);
+
+            return await query.ToArrayAsync();
+        }
+    }
 }

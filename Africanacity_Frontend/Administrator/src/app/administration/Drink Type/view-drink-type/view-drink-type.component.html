@@ -1,3 +1,7 @@
+
+
+
+
 <div class="container-fluid">
     <!-- navbar -->
     <div class="row">
@@ -31,12 +35,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let drinkType of filteredDrinkTypes"> 
-                        <td> {{ drinkType.drinkTypeId }} </td>
+                    <tr *ngFor="let drinkType of drinkType"> 
+                        <td> {{ drinkType.drink_TypeId }} </td>
                         <td> {{ drinkType.name }} </td>
                         <!-- edit and delete buttons -->
-                        <td> <i class="fa fa-pencil" [routerLink]="['/edit-drink-type', drinkType.drinkTypeId]" aria-hidden="true"></i></td>
-                        <td><i class="fa fa-trash"  (click)="DeleteDrinkType(drinkType.drinkTypeId)" aria-hidden="true"></i></td>                </tr>
+                        <td> <i class="fa fa-pencil" [routerLink]="['/edit-drink-type', drinkType.drink_TypeId]" aria-hidden="true"></i></td>
+                        <td><i class="fa fa-trash"  (click)="DeleteDrinkType(drinkType.drink_TypeId)" aria-hidden="true"></i></td>                </tr>
                 </tbody>
             </table>
         </div>

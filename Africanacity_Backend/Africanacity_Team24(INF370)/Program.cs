@@ -76,6 +76,9 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 .AddEntityFrameworkStores<AppDbContext>()
 .AddDefaultTokenProviders();
 
+
+
+
 //builder.Services.AddAuthentication()
 //				.AddCookie()
 //				.AddJwtBearer(options =>

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  showTabs = true;
 
   orderTypes = [
     { orderType_Id: 1, name: 'Sit-in' },

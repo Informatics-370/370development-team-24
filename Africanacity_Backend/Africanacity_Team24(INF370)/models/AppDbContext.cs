@@ -38,6 +38,7 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<AdminInfor> Admins { get; set; }
 		public DbSet<User_Role> User_Roles { get; set; }
 		public DbSet<VAT> Vats { get; set; }
+        public DbSet<IonicAppUser>  IonicAppUsers { get; set; }
 
 		//Booking model
 		public DbSet<Bookings> bookings { get; set; }
@@ -77,8 +78,8 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<MenuItem_Category> MenuItem_Categories { get; set; }
 		public DbSet<MenuItem_Price> MenuItem_Prices { get; set; }
 		public DbSet<Order> Orders { get; set; }
-		public DbSet<Order_Drink> Order_Drinks { get; set; }
-		public DbSet<Order_MenuItem> Order_MenuItems { get; set; }
+		//public DbSet<Order_Drink> Order_Drinks { get; set; }
+		//public DbSet<Order_MenuItem> Order_MenuItems { get; set; }
 		public DbSet<Order_Status> Order_Statuses { get; set; }
            
         public DbSet<OrderType> OrderTypes { get; set; }
@@ -87,7 +88,14 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<Table_Number> Table_Numbers { get; set; }
 
         public DbSet<KitchenOrder> KitchenOrders { get; set; }
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+        public DbSet<Order_MenuItem> Order_MenuItems { get; set; }
+        public DbSet<Order_Drink> Order_Drinks { get; set; }
+
+        //Second option drink table
+        public DbSet<OtherDrink> OtherDrinks { get; set; }
+        public DbSet<OtherDrinkPrice> OtherDrinkPrices { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 		{
 
@@ -96,6 +104,9 @@ namespace Africanacity_Team24_INF370_.models
 
             // modelBuilder.Entity<StockTake>().HasMany(st => st.StockTakeItems).WithOne().OnDelete(DeleteBehavior.Cascade);
 
+            
+            //modelBuilder.Entity<MenuItem>().HasMany(st => st.OrderedMenuItems).WithOne().OnDelete(DeleteBehavior.Cascade);
+            //modelBuilder.Entity<KitchenOrder>().HasMany(st => st.OrderedDrinks).WithOne().OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Gender>()
                     .HasData(
                     new
@@ -1641,6 +1652,62 @@ namespace Africanacity_Team24_INF370_.models
 
                           });
 
+
+            //dummy data for other drink
+            modelBuilder.Entity<OtherDrink>()
+                        .HasData(
+                        new
+                        {
+                            OtherDrinkId = 1,
+                            Name = "Margarita",
+                            Description = "Vodka, pineapple juice and lemon syrup",
+                            Drink_TypeId = 1,
+                        });
+            modelBuilder.Entity<OtherDrink>()
+                        .HasData(
+                        new
+                        {
+                            OtherDrinkId = 2,
+                            Name = "Frozen Lemonade",
+                            Description = "Crushed ice lemonade juice ",
+                            Drink_TypeId = 2,
+                        });
+            modelBuilder.Entity<OtherDrink>()
+                       .HasData(
+                       new
+                       {
+                           OtherDrinkId = 3,
+                           Name = "Strawberry Diaquri ",
+                           Description = "Crushed ice, strawberry lemonade, vodka, strawberry syrup",
+                           Drink_TypeId = 1,
+                       });
+
+            //seed data for the otherdrink price table
+            modelBuilder.Entity<OtherDrinkPrice>()
+                       .HasData(
+                       new
+                       {
+                           OtherDrinkPriceId = 1,
+                           OtherDrinkId = 1,
+                           Amount = 69m
+                       }); 
+            modelBuilder.Entity<OtherDrinkPrice>()
+                        .HasData(
+                        new
+                        {
+                            OtherDrinkPriceId = 2,
+                            OtherDrinkId = 2,
+                            Amount = 60m
+                        });
+            modelBuilder.Entity<OtherDrinkPrice>()
+                       .HasData(
+                       new
+                       {
+                           OtherDrinkPriceId = 3,
+                           OtherDrinkId = 3,
+                           Amount = 75m
+                       });
+
             //create seed data drink prices 
             modelBuilder.Entity<Drink_Price>()
                         .HasData(
@@ -1779,7 +1846,7 @@ namespace Africanacity_Team24_INF370_.models
                         new
                         {
                             VatId = 1,
-                            Description = "10% VAT on total",
+                           
                             Amount = 0.10m,
                         });
             modelBuilder.Entity<VAT>()
@@ -1787,7 +1854,7 @@ namespace Africanacity_Team24_INF370_.models
                        new
                        {
                            VatId = 2,
-                           Description = "15% VAT on total",
+                        
                            Amount = 0.15m,
                        });
             //seed data for Discount
@@ -1798,139 +1865,139 @@ namespace Africanacity_Team24_INF370_.models
                            DiscountId = 1,
                            Name = "Month end discount",
                            Description = "10% Discount",
-                           Amount = 0.10m,
+                           Amount = 0.05m,
                            Start_Date = DateTime.Now,
                            End_Date = DateTime.Now.AddDays(10),
                        });
 
             //seed data for KitchenOrder
-            modelBuilder.Entity<KitchenOrder>()
-                       .HasData(
-                       new
-                       {
-                           KitchenOrderId = 1,
-                           TableNumber = "",
-                           KitchenOrderNumber = "TAKE-0001",
-                           OrderedItems = "Toatsed beef panini sandwich, Mexican salad",
-                           OrderedDrinks = "Frozen lemonade, Margarita",
-                           Subtotal = 193.59m,
-                           Discount = 0m,
-                           VAT = 31.51m,
-                           Total = 225.10m
-                       });
+            //modelBuilder.Entity<KitchenOrder>()
+            //           .HasData(
+            //           new
+            //           {
+            //               KitchenOrderId = 1,
+            //               TableNumber = "",
+            //               KitchenOrderNumber = "TAKE-0001",
+            //               OrderedMenuItems = "Toatsed beef panini sandwich, Mexican salad",
+            //               OrderedDrinks = "Frozen lemonade, Margarita",
+            //               Subtotal = 193.59m,
+            //               Discount = 0m,
+            //               VAT = 31.51m,
+            //               Total = 225.10m
+            //           });
 
-            modelBuilder.Entity<KitchenOrder>()
-                      .HasData(
-                      new
-                      {
-                          KitchenOrderId = 2,
-                          TableNumber = "Table 6",
-                          KitchenOrderNumber = "SIT-0201",
-                          OrderedItems = "Chicken Feast",
-                          OrderedDrinks = "Strawberry Daiquri, Frozen lemonade, Margarita, Blood Mary",
-                          Subtotal = 373.54m,
-                          Discount = 0m,
-                          VAT = 60.81m,
-                          Total = 434.35m
-                      });
-            modelBuilder.Entity<KitchenOrder>()
-                     .HasData(
-                     new
-                     {
-                         KitchenOrderId = 3,
-                         TableNumber = "Table 2",
-                         KitchenOrderNumber = "SIT-0202",
-                         OrderedItems = "Chicken Feast, Chilli cheese poppers",
-                         OrderedDrinks = "Strawberry Daiquri, Frozen lemonade",
-                         Subtotal = 280.23m,
-                         Discount = 50m,
-                         VAT = 45.62m,
-                         Total = 275.85m
-                     });
-            modelBuilder.Entity<KitchenOrder>()
-                     .HasData(
-                     new
-                     {
-                         KitchenOrderId = 4,
-                         TableNumber = "Table 1",
-                         KitchenOrderNumber = "SIT-0203",
-                         OrderedItems = "Blueberry cheescake slice, Blueberry cheescake slice",
-                         OrderedDrinks = "Blood Mary,Virgin Mojito",
-                         Subtotal = 210.70m,
-                         Discount = 21.07m,
-                         VAT = 34.30m,
-                         Total = 223.93m
-                     });
-            modelBuilder.Entity<KitchenOrder>()
-                   .HasData(
-                   new
-                   {
-                       KitchenOrderId = 5,
-                       TableNumber = "Table 4",
-                       KitchenOrderNumber = "SIT-0204",
-                       OrderedItems = "Blueberry cheescake slice, Blueberry cheescake slice",
-                       OrderedDrinks = "Virgin Mojito",
-                       Subtotal = 125.56m,
-                       Discount = 12.56m,
-                       VAT = 20.44m,
-                       Total = 133.44m
-                   });
-            modelBuilder.Entity<KitchenOrder>()
-                   .HasData(
-                   new
-                   {
-                       KitchenOrderId = 6,
-                       TableNumber = "",
-                       KitchenOrderNumber = "TAKE-0002",
-                       OrderedItems = "English Breakfast",
-                       OrderedDrinks = "Cappuccino",
-                       Subtotal = 135.02m,
-                       Discount = 0m,
-                       VAT = 21.98m,
-                       Total = 157m
-                   });
-            modelBuilder.Entity<KitchenOrder>()
-                  .HasData(
-                  new
-                  {
-                      KitchenOrderId = 7,
-                      TableNumber = "Table 6",
-                      KitchenOrderNumber = "SIT-0205",
-                      OrderedItems = "",
-                      OrderedDrinks = "Strawberry Daiquri, Strawberry Daiquri, Blood Mary,Magarita,Strawberry Daiquri ",
-                      Subtotal = 325.94m,
-                      Discount = 0m,
-                      VAT = 53.06m,
-                      Total = 379m
-                  });
-            modelBuilder.Entity<KitchenOrder>()
-                 .HasData(
-                 new
-                 {
-                     KitchenOrderId = 8,
-                     TableNumber = "",
-                     KitchenOrderNumber = "TAKE-0003",
-                     OrderedItems = "The Braai feast",
-                     OrderedDrinks = "Strawberry Daiquri, Strawberry Daiquri",
-                     Subtotal = 301.43m,
-                     Discount = 35.05m,
-                     VAT = 49.07m,
-                     Total = 315.45m
-                 });
-            modelBuilder.Entity<KitchenOrder>()
-                .HasData(
-                new
-                {
-                    KitchenOrderId = 9,
-                    TableNumber = "Table 5",
-                    KitchenOrderNumber = "SIT-0206",
-                    OrderedItems = "The Braai feast, Mexican salad",
-                    OrderedDrinks = "Virgin Mojito, Virgin Mojito",
-                    Subtotal = 280.02m,
-                    Discount = 32.56m,
-                    VAT = 45.58m,
-                    Total = 293.04m
-                });
+            //modelBuilder.Entity<KitchenOrder>()
+            //          .HasData(
+            //          new
+            //          {
+            //              KitchenOrderId = 2,
+            //              TableNumber = "Table 6",
+            //              KitchenOrderNumber = "SIT-0201",
+            //              OrderedMenuItems = "Chicken Feast",
+            //              OrderedDrinks = "Strawberry Daiquri, Frozen lemonade, Margarita, Blood Mary",
+            //              Subtotal = 373.54m,
+            //              Discount = 0m,
+            //              VAT = 60.81m,
+            //              Total = 434.35m
+            //          });
+            //modelBuilder.Entity<KitchenOrder>()
+            //         .HasData(
+            //         new
+            //         {
+            //             KitchenOrderId = 3,
+            //             TableNumber = "Table 2",
+            //             KitchenOrderNumber = "SIT-0202",
+            //             OrderedMenuItems = "Chicken Feast, Chilli cheese poppers",
+            //             OrderedDrinks = "Strawberry Daiquri, Frozen lemonade",
+            //             Subtotal = 280.23m,
+            //             Discount = 50m,
+            //             VAT = 45.62m,
+            //             Total = 275.85m
+            //         });
+            //modelBuilder.Entity<KitchenOrder>()
+            //         .HasData(
+            //         new
+            //         {
+            //             KitchenOrderId = 4,
+            //             TableNumber = "Table 1",
+            //             KitchenOrderNumber = "SIT-0203",
+            //             OrderedMenuItems = "Blueberry cheescake slice, Blueberry cheescake slice",
+            //             OrderedDrinks = "Blood Mary,Virgin Mojito",
+            //             Subtotal = 210.70m,
+            //             Discount = 21.07m,
+            //             VAT = 34.30m,
+            //             Total = 223.93m
+            //         });
+            //modelBuilder.Entity<KitchenOrder>()
+            //       .HasData(
+            //       new
+            //       {
+            //           KitchenOrderId = 5,
+            //           TableNumber = "Table 4",
+            //           KitchenOrderNumber = "SIT-0204",
+            //           OrderedMenuItems = "Blueberry cheescake slice, Blueberry cheescake slice",
+            //           OrderedDrinks = "Virgin Mojito",
+            //           Subtotal = 125.56m,
+            //           Discount = 12.56m,
+            //           VAT = 20.44m,
+            //           Total = 133.44m
+            //       });
+            //modelBuilder.Entity<KitchenOrder>()
+            //       .HasData(
+            //       new
+            //       {
+            //           KitchenOrderId = 6,
+            //           TableNumber = "",
+            //           KitchenOrderNumber = "TAKE-0002",
+            //           OrderedMenuItems = "English Breakfast",
+            //           OrderedDrinks = "Cappuccino",
+            //           Subtotal = 135.02m,
+            //           Discount = 0m,
+            //           VAT = 21.98m,
+            //           Total = 157m
+            //       });
+            //modelBuilder.Entity<KitchenOrder>()
+            //      .HasData(
+            //      new
+            //      {
+            //          KitchenOrderId = 7,
+            //          TableNumber = "Table 6",
+            //          KitchenOrderNumber = "SIT-0205",
+            //          OrderedMenuItems = "",
+            //          OrderedDrinks = "Strawberry Daiquri, Strawberry Daiquri, Blood Mary,Magarita,Strawberry Daiquri ",
+            //          Subtotal = 325.94m,
+            //          Discount = 0m,
+            //          VAT = 53.06m,
+            //          Total = 379m
+            //      });
+            //modelBuilder.Entity<KitchenOrder>()
+            //     .HasData(
+            //     new
+            //     {
+            //         KitchenOrderId = 8,
+            //         TableNumber = "",
+            //         KitchenOrderNumber = "TAKE-0003",
+            //         OrderedMenuItems = "The Braai feast",
+            //         OrderedDrinks = "Strawberry Daiquri, Strawberry Daiquri",
+            //         Subtotal = 301.43m,
+            //         Discount = 35.05m,
+            //         VAT = 49.07m,
+            //         Total = 315.45m
+            //     });
+            //modelBuilder.Entity<KitchenOrder>()
+            //    .HasData(
+            //    new
+            //    {
+            //        KitchenOrderId = 9,
+            //        TableNumber = "Table 5",
+            //        KitchenOrderNumber = "SIT-0206",
+            //        OrderedMenuItems = "The Braai feast, Mexican salad",
+            //        OrderedDrinks = "Virgin Mojito, Virgin Mojito",
+            //        Subtotal = 280.02m,
+            //        Discount = 32.56m,
+            //        VAT = 45.58m,
+            //        Total = 293.04m
+            //    });
             //seed data for Inventory_Price
 
             modelBuilder.Entity<Inventory_Price>()
@@ -2065,8 +2132,20 @@ namespace Africanacity_Team24_INF370_.models
             .WithMany()
             .HasForeignKey(m => m.FoodTypeId);
 
-            
 
+            //one to many with Drink table
+            modelBuilder.Entity<Drink>()
+                        .HasOne(m => m.Drink_Type)
+                        .WithMany()
+                        .HasForeignKey(m => m.Drink_TypeId);
+
+
+
+            //One to many with other drink table 
+            modelBuilder.Entity<OtherDrink>()
+                       .HasOne(m => m.Drink_Type)
+                       .WithMany()
+                       .HasForeignKey(m => m.Drink_TypeId);
 
 
 
@@ -2102,34 +2181,60 @@ namespace Africanacity_Team24_INF370_.models
 			 (tg => tg.HasOne<Supplier>().WithMany(),
 				  tg => tg.HasOne<Inventory_Item>().WithMany());
 
-			// For the Order_Drink M2M payload (Uncomment code below and run migration to generate tables)
-			modelBuilder.Entity<Drink>()
-				.HasMany(t => t.Orders)
-				.WithMany(g => g.Drinks)
-				.UsingEntity<Order_Drink>
-				 (tg => tg.HasOne<Order>().WithMany(),
-				  tg => tg.HasOne<Drink>().WithMany());
+            // For the Order_Drink M2M payload (Uncomment code below and run migration to generate tables)
+            //modelBuilder.Entity<Drink>()
+            //	.HasMany(t => t.Orders)
+            //	.WithMany(g => g.Drinks)
+            //	.UsingEntity<Order_Drink>
+            //	 (tg => tg.HasOne<Order>().WithMany(),
+            //	  tg => tg.HasOne<Drink>().WithMany());
 
-			// For the Order_MenuItem M2M payload (Uncomment code below and run migration to generate tables)
-			modelBuilder.Entity<Order>()
-				.HasMany(t => t.MenuItems)
-				.WithMany(g => g.Orders)
-				.UsingEntity<Order_MenuItem>
-				 (tg => tg.HasOne<MenuItem>().WithMany(),
-				  tg => tg.HasOne<Order>().WithMany());
+            // Configure the many-to-many relationship between KitchenOrder and MenuItem
+            modelBuilder.Entity<Order_MenuItem>()
+                .HasKey(om => new { om.KitchenOrderId, om.MenuItemId });
+
+            modelBuilder.Entity<Order_MenuItem>()
+                .HasOne(om => om.KitchenOrder)
+                .WithMany(ko => ko.OrderedMenuItems)
+                .HasForeignKey(om => om.KitchenOrderId);
+
+            modelBuilder.Entity<Order_MenuItem>()
+                .HasOne(om => om.MenuItem)
+                .WithMany()
+                .HasForeignKey(om => om.MenuItemId);
+
+            // Configure the many-to-many relationship between KitchenOrder and OtherDrink
+            modelBuilder.Entity<Order_Drink>()
+                .HasKey(od => new { od.KitchenOrderId, od.OtherDrinkId });
+
+            modelBuilder.Entity<Order_Drink>()
+                .HasOne(od => od.KitchenOrder)
+                .WithMany(ko => ko.OrderedDrinks)
+                .HasForeignKey(od => od.KitchenOrderId);
+
+            modelBuilder.Entity<Order_Drink>()
+                .HasOne(od => od.OtherDrink)
+                .WithMany()
+                .HasForeignKey(od => od.OtherDrinkId);
+
+            // Configure the inverse relationship between MenuItem and OrderedMenuItems
+            modelBuilder.Entity<MenuItem>()
+                .HasMany(mi => mi.OrderedMenuItems)
+                .WithOne(omi => omi.MenuItem)
+                .HasForeignKey(omi => omi.MenuItemId);
 
             //Event
-           // modelBuilder.Entity<Administrator>()
+            // modelBuilder.Entity<Administrator>()
 
-           // .HasOne(sti => sti.Events)
+                // .HasOne(sti => sti.Events)
 
-           //.WithMany()
+                //.WithMany()
 
-           //.HasForeignKey(sti => sti.AdministratorId);
+                //.HasForeignKey(sti => sti.AdministratorId);
 
-           // modelBuilder.Entity<Event>()
+                // modelBuilder.Entity<Event>()
 
-           //.HasKey(sti => sti.EventId);
+                //.HasKey(sti => sti.EventId);
         }
 	}
 }

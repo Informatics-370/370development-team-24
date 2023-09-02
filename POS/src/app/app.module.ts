@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +25,13 @@ import { NotificationService } from './service/notification.service';
 import { CommonModule } from '@angular/common';
 import { PaymentComponent } from './payment/payment.component';
 import { PrintReceiptComponent } from './print-receipt/print-receipt.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { CustomAlertComponent } from './success-custom-alert/custom-alert.component';
+import { EditKitchenOrderComponent } from './edit-kitchen-order/edit-kitchen-order.component';
+import { ViewKitchenOrdersComponent } from './view-kitchen-orders/view-kitchen-orders.component';
+import { AddKitchenOrderComponent } from './add-kitchen-order/add-kitchen-order.component';
+import { UpdateKitchenOrderComponent } from './update-kitchen-order/update-kitchen-order.component';
+import { AddItemComponent } from './add-item/add-item.component';
 
 
 
@@ -37,7 +45,14 @@ import { PrintReceiptComponent } from './print-receipt/print-receipt.component';
   KitchenScreenComponent,
   NotificationComponent,
   PaymentComponent,
-  PrintReceiptComponent],
+  PrintReceiptComponent,
+  SignUpComponent,
+  CustomAlertComponent,
+  EditKitchenOrderComponent,
+  ViewKitchenOrdersComponent,
+  AddKitchenOrderComponent,
+  UpdateKitchenOrderComponent,
+  AddItemComponent],
 
  
 
@@ -52,8 +67,9 @@ import { PrintReceiptComponent } from './print-receipt/print-receipt.component';
   ReactiveFormsModule,
   HttpClientModule,
   BrowserAnimationsModule,
-  CommonModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, NotificationService],
+  CommonModule,
+  ],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, NotificationService, AlertController],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
