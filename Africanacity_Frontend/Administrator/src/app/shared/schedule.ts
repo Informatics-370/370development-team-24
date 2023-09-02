@@ -2,12 +2,15 @@
 
 export class Schedule{
 
-  scheduleId?: number;
+  scheduleId!: number;
   title!: string;
-  date!: Date;
+  date!: string;
   start_Time!: string; 
   end_Time!: string; 
-  event!: string;
+  event!: number;
+  eventName!:string;
   description!: string;
+  scheduleStatus!: number;
+  scheduleStatuses!: string;
     
 }

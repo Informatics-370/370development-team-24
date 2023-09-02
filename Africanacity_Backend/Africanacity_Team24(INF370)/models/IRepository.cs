@@ -108,6 +108,7 @@ namespace Africanacity_Team24_INF370_.models
         //SCHEDULE
         Task<Schedule> GetScheduleAsync(int schedule_Id);
         Task<Schedule[]> ScheduleDisplayAsync();
+        Task<Schedule_Status[]> GetAllScheduleStatusAsync();
 
         //EVENTS
         Task<Event[]> GetAllEventsAsync();

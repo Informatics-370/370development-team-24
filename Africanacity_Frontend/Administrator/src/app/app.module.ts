@@ -98,6 +98,19 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { EventDetailsDailogComponent } from './administration/booking/schedule/event-details-dailog/event-details-dailog.component';
+import { HelpAddeventComponent } from './administration/booking/events/add-event/help-addevent/help-addevent.component';
+import { HelpEditeventsComponent } from './administration/booking/events/edit-event/help-editevents/help-editevents.component';
+import { HelpVieweventsComponent } from './administration/booking/events/view-events/help-viewevents/help-viewevents.component';
+import { HelpAddscheduleComponent } from './administration/booking/schedule/add-schedule/help-addschedule/help-addschedule.component';
+import { HelpEditscheduleComponent } from './administration/booking/schedule/edit-schedule/help-editschedule/help-editschedule.component';
+import { HelpViewscheduleComponent } from './administration/booking/schedule/schedule-display/help-viewschedule/help-viewschedule.component';
+import { HelpAddentertainmentComponent } from './administration/booking/entertainment/add-entertainment-type/help-addentertainment/help-addentertainment.component';
+import { HelpEditentertainmentComponent } from './administration/booking/entertainment/edit-entertainment-type/help-editentertainment/help-editentertainment.component';
+import { HelpViewentertainmentComponent } from './administration/booking/entertainment/entertainment-types/help-viewentertainment/help-viewentertainment.component';
+import { HelpAddemployeeroleComponent } from './administration/EmployeeRole/add-employee-role/help-addemployeerole/help-addemployeerole.component';
+import { HelpEditemployeeroleComponent } from './administration/EmployeeRole/edit-employee-role/help-editemployeerole/help-editemployeerole.component';
+import { HelpViewemployeeroleComponent } from './administration/EmployeeRole/employee-role/help-viewemployeerole/help-viewemployeerole.component';
+
 
 
 
@@ -205,6 +218,19 @@ import { EventDetailsDailogComponent } from './administration/booking/schedule/e
     SignupComponent,
     UpdateProfileComponent,
     EventDetailsDailogComponent,
+    HelpAddeventComponent,
+    HelpEditeventsComponent,
+    HelpVieweventsComponent,
+    HelpAddscheduleComponent,
+    HelpEditscheduleComponent,
+    HelpViewscheduleComponent,
+    HelpAddentertainmentComponent,
+    HelpEditentertainmentComponent,
+    HelpViewentertainmentComponent,
+    HelpAddemployeeroleComponent,
+    HelpEditemployeeroleComponent,
+    HelpViewemployeeroleComponent,
+  
     
 
   ],

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { map, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, map, Observable, Subject } from 'rxjs';
 import { LoginUser } from '../shared/login-user';
 import { RegisterUser } from '../shared/register-user';
 import { User } from '../shared/user';
@@ -15,6 +15,7 @@ import { BookingEvent } from '../shared/bookingevent';
 import { Entertainment_Type } from '../shared/entertainmentType';
 import { DrinkType } from '../shared/Drink_Type';
 import { Drink } from '../shared/Drink';
+import { EventInput } from '@fullcalendar/core';
 
 
 @Injectable({
@@ -30,8 +31,13 @@ export class DataService {
       ContentType: 'application/json'
     })
   }
+  private calendarEventsSubject = new BehaviorSubject<EventInput[]>([]);
+  calendarEvents$ = this.calendarEventsSubject.asObservable();
 
   constructor(private httpClient: HttpClient) {   
+  }
+  updateCalendarEvents(newEvents: EventInput[]) {
+    this.calendarEventsSubject.next(newEvents);
   }
 // Register user
   RegisterUser(registerUser: LoginUser){
@@ -277,12 +283,19 @@ GetSchedule(scheduleId: number) {
   return this.httpClient.get<any>(`${this.apiUrl}Schedule/GetSchedule/${scheduleId}`).pipe(map(result => result));
 }
 
-AddSchedule(file: FormData)
+
+AddSchedule(schedule: Schedule)
 {
-  return this.httpClient.post(`${this.apiUrl}Schedule/AddSchedule`, file)
+   return this.httpClient.post(`${this.apiUrl}Schedule/AddSchedule`, schedule, this.httpOptions)
 }
 
-EditSchedule(scheduleId: Number, schedule: Schedule)
+
+// EditSchedule(scheduleId: number, schedule: FormData): Observable<any> {
+//   const url = `${this.apiUrl}Schedule/EditSchedule/${scheduleId}`;
+//   return this.httpClient.put(url, schedule);
+// }
+
+EditSchedule(scheduleId: number, schedule: Schedule)
 {
   return this.httpClient.put(`${this.apiUrl}Schedule/EditSchedule/${scheduleId}`, schedule, this.httpOptions)
 }
@@ -299,20 +312,30 @@ GetAllEvents(): Observable<any>
   .pipe(map(results => results))
 }
 
+GetAllScheduleStatus(): Observable<any>
+{
+  return this.httpClient.get(`${this.apiUrl}Schedule/GetAllScheduleStatus`)
+  .pipe(map(results => results))
+}
 GetEvent(eventId: Number)
 {
   return this.httpClient.get(`${this.apiUrl}Event/GetEvent` + "/" + eventId).pipe(map(result => result))
 }
 
-AddNewEvent(bookingevent : BookingEvent)
-{
-  return this.httpClient.post(`${this.apiUrl}Event/AddNewEvent`, bookingevent, this.httpOptions)
+
+AddNewEvent(file:FormData){
+    
+  return this.httpClient.post(`${this.apiUrl}Event/AddNewEvent`, file)
 }
 
-EditEvent(eventId: Number, bookingevent: BookingEvent)
-{
-  return this.httpClient.put(`${this.apiUrl}Event/EditEvent/${eventId}`, bookingevent, this.httpOptions)
-}
+// EditEvent(eventId: Number, bookingevent: BookingEvent)
+// {
+//   return this.httpClient.put(`${this.apiUrl}Event/EditEvent/${eventId}`, bookingevent, this.httpOptions)
+// }
+EditEvent(eventId: number, bookingevent: FormData) {
+  const url = `${this.apiUrl}Event/EditEvent/${eventId}`;
+   return this.httpClient.put(url, bookingevent);
+  }
 
 DeleteEvent(eventId: Number)
 {

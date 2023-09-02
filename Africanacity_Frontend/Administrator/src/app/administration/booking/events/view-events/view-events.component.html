@@ -13,14 +13,19 @@
         <div class="addButton">
               <i class="fa fa-plus-circle fa-3x" aria-hidden="true"[routerLink]="'/add-event'"></i>
         </div>
+        <button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help"  matTooltip="Help">
+            <mat-icon style="font-size: 24px;">help</mat-icon>
+          </button>
     </div>
 
     <table class="table table-striped table-hover table-container outlined-table">
         <thead class="tableColor">
 
-                <th scope="col">ID</th>
+                <th scope="col"> </th>
                 <th scope="col">Event Title</th>
                 <th scope="col">Description</th>
+                <th scope="col">Event Date</th>
+                <th scope="col">Image Cover</th>
                 <th scope="col"></th>
                 <th scope="col"></th>
         </thead>
@@ -29,6 +34,12 @@
                 <td>{{event.eventId}}</td>
                 <td>{{event.name}}</td>
                 <td>{{event.description}}</td>
+                <td>{{event.date}}</td>
+                <td>
+                    <div class="image-container">
+                        <img class="picture" src='data:image/png;base64,{{event.image}}'>
+                    </div>
+                </td>
                 
                   <td> <i class="fa fa-pencil" [routerLink]="['/edit-event', event.eventId]" aria-hidden="true"></i></td>
                   <td><i class="fa fa-trash"  (click)="DeleteEvent(event.eventId)" aria-hidden="true"></i></td>

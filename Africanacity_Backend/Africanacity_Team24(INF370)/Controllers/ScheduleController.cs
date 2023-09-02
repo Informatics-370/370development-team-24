@@ -2,6 +2,7 @@
 using Africanacity_Team24_INF370_.models;
 using Africanacity_Team24_INF370_.models.Booking;
 using Africanacity_Team24_INF370_.View_Models;
+using Africanacity_Team24_INF370_.models.Administration;
 
 
 namespace Africanacity_Team24_INF370_.Controllers
@@ -75,48 +76,38 @@ namespace Africanacity_Team24_INF370_.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support");
             }
         }
-
-
-       
+        [HttpGet]
+        [Route("GetAllScheduleStatus")]
+        public async Task<IActionResult> GetAllScheduleStatus()
+        {
+            try
+            {
+                var results = await _Repository.GetAllScheduleStatusAsync();
+                return Ok(results);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error.Contact Support");
+            }
+        }
         [HttpPost]
         [Route("AddSchedule")]
-        public async Task<IActionResult> AddSchedule(IFormCollection formData)
+        public async Task<IActionResult> AddSchedule([FromBody] ScheduleViewModel vm)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest(new { Message = "Validation errors occurred", Errors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)) });
             }
 
-            // Declare variables for eventDate, startTime, and endTime
-            DateTime eventDate;
-            DateTime startTime;
-            DateTime endTime;
-
-            // Parse date from formdata as a string and convert to DateTime
-            if (!DateTime.TryParse(formData["date"], out eventDate))
-            {
-                return BadRequest("Invalid date format");
-            }
-
-            // Parse time data from the formdata as a string and convert to DateTime
-            if (!DateTime.TryParse(formData["start_Time"], out startTime) ||
-                !DateTime.TryParse(formData["end_Time"], out endTime))
-            {
-                return BadRequest("Invalid time format");
-            }
-               // Create a new Schedule_Status with the default status "available"
-               //var scheduleStatus = new Schedule_Status
-               //{
-              //    Name = "available"
-              //};
             var schedule = new Schedule
             {
-                Title = formData["title"],
-                Date = eventDate,
-                Start_Time = startTime,
-                End_Time = endTime,
-                EventId = Convert.ToInt32(formData["event"]),
-                Description = formData["description"],
+                Title = vm.Title,
+                Date = vm.Date,
+                Start_Time = vm.Start_Time,
+                End_Time = vm.End_Time,
+                EventId = Convert.ToInt32(vm.Event),
+                Schedule_StatusId = Convert.ToInt32(vm.ScheduleStatus),
+                Description = vm.Description,
             };
 
             try
@@ -126,12 +117,11 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
             catch (Exception)
             {
-                return BadRequest("Invalid Operation");
+                return BadRequest("Invalid Transaction");
             }
 
             return Ok(schedule);
         }
-
 
 
         [HttpPut]
@@ -141,23 +131,24 @@ namespace Africanacity_Team24_INF370_.Controllers
             try
             {
                 var existingSchedule = await _Repository.GetScheduleAsync(scheduleId);
-                if(existingSchedule != null)
+                if (existingSchedule != null)
                 {
                     existingSchedule.Title = viewModel.Title;
                     existingSchedule.Date = viewModel.Date;
                     existingSchedule.Start_Time = viewModel.Start_Time;
                     existingSchedule.End_Time = viewModel.End_Time;
+                    existingSchedule.EventId = viewModel.Event;
+                    existingSchedule.Schedule_StatusId = viewModel.ScheduleStatus;
                     existingSchedule.Description = viewModel.Description;
-                    existingSchedule.EventId = viewModel.EventId;
 
                     if (await _Repository.SaveChangesAsync())
                     {
                         return Ok(existingSchedule);
-                     }
+                    }
                 }
 
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return StatusCode(500, "Internal Server Error. Please Contact Support");
             }

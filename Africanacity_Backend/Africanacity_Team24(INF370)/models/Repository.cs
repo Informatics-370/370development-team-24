@@ -168,7 +168,11 @@ namespace Africanacity_Team24_INF370_.models
             IQueryable<Schedule> query = _appDbContext.Schedules.Where(s => s.ScheduleId == scheduleId);
             return await query.FirstOrDefaultAsync();
         }
-
+        public async Task<Schedule_Status[]> GetAllScheduleStatusAsync()
+        {
+            IQueryable<Schedule_Status> query = _appDbContext.Schedule_Statuses;
+            return await query.ToArrayAsync();
+        }
         //EVENTS
         public async Task<Event[]> GetAllEventsAsync()
         {

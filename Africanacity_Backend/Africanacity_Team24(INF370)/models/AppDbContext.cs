@@ -785,7 +785,9 @@ namespace Africanacity_Team24_INF370_.models
                          {
                              EventId = 1,
                              Name = "Smooth Sunday",
-                             Description = "An event filled with spectacular music performances and art display "
+                             Description = "An event filled with spectacular music performances and art display ",
+                             Date = "Every Second Sunday of the Month",
+                             Image = "image 1",
                             
                          });
             modelBuilder.Entity<Event>()
@@ -794,7 +796,9 @@ namespace Africanacity_Team24_INF370_.models
                          {
                              EventId = 2,
                              Name = "Wacky Wednesday",
-                             Description = "An event where various forms of entertainments take place"
+                             Description = "An event where various forms of entertainments take place",
+                             Date = "Every Wednesday",
+                             Image = "image 2",
 
                          });
             modelBuilder.Entity<Event>()
@@ -803,9 +807,22 @@ namespace Africanacity_Team24_INF370_.models
                         {
                             EventId = 3,
                             Name = "Poetry Musings",
-                            Description = " poets are invited to recite poems and another kind of artistry "
+                            Description = " poets are invited to recite poems and another kind of artistry ",
+                            Date = "Last Thursdays of the month",
+                            Image = "image 3",
 
                         });
+            modelBuilder.Entity<Event>()
+            .HasData(
+            new
+            {
+                EventId = 4,
+                Name = "Art display",
+                Description = " artists are invited to market their art",
+                Date = "Every Friday",
+                Image = "image 4",
+
+            });
             // Create Seed Data For the Entertainments Type Table:
             modelBuilder.Entity<Entertainment_Type>()
                        .HasData(
@@ -850,9 +867,9 @@ namespace Africanacity_Team24_INF370_.models
                                   {
                                       ScheduleId = 1,
                                       Title = "Music slot",
-                                      Date = new DateTime(2023, 06, 25),
-                                      Start_Time = new DateTime(2023,06,25,14,30,0),
-                                      End_Time = new DateTime(2023,06,25,15,0,0),
+                                      Date = "2023/06/25",
+                                      Start_Time = "14:30",
+                                      End_Time = "15:00",
                                       Description = "Musician can book performance",
                                       EventId = 1,
                                       Schedule_StatusId = 1,
@@ -863,9 +880,9 @@ namespace Africanacity_Team24_INF370_.models
                                  {
                                      ScheduleId = 2,
                                      Title = "Dance slot ",
-                                     Date = new DateTime(2023, 08, 02),
-                                     Start_Time = new DateTime(2023,08,02, 12,0,0),
-                                     End_Time = new DateTime(2023,08,02, 12,30,0),
+                                     Date = "2023/08/02",
+                                     Start_Time = "12:00",
+                                     End_Time = "12:30",
                                      Description = "Contemporary Dance performance",
                                      EventId = 2,
                                      Schedule_StatusId = 1,
@@ -876,9 +893,9 @@ namespace Africanacity_Team24_INF370_.models
                                  {
                                      ScheduleId = 3,
                                      Title = "Poetry",
-                                     Date = new DateTime(2023, 07, 22),
-                                     Start_Time = new DateTime(2023,07,22, 21,0,0),
-                                     End_Time = new DateTime(2023,07,22, 21,30,0),
+                                     Date = "2023/07/22",
+                                     Start_Time = "21:00",
+                                     End_Time = "21:30",
                                      Description = "Poet recital",
                                      EventId = 3,
                                      Schedule_StatusId = 2,
@@ -889,9 +906,9 @@ namespace Africanacity_Team24_INF370_.models
                                {
                                    ScheduleId = 4,
                                    Title = "Contemp Dance",
-                                   Date = new DateTime(2023, 07, 22),
-                                   Start_Time = new DateTime(2023, 07,22, 17,0,0),
-                                   End_Time = new DateTime(2023, 07, 22, 17,45,0),
+                                   Date = "2023/07/22",
+                                   Start_Time = "17:00",
+                                   End_Time = "17:45",
                                    Description = "Contemporary dance slot",
                                    EventId = 2,
                                    Schedule_StatusId = 1,
@@ -902,9 +919,9 @@ namespace Africanacity_Team24_INF370_.models
                                {
                                    ScheduleId = 5,
                                    Title = "Comedy",
-                                   Date = new DateTime(2023, 09, 12),
-                                   Start_Time = new DateTime(2023,09,12, 13,0,0),
-                                   End_Time = new DateTime(2023, 09, 12, 13,20,0),
+                                   Date = "2023/09/12",
+                                   Start_Time = "13:00",
+                                   End_Time = "13:20",
                                    Description = "Poet recital",
                                    EventId = 3,
                                    Schedule_StatusId = 1,

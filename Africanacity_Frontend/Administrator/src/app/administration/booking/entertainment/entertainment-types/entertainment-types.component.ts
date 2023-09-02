@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Entertainment_Type } from 'src/app/shared/entertainmentType';
 import { DataService } from 'src/app/service/data.Service';
+import { MatDialog } from '@angular/material/dialog';
+import { HelpViewentertainmentComponent } from './help-viewentertainment/help-viewentertainment.component';
 
 @Component({
   selector: 'app-entertainment-types',
@@ -12,7 +14,8 @@ import { DataService } from 'src/app/service/data.Service';
 })
 export class EntertainmentTypesComponent implements OnInit{
 
-  constructor(private dataService:DataService ,private snackBar: MatSnackBar, private httpClient: HttpClient, private router: Router){}
+  constructor(private dataService:DataService ,private snackBar: MatSnackBar, private httpClient: HttpClient, 
+    private router: Router,  private dialog: MatDialog){}
 
   ngOnInit(): void {
     this.GetEntertainmentTypes()
@@ -67,6 +70,17 @@ export class EntertainmentTypesComponent implements OnInit{
       this.dataService.DeleteEntertainmentType(entertainment_TypeId).subscribe(result => {
         this.deleteItem();
         });
+    }
+
+    openHelpModal(field: string): void {
+      const dialogRef = this.dialog.open(HelpViewentertainmentComponent, {
+        width: '500px',
+        data: { field } // Pass the field name to the modal
+      });
+    
+      dialogRef.afterClosed().subscribe(result => {
+        // Handle modal close if needed
+      });
     }
 
 }

@@ -12,6 +12,9 @@ namespace Africanacity_Team24_INF370_.models.Booking
 		public string Name { get; set; } = string.Empty;
 		public string Description { get; set; } = string.Empty;
 
+		public string Date { get; set;} = string.Empty;
+		public string? Image { get; set; }
+
 		public virtual ICollection<Schedule> Schedules { get; set; }
 		//public List<Schedule> Schedules { get; set; } = new List<Schedule>();
 

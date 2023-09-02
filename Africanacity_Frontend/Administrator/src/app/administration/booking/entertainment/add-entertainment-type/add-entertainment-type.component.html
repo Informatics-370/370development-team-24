@@ -4,7 +4,7 @@
             <app-navbar></app-navbar>
         </div>
     <div class="col-md-10 order-md-2">
-  <h4 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px;"> Add Entertainment</h4>
+  <h4 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px;"> Add Entertainment Type</h4>
   <hr>
 
    <div class="container">
@@ -31,6 +31,9 @@
                   </div>
             </div>
         </form>
+        <button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help" matTooltip="Help">
+            <mat-icon>help</mat-icon>
+          </button>
      </div>
    </div>
 

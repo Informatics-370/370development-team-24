@@ -1,8 +1,7 @@
 import { Component, Inject, EventEmitter } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { BookingEvent } from 'src/app/shared/bookingevent';
-import { Schedule } from 'src/app/shared/schedule';
+import { DataService } from 'src/app/service/data.Service';
 
 @Component({
   selector: 'app-event-details-dailog',
@@ -13,20 +12,10 @@ export class EventDetailsDailogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<EventDetailsDailogComponent>,
-    private router: Router,
+    private router: Router, private dataService: DataService,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {
-    console.log('Received data:', data);
-  }
-   
-
-  onEditClick() {
-    this.dialogRef.close('edit'); // Emit 'edit' as the result
-  }
-
-  onDeleteClick() {
-    this.dialogRef.close('delete'); // Emit 'delete' as the result
-  }
+  ) {}
+  
 
   editEvent() {
     // Navigate to the EditScheduleComponent and pass the schedule's id as a parameter
@@ -35,10 +24,22 @@ export class EventDetailsDailogComponent {
   }
   
   
- deleteEvent(){
-  this.router.navigate(['/schedule-display']);
-  this.dialogRef.close();
- }
+  deleteEvent() {
+    // Call the deleteEvent method from DataService to delete the event from the backend
+    this.dataService.RemoveSchedule(this.data.scheduleId).subscribe(
+      (result) => {
+        if (result === 'success') {
+          // Emit 'delete' as the result to indicate successful deletion
+          this.dialogRef.close('delete');
+        } else {
+          // Handle deletion failure
+        }
+      },
+      (error) => {
+        // Handle deletion error
+      }
+    );
+  }
  
   closeDialog(): void {
     this.dialogRef.close();

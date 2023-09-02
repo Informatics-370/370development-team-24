@@ -4,37 +4,58 @@
             <app-navbar></app-navbar>
         </div>
     <div class="col-md-10 order-md-2">
-  <h4 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px;"> New Entertainment Event </h4>
-  <hr>
-
-   <div class="container">
-     <div class="row">
-        <form [formGroup]="eventsForm" class="form-horizontal" (ngSubmit)="onSubmit()">
-            <div class="form-group">
-                <label class=" col-md-1" style="font-weight: bold;" for="name">Event Title:</label>
-                <div class="col-md-6">
-                  <input class="form-control" placeholder="Enter event title" [required]="true" name="name" formControlName="name">
+       <div class="card">
+        <div class="card-body">
+          <h4 class="text-center mb-4"> New Entertainment Event</h4>
+          <hr> 
+          <div class="container">
+            <div class="row">
+              <form [formGroup]="eventsForm" class="form-horizontal" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+               <div class="form-group">
+                 <label class=" col-md-1" style="font-weight: bold;" for="name">Event Title:</label>
+                  <div class="col-md-6">
+                    <input class="form-control" placeholder="Enter event title" [required]="true" name="name" formControlName="name">
+                  </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label class="col-sm-1" style="font-weight: bold;" for="description">Description:</label>
-                <div class="col-sm-6">
-                    <textarea class="form-control" type="text" id="description" placeholder="Provide description" [required]="true" formControlName="description"></textarea>
+                <div class="form-group">
+                  <label class="col-sm-1" style="font-weight: bold;" for="description">Description:</label>
+                  <div class="col-sm-6">
+                    <textarea class="form-control" type="text" rows="4" id="description" placeholder="Provide description" [required]="true" formControlName="description"></textarea>
+                  </div>
                 </div>
-            </div>
-            <br>
-            <div class="form-group">
-                <div class="col-sm-offset-1 col-sm-6">
+
+                <div class="form-group">
+                   <label class=" col-md-1" style="font-weight: bold;" for="date">Event Date:</label>
+                   <div class="col-md-6">
+                     <input class="form-control" placeholder="Enter event date" [required]="true" name="date" formControlName="date">
+                    </div>
+                </div>
+
+                <div>
+                  <input formControlName="image" type="file" id="image" #file placeholder="Choose event image" (change)="uploadFile(file.files)" style="display:none;"> Choose Image
+                  <button color="primary" (click)="file.click()">Upload File</button>
+                  <span *ngIf="fileNameUploaded.length > 0"> {{fileNameUploaded}}</span>
+                </div><br>
+  
+                <br>
+
+                 <div class="form-group">
+                  <div class="col-sm-offset-1 col-sm-6">
                     <button style="margin-right:1em;" type="submit" [disabled]="!eventsForm.valid" class="btn btn-sm btn-success">Create</button>
                     <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Discard</button>
                   </div>
+                </div>
+              </form>
+              <button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help" matTooltip="Help">
+                <mat-icon>help</mat-icon>
+              </button>
             </div>
-        </form>
-     </div>
-   </div>
-
-   
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
    
 </div>
 

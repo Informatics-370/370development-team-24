@@ -1,9 +1,11 @@
 import { Component,OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl,FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/service/data.Service';
 import { Employee_Role } from 'src/app/shared/EmployeeRole';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { HelpAddemployeeroleComponent } from './help-addemployeerole/help-addemployeerole.component';
 
 @Component({
   selector: 'app-add-employee-role',
@@ -16,11 +18,11 @@ export class AddEmployeeRoleComponent implements OnInit {
   
     constructor(private dataService: DataService, private router: Router, 
       private activated: ActivatedRoute,
-      private snackBar: MatSnackBar) {}
+      private snackBar: MatSnackBar, private dialog: MatDialog,) {}
 
      employeeroleForm: FormGroup = new FormGroup({
-      name: new FormControl('',[Validators.required]),
-      description: new FormControl('',[Validators.required])
+      name: new FormControl('',[Validators.required,this.noSpacesValidator]),
+      description: new FormControl('',[Validators.required,this.noSpacesValidator])
      })
   
     ngOnInit(): void {
@@ -51,4 +53,23 @@ export class AddEmployeeRoleComponent implements OnInit {
         verticalPosition: 'bottom'
       });
     }
+
+    openHelpModal(field: string): void {
+      const dialogRef = this.dialog.open(HelpAddemployeeroleComponent, {
+        width: '500px',
+        data: { field } // Pass the field name to the modal
+      });
+    
+      dialogRef.afterClosed().subscribe(result => {
+        // Handle modal close if needed
+      });
+    }
+
+        // Custom validator to check for spaces
+        noSpacesValidator(control: AbstractControl): { [key: string]: boolean } | null {
+          if (control.value && control.value.trim().length === 0) {
+            return { 'noSpaces': true };
+          }
+          return null;
+        }
 }

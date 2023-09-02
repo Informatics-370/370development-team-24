@@ -12,6 +12,7 @@
  import { EventDetailsDailogComponent } from '../event-details-dailog/event-details-dailog.component';
  import { CalendarService } from 'src/app/calendar.service';
  import { DatePipe } from '@angular/common';
+ import { HelpViewscheduleComponent } from './help-viewschedule/help-viewschedule.component';
 
 
 
@@ -37,10 +38,6 @@
 
   ngOnInit(): void {
     this.GetAllSchedules();
-    this.GetEvents();
-    this.calendarEvents = this.calendarService.getCalendarEvents();
-    
-
    }
 
    //Method to retrieve all schedule slots from the backend through the dataService
@@ -57,32 +54,19 @@
    });
  }
 
- //Method to retrieve the events from the backend that will be used for the event dropdown
- GetEvents(){
-  this.dataService.GetAllEvents().subscribe(result => {
-    let eventsList: any[] = result
-    eventsList.forEach((element) => {
-      this.bookingevents.push(element)
-    });
-  })
- }
-  
-//Delete item method 
- deleteItem(): void {
-  const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete this schedule slot?', 'Delete, Cancel',{
-    duration: 5000, // Display duration in milliseconds
-
-  });
- }
-
- //Method to delete the selected schedule from the backend
- DeleteSchedule(scheduleId : Number){
-  this.dataService.RemoveSchedule(scheduleId).subscribe(result => {
-  this.deleteItem();
-  });
- }
  
- 
+   //Method to retrieve the events from the backend that will be used for the event dropdown
+   GetAllEvents()
+   {
+     this.dataService.GetAllEvents().subscribe(result => {
+       let eventsList:any[] = result
+       eventsList.forEach((element) => {
+         this.bookingevents.push(element)
+         
+       });
+     })
+   }
+
  calendarOptions: CalendarOptions = {
   plugins: [dayGridPlugin, interactionPlugin], // Load the DayGrid and Interaction plugins
   initialView: 'dayGridMonth', // Initial view
@@ -96,31 +80,43 @@
  
  };
 
+// Modify the formatEventsForCalendar method to include all events without filtering by date
 
- formatEventsForCalendar(): EventInput[] {
-   const events: EventInput[] = [];
-    this.schedules.forEach((schedule) => {
-      const event: EventInput = {
+formatEventsForCalendar(): EventInput[] {
+  const events: EventInput[] = [];
+
+  this.schedules.forEach((schedule) => {
+    const dateString = schedule.date + ' ' + schedule.start_Time;
+    const startDateTime = this.parseDateString(dateString);
+
+    const endDateString = schedule.date + ' ' + schedule.end_Time;
+    const endDateTime = this.parseDateString(endDateString);
+
+    if (!startDateTime || !endDateTime || isNaN(startDateTime.getTime()) || isNaN(endDateTime.getTime())) {
+      //console.error('Invalid date or time format for schedule:', schedule);
+      return; // Skip this schedule and continue with the next one
+    }
+
+    const event: EventInput = {
       title: schedule.title,
-      start: schedule.start_Time,
-      end: schedule.end_Time,
-      extendedProps: {  // Add extendedProps with start_Time and end_Time
+      start: startDateTime.toISOString(),
+      end: endDateTime.toISOString(),
+      extendedProps: {
         start_Time: schedule.start_Time,
         end_Time: schedule.end_Time,
       },
-      // Other event properties as needed
     };
+
     events.push(event);
-    });
+  });
 
-   return events;
- }
-
+  return events;
+}
 
   
   // Listen for event click in the calendar
   handleEventClick(info: any) {
-    console.log('Event clicked', info.event);
+
     // Format start and end times
     const formattedStartTime = this.formatDateTime(info.event.extendedProps.start_Time);
     const formattedEndTime = this.formatDateTime(info.event.extendedProps.end_Time);
@@ -129,32 +125,34 @@
     // Ensure that formatted times are not empty
    if (!formattedStartTime || !formattedEndTime) {
       // Handle the case where times are not formatted correctly
-      console.error('Invalid time format');
+      //console.error('Invalid time format');
      return;
-   }
+    }
      // Find the corresponding booking event by matching the start_Time
-     const schedule: Schedule | undefined = this.schedules.find(event => event.start_Time === info.event.extendedProps.start_Time);
-     console.log('Matching Schedule:', schedule);
-     if(schedule){
-      console.log('Event Name:', schedule.event);
+     const schedule = this.schedules.find(event => event.start_Time === info.event.extendedProps.start_Time);
+    if(schedule){
+
+      const bookingEvent = this.bookingevents.find(event => event.name === schedule.eventName);
+      console.log('event name', schedule);
       const dialogRef = this.dialog.open(EventDetailsDailogComponent,{
         data: {
           title:info.event.title,
           startStr: formattedStartTime,
           endStr: formattedEndTime,
-          eventName: schedule.event,
+          eventName:  bookingEvent ? bookingEvent.name : 'N/A',
+          scheduleId: schedule ? schedule.scheduleId: null,
         }
       });
        // Subscribe to dialog close event
       dialogRef.afterClosed().subscribe(result => {
        if (result === 'edit') {
-          // Handle edit event here
           // You can open the edit form with the event data
-          this.router.navigate(['/edit-schedule', info.event.id]);
+          this.router.navigate(['/edit-schedule', schedule.scheduleId]);
           // Implement this logic in EventDetailsDialogComponent
         } else if (result === 'delete') {
-        // Handle delete event here
-        // Implement this logic in EventDetailsDialogComponent
+        // Remove the event from the FullCalendar events array and refresh the calendar
+        this.calendarEvents = this.calendarEvents.filter((event) => event['scheduleId'] !== schedule.scheduleId);
+        this.refreshCalendar();
       }
       });
     }
@@ -165,13 +163,56 @@ formatDateTime(dateTime: string | null): string {
     return ''; // Handle null case by returning an empty string or some other default value
   }
   try {
-    const date = new Date(dateTime);
-    // Format the DateTime to your desired format, e.g., 'hh:mm a'
-    return this.datePipe.transform(date, 'hh:mm a') || '';
-  } catch (error) {
+    const timeParts = dateTime.split(':');
+    if (timeParts.length === 2) {
+      const hours = parseInt(timeParts[0], 10);
+      const minutes = parseInt(timeParts[1], 10);
+      if (!isNaN(hours) && !isNaN(minutes) && hours >= 0 && hours < 24 && minutes >= 0 && minutes < 60) {
+        const date = new Date();
+        date.setHours(hours);
+        date.setMinutes(minutes);
+        // Format the DateTime to your desired format, e.g., 'hh:mm a'
+        return this.datePipe.transform(date, 'hh:mm a') || '';
+      }
+    }
     console.error('Invalid time format:', dateTime);
-    return ''; // Handle invalid date format by returning an empty string
+    return ''; // Handle invalid time format by returning an empty string
+  } catch (error) {
+    console.error('Error parsing time:', dateTime);
+    return ''; // Handle error by returning an empty string
   }
+}
+
+
+
+parseDateString(dateString: string | null): Date | null {
+  if (!dateString) {
+    return null;
+  }
+  try {
+    // Parse the dateString into a JavaScript Date object
+    return new Date(dateString);
+  } catch (error) {
+    console.error('Error parsing date:', dateString);
+    return null;
+  }
+}
+
+//method to refresh the calendar
+refreshCalendar() {
+  this.calendarOptions.events = this.calendarEvents;
+}
+
+
+openHelpModal(field: string): void {
+  const dialogRef = this.dialog.open(HelpViewscheduleComponent, {
+    width: '500px',
+    data: { field } // Pass the field name to the modal
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    // Handle modal close if needed
+  });
 }
 
 }
