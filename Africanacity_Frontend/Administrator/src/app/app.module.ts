@@ -85,7 +85,6 @@ import { ViewEventsComponent } from './administration/booking/events/view-events
 import { AddScheduleComponent } from './administration/booking/schedule/add-schedule/add-schedule.component';
 import { EditScheduleComponent } from './administration/booking/schedule/edit-schedule/edit-schedule.component';
 import { ScheduleDisplayComponent } from './administration/booking/schedule/schedule-display/schedule-display.component';
-
 // import { FullCalendarModule } from '@fullcalendar/angular';
 // import dayGridPlugin from '@fullcalendar/daygrid'; // Import the dayGrid plugin
 // import interactionPlugin from '@fullcalendar/interaction';
