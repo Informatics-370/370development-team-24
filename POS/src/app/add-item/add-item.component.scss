@@ -1,0 +1,63 @@
+.small-input {
+    width:50px ; /* You can adjust the width to your preference */
+    margin-left: 100px;
+ 
+    align-items:baseline;
+  }
+
+  .ion-card{
+    outline: 70px;
+    border-style:solid;
+    border-color: black;
+   
+  }
+
+  .ion-list{
+    border-style: solid;
+    outline: 70px;
+    border-color: black;
+    margin-top: 70px;
+  }
+  
+  .heading{
+    margin-left: 200px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: xx-large;
+   
+
+  }
+
+  .ion-button{
+    border-style: groove;
+    border-radius: 75px;
+    border-width: 2px;
+    border-color:blueviolet;
+    
+    
+  }
+
+  .heading2{
+    margin-left: 75px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .menuItemsList{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .span{
+    width: 100px;
+    
+  }
+
+  .price{
+    max-width: 100px;
+  }
+
+  #orderSummary{
+    margin-top: 71px;
+  }
+
+ 

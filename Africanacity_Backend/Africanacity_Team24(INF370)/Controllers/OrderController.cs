@@ -49,88 +49,7 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
 
-        //save kicthen orders
-        //[HttpPost]
-        //[Route("SaveKitchenOrder")]
-        //public async Task<IActionResult> SaveKitchenOrder([FromBody] KitchenOrderViewModel kitchenOrder)
-        //{
-        //    try
-        //    {
-
-
-        //        var kitchenItem = new KitchenOrder
-        //        {
-        //            KitchenOrderId = kitchenOrder.KitchenOrderId,
-        //            TableNumber = kitchenOrder.TableNumber,
-        //            KitchenOrderNumber = kitchenOrder.KitchenOrderNumber,
-        //            OrderedItems = string.Join(",", kitchenOrder.OrderedItems),
-        //            OrderedDrinks = string.Join(",", kitchenOrder.OrderedDrinks),
-        //            Subtotal = kitchenOrder.Subtotal,
-
-        //        };
-
-
-
-        //        _repository.Add(kitchenItem);
-        //        await _repository.SaveChangesAsync();
-
-        //        return Ok(kitchenItem);
-        //    }
-
-        //    catch (Exception ex)
-        //    {
-        //        var innerExceptionMessage = ex.InnerException?.Message;
-        //        return BadRequest($"Invalid transaction. Error: {ex.Message}. Inner Exception: {innerExceptionMessage}");
-        //    }
-
-
-
-        //}
-
-        //[HttpPost]
-        //[Route("AddKitchenOrder")]
-        //public async Task<IActionResult> AddKitchenOrder(KitchenOrderDto orderDto)
-        //{
-        //    try
-        //    {
-        //        // Calculate subtotal
-        //        decimal subtotal = CalculateSubtotal(orderDto.OrderedMenuItems, orderDto.OrderedDrinks);
-
-        //        // Calculate VAT (assuming 15% VAT)
-        //        decimal vat = CalculateVAT(subtotal);
-
-        //        // Calculate discount (if applicable)
-        //        decimal discount = CalculateDiscount(subtotal);
-
-        //        // Calculate total
-        //        decimal total = CalculateTotal(subtotal, discount, vat);
-
-
-        //        // Create a new KitchenOrder object
-        //        var kitchenOrder = new KitchenOrder
-        //        {
-        //            TableNumber = orderDto.TableNumber,
-        //            KitchenOrderNumber = orderDto.KitchenOrderNumber,
-        //            OrderedMenuItems = string.Join(", ", orderDto.OrderedMenuItems.Select(item => item.Name)),
-        //            OrderedDrinks = string.Join(", ", orderDto.OrderedDrinks.Select(drink => drink.Name)),
-        //            Subtotal = subtotal,
-        //            Discount = discount,
-        //            VAT = vat,
-        //            Total = total
-        //        };
-
-        //        // Save the kitchen order to the database
-        //        _appDbContext.KitchenOrders.Add(kitchenOrder);
-        //        await _appDbContext.SaveChangesAsync();
-
-        //        return Ok("Kitchen order added successfully.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Handle exceptions
-        //        return StatusCode(500, $"Internal server error: {ex.Message}");
-        //    }
-        //}
+        
 
 
         //Add kitchen order
@@ -149,6 +68,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                     VAT = kitchenOrderDto.VAT,
                     Discount = kitchenOrderDto.Discount,
                     Total = kitchenOrderDto.Total,
+                    Order_Date = DateTime.Now,
                     OrderedMenuItems = new List<Order_MenuItem>(),
                     OrderedDrinks = new List<Order_Drink>()
 
@@ -246,6 +166,10 @@ namespace Africanacity_Team24_INF370_.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+
+
+
 
 
         //GET ALL KITCHEN ORDERS

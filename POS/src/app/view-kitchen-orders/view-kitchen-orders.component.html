@@ -41,7 +41,7 @@
     <p>Discount: {{ order.Discount }}</p>
     <p>Total: {{ order.Total }}</p>
     <!-- the routerLink to use the correct property name-->
-    <ion-button [routerLink]="['/edit-kitchen-order', order.KitchenOrderId]">Edit</ion-button>
+    <ion-button [routerLink]="['/update-kitchen-order', order.KitchenOrderId]">Edit</ion-button>
   </ion-card>
 </ion-content>
 

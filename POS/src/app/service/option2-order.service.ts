@@ -6,19 +6,20 @@ import { KitchenOrderView } from '../shared/kitchen-order-view';
   providedIn: 'root'
 })
 export class Option2OrderService {
-  private selectedOrderSubject = new BehaviorSubject<KitchenOrderView | null>(null);
-  selectedOrder$ = this.selectedOrderSubject.asObservable();
+  private addedItemData: any[] = [];
 
-  constructor() { }
-  setSelectedOrder(order: KitchenOrderView) {
-    this.selectedOrderSubject.next(order);
+  // Set the added item data
+  setAddedItemData(data: any): void {
+    this.addedItemData = data;
   }
 
-  getSelectedOrder() {
-    return this.selectedOrderSubject.value;
+  // Get the added item data
+  getAddedItemData(): any[] {
+    return this.addedItemData;
   }
 
-  clearSelectedOrder() {
-    this.selectedOrderSubject.next(null);
-  }
+
+
+
+
 }

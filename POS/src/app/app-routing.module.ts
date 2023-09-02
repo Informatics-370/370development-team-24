@@ -14,6 +14,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { ViewKitchenOrdersComponent } from './view-kitchen-orders/view-kitchen-orders.component';
 import { EditKitchenOrderComponent } from './edit-kitchen-order/edit-kitchen-order.component';
 import { AddKitchenOrderComponent } from './add-kitchen-order/add-kitchen-order.component';
+import { UpdateKitchenOrderComponent } from './update-kitchen-order/update-kitchen-order.component';
+import { AddItemComponent } from './add-item/add-item.component';
 
 
 const routes: Routes = [
@@ -27,6 +29,8 @@ const routes: Routes = [
   {path: 'edit-kitchen-order/:KitchenOrderId', component: EditKitchenOrderComponent },
   //{path: 'edit-kitchen-order', component: EditKitchenOrderComponent},
   {path: 'add-kitchen-order', component: AddKitchenOrderComponent},
+  {path: 'update-kitchen-order/:KitchenOrderId', component: UpdateKitchenOrderComponent},
+  {path:'add-item', component:AddItemComponent},
   {path: 'notification', component: NotificationComponent},
   {path: 'payment/:kitchenOrderNumber', component:PaymentComponent},
   {path: 'sign-up', component:SignUpComponent},

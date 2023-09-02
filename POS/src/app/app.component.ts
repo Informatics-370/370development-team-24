@@ -7,7 +7,7 @@ import { Router, NavigationEnd } from '@angular/router';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  showTabs=false;
+  showTabs=true;
   constructor(private router: Router) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -16,7 +16,8 @@ export class AppComponent {
                         event.urlAfterRedirects.includes('/table')||
                         event.urlAfterRedirects.includes('/order') || 
                         event.urlAfterRedirects.includes('/kitchen-screen') ||
-                        event.urlAfterRedirects.includes('/view-kitchen-orders')
+                        event.urlAfterRedirects.includes('/view-kitchen-orders') ||
+                        event.urlAfterRedirects.includes('/add-item')
                      
 
                       /* if (event.urlAfterRedirects === '/edit-kitchen-order') {

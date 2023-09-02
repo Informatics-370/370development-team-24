@@ -15,6 +15,7 @@ namespace Africanacity_Team24_INF370_.View_Models
         public decimal Discount { get; set; }
 
         public decimal Total { get; set; }
+        public DateTime Order_Date { get; set; }
 
         public List<OrderMenuItemDto> orderMenuItemDtos { get; set; }
         public List<OrderDrinkDto> orderDrinkDtos { get; set;}

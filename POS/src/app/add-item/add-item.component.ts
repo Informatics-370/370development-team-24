@@ -6,22 +6,25 @@ import { DrinkPrice } from '../shared/drink-price';
 import { MainService } from '../service/main.service';
 import { MenuType } from '../shared/menu-type';
 import { CurrencyPipe } from '@angular/common';
-import { ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router,  NavigationExtras } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { KitchenOrder } from '../shared/kitchen-order';
 import { OrderedItem } from '../shared/ordered-item';
 import { OrderedDrink } from '../shared/ordered-drink';
 import { OrderService } from '../service/order.service';
 import { DrinkType } from '../shared/drink-type';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+import { Option2OrderService } from '../service/option2-order.service';
+import { KitchenOrderView } from '../shared/kitchen-order-view';
+ 
 
 @Component({
-  selector: 'app-order',
-  templateUrl: './order.component.html',
-  styleUrls: ['./order.component.scss'],
-  providers: [CurrencyPipe],
+  selector: 'app-add-item',
+  templateUrl: './add-item.component.html',
+  styleUrls: ['./add-item.component.scss'],
 })
-export class OrderComponent  implements OnInit {
+export class AddItemComponent  implements OnInit {
+
   menuItems: MenuItem[] = [];
   filteredMenuItems: MenuItem[] = [];
   orderedItems: OrderedItem[] = [];
@@ -37,6 +40,7 @@ export class OrderComponent  implements OnInit {
 
   isDrinkSelected = false;
   kitchenOrderNumber: string = '';
+  kitchenOrderId!: number;
   tableNumber: string | null = null;
   selectedMenuItems: MenuItem[] = [];
   selectedDrinks: Drink[] = [];
@@ -55,11 +59,7 @@ export class OrderComponent  implements OnInit {
   subtotal : number = 0;
   orderMenuItemDtos: any;
   orderDrinkDtos: any;
-
-
-  //for success alert
-  isAlertOpen = false;
-  public alertButtons = ['OK'];
+  orderData!: any;
 
 
 
@@ -68,8 +68,8 @@ export class OrderComponent  implements OnInit {
     private route: ActivatedRoute,
     private http: HttpClient,
     private orderService: OrderService,
-    private toastController: ToastController,
-    private alertController: AlertController) { }
+    private alertController: AlertController,
+    private option2OrderService: Option2OrderService) { }
 
   ngOnInit() {
 
@@ -104,7 +104,21 @@ export class OrderComponent  implements OnInit {
       this.fetchVatById(1); // Replace 1 with the actual VAT ID you want to fetch
       this.fetchDiscountById(1);
 
-   
+      this.route.queryParams.subscribe((params) => {
+        if (params) {
+          // Retrieve and store the initial order data from the query parameters
+          this.orderData = {
+            KitchenOrderNumber: params['kitchenOrderNumber'],
+            TableNumber: params['tableNumber'],
+            OrderedMenuItems: params['orderedItems'],
+            OrderedDrinks: params['orderedDrinks'],
+            Subtotal: params['Subtotal'],
+            VAT: params['VAT'],
+            Total: params['Total']
+            // Add other properties as needed
+          };
+        }
+      });
 
 
 
@@ -149,6 +163,30 @@ export class OrderComponent  implements OnInit {
       }
     }
 
+
+    //adding the items (Edit process)
+     // Add this function to add an item to the shared service
+  addMenuItemToSharedService(menuItem: MenuItem) {
+    const newItemData = {
+      name: menuItem.name,
+      quantity: 1,
+      menuItemId: menuItem.menuItemId,
+      price: menuItem.price,
+    };
+    this.option2OrderService.setAddedItemData(newItemData);
+  }
+
+  // Add this function to add a drink to the shared service
+  addDrinkToSharedService(drink: Drink) {
+    const newItemData = {
+      name: drink.name,
+      quantity: 1,
+      otherDrinkId: drink.otherDrinkId,
+      price: drink.price,
+    };
+    this.option2OrderService.setAddedItemData(newItemData);
+  }
+
   // add to order screen function
   addToMenuItemOrder(menuItem: MenuItem) {
     const existingItem = this.orderedItems.find((item) => item.name === menuItem.name);
@@ -161,9 +199,11 @@ export class OrderComponent  implements OnInit {
       const newOrderItem: OrderedItem = { name: menuItem.name, quantity: 1, menuItemId: menuItem.menuItemId, price: menuItem.price};
       this.orderedItems.push(newOrderItem);
     }
-  
+    
+    this.addMenuItemToSharedService(menuItem);
     this.updateSubtotal();
     this.updateSubtotalAndTotals();
+
   }
 
   addToDrinkOrder(drink: Drink) {
@@ -177,266 +217,63 @@ export class OrderComponent  implements OnInit {
       const newOrderItem: OrderedDrink = { name: drink.name, quantity: 1 , otherDrinkId: drink.otherDrinkId, price: drink.price};
       this.orderedDrinks.push(newOrderItem);
     }
+    this.addDrinkToSharedService(drink);
     this.updateSubtotal();
     this.updateSubtotalAndTotals();
   }
 
-  //to submit to kitchen screen function
-   /*submitOrder() {
-    if (this.tableNumber) {
-      
-      this.kitchenOrderNumber = `SIT-${this.generateOrderNumber()}`;
-    } else {
-      this.tableNumber = null;
-      this.kitchenOrderNumber = `TAKE-${this.generateOrderNumber()}`;
-    }
-
-     // Create arrays to store only the names of ordered items and drinks
-      const orderedItemNames: string[] = [];
-      const orderedDrinkNames: string[] = [];
-
-       // Extract the names of ordered items
-      for (const orderedItem of this.orderedItems) {
-      orderedItemNames.push(orderedItem.name);
-      }
-
-  // Extract the names of ordered drinks
-      for (const orderedDrink of this.orderedDrinks) {
-      orderedDrinkNames.push(orderedDrink.name);
-      }
-
- // Log the extracted item names and drink names
- console.log('Ordered Items:', orderedItemNames);
- console.log('Ordered Drinks:', orderedDrinkNames);
+  // Method to navigate to the "Edit Kitchen Order" screen and set data in SharedService
+navigateToEditKitchenOrder() {
+  const dataToPass = {
+    kitchenOrderId: this.kitchenOrderId,
+    kitchenOrderNumber: this.kitchenOrderNumber,
+    tableNumber: this.tableNumber,
+    orderedItems: this.orderedItems,
+    orderedDrinks: this.orderedDrinks,
+    subtotal: this.subtotal,
+    vat: this.vat,
+    discount: this.discount,
+    total: this.finalTotal
 
 
-    // TODO: Implement submitting order to the kitchen
-    const kitchenOrder: KitchenOrder = {
-      kitchenOrderId: 0, // This will be ignored by the server as it generates the ID
-      tableNumber: this.tableNumber || '', // Empty string if takeaway
-      kitchenOrderNumber: this.kitchenOrderNumber,
-      orderedItems:this.orderedItems,
-      orderedDrinks: this.orderedDrinks,
-      subtotal: Number(this.updateSubtotal()),
-      status: ''
-       // This will be calculated on the server
-    };
-     // Get existing kitchen orders from local storage
-     const existingOrders: KitchenOrder[] = this.orderService.getKitchenOrders();
 
-     // Append the new order to the existing orders
-     existingOrders.push(kitchenOrder);
- 
-     // Save the updated kitchen orders array to local storage using the OrderService
-     this.orderService.saveKitchenOrders(existingOrders);
+  };
 
-    console.log('Sending Kitchen Order:', kitchenOrder);
+  // Set the added item data in the SharedService
+  this.option2OrderService.setAddedItemData(dataToPass);
 
-    
+  // Navigate to the "Edit Kitchen Order" screen
+  this.router.navigate(['/edit-kitchen-order', this.kitchenOrderNumber]);
+}
 
 
-    
 
-    
-  }*/
-  async presentSuccessToast() {
-    const toast = await this.toastController.create({
-      message: 'Order submitted successfully!',
-      duration: 5000, // You can adjust the duration as needed
-      position: 'top', // You can change the position if desired
-      color: 'success', // You can change the color to match your design
-    });
-    toast.present();
-  }
+
 
   //NEW SUBMIT METHOD
-  /*submitOrder(isOpen: boolean) {
-    
-    // Ensure that orderedMenuItemDtos and orderedDrinkDtos are initialized as empty arrays
-  if (!this.orderMenuItemDtos) {
-    this.orderMenuItemDtos = [];
-  }
-  if (!this.orderDrinkDtos) {
-    this.orderDrinkDtos = [];
-  }
-
-  if (this.tableNumber) {
-      
-    this.kitchenOrderNumber = `SIT-${this.generateOrderNumber()}`;
-  } else {
-    this.tableNumber = '';
-    this.kitchenOrderNumber = `TAKE-${this.generateOrderNumber()}`;
-  }
-    // Gather all the necessary order details
-    const tableNumber = this.tableNumber;
-    const kitchenOrderNumber = this.kitchenOrderNumber;
-    const subtotal = this.subtotal;
-    const vat = this.totalVat;
-    const discount = this.totalDiscount;
-    const total = this.finalTotal;
-    const orderedMenuItems = this.orderedItems
-    const orderedDrinks = this.orderedDrinks
-    const orderedMenuItemDtos = this.orderedItems.map(item => ({
-      menuItemId: item.menuItemId,
-      quantity: item.quantity
-    }));
-    const orderedDrinkDtos = this.orderedDrinks.map(drink => ({
-      otherDrinkId: drink.otherDrinkId,
-      quantity: drink.quantity
-    }));
-
-    try{
-      
-    
-    // Call the service to send the order data to the backend
-    this.mainService.addKitchenOrder(
-      
-      tableNumber,
-      kitchenOrderNumber,
-      subtotal,
-      vat,
-      discount,
-      total,
-      orderedMenuItems,
-      orderedDrinks,
-      orderedMenuItemDtos,
-      orderedDrinkDtos,
-      
-    );
-     // Display a success notification
-    
-   
-    
-      // The order was successfully submitted
-      // You can add any additional logic here, e.g., clear the order form
-      this.isAlertOpen = isOpen;
-      this.router.navigate(['/view-kitchen-orders']);
-
-    } catch(error) {
-      // Handle any errors that occur during the submission
-      console.error('Error submitting order:', error);
-      // You can also display an error message to the user
-    }
-  }*/
-
-
-
-
-
-  ///lets play
+  submitOrder() {
+    // ... your existing code ...
   
-
-  async submitOrder() {
-    // Ensure that orderedMenuItemDtos and orderedDrinkDtos are initialized as empty arrays
-    if (!this.orderMenuItemDtos) {
-      this.orderMenuItemDtos = [];
-    }
-    if (!this.orderDrinkDtos) {
-      this.orderDrinkDtos = [];
-    }
-
-    // Generate a kitchen order number based on whether it's dine-in or take-away
-    if (this.tableNumber) {
-      this.kitchenOrderNumber = `SIT-${this.generateOrderNumber()}`;
-    } else {
-      this.tableNumber = '';
-      this.kitchenOrderNumber = `TAKE-${this.generateOrderNumber()}`;
-    }
-
-    // Gather all the necessary order details
-    const tableNumber = this.tableNumber;
-    const kitchenOrderNumber = this.kitchenOrderNumber;
-    const subtotal = this.subtotal;
-    const vat = this.totalVat;
-    const discount = this.totalDiscount;
-    const total = this.finalTotal;
-    const orderedMenuItems = this.orderedItems;
-    const orderedDrinks = this.orderedDrinks;
-
-    // Create DTOs for ordered items and drinks
-    const orderedMenuItemDtos = this.orderedItems.map(item => ({
-      menuItemId: item.menuItemId,
-      quantity: item.quantity,
-    }));
-    const orderedDrinkDtos = this.orderedDrinks.map(drink => ({
-      otherDrinkId: drink.otherDrinkId,
-      quantity: drink.quantity,
-    }));
-
-    try {
-      // Call the service to send the order data to the backend
-      await this.mainService.addKitchenOrder(
-        tableNumber,
-        kitchenOrderNumber,
-        subtotal,
-        vat,
-        discount,
-        total,
-        orderedMenuItems,
-        orderedDrinks,
-        orderedMenuItemDtos,
-        orderedDrinkDtos
-      );
-
-      // The order was successfully submitted
-      // You can add any additional logic here, e.g., clear the order form
-
-      // Display a success alert modal
-      const alert = await this.alertController.create({
-        header: 'Success',
-        message: 'Order submitted!',
-        buttons: [
-          {
-            text: 'OK',
-            handler: () => {
-              // This function is called when the "OK" button is clicked
-              // You can add any additional logic here if needed
-              // Navigate to another page after clicking "OK"
-              this.router.navigate(['/view-kitchen-orders']);
-            },
-          },
-        ],
-      });
-      await alert.present();
-
-      // Reset the ordered items and drinks after a successful order submission
-      this.orderedItems = [];
-      this.orderedDrinks = [];
-
-      // Clear the table number and kitchen order number
-      this.tableNumber = '';
-      this.kitchenOrderNumber = '';
-
-      // Reset subtotal, VAT, and Discount
-      this.subtotal = 0;
-      this.totalVat = 0;
-      this.totalDiscount = 0;
-      this.finalTotal = 0;
-    } catch (error) {
-      // Handle any errors that occur during the submission
-      console.error('Error submitting order:', error);
-
-      // Display an error alert modal
-      const alert = await this.alertController.create({
-        header: 'Error',
-        message: 'Error submitting order. Please try again.',
-        buttons: ['OK'],
-      });
-      await alert.present();
-    }
+    // Create a NavigationExtras object with the updated order data
+    const navigationExtras: NavigationExtras = {
+      state: {
+        updatedOrderData: {
+          tableNumber: this.tableNumber,
+          kitchenOrderNumber: this.kitchenOrderNumber,
+          orderedItems: this.orderedItems,
+          orderedDrinks: this.orderedDrinks,
+          subtotal: this.subtotal,
+          totalVat: this.totalVat,
+          totalDiscount: this.totalDiscount,
+          finalTotal: this.finalTotal,
+        },
+      },
+    };
+  
+    // Navigate back to the edit-kitchen-order screen and pass the updated data
+    this.router.navigate(['/update-kitchen-order'], navigationExtras);
   }
   
-
-  /*async presentSuccessAlert() {
-    console.log('present alert');
-    const alert = await this.alertController.create({
-      header: 'Success',
-      message: 'Order Submitted!',
-      buttons: ['OK'],
-    });
-  
-    await alert.present();
-  }*/
   
 
   //generateOrderNumber
@@ -545,10 +382,5 @@ export class OrderComponent  implements OnInit {
   return discountAmount;
   }
 
-  // Update subtotal, VAT, and Discount when ordered items change
-  
+
 }
-  
-
-
-

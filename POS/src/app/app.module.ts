@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +30,8 @@ import { CustomAlertComponent } from './success-custom-alert/custom-alert.compon
 import { EditKitchenOrderComponent } from './edit-kitchen-order/edit-kitchen-order.component';
 import { ViewKitchenOrdersComponent } from './view-kitchen-orders/view-kitchen-orders.component';
 import { AddKitchenOrderComponent } from './add-kitchen-order/add-kitchen-order.component';
+import { UpdateKitchenOrderComponent } from './update-kitchen-order/update-kitchen-order.component';
+import { AddItemComponent } from './add-item/add-item.component';
 
 
 
@@ -47,7 +50,9 @@ import { AddKitchenOrderComponent } from './add-kitchen-order/add-kitchen-order.
   CustomAlertComponent,
   EditKitchenOrderComponent,
   ViewKitchenOrdersComponent,
-  AddKitchenOrderComponent],
+  AddKitchenOrderComponent,
+  UpdateKitchenOrderComponent,
+  AddItemComponent],
 
  
 
@@ -62,8 +67,9 @@ import { AddKitchenOrderComponent } from './add-kitchen-order/add-kitchen-order.
   ReactiveFormsModule,
   HttpClientModule,
   BrowserAnimationsModule,
-  CommonModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, NotificationService],
+  CommonModule,
+  ],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, NotificationService, AlertController],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
