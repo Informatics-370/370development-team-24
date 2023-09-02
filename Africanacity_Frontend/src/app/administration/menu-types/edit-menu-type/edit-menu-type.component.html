@@ -1,0 +1,26 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <app-navbar></app-navbar>
+        </div>
+    <div class="col-md-10 order-md-1">
+<h1 style="text-align: center; font-size: 50px; font-family: 'Times New Roman', Times, serif;">Edit Menu Type</h1>
+<div class="container-md">
+    <form [formGroup]="editMenuTypeForm" autocomplete="off" (ngSubmit)="editMenuType()">
+        <div class="mb-1">
+            <label for="name" style="font-weight: bold;" class="form-label">Name</label>
+           
+                <input type="text" #name [ngClass]="{'form-control': true, 'is-invalid': editMenuTypeForm.get('name')?.invalid &&
+                (editMenuTypeForm.get('name')?.dirty || editMenuTypeForm.get('name')?.touched)}" Menu_TypeId="name" name="name"
+                    formControlName="name" placeholder="Name" style="width: 300px"><br>
+        </div>
+        
+        <button type="submit" class="btn btn-basic" [disabled]="!editMenuTypeForm.valid" (click)="editMenuType()">Edit</button>
+        <button type="button" class="btn btn-warning" style="margin-left: 2px;" [routerLink]="['/menu-types']">Cancel</button>
+        
+    </form>
+</div>
+    </div>
+    </div>
+</div>
+

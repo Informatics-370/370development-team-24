@@ -1,0 +1,41 @@
+<!--MENU TYPES PAGE-->
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-md-2">
+          <app-navbar></app-navbar>
+      </div>
+  <div class="col-md-10 order-md-1">
+<div class="container">  
+  <h3 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px;">Menu Types</h3>
+  <div class="input-group">
+    <input type="text" class="form-control" placeholder="Search">
+    <button class="btn">
+        <i class="fa fa-search" aria-hidden="true"></i>
+      </button>
+      <div class="addButton">
+      <button style="margin-left: 1em;" type="button" class="btn btn-sm btn-success"[routerLink]="['/add-menu-type']">New Menu Type</button>
+      </div>
+    <table class="table table-striped table-hover outlined-table table-container">
+      <thead class="tableColor">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of menuTypes">
+            <td>{{item.menu_TypeId}}</td>
+            <td>{{ item.name }}</td>
+            <td><button style="margin-right: 1em;" type="button" class="btn btn-info" [routerLink]="['/edit-menu-type', item.menu_TypeId]"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
+            <button type="button" class="btn btn-danger" (click)="deleteMenuType(item.menu_TypeId)"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+          </td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+  </div>
+</div>
+</div>
+

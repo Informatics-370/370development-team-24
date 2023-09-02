@@ -15,6 +15,9 @@ import { Entertainment_Type } from '../shared/entertainmentType';
 import { DrinkType } from '../shared/Drink_Type';
 import { Drink } from '../shared/Drink';
 import { EventInput } from '@fullcalendar/core';
+import { KitchenOrder } from '../shared/Kitchen_Order';
+import { Discount } from '../shared/Discount';
+import { VAT } from '../shared/Vat';
 
 
 @Injectable({
@@ -360,6 +363,7 @@ export class DataService {
     return this.httpClient.delete<string>(`${this.apiUrl}controller/DeleteDrink` + "/" + drinkId, this.httpOptions)
   }
 
+ // KITCHEN ORDER METHODS
 
    /********************************OTHER DRINK******************************/
     //GET MENU ITEMS
@@ -367,7 +371,13 @@ export class DataService {
       return this.httpClient.get(`${this.apiUrl}OtherDrink/DrinkItemListing`)
       .pipe(map(result => result));
     }
+ private orderSummary: KitchenOrder | null = null;
 
+ //get all table numbers
+  GetAllTableNumbers() {
+    return this.httpClient.get(`${this.apiUrl}Order/GetAllTableNumbers`)
+    .pipe(map(result => result))
+  }
 
     //add a new menu item
   AddDrink(file:FormData, amount: number){
@@ -460,5 +470,26 @@ DeleteEntertainmentType(entertainment_TypeId: Number)
   return this.httpClient.delete<string>(`${this.apiUrl}EntertainmentType/DeleteEntertainmentType` + "/" + entertainment_TypeId, this.httpOptions)
 }
 
+  //get all kitchen orders
+  getAllKitchenOrders(): Observable<KitchenOrder[]> {
+  return this.httpClient.get<KitchenOrder[]>(`${this.apiUrl}Order/GetAllKitchenOrders`);
+  }
 
+  //get Vat by Id
+  GetVatItemById(vatId: Number): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}Order/GetVatItem/${vatId}`);
+  }
+
+  //get Discount by Id
+  GetDiscountItemById(discountId: Number): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}Order/GetDiscountItem/${discountId}`);
+  }
+
+  setOrderSummary(orderSummary: KitchenOrder) {
+    this.orderSummary = orderSummary;
+  }
+
+  getOrderSummary(): KitchenOrder | null {
+    return this.orderSummary;
+  }
 }

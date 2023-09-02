@@ -165,7 +165,6 @@ import { InventoryService } from './service/inventory.service';
     AppComponent,
     HomeComponent,
     NavbarComponent,
-    LoginComponent,
     AddEmployeeComponent, 
     ViewEmployeesComponent, 
     AddHelpComponent, 
@@ -350,7 +349,11 @@ import { InventoryService } from './service/inventory.service';
       useFactory: adapterFactory
     })
   ],
-  providers: [DataService],
+  providers: [DataService,{
+    provide:HTTP_INTERCEPTORS,
+    useClass:TokenInterceptor,
+    multi:true
+  }],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
