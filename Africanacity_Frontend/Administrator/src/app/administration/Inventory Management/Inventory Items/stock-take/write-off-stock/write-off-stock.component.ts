@@ -2,6 +2,7 @@ import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { InventoryService } from 'src/app/service/inventory.service';
 import { InventoryItem } from 'src/app/shared/inventoryitem';
+import { WriteOffViewModel } from 'src/app/shared/stocktake';
 
 @Component({
   selector: 'app-write-off-stock',
@@ -12,6 +13,8 @@ import { InventoryItem } from 'src/app/shared/inventoryitem';
 export class WriteOffStockComponent implements OnInit{
 
   // inventoryItems: InventoryItem[] = [];
+
+  updatedItems!: WriteOffViewModel[]
 
   // constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 
@@ -25,15 +28,19 @@ export class WriteOffStockComponent implements OnInit{
     @Inject(MAT_DIALOG_DATA) public data: { items: any[] }
   ) {}
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    //throw new Error('Method not implemented.');
   }
 
   onOkButtonClick(): void {
     // Map items to updatedItems
-    const updatedItems = this.data.items.map(item => ({
+    /*const updatedItems = this.data.items.map(item => ({
       StockTakeItemId: item.inventory_ItemId,
       Reason: item.reason
-    }));
+    }));*/
+
+    let updatedItems = new WriteOffViewModel();
+    updatedItems.stockTakeItemId = updatedItems.stockTakeItemId,
+    updatedItems.reason = updatedItems.reason
 
     // Call the method to add write-off records
     this.inventoryService.AddWriteOffRecord(updatedItems).subscribe(

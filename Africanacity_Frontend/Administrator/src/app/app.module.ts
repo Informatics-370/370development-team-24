@@ -103,6 +103,12 @@ import { StockTakeComponent } from './administration/Inventory Management/Invent
 import { StockTakeListComponent } from './administration/Inventory Management/Inventory Items/stock-take/stock-take-list/stock-take-list.component';
 import { WriteOffStockComponent } from './administration/Inventory Management/Inventory Items/stock-take/write-off-stock/write-off-stock.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { SupplierComponent } from './administration/Reports/supplier/supplier.component';
+import { BookingComponent } from './administration/Reports/booking/booking.component';
+import { NgChartsModule } from 'ng2-charts';
+import { MenuReportComponent } from './administration/Reports/menu/menu.component';
+
+
 
 
 
@@ -123,7 +129,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     AppComponent,
     HomeComponent,
     NavbarComponent,
-    LoginComponent,
     AddEmployeeComponent, 
     ViewEmployeesComponent, 
     AddHelpComponent, 
@@ -218,6 +223,12 @@ import { MatDialogModule } from '@angular/material/dialog';
     StockTakeComponent,
     StockTakeListComponent,
     WriteOffStockComponent,
+    SupplierComponent,
+    BookingComponent,
+    MenuReportComponent,
+    ViewDrinkComponent,
+    
+    
     
     
 
@@ -255,13 +266,14 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatButtonModule,
     MatDialogModule,
     FullCalendarModule,
-    ModalModule.forRoot(), 
+    ModalModule.forRoot(),
+    NgChartsModule, 
   ],
-  providers: [DataService,{
+  /*providers: [DataService,{
     provide:HTTP_INTERCEPTORS,
     useClass:TokenInterceptor,
     multi:true
-  }],
+  }],*/
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

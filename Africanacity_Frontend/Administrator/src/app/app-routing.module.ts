@@ -75,6 +75,10 @@ import { InventoryReconciliationComponent } from './administration/Reports/inven
 import { InventoryComponent } from './administration/Reports/inventory/inventory.component';
 import { SalesComponent } from './administration/Reports/sales/sales.component';
 import { ScheduleComponent } from './administration/Reports/schedule/schedule.component';
+import { BookingComponent } from './administration/Reports/booking/booking.component';
+import { EntertainerReportComponent } from './administration/Reports/entertainer/entertainer.component';
+import { MenuReportComponent } from './administration/Reports/menu/menu.component';
+import { SupplierComponent } from './administration/Reports/supplier/supplier.component';
 import { MenuitemsComponent } from './administration/menuitems/menuitems.component';
 import { StockTakeComponent } from './administration/Inventory Management/Inventory Items/stock-take/stock-take.component';
 import { StockTakeListComponent } from './administration/Inventory Management/Inventory Items/stock-take/stock-take-list/stock-take-list.component';
@@ -82,7 +86,7 @@ import { WriteOffStockComponent } from './administration/Inventory Management/In
 
 
 const routes: Routes = [
-  { path: '', component: ViewOrdersComponent },
+  { path: '', component: EmployeeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'add-employee', component: AddEmployeeComponent }, // for add employee page
   { path: 'edit-employee/:id', component: EditEmployeeComponent},//Edit employee
@@ -214,11 +218,14 @@ const routes: Routes = [
   { path: 'inventory',component: InventoryComponent }, // for inventory report
   { path: 'inventory-reconciliation',component: InventoryReconciliationComponent }, // for inventory reconciliation report
   { path: 'sales',component: SalesComponent }, // for sales report
-  { path: 'schedule',component: ScheduleComponent },
+  { path: 'schedule',component: ScheduleComponent }, // for schedule report
+  { path: 'entertainer-report',component: EntertainerReportComponent }, // for entertainer report
+  { path: 'menu-report',component: MenuReportComponent }, // for menu report
+  { path: 'booking',component: BookingComponent }, // for booking report
+  { path: 'supplier',component: SupplierComponent }, // for supplier report
   {path: 'stock-take', component:StockTakeComponent},
   {path: 'stock-take-list', component:StockTakeListComponent},
-  {path: 'write-off-stock', component:WriteOffStockComponent},
-// for schedule
+  {path: 'write-off-stock', component:WriteOffStockComponent},// for schedule
   { path: '', redirectTo: 'home', pathMatch:'full'},
   
 ];

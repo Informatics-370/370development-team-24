@@ -63,16 +63,18 @@ export class AddScheduleComponent implements OnInit{
     })
   }
 
-  // onSave(): void {
-  //   if (this.scheduleform.valid) {
-  //     const eventData: Schedule = {
-  //       title: this.scheduleform.get('title')!.value,
-  //       start_time: this.scheduleform.get('start_time')!.value,
-  //       scheduleid: 0,
-  //       end_time: this.scheduleform.get('end_time')!.value,
-  //       event: this.scheduleform.get('event')!.value,
-  //       description: this.scheduleform.get('description')!.value,
-  //     };
+  onSave(): void {
+    if (this.scheduleform.valid) {
+      const eventData: Schedule = {
+        title: this.scheduleform.get('title')!.value,
+        start_time: this.scheduleform.get('start_time')!.value,
+        scheduleid: 0,
+        end_time: this.scheduleform.get('end_time')!.value,
+        event: this.scheduleform.get('event')!.value,
+        description: this.scheduleform.get('description')!.value,
+      };
+    }
+  }
 
        
       
@@ -92,7 +94,7 @@ export class AddScheduleComponent implements OnInit{
 
 
 
-  //  onCancel(): void {
-  //   this.dialogRef.close();
-  //  }
+  onCancel(): void {
+   this.dialogRef.close();
+  }
 }
