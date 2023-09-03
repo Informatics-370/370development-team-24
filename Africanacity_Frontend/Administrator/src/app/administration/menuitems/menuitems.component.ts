@@ -24,8 +24,12 @@ export class MenuitemsComponent implements OnInit{
   filteredmenuItems: MenuItem[] = [];
   
   dataSource = new MatTableDataSource <MenuItem>();
-  snackBar: any;
-  constructor(private dataService: DataService, private router: Router) { }
+
+  constructor(
+    private dataService: DataService, 
+    private router: Router,
+    private snackBar: MatSnackBar 
+    ) { }
   httpClient: any;
   apiUrl: any;
 
@@ -36,35 +40,28 @@ export class MenuitemsComponent implements OnInit{
     }
 
 
-deleteItem(): void{
- 
-  const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete the menu item?','Delete',{
-      duration: 5000,
-    });
-
-    confirmationSnackBar.onAction().subscribe(() => {
-      this.deleteItemFromServer();
-      window.location.reload();
-    })
-
-  }
-
-  deleteItemFromServer(): void{
-    this.deleteItem();
-    
-    
-  }
-
-
-deleteMenuItem(menuItemId: number){
-  this.dataService.deleteMenuItem(menuItemId).subscribe(result => {
-    this.deleteItem();
-  },
-  error =>{
-    console.error('Error deleting menu items', error);
-  }
-  );
-}
+    deleteMenuItem(menuItemId: number): void {
+      const confirmationSnackBar = this.snackBar.open(
+        'Are you sure you want to delete the menu item?',
+        'Delete',
+        {
+          duration: 5000,
+        }
+      );
+  
+      confirmationSnackBar.onAction().subscribe(() => {
+        this.deleteItemFromServer(menuItemId);
+      });
+    }
+  
+    deleteItemFromServer(menuItemId: number): void {
+      this.dataService.deleteMenuItem(menuItemId).subscribe((result) => {
+        // Handle the result or perform any additional actions after deletion if needed.
+        // You can reload the data if necessary.
+        window.location.reload();
+      });
+    }
+  
 
 //edit menu item html link
 editMenuItem(menuItemId: number): void {

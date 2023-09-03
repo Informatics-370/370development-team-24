@@ -99,7 +99,7 @@ export class EditDrinkComponent {
   editDrinkItem() {
     const updatedPrice = this.editDrinkForm.get('amount')!.value;
 
-    this.updateDrinkItemPrice(updatedPrice);
+   
 
     // Continue with saving the menu item
     let drinkItem = new OtherDrink();
@@ -108,6 +108,7 @@ export class EditDrinkComponent {
     drinkItem.drinkTypeName = this.editDrinkForm.value.drinkTypeName;
     
     drinkItem.amount = updatedPrice;
+ 
 
     this.dataService.editDrinkItem(this.otherDrinkId, drinkItem).subscribe(
       (response: any) => {
@@ -141,7 +142,7 @@ export class EditDrinkComponent {
       // Pass both MenuItem_PriceId and menuItemPriceViewModel
       this.price.editDrinkItemPrice(this.drinkItemPrice.otherDrinkPriceId, this.drinkItemPrice).subscribe(
         response => {
-          console.log('Menu item price updated successfully:', response);
+          console.log('Drink item price updated successfully:', response);
         },
         error => {
           console.error('Error updating menu item price:', error);

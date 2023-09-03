@@ -2,10 +2,12 @@
 {
     public class DrinkPriceViewModel
     {
-        public int Drink_PriceId { get; set; }
+        public int OtherDrinkPriceId { get; set; }
+		public int OtherDrinkId { get; set; }
 
-        public decimal Amount { get; set; }
 
-        public int DrinkId { get; set; }
+		public decimal Amount { get; set; }
+
+        
     }
 }

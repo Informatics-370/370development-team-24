@@ -56,10 +56,10 @@ export class EditMenuItemCategoryComponent {
     
     this.dataService.EditMenuItemCategory(this.editMenuItemCategory.menu_CategoryId, menuItemCategory).subscribe((response:any) => {
 
-      if(response.statusCode == 200)
+      if(response)
       {
         this.router.navigate(['/menu-item-category'])
-        window.location.reload();
+   
       }
       else
       {

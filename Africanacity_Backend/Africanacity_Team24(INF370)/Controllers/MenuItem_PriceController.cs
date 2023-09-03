@@ -5,6 +5,14 @@ using Africanacity_Team24_INF370_.models;
 using System.Reflection.Metadata.Ecma335;
 using Africanacity_Team24_INF370_.models.Restraurant;
 using Africanacity_Team24_INF370_.View_Models;
+using Africanacity_Team24_INF370_.models.Inventory;
+using Africanacity_Team24_INF370_.EmailService;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
+using System.Data.Entity.Infrastructure;
+using System.Threading.Tasks.Dataflow;
+using Org.BouncyCastle.Asn1.X509;
+using System.Data.Entity;
+using Serilog;
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
@@ -13,10 +21,11 @@ namespace Africanacity_Team24_INF370_.Controllers
     public class MenuItem_PriceController : ControllerBase
     {
         private readonly IRepository _repository;
-
-        public MenuItem_PriceController(IRepository repository)
+        private readonly AppDbContext _appDbContext;
+        public MenuItem_PriceController(IRepository repository, AppDbContext appDbContext)
         {
             _repository = repository;
+            _appDbContext = appDbContext;
         }
 
         //Get menu items'prices
@@ -44,7 +53,7 @@ namespace Africanacity_Team24_INF370_.Controllers
             {
                 var result = await _repository.GetAMenuItemPriceAsync(MenuItem_PriceId);
 
-                if (result == null) return NotFound("Course does not exist");
+                if (result == null) return NotFound("Price does not exist");
 
                 return Ok(result);
             }
@@ -59,7 +68,7 @@ namespace Africanacity_Team24_INF370_.Controllers
         [Route("AddMenuItemPrice")]
         public async Task<IActionResult> AddMenuItemPrice(MenuItemPriceViewModel menuItemPriceViewModel)
         {
-            var menuItemPrice = new MenuItem_Price { Amount = menuItemPriceViewModel.Amount};
+            var menuItemPrice = new MenuItem_Price { Amount = menuItemPriceViewModel.Amount };
 
             try
             {
@@ -75,30 +84,30 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
         //Update
-        [HttpPut]
-        [Route("EditMenuItemPrice/{MenuItem_PriceId}")]
-        public async Task<ActionResult<MenuItemPriceViewModel>> EditMenuItemPrice (int MenuItem_PriceId, MenuItemPriceViewModel menuItemPriceViewModel)
-        {
-            try
-            {
-                var existingMenuItemPrice = await _repository.GetAMenuItemPriceAsync(MenuItem_PriceId);
-                if (existingMenuItemPrice == null) return NotFound($"The course does not exist");
+        //[HttpPut]
+        //[Route("EditMenuItemPrice/{MenuItem_PriceId}")]
+        //public async Task<ActionResult<MenuItemPriceViewModel>> EditMenuItemPrice(int MenuItem_PriceId, MenuItemPriceViewModel menuItemPriceViewModel)
+        //{
+        //    try
+        //    {
+        //        var existingMenuItemPrice = await _repository.GetAMenuItemPriceAsync(MenuItem_PriceId);
+        //        if (existingMenuItemPrice == null) return NotFound($"The price does not exist");
 
-               existingMenuItemPrice.Amount = menuItemPriceViewModel.Amount;
+        //        existingMenuItemPrice.Amount = menuItemPriceViewModel.Amount;
 
 
 
-                if (await _repository.SaveChangesAsync())
-                {
-                    return Ok(existingMenuItemPrice);
-                }
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Internal Server Error. Please contact support.");
-            }
-            return BadRequest("Your request is invalid.");
-        }
+        //        if (await _repository.SaveChangesAsync())
+        //        {
+        //            return Ok(existingMenuItemPrice);
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return StatusCode(500, "Internal Server Error. Please contact support.");
+        //    }
+        //    return BadRequest("Your request is invalid.");
+        //}
 
         //Delete
         [HttpDelete]
@@ -109,7 +118,7 @@ namespace Africanacity_Team24_INF370_.Controllers
             {
                 var existingMenuItemPrice = await _repository.GetAMenuItemPriceAsync(MenuItem_PriceId);
 
-                if (existingMenuItemPrice == null) return NotFound($"The course does not exist");
+                if (existingMenuItemPrice == null) return NotFound($"The price does not exist");
 
                 _repository.Delete(existingMenuItemPrice);
 
@@ -122,5 +131,38 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
             return BadRequest("Your request is invalid.");
         }
-    }
+
+		[HttpPut]
+		[Route("EditMenuItemPrice/{MenuItem_PriceId}")]
+		public async Task<IActionResult> EditMenuItemPrice(int MenuItem_PriceId, MenuItemPriceViewModel menuItemPriceViewModel)
+		{
+			try
+			{
+				var existingMenuItemPrice = await _repository.GetAMenuItemPriceAsync(MenuItem_PriceId);
+				if (existingMenuItemPrice == null)
+				{
+					Log.Information("Price not found for MenuItem_PriceId: {MenuItem_PriceId}", MenuItem_PriceId);
+					return NotFound($"The price does not exist");
+				}
+
+				existingMenuItemPrice.Amount = menuItemPriceViewModel.Amount;
+
+				if (await _repository.SaveChangesAsync())
+				{
+					Log.Information("Price updated successfully for MenuItem_PriceId: {MenuItem_PriceId}", MenuItem_PriceId);
+					return Ok(existingMenuItemPrice);
+				}
+			}
+			catch (Exception ex)
+			{
+				Log.Error(ex, "Error updating menu item price");
+				return StatusCode(500, "Internal Server Error. Please contact support.");
+			}
+
+			Log.Warning("Invalid request to update price for MenuItem_PriceId: {MenuItem_PriceId}", MenuItem_PriceId);
+			return BadRequest("Your request is invalid.");
+		}
+
+	}
+
 }

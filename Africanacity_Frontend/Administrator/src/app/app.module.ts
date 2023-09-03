@@ -67,7 +67,6 @@ import { DrinkTypeComponent } from './administration/Drink Type/view-drink-type/
 import { CreateDrinkTypeComponent } from './administration/Drink Type/create-drink-type/create-drink-type.component';
 import { EditDrinkTypeComponent } from './administration/Drink Type/edit-drink-type/edit-drink-type.component';
 import { ViewDrinkComponent } from './administration/Drink/view-drink/view-drink.component';
-import { EditDrinkComponent } from './administration/Drink/edit-drink/edit-drink.component';
 import { CreateDrinkComponent } from './administration/Drink/create-drink/create-drink.component';
 import { EmployeeComponent } from './administration/Reports/employee/employee.component';
 import { InventoryComponent } from './administration/Reports/inventory/inventory.component';
@@ -148,6 +147,7 @@ import { HelpEditinvetorytypeComponent } from './administration/Inventory Manage
 import { HelpStocktakeComponent } from './administration/Inventory Management/Inventory Items/stock-take/help-stocktake/help-stocktake.component';
 import { HelpReceiveorderComponent } from './administration/Inventory Management/Inventory Items/receive-order/help-receiveorder/help-receiveorder.component';
 import { InventoryService } from './service/inventory.service';
+import { EditDrinkComponent } from './administration/otherDrink/edit-drink/edit-drink.component';
 
 
 @NgModule({

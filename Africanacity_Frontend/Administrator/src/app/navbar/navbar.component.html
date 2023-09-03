@@ -3,7 +3,9 @@
     <img src="../../assets/Nav_image/Africanacity.png" alt="Logo" class="logo-image">
     <span class="logo-text">Africanacity</span>
   </div>
+  <h4 style="margin-right: 5rem;"><b>Hello {{fullName}}</b></h4>
   <ul class="nav-links">
+ 
     <li>
       <a><i class="fa fa-home"></i> Home</a>
     </li>
@@ -66,66 +68,25 @@
     </li>  
     <li>
      <a href="#"> <i class="fa fa-music"></i> Entertainment <i class="fa fa-sort-desc" aria-hidden="true"></i></a>
-    
       <ul class="dropdown">
         <li>
           <a href="/schedule-display"><i class="fa fa-calendar-o" aria-hidden="true"></i> Schedule</a>
-        </li>
-    
+        </li>  
         <li>
           <a href="/view-events"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> Events</a>
           </li>
-       
         <li>
            <a href="/entertainment-types"><i class="fa fa-music" aria-hidden="true"></i> Entertainment Types</a>
          </li>
+      </ul>
+      </li>
 
-      </ul>
-    </li>  
-    <li>
-      <!-- <b> <a href="#"><i class="fa fa-bar-chart" aria-hidden="true"></i> Reports </a></b>
-     
-      <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
-        <ul class="dropdown">
-          <li>
-            <b> <a class="nav-link" routerLink="/sales"><i class="fa fa-circle-o" aria-hidden="true"></i> Sales</a></b>
-           </li>
-          <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
-          <li>
-            <b><a class="nav-link" routerLink="/inventory"><i class="fa fa-circle-o" aria-hidden="true"></i> Inventory</a></b>
-          </li>
-          <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
-          <li>
-            <b><a class="nav-link" routerLink="/inventory-reconciliation"><i class="fa fa-circle-o" aria-hidden="true"></i> Inventory Reconciliation</a></b>
-            </li>
-          <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
-          <li>
-            <b><a class="nav-link" routerLink="/employee"><i class="fa fa-circle-o" aria-hidden="true"></i> Employee</a></b>
-         </li>
-          <hr style=" text-align:left; margin-left:0; margin-top: -10px; border-width: 1px;">
-          
-        </ul>  -->
-      <a><i class="fa fa-bar-chart"></i> Reports</a>
-      <ul class="dropdown">
-        <li><a routerLink="/sales">Sales</a></li>
-        <li><a routerLink="/supplier">Supplier</a></li>
-        <li><a routerLink="/booking">Booking</a></li>
-        <li><a routerLink="/inventory">Inventory</a></li>
-        <li><a routerLink="/inventory-reconciliation">Inventory Reconciliation</a></li>
-        <li><a routerLink="/schedule">Schedule</a></li>
-        <li><a routerLink="/menu-report">Menu</a></li>
-        <li><a routerLink="/employee">Employee</a></li>
-        <li><a routerLink="/entertainer-report">Entertainer</a></li>
-      </ul>
-    </li>
     <li>
    <a> <i class="fa fa-fw fa-user"></i> Entertainer Management</a>
       <ul class="dropdown">
         <li>
           <a routerLink="../entertainer">Manage Entertainer</a>
         </li>
-      
-       
       </ul>
     </li>
     <li>
@@ -140,6 +101,38 @@
           </li>
         </ul>
       </li>
+      <li>
+        <a href="#"> <i class="fa fa-bar-chart"></i> Reports <i class="fa fa-sort-desc" aria-hidden="true"></i></a>
+         <ul class="dropdown">
+           <li>
+             <a href="/sales"><i class="fa fa-calendar-o" aria-hidden="true"></i> Sales</a>
+           </li>  
+           <li>
+             <a href="/supplier"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> Supplier</a>
+             </li>
+           <li>
+              <a href="/booking"><i class="fa fa-music" aria-hidden="true"></i> Booking</a>
+            </li>
+            <li>
+              <a href="/inventory"><i class="fa fa-music" aria-hidden="true"></i> Inventory</a>
+            </li>
+            <li>
+              <a href="/inventory-reconciliation"><i class="fa fa-music" aria-hidden="true"></i> Inventory Reconciliation</a>
+            </li>
+            <li>
+              <a href="/schedule"><i class="fa fa-music" aria-hidden="true"></i> Schedule</a>
+            </li>
+            <li>
+              <a href="/menu-report"><i class="fa fa-music" aria-hidden="true"></i> Menu</a>
+            </li>
+            <li>
+              <a href="/employee"><i class="fa fa-music" aria-hidden="true"></i> Employee</a>
+            </li>
+            <li>
+              <a href="/entertainer-report"><i class="fa fa-music" aria-hidden="true"></i> Entertainer</a>
+            </li>
+         </ul>
+         </li>
     <li>
       <a (click)="view()"> <i class="fa fa-fw fa-user-circle-o"></i> View Profile</a>
     

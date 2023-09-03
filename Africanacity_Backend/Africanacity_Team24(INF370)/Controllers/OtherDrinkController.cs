@@ -5,6 +5,7 @@ using Africanacity_Team24_INF370_.models;
 using System.Reflection.Metadata.Ecma335;
 using Africanacity_Team24_INF370_.models.Restraurant;
 using Africanacity_Team24_INF370_.View_Models;
+using Serilog;
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
@@ -99,9 +100,37 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         }
 
+		[HttpPut]
+		[Route("EditDrinkItem/{OtherDrinkId}")]
+		public async Task<ActionResult<OtherDrinkViewModel>> EditDrinkItem(int OtherDrinkId, [FromBody] OtherDrinkViewModel otherDrinkViewModel)
+		{
+			try
+			{
+				var existingDrink = await _repository.GetADrinkItemAsync(OtherDrinkId);
+				if (existingDrink == null) return NotFound($"The menu item does not exist");
 
-        //ADD A DRINK
-        [HttpPost]
+				existingDrink.Name = otherDrinkViewModel.Name;
+				existingDrink.Description = otherDrinkViewModel.Description;
+				existingDrink.Drink_TypeId = otherDrinkViewModel.Drink_TypeId;
+				
+
+
+
+				if (await _repository.SaveChangesAsync())
+				{
+					return Ok(existingDrink);
+				}
+			}
+			catch (Exception)
+			{
+				return StatusCode(500, "Internal Server Error. Please contact support.");
+			}
+			return BadRequest("Your request is invalid.");
+		}
+
+
+		//ADD A DRINK
+		[HttpPost]
         [Route("AddDrinkItem")]
         public async Task<IActionResult> AddDrinkItem(IFormCollection formData)
         {
@@ -187,12 +216,79 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
         }
 
+		[HttpPost]
+		[Route("AddDrinkPrice")]
+		public async Task<IActionResult> AddDrinkPrice(DrinkPriceViewModel drinkPriceViewModel)
+		{
+			var drinkPrice = new OtherDrinkPrice { Amount = drinkPriceViewModel.Amount };
+
+			try
+			{
+				_repository.Add(drinkPrice);
+				await _repository.SaveChangesAsync();
+			}
+			catch (Exception)
+			{
+				return BadRequest("Invalid transaction");
+			}
+
+			return Ok(drinkPrice);
+		}
+
+		[HttpPut]
+		[Route("EditDrinkPrice/{OtherDrinkPriceId}")]
+		public async Task<IActionResult> EditDrinkPrice(int OtherDrinkPriceId, DrinkPriceViewModel drinkPriceViewModel)
+		{
+			try
+			{
+				var existingDrinkPrice = await _repository.GetADrinkItemPriceAsync(OtherDrinkPriceId);
+				if (existingDrinkPrice == null)
+				{
+					Log.Information("Price not found for MenuItem_PriceId: {MenuItem_PriceId}", OtherDrinkPriceId);
+					return NotFound($"The price does not exist");
+				}
+
+				existingDrinkPrice.Amount = drinkPriceViewModel.Amount;
+
+				if (await _repository.SaveChangesAsync())
+				{
+					Log.Information("Price updated successfully for MenuItem_PriceId: {MenuItem_PriceId}", OtherDrinkPriceId);
+					return Ok(existingDrinkPrice);
+				}
+			}
+			catch (Exception ex)
+			{
+				Log.Error(ex, "Error updating menu item price");
+				return StatusCode(500, "Internal Server Error. Please contact support.");
+			}
+
+			Log.Warning("Invalid request to update price for MenuItem_PriceId: {MenuItem_PriceId}", OtherDrinkPriceId);
+			return BadRequest("Your request is invalid.");
+		}
 
 
+		[HttpDelete]
+		[Route("DeleteDrinkPrice/{OtherDrinkPriceId}")]
+		public async Task<IActionResult> DeleteDrinkPrice(int OtherDrinkPriceId)
+		{
+			try
+			{
+				var existingDrinkPrice = await _repository.GetADrinkItemPriceAsync(OtherDrinkPriceId);
 
+				if (existingDrinkPrice == null) return NotFound($"The price does not exist");
 
+				_repository.Delete(existingDrinkPrice);
 
+				if (await _repository.SaveChangesAsync()) return Ok(existingDrinkPrice);
 
+			}
+			catch (Exception)
+			{
+				return StatusCode(500, "Internal Server Error. Please contact support.");
+			}
+			return BadRequest("Your request is invalid.");
+		}
 
-    }
+	}
 }
+

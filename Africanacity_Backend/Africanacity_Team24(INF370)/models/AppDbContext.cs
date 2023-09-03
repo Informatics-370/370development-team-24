@@ -95,18 +95,13 @@ namespace Africanacity_Team24_INF370_.models
         public DbSet<OtherDrink> OtherDrinks { get; set; }
         public DbSet<OtherDrinkPrice> OtherDrinkPrices { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 		{
 
 			modelBuilder.Entity<User>().ToTable("Users");
 			base.OnModelCreating(modelBuilder);
 
-            // modelBuilder.Entity<StockTake>().HasMany(st => st.StockTakeItems).WithOne().OnDelete(DeleteBehavior.Cascade);
-
-            
-            //modelBuilder.Entity<MenuItem>().HasMany(st => st.OrderedMenuItems).WithOne().OnDelete(DeleteBehavior.Cascade);
-            //modelBuilder.Entity<KitchenOrder>().HasMany(st => st.OrderedDrinks).WithOne().OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Gender>()
                     .HasData(
                     new
@@ -653,7 +648,7 @@ namespace Africanacity_Team24_INF370_.models
    //                           Name = "Breakfast"
 
 
-            // Create Seed Data For The Employee Role Table:
+            //******************************************************************************* Create Seed Data For The Employee Role Table:
             modelBuilder.Entity<Employee_Role>()
                            .HasData(
                            new
@@ -705,7 +700,7 @@ namespace Africanacity_Team24_INF370_.models
                          });
 
 
-            // Create Seed Data For the FoodType Table:
+            // ************************************************************************************Create Seed Data For the FoodType Table:
             modelBuilder.Entity<Food_Type>()
                            .HasData(
                            new
@@ -875,7 +870,7 @@ namespace Africanacity_Team24_INF370_.models
 
             //                       });
 
-            //Create Seed Data for the Supplier Type table:
+            //****************************************************************************************************Create Seed Data for the Supplier Type table:
             modelBuilder.Entity<Supplier_Type>()
               .HasData(
               new
@@ -913,7 +908,7 @@ namespace Africanacity_Team24_INF370_.models
           
               });
 
-            // Seed data for supplier
+            //****************************************************************************************** Seed data for supplier
 
             modelBuilder.Entity<Supplier>()
               .HasData(
@@ -976,7 +971,9 @@ namespace Africanacity_Team24_INF370_.models
                  
               });
 
-              modelBuilder.Entity<Inventory_Type>()
+			//****************************************************************************************** Seed data for Inventory Type
+
+			modelBuilder.Entity<Inventory_Type>()
               .HasData(
               new
               {
@@ -1006,7 +1003,10 @@ namespace Africanacity_Team24_INF370_.models
           
               });
 
-              modelBuilder.Entity<Inventory_Item>()
+
+			//****************************************************************************************** Seed data for Inventory Item
+
+			modelBuilder.Entity<Inventory_Item>()
               .HasData(
             new
             {
@@ -1166,7 +1166,7 @@ namespace Africanacity_Team24_INF370_.models
  
 
                           
-            // Create Seed Data For the Events Table:
+            // ************************************************************************** Create Seed Data For the Events Table:
             modelBuilder.Entity<Event>()
                          .HasData(
                          new
@@ -1211,7 +1211,8 @@ namespace Africanacity_Team24_INF370_.models
                 Image = "image 4",
 
             });
-            // Create Seed Data For the Entertainments Type Table:
+
+            //********************************************************************* Create Seed Data For the Entertainments Type Table:
             modelBuilder.Entity<Entertainment_Type>()
                        .HasData(
                        new
@@ -1315,7 +1316,7 @@ namespace Africanacity_Team24_INF370_.models
                                    Schedule_StatusId = 1,
                                });
 
-            //Create Seed Data For the Schedule Status Entity:
+            //************************************************************************Create Seed Data For the Schedule Status Entity:
             modelBuilder.Entity<Schedule_Status>()
                      .HasData(
                       new
@@ -1349,7 +1350,7 @@ namespace Africanacity_Team24_INF370_.models
 
                      });
 
-            // Create Seed Data For the Menu Category Table:
+            //******************************************************************* Create Seed Data For the Menu Category Table:
             modelBuilder.Entity<MenuItem_Category>()
                            .HasData(
                            new
@@ -1403,7 +1404,7 @@ namespace Africanacity_Team24_INF370_.models
 
 
             
-            // Create Seed Data For the MenuItem Table:
+            //*********************************************************** Create Seed Data For the MenuItem Table:
             modelBuilder.Entity<MenuItem>()
                            .HasData(
                            new

@@ -17,7 +17,7 @@ import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar'
 export class CreateFoodTypeComponent {
   @ViewChild('toastContainer', { read: ViewContainerRef })
   toastContainer!: ViewContainerRef;
-  FoodTypeId: number = 0;
+  FoodTypeId!: number;
   AddFoodTypeForm!: FormGroup;
 
   constructor(private dataService: DataService, 
@@ -31,7 +31,6 @@ export class CreateFoodTypeComponent {
     //creating a form
     {
         this.AddFoodTypeForm = this.fb.group({
-        FoodTypeId: [0, [Validators.required]],
         name: ['', [Validators.required]],
         description: ['', [Validators.required]] 
       })

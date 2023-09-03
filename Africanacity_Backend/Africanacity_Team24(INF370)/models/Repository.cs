@@ -297,7 +297,7 @@ namespace Africanacity_Team24_INF370_.models
         }
 
 
-        //edit menu item with price
+        ////edit menu item with price
         public async Task<int> EditMenuItemWithPriceAsync(int MenuItemId, MenuItemViewModel menuItemViewModel, decimal amount)
         {
             MenuItem existingMenuItem = await _appDbContext.MenuItems
@@ -581,24 +581,24 @@ namespace Africanacity_Team24_INF370_.models
         }
 
 
-        public async Task<int> EditMenuItemPriceAsync(int MenuItem_PriceId, MenuItemPriceViewModel menuItemPriceViewModel)
-        {
-            int code = 200; ;
-            //Find the module in the database
-            MenuItem_Price findModule = await _appDbContext.MenuItem_Prices.Where(x => x.MenuItem_PriceId == MenuItem_PriceId).FirstOrDefaultAsync();
-            if (findModule == null)
-            {
-                code = 404;
-            }
-            else
-            {
-                findModule.Amount = menuItemPriceViewModel.Amount;
+        //public async Task<int> EditMenuItemPriceAsync(int MenuItem_PriceId, MenuItemPriceViewModel menuItemPriceViewModel)
+        //{
+        //    int code = 200; ;
+        //    //Find the module in the database
+        //    MenuItem_Price findModule = await _appDbContext.MenuItem_Prices.Where(x => x.MenuItem_PriceId == MenuItem_PriceId).FirstOrDefaultAsync();
+        //    if (findModule == null)
+        //    {
+        //        code = 404;
+        //    }
+        //    else
+        //    {
+        //        findModule.Amount = menuItemPriceViewModel.Amount;
 
-                _appDbContext.MenuItem_Prices.Update(findModule);
-                await _appDbContext.SaveChangesAsync();
-            }
-            return code;
-        }
+        //        _appDbContext.MenuItem_Prices.Update(findModule);
+        //        await _appDbContext.SaveChangesAsync();
+        //    }
+        //    return code;
+        //}
 
 
 

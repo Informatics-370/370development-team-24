@@ -368,12 +368,12 @@ namespace Africanacity_Team24_INF370_.Controllers
 			var newToken = resetPasswordDto.EmailToken.Replace(" ", "+");
 
 			// Check if the user exists in the Users table
-			var user = await _authContext.Users.FirstOrDefaultAsync(u => u.Email == resetPasswordDto.Email);
-			if (user == null)
+			var admin = await _authContext.Admins.FirstOrDefaultAsync(u => u.Email == resetPasswordDto.Email);
+			if (admin  == null)
 			{
 				// User not found in the Users table, let's check the Admins table
-				var admin = await _authContext.Admins.FirstOrDefaultAsync(a => a.Email == resetPasswordDto.Email);
-				if (admin == null)
+				var user = await _authContext.Users.FirstOrDefaultAsync(a => a.Email == resetPasswordDto.Email);
+				if (user == null)
 				{
 					return NotFound(new
 					{
@@ -384,8 +384,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 			}
 
-			var tokenCode = user.ResetPasswordToken;
-			DateTime emailTokenExpiry = user.ResetPasswordTokenExpiry;
+			var tokenCode = admin.ResetPasswordToken;
+			DateTime emailTokenExpiry = admin.ResetPasswordTokenExpiry;
 
 			if (tokenCode != resetPasswordDto.EmailToken || emailTokenExpiry < DateTime.Now)
 			{
@@ -396,8 +396,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 				});
 			}
 
-			user.Password = PasswordHasher.HashPassword(resetPasswordDto.NewPassword);
-			_authContext.Entry(user).State = EntityState.Modified;
+			admin.Password = PasswordHasher.HashPassword(resetPasswordDto.NewPassword);
+			_authContext.Entry(admin).State = EntityState.Modified;
 			await _authContext.SaveChangesAsync();
 
 			return Ok(new

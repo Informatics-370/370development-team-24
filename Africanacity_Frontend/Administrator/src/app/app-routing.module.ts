@@ -66,9 +66,9 @@ import { AddMenuItemComponent } from './administration/menuitems/add-menu-item/a
 import { EditMenuItemComponent } from './administration/menuitems/edit-menu-item/edit-menu-item.component';
 import { CreateDrinkTypeComponent } from './administration/Drink Type/create-drink-type/create-drink-type.component';
 import { EditDrinkTypeComponent } from './administration/Drink Type/edit-drink-type/edit-drink-type.component';
+import { EditDrinkComponent } from './administration/otherDrink/edit-drink/edit-drink.component';
 import { DrinkTypeComponent } from './administration/Drink Type/view-drink-type/view-drink-type.component';
 import { CreateDrinkComponent } from './administration/Drink/create-drink/create-drink.component';
-import { EditDrinkComponent } from './administration/Drink/edit-drink/edit-drink.component';
 import { ViewDrinkComponent } from './administration/Drink/view-drink/view-drink.component';
 import { EmployeeComponent } from './administration/Reports/employee/employee.component';
 import { InventoryReconciliationComponent } from './administration/Reports/inventory-reconciliation/inventory-reconciliation.component';
@@ -98,7 +98,7 @@ import { ViewOtherDrinkComponent } from './administration/otherDrink/view-other-
 import { CreateOtherDrinkComponent } from './administration/otherDrink/create-other-drink/create-other-drink.component';
 
 const routes: Routes = [
-  { path: '', component: EmployeeComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent , canActivate:[AuthGuard]},
   { path: 'add-employee', component: AddEmployeeComponent, canActivate:[AuthGuard] }, // for add employee page
   { path: 'edit-employee/:id', component: EditEmployeeComponent, canActivate:[AuthGuard]},//Edit employee
@@ -153,7 +153,7 @@ const routes: Routes = [
   {path:'entertainment-types', component: EntertainmentTypesComponent, canActivate:[AuthGuard]},
   {path:'edit-entertainment-type/:id', component: EditEntertainmentTypeComponent, canActivate:[AuthGuard]},
   {path:'add-entertainment-type', component: AddEntertainmentTypeComponent, canActivate:[AuthGuard]},
-  {path:'view-suppliers', component: ViewSuppliersComponent, canActivate:[AuthGuard]}, // for View Suppliers
+ // for View Suppliers
   {path: 'edit-supplier/:id', component: EditSupplierComponent, canActivate:[AuthGuard]},
   {path: 'add-supplier', component:AddSupplierComponent, canActivate:[AuthGuard]},
   {path:'view-suppliertypes', component: ViewSuppliertypesComponent, canActivate:[AuthGuard]},
@@ -170,8 +170,6 @@ const routes: Routes = [
   {path: 'inventory-stocktype', component: InventoryStocktypeComponent, canActivate:[AuthGuard]},
   {path: 'receive-order/:id', component:ReceiveOrderComponent, canActivate:[AuthGuard]},
   {path: 'view-orders', component:ViewOrdersComponent, canActivate:[AuthGuard]},
-  {path:'signup', component:SignupComponent, canActivate:[AuthGuard]},
-  {path:'reset', component:ResetComponent, canActivate:[AuthGuard]},
   {path:'view-profile',component:ViewProfileComponent, canActivate:[AuthGuard]},
   {path:'view-suppliers', component: ViewSuppliersComponent, canActivate:[AuthGuard]}, // for View Suppliers
   {path: 'edit-supplier/:id', component: EditSupplierComponent, canActivate:[AuthGuard]},
@@ -190,8 +188,8 @@ const routes: Routes = [
   {path: 'inventory-stocktype', component: InventoryStocktypeComponent, canActivate:[AuthGuard]},
   {path: 'receive-order/:id', component:ReceiveOrderComponent, canActivate:[AuthGuard]},
   {path: 'view-orders', component:ViewOrdersComponent, canActivate:[AuthGuard]},
-  {path:'signup', component:SignupComponent, canActivate:[AuthGuard]},
-  {path:'reset', component:ResetComponent, canActivate:[AuthGuard]},
+  {path:'signup', component:SignupComponent}, //SIGNUP
+  {path:'reset', component:ResetComponent},
   {path:'entertainment-types', component: EntertainmentTypesComponent, canActivate:[AuthGuard]},
   {path:'edit-entertainment-type/:id', component: EditEntertainmentTypeComponent, canActivate:[AuthGuard]},
   {path:'add-entertainment-type', component: AddEntertainmentTypeComponent, canActivate:[AuthGuard]},
@@ -266,32 +264,28 @@ const routes: Routes = [
   { path: 'create-food-type', component: CreateFoodTypeComponent , canActivate:[AuthGuard]},
   { path: 'edit-menu-item-category/:id', component: EditMenuItemCategoryComponent, canActivate:[AuthGuard]}, // for edit Menu Item Category page
   { path: 'create-menu-item-category', component: CreateMenuItemCategoryComponent, canActivate:[AuthGuard] },
-  // open on this page
-  // { path: '', component: ViewOrdersComponent },
-  // { path: 'home', component: HomeComponent },
-  //{ path: '', component: LoginComponent },
-  { path: 'add-employee', component: AddEmployeeComponent }, // for add employee page
-  { path: 'edit-employee/:id', component: EditEmployeeComponent},//Edit employee
-  { path: 'view-employees', component: ViewEmployeesComponent }, // for view employees page
-  { path: 'add-help', component: AddHelpComponent }, // for add help page
-  { path: 'view-help-list', component: ViewHelpListComponent }, // for view help list page 
-  { path: 'edit-help/:id', component: EditHelpComponent }, // for edit help page
-  { path: 'edit-menu-type/:id', component: EditMenuTypeComponent},//edit menu type 
-  { path: 'add-employee-role', component: AddEmployeeRoleComponent },// for add employee role
-  { path: 'edit-employee-role/:id', component: EditEmployeeRoleComponent },//for edit employee role
-  { path: 'employee-role', component: EmployeeRoleComponent },// for view employee role
-  { path: 'menu-types', component: MenuTypesComponent }, // for menu page
-  { path: 'add-menu-type', component: AddMenuTypeComponent}, //add menu type page
-  { path: 'menuitems', component: MenuitemsComponent},//For the menu item page
-  { path: 'add-menu-item',component:AddMenuItemComponent},//for add menu item page
-  { path: 'edit-menu-item/:id', component:EditMenuItemComponent}, // for edit menu item page
-  { path: 'employee-role',component: EmployeeRoleComponent },
-  { path: 'food-type', component: FoodTypeComponent }, // for foodType page
-  { path: 'menu-item-category', component: MenuItemCategoryComponent }, // for Menu Item Category page
-  { path: 'edit-food-type/:id', component: EditFoodTypeComponent }, // for edit food type
-  { path: 'create-food-type', component: CreateFoodTypeComponent },
-  { path: 'edit-menu-item-category/:id', component: EditMenuItemCategoryComponent}, // for edit Menu Item Category page
-  { path: 'create-menu-item-category', component: CreateMenuItemCategoryComponent },
+  { path: 'add-employee', component: AddEmployeeComponent , canActivate:[AuthGuard] }, // for add employee page
+  { path: 'edit-employee/:id', component: EditEmployeeComponent, canActivate:[AuthGuard] },//Edit employee
+  { path: 'view-employees', component: ViewEmployeesComponent , canActivate:[AuthGuard] }, // for view employees page
+  { path: 'add-help', component: AddHelpComponent , canActivate:[AuthGuard] }, // for add help page
+  { path: 'view-help-list', component: ViewHelpListComponent, canActivate:[AuthGuard]  }, // for view help list page 
+  { path: 'edit-help/:id', component: EditHelpComponent , canActivate:[AuthGuard] }, // for edit help page
+  { path: 'edit-menu-type/:id', component: EditMenuTypeComponent, canActivate:[AuthGuard] },//edit menu type 
+  { path: 'add-employee-role', component: AddEmployeeRoleComponent, canActivate:[AuthGuard]  },// for add employee role
+  { path: 'edit-employee-role/:id', component: EditEmployeeRoleComponent, canActivate:[AuthGuard]  },//for edit employee role
+  { path: 'employee-role', component: EmployeeRoleComponent , canActivate:[AuthGuard] },// for view employee role
+  { path: 'menu-types', component: MenuTypesComponent , canActivate:[AuthGuard] }, // for menu page
+  { path: 'add-menu-type', component: AddMenuTypeComponent, canActivate:[AuthGuard] }, //add menu type page
+  { path: 'menuitems', component: MenuitemsComponent, canActivate:[AuthGuard] },//For the menu item page
+  { path: 'add-menu-item',component:AddMenuItemComponent, canActivate:[AuthGuard] },//for add menu item page
+  { path: 'edit-menu-item/:id', component:EditMenuItemComponent, canActivate:[AuthGuard] }, // for edit menu item page
+  { path: 'employee-role',component: EmployeeRoleComponent, canActivate:[AuthGuard]  },
+  { path: 'food-type', component: FoodTypeComponent , canActivate:[AuthGuard] }, // for foodType page
+  { path: 'menu-item-category', component: MenuItemCategoryComponent, canActivate:[AuthGuard]  }, // for Menu Item Category page
+  { path: 'edit-food-type/:id', component: EditFoodTypeComponent, canActivate:[AuthGuard]  }, // for edit food type
+  { path: 'create-food-type', component: CreateFoodTypeComponent , canActivate:[AuthGuard] },
+  { path: 'edit-menu-item-category/:id', component: EditMenuItemCategoryComponent, canActivate:[AuthGuard] }, // for edit Menu Item Category page
+  { path: 'create-menu-item-category', component: CreateMenuItemCategoryComponent , canActivate:[AuthGuard] },
    ///SCHEDULE
   {path:'schedule-display', component: ScheduleDisplayComponent, canActivate:[AuthGuard]},
   {path:'edit-schedule/:id', component: EditScheduleComponent, canActivate:[AuthGuard]},
@@ -375,7 +369,6 @@ const routes: Routes = [
   { path: 'edit-drink-type/:id', component: EditDrinkTypeComponent, canActivate:[AuthGuard] }, // for edit drink type page
   { path: 'view-drink', component: ViewDrinkComponent, canActivate:[AuthGuard] }, //for drink page
   { path: 'create-drink', component: CreateDrinkComponent, canActivate:[AuthGuard] }, // for create drink page
-  { path: 'edit-drink/:id', component: EditDrinkComponent, canActivate:[AuthGuard] }, // for edit drink page
   { path: 'employee',component: EmployeeComponent, canActivate:[AuthGuard] }, // for employee report
   { path: 'inventory',component: InventoryComponent, canActivate:[AuthGuard] }, // for inventory report
   { path: 'inventory-reconciliation',component: InventoryReconciliationComponent, canActivate:[AuthGuard] }, // for inventory reconciliation report

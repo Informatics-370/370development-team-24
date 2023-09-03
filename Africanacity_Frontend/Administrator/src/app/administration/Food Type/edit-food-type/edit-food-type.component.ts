@@ -50,7 +50,7 @@ export class EditFoodTypeComponent {
 
     this.dataService.EditFoodType(this.editFoodType.foodTypeId,foodType).subscribe((response:any) => {
 
-      if(response.statusCode == 200)
+      if(response)
       {
         this.router.navigate(['/food-type'])
         window.location.reload();

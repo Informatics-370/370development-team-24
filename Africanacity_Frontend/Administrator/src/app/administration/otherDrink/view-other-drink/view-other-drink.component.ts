@@ -42,6 +42,8 @@ ngOnInit(): void {
 
     return column2Value.includes(filterValue);
   });
+
+  
 }
 
 
@@ -51,6 +53,10 @@ ngOnInit(): void {
 
 
 
+editDrinkItem(otherDrinkId: number): void {
+  
+  this.router.navigate(['/edit-drink', otherDrinkId]);
+}
 
 
 

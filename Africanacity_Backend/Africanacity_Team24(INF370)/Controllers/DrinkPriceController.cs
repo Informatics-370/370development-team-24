@@ -6,6 +6,7 @@ using System.Reflection.Metadata.Ecma335;
 using Africanacity_Team24_INF370_.models.Restraurant;
 using Africanacity_Team24_INF370_.View_Models;
 
+
 namespace Africanacity_Team24_INF370_.Controllers
 {
     [Route("api/[controller]")]
@@ -54,10 +55,10 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
         }
 
-        
+	
 
-        
 
-        
-    }
+
+
+}
 }

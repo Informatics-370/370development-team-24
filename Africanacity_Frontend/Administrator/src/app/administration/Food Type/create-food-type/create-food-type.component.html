@@ -29,7 +29,7 @@
                         <div class="form-group">
                             <div class="col-sm-offset-1 col-sm-6">
                                 <button style="margin-right:1em;" type="submit" [disabled]="!AddFoodTypeForm.valid" class="btn btn-sm btn-success">Confirm</button>
-                                <button type="button" class="btn btn-sm btn-danger" onclick="cancel()">Cancel</button>
+                                <button type="button" class="btn btn-sm btn-danger"  (click)="cancel()">Cancel</button>
                             </div>
                         </div>
                     </form>

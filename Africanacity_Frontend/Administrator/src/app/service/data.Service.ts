@@ -18,6 +18,7 @@ import { EventInput } from '@fullcalendar/core';
 import { KitchenOrder } from '../shared/Kitchen_Order';
 import { Discount } from '../shared/Discount';
 import { VAT } from '../shared/Vat';
+import { OtherDrink } from '../shared/other-drink';
 
 
 @Injectable({
@@ -172,27 +173,27 @@ export class DataService {
     // }
     // food type
     GetAllFoodTypes(): Observable<any>{
-      return this.httpClient.get(`${this.apiUrl}foodType/GetAllFoodTypes`).pipe(map(result => result)) 
+      return this.httpClient.get(`${this.apiUrl}FoodType/GetAllFoodTypes`).pipe(map(result => result)) 
     }
   
     GetFoodType(foodTypeId: number)
     {
-      return this.httpClient.get(`${this.apiUrl}foodType/GetFoodType` + "/" + foodTypeId).pipe(map(result => result))
+      return this.httpClient.get(`${this.apiUrl}FoodType/GetFoodType` + "/" + foodTypeId).pipe(map(result => result))
     }
   
     AddFoodType(foodType : FoodType)
     {
-      return this.httpClient.post(`${this.apiUrl}foodTypeController/AddFoodType`, foodType, this.httpOptions)
+      return this.httpClient.post(`${this.apiUrl}FoodType/AddFoodType`, foodType, this.httpOptions)
     }
   
     EditFoodType(foodTypeId: number, foodType: FoodType)
     {
-      return this.httpClient.put(`${this.apiUrl}foodType/EditFoodType/${foodTypeId}`, foodType, this.httpOptions)
+      return this.httpClient.put(`${this.apiUrl}FoodType/EditFoodType/${foodTypeId}`, foodType, this.httpOptions)
     }
   
     DeleteFoodType(foodTypeId: number)
     {
-      return this.httpClient.delete<string>(`${this.apiUrl}foodType/DeleteFoodType` + "/" + foodTypeId, this.httpOptions)
+      return this.httpClient.delete<string>(`${this.apiUrl}FoodType/DeleteFoodType` + "/" + foodTypeId, this.httpOptions)
     }
   
     // menu item category
@@ -363,15 +364,26 @@ export class DataService {
     return this.httpClient.delete<string>(`${this.apiUrl}controller/DeleteDrink` + "/" + drinkId, this.httpOptions)
   }
 
+
+  
+
  // KITCHEN ORDER METHODS
 
    /********************************OTHER DRINK******************************/
-    //GET MENU ITEMS
+    
     GetAllDrinks(): Observable<any>{
       return this.httpClient.get(`${this.apiUrl}OtherDrink/DrinkItemListing`)
       .pipe(map(result => result));
     }
  private orderSummary: KitchenOrder | null = null;
+
+ GetDrinkItemById(otherDrinkId: number): Observable<any>{
+  return this.httpClient.get(`${this.apiUrl}OtherDrink/GetDrinkItem/${otherDrinkId}`);
+}
+
+editDrinkItem(OtherDrinkId: number, drinkItem: OtherDrink): Observable<OtherDrink> {
+  return this.httpClient.put<OtherDrink>(`${this.apiUrl}OtherDrink/EditDrinkPrice/${OtherDrinkId}`, drinkItem,this.httpOptions);
+}
 
  //get all table numbers
   GetAllTableNumbers() {

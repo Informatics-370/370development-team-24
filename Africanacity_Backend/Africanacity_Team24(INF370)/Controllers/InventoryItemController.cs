@@ -628,7 +628,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                 // Handle exceptions and return appropriate responses
                 return BadRequest("An error occurred while adding write-off records. Please check the logs for more details.");
             }
-        }*/
+        }
 
         internal int StockTakeFunction()
         {

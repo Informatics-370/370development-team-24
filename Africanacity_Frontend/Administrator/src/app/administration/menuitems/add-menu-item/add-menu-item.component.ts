@@ -103,7 +103,9 @@ clearData(){
   this.formData.delete("menuCategory");
 }
 
-
+cancel() {
+  this.router.navigate(['/menuitems']);
+}
 
 
 

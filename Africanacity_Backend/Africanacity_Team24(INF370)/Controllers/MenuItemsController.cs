@@ -188,34 +188,34 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 
 
-        //[HttpPut]
-        //    [Route("EditMenuItem/{MenuItemId}")]
-        //    public async Task<ActionResult<MenuItemViewModel>> EditMenuItem(int MenuItemId, [FromBody] MenuItemViewModel menuItemViewModel)
-        //    {
-        //        try
-        //        {
-        //            var existingMeal = await _repository.GetMenuItemAsync(MenuItemId);
-        //            if (existingMeal == null) return NotFound($"The menu item does not exist");
+        [HttpPut]
+        [Route("EditMenuItem/{MenuItemId}")]
+        public async Task<ActionResult<MenuItemViewModel>> EditMenuItem(int MenuItemId, [FromBody] MenuItemViewModel menuItemViewModel)
+        {
+            try
+            {
+                var existingMeal = await _repository.GetMenuItemAsync(MenuItemId);
+                if (existingMeal == null) return NotFound($"The menu item does not exist");
 
-        //            existingMeal.Name = menuItemViewModel.Name;
-        //            existingMeal.Description = menuItemViewModel.Description;
-        //            existingMeal.Menu_TypeId = menuItemViewModel.MenuTypeId;
-        //            existingMeal.FoodTypeId = menuItemViewModel.FoodTypeId;
-        //            existingMeal.Menu_CategoryId = menuItemViewModel.MenuCategoryId;
+                existingMeal.Name = menuItemViewModel.Name;
+                existingMeal.Description = menuItemViewModel.Description;
+                existingMeal.Menu_TypeId = menuItemViewModel.Menu_TypeId;
+                existingMeal.FoodTypeId = menuItemViewModel.FoodTypeId;
+                existingMeal.Menu_CategoryId = menuItemViewModel.Menu_CategoryId;
 
 
 
-        //            if (await _repository.SaveChangesAsync())
-        //            {
-        //                return Ok(existingMeal);
-        //            }
-        //        }
-        //        catch (Exception)
-        //        {
-        //            return StatusCode(500, "Internal Server Error. Please contact support.");
-        //        }
-        //        return BadRequest("Your request is invalid.");
-        //    }
+                if (await _repository.SaveChangesAsync())
+                {
+                    return Ok(existingMeal);
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+            return BadRequest("Your request is invalid.");
+        }
 
 
 

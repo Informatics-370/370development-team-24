@@ -102,18 +102,21 @@ export class EditEmployeeComponent implements OnInit {
 
     this.employeeservice.EditEmployee(this.editEmployee.employeeId, employee).subscribe(
       (response: any) => {
-        if (response.statusCode === 200) {
+        if (response) {
           this.router.navigate(['/view-employees']);
-          window.location.reload();
+         
           this.showSuccessMessage( employee.firstName + 'Information updated successfully!');
         } else {
           this.showSuccessMessage( employee.firstName + 'Information cannot be updated!');
         }
       },
+      
       (error) => {
         this.showSuccessMessage( employee.firstName +'s' +'' + 'Information cannot be updated!');
       }
+      
     );
+   
   }
 
   showSuccessMessage(message: string): void {
