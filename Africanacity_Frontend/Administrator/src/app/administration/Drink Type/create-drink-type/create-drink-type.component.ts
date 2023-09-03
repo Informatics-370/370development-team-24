@@ -56,7 +56,7 @@ export class CreateDrinkTypeComponent {
 
   cancel()
   {
-    this.router.navigate(['/drink-type'])
+    this.router.navigate(['/view-drink-type'])
   }
 
   AddDrinkType()
