@@ -93,7 +93,7 @@ padding: 20px;
              </fieldset>
           <fieldset>
             <label for="entertainmenttype"> Entertainment Type
-              <select class="form-control" id="entertainmenttype" formControlName="entertainmenttype">
+              <select style="width: 15rem" class="form-control" id="entertainmenttype" formControlName="entertainmenttype">
                 <option *ngFor="let item of entertainmentTypeData" [value]="item.entertainment_TypeId">{{ item.name }}</option>
               </select>
               <span class="fa fa-caret-down dropdown-icon"></span>
