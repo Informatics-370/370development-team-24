@@ -306,6 +306,7 @@ import { EditDrinkComponent } from './administration/otherDrink/edit-drink/edit-
     ViewDrinkComponent,
     CreateOtherDrinkComponent,
     ViewOtherDrinkComponent,
+    ViewProfileComponent
 
   ],
   imports: [

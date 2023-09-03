@@ -47,9 +47,8 @@ export class EditEntertainmentTypeComponent implements OnInit{
       entertainmentType.description= this.updateTypeForm.value.description;
 
       this.dataService.EditEntertainmentType(this.editType.entertainment_TypeId,entertainmentType).subscribe((response:any)=>{
-        if (response.statusCode === 200) {
+        if (response) {
           this.router.navigate(['/entertainment-types']);
-          window.location.reload();
           this.showSuccessMessage('Entertainment Type updated successfully!');
         } else {
           // Handle error if needed

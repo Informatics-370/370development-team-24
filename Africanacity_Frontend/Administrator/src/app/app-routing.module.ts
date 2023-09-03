@@ -97,6 +97,7 @@ import { EventDetailsDailogComponent } from './administration/booking/schedule/e
 import { ViewOtherDrinkComponent } from './administration/otherDrink/view-other-drink/view-other-drink.component';
 import { CreateOtherDrinkComponent } from './administration/otherDrink/create-other-drink/create-other-drink.component';
 
+
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent , canActivate:[AuthGuard]},
@@ -170,7 +171,6 @@ const routes: Routes = [
   {path: 'inventory-stocktype', component: InventoryStocktypeComponent, canActivate:[AuthGuard]},
   {path: 'receive-order/:id', component:ReceiveOrderComponent, canActivate:[AuthGuard]},
   {path: 'view-orders', component:ViewOrdersComponent, canActivate:[AuthGuard]},
-  {path:'view-profile',component:ViewProfileComponent, canActivate:[AuthGuard]},
   {path:'view-suppliers', component: ViewSuppliersComponent, canActivate:[AuthGuard]}, // for View Suppliers
   {path: 'edit-supplier/:id', component: EditSupplierComponent, canActivate:[AuthGuard]},
   {path: 'add-supplier', component:AddSupplierComponent, canActivate:[AuthGuard]},

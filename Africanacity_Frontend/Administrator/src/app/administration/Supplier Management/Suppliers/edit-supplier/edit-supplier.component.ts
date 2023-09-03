@@ -79,9 +79,8 @@ export class EditSupplierComponent implements OnInit {
 
     this.supplierservice.EditSupplier(this.editSupplier.supplierId, supplier).subscribe(
       (response: any) => {
-        if (response.statusCode === 200) {
+        if (response) {
           this.router.navigate(['./view-suppliers']);
-          window.location.reload();
           this.showSuccessMessage('Supplier Information updated successfully!');
         } else {
           // Handle error if needed

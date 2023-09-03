@@ -103,7 +103,7 @@ import { Inventory_Prices } from '../shared/inventoryPrices';
 
     EditInventoryType(inventory_TypeId: number, inventorytype: InventoryType)
     {
-      return this.httpClient.put(`${this.apiUrl}InventoryType/EditInventoryType/${inventory_TypeId}`,inventorytype, this.httpOptions)
+      return this.httpClient.put(`${this.apiUrl}InventoryType/EditInvetroyType/${inventory_TypeId}`,inventorytype, this.httpOptions)
     }
 
     AddInventoryType(inventorytype: InventoryType)

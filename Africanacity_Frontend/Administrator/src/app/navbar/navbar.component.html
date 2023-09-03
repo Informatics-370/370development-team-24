@@ -5,10 +5,7 @@
   </div>
   <h4 style="margin-right: 5rem;"><b>Hello {{fullName}}</b></h4>
   <ul class="nav-links">
- 
-    <li>
-      <a><i class="fa fa-home"></i> Home</a>
-    </li>
+    <li><a><i class="fa fa-home"></i> Home</a></li>
     <li>
       <a><i class="fa fa-group"></i> Employee Management</a>
       <ul class="dropdown">
@@ -27,122 +24,69 @@
       </ul>
     </li>
     <li>
-      <a ><i class="fa fa-glass"></i> Drink Management</a>
+      <a><i class="fa fa-glass"></i> Drink Management</a>
       <ul class="dropdown">
-        <li>
-        <a routerLink="/view-other-drink"> Drink Items</a>
-         </li>
-        
-        <li>
-           <a routerLink="/view-drink-type"> Drink Types</a>
-         </li>
+        <li><a routerLink="/view-other-drink">Drink Items</a></li>
+        <li><a routerLink="/view-drink-type">Drink Types</a></li>
       </ul>
     </li>
     <li>
-      <a > <i class="fa fa-fw fa-folder"></i> Inventory Management</a>
+      <a><i class="fa fa-fw fa-folder"></i> Inventory Management</a>
       <ul class="dropdown">
-        <li><a class="nav-link" routerLink="/add-inventoryitem"> Add Inventory Item</a></li>
-        <li><a class="nav-link" routerLink="/selected-inventorytype"> View Inventory Items</a></li>
-        <li><a class="nav-link" routerLink="/view-inventorytypes"> Inventory Types</a></li>
+        <li><a class="nav-link" routerLink="/add-inventoryitem">Add Inventory Item</a></li>
+        <li><a class="nav-link" routerLink="/selected-inventorytype">View Inventory Items</a></li>
+        <li><a class="nav-link" routerLink="/view-inventorytypes">Inventory Types</a></li>
         <li><a class="nav-link" routerLink="/checklist">View Checklist</a></li>
         <li><a class="nav-link" routerLink="/view-orders">Inventory Orders</a></li>
         <li><a class="nav-link" routerLink="/stock-take">Stock Take</a></li>
         <li><a class="nav-link" routerLink="/stock-take-list">View Stock Take</a></li>
       </ul>
-
     </li>
     <li>
-       <a> <i class="fa fa-fw fa-users"></i> Supplier Management <i class="fa fa-sort-desc" aria-hidden="true"></i></a>
+      <a><i class="fa fa-fw fa-users"></i> Supplier Management <i class="fa fa-sort-desc" aria-hidden="true"></i></a>
       <ul class="dropdown">
-        <li>
-         <a class="nav-link" routerLink="/add-supplier"> Add Supplier</a>
-        </li>
-
-        <li>
-         <a class="nav-link" routerLink="/view-suppliers"> View Suppliers</a>
-         </li>
-        <li>
-           <a class="nav-link" routerLink="/view-suppliertypes"> Supplier Types</a>
-         </li>
+        <li><a class="nav-link" routerLink="/add-supplier">Add Supplier</a></li>
+        <li><a class="nav-link" routerLink="/view-suppliers">View Suppliers</a></li>
+        <li><a class="nav-link" routerLink="/view-suppliertypes">Supplier Types</a></li>
       </ul>
     </li>  
     <li>
-     <a href="#"> <i class="fa fa-music"></i> Entertainment <i class="fa fa-sort-desc" aria-hidden="true"></i></a>
+      <a><i class="fa fa-music"></i> Entertainment <i class="fa fa-sort-desc" aria-hidden="true"></i></a>
       <ul class="dropdown">
-        <li>
-          <a href="/schedule-display"><i class="fa fa-calendar-o" aria-hidden="true"></i> Schedule</a>
-        </li>  
-        <li>
-          <a href="/view-events"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> Events</a>
-          </li>
-        <li>
-           <a href="/entertainment-types"><i class="fa fa-music" aria-hidden="true"></i> Entertainment Types</a>
-         </li>
-      </ul>
-      </li>
-
-    <li>
-   <a> <i class="fa fa-fw fa-user"></i> Entertainer Management</a>
-      <ul class="dropdown">
-        <li>
-          <a routerLink="../entertainer">Manage Entertainer</a>
-        </li>
+        <li><a routerLink="/add-schedule"><i class="fa fa-calendar-o" aria-hidden="true"></i> Add Schedule</a></li>
+        <li><a routerLink="/schedule-display"><i class="fa fa-calendar-o" aria-hidden="true"></i> Schedule</a></li>
+        <li><a routerLink="/view-events"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> Events</a></li>
+        <li><a routerLink="/entertainment-types"><i class="fa fa-music" aria-hidden="true"></i> Entertainment Types</a></li>
       </ul>
     </li>
     <li>
-      <li>
-       <a> <i class="fa fa-fw fa-book"></i> Booking Management</a>
-        <ul class="dropdown">
-          <li>
-         <a routerLink="../manage-booking">Manage Booking</a>
-            </li>
-          <li>
-            <a routerLink="../booking-listing">Booking Lisitng</a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="#"> <i class="fa fa-bar-chart"></i> Reports <i class="fa fa-sort-desc" aria-hidden="true"></i></a>
-         <ul class="dropdown">
-           <li>
-             <a href="/sales"><i class="fa fa-calendar-o" aria-hidden="true"></i> Sales</a>
-           </li>  
-           <li>
-             <a href="/supplier"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> Supplier</a>
-             </li>
-           <li>
-              <a href="/booking"><i class="fa fa-music" aria-hidden="true"></i> Booking</a>
-            </li>
-            <li>
-              <a href="/inventory"><i class="fa fa-music" aria-hidden="true"></i> Inventory</a>
-            </li>
-            <li>
-              <a href="/inventory-reconciliation"><i class="fa fa-music" aria-hidden="true"></i> Inventory Reconciliation</a>
-            </li>
-            <li>
-              <a href="/schedule"><i class="fa fa-music" aria-hidden="true"></i> Schedule</a>
-            </li>
-            <li>
-              <a href="/menu-report"><i class="fa fa-music" aria-hidden="true"></i> Menu</a>
-            </li>
-            <li>
-              <a href="/employee"><i class="fa fa-music" aria-hidden="true"></i> Employee</a>
-            </li>
-            <li>
-              <a href="/entertainer-report"><i class="fa fa-music" aria-hidden="true"></i> Entertainer</a>
-            </li>
-         </ul>
-         </li>
-    <li>
-      <a (click)="view()"> <i class="fa fa-fw fa-user-circle-o"></i> View Profile</a>
-    
+      <a><i class="fa fa-fw fa-user"></i> Entertainer Management</a>
+      <ul class="dropdown">
+        <li><a routerLink="../entertainer">Manage Entertainer</a></li>
+      </ul>
     </li>
     <li>
-      <a (click)="logout()"><i class="fa fa-sign-out"></i> LOGOUT </a>    
+      <a><i class="fa fa-fw fa-book"></i> Booking Management</a>
+      <ul class="dropdown">
+        <li><a routerLink="../manage-booking">Manage Booking</a></li>
+        <li><a routerLink="../booking-listing">Booking Listing</a></li>
+      </ul>
     </li>
+    <li>
+      <a><i class="fa fa-bar-chart"></i> Reports <i class="fa fa-sort-desc" aria-hidden="true"></i></a>
+      <ul class="dropdown">
+        <li><a routerLink="/sales"><i class="fa fa-calendar-o" aria-hidden="true"></i> Sales</a></li>
+        <li><a routerLink="/supplier"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> Supplier</a></li>
+        <li><a routerLink="/booking"><i class="fa fa-music" aria-hidden="true"></i> Booking</a></li>
+        <li><a routerLink="/inventory"><i class="fa fa-music" aria-hidden="true"></i> Inventory</a></li>
+        <li><a routerLink="/inventory-reconciliation"><i class="fa fa-music" aria-hidden="true"></i> Inventory Reconciliation</a></li>
+        <li><a routerLink="/schedule"><i class="fa fa-music" aria-hidden="true"></i> Schedule</a></li>
+        <li><a routerLink="/menu-report"><i class="fa fa-music" aria-hidden="true"></i> Menu</a></li>
+        <li><a routerLink="/employee"><i class="fa fa-music" aria-hidden="true"></i> Employee</a></li>
+        <li><a routerLink="/entertainer-report"><i class="fa fa-music" aria-hidden="true"></i> Entertainer</a></li>
+      </ul>
+    </li>
+    <li><a (click)="view()"><i class="fa fa-fw fa-user-circle-o"></i> View Profile</a></li>
+    <li><a (click)="logout()"><i class="fa fa-sign-out"></i> LOGOUT</a></li>
   </ul>
 </nav>
-
-<!-- Check --> 
- 
- 
