@@ -34,6 +34,7 @@
       <label class="col-md-1" style="font-weight: bold;" for="gender">Gender</label>
       <div class="col-md-6">
       <select class="form-control" id="gender" formControlName="gender">
+        <option value="" disabled selected>Select</option> <!-- Placeholder -->
         <option *ngFor="let item of genderData" [value]="item.genderId">{{ item.name }}</option>
       </select>
     </div>
@@ -43,6 +44,7 @@
       <label class="col-md-1" style="font-weight: bold;" for="employeeRole">Employee Role</label>
       <div class="col-md-6">
       <select class="form-control" id="employeeRole" formControlName="employeeRole">
+        <option value="" disabled selected>Select</option> <!-- Placeholder -->
         <option *ngFor="let item of employeeTypesData" [value]="item.employee_RoleId">{{ item.name }}</option>
       </select>
     </div>

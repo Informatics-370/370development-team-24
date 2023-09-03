@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 //import { DrinkType } from 'src/app/shared/Drink_Type';
 import { DrinkType } from 'src/app/shared/drink-type';
+import { HelpAdddrinkComponent } from './help-adddrink/help-adddrink.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -26,9 +28,12 @@ drinkForm: FormGroup = this.fb.group({
   
 })
 
-constructor(private dataService: DataService, private fb: FormBuilder, private router: Router, private snackBar: MatSnackBar) { }
+constructor(private dataService: DataService, private fb: FormBuilder, private router: Router, private snackBar: MatSnackBar, private dialog: MatDialog,) { }
 
 
+cancel(){
+  this.router.navigate(['/view-other-drink'])
+}
 
 
 ngOnInit(): void {
@@ -76,6 +81,16 @@ clearData(){
   this.formData.delete("description");
   this.formData.delete("drinkTypeName");
   
+}
+openHelpModal(field: string): void {
+  const dialogRef = this.dialog.open(HelpAdddrinkComponent, {
+    width: '500px',
+    data: { field } // Pass the field name to the modal
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    // Handle modal close if needed
+  });
 }
 
 

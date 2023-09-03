@@ -1,28 +1,30 @@
+
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2">
             <app-navbar></app-navbar>
         </div>
     <div class="col-md-10 order-md-1">
+        <label></label>
         
-<h3 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-weight: bolder; font-size: 50px;">Employee Roles</h3>
-<div class="input-group">
-<input type="text" class="form-control" (input)="applyFilter($event)" placeholder="Search">
-<button class="btn">
-    <i class="fa fa-search" aria-hidden="true"></i>
-  </button>
+<h3 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-weight: bolder; font-size: 50px;">Employee Role Listing</h3>
+
+  <div class="input-group">
+    <div class="search-bar">
+    <input type="text" class="form-control" (input)="applyFilter($event)" placeholder="Search Columns">
+    </div>
   <div class="addButton">
-  <button style="margin-left: 1em;" type="button" class="btn btn-sm btn-success" [routerLink]="['/add-employee-role', employeeroles]">Create</button>
-  </div>
-</div>
-
-
+    <i class="fa fa-plus-circle fa-3x" aria-hidden="true" [routerLink]="'/add-employee-role'" matTooltip="Add"></i>
+  </div> 
+    </div>
 <table class="table table-striped table-hover outlined-table table-container"> 
     <thead class="tableColor"> 
         <tr> 
             <th scope="col">Employee Role ID</th> 
             <th scope="col">Employee Role</th> 
             <th scope="col">Description</th>
+            <th scope="col"></th>
             <th scope="col"></th>
             </tr> 
     </thead> 
@@ -38,10 +40,11 @@
         </tr> 
     </tbody> 
 </table>
-<button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help"  matTooltip="Help">
+<button style="margin-left: 1100x; margin-top: 50px;"  mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help"  matTooltip="Help">
     <mat-icon style="font-size: 24px;">help</mat-icon>
   </button>
-  
     </div>
     </div>
 </div>
+
+

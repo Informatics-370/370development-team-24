@@ -16,9 +16,9 @@ export class NavbarComponent {
   selectedOption = '';
   public UserId!: number;
 
-  toggleDropdown(): void {
-    this.showDropdown = !this.showDropdown;
-  }
+  // toggleDropdown(): void {
+  //   this.showDropdown = !this.showDropdown;
+  // }
 
   selectOption(option: string): void {
     this.selectedOption = option;
@@ -63,6 +63,15 @@ export class NavbarComponent {
 logout(){
   this.auth.signOut();
 }
+
+employeeDropdownVisible = false; // Initial state
+
+  toggleDropdown(dropdownId: string): void {
+    if (dropdownId === 'employee-dropdown') {
+      this.employeeDropdownVisible = !this.employeeDropdownVisible;
+    }
+    // Add similar logic for other dropdowns if needed
+  }
 }
 
   

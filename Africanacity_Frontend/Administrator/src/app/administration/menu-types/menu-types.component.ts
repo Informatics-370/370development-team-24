@@ -9,6 +9,8 @@ import { ConfirmationDialogComponent } from './add-menu-type/confirmation-dialog
 import { MenuItem } from 'src/app/shared/menu-item';
 import { FoodType } from 'src/app/shared/food-type';
 import { MenuItemCategory } from 'src/app/shared/menu-item-category';
+import { MatDialog } from '@angular/material/dialog';
+import { HelpViewmenutypeComponent } from './help-viewmenutype/help-viewmenutype.component';
 
 @Component({
   selector: 'app-menu-types',
@@ -19,14 +21,16 @@ import { MenuItemCategory } from 'src/app/shared/menu-item-category';
 })
 export class MenuTypesComponent implements OnInit{
   menuTypes:MenuTypes[] = []
+  filteredMenuTypes: MenuTypes[] = []
 
 
 
   constructor(private dataService: DataService, 
     private router: Router,
     private http: HttpClient,
-    private snackBar: MatSnackBar){}
-
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
+    ){}
     deleteItem(): void{
  
     const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete the menu type?','Delete',{
@@ -49,6 +53,8 @@ export class MenuTypesComponent implements OnInit{
     this.GetAllMenuTypes()
     
     console.log(this.menuTypes)
+    this.filteredMenuTypes = this.menuTypes
+    console.log(this.filteredMenuTypes)
   }
 
 
@@ -69,6 +75,29 @@ export class MenuTypesComponent implements OnInit{
       this.deleteItem();
     });
   }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+  
+    this.filteredMenuTypes = this.menuTypes.filter(menutype => {
+      const column2Value = menutype.name.toLowerCase() || menutype.name.toUpperCase();
+     
+  
+      return column2Value.includes(filterValue);
+    });
+  }
+  openHelpModal(field: string): void {
+    const dialogRef = this.dialog.open(HelpViewmenutypeComponent, {
+      width: '500px',
+      data: { field } // Pass the field name to the modal
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle modal close if needed
+    });
+  }
+
+
 
 
 

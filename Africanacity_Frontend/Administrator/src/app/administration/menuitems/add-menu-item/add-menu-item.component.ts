@@ -6,6 +6,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MenuTypes } from 'src/app/shared/menu-types';
 import { FoodType } from 'src/app/shared/food-type';
 import { MenuItemCategory } from 'src/app/shared/menu-item-category';
+import { MatDialog } from '@angular/material/dialog';
+import { HelpAddmenuitemComponent } from './help-addmenuitem/help-addmenuitem.component';
 
 @Component({
   selector: 'app-add-menu-item',
@@ -29,7 +31,7 @@ export class AddMenuItemComponent implements OnInit {
     
   })
 
-  constructor(private dataService: DataService, private fb: FormBuilder, private router: Router, private snackBar: MatSnackBar) { }
+  constructor(private dataService: DataService, private fb: FormBuilder, private router: Router, private snackBar: MatSnackBar, private dialog: MatDialog) { }
 
 
   ngOnInit(): void {
@@ -106,6 +108,17 @@ clearData(){
 cancel() {
   this.router.navigate(['/menuitems']);
 }
+openHelpModal(field: string): void {
+  const dialogRef = this.dialog.open(HelpAddmenuitemComponent, {
+    width: '500px',
+    data: { field } // Pass the field name to the modal
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    // Handle modal close if needed
+  });
+}
+
 
 
 

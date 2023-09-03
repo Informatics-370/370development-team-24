@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { DataService } from 'src/app/service/data.Service';
 import { FoodType } from 'src/app/shared/food-type';
 import { ActivatedRoute} from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { HelpEditfoodtypeComponent } from './help-editfoodtype/help-editfoodtype.component';
 
 @Component({
   selector: 'app-edit-food-type',
@@ -21,7 +23,7 @@ export class EditFoodTypeComponent {
     description: new FormControl('',[Validators.required]),
   })
 
-  constructor(private dataService: DataService, private router: Router, private http: HttpClient, private activated:ActivatedRoute) {}
+  constructor(private dataService: DataService, private router: Router, private http: HttpClient, private activated:ActivatedRoute, private dialog: MatDialog) {}
 
   ngOnInit(): void {
 
@@ -62,4 +64,14 @@ export class EditFoodTypeComponent {
     });
   }
   
+  openHelpModal(field: string): void {
+    const dialogRef = this.dialog.open(HelpEditfoodtypeComponent, {
+      width: '500px',
+      data: { field } // Pass the field name to the modal
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle modal close if needed
+    });
+  }
 }

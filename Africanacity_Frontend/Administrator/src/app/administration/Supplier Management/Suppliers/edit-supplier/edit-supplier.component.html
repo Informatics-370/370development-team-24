@@ -25,6 +25,7 @@
       <label class="col-md-1" style="font-weight: bold;" for="supplierType">Supplier Type:</label>
       <div class="col-md-6">
       <select class="form-control" id="supplierType" formControlName="supplierType">
+        <option value="" disabled selected>Select</option> <!-- Placeholder -->
         <option *ngFor="let item of supplierTypesData" [value]="item.supplier_TypeId">{{ item.name }}</option>
       </select>
     </div>

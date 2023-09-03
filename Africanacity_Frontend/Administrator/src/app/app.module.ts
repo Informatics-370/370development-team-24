@@ -149,6 +149,24 @@ import { HelpReceiveorderComponent } from './administration/Inventory Management
 import { InventoryService } from './service/inventory.service';
 import { EditDrinkComponent } from './administration/otherDrink/edit-drink/edit-drink.component';
 import { EntertainerReportComponent } from './administration/Reports/entertainer/entertainer.component';
+import { HelpViewmenutypeComponent } from './administration/menu-types/help-viewmenutype/help-viewmenutype.component';
+import { HelpAddmenutypeComponent } from './administration/menu-types/add-menu-type/help-addmenutype/help-addmenutype.component';
+import { HelpEditmenutypeComponent } from './administration/menu-types/edit-menu-type/help-editmenutype/help-editmenutype.component';
+import { HelpMenuitemcategoryComponent } from './administration/Menu Item Category/view-menu-item-category/help-menuitemcategory/help-menuitemcategory.component';
+import { HelpEditmenucategoryComponent } from './administration/Menu Item Category/edit-menu-item-category/help-editmenucategory/help-editmenucategory.component';
+import { HelpAddmenuitemcategoryComponent } from './administration/Menu Item Category/create-menu-item-category/help-addmenuitemcategory/help-addmenuitemcategory.component';
+import { HelpAddfoodtypeComponent } from './administration/Food Type/create-food-type/help-addfoodtype/help-addfoodtype.component';
+import { HelpEditfoodtypeComponent } from './administration/Food Type/edit-food-type/help-editfoodtype/help-editfoodtype.component';
+import { HelpViewfoodtypesComponent } from './administration/Food Type/view-food-type/help-viewfoodtypes/help-viewfoodtypes.component';
+import { HelpViewmenuitemsComponent } from './administration/menuitems/help-viewmenuitems/help-viewmenuitems.component';
+import { HelpAddmenuitemComponent } from './administration/menuitems/add-menu-item/help-addmenuitem/help-addmenuitem.component';
+import { HelpEditmenuitemComponent } from './administration/menuitems/edit-menu-item/help-editmenuitem/help-editmenuitem.component';
+import { HelpAdddrinkComponent } from './administration/otherDrink/create-other-drink/help-adddrink/help-adddrink.component';
+import { HelpEditdrinkComponent } from './administration/otherDrink/edit-drink/help-editdrink/help-editdrink.component';
+import { HelpViewdrinksComponent } from './administration/otherDrink/view-other-drink/help-viewdrinks/help-viewdrinks.component';
+import { HelpEditdrinktypeComponent } from './administration/Drink Type/create-drink-type/help-editdrinktype/help-editdrinktype.component';
+import { HelpAdddrinktypeComponent } from './administration/Drink Type/edit-drink-type/help-adddrinktype/help-adddrinktype.component';
+import { HelpViewDrinktypeComponent } from './administration/Drink Type/view-drink-type/help-view-drinktype/help-view-drinktype.component';
 
 
 @NgModule({
@@ -308,7 +326,25 @@ import { EntertainerReportComponent } from './administration/Reports/entertainer
     CreateOtherDrinkComponent,
     ViewOtherDrinkComponent,
     ViewProfileComponent,
-    EntertainerReportComponent
+    EntertainerReportComponent,
+    HelpViewmenutypeComponent,
+    HelpAddmenutypeComponent,
+    HelpEditmenutypeComponent,
+    HelpMenuitemcategoryComponent,
+    HelpEditmenucategoryComponent,
+    HelpAddmenuitemcategoryComponent,
+    HelpAddfoodtypeComponent,
+    HelpEditfoodtypeComponent,
+    HelpViewfoodtypesComponent,
+    HelpViewmenuitemsComponent,
+    HelpAddmenuitemComponent,
+    HelpEditmenuitemComponent,
+    HelpAdddrinkComponent,
+    HelpEditdrinkComponent,
+    HelpViewdrinksComponent,
+    HelpEditdrinktypeComponent,
+    HelpAdddrinktypeComponent,
+    HelpViewDrinktypeComponent
 
   ],
   imports: [

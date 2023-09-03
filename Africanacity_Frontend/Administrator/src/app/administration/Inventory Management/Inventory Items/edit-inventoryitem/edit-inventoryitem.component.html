@@ -23,6 +23,7 @@
                   <label class="col-md-1" style="font-weight: bold;" for="inventoryType">Inventory Type:</label>
                   <div class="col-md-6">
                   <select class="form-control" id="inventoryType" formControlName="inventoryType">
+                    <option value="" disabled selected>Select</option> <!-- Placeholder -->
                     <option *ngFor="let item of inventoryTypesData" [value]="item.inventory_TypeId">{{ item.name }}</option>
                   </select>
                 </div>

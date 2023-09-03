@@ -1,0 +1,41 @@
+/* Custom CSS styles go here */
+
+/* Container styles */
+.container {
+    padding-top: 0rem;
+}
+
+/* Welcome section styles */
+.welcome-section {
+    padding: 3rem;
+    background: linear-gradient(135deg, #904ccf, #a3a39d); /* Gradient background */
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
+    animation: fadeIn 4s ease-in-out; /* Fade-in animation */
+    opacity: 1; /* Start with full opacity */
+    height: 150px; /* Fixed height for the section */
+}
+
+/* Text styles */
+.welcome-section h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #fff; /* Text color */
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 60px;
+}
+
+.welcome-section p {
+    font-size: 1.2rem;
+    color: #eee; /* Text color */
+}
+
+/* Keyframes for fade-in animation */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

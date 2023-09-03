@@ -7,6 +7,7 @@ import { InventoryItem } from 'src/app/shared/inventoryitem';
 import { MatDialog } from '@angular/material/dialog';
 import { WriteOffStockComponent } from './write-off-stock/write-off-stock.component';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-stock-take',
@@ -25,7 +26,7 @@ export class StockTakeComponent implements OnInit {
   inputReason: string = '';
 
 
-  constructor(private fb: FormBuilder, private inventoryService: InventoryService, private dialog: MatDialog) {
+  constructor(private fb: FormBuilder, private inventoryService: InventoryService, private dialog: MatDialog,  private router: Router ) {
     this.stockTakeForm = this.fb.group({
       stockTakeDate: [new Date().toISOString().slice(0, 10)],
       items: this.fb.array([])
@@ -57,12 +58,11 @@ export class StockTakeComponent implements OnInit {
 
     this.items.push(itemControl);
   }
-
   createStockTake(): void {
     if (this.stockTakeForm.invalid) {
       return;
     }
-    
+  
     const currentDate = new Date();
     const stockTakeData = {
       stockTakeDate: currentDate as Date,
@@ -82,6 +82,9 @@ export class StockTakeComponent implements OnInit {
         } else {
           // No discrepancies
           console.log('No discrepancies');
+  
+          // Redirect to the stock-take list page
+          this.router.navigate(['/stock-take-list']); // Replace '/stock-take-list' with the actual route path
         }
       },
       (error: any) => {

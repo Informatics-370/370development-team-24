@@ -35,6 +35,7 @@
       <label class="col-md-1" style="font-weight: bold;" for="gender">Gender:</label>
       <div class="col-md-6">
       <select class="form-control" id="gender" formControlName="gender" [ngClass]="{'invalid-control': isControlInvalid('gender')}">
+        <option value="" disabled selected>Select</option> <!-- Placeholder -->
         <option *ngFor="let item of gender" [value]="item.genderId">{{ item.name }}</option>
       </select>
     </div>
@@ -45,12 +46,12 @@
       <label class="col-md-1" style="font-weight: bold;" for="employeeRole">Employee Role</label>
       <div class="col-md-6">
       <select class="form-control" id="employeeRole" formControlName="employeeRole" [ngClass]="{'invalid-control': isControlInvalid('employeeRole')}">
+        <option value="" disabled selected>Select</option> <!-- Placeholder -->
         <option *ngFor="let item of employeeRole" [value]="item.employee_RoleId">{{ item.name }}</option>
       </select>
     </div>
     </div>
     
-   
 
     <div class="form-group">
       <span>

@@ -5,6 +5,8 @@
     </div>
 
     <div class="col-md-10 order-md-2">
+      <label></label>
+      <label></label>
       <div class="card">
         <div class="card-body">
           <h4 class="text-center mb-4">Add Event Schedule Slot</h4>
@@ -16,6 +18,8 @@
                   <mat-label>Slot Title</mat-label>
                   <input matInput placeholder="Provide the slot title" formControlName="title">
                 </mat-form-field>
+                <br>
+
 
                 <mat-form-field class="full-width">
                   <mat-label>Date</mat-label>
@@ -28,6 +32,8 @@
                     formControlName="date"
                   >
                 </mat-form-field>
+                <br>
+
 
                 <!-- Start Time -->
                <mat-form-field class="full-width">
@@ -39,6 +45,8 @@
                   formControlName="start_Time"
                 >
               </mat-form-field>
+              <br>
+
               
                 <!-- End Time -->
             <mat-form-field class="full-width">
@@ -57,6 +65,7 @@
                     <mat-option *ngFor="let event of bookingevents" [value]="event.eventId">{{ event.name }}</mat-option>
                   </mat-select>
                 </mat-form-field>
+                <br>
 
                 <mat-form-field class="full-width">
                   <mat-label>Schedule Status</mat-label>
@@ -64,6 +73,8 @@
                     <mat-option *ngFor="let status of statuses" [value]="status.schedule_StatusId">{{ status.name }}</mat-option>
                   </mat-select>
                 </mat-form-field>
+                <br>
+
               
               
                 <mat-form-field class="full-width">
@@ -75,10 +86,12 @@
                     rows="3"
                   ></textarea>
                 </mat-form-field>
+                <br>
+
               
                 <div class="center-buttons">
-                  <button mat-raised-button color="warn" (click)="onCancel()">Discard</button>
                   <button mat-raised-button color="primary" type="submit">Add</button>
+                  <button mat-raised-button color="warn" (click)="onCancel()">Discard</button>
                 </div>
               </form>
               <button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help" matTooltip="Help">

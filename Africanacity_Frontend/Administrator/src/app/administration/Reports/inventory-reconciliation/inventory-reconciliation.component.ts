@@ -111,7 +111,8 @@ export class InventoryReconciliationComponent implements OnInit{
       reconItem.inventoryItemName, 
       reconItem.inventoryQuantity, 
       reconItem.quantity, 
-      reconItem.quantityDifference
+      reconItem.quantityDifference,
+      reconItem.stockTake_Date
     ]);
   
     doc.setFontSize(12);

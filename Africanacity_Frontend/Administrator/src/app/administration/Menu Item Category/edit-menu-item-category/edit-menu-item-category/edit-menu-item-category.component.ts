@@ -6,6 +6,8 @@ import { DataService } from 'src/app/service/data.Service';
 import { FoodType } from 'src/app/shared/food-type';
 import { MenuItemCategory } from 'src/app/shared/menu-item-category';
 import { ActivatedRoute} from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { HelpEditmenucategoryComponent } from '../help-editmenucategory/help-editmenucategory.component';
 
 @Component({
   selector: 'app-edit-menu-item-category',
@@ -20,7 +22,7 @@ export class EditMenuItemCategoryComponent {
     description: new FormControl('',[Validators.required]),
   })
 
-  constructor(private dataService: DataService, private router: Router, private http: HttpClient, private activated:ActivatedRoute) {}
+  constructor(private dataService: DataService, private router: Router, private http: HttpClient, private activated:ActivatedRoute, private dialog: MatDialog) {}
 
   ngOnInit(): void {
 
@@ -65,6 +67,16 @@ export class EditMenuItemCategoryComponent {
       {
         alert(response.message);
       }
+    });
+  }
+  openHelpModal(field: string): void {
+    const dialogRef = this.dialog.open(HelpEditmenucategoryComponent, {
+      width: '500px',
+      data: { field } // Pass the field name to the modal
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle modal close if needed
     });
   }
 }

@@ -6,8 +6,9 @@
         </div>
     
        <div class="col-md-10 order-md-1">
+        <label></label>
             <!-- heading -->
-            <h3 class="heading">Drinks</h3>
+            <h3 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-weight: bolder; font-size: 50px;">Drinks</h3>
         
             <div class="input-group">
                 <div class="search-bar">
@@ -42,18 +43,16 @@
                 <ng-container matColumnDef="edit">
                     <th mat-header-cell *matHeaderCellDef></th>
                     <td mat-cell *matCellDef="let element">
-                      <button mat-stroked-button color="primary"(click)="editDrinkItem(element.otherDrinkId)">
-                        <mat-button>Edit</mat-button>
-                      </button>
+                        <i class="fa fa-pencil" (click)="editDrinkItem(element.otherDrinkId)" aria-hidden="true" matTooltip="Edit"></i>
+
                     </td>
                   </ng-container>
-            
+
+
                 <ng-container matColumnDef="delete">
                   <th mat-header-cell *matHeaderCellDef></th>
                   <td mat-cell *matCellDef="let element">
-                    <button mat-stroked-button color="warn" >
-                      <mat-button>Delete</mat-button>
-                    </button>
+                    <i class="fa fa-trash"  aria-hidden="true" matTooltip="Delete"></i>
                   </td>
                 </ng-container>
                 

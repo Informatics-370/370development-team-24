@@ -7,6 +7,7 @@ import { ActivatedRoute, Router} from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'src/app/administration/menu-types/add-menu-type/confirmation-dialog/confirmation-dialog.component'
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
+import { HelpAddmenuitemcategoryComponent } from '../help-addmenuitemcategory/help-addmenuitemcategory.component';
 
 @Component({
   selector: 'app-create-menu-item-category',
@@ -78,6 +79,17 @@ export class CreateMenuItemCategoryComponent {
 
       snackBarRef.afterDismissed().subscribe(() => {
       this.toastContainer.clear();
+    });
+  }
+
+  openHelpModal(field: string): void {
+    const dialogRef = this.dialog.open(HelpAddmenuitemcategoryComponent, {
+      width: '500px',
+      data: { field } // Pass the field name to the modal
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle modal close if needed
     });
   }
 }

@@ -6,6 +6,7 @@ import { MenuTypes } from 'src/app/shared/menu-types';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { ConfirmationDialogComponent } from '../add-menu-type/confirmation-dialog/confirmation-dialog.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { HelpEditmenutypeComponent } from './help-editmenutype/help-editmenutype.component';
 
 
 @Component({
@@ -34,7 +35,9 @@ export class EditMenuTypeComponent implements OnInit{
     name: new FormControl('',[Validators.required])
   })
 
-
+  cancel(){
+    this.router.navigate(['/menu-types'])
+  }
 
    ngOnInit(): void {
 
@@ -68,6 +71,17 @@ export class EditMenuTypeComponent implements OnInit{
       duration: 3000, // Duration in milliseconds
       horizontalPosition: 'center',
       verticalPosition: 'bottom'
+    });
+  }
+
+  openHelpModal(field: string): void {
+    const dialogRef = this.dialog.open(HelpEditmenutypeComponent, {
+      width: '500px',
+      data: { field } // Pass the field name to the modal
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle modal close if needed
     });
   }
 

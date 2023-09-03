@@ -5,6 +5,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { DataService } from 'src/app/service/data.Service';
 import { FoodType } from 'src/app/shared/food-type';
 import { NavbarComponent } from 'src/app/navbar/navbar.component';
+import { MatDialog } from '@angular/material/dialog';
+import { HelpViewfoodtypesComponent } from './help-viewfoodtypes/help-viewfoodtypes.component';
 
 @Component({
   selector: 'app-food-type',
@@ -19,7 +21,8 @@ export class FoodTypeComponent {
   constructor(private dataService: DataService, 
     private router: Router, 
     private httpClient: HttpClient, 
-    private snackbar: MatSnackBar) {}
+    private snackbar: MatSnackBar,
+    private dialog: MatDialog) {}
 
   deleteItem(): void {
     const confirmationSnackBar = this.snackbar.open('Are you sure you want to delete this item?', 'Cancel Delete', {duration: 5000,})
@@ -32,6 +35,9 @@ export class FoodTypeComponent {
 
   ngOnInit(): void {
     this.GetAllFoodTypes();
+
+    this.filteredFoodTypes = this.foodType
+    console.log(this.filteredFoodTypes)
   }
 
   deleteItemFromServer(): void {
@@ -68,6 +74,16 @@ export class FoodTypeComponent {
       const column3Value = foodType.description.toLowerCase();
   
       return column2Value.includes(filterValue) || column3Value.includes(filterValue);
+    });
+  }
+  openHelpModal(field: string): void {
+    const dialogRef = this.dialog.open(HelpViewfoodtypesComponent, {
+      width: '500px',
+      data: { field } // Pass the field name to the modal
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle modal close if needed
     });
   }
 

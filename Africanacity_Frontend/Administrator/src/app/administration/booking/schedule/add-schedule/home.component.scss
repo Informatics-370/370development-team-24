@@ -1,0 +1,84 @@
+/* Custom CSS styles for the form */
+
+/* Center the form */
+.container-fluid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .card {
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  h4 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+  }
+  
+  /* Style the form fields */
+  .mat-form-field {
+    width: 100%; /* Make the form controls the width of the card */
+    margin-bottom: 20px;
+  }
+  
+  /* Center the text within mat-form-field */
+  .mat-form-field .mat-label,
+  .mat-form-field .mat-input-element {
+    text-align: center;
+    align-items: center;
+  }
+  
+  /* Style the buttons */
+  .center-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  /* Optional: Add a background color to the submit button */
+  button[type="submit"] {
+    background-color: #17bd40a6;
+    color: #fff;
+  }
+  
+  /* Optional: Style the help button */
+  button[mat-icon-button] {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #141414;
+  }
+  
+  /* Optional: Style form labels */
+  .mat-label {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Optional: Style select options */
+  .mat-option {
+    font-size: 14px;
+  }
+  
+  /* Stack form controls vertically */
+  .mat-form-field {
+    width: 200%;
+    margin-bottom: 20px;
+  }
+  
+  /* Reset Bootstrap flex styles */
+  .row .mat-form-field .form-group {
+    display: block;
+    flex-direction: initial;
+    align-items: initial;
+  }
+  
