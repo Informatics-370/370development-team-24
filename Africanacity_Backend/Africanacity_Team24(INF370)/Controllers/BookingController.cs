@@ -493,7 +493,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 						// Send booking details via email
 						string recipientEmail = "africanacitymmino@gmail.com"; // Email from form data
 						string senderEmail = "africanacitymmino@gmail.com"; // Your sender email
-						string senderPassword = "xuaqebsjnbxopjtx"; // Your sender email password
+						string senderPassword = "swcxmrsbjmhmxpny"; // Your sender email password
 						string smtpServer = "smtp.gmail.com"; // SMTP server for Gmail
 						int smtpPort = 587; // SMTP port for Gmail
 

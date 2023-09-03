@@ -123,7 +123,7 @@ import { Inventory_Prices } from '../shared/inventoryPrices';
 
     //GET INVENTORY PRICE
     GetInventoryItemPrice(itemId: number) {
-      return this.httpClient.get<any>(`${this.apiUrl}InventoryItem/GetInventoryItemPrice/${itemId}`);
+      return this.httpClient.get<any>(`${this.apiUrl}InventoryItem/GetInventoryPrice/${itemId}`);
     }
     
 

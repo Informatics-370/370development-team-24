@@ -148,6 +148,7 @@ import { HelpStocktakeComponent } from './administration/Inventory Management/In
 import { HelpReceiveorderComponent } from './administration/Inventory Management/Inventory Items/receive-order/help-receiveorder/help-receiveorder.component';
 import { InventoryService } from './service/inventory.service';
 import { EditDrinkComponent } from './administration/otherDrink/edit-drink/edit-drink.component';
+import { EntertainerReportComponent } from './administration/Reports/entertainer/entertainer.component';
 
 
 @NgModule({
@@ -306,7 +307,8 @@ import { EditDrinkComponent } from './administration/otherDrink/edit-drink/edit-
     ViewDrinkComponent,
     CreateOtherDrinkComponent,
     ViewOtherDrinkComponent,
-    ViewProfileComponent
+    ViewProfileComponent,
+    EntertainerReportComponent
 
   ],
   imports: [

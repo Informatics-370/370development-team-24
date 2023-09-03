@@ -60,19 +60,6 @@
       </ul>
     </li>
     <li>
-      <a><i class="fa fa-fw fa-user"></i> Entertainer Management</a>
-      <ul class="dropdown">
-        <li><a routerLink="../entertainer">Manage Entertainer</a></li>
-      </ul>
-    </li>
-    <li>
-      <a><i class="fa fa-fw fa-book"></i> Booking Management</a>
-      <ul class="dropdown">
-        <li><a routerLink="../manage-booking">Manage Booking</a></li>
-        <li><a routerLink="../booking-listing">Booking Listing</a></li>
-      </ul>
-    </li>
-    <li>
       <a><i class="fa fa-bar-chart"></i> Reports <i class="fa fa-sort-desc" aria-hidden="true"></i></a>
       <ul class="dropdown">
         <li><a routerLink="/sales"><i class="fa fa-calendar-o" aria-hidden="true"></i> Sales</a></li>
@@ -86,6 +73,20 @@
         <li><a routerLink="/entertainer-report"><i class="fa fa-music" aria-hidden="true"></i> Entertainer</a></li>
       </ul>
     </li>
+    <li>
+      <a><i class="fa fa-fw fa-user"></i> Entertainer Management</a>
+      <ul class="dropdown">
+        <li><a routerLink="../entertainer">Manage Entertainer</a></li>
+      </ul>
+    </li>
+    <li>
+      <a><i class="fa fa-fw fa-book"></i> Booking Management</a>
+      <ul class="dropdown">
+        <li><a routerLink="../manage-booking">Manage Booking</a></li>
+        <li><a routerLink="../booking-listing">Booking Listing</a></li>
+      </ul>
+    </li>
+
     <li><a (click)="view()"><i class="fa fa-fw fa-user-circle-o"></i> View Profile</a></li>
     <li><a (click)="logout()"><i class="fa fa-sign-out"></i> LOGOUT</a></li>
   </ul>

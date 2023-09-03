@@ -32,11 +32,11 @@
         <div class="row">
           <div class="col-md-4" *ngFor="let event of bookingevents">
             <div class="card mb-4" style="border-radius: 1%;">
-              <img src="../../assets/Nav_image/Avatar2.jpeg" alt="Events" class="card-img-top"  style="width:auto; height: auto; border-radius: 1%;">
+              <img class="card-img-top" style="width:auto; height:15rem; border-radius:1rem;" src='data:image/png;base64,{{ event.image }}'  alt="No image">
               <div class="card-body">
                 <h5 class="card-title"><b>{{event.name}}</b></h5>
                 <p class="card-text">{{event.description}}</p>
-                <p>Date: 2023-08-10 </p>
+                <p>Date: {{event.date}} </p>
                 <p>Start 9pm until late</p>
                 <p>Venue: Mmino Restaurant, Hatfield </p>
                 <p><button  [routerLink]="['/booking', event.eventId]" >Make Booking</button></p>
