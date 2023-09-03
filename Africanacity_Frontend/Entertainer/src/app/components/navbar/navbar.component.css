@@ -1,5 +1,5 @@
 .side-navbar {
-  background-color: black;
+  background-color: #292b2c; /* Dark background color */
   color: white;
   height: 100%;
   width: 240px;
@@ -30,13 +30,17 @@
   transition: background-color 0.3s;
 }
 
+.side-navbar .nav-link i {
+  margin-right: 10px; /* Add space between icon and text */
+}
+
 .side-navbar .nav-link:hover {
   background-color: #555;
 }
 
 .side-navbar .dropdown-menu {
   display: none;
-  background-color: black;
+  background-color: #292b2c; /* Dark background color for dropdown */
 }
 
 .side-navbar .dropdown-menu li {
@@ -52,7 +56,19 @@
   left: 0;
 }
 
-/* Add this CSS to your existing styles */
+/* Custom separator style */
+.nav-separator {
+  text-align: left;
+  margin-left: 0;
+  margin-top: -10px;
+  border-width: 1px;
+  border-color: #555;
+  width: 80%; /* Adjust the width as needed */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Keep the text white in dropdown */
 .side-navbar .white-link {
   color: white;
 }

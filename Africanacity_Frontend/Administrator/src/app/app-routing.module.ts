@@ -96,6 +96,7 @@ import { EditItempriceComponent } from './administration/Inventory Management/In
 import { EventDetailsDailogComponent } from './administration/booking/schedule/event-details-dailog/event-details-dailog.component';
 import { ViewOtherDrinkComponent } from './administration/otherDrink/view-other-drink/view-other-drink.component';
 import { CreateOtherDrinkComponent } from './administration/otherDrink/create-other-drink/create-other-drink.component';
+import { Help } from './shared/help';
 
 
 const routes: Routes = [
@@ -383,6 +384,7 @@ const routes: Routes = [
   {path: 'write-off-stock', component:WriteOffStockComponent, canActivate:[AuthGuard]},// for schedule
   {path: 'view-other-drink', component: ViewOtherDrinkComponent, canActivate:[AuthGuard]},
   {path: 'create-other-drink', component: CreateOtherDrinkComponent, canActivate:[AuthGuard]},
+  {path: 'help', component:Help, canActivate:[AuthGuard]},
   { path: '', redirectTo: 'login', pathMatch:'full'},
   
 ];

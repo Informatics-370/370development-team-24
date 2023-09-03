@@ -3,7 +3,10 @@
 </div>
 
 <div class="col-md-10">
-  <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow" style="width: 1700px;">
+  <div class="background-container">
+  <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow" style="width: 1500px;"> 
+    <!-- <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow"> -->
+
     <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">
       <img src="../../assets/Nav_image/Africanacity.png" alt="" width="40" height="40" class="d-inline-block align-text-top">
       Hello {{fullName}}
@@ -27,7 +30,7 @@
       <button style="margin-left: 15rem;" mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help">
         <mat-icon>help</mat-icon>
       </button>
-      <h1 class="text-center" style="margin-left: 15rem;">Events</h1><br><br>
+      <h1 class="text-center" style="margin-left: 15rem; font-family: 'Times New Roman', Times, serif; font-weight: bolder; font-size: 50px;">Events</h1><br><br>
       <div class="col-md-12" style="margin-left: 20%;">
         <div class="row">
           <div class="col-md-4" *ngFor="let event of bookingevents">
@@ -48,3 +51,5 @@
     </div>
   </div>
 </div>
+</div>
+
