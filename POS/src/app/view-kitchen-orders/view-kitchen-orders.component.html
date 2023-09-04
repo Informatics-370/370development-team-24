@@ -39,9 +39,9 @@
 </ion-header>
 
 <ion-content *ngIf="kitchenOrders.length > 0">
-  <ion-card *ngFor="let order of kitchenOrders" class="ion-card">
+  <ion-card *ngFor="let order of kitchenOrders" class="ion-card" color="light">
     <h2 style="font-family: Arial, Helvetica, sans-serif;">Order Number: {{ order.KitchenOrderNumber }}</h2>
-    <p>{{ order.TableNumber }}</p>
+    <h3>{{ order.TableNumber }}</h3>
     <p *ngFor="let omi of order.OrderedMenuItems" > {{ omi.MenuItem.Name }} x {{ omi.Quantity }}</p>
     <p *ngFor="let od of order.OrderedDrinks" > {{ od.OtherDrink.Name }} x {{ od.Quantity }}</p>
     <p>Subtotal: {{ order.Subtotal }}</p>
@@ -49,7 +49,7 @@
     <p>Discount: {{ order.Discount }}</p>
     <p>Total: {{ order.Total }}</p>
     <!-- the routerLink to use the correct property name-->
-    <ion-button shape="round" fill="outline"  color="dark" (click)="showPaymentModal(order)">Paid</ion-button>
+    <ion-button shape="round" fill="outline"  color="success" (click)="showPaymentModal(order)">Paid</ion-button>
   </ion-card>
 </ion-content>
 

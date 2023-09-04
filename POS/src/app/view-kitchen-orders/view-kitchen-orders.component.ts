@@ -84,6 +84,21 @@ export class ViewKitchenOrdersComponent  implements OnInit {
     console.log("edit button clicked! for order:", order)
     this.router.navigate(['/edit-kitchen-order/:KitchenOrderId', { KitchenOrderId: order.KitchenOrderId }]);
   }
+  async showPaymentModal(order: any) {
+    console.log('Opening payment modal');
+    const modal = await this.modalController.create({
+      component: CustomAlertComponent,
+      componentProps: {
+        order: order, // Pass the order data to the modal
+      },
+    });
+    modal.onDidDismiss().then((data) => {
+      console.log('Modal dismissed with data:', data);
+    });
+  
+
+    return await modal.present();
+  }
 
 
   //inline editing option
@@ -188,16 +203,7 @@ export class ViewKitchenOrdersComponent  implements OnInit {
     }
   }*/
 
-  async showPaymentModal(order: any) {
-    const modal = await this.modalController.create({
-      component: CustomAlertComponent,
-      componentProps: {
-        order: order, // Pass the order data to the modal
-      },
-    });
-
-    return await modal.present();
-  }
+  
   
 
 

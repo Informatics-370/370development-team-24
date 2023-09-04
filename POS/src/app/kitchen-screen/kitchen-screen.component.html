@@ -8,16 +8,16 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="kitchenOrders.length > 0" style="font-family: Arial, Helvetica, sans-serif;">
+<ion-content *ngIf="kitchenOrders.length > 0" style="font-family: Arial, Helvetica, sans-serif;" >
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-card *ngFor="let order of kitchenOrders" class="ion-card">
+  <ion-card *ngFor="let order of kitchenOrders" class="ion-card" color="light">
     <h2>Order Number: {{ order.KitchenOrderNumber }}</h2>
     <h3>{{ order.TableNumber }}</h3>
     <p *ngFor="let omi of order.OrderedMenuItems" style="font-size: medium;"> {{ omi.MenuItem.Name }} x {{ omi.Quantity }}</p>
     <p *ngFor="let od of order.OrderedDrinks" style="font-size: medium;"> {{ od.OtherDrink.Name }} x {{ od.Quantity }}</p>
-   <ion-button shape="round" fill="outline"expand="full" color="dark" (click)="markOrderAsComplete(order)">
+   <ion-button shape="round" fill="outline"expand="full" color="success" (click)="markOrderAsComplete(order)">
   Mark as Complete
 </ion-button>
 
