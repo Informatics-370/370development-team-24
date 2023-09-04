@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MainService } from '../service/main.service';
 import { AlertController } from '@ionic/angular';
 import { SignUp } from '../shared/sign-up';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -24,7 +24,8 @@ export class SignUpComponent   {
 
   constructor(private formBuilder: FormBuilder, 
     private mainService: MainService,
-    private alertController: AlertController) { 
+    private alertController: AlertController,
+    private router: Router) { 
       this.signUpForm = this.formBuilder.group({
         username: ['', Validators.required],
         email_address: ['', [Validators.required, Validators.email]],
@@ -45,6 +46,8 @@ export class SignUpComponent   {
         response => {
           // Handle success
           this.presentSuccessAlert('Sign-Up successful!');
+          this.router.navigate(['/login']);
+          
           console.log('Sign-up successful:', response);
           // You can show a success message or navigate to a different page
         },

@@ -9,13 +9,24 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   showTabs = true;
+  public progress = 0;
+
 
   orderTypes = [
     { orderType_Id: 1, name: 'Sit-in' },
     { orderType_Id: 2, name: 'Takeaway' },
   ];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+    setInterval(() => {
+      this.progress += 0.01;
+
+      // Reset the progress bar when it reaches 100%
+      // to continuously show the demo
+     
+    }, 50);
+  }
+   
 
   ngOnInit(): void {
     

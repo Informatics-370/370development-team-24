@@ -1,18 +1,20 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Restaurant Management System</ion-title>
+    <ion-title>Home</ion-title>
   </ion-toolbar>
+  <ion-progress-bar [value]="progress"></ion-progress-bar>
 </ion-header>
 
 <ion-content>
   <ion-tabs *ngIf="showTabs">
 
   </ion-tabs>
+
   <div class="home-container">
-    <h2>Welcome to the Restaurant Management!</h2>
+    <h2>Let's Order!</h2>
     <div class="button-container">
-      <ion-button expand="full" (click)="navigateToOrderScreen('Takeaway')"> <ion-icon name="restaurant-outline" slot="start"></ion-icon>Takeaway</ion-button>
-      <ion-button expand="full" (click)="navigateToOrderScreen('Sit-in')"> <ion-icon name="restaurant-outline" slot="start"></ion-icon>Sit In</ion-button>
+      <ion-button shape="round" fill="outline"expand="full" color="dark" (click)="navigateToOrderScreen('Takeaway')"> <ion-icon name="fast-food-outline" slot="start"></ion-icon>Takeaway</ion-button>
+      <ion-button shape="round" fill="outline"expand="full" color="dark"(click)="navigateToOrderScreen('Sit-in')"> <ion-icon name="restaurant-outline" slot="start"></ion-icon>Sit In</ion-button>
     </div>
   </div>
 </ion-content>

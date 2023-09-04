@@ -17,6 +17,14 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./kitchen-screen.component.scss'],
 })
 export class KitchenScreenComponent  implements OnInit {
+  event!:EventTarget|null;
+  handleRefresh(event: any) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      event.target.complete();
+      window.location.reload();
+    }, 2000);
+  }
   completionToast: HTMLIonToastElement | undefined;
 
   //kitchenOrders: KitchenOrder[] = [];
@@ -38,7 +46,10 @@ export class KitchenScreenComponent  implements OnInit {
 
   
   orderData: KitchenOrderView | undefined;
-  
+
+  //completed orders
+  completedOrders: any[] = [];
+  dataLoaded = false; // Add a flag to track whether data has been loaded
   
   constructor(private mainService: MainService,
     private modalController: ModalController, 
@@ -52,6 +63,7 @@ export class KitchenScreenComponent  implements OnInit {
      // Fetch all kitchen orders when the component is initialized
      this.mainService.getAllKitchenOrders().subscribe((orders: KitchenOrderView[]) => {
       this.kitchenOrders = orders;
+      this.dataLoaded = true;
 
       
     });
@@ -110,6 +122,23 @@ async showCompletionNotification(orderData: KitchenOrderView) {
   // Present the toast notification
   if (this.completionToast) {
     await this.completionToast.present();
+  }
+}
+
+//remove card
+markOrderAsComplete(order: any) {
+  if (this.dataLoaded) {
+    // Find the index of the order in the kitchenOrders array
+    const index = this.kitchenOrders.indexOf(order);
+
+    // Check if the order was found in the array
+    if (index !== -1) {
+      // Remove the order from the kitchenOrders array
+      this.kitchenOrders.splice(index, 1);
+
+      // Add the order to the completedOrders array
+      this.completedOrders.push(order);
+    }
   }
 }
 }

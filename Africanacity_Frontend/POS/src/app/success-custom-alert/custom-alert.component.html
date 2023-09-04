@@ -1,16 +1,20 @@
-<div class="container">
 <ion-header>
   <ion-toolbar>
-    <ion-title>Error</ion-title>
+    <ion-title>
+      Payment
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Close</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="custom-alert-content">
-    <ion-icon name="alert" class="custom-alert-icon"></ion-icon>
-    <div class="custom-alert-message">{{ message }}</div>
-  </div>
-  <ion-button expand="full" (click)="dismiss()">OK</ion-button>
+  <ion-list>
+    <ion-item *ngFor="let option of paymentOptions">
+      <ion-label>{{ option.label }}</ion-label>
+      <ion-checkbox [(ngModel)]="option.checked"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+  <ion-button expand="full" color="dark" (click)="completePayment()">Complete Payment</ion-button>
 </ion-content>
-</div>
-
