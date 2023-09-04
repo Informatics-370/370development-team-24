@@ -10,6 +10,7 @@ import { EditKitchenOrderComponent } from '../edit-kitchen-order/edit-kitchen-or
 import { Router, ActivatedRoute } from '@angular/router';
 import { Option2OrderService } from '../service/option2-order.service';
 import { AddKitchenOrderComponent } from '../add-kitchen-order/add-kitchen-order.component';
+import { CustomAlertComponent } from '../success-custom-alert/custom-alert.component';
 //service for the edit process
 
 
@@ -38,13 +39,22 @@ export class ViewKitchenOrdersComponent  implements OnInit {
   isEditFormVisible: boolean = false;
 
   orderData!: KitchenOrderView;
+  public progress = 0;
   
 
   constructor(private mainService: MainService,
     private modalController: ModalController, 
     private router: Router,
     private route: ActivatedRoute,
-    private option2OrderService: Option2OrderService) { }
+    private option2OrderService: Option2OrderService) {
+      setInterval(() => {
+        this.progress += 0.01;
+  
+        // Reset the progress bar when it reaches 100%
+        // to continuously show the demo
+       
+      }, 50);
+     }
 
   ngOnInit() {
      // Fetch all kitchen orders when the component is initialized
@@ -177,6 +187,17 @@ export class ViewKitchenOrdersComponent  implements OnInit {
       order.OrderedDrinks.push(data.newDrinkItem);
     }
   }*/
+
+  async showPaymentModal(order: any) {
+    const modal = await this.modalController.create({
+      component: CustomAlertComponent,
+      componentProps: {
+        order: order, // Pass the order data to the modal
+      },
+    });
+
+    return await modal.present();
+  }
   
 
 
