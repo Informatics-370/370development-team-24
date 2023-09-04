@@ -400,18 +400,7 @@ export class OrderComponent  implements OnInit {
       await alert.present();
 
       // Reset the ordered items and drinks after a successful order submission
-      this.orderedItems = [];
-      this.orderedDrinks = [];
-
-      // Clear the table number and kitchen order number
-      this.tableNumber = '';
-      this.kitchenOrderNumber = '';
-
-      // Reset subtotal, VAT, and Discount
-      this.subtotal = 0;
-      this.totalVat = 0;
-      this.totalDiscount = 0;
-      this.finalTotal = 0;
+    
     } catch (error) {
       // Handle any errors that occur during the submission
       console.error('Error submitting order:', error);
@@ -545,7 +534,10 @@ export class OrderComponent  implements OnInit {
   return discountAmount;
   }
 
-  // Update subtotal, VAT, and Discount when ordered items change
+  
+
+
+ 
   
 }
   
