@@ -19,7 +19,7 @@ export class SignupComponent implements OnInit {
   passwordHasUpperCase: boolean = false;
   passwordHasDigit: boolean = false;
   isHovering: boolean = false;
-  
+  public isValidEmail!: boolean;
   public signUpForm!: FormGroup;
   type: string = 'password';
   isText: boolean = false;
@@ -57,6 +57,15 @@ export class SignupComponent implements OnInit {
       this.passwordHasUpperCase = /[A-Z]/.test(value);
       this.passwordHasDigit = /\d/.test(value);
   });
+
+  const emailControl = this.signUpForm.get('email');
+
+  if (emailControl) {
+    emailControl.valueChanges.subscribe((value) => {
+      const pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,3}$/;
+      this.isValidEmail = pattern.test(value);
+    });
+ }
     this.GetAllEntertainment();
     console.log(this.GetAllEntertainment)
   }

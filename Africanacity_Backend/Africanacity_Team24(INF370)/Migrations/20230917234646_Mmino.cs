@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Africanacity_Team24_INF370_.Migrations
 {
-    public partial class MMino : Migration
+    public partial class Mmino : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -1422,7 +1422,7 @@ namespace Africanacity_Team24_INF370_.Migrations
             migrationBuilder.InsertData(
                 table: "Discounts",
                 columns: new[] { "DiscountId", "AdministratorId", "Amount", "Description", "End_Date", "Name", "Start_Date" },
-                values: new object[] { 1, null, 0.05m, "10% Discount", new DateTime(2023, 9, 14, 21, 2, 7, 199, DateTimeKind.Local).AddTicks(7592), "Month end discount", new DateTime(2023, 9, 4, 21, 2, 7, 199, DateTimeKind.Local).AddTicks(7591) });
+                values: new object[] { 1, null, 0.05m, "10% Discount", new DateTime(2023, 9, 28, 1, 46, 44, 440, DateTimeKind.Local).AddTicks(3925), "Month end discount", new DateTime(2023, 9, 18, 1, 46, 44, 440, DateTimeKind.Local).AddTicks(3923) });
 
             migrationBuilder.InsertData(
                 table: "Drink_Prices",
@@ -1611,16 +1611,16 @@ namespace Africanacity_Team24_INF370_.Migrations
                 columns: new[] { "EmployeeId", "Email_Address", "Employee_RoleId", "Employment_Date", "FirstName", "GenderId", "PhoneNumber", "Physical_Address", "Surname" },
                 values: new object[,]
                 {
-                    { 1, "VanessaJames@gmail.com", 1, new DateTime(2023, 9, 4, 21, 2, 7, 199, DateTimeKind.Local).AddTicks(6085), "Vanessa", 2, "0847541236", "404 Jacob Street", "James" },
-                    { 2, "SerenaWilliams@gmail.com", 2, new DateTime(2023, 9, 4, 21, 2, 7, 199, DateTimeKind.Local).AddTicks(6111), "Serena", 2, "0842341236", "132 Harriet Street", "Williams" },
-                    { 3, "EdrisElba@gmail.com", 1, new DateTime(2023, 9, 4, 21, 2, 7, 199, DateTimeKind.Local).AddTicks(6121), "Edris", 1, "0212378798", "245 homelyn Street", "Elba" },
-                    { 4, "NyongoLupita@gmail.com", 2, new DateTime(2023, 9, 4, 21, 2, 7, 199, DateTimeKind.Local).AddTicks(6131), "Lupita", 2, "0455783475", "254 Summer Street", "Nyongo" },
-                    { 5, "MicheaJackson@gmail.com", 2, new DateTime(2023, 9, 4, 21, 2, 7, 199, DateTimeKind.Local).AddTicks(6139), "Micheal", 3, "0874567836", "567 Winter Street", "Jackson" },
-                    { 6, "TaehyungKim@gmial.com", 1, new DateTime(2023, 9, 4, 21, 2, 7, 199, DateTimeKind.Local).AddTicks(6152), "Taehyung", 1, "0874562134", "345 Shallow  Street", "Kim" },
-                    { 7, "ZendayaColeman@gmail.com", 1, new DateTime(2023, 9, 4, 21, 2, 7, 199, DateTimeKind.Local).AddTicks(6161), "Zendaya", 2, "0212378798", "243 Super Street ", "Coleman" },
-                    { 8, "RogerFederal@gmail.com", 1, new DateTime(2023, 9, 4, 21, 2, 7, 199, DateTimeKind.Local).AddTicks(6170), "Roger", 3, "0612346487", "987 Wall Street", "Federal" },
-                    { 9, "JenniferLOpez@gmail.com", 2, new DateTime(2023, 9, 4, 21, 2, 7, 199, DateTimeKind.Local).AddTicks(6179), "Jennifer", 3, "0874834576", "967 Ballard Street", "Lopez" },
-                    { 10, "ChadwickBoseman@gmail.com", 2, new DateTime(2023, 9, 4, 21, 2, 7, 199, DateTimeKind.Local).AddTicks(6194), "Chadwick", 1, "0923456789", "483 Alien Street", "Boseman" }
+                    { 1, "VanessaJames@gmail.com", 1, new DateTime(2023, 9, 18, 1, 46, 44, 440, DateTimeKind.Local).AddTicks(1621), "Vanessa", 2, "0847541236", "404 Jacob Street", "James" },
+                    { 2, "SerenaWilliams@gmail.com", 2, new DateTime(2023, 9, 18, 1, 46, 44, 440, DateTimeKind.Local).AddTicks(1692), "Serena", 2, "0842341236", "132 Harriet Street", "Williams" },
+                    { 3, "EdrisElba@gmail.com", 1, new DateTime(2023, 9, 18, 1, 46, 44, 440, DateTimeKind.Local).AddTicks(1705), "Edris", 1, "0212378798", "245 homelyn Street", "Elba" },
+                    { 4, "NyongoLupita@gmail.com", 2, new DateTime(2023, 9, 18, 1, 46, 44, 440, DateTimeKind.Local).AddTicks(1720), "Lupita", 2, "0455783475", "254 Summer Street", "Nyongo" },
+                    { 5, "MicheaJackson@gmail.com", 2, new DateTime(2023, 9, 18, 1, 46, 44, 440, DateTimeKind.Local).AddTicks(1733), "Micheal", 3, "0874567836", "567 Winter Street", "Jackson" },
+                    { 6, "TaehyungKim@gmial.com", 1, new DateTime(2023, 9, 18, 1, 46, 44, 440, DateTimeKind.Local).AddTicks(1748), "Taehyung", 1, "0874562134", "345 Shallow  Street", "Kim" },
+                    { 7, "ZendayaColeman@gmail.com", 1, new DateTime(2023, 9, 18, 1, 46, 44, 440, DateTimeKind.Local).AddTicks(1762), "Zendaya", 2, "0212378798", "243 Super Street ", "Coleman" },
+                    { 8, "RogerFederal@gmail.com", 1, new DateTime(2023, 9, 18, 1, 46, 44, 440, DateTimeKind.Local).AddTicks(1776), "Roger", 3, "0612346487", "987 Wall Street", "Federal" },
+                    { 9, "JenniferLOpez@gmail.com", 2, new DateTime(2023, 9, 18, 1, 46, 44, 440, DateTimeKind.Local).AddTicks(1788), "Jennifer", 3, "0874834576", "967 Ballard Street", "Lopez" },
+                    { 10, "ChadwickBoseman@gmail.com", 2, new DateTime(2023, 9, 18, 1, 46, 44, 440, DateTimeKind.Local).AddTicks(1802), "Chadwick", 1, "0923456789", "483 Alien Street", "Boseman" }
                 });
 
             migrationBuilder.InsertData(
@@ -1711,12 +1711,12 @@ namespace Africanacity_Team24_INF370_.Migrations
                 columns: new[] { "Id", "ContactNumber", "Email", "EntertainmentType", "Entertainment_TypeId", "FirstName", "LastName", "Password", "PhysicalAddress", "RefreshToken", "RefreshTokenExpiryTime", "ResetPasswordToken", "ResetPasswordTokenExpiry", "Role", "TitleId", "Token", "User_RoleId", "Username" },
                 values: new object[,]
                 {
-                    { 1, "0848887563", "VanessaJames@gmail.com", null, 1, "Vanessa", "James", "Vanessa123", "404 Jacob Street", "", new DateTime(2023, 9, 4, 19, 2, 7, 199, DateTimeKind.Utc).AddTicks(6361), "", new DateTime(2023, 9, 4, 19, 2, 7, 199, DateTimeKind.Utc).AddTicks(6361), "User", null, null, null, "Vanessa" },
-                    { 2, "0848887564", "SerenaWilliams@gmail.com", null, 2, "Serena", "Williams", "Serena.123", "404 Williams Street", "", new DateTime(2023, 9, 4, 19, 2, 7, 199, DateTimeKind.Utc).AddTicks(6377), "", new DateTime(2023, 9, 4, 19, 2, 7, 199, DateTimeKind.Utc).AddTicks(6377), "User", null, null, null, "Serena" },
-                    { 3, "0848887565", "VenusWilliams@gmail.com", null, 3, "Williams", "Venus", "Venus.123", "100 Venus Street", "", new DateTime(2023, 9, 4, 19, 2, 7, 199, DateTimeKind.Utc).AddTicks(6386), "", new DateTime(2023, 9, 4, 19, 2, 7, 199, DateTimeKind.Utc).AddTicks(6386), "User", null, null, null, "Venus" },
-                    { 4, "0848887566", "Beast@gmail.com", null, 4, "Beast", "Bestie", "Beast.123", "808 Beast Street", "", new DateTime(2023, 9, 4, 19, 2, 7, 199, DateTimeKind.Utc).AddTicks(6394), "", new DateTime(2023, 9, 4, 19, 2, 7, 199, DateTimeKind.Utc).AddTicks(6394), "User", null, null, null, "Bee" },
-                    { 5, "0848887567", "KidDanger@gmail.com", null, 3, "Danger", "Kid", "Danger.123", "500 Danger Street", "", new DateTime(2023, 9, 4, 19, 2, 7, 199, DateTimeKind.Utc).AddTicks(6403), "", new DateTime(2023, 9, 4, 19, 2, 7, 199, DateTimeKind.Utc).AddTicks(6403), "User", null, null, null, "KidDanger" },
-                    { 6, "0848887568", "AdultDanger@gmail.com", null, 4, "Danger", "Adult", "Adult.123", "404 Adult Street", "", new DateTime(2023, 9, 4, 19, 2, 7, 199, DateTimeKind.Utc).AddTicks(6435), "", new DateTime(2023, 9, 4, 19, 2, 7, 199, DateTimeKind.Utc).AddTicks(6435), "User", null, null, null, "AdultDanger" }
+                    { 1, "0848887563", "VanessaJames@gmail.com", null, 1, "Vanessa", "James", "Vanessa123", "404 Jacob Street", "", new DateTime(2023, 9, 17, 23, 46, 44, 440, DateTimeKind.Utc).AddTicks(2032), "", new DateTime(2023, 9, 17, 23, 46, 44, 440, DateTimeKind.Utc).AddTicks(2032), "User", null, null, null, "Vanessa" },
+                    { 2, "0848887564", "SerenaWilliams@gmail.com", null, 2, "Serena", "Williams", "Serena.123", "404 Williams Street", "", new DateTime(2023, 9, 17, 23, 46, 44, 440, DateTimeKind.Utc).AddTicks(2052), "", new DateTime(2023, 9, 17, 23, 46, 44, 440, DateTimeKind.Utc).AddTicks(2052), "User", null, null, null, "Serena" },
+                    { 3, "0848887565", "VenusWilliams@gmail.com", null, 3, "Williams", "Venus", "Venus.123", "100 Venus Street", "", new DateTime(2023, 9, 17, 23, 46, 44, 440, DateTimeKind.Utc).AddTicks(2065), "", new DateTime(2023, 9, 17, 23, 46, 44, 440, DateTimeKind.Utc).AddTicks(2066), "User", null, null, null, "Venus" },
+                    { 4, "0848887566", "Beast@gmail.com", null, 4, "Beast", "Bestie", "Beast.123", "808 Beast Street", "", new DateTime(2023, 9, 17, 23, 46, 44, 440, DateTimeKind.Utc).AddTicks(2079), "", new DateTime(2023, 9, 17, 23, 46, 44, 440, DateTimeKind.Utc).AddTicks(2080), "User", null, null, null, "Bee" },
+                    { 5, "0848887567", "KidDanger@gmail.com", null, 3, "Danger", "Kid", "Danger.123", "500 Danger Street", "", new DateTime(2023, 9, 17, 23, 46, 44, 440, DateTimeKind.Utc).AddTicks(2123), "", new DateTime(2023, 9, 17, 23, 46, 44, 440, DateTimeKind.Utc).AddTicks(2123), "User", null, null, null, "KidDanger" },
+                    { 6, "0848887568", "AdultDanger@gmail.com", null, 4, "Danger", "Adult", "Adult.123", "404 Adult Street", "", new DateTime(2023, 9, 17, 23, 46, 44, 440, DateTimeKind.Utc).AddTicks(2156), "", new DateTime(2023, 9, 17, 23, 46, 44, 440, DateTimeKind.Utc).AddTicks(2157), "User", null, null, null, "AdultDanger" }
                 });
 
             migrationBuilder.InsertData(
@@ -1737,16 +1737,16 @@ namespace Africanacity_Team24_INF370_.Migrations
                 columns: new[] { "InventoryPrice_Id", "Date", "Inventory_ItemId", "Price" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 9, 4, 21, 2, 7, 199, DateTimeKind.Local).AddTicks(7627), 1, 25m },
-                    { 2, new DateTime(2023, 9, 4, 21, 2, 7, 199, DateTimeKind.Local).AddTicks(7639), 2, 250m },
-                    { 3, new DateTime(2023, 9, 4, 21, 2, 7, 199, DateTimeKind.Local).AddTicks(7648), 3, 200m },
-                    { 4, new DateTime(2023, 9, 4, 21, 2, 7, 199, DateTimeKind.Local).AddTicks(7659), 4, 38m },
-                    { 5, new DateTime(2023, 9, 4, 21, 2, 7, 199, DateTimeKind.Local).AddTicks(7668), 5, 45m },
-                    { 6, new DateTime(2023, 9, 4, 21, 2, 7, 199, DateTimeKind.Local).AddTicks(7678), 6, 75m },
-                    { 7, new DateTime(2023, 9, 4, 21, 2, 7, 199, DateTimeKind.Local).AddTicks(7686), 7, 100m },
-                    { 8, new DateTime(2023, 9, 4, 21, 2, 7, 199, DateTimeKind.Local).AddTicks(7695), 8, 40m },
-                    { 9, new DateTime(2023, 9, 4, 21, 2, 7, 199, DateTimeKind.Local).AddTicks(7704), 9, 28m },
-                    { 10, new DateTime(2023, 9, 4, 21, 2, 7, 199, DateTimeKind.Local).AddTicks(7714), 10, 35m }
+                    { 1, new DateTime(2023, 9, 18, 1, 46, 44, 440, DateTimeKind.Local).AddTicks(3983), 1, 25m },
+                    { 2, new DateTime(2023, 9, 18, 1, 46, 44, 440, DateTimeKind.Local).AddTicks(4000), 2, 250m },
+                    { 3, new DateTime(2023, 9, 18, 1, 46, 44, 440, DateTimeKind.Local).AddTicks(4013), 3, 200m },
+                    { 4, new DateTime(2023, 9, 18, 1, 46, 44, 440, DateTimeKind.Local).AddTicks(4026), 4, 38m },
+                    { 5, new DateTime(2023, 9, 18, 1, 46, 44, 440, DateTimeKind.Local).AddTicks(4039), 5, 45m },
+                    { 6, new DateTime(2023, 9, 18, 1, 46, 44, 440, DateTimeKind.Local).AddTicks(4053), 6, 75m },
+                    { 7, new DateTime(2023, 9, 18, 1, 46, 44, 440, DateTimeKind.Local).AddTicks(4065), 7, 100m },
+                    { 8, new DateTime(2023, 9, 18, 1, 46, 44, 440, DateTimeKind.Local).AddTicks(4078), 8, 40m },
+                    { 9, new DateTime(2023, 9, 18, 1, 46, 44, 440, DateTimeKind.Local).AddTicks(4091), 9, 28m },
+                    { 10, new DateTime(2023, 9, 18, 1, 46, 44, 440, DateTimeKind.Local).AddTicks(4104), 10, 35m }
                 });
 
             migrationBuilder.InsertData(

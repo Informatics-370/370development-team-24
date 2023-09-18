@@ -23,6 +23,7 @@ export class UpdateProfileComponent implements OnInit {
   public Email: string = "";
   public Phone: string = "";
   public Address: string = "";
+  public isValidEmail!: boolean;
 
   constructor(
     private api: ApiService,
@@ -93,9 +94,31 @@ export class UpdateProfileComponent implements OnInit {
     });
   
    
+  const emailControl = this.updateForm.get('email');
+
+  if (emailControl) {
+    emailControl.valueChanges.subscribe((value) => {
+      const pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,3}$/;
+      this.isValidEmail = pattern.test(value);
+    });
+  }
   }
 
+  checkValidEmail() {
+    const emailControl = this.updateForm.get('email');
+    if (emailControl) {
+      const value = emailControl.value;
+      const pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,3}$/;
+      this.isValidEmail = pattern.test(value);
+      console.log('isValidEmail:', this.isValidEmail); // Add this line for debugging
+    }
+  }
+  
   onSubmit() {
+    this.checkValidEmail(); // Call this first to set isValidEmail
+    console.log('isValidEmail:', this.isValidEmail); // Add this line for debugging
+  
+    if (this.isValidEmail) {
     const confirmed = confirm('Are you sure you want to update your profile?');
     if (confirmed) {
       this.api.editAdmin(this.UserId, this.updateForm.value).subscribe(result => {
@@ -103,6 +126,7 @@ export class UpdateProfileComponent implements OnInit {
         this.router.navigate(['/login']);
       });
     }
+   }
   }
 
   logout() {

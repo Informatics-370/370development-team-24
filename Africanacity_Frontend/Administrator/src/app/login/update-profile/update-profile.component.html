@@ -65,7 +65,11 @@
         <span class="fa fa-envelope input-icon"></span>
         <input id="email" formControlName="email" type="text" placeholder="Email" class="input-field">
       </div>
-      <small class="text-danger" *ngIf="updateForm.controls['email'].dirty && updateForm.hasError('required', 'email')">*Email is required*</small>
+      <!-- <small class="text-danger" *ngIf="updateForm.controls['email'].dirty && updateForm.hasError('required', 'email')">*Email is required*</small> -->
+      <small *ngIf="updateForm.controls['email'].dirty">
+        <div *ngIf="updateForm.controls['email'].hasError('required')" class="text-danger"> *Email is required*</div>
+        <div *ngIf="!isValidEmail" class="text-danger">*Email is invalid*</div>
+      </small>   
     </div>
 
     <div class="center-buttons">
