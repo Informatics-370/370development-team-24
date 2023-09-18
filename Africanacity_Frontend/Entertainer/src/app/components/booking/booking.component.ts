@@ -23,7 +23,7 @@ export class BookingComponent implements OnInit {
 
   entertainmentTypeData:Entertainment[]=[]
   toastContainer: any;
-
+  public isValidEmail!: boolean;
   public users:any = [];
   bookingevents: BookingEvent[]=[];
   editBooking: BookingEvent = new BookingEvent();
@@ -88,6 +88,15 @@ export class BookingComponent implements OnInit {
         this.bookingForm.controls['eventname'].setValue(this.editBooking.name);
       });
     });
+
+    const emailControl = this.bookingForm.get('email');
+
+    if (emailControl) {
+      emailControl.valueChanges.subscribe((value) => {
+        const pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,3}$/;
+        this.isValidEmail = pattern.test(value);
+      });
+   }
 
     this.GetAllEvents()
   }
@@ -207,6 +216,24 @@ cancel() {
           });
         }
 
+        
+        validateFile(event: any) {
+          const inputElement = event.target as HTMLInputElement;
+          const allowedTypes = ['image/jpeg', 'image/png', 'video/mp4', 'video/webm', 'video/ogg'];
+          const file = inputElement.files?.[0]; // Use optional chaining to safely access files
+        
+          if (file && allowedTypes.includes(file.type)) {
+            // Valid file type, proceed with upload or processing
+            this.uploadFile(file);
+          } else {
+            // Invalid file type, show an error message to the user
+            alert('Invalid file type. Please select a valid image or video file.');
+            // Optionally, you can clear the file input if needed
+            inputElement.value = '';
+          }
+        }
+        
+        
 }
 
 
