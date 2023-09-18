@@ -1,44 +1,16 @@
-<nav class="side-navbar">
-  <ul>
-    <li class="nav-item">
-      <a class="nav-link" href="#">
-        <i class="fa fa-dashboard"></i>
-        Dashboard
-      </a>
+<nav class="side-navbar"> 
+    <ul class="nav-links" style="margin-top: 5rem;">
+      <li><a routerLink="/home"><i class="fa fa-home"></i> Home</a></li>
+      <li>
+        <a><i class="fa fa-group"></i> Booking</a>
+        <ul class="dropdown">
+          <li><a routerLink="/past-booking">View Booking</a></li>
+        </ul>
+      </li>
+      <li>
+      <a routerLink="../help"><i class="fa fa-fw fa-question-circle"></i> Help</a>
     </li>
-    <hr class="nav-separator">
-    <li class="nav-item">
-      <a href="../home" class="nav-link">
-        <i class="fa fa-home"></i> Home
-      </a>
-    </li>
-    <hr class="nav-separator">
-    <li class="nav-item dropdown">
-      <a class="nav-link">
-        <i class="fa fa-book"></i> Bookings <i class="fa fa-caret-down"></i>
-      </a>
-      <ul class="dropdown-menu">
-        <li><a href="../past-booking" class="white-link"><i class="fa fa-address-book-o"></i> View Bookings</a></li>
-      </ul>
-    </li>
-    <hr class="nav-separator">
-    <li class="nav-item">
-      <a href="../help" class="nav-link">
-        <i class="fa fa-question-circle"></i> Help
-      </a>
-    </li>
-    <hr class="nav-separator">
-    <li class="nav-item">
-      <a href="../view-profile" class="nav-link">
-        <i class="fa fa-user-circle-o"></i> View Profile
-      </a>
-    </li>
-    <hr class="nav-separator">
-    <li class="nav-item">
-      <a class="nav-link" (click)="logout()">
-        <i class="fa fa-sign-out"></i> Logout
-      </a>
-    </li>
-    <hr class="nav-separator">
-  </ul>
-</nav>
+      <li><a (click)="view()"><i class="fa fa-fw fa-user-circle-o"></i> View Profile</a></li>
+      <li><a (click)="logout()"><i class="fa fa-sign-out"></i> LOGOUT</a></li>
+    </ul>
+  </nav>

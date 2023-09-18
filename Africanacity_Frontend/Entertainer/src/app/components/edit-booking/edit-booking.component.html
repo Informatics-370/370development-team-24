@@ -1,4 +1,4 @@
-<div class="col-md-2">
+<!-- <div class="col-md-2">
       <app-navbar></app-navbar> 
     </div>
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
@@ -118,5 +118,109 @@
               </div>
           </div>
       </div>
+  </div>
+</div> -->
+
+<div class="col-md-2">
+  <app-navbar></app-navbar>
+</div>
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">
+    <img src="../../assets/Nav_image/Africanacity.png" alt="" width="40" height="40" class="d-inline-block align-text-top">
+    Hello {{ fullName }}
+    <h6></h6>
+  </a>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+    data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search"
+    aria-label="Search">
+  <div class="navbar-nav">
+    <div class="nav-item text-nowrap">
+      <a style="background: red; color: #fff; border-radius: 4px; margin: 10px;" class="nav-link px-3 cursor-pointer"
+        (click)="logout()">Sign out</a>
+    </div>
+  </div>
+</header>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3 mt-4">
+      <div class="card smaller-card">
+        <div class="card-body">
+          <button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help" class="help-button">
+            <mat-icon>help</mat-icon>
+          </button>
+          <h2 class="card-title text-center">Edit Booking</h2>
+          <hr>
+          <form [formGroup]="updateBookingForm" class="form-horizontal" (ngSubmit)="updateBooking()">
+            
+            <div *ngIf="submittingBooking" class="loader-overlay">
+              <div class="loader"></div>
+              <div class="loading-message">Loading...</div>
+            </div>
+            <div class="form-group">
+              <label style="font-weight: bold;" for="eventname">Event:</label>
+                <input class="form-control" id="eventname" [required]="true" formControlName="eventname">
+          </div>
+              <div class="form-group">
+                  <label style="font-weight: bold;" for="lastName">Surname:</label>
+                    <input class="form-control" id="lastName" placeholder="Enter Surname" [required]="true" formControlName="lastName">
+              </div>
+              <div class="form-group">
+                  <label  style="font-weight: bold;" for="firstName">FirstName:</label>
+                    <input class="form-control" id="firstName" placeholder="Enter First Name" [required]="true" formControlName="firstName">
+              </div>
+          
+              <div class="form-group">
+                <label style="font-weight: bold;" for="entertainmenttype">Entertainment Type</label>
+                  <select class="form-control" id="entertainmenttype" formControlName="entertainmenttype">
+                    <option *ngFor="let item of entertainmentTypeData" [ngValue]="item.entertainment_TypeId">{{ item.name }}</option>
+                  </select>
+                  <span class="fa fa-caret-down dropdown-icon"></span>
+              </div>
+              <div class="form-group">
+                <label style="font-weight: bold;" for="email">Email Address:</label>
+                  <textarea class="form-control" type="text" id="email" placeholder="Enter Address" [required]="true" formControlName="email"></textarea>
+                </div>
+                <small *ngIf="updateBookingForm.controls['email'].dirty">
+                  <div *ngIf="updateBookingForm.controls['email'].hasError('required')" class="text-danger"> *Email is required*</div>
+                  <div *ngIf="!isValidEmail" class="text-danger">*Email is invalid*</div>
+                </small> 
+            <div class="form-group">
+              <label style="font-weight: bold;" for="instagram">Instagram:</label>
+                <input class="form-control" id="instagram" placeholder="Enter Instagram handle" [required]="true" formControlName="instagram">
+          </div>
+              <div class="form-group">
+                <label style="font-weight: bold;" for="contactNumber">Phone Number:</label>
+                  <input class="form-control" id="contactNumber" placeholder="Enter 10-digit number"
+                         [required]="true" formControlName="contactNumber">
+                         <div *ngIf="updateBookingForm?.get('contactNumber')?.hasError('minlength') || 
+                         updateBookingForm?.get('contactNumber')?.hasError('maxlength') ||
+                         updateBookingForm?.get('contactNumber')?.hasError('pattern')"
+                            class="text-danger">
+                                Phone number should be 10 digits.
+                           </div>
+              </div>
+              <div class="form-group">
+                <label style="font-weight: bold;" for="additional">Additional:</label>
+                  <input class="form-control" id="additional" placeholder="Additional Information" [required]="true" formControlName="additional">
+              </div>
+           <div class="form-group">
+                <label  style="font-weight: bold;" for="demo">Demo:</label>
+                  <input type="file" (change)="uploadFile($event)" formControlName="demo" accept="image/*,video/*">
+                </div>
+                <p style="color: red;"> *The demo is a video it should not be longer than 30 seconds*</p>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-6">
+                    <button style="margin-right:1em;" type="submit" [disabled]="!updateBookingForm.valid"
+                        class="btn btn-sm btn-success">Confirm</button>
+                    <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button>
+                </div>
+            </div>       
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
