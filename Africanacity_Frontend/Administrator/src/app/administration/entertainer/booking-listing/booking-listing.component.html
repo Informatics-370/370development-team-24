@@ -4,6 +4,11 @@
           <app-navbar></app-navbar>
       </div>
   <div class="col-md-10 order-md-1">
+    <div *ngIf="bookingActionLoading" class="loader-container">
+      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+      <p class="loading-message">Processing...</p>
+    </div>
+    
     <label></label>
   <h3 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px; font-weight: bolder;">Booking Listing </h3>
 

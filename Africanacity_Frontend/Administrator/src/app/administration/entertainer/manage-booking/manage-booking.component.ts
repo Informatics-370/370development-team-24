@@ -164,50 +164,5 @@ export class ManageBookingComponent {
     });
   }
 
-  // acceptBooking(bookingId: number) {
-  //   this.book.moveBookingToConfirmed(bookingId).subscribe(
-  //     () => {
-  //       // Remove the accepted booking from the pending list
-  //       this.filteredbookings = this.filteredbookings.filter((booking) => booking.pending_BookingId !== bookingId);
-
-  //       // Optionally, you can display a success message
-  //       this.snackBar.open('Booking accepted successfully!', 'Close', {
-  //         duration: 3000,
-  //       });
-  //     },
-  //     (error) => {
-  //       // Handle error if the API call fails
-  //       console.error('Error accepting booking:', error);
-  //       // Optionally, you can display an error message
-  //       this.snackBar.open('Error accepting booking. Please try again later.', 'Close', {
-  //         duration: 3000,
-  //       });
-  //     }
-  //   );
-  // }
-
-  // DeleteBooking(bookingId: number): void {
-  //   const confirmed = confirm('Are you sure you want to decline the booking?');
-  //   if (confirmed) {
-  //     this.book.ManageDeleteBooking(bookingId).subscribe(
-  //       () => {
-  //         // Remove the deleted booking from the list
-  //         this.filteredbookings = this.filteredbookings.filter((booking) => booking.pending_BookingId !== bookingId);
-
-  //         // Display a success message
-  //         this.snackBar.open('Booking removed successfully!', 'Close', {
-  //           duration: 3000,
-  //         });
-  //       },
-  //       (error) => {
-  //         console.error('Error removing booking:', error);
-  //         // Display an error message
-  //         this.snackBar.open('An error occurred while removing the booking.', 'Close', {
-  //           duration: 3000,
-  //         });
-  //       }
-  //     );
-  //   }
-  // }
 
 }

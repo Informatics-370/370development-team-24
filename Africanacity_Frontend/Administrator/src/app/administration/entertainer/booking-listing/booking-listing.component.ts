@@ -18,7 +18,7 @@ export class BookingListingComponent {
   bookings: Booking[] = [];
   filteredbookings: Booking[] = [];
   loading: boolean = true;
-
+  bookingActionLoading: boolean = false;
 
   public users:any = [];
   public role!:string;
@@ -84,6 +84,7 @@ export class BookingListingComponent {
 
 
     DeleteBooking(bookingId: number): void {
+      this.bookingActionLoading = true; // Set loading to true before making the API call
       const confirmed = confirm('Are you sure you want to delete the booking?');
       if (confirmed) {
         this.book.DeleteBooking(bookingId).subscribe(
