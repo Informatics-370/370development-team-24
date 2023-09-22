@@ -344,10 +344,11 @@ import { HelpViewDrinktypeComponent } from './administration/Drink Type/view-dri
     HelpViewdrinksComponent,
     HelpEditdrinktypeComponent,
     HelpAdddrinktypeComponent,
-    HelpViewDrinktypeComponent
+    HelpViewDrinktypeComponent,
 
   ],
-  imports: [
+
+  imports:[
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,

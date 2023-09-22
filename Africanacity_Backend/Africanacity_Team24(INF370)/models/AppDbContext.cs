@@ -2115,7 +2115,16 @@ namespace Africanacity_Team24_INF370_.models
             .WithMany()
             .HasForeignKey(m => m.EventId);
 
+            //FOR TREE DIAGRAM
+            modelBuilder.Entity<MenuItem_Category>()
+                        .HasOne(mc => mc.MenuType)
+                        .WithMany(mt => mt.MenuCategories)
+                        .HasForeignKey(mc => mc.MenuTypeId);
 
+            modelBuilder.Entity<Food_Type>()
+                .HasOne(ft => ft.MenuType)
+                .WithMany(mt => mt.FoodTypes)
+                .HasForeignKey(ft => ft.MenuTypeId);
 
             //Many to many with MenuItem
             modelBuilder.Entity<MenuItem>()

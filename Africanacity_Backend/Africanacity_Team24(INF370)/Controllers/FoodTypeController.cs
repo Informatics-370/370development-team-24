@@ -59,6 +59,13 @@ namespace Africanacity_Team24_INF370_.Controllers
         [Route("AddFoodType")]
         public async Task<IActionResult> AddFoodType(FoodTypeViewModel ftvm)
         {
+
+            //tree diagram
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var foodType = new Food_Type { Name = ftvm.Name, Description = ftvm.Description };
 
             try

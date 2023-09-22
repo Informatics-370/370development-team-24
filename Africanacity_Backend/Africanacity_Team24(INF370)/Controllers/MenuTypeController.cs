@@ -58,11 +58,48 @@ namespace Africanacity_Team24_INF370_.Controllers
         [Route("AddMenuType")]
         public async Task<IActionResult> AddMenuType(MenuTypeViewModel menuTypeViewModel)
         {
+            //tree diagram
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var menuType = new Menu_Type { Name = menuTypeViewModel.Name};
 
             try
             {
                 _repository.Add(menuType);
+                await _repository.SaveChangesAsync();
+
+
+                //tree diagram --start
+
+                // Update the Menu Type with associated Menu Categories and Food Types
+                if (menuTypeViewModel.MenuCategories != null && menuTypeViewModel.MenuCategories.Any())
+                {
+                    var associatedMenuCategories = menuTypeViewModel.MenuCategories
+                        .Select(mc => new MenuItem_Category
+                        {
+                            Name = mc.Name,
+                            Description = mc.Description
+                        }).ToList();
+
+                    menuType.MenuCategories.AddRange(associatedMenuCategories);
+                }
+
+                if (menuTypeViewModel.FoodTypes != null && menuTypeViewModel.FoodTypes.Any())
+                {
+                    var associatedFoodTypes = menuTypeViewModel.FoodTypes
+                        .Select(ft => new Food_Type
+                        {
+                            Name = ft.Name,
+                            Description = ft.Description
+                        }).ToList();
+
+                    menuType.FoodTypes.AddRange(associatedFoodTypes);
+                }
+                //tree diagram --end
+
                 await _repository.SaveChangesAsync();
             }
             catch (Exception)

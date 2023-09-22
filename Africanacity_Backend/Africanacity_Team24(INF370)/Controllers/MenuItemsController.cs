@@ -136,7 +136,7 @@ namespace Africanacity_Team24_INF370_.Controllers
         //adding a menu item
         [HttpPost]
         [Route("AddMenuItem")]
-        public async Task<IActionResult> AddMenuItem(IFormCollection formData)
+        public async Task<IActionResult> AddMenuItem(MenuItemViewModel menuItemViewModel)//added (menuItemViewModel) instead of (IFormCollection formData) because testing tree diagram 
         {
             // Implementation goes here
 
@@ -145,18 +145,38 @@ namespace Africanacity_Team24_INF370_.Controllers
                 return BadRequest(ModelState);
             }
 
-  
+            //FOR TREE DIAGRAM
+            var menuType = await _repository.GetMenuTypeAsync(menuItemViewModel.Menu_TypeId);
+            var menuCategory = await _repository.GetMenuItemCategoryAsync(menuItemViewModel.Menu_CategoryId);
+            var foodType = await _repository.GetFoodTypeAsync(menuItemViewModel.FoodTypeId);
+
+            if (menuType == null || menuCategory == null || foodType == null)
+            {
+                return BadRequest("Invalid Menu Type, Menu Category, or Food Type.");
+            }
+
+
             //to add to menu item table
+            //var menuItem = new MenuItem
+            //{
+            //    Name = formData["name"],
+            //    Description = formData["description"],
+            //    Menu_TypeId = Convert.ToInt32(formData["menuType"]),
+            //    FoodTypeId = Convert.ToInt32(formData["foodType"]),
+            //    Menu_CategoryId = Convert.ToInt32(formData["menuCategory"]),
+            //};
+
+
+            //tree diagram testing
             var menuItem = new MenuItem
             {
-                Name = formData["name"],
-                Description = formData["description"],
-                Menu_TypeId = Convert.ToInt32(formData["menuType"]),
-                FoodTypeId = Convert.ToInt32(formData["foodType"]),
-                Menu_CategoryId = Convert.ToInt32(formData["menuCategory"]),
+                Name = menuItemViewModel.Name,
+                Description = menuItemViewModel.Description,
+                Menu_TypeId = menuItemViewModel.Menu_TypeId,
+                Menu_CategoryId = menuItemViewModel.Menu_CategoryId,
+                FoodTypeId = menuItemViewModel.FoodTypeId,
             };
 
-           
 
             try
             {
@@ -167,8 +187,9 @@ namespace Africanacity_Team24_INF370_.Controllers
                 var menuItemPrice = new MenuItem_Price
                 {
                     MenuItemId = menuItem.MenuItemId,
-                    Amount = Convert.ToDecimal(formData["amount"])
-                    
+                    //Amount = Convert.ToDecimal(formData["amount"])
+                    Amount = menuItemViewModel.Amount
+
                 };
 
                 _repository.Add(menuItemPrice);

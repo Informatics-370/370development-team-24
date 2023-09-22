@@ -68,6 +68,13 @@ namespace Africanacity_Team24_INF370_.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AddMenuItemCategory(MenuItem_CategoryViewModel micvm)
         {
+
+            //tree diagram
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var menuItem_Category = new MenuItem_Category { Name = micvm.Name, Description = micvm.Description };
 
             try
