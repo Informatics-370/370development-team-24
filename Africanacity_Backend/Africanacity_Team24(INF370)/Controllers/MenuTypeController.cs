@@ -110,6 +110,45 @@ namespace Africanacity_Team24_INF370_.Controllers
             return Ok(menuType);
         }
 
+
+        //get menu category by menu type
+        [HttpGet]
+        [Route("GetMenuCategoriesForMenuType/{Menu_TypeId}")]
+        public async Task<IActionResult> GetMenuCategoriesForMenuType(int Menu_TypeId)
+        {
+            try
+            {
+                var result = await _repository.GetMenuCategoriesForMenuTypeAsync(Menu_TypeId);
+
+                if (result == null) return NotFound("Course does not exist");
+
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support");
+            }
+        }
+
+        [HttpGet]
+        [Route("GetFoodTypesForMenuType/{Menu_TypeId}")]
+        public async Task<IActionResult> GetFoodTypesForMenuType(int Menu_TypeId)
+        {
+            try
+            {
+                var result = await _repository.GetFoodTypesForMenuTypeAsync(Menu_TypeId);
+
+                if (result == null) return NotFound("Course does not exist");
+
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support");
+            }
+        }
+
+
         //Update
         [HttpPut]
         [Route("EditMenuType/{Menu_TypeId}")]
