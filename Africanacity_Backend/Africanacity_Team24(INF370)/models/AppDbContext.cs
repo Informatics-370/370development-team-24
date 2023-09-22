@@ -707,7 +707,8 @@ namespace Africanacity_Team24_INF370_.models
                            {
                                FoodTypeId = 1,
                                Name = "Chicken",
-                               Description = "Meals consisting of chicken"
+                               Description = "Meals consisting of chicken",
+                               Menu_TypeId = 2,
 
                            });
 
@@ -718,6 +719,7 @@ namespace Africanacity_Team24_INF370_.models
                     FoodTypeId = 2,
                     Name = "Beef",
                     Description = "Meals consisting of beef",
+                    Menu_TypeId = 2,
                 });
 
             modelBuilder.Entity<Food_Type>()
@@ -726,7 +728,8 @@ namespace Africanacity_Team24_INF370_.models
                 {
                     FoodTypeId = 3,
                     Name = "Vegetarian",
-                    Description = "Meals suitable for vegetarians"
+                    Description = "Meals suitable for vegetarians",
+                   Menu_TypeId = 1,
 
                 });
 
@@ -736,7 +739,8 @@ namespace Africanacity_Team24_INF370_.models
                 {
                     FoodTypeId = 4,
                     Name = "Vegan",
-                    Description = "Meals suitable for Vegans"
+                    Description = "Meals suitable for Vegans",
+                    Menu_TypeId = 1,
 
                 });
 
@@ -1357,7 +1361,8 @@ namespace Africanacity_Team24_INF370_.models
                            {
                                Menu_CategoryId = 1,
                                Name = "Breakfast",
-                               Description = "Meals between 7am to 12pm"
+                               Description = "Meals between 7am to 12pm",
+                               Menu_TypeId = 1,
 
                            });
 
@@ -1367,7 +1372,8 @@ namespace Africanacity_Team24_INF370_.models
                  {
                      Menu_CategoryId = 2,
                      Name = "Starter",
-                     Description = "Appetisers"
+                     Description = "Appetisers",
+                     Menu_TypeId = 2,
 
                  });
 
@@ -1378,6 +1384,7 @@ namespace Africanacity_Team24_INF370_.models
                               Menu_CategoryId = 3,
                               Name = "Main",
                               Description = "Big and Filling meals",
+                              Menu_TypeId =2,
 
                           });
 
@@ -1387,7 +1394,8 @@ namespace Africanacity_Team24_INF370_.models
                           {
                               Menu_CategoryId = 4,
                               Name = "Dessert",
-                              Description = "Special things for those with a sweet tooth"
+                              Description = "Special things for those with a sweet tooth",
+                              Menu_TypeId = 2,
 
                           });
 
@@ -1397,7 +1405,8 @@ namespace Africanacity_Team24_INF370_.models
                           {
                               Menu_CategoryId = 5,
                               Name = "Light Meals",
-                              Description = "For those hungry but not hungry"
+                              Description = "For those hungry but not hungry",
+                              Menu_TypeId = 2,
 
                           });
 
@@ -2119,28 +2128,31 @@ namespace Africanacity_Team24_INF370_.models
             modelBuilder.Entity<MenuItem_Category>()
                         .HasOne(mc => mc.MenuType)
                         .WithMany(mt => mt.MenuCategories)
-                        .HasForeignKey(mc => mc.MenuTypeId);
+                        .HasForeignKey(mc => mc.Menu_TypeId);
 
             modelBuilder.Entity<Food_Type>()
                 .HasOne(ft => ft.MenuType)
                 .WithMany(mt => mt.FoodTypes)
-                .HasForeignKey(ft => ft.MenuTypeId);
+                .HasForeignKey(ft => ft.Menu_TypeId);
 
             //Many to many with MenuItem
             modelBuilder.Entity<MenuItem>()
                         .HasOne(m => m.Menu_Type)
                         .WithMany()
-                        .HasForeignKey(m => m.Menu_TypeId);
+                        .HasForeignKey(m => m.Menu_TypeId)
+                         .OnDelete(DeleteBehavior.Restrict); // Specify NO ACTION
 
             modelBuilder.Entity<MenuItem>()
             .HasOne(m => m.MenuItem_Category)
             .WithMany()
-            .HasForeignKey(m => m.Menu_CategoryId);
+            .HasForeignKey(m => m.Menu_CategoryId)
+            .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<MenuItem>()
             .HasOne(m => m.Food_Type)
             .WithMany()
-            .HasForeignKey(m => m.FoodTypeId);
+            .HasForeignKey(m => m.FoodTypeId)
+            .OnDelete(DeleteBehavior.Restrict);
 
 
             //one to many with Drink table

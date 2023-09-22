@@ -188,8 +188,8 @@ namespace Africanacity_Team24_INF370_.Controllers
                 {
                     MenuItemId = menuItem.MenuItemId,
                     //Amount = Convert.ToDecimal(formData["amount"])
-                    Amount = menuItemViewModel.Amount
-
+                      Amount = menuItemViewModel.Amount
+                    
                 };
 
                 _repository.Add(menuItemPrice);

@@ -17,7 +17,7 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
         //navigation properties
         public List<MenuItem_Category> MenuCategories { get; set; } = new List<MenuItem_Category>();
         public List<Food_Type> FoodTypes { get; set; } = new List<Food_Type>();
-        public ICollection<MenuItem> MenuItems { get; set; } = new List<MenuItem>();
+        //public ICollection<MenuItem> MenuItems { get; set; } = new List<MenuItem>();
 
     }
 }

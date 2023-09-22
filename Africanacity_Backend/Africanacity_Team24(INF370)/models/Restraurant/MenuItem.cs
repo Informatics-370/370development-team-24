@@ -1,6 +1,6 @@
 ﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
-
 using System.ComponentModel.DataAnnotations;
+
 
 
 namespace Africanacity_Team24_INF370_.models.Restraurant
@@ -13,6 +13,7 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
         [Key]
 		public int MenuItemId { get; set; }
 
+       
 		[MaxLength(50)]
 		public string Name { get; set; } = string.Empty;
 
@@ -20,16 +21,15 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
 		public string Description { get; set; } = string.Empty;
 
 		public int Menu_TypeId { get; set; }  //tree diagram fk to MenuType table
-		public int Menu_CategoryId { get; set; } //tree diagram fk to MenuItemCategory table
+        public Menu_Type Menu_Type { get; set; } // navigation property to MenuType
+        public int Menu_CategoryId { get; set; } //tree diagram fk to MenuItemCategory table
+        public MenuItem_Category MenuItem_Category { get; set; }// navigation property to MenuCategory 
         public int FoodTypeId { get; set; } //tree diagram fk to FoodType table
+        public Food_Type Food_Type { get; set; } // navigation property to Food Type
 
         //linked tables
-        public  Menu_Type Menu_Type { get; set; } // navigation property to MenuType
-		public MenuItem_Category MenuItem_Category { get; set; }// navigation property to MenuCategory 
-        public Food_Type Food_Type{ get; set; } // navigation property to Food Type
 
-
-        public List<Order> Orders { get; set; } = new List<Order>();
+       
 
         //public List<KitchenOrder> KitchenOrders { get; set; } = new List<KitchenOrder>();
         //collecting data of the menu item price table from the menu item form

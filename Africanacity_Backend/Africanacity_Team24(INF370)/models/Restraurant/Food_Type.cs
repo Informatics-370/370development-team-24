@@ -16,10 +16,10 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
 		public string Description { get; set; } = string.Empty;
 
         //TREE DIAGRAM
-        public int MenuTypeId { get; set; } // Foreign key to MenuType
+        public int Menu_TypeId { get; set; } // Foreign key to MenuType
         public Menu_Type MenuType { get; set; } // Navigation property to MenuType
 
-        public virtual ICollection<MenuItem> MenuItems { get; set; }	
+        //public virtual ICollection<MenuItem> MenuItems { get; set; }	
 
 	}
 }
