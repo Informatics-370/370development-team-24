@@ -164,5 +164,7 @@ export class ManageBookingComponent {
     });
   }
 
-
+  handleVideoError(event: any) {
+    console.error('Video error:', event);
+  }
 }

@@ -96,6 +96,7 @@ export class BookingListingComponent {
             this.snackBar.open('Booking deleted successfully!', 'Close', {
               duration: 3000,
             });
+            this.bookingActionLoading = false; // Set loading back to false after the API call is completed
           },
           (error) => {
             console.error('Error deleting booking:', error);
@@ -103,6 +104,7 @@ export class BookingListingComponent {
             this.snackBar.open('An error occurred while deleting the booking.', 'Close', {
               duration: 3000,
             });
+            this.bookingActionLoading = false; // Set loading back to false in case of an error
           }
         );
       }

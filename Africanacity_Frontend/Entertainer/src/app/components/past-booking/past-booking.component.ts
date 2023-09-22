@@ -84,29 +84,6 @@ export class PastBookingComponent implements OnInit {
     });
   }
 
-  // DeleteBooking(bookingId: number): void {
-  //   const confirmed = confirm('Are you sure you want to delete the booking?');
-  //   if (confirmed) {
-  //     this.book.DeleteBooking(bookingId).subscribe(
-  //       () => {
-  //         // // Remove the deleted booking from the list
-  //         // this.filteredbookings = this.filteredbookings.filter((booking) => booking.bookingId !== bookingId);
-  
-  //         // Display a success message
-  //         this.snackBar.open('Booking deletion request sent successfully', 'Close', {
-  //           duration: 3000,
-  //         });
-  //       },
-  //       (error) => {
-  //          console.error('Error deleting booking:', error);
-  //         // Display an error message
-  //         this.snackBar.open('An error occurred while sending the booking deletion request.', 'Close', {
-  //           duration: 3000,
-  //         });
-  //       }
-  //     );
-  //   }
-  // }
   
   DeleteBooking(bookingId: number): void {
     const confirmed = confirm('Are you sure you want to delete the booking?');

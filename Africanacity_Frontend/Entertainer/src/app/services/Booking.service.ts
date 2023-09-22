@@ -64,12 +64,13 @@ export class BookingService {
     {
        return this.httpClient.post(`${this.apiUrl}Booking/AddBooking`, booking, this.httpOptions)
     }
+
+  //Trail 
+  Trail(file:FormData){  
+    return this.httpClient.post(`${this.apiUrl}Booking/Trail`, file)
+  }
+
   
-  
-    // DeleteBooking(bookingId: Number)
-    // {
-    //   return this.httpClient.delete<string>(`${this.apiUrl}Booking/RequestDeleteBooking` + "/" + bookingId, this.httpOptions)
-    // }
 
 
 // Update the EditBooking function to accept FormData
