@@ -6,6 +6,8 @@ import { Profile } from 'src/app/models/Profile';
 import { Router } from '@angular/router';
 import { ViewHelpComponent } from './view-help/view-help.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { LogoutConfirmationComponent } from '../navbar/logout-confirmation/logout-confirmation.component';
 
 @Component({
   selector: 'app-view-profile',
@@ -30,7 +32,8 @@ export class ViewProfileComponent implements OnInit {
     private api : ApiService, 
     private userStore: UserStoreService,
     private router: Router,
-    private dialog: MatDialog 
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar 
     ) { }
 
   ngOnInit() {
@@ -104,9 +107,23 @@ view(): void {
 }
 
 
-  logout(){
-    this.auth.signOut();
-  }
+logout() {
+  const dialogRef = this.dialog.open(LogoutConfirmationComponent);
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result === true) {
+      // User confirmed the logout, perform the logout action
+      this.auth.signOut();
+      
+      // Display a success notification
+      this.snackBar.open('Logged out successfully', 'Close', {
+        duration: 3000, // Duration in milliseconds
+        panelClass: ['success-snackbar'], // Optional CSS classes for styling
+      });
+    }
+  });
+}
+
 
   deleteUser(): void {
     const confirmed = confirm('Are you sure you want to delete your account?');

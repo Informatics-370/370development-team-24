@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
 import { PastHelpComponent } from './past-help/past-help.component';
 import { MatDialog } from '@angular/material/dialog';
+import { LogoutConfirmationComponent } from '../navbar/logout-confirmation/logout-confirmation.component';
 
 @Component({
   selector: 'app-past-booking',
@@ -68,8 +69,21 @@ export class PastBookingComponent implements OnInit {
 
   }
 
-  logout(){
-    this.auth.signOut();
+  logout() {
+    const dialogRef = this.dialog.open(LogoutConfirmationComponent);
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        // User confirmed the logout, perform the logout action
+        this.auth.signOut();
+        
+        // Display a success notification
+        this.snackBar.open('Logged out successfully', 'Close', {
+          duration: 3000, // Duration in milliseconds
+          panelClass: ['success-snackbar'], // Optional CSS classes for styling
+        });
+      }
+    });
   }
  
   applyFilter(event: Event) {

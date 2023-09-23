@@ -33,6 +33,11 @@ import { PastHelpComponent } from './components/past-booking/past-help/past-help
 import { ResetHelpComponent } from './components/reset/reset-help/reset-help.component';
 import { UpdateHelpComponent } from './components/update-profile/update-help/update-help.component';
 import { ViewHelpComponent } from './components/view-profile/view-help/view-help.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -70,7 +75,17 @@ import { ViewHelpComponent } from './components/view-profile/view-help/view-help
     HttpClientModule,
     NgToastModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MatDialogModule, 
+    MaterialModule,
+    MatSelectModule,
+    MatSnackBarModule,
+    MatSelectModule,
+    MatSnackBarModule,
+    MatSelectModule,
+    MatSnackBarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule,
   ],
   providers: [{
     provide:HTTP_INTERCEPTORS,

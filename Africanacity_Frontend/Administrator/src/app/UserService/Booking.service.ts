@@ -68,6 +68,7 @@ export class BookingService {
       return this.httpClient.delete<string>(`${this.apiUrl}Booking/DeleteBooking` + "/" + bookingId, this.httpOptions)
     }
 
+
     ManageDeleteBooking(bookingId: Number)
     {
       return this.httpClient.delete<string>(`${this.apiUrl}Booking/ManageDeleteBooking` + "/" + bookingId, this.httpOptions)

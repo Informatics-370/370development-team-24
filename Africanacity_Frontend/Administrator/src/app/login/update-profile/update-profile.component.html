@@ -4,8 +4,14 @@
       <app-navbar></app-navbar>
     </div>
     <div class="col-md-10 order-md-2">
-<div class="container" style="margin-left: 40rem; width: auto;">
+   <div class="container" style="margin-left: 40rem; width: auto;">
+
   <div class="card">
+    <div class="page-container">
+      <div *ngIf="submitting" class="loader-overlay">
+        <div class="loader"></div>
+        <div class="loading-message">Loading...</div>
+      </div>
     <button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help" class="help-button">
       <mat-icon>help</mat-icon>
     </button>
@@ -78,11 +84,9 @@
     </div>
   </form>
 
-  </div>
+            </div>
+          </div>
+        </div>
+     </div>
+   </div>
 </div>
-    </div>
-  </div>
-</div>
-
-
-

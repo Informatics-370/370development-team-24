@@ -24,7 +24,7 @@ export class UpdateProfileComponent implements OnInit {
   public Phone: string = "";
   public Address: string = "";
   public isValidEmail!: boolean;
-
+  submitting: boolean = false;
   constructor(
     private api: ApiService,
     private auth: AuthService,
@@ -119,11 +119,13 @@ export class UpdateProfileComponent implements OnInit {
     console.log('isValidEmail:', this.isValidEmail); // Add this line for debugging
   
     if (this.isValidEmail) {
+      this.submitting = true; 
     const confirmed = confirm('Are you sure you want to update your profile?');
     if (confirmed) {
       this.api.editAdmin(this.UserId, this.updateForm.value).subscribe(result => {
         // Redirect to the home page or any other desired location
         this.router.navigate(['/login']);
+        this.submitting = false; 
       });
     }
    }

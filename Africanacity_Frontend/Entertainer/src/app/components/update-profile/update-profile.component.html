@@ -6,10 +6,6 @@
   <img src="../../assets/Nav_image/Africanacity.png" alt="" width="40" height="40" class="d-inline-block align-text-top">
   Hello {{fullName}}<h6>
   </h6></a>
-<button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon"></span>
-</button>
-<input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
 <div class="navbar-nav">
     <div class="nav-item text-nowrap">
         <a style="background: red;
@@ -28,6 +24,11 @@
     <div class="col-md-10 order-md-2">
 <div class="container" style="margin-left: 40rem; width: auto;">
   <div class="card">
+    <div class="page-container">
+      <div *ngIf="submitting" class="loader-overlay">
+        <div class="loader"></div>
+        <div class="loading-message">Loading...</div>
+      </div>
     <button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help" class="help-button">
       <mat-icon>help</mat-icon>
     </button>
@@ -100,8 +101,9 @@
     </div>
   </form>
 
-  </div>
-</div>
+         </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

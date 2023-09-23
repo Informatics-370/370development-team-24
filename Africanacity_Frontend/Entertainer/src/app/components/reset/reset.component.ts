@@ -27,7 +27,7 @@ export class ResetComponent implements OnInit {
   type: string = 'newPassword';
   isText: boolean = false;
   eyeIcon: string = 'fa-eye-slash';
-
+  submitting: boolean = false;
   constructor(
     private fb : FormBuilder, 
     private toast: NgToastService,
@@ -64,6 +64,7 @@ ngOnInit(): void {
 
     reset(){
         if(this.resetPasswordForm.valid){
+          this.submitting = true; 
          this.resetPassword.email=this.emailToReset;
          this.resetPassword.newPassword=this.resetPasswordForm.value.newPassword;
          this.resetPassword.confirmPassword=this.resetPasswordForm.value.confirmPassword;
@@ -77,8 +78,10 @@ ngOnInit(): void {
                 summary: 'Password reset Successful!',
                 duration: 3000,
               });
+              this.submitting = false; 
               // this.router.navigate(['login'])
               // this.router.navigate(['/login'])
+
         },
         error:(err)=>{
             this.toast.error({
@@ -86,6 +89,7 @@ ngOnInit(): void {
                 summary: 'Password reset unsuccessful!',
                 duration: 3000,
               });
+              this.submitting = false; 
         }
     })
 }

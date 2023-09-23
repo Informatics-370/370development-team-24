@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
 import { UpdateHelpComponent } from './update-help/update-help.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { LogoutConfirmationComponent } from '../navbar/logout-confirmation/logout-confirmation.component';
 
 @Component({
   selector: 'app-update-profile',
@@ -24,14 +26,15 @@ export class UpdateProfileComponent implements OnInit {
   public Phone: string = "";
   public Address: string = "";
   public isValidEmail!: boolean;
-
+  submitting: boolean = false;
   constructor(
     private api: ApiService,
     private auth: AuthService,
     private userStore: UserStoreService,
     private router: Router,
     private fb: FormBuilder,
-    private dialog: MatDialog 
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar 
   ) { }
 
   ngOnInit() {
@@ -118,18 +121,33 @@ export class UpdateProfileComponent implements OnInit {
     console.log('isValidEmail:', this.isValidEmail); // Add this line for debugging
   
     if (this.isValidEmail) {
+      this.submitting = true; 
     const confirmed = confirm('Are you sure you want to update your profile?');
     if (confirmed) {
       this.api.editUser(this.UserId, this.updateForm.value).subscribe(result => {
         // Redirect to the home page or any other desired location
         this.router.navigate(['/login']);
+        this.submitting = false; 
       });
     }
   }
   }
 
   logout() {
-    this.auth.signOut();
+    const dialogRef = this.dialog.open(LogoutConfirmationComponent);
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        // User confirmed the logout, perform the logout action
+        this.auth.signOut();
+        
+        // Display a success notification
+        this.snackBar.open('Logged out successfully', 'Close', {
+          duration: 3000, // Duration in milliseconds
+          panelClass: ['success-snackbar'], // Optional CSS classes for styling
+        });
+      }
+    });
   }
 
   cancel() {

@@ -22,7 +22,7 @@ export class ResetComponent implements OnInit {
   emailToReset!: string;
   emailToken!: string;
   resetPassword = new ResetPassword();
-
+  submitting: boolean = false;
   type: string = 'newPassword';
   isText: boolean = false;
   eyeIcon: string = 'fa-eye-slash';
@@ -64,6 +64,7 @@ reset(){
 
         if(this.resetPasswordForm.valid)
         {
+          this.submitting = true; 
          this.resetPassword.email=this.emailToReset;
          this.resetPassword.newPassword=this.resetPasswordForm.value.newPassword;
          this.resetPassword.confirmPassword=this.resetPasswordForm.value.confirmPassword;
@@ -78,7 +79,8 @@ reset(){
                 duration: 3000,
               });
               this.router.navigate(['/login'])
-              this.router.navigate(['login'])
+              this.router.navigate(['login']);
+              this.submitting = false
         },
         error:(err)=>{
             this.toast.error({
@@ -86,6 +88,7 @@ reset(){
                 summary: 'Password reset unsuccessful!',
                 duration: 3000,
               });
+              this.submitting = false
         }
     })
 }

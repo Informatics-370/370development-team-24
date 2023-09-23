@@ -13,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DataService } from 'src/app/services/data.Service';
 import { BookingEvent } from 'src/app/models/bookingevent';
 import { BookingHelpComponent } from './booking-help/booking-help.component';
+import { LogoutConfirmationComponent } from '../navbar/logout-confirmation/logout-confirmation.component';
 
 @Component({
   selector: 'app-booking',
@@ -56,7 +57,8 @@ export class BookingComponent implements OnInit {
    private route: ActivatedRoute,
    private userStore: UserStoreService,
    private dataService:DataService,
-   private dialog: MatDialog ) {
+   private dialog: MatDialog,
+    ) {
 
     this.bookingForm.controls['eventname'].disable();
    }
@@ -182,9 +184,22 @@ cancel() {
    this.formData.delete("eventname");
  }
 
-  logout(){
-    this.auth.signOut();
-  }
+ logout() {
+  const dialogRef = this.dialog.open(LogoutConfirmationComponent);
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result === true) {
+      // User confirmed the logout, perform the logout action
+      this.auth.signOut();
+      
+      // Display a success notification
+      this.snackBar.open('Logged out successfully', 'Close', {
+        duration: 3000, // Duration in milliseconds
+        panelClass: ['success-snackbar'], // Optional CSS classes for styling
+      });
+    }
+  });
+}
 
      // Custom validator to check for spaces
      noSpacesValidator(control: AbstractControl): { [key: string]: boolean } | null {
