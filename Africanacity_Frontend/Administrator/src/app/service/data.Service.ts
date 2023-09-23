@@ -104,6 +104,17 @@ export class DataService {
     deleteMenuType(menu_TypeId: Number){
       return this.httpClient.delete<string>(`${this.apiUrl}MenuType/DeleteMenuType` + "/" + menu_TypeId, this.httpOptions);
     }
+
+    //get menu categories by menu type
+    getCategoriesForMenuType(menu_TypeId: Number): Observable<any>{
+      return this.httpClient.get(`${this.apiUrl}MenuType/GetMenuCategoriesForMenuType/${menu_TypeId}`);
+    }
+
+    //get food types by menu type
+    getFoodTypesForMenuType(menu_TypeId: Number): Observable<any>{
+      return this.httpClient.get(`${this.apiUrl}MenuType/GetFoodTypesForMenuType/${menu_TypeId}`);
+    }
+  
   
   
   
@@ -137,7 +148,6 @@ export class DataService {
 
 
   
-    /*Delete Menu type*/
     deleteMenuItem(menu_ItemId: Number){
       return this.httpClient.delete<string>(`${this.apiUrl}MenuItems/DeleteMenuItem` + "/" + menu_ItemId, this.httpOptions)
     }
@@ -195,8 +205,10 @@ export class DataService {
     {
       return this.httpClient.delete<string>(`${this.apiUrl}FoodType/DeleteFoodType` + "/" + foodTypeId, this.httpOptions)
     }
+
+
   
-    // menu item category
+    //**************************************menu item category***************************************///
     GetAllMenuItemCategories(): Observable<any>{
       return this.httpClient.get(`${this.apiUrl}MenuItem_Category/GetAllMenuItemCategories`).pipe(map(result => result)) 
     }

@@ -11,7 +11,7 @@
             <hr>
             <div class="container">
               <div class="row">
-  <form [formGroup]="addMenuTypeForm" class="form-horizontal"  (ngSubmit)="addNewMenuType()">
+  <form [formGroup]="addMenuTypeForm" class="form-horizontal"  (ngSubmit)="onSubmit()">
     <div class="form-group">
       <span>
         <label class="tb col-sm-1" style="font-weight: bold;" for="name"> Menu Type Name:</label>
@@ -20,6 +20,35 @@
         </div>
       </span>
     </div>
+
+    <!-- Select Menu Categories -->
+    <div class="form-group">
+      <span>
+        <label class="tb col-sm-1" style="font-weight: bold;">Select Menu Categories:</label>
+        <div class="col-sm-6">
+          <mat-select multiple formControlName="selectedMenuCategories">
+            <mat-option *ngFor="let category of menuCategories" [value]="category.menu_CategoryId">
+              {{ category.name }}
+            </mat-option>
+          </mat-select>
+        </div>
+      </span>
+    </div>
+
+    <!-- Select Food Types -->
+    <div class="form-group">
+      <span>
+        <label class="tb col-sm-1" style="font-weight: bold;">Select Food Types:</label>
+        <div class="col-sm-6">
+          <mat-select multiple formControlName="selectedFoodTypes">
+            <mat-option *ngFor="let type of foodTypes" [value]="type.foodTypeId">
+              {{ type.name }}
+            </mat-option>
+          </mat-select>
+        </div>
+      </span>
+    </div>
+
   
       <!-- <div class="form-group"> -->
         <div class="col-sm-offset-1 col-sm-6 center-buttons">

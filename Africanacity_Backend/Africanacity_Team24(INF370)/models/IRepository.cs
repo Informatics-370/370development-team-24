@@ -65,8 +65,8 @@ namespace Africanacity_Team24_INF370_.models
         //MENU Types//
         Task<Menu_Type[]> GetAllMenuTypesAsync();
         Task<Menu_Type> GetMenuTypeAsync(int Menu_TypeId);
-        Task<MenuItem_Category> GetMenuCategoriesForMenuTypeAsync(int Menu_TypeId);
-        Task<Food_Type> GetFoodTypesForMenuTypeAsync(int Menu_TypeId);
+        //Task<List<MenuItem_Category>> GetMenuCategoriesForMenuTypeAsync(int Menu_TypeId);
+        //Task<List<Food_Type>> GetFoodTypesForMenuTypeAsync(int Menu_TypeId);
 
         Task<int> EditMenuTypeAsync(int Menu_TypeId, MenuTypeViewModel menuTypeViewModel);
 

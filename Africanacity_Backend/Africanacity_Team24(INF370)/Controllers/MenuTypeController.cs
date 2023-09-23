@@ -81,7 +81,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                         .Select(mc => new MenuItem_Category
                         {
                             Name = mc.Name,
-                            Description = mc.Description
+                           
                         }).ToList();
 
                     menuType.MenuCategories.AddRange(associatedMenuCategories);
@@ -93,7 +93,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                         .Select(ft => new Food_Type
                         {
                             Name = ft.Name,
-                            Description = ft.Description
+                          
                         }).ToList();
 
                     menuType.FoodTypes.AddRange(associatedFoodTypes);
@@ -112,41 +112,41 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 
         //get menu category by menu type
-        [HttpGet]
-        [Route("GetMenuCategoriesForMenuType/{Menu_TypeId}")]
-        public async Task<IActionResult> GetMenuCategoriesForMenuType(int Menu_TypeId)
-        {
-            try
-            {
-                var result = await _repository.GetMenuCategoriesForMenuTypeAsync(Menu_TypeId);
+        //[HttpGet]
+        //[Route("GetMenuCategoriesForMenuType/{Menu_TypeId}")]
+        //public async Task<IActionResult> GetMenuCategoriesForMenuType(int Menu_TypeId)
+        //{
+        //    try
+        //    {
+        //        var result = await _repository.GetMenuCategoriesForMenuTypeAsync(Menu_TypeId);
 
-                if (result == null) return NotFound("Course does not exist");
+        //        if (result == null) return NotFound("Course does not exist");
 
-                return Ok(result);
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Internal Server Error. Please contact support");
-            }
-        }
+        //        return Ok(result);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return StatusCode(500, "Internal Server Error. Please contact support");
+        //    }
+        //}
 
-        [HttpGet]
-        [Route("GetFoodTypesForMenuType/{Menu_TypeId}")]
-        public async Task<IActionResult> GetFoodTypesForMenuType(int Menu_TypeId)
-        {
-            try
-            {
-                var result = await _repository.GetFoodTypesForMenuTypeAsync(Menu_TypeId);
+        ////[HttpGet]
+        ////[Route("GetFoodTypesForMenuType/{Menu_TypeId}")]
+        ////public async Task<IActionResult> GetFoodTypesForMenuType(int Menu_TypeId)
+        ////{
+        ////    try
+        ////    {
+        ////        var result = await _repository.GetFoodTypesForMenuTypeAsync(Menu_TypeId);
 
-                if (result == null) return NotFound("Course does not exist");
+        ////        if (result == null) return NotFound("Course does not exist");
 
-                return Ok(result);
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Internal Server Error. Please contact support");
-            }
-        }
+        ////        return Ok(result);
+        ////    }
+        ////    catch (Exception)
+        ////    {
+        ////        return StatusCode(500, "Internal Server Error. Please contact support");
+        ////    }
+        ////}
 
 
         //Update

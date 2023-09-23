@@ -60,11 +60,7 @@ namespace Africanacity_Team24_INF370_.Controllers
         // Add menu item category
         [HttpPost]
         [Route("AddMenuItemCategory")]
-        /*public void Post([FromBody] MenuItem_Category menuItem_Category) 
-        { 
-            _repository.Add(menuItem_Category);
-            _repository.SaveChangesAsync();
-        }*/
+      
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AddMenuItemCategory(MenuItem_CategoryViewModel micvm)
         {
