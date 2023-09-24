@@ -95,16 +95,16 @@ namespace Africanacity_Team24_INF370_.models
             return await query.ToArrayAsync();
         }
         //HELP 
-        public async Task<Help[]> GetAllHelpAsync()
-        {
-            IQueryable<Help> query = _appDbContext.Helps;
-            return await query.ToArrayAsync();
-        }
-        public async Task<Help> GetHelpAsync(int helpId)
-        {
-            IQueryable<Help> query = _appDbContext.Helps.Where(h => h.HelpId == helpId);
-            return await query.FirstOrDefaultAsync();
-        }
+        //public async Task<Help[]> GetAllHelpAsync()
+        //{
+        //    IQueryable<Help> query = _appDbContext.Helps;
+        //    return await query.ToArrayAsync();
+        //}
+        //public async Task<Help> GetHelpAsync(int helpId)
+        //{
+        //    IQueryable<Help> query = _appDbContext.Helps.Where(h => h.HelpId == helpId);
+        //    return await query.FirstOrDefaultAsync();
+        //}
         
         // employee role
         public async Task<Employee_Role[]> GetAllEmployeeRolesAsync()
@@ -223,7 +223,7 @@ namespace Africanacity_Team24_INF370_.models
         //SCHEDULE 
         public async Task<Schedule[]> ScheduleDisplayAsync()
         {
-            IQueryable<Schedule> query = _appDbContext.Schedules.Include(e => e.Event).Include(e => e.Schedule_Status);
+            IQueryable<Schedule> query = _appDbContext.Schedules.Include(e => e.Event);
             return await query.ToArrayAsync();
         }
         public async Task<Schedule> GetScheduleAsync(int scheduleId)
@@ -231,11 +231,11 @@ namespace Africanacity_Team24_INF370_.models
             IQueryable<Schedule> query = _appDbContext.Schedules.Where(s => s.ScheduleId == scheduleId);
             return await query.FirstOrDefaultAsync();
         }
-        public async Task<Schedule_Status[]> GetAllScheduleStatusAsync()
-        {
-            IQueryable<Schedule_Status> query = _appDbContext.Schedule_Statuses;
-            return await query.ToArrayAsync();
-        }
+        //public async Task<Schedule_Status[]> GetAllScheduleStatusAsync()
+        //{
+        //    IQueryable<Schedule_Status> query = _appDbContext.Schedule_Statuses;
+        //    return await query.ToArrayAsync();
+        //}
         //EVENTS
         public async Task<Event[]> GetAllEventsAsync()
         {

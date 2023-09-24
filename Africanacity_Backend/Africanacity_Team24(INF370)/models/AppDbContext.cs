@@ -30,8 +30,7 @@ namespace Africanacity_Team24_INF370_.models
         public DbSet<Employee_Role> Employee_Roles { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Gender> Genders { get; set; }
-        public DbSet<Help> Helps { get; set; }
-		public DbSet<Help_Category> Help_Categories{ get; set; }
+
 		public DbSet<Password> Passwords { get; set; }
 		public DbSet<Title> Titles { get; set; }
 		public DbSet<User> Users { get; set; }
@@ -51,7 +50,6 @@ namespace Africanacity_Team24_INF370_.models
         public DbSet<Entertainment_Type> Entertainment_Types { get; set; }
         public DbSet<Event> Events { get; set; }
 		public DbSet<Schedule> Schedules { get; set; }
-		public DbSet<Schedule_Status> Schedule_Statuses { get; set; }
 
 
 		//Inventory model
@@ -77,13 +75,11 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<MenuItem> MenuItems { get; set; }
 		public DbSet<MenuItem_Category> MenuItem_Categories { get; set; }
 		public DbSet<MenuItem_Price> MenuItem_Prices { get; set; }
-		public DbSet<Order> Orders { get; set; }
 		//public DbSet<Order_Drink> Order_Drinks { get; set; }
 		//public DbSet<Order_MenuItem> Order_MenuItems { get; set; }
 		public DbSet<Order_Status> Order_Statuses { get; set; }
            
         public DbSet<OrderType> OrderTypes { get; set; }
-		public DbSet<Payment> Payments { get; set; }
 		public DbSet<Payment_Method> Payment_Methods { get; set; }
 		public DbSet<Table_Number> Table_Numbers { get; set; }
 
@@ -602,33 +598,7 @@ namespace Africanacity_Team24_INF370_.models
 							ContactNumber = "0848887568",
 
 						});
-			
-			// Create Seed Data For the Help Q&A Table:
-
-			modelBuilder.Entity<Help>()
-                        .HasData(
-                        new
-                        {
-                            HelpId = 1,
-                            Name = "What food does MMINO Restaurant serve?",
-                            Description = "MMINO Restaurant serves various types of cuisines"
-                        });
-            modelBuilder.Entity<Help>()
-                       .HasData(
-                       new
-                       {
-                           HelpId = 2,
-                           Name = "Where is MMINO Restaurant?",
-                           Description = "MMINO Restaurant is located in Hatfield,Pretoria. 1005 Arcadia Street"
-                       });
-            modelBuilder.Entity<Help>()
-                      .HasData(
-                      new
-                      {
-                          HelpId = 3,
-                          Name = "How how do you book for a live entertainment slot?",
-                          Description = "You can book for a live entertainment on the website."
-                      });
+		
 
 			//create seed data for menu type
             //modelBuilder.Entity<Menu_Type>()
@@ -1261,7 +1231,7 @@ namespace Africanacity_Team24_INF370_.models
                                       End_Time = "15:00",
                                       Description = "Musician can book performance",
                                       EventId = 1,
-                                      Schedule_StatusId = 1,
+                                    
                                   });
             modelBuilder.Entity<Schedule>()
                                 .HasData(
@@ -1274,7 +1244,6 @@ namespace Africanacity_Team24_INF370_.models
                                      End_Time = "12:30",
                                      Description = "Contemporary Dance performance",
                                      EventId = 2,
-                                     Schedule_StatusId = 1,
                                  });
             modelBuilder.Entity<Schedule>()
                                 .HasData(
@@ -1287,7 +1256,7 @@ namespace Africanacity_Team24_INF370_.models
                                      End_Time = "21:30",
                                      Description = "Poet recital",
                                      EventId = 3,
-                                     Schedule_StatusId = 2,
+                                  
                                  });
             modelBuilder.Entity<Schedule>()
                               .HasData(
@@ -1300,7 +1269,6 @@ namespace Africanacity_Team24_INF370_.models
                                    End_Time = "17:45",
                                    Description = "Contemporary dance slot",
                                    EventId = 2,
-                                   Schedule_StatusId = 1,
                                });
             modelBuilder.Entity<Schedule>()
                               .HasData(
@@ -1313,42 +1281,9 @@ namespace Africanacity_Team24_INF370_.models
                                    End_Time = "13:20",
                                    Description = "Poet recital",
                                    EventId = 3,
-                                   Schedule_StatusId = 1,
-                               });
+                                 });
 
-            //************************************************************************Create Seed Data For the Schedule Status Entity:
-            modelBuilder.Entity<Schedule_Status>()
-                     .HasData(
-                      new
-                      {
-                          Schedule_StatusId = 1,
-                          Name = "Available",
-
-                      });
-            modelBuilder.Entity<Schedule_Status>()
-                     .HasData(
-                      new
-                      {
-                          Schedule_StatusId = 2,
-                          Name = "Booked",
-
-                      });
-            modelBuilder.Entity<Schedule_Status>()
-                    .HasData(
-                     new
-                     {
-                         Schedule_StatusId = 3,
-                         Name = "Pending",
-
-                     });
-            modelBuilder.Entity<Schedule_Status>()
-                    .HasData(
-                     new
-                     {
-                         Schedule_StatusId = 4,
-                         Name = "Cancelled",
-
-                     });
+       
 
             //******************************************************************* Create Seed Data For the Menu Category Table:
             modelBuilder.Entity<MenuItem_Category>()
@@ -2105,11 +2040,6 @@ namespace Africanacity_Team24_INF370_.models
 
                      });
             //Many to many with Schedule
-            modelBuilder.Entity<Schedule>()
-                        .HasOne(m => m.Schedule_Status)
-                        .WithMany()
-                        .HasForeignKey(m => m.Schedule_StatusId);
-
             modelBuilder.Entity<Schedule>()
             .HasOne(m => m.Event)
             .WithMany()
