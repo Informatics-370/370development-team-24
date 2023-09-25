@@ -19,6 +19,7 @@ import { KitchenOrder } from '../shared/Kitchen_Order';
 import { Discount } from '../shared/Discount';
 import { VAT } from '../shared/Vat';
 import { OtherDrink } from '../shared/other-drink';
+import { MenuTypeWithAssociations } from '../shared/menuTypeWithAssociations';
 
 
 @Injectable({
@@ -76,18 +77,11 @@ export class DataService {
     /***************Menu Types************/
   
     //Create menu type
-    AddMenuType(menuType: MenuTypes){
+    AddMenuType(menuTypeModel: MenuTypeWithAssociations){
 
       
       const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-      
-  // Create an object that matches the expected format on the backend
-      const payload = {
-      name: menuType.name,
-      menuCategories: menuType.menuCategories.map(categoryName => ({ Name: categoryName })),// Assuming these properties exist in MenuTypes
-      foodTypes: menuType.foodTypes.map(foodTypeName => ({ Name: foodTypeName })), // Assuming these properties exist in MenuTypes
-  };
-      return this.httpClient.post(`${this.apiUrl}MenuType/AddMenuType`, payload, { headers });
+      return this.httpClient.post(`${this.apiUrl}MenuType/AddMenuType`, menuTypeModel , { headers });
     }
   
     GetAllMenuTypes(): Observable<any>{

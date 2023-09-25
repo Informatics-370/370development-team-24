@@ -10,6 +10,7 @@ import { HelpAddmenutypeComponent } from './help-addmenutype/help-addmenutype.co
 //tree diagram
 import { MenuItemCategory } from 'src/app/shared/menu-item-category';
 import { FoodType } from 'src/app/shared/food-type';
+import { MenuTypeWithAssociations } from 'src/app/shared/menuTypeWithAssociations';
 
 @Component({
   selector: 'app-add-menu-type',
@@ -20,7 +21,7 @@ import { FoodType } from 'src/app/shared/food-type';
 export class AddMenuTypeComponent {
   formData = new FormData();
   menu_typeId: number = 0;
-  addMenuTypeForm!: FormGroup;
+  
   @ViewChild('toastContainer', { read: ViewContainerRef })
   toastContainer!: ViewContainerRef;
 
@@ -32,6 +33,12 @@ export class AddMenuTypeComponent {
     allFoodTypes: FoodType[] = []; // Initialize with your data
  
 
+    addMenuTypeForm: FormGroup= this.fb.group({
+      name: ['', Validators.required],
+      menu_CategoryId: [null, Validators.required],
+      foodTypeId: [null, Validators.required]
+      
+    })
 
   constructor(private dataService:DataService,
     private route : ActivatedRoute,
@@ -69,11 +76,7 @@ cancel(){
  
  ngOnInit(): void {
     // Initialize the form controls
-    this.addMenuTypeForm = this.fb.group({
-      name: ['', [Validators.required]],
-      menuCategories: [[]], // Initialize as an empty array
-      foodTypes: [[]], // Initialize as an empty array
-    });
+   
 
   this.dataService.GetAllMenuItemCategories().subscribe((menuCategories) => {
     this.allMenuCategories = menuCategories;
@@ -100,30 +103,22 @@ cancel(){
   // Function to handle form submission
   onSubmit(): void {
     if (this.addMenuTypeForm.valid) {
-      // Populate selected menu categories and food types
-      const selectedMenuCategories = this.menuCategories;
-      const selectedFoodTypes = this.foodTypes;
-  
-      const menuType: MenuTypes = {
-        name: this.addMenuTypeForm.value.name,
-        menuCategories: selectedMenuCategories || [],
-        foodTypes: selectedFoodTypes || [],
+      const menuTypeModel = {
+        name: this.addMenuTypeForm.get('name')!.value,
+        menu_CategoryId: this.addMenuTypeForm.get('menu_CategoryId')!.value,
+        foodTypeId: this.addMenuTypeForm.get('foodTypeId')!.value
       };
   
-      this.dataService.AddMenuType(menuType).subscribe(
-        (response) => {
-          console.log('Menu Type added successfully', response);
-          // Reset form and arrays after successful submission if needed
-          this.addMenuTypeForm.reset();
-          this.menuCategories = [];
-          this.foodTypes = [];
-        },
-        (error) => {
-          console.error('Error adding Menu Type', error);
-        }
-      );
+      this.dataService.AddMenuType(menuTypeModel).subscribe(() => {
+        this.router.navigateByUrl('menu-types').then((navigated: boolean) => {
+          if (navigated) {
+            this.snackBar.open(this.addMenuTypeForm.get('name')!.value + ` created successfully`, 'X', { duration: 5000 });
+          }
+        });
+      });
     }
   }
+  
   
 
  // Function to handle selection of Menu Categories

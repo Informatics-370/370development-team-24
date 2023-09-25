@@ -53,52 +53,32 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
         }
 
-        //Create
         [HttpPost]
         [Route("AddMenuType")]
-        public async Task<IActionResult> AddMenuType([FromBody] Menu_Type menuTypeModel)
+        public async Task<IActionResult> AddMenuType([FromBody] MenuTypeWithAssociationsViewModel menuTypeModel)
         {
-            //tree diagram
+            // Tree diagram
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var menuType = new Menu_Type { Name = menuTypeModel.Name};
+            var menuCategory = await _repository.GetMenuItemCategoryAsync(menuTypeModel.Menu_CategoryId);
+            var foodType = await _repository.GetFoodTypeAsync(menuTypeModel.FoodTypeId);
+
+            var menuType = new MenuTypeWithAssociations
+            {
+                Name = menuTypeModel.Name,
+                Menu_CategoryId = menuTypeModel.Menu_CategoryId, // Assign the Menu_Category_Id from the model
+                FoodTypeId = menuTypeModel.FoodTypeId // Assign the Food_Type_Id from the model
+            };
 
             try
             {
                 _repository.Add(menuType);
                 await _repository.SaveChangesAsync();
 
-
-                //tree diagram --start
-
-                // Update the Menu Type with associated Menu Categories and Food Types
-                if (menuTypeModel.MenuCategories != null && menuTypeModel.MenuCategories.Any())
-                {
-                    var associatedMenuCategories = menuTypeModel.MenuCategories
-                        .Select(mc => new MenuItem_Category
-                        {
-                            Name = mc.Name,
-                           
-                        }).ToList();
-
-                    menuType.MenuCategories.AddRange(associatedMenuCategories);
-                }
-
-                if (menuTypeModel.FoodTypes != null && menuTypeModel.FoodTypes.Any())
-                {
-                    var associatedFoodTypes = menuTypeModel.FoodTypes
-                        .Select(ft => new Food_Type
-                        {
-                            Name = ft.Name,
-                          
-                        }).ToList();
-
-                    menuType.FoodTypes.AddRange(associatedFoodTypes);
-                }
-                //tree diagram --end
+                // No need to update Menu Categories and Food Types as separate entities here
 
                 await _repository.SaveChangesAsync();
             }
@@ -109,6 +89,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
             return Ok(menuType);
         }
+
 
 
         //get menu category by menu type
