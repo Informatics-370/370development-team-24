@@ -56,7 +56,7 @@ namespace Africanacity_Team24_INF370_.Controllers
         //Create
         [HttpPost]
         [Route("AddMenuType")]
-        public async Task<IActionResult> AddMenuType(MenuTypeViewModel menuTypeViewModel)
+        public async Task<IActionResult> AddMenuType([FromBody] Menu_Type menuTypeModel)
         {
             //tree diagram
             if (!ModelState.IsValid)
@@ -64,7 +64,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                 return BadRequest(ModelState);
             }
 
-            var menuType = new Menu_Type { Name = menuTypeViewModel.Name};
+            var menuType = new Menu_Type { Name = menuTypeModel.Name};
 
             try
             {
@@ -75,9 +75,9 @@ namespace Africanacity_Team24_INF370_.Controllers
                 //tree diagram --start
 
                 // Update the Menu Type with associated Menu Categories and Food Types
-                if (menuTypeViewModel.MenuCategories != null && menuTypeViewModel.MenuCategories.Any())
+                if (menuTypeModel.MenuCategories != null && menuTypeModel.MenuCategories.Any())
                 {
-                    var associatedMenuCategories = menuTypeViewModel.MenuCategories
+                    var associatedMenuCategories = menuTypeModel.MenuCategories
                         .Select(mc => new MenuItem_Category
                         {
                             Name = mc.Name,
@@ -87,9 +87,9 @@ namespace Africanacity_Team24_INF370_.Controllers
                     menuType.MenuCategories.AddRange(associatedMenuCategories);
                 }
 
-                if (menuTypeViewModel.FoodTypes != null && menuTypeViewModel.FoodTypes.Any())
+                if (menuTypeModel.FoodTypes != null && menuTypeModel.FoodTypes.Any())
                 {
-                    var associatedFoodTypes = menuTypeViewModel.FoodTypes
+                    var associatedFoodTypes = menuTypeModel.FoodTypes
                         .Select(ft => new Food_Type
                         {
                             Name = ft.Name,

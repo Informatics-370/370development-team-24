@@ -77,7 +77,17 @@ export class DataService {
   
     //Create menu type
     AddMenuType(menuType: MenuTypes){
-      return this.httpClient.post(`${this.apiUrl}MenuType/AddMenuType`,menuType);
+
+      
+      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+      
+  // Create an object that matches the expected format on the backend
+      const payload = {
+      name: menuType.name,
+      menuCategories: menuType.menuCategories.map(categoryName => ({ Name: categoryName })),// Assuming these properties exist in MenuTypes
+      foodTypes: menuType.foodTypes.map(foodTypeName => ({ Name: foodTypeName })), // Assuming these properties exist in MenuTypes
+  };
+      return this.httpClient.post(`${this.apiUrl}MenuType/AddMenuType`, payload, { headers });
     }
   
     GetAllMenuTypes(): Observable<any>{

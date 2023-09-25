@@ -25,11 +25,11 @@ export class AddMenuTypeComponent {
   toastContainer!: ViewContainerRef;
 
   //For the tree diagram concept//
-  selectedMenuCategories: MenuItemCategory[] = [];
-  selectedFoodTypes: FoodType [] = [];
+  menuCategories: string[] = [];
+  foodTypes: string [] = [];
     // Properties to store available menu categories and food types
-    menuCategories: MenuItemCategory[] = []; // Initialize with your data
-    foodTypes: FoodType[] = []; // Initialize with your data
+    allMenuCategories: MenuItemCategory[] = []; // Initialize with your data
+    allFoodTypes: FoodType[] = []; // Initialize with your data
  
 
 
@@ -71,16 +71,16 @@ cancel(){
     // Initialize the form controls
     this.addMenuTypeForm = this.fb.group({
       name: ['', [Validators.required]],
-      selectedMenuCategories: [[]], // Initialize as an empty array
-      selectedFoodTypes: [[]], // Initialize as an empty array
+      menuCategories: [[]], // Initialize as an empty array
+      foodTypes: [[]], // Initialize as an empty array
     });
 
   this.dataService.GetAllMenuItemCategories().subscribe((menuCategories) => {
-    this.menuCategories = menuCategories;
+    this.allMenuCategories = menuCategories;
   });
 
   this.dataService.GetAllFoodTypes().subscribe((foodTypes) => {
-    this.foodTypes = foodTypes;
+    this.allFoodTypes = foodTypes;
   });
  }
 
@@ -100,19 +100,23 @@ cancel(){
   // Function to handle form submission
   onSubmit(): void {
     if (this.addMenuTypeForm.valid) {
+      // Populate selected menu categories and food types
+      const selectedMenuCategories = this.menuCategories;
+      const selectedFoodTypes = this.foodTypes;
+  
       const menuType: MenuTypes = {
         name: this.addMenuTypeForm.value.name,
-        selectedMenuCategories: this.selectedMenuCategories || [], // Include selected Menu Categories
-        selectedFoodTypes: this.selectedFoodTypes || [], // Include selected Food Types
+        menuCategories: selectedMenuCategories || [],
+        foodTypes: selectedFoodTypes || [],
       };
-
+  
       this.dataService.AddMenuType(menuType).subscribe(
         (response) => {
           console.log('Menu Type added successfully', response);
           // Reset form and arrays after successful submission if needed
           this.addMenuTypeForm.reset();
-          this.selectedMenuCategories = [];
-          this.selectedFoodTypes = [];
+          this.menuCategories = [];
+          this.foodTypes = [];
         },
         (error) => {
           console.error('Error adding Menu Type', error);
@@ -120,44 +124,64 @@ cancel(){
       );
     }
   }
+  
 
  // Function to handle selection of Menu Categories
- selectMenuCategory(menuCategory: MenuItemCategory): void {
+ selectMenuCategory(categoryName: string): void {
   // Check if the category is already selected, and if not, add it to the array
-  if (!this.selectedMenuCategories.includes(menuCategory)) {
-    this.selectedMenuCategories.push(menuCategory);
+  if (!this.menuCategories.includes(categoryName)) {
+    this.menuCategories.push(categoryName);
   }
-  console.log('Selected Menu Categories:', this.selectedMenuCategories);
+  console.log('Selected Menu Categories:', this.menuCategories);
 }
 
 // Function to handle deselection of Menu Categories
-deselectMenuCategory(menuCategory: MenuItemCategory): void {
+deselectMenuCategory(categoryName:string): void {
   // Remove the category from the array
-  const index = this.selectedMenuCategories.indexOf(menuCategory);
+  const index = this.menuCategories.indexOf(categoryName);
   if (index !== -1) {
-    this.selectedMenuCategories.splice(index, 1);
+    this.menuCategories.splice(index, 1);
   }
 
 }
 
   // Function to handle selection of Food Types
-  selectFoodType(foodType: FoodType): void {
+  selectFoodType(typeName: string): void {
     // Check if the type is already selected, and if not, add it to the array
-    if (!this.selectedFoodTypes.includes(foodType)) {
-      this.selectedFoodTypes.push(foodType);
+    if (!this.foodTypes.includes(typeName)) {
+      this.foodTypes.push(typeName);
     }
-    console.log('Selected Food Types:', this.selectedFoodTypes);
+    console.log('Selected Food Types:', this.foodTypes);
 
   }
 
   // Function to handle deselection of Food Types
-  deselectFoodType(foodType: FoodType): void {
+  deselectFoodType(typeName: string): void {
     // Remove the type from the array
-    const index = this.selectedFoodTypes.indexOf(foodType);
+    const index = this.foodTypes.indexOf(typeName);
     if (index !== -1) {
-      this.selectedFoodTypes.splice(index, 1);
+      this.foodTypes.splice(index, 1);
     }
   }
+
+  // Function to toggle selection of Menu Categories
+toggleMenuCategory(categoryName: string): void {
+  if (this.menuCategories.includes(categoryName)) {
+    this.deselectMenuCategory(categoryName);
+  } else {
+    this.selectMenuCategory(categoryName);
+  }
+}
+
+// Function to toggle selection of Food Types
+toggleFoodType(typeName: string): void {
+  if (this.foodTypes.includes(typeName)) {
+    this.deselectFoodType(typeName);
+  } else {
+    this.selectFoodType(typeName);
+  }
+}
+
 
 
 

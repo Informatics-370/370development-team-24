@@ -7,6 +7,8 @@ export class MenuTypes{
 
     //tree diagram
     // Properties to store selected Menu Categories and Food Types
-    selectedMenuCategories!: MenuItemCategory[];
-    selectedFoodTypes!: FoodType[];
+    menuCategories!: string[];
+    foodTypes!: string[];
+
+  
 }
