@@ -55,31 +55,13 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         [HttpPost]
         [Route("AddMenuType")]
-        public async Task<IActionResult> AddMenuType([FromBody] MenuTypeWithAssociationsViewModel menuTypeModel)
+        public async Task<IActionResult> AddMenuType(MenuTypeViewModel menuTypeViewModel)
         {
-            // Tree diagram
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var menuCategory = await _repository.GetMenuItemCategoryAsync(menuTypeModel.Menu_CategoryId);
-            var foodType = await _repository.GetFoodTypeAsync(menuTypeModel.FoodTypeId);
-
-            var menuType = new MenuTypeWithAssociations
-            {
-                Name = menuTypeModel.Name,
-                Menu_CategoryId = menuTypeModel.Menu_CategoryId, // Assign the Menu_Category_Id from the model
-                FoodTypeId = menuTypeModel.FoodTypeId // Assign the Food_Type_Id from the model
-            };
+            var menuType = new Menu_Type { Name = menuTypeViewModel.Name };
 
             try
             {
                 _repository.Add(menuType);
-                await _repository.SaveChangesAsync();
-
-                // No need to update Menu Categories and Food Types as separate entities here
-
                 await _repository.SaveChangesAsync();
             }
             catch (Exception)

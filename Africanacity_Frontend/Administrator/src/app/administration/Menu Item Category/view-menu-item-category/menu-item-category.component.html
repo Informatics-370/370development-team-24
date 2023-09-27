@@ -24,6 +24,7 @@
             <th scope="col">ID</th> 
             <th scope="col">Name</th> 
             <th scope="col">Description</th>
+            <th scope="col">Menu Type</th>
             <th scope="col"></th>
             <th scope="col"></th>
             
@@ -34,6 +35,7 @@
             <td> {{ item.menu_CategoryId }} </td>
             <td> {{ item.name }} </td>
             <td> {{ item.description }} </td>
+            <td> {{ item.menuType}} </td>
             <td> <i class="fa fa-pencil" [routerLink]="['/edit-menu-item-category', item.menu_CategoryId]" aria-hidden="true" matTooltip="Edit"></i></td>
             <td><i class="fa fa-trash"  (click)="DeleteMenuItemCategory(item.menu_CategoryId)" aria-hidden="true" matTooltip="Delete"></i></td>
         </tr> 

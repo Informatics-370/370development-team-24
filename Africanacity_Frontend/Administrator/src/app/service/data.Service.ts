@@ -76,14 +76,12 @@ export class DataService {
     }
     /***************Menu Types************/
   
-    //Create menu type
-    AddMenuType(menuTypeModel: MenuTypeWithAssociations){
-
-      
-      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-      return this.httpClient.post(`${this.apiUrl}MenuType/AddMenuType`, menuTypeModel , { headers });
+     //Create menu type
+     AddMenuType(menuType: MenuTypes){
+      return this.httpClient.post(`${this.apiUrl}MenuType/AddMenuType`,menuType);
     }
-  
+
+
     GetAllMenuTypes(): Observable<any>{
       return this.httpClient.get(`${this.apiUrl}MenuType/GetAllMenuTypes`)
       .pipe(map(result => result));
@@ -223,9 +221,9 @@ export class DataService {
       //return this.httpClient.get(`${this.apiUrl}MenuItem_Category/GetMenuItemCategory` + "/" + Menu_CategoryId) //.pipe(map(result => result))
     }
   
-    AddMenuItemCategory(menuItemCategory : MenuItemCategory)
+    AddMenuItemCategory(file: FormData)
     {
-      return this.httpClient.post(`${this.apiUrl}MenuItem_Category/AddMenuItemCategory`, menuItemCategory, this.httpOptions)
+      return this.httpClient.post(`${this.apiUrl}MenuItem_Category/AddMenuItemCategory`, file)
     }
   
     EditMenuItemCategory(menu_CategoryId: number, menuItemCategory: MenuItemCategory)

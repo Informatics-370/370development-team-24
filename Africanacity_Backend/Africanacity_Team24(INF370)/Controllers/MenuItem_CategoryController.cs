@@ -1,5 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Components.Routing;
 using Africanacity_Team24_INF370_.models;
+using System.Reflection.Metadata.Ecma335;
 using Africanacity_Team24_INF370_.models.Restraurant;
 using Africanacity_Team24_INF370_.View_Models;
 
@@ -25,12 +32,22 @@ namespace Africanacity_Team24_INF370_.Controllers
         // GET: api/<MenuItem_CategoryController>
         [HttpGet]
         [Route("GetAllMenuItemCategories")]
-        public async Task<IActionResult> GetAllMenuItemCategories()
+        public async Task <ActionResult> GetAllMenuItemCategories()
         {
             try
             {
                 var categories = await _repository.GetAllMenuItemCategoriesAsync();
-                return Ok(categories);
+
+                dynamic menuCategories = categories.Select(p => new
+                {
+                    p.Menu_CategoryId,
+                    p.Name,
+                    p.Description,
+                    MenuTypeName = p.Menu_Type.Name,
+                  
+                });
+
+                return Ok(menuCategories);
             }
             catch (Exception)
             {
@@ -61,8 +78,8 @@ namespace Africanacity_Team24_INF370_.Controllers
         [HttpPost]
         [Route("AddMenuItemCategory")]
       
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> AddMenuItemCategory(MenuItem_CategoryViewModel micvm)
+      
+        public async Task<IActionResult> AddMenuItemCategory(IFormCollection formData)
         {
 
             //tree diagram
@@ -71,11 +88,18 @@ namespace Africanacity_Team24_INF370_.Controllers
                 return BadRequest(ModelState);
             }
 
-            var menuItem_Category = new MenuItem_Category { Name = micvm.Name, Description = micvm.Description };
+            var menuItemCategory = new MenuItem_Category
+            {
+                Name = formData["name"],
+                Description = formData["description"],
+                Menu_TypeId = Convert.ToInt32(formData["menuType"]),
+               
+            };
+
 
             try
             {
-                _repository.Add(menuItem_Category);
+                _repository.Add(menuItemCategory);
                 await _repository.SaveChangesAsync();
             }
             catch (Exception)
@@ -85,7 +109,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest);
             }
 
-            return Ok(menuItem_Category);
+            return Ok(menuItemCategory);
 
         }
 

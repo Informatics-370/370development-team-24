@@ -1362,7 +1362,7 @@ namespace Africanacity_Team24_INF370_.models
                                Menu_CategoryId = 1,
                                Name = "Breakfast",
                                Description = "Meals between 7am to 12pm",
-                               //Menu_TypeId = 1,
+                               Menu_TypeId = 1,
 
                            });
 
@@ -1373,7 +1373,7 @@ namespace Africanacity_Team24_INF370_.models
                      Menu_CategoryId = 2,
                      Name = "Starter",
                      Description = "Appetisers",
-                     //Menu_TypeId = 2,
+                     Menu_TypeId = 2,
 
                  });
 
@@ -1384,7 +1384,7 @@ namespace Africanacity_Team24_INF370_.models
                               Menu_CategoryId = 3,
                               Name = "Main",
                               Description = "Big and Filling meals",
-                              //Menu_TypeId =2,
+                              Menu_TypeId =2,
 
                           });
 
@@ -1395,7 +1395,7 @@ namespace Africanacity_Team24_INF370_.models
                               Menu_CategoryId = 4,
                               Name = "Dessert",
                               Description = "Special things for those with a sweet tooth",
-                              //Menu_TypeId = 2,
+                              Menu_TypeId = 2,
 
                           });
 
@@ -1406,7 +1406,7 @@ namespace Africanacity_Team24_INF370_.models
                               Menu_CategoryId = 5,
                               Name = "Light Meals",
                               Description = "For those hungry but not hungry",
-                              //Menu_TypeId = 2,
+                              Menu_TypeId = 2,
 
                           });
 
@@ -2168,6 +2168,13 @@ namespace Africanacity_Team24_INF370_.models
                        .HasOne(m => m.Drink_Type)
                        .WithMany()
                        .HasForeignKey(m => m.Drink_TypeId);
+
+
+            //one to many between menu type and menu category
+            modelBuilder.Entity<MenuItem_Category>()
+                        .HasOne(m => m.Menu_Type)
+                        .WithMany()
+                        .HasForeignKey(m => m.Menu_TypeId);
 
 
 

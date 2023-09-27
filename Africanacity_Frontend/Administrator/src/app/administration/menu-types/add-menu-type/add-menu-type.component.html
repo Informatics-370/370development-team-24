@@ -1,76 +1,46 @@
 
 <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-2">
-        <app-navbar></app-navbar>
+  <div class="row">
+    <div class="col-md-2">
+      <app-navbar></app-navbar>
+    </div>
+    <div class="col-md-10 order-md-2">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="text-center mb-4">Add Menu Type</h4>
+          <hr>
+          <div class="container">
+            <div class="row">
+<form [formGroup]="addMenuTypeForm" class="form-horizontal"  (ngSubmit)="addNewMenuType()">
+  <div class="form-group">
+    <span>
+      <label class="tb col-sm-1" style="font-weight: bold;" for="name"> Menu Type Name:</label>
+      <div class="col-sm-6">
+        <input class="form-control"  placeholder="Enter Name" [required]="true" name="name" formControlName="name">
       </div>
-      <div class="col-md-10 order-md-2">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="text-center mb-4">Add Menu Type</h4>
-            <hr>
-            <div class="container">
-              <div class="row">
-  <form [formGroup]="addMenuTypeForm" class="form-horizontal"  (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <span>
-        <label class="tb col-sm-1" style="font-weight: bold;" for="name"> Menu Type Name:</label>
-        <div class="col-sm-6">
-          <input class="form-control"  placeholder="Enter Name" [required]="true" name="name" formControlName="name">
-        </div>
-      </span>
-    </div>
-
-    <!-- Select Menu Categories -->
-    <div class="form-group">
-      <span>
-        <label class="tb col-sm-1" style="font-weight: bold;">Select Menu Categories:</label>
-        <div class="col-sm-6">
-          <mat-select multiple formControlName="menu_CategoryId">
-            <mat-option *ngFor="let category of allMenuCategories" [value]="category.menu_CategoryId" (click)="toggleMenuCategory(category.name)" >
-              {{ category.name }}
-            </mat-option>
-          </mat-select>
-        </div>
-      </span>
-    </div>
-
-    <!-- Select Food Types -->
-    <div class="form-group">
-      <span>
-        <label class="tb col-sm-1" style="font-weight: bold;">Select Food Types:</label>
-        <div class="col-sm-6">
-          <mat-select multiple formControlName="foodTypeId">
-            <mat-option *ngFor="let type of allFoodTypes" [value]="type.foodTypeId" (click)="toggleFoodType(type.name)">
-
-              {{ type.name }}
-            </mat-option>
-          </mat-select>
-        </div>
-      </span>
-    </div>
-
-  
-      <!-- <div class="form-group"> -->
-        <div class="col-sm-offset-1 col-sm-6 center-buttons">
-        <div class="buttons">
-          <span>
-          <button style="margin-right:1em;" type="submit" class="btn btn-sm btn-success">Add</button>
-          <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button>
-        </span>
-        </div>
-        </div>
-      <!-- </div> -->
-    </form>
-    <button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help"  matTooltip="Help">
-      <mat-icon style="font-size: 24px;">help</mat-icon>
-    </button>
-    </div>
-   </div> 
-    </div>
-    </div>
+    </span>
   </div>
+
+    <!-- <div class="form-group"> -->
+      <div class="col-sm-offset-1 col-sm-6 center-buttons">
+      <div class="buttons">
+        <span>
+        <button style="margin-right:1em;" type="submit" class="btn btn-sm btn-success">Add</button>
+        <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button>
+      </span>
+      </div>
+      </div>
+    <!-- </div> -->
+  </form>
+  <button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help"  matTooltip="Help">
+    <mat-icon style="font-size: 24px;">help</mat-icon>
+  </button>
+  </div>
+ </div> 
+  </div>
+  </div>
+</div>
+
+
+
   
-  
-  
-    

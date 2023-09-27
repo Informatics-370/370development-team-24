@@ -7,5 +7,5 @@ export class MenuItemCategory{
     menu_CategoryId!: number;
     name!: string;
     description!: string;
-    menuCategoryName: any;
+    menuType!: string;
 }

@@ -224,12 +224,12 @@ namespace Africanacity_Team24_INF370_.models
         //MENU ITEM CATEGORY
         public async Task<MenuItem_Category[]> GetAllMenuItemCategoriesAsync()
         {
-            IQueryable<MenuItem_Category> query = _appDbContext.MenuItem_Categories;
+            IQueryable<MenuItem_Category> query = _appDbContext.MenuItem_Categories.Include(p => p.Menu_Type);
             return await query.ToArrayAsync();
         }
         public async Task<MenuItem_Category> GetMenuItemCategoryAsync(int Menu_CategoryId)
         {
-            IQueryable<MenuItem_Category> query = _appDbContext.MenuItem_Categories.Where(m => m.Menu_CategoryId == Menu_CategoryId);
+            IQueryable<MenuItem_Category> query = _appDbContext.MenuItem_Categories.Where(m => m.Menu_CategoryId == Menu_CategoryId).Include( p => p.Menu_Type);
             return await query.FirstOrDefaultAsync();
         }
 
