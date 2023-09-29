@@ -260,6 +260,11 @@ import { Inventory_Prices } from '../shared/inventoryPrices';
     .pipe(map(result => result))
   }
 
+  updateInventoryQuantities(stockTakeData: any): Observable<any> {
+    const url = `${this.apiUrl}/update-inventory-quantities`;
+    return this.httpClient.post(url, stockTakeData);
+  }
+
   
 
 

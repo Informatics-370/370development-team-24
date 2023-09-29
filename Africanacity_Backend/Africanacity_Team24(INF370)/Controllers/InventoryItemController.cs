@@ -473,6 +473,82 @@ namespace Africanacity_Team24_INF370_.Controllers
 
         //}
 
+        //[HttpPost]
+        //[Route("CreateStockTake")]
+        //public async Task<IActionResult> CreateStockTake(StockTakeViewModel stockTakeData)
+        //{
+        //    try
+        //    {
+        //        var stockTake = new StockTake
+        //        {
+        //            StockTake_Date = stockTakeData.StockTakeDate,
+        //            StockTakeItems = new List<StockTakeItem>() // Initialize the list for all items
+        //        };
+
+        //        List<DiscrepencyItem> discrepancyItems = new List<DiscrepencyItem>(); // Initialize list for discrepancy items
+
+        //        foreach (var item in stockTakeData.Items)
+        //        {
+        //            var stockTakeItem = new StockTakeItem
+        //            {
+        //                Quantity = item.Quantity,
+        //                Inventory_ItemId = item.Inventory_ItemId,
+        //                //StockTake_Id = item.StockTake_Id
+        //            };
+
+        //            // Fetch the corresponding inventory item from the database
+        //            var inventoryItem = _appDbContext.Inventory_Items.FirstOrDefault(i => i.Inventory_ItemId == stockTakeItem.Inventory_ItemId);
+
+        //            stockTakeItem.Description = inventoryItem.Description; // Include description
+
+        //            stockTake.StockTakeItems.Add(stockTakeItem); // Add the item to the stock take
+
+        //            // Calculate the quantity difference
+        //            int quantityDifference = stockTakeItem.Quantity - inventoryItem.Quantity;
+
+        //            // Create a new DiscrepancyItem and add it to the list
+        //            var discrepancyItem = new DiscrepencyItem
+        //            {
+        //                Description = inventoryItem.Description,
+        //                QuantityDifference = quantityDifference,
+        //                Inventory_ItemId = inventoryItem.Inventory_ItemId,
+        //                ItemName = inventoryItem.ItemName
+        //            };
+        //            discrepancyItems.Add(discrepancyItem);
+
+        //            // Create a new WriteOff record
+        //            var writeOff = new WriteOffStock
+        //            {
+        //                StockTakeItem = stockTakeItem,
+        //                Description = stockTakeItem.Description,
+        //                AdminReason = "Food went bad"
+        //            };
+
+        //            _appDbContext.WriteOffs.Add(writeOff); // Save the write-off record
+        //        }
+
+        //        _appDbContext.StockTakes.Add(stockTake);
+        //        _appDbContext.SaveChanges();
+
+        //        // Construct the response JSON
+        //        var response = new
+        //        {
+        //            discrepancyItems = discrepancyItems
+        //        };
+
+        //        return Ok(response); // Return the response
+        //    }
+        //    catch (DbUpdateException ex)
+        //    {
+        //        var innerExceptionMessage = ex.InnerException?.Message ?? "No inner exception message available.";
+        //        return BadRequest($"Error: {ex.Message}. Inner Exception: {innerExceptionMessage}");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest($"Error: {ex.Message}");
+        //    }
+        //}
+
         [HttpPost]
         [Route("CreateStockTake")]
         public async Task<IActionResult> CreateStockTake(StockTakeViewModel stockTakeData)
@@ -493,7 +569,6 @@ namespace Africanacity_Team24_INF370_.Controllers
                     {
                         Quantity = item.Quantity,
                         Inventory_ItemId = item.Inventory_ItemId,
-                        //StockTake_Id = item.StockTake_Id
                     };
 
                     // Fetch the corresponding inventory item from the database
@@ -516,15 +591,8 @@ namespace Africanacity_Team24_INF370_.Controllers
                     };
                     discrepancyItems.Add(discrepancyItem);
 
-                    // Create a new WriteOff record
-                    var writeOff = new WriteOffStock
-                    {
-                        StockTakeItem = stockTakeItem,
-                        Description = stockTakeItem.Description,
-                        AdminReason = "Food went bad"
-                    };
-
-                    _appDbContext.WriteOffs.Add(writeOff); // Save the write-off record
+                    // Update the inventory quantity
+                    inventoryItem.Quantity = stockTakeItem.Quantity;
                 }
 
                 _appDbContext.StockTakes.Add(stockTake);
@@ -629,6 +697,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                 return BadRequest("An error occurred while adding write-off records. Please check the logs for more details.");
             }
         }
+
 
         internal int StockTakeFunction()
         {

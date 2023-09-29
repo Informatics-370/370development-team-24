@@ -46,4 +46,10 @@
   .ok-button:hover {
     background-color: #0056b3;
   }
+
+  .discrepancy-alert {
+    max-height: 300px; /* Set the maximum height as needed */
+    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+  }
+  
   

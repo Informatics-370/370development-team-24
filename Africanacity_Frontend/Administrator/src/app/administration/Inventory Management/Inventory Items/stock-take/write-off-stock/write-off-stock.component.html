@@ -1,39 +1,19 @@
-<!-- 
 <div class="discrepancy-alert">
   <h2 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: bolder; color: red;">Discrepancy Alert!</h2>
-  <div class="discrepancy-item" *ngFor="let item of data.items">
-    <h4 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 20px; ">{{ item.inventory_ItemId }} - {{ item.itemName }}</h4>
-    <p style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 18px; ">{{ item.description }}</p>
-    <textarea placeholder="Please Enter Valid Reason For Difference" [(ngModel)]="adminReason"></textarea>
+  <ng-container *ngFor="let item of data.items">
 
-    <div *ngIf="item.quantityDifference !== 0">
-      <p style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 18px; color: red;">
-        Quantity Difference: {{ item.quantityDifference }}
-      </p>
-    </div>
-  </div>
-  <button class="ok-button" (click)="onOkButtonClick()">OK</button>
-</div>
-  -->
-  <div class="discrepancy-alert">
-    <h2 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: bolder; color: red;">Discrepancy Alert!</h2>
-    <ng-container *ngFor="let item of data.items">
-      <!-- Only display item details if quantityDifference > 0 -->
-      <div *ngIf="item.quantityDifference !== 0" class="discrepancy-item">
-        <h4 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 20px; ">{{ item.inventory_ItemId }} - {{ item.itemName }}</h4>
-        <p style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 18px; ">{{ item.description }}</p>
-        <textarea placeholder="Please Enter Valid Reason For Difference" [(ngModel)]="adminReason"></textarea>
-  
-        <div>
-          <p style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 18px; color: red;">
-            Quantity Difference: {{ item.quantityDifference }}
-          </p>
-        </div>
+    <div *ngIf="item.quantityDifference !== 0" class="discrepancy-item">
+      <h4 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 20px; ">{{ item.inventory_ItemId }} - {{ item.itemName }}</h4>
+      <p style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 18px; ">{{ item.description }}</p>
+      <textarea placeholder="Please Enter Valid Reason For Difference" [(ngModel)]="adminReason"></textarea>
+
+      <div>
+        <p style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 18px; color: red;">
+          Quantity Difference: {{ item.quantityDifference }}
+        </p>
       </div>
-    </ng-container>
-    <!-- Only display the OK button if there are items with quantityDifference > 0 -->
-    <button *ngIf="hasItemsWithQuantityDifference" class="ok-button" (click)="onOkButtonClick()">OK</button>
-  </div>
-  
+    </div>
+  </ng-container>
 
-
+  <button *ngIf="hasItemsWithQuantityDifference" class="ok-button" (click)="onOkButtonClick()">OK</button>
+</div>

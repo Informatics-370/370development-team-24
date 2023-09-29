@@ -167,6 +167,10 @@ import { HelpViewdrinksComponent } from './administration/otherDrink/view-other-
 import { HelpEditdrinktypeComponent } from './administration/Drink Type/create-drink-type/help-editdrinktype/help-editdrinktype.component';
 import { HelpAdddrinktypeComponent } from './administration/Drink Type/edit-drink-type/help-adddrinktype/help-adddrinktype.component';
 import { HelpViewDrinktypeComponent } from './administration/Drink Type/view-drink-type/help-view-drinktype/help-view-drinktype.component';
+import { AppNotificationsComponent } from './administration/home/app-notifications/app-notifications.component';
+import { AppCalendarComponent } from './administration/home/app-calendar/app-calendar.component';
+import { AppTimeComponent } from './administration/home/app-time/app-time.component';
+import { AppTodoListComponent } from './administration/home/app-todo-list/app-todo-list.component';
 
 
 @NgModule({
@@ -344,7 +348,11 @@ import { HelpViewDrinktypeComponent } from './administration/Drink Type/view-dri
     HelpViewdrinksComponent,
     HelpEditdrinktypeComponent,
     HelpAdddrinktypeComponent,
-    HelpViewDrinktypeComponent
+    HelpViewDrinktypeComponent,
+    AppNotificationsComponent,
+    AppCalendarComponent,
+    AppTimeComponent,
+    AppTodoListComponent
 
   ],
   imports: [
