@@ -16,7 +16,7 @@ export class StockTakeRecon{
 
 export class WriteOffViewModel {
   inventory_ItemId!: number;
-  reason!: string;
+  adminReason!: string;
   itemName!: string;
   quantityDifference!: number;
   description!: string;

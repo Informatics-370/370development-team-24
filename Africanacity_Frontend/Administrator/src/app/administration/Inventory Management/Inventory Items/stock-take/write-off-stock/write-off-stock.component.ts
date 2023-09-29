@@ -80,20 +80,21 @@ export class WriteOffStockComponent implements OnInit {
     const updatedItems = this.data.items.map(item => ({
       inventory_ItemId: item.inventory_ItemId,
       reason: item.reason,
-      adminReason: this.adminReason  // Include adminReason
+      adminReason: this.adminReason // Include adminReason
     }));
-
-    // Call the method to add write-off records
-    this.inventoryService.AddWriteOffRecord(updatedItems).subscribe(
+  
+    // Call the method to add write-off records and pass adminReason back to parent
+    this.inventoryService.AddWriteOffRecord(updatedItems, this.adminReason).subscribe(
       response => {
         console.log('Write-off records added successfully:', response);
-        this.dialogRef.close();
+        this.dialogRef.close(this.adminReason); // Pass adminReason back to parent
       },
       error => {
         console.error('Error adding write-off records:', error);
       }
     );
   }
+  
 }
 
 

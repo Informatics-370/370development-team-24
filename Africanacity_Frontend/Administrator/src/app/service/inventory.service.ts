@@ -18,6 +18,8 @@ import { Inventory_Prices } from '../shared/inventoryPrices';
     private inventoryItems: InventoryItem[] = [];
     private checklistItems: InventoryItem[] = [];
     public inventoryItemsChanged$ = new Subject<InventoryItem[]>();
+    private checklistItemsSubject = new BehaviorSubject<InventoryItem[]>([]);
+    checklistItemsChanged$ = this.checklistItemsSubject.asObservable();
   
     httpOptions ={
       headers: new HttpHeaders({
@@ -236,10 +238,18 @@ import { Inventory_Prices } from '../shared/inventoryPrices';
   //   return this.httpClient.post(`${this.apiUrl}InventoryItem/AddWriteOffRecord`, writeOffData);
   // }
 
-  AddWriteOffRecord(writeOffData: any): Observable<any> {
-    return this.httpClient.post(`${this.apiUrl}InventoryItem/AddWriteOffRecord`, writeOffData)
-  }
+  // AddWriteOffRecord(writeOffData: any): Observable<any> {
+  //   return this.httpClient.post(`${this.apiUrl}InventoryItem/AddWriteOffRecord`, writeOffData)
+  // }
 
+  AddWriteOffRecord(updatedItems: any[], adminReason: string): Observable<any> {
+    const requestBody = {
+      updatedItems: updatedItems,
+      adminReason: adminReason // Include adminReason in the request body
+    };
+  
+    return this.httpClient.post<any>(`${this.apiUrl}InventoryItem/AddWriteOffRecord`, requestBody);
+  }
   GetPricesByInventoryItem(inventory_ItemId: number): Observable<Inventory_Prices[]> {
     return this.httpClient.get<Inventory_Prices[]>(`${this.apiUrl}InventoryItem/prices/${inventory_ItemId}`)
       .pipe(
@@ -264,7 +274,23 @@ import { Inventory_Prices } from '../shared/inventoryPrices';
     const url = `${this.apiUrl}/update-inventory-quantities`;
     return this.httpClient.post(url, stockTakeData);
   }
+  removeFromChecklist(item: InventoryItem) {
+    // Get the current checklist items
+    const currentChecklistItems = this.checklistItemsSubject.value;
 
+    // Remove the item based on some criteria (e.g., inventory_ItemId)
+    const updatedChecklistItems = currentChecklistItems.filter(
+      (checklistItem) => checklistItem.inventory_ItemId !== item.inventory_ItemId
+    );
+
+    // Update the checklistItemsSubject with the updated checklist items
+    this.checklistItemsSubject.next(updatedChecklistItems);
+
+    // Save the updated checklist items to local storage if needed
+    // Example: this.saveChecklistItems(updatedChecklistItems);
+  }
+
+  
   
 
 

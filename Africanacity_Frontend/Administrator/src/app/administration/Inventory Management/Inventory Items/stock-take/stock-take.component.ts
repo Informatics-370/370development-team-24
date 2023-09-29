@@ -18,6 +18,7 @@ export class StockTakeComponent implements OnInit {
   lastStockTakeDate: Date | null = null;
   allQuantityFieldsFilled: boolean = false;
   private MIN_QUANTITY: number = 1;
+  adminReason: string = '';
 
 
   constructor(private fb: FormBuilder, private inventoryService: InventoryService, private dialog: MatDialog, private router: Router ) {
@@ -136,24 +137,25 @@ updateCreateButtonState(): void {
   }
 
   openDiscrepancyModal(discrepancyItems: any[]): void {
-    // Filter the discrepancy items to include only those with quantityDifference > 0
     const itemsWithQuantityDifference = discrepancyItems.filter(item => item.quantityDifference > 0);
   
-    // Only open the modal if there are items with quantityDifference > 0
     if (itemsWithQuantityDifference.length > 0) {
       this.dialogRef = this.dialog.open(WriteOffStockComponent, {
         width: '400px',
         data: {
-          items: itemsWithQuantityDifference, // Pass the filtered items
-          //adminReason: this.inputReason
+          items: itemsWithQuantityDifference,
+          adminReason: this.adminReason // Pass adminReason to the modal
         },
       });
   
-      this.dialogRef.afterClosed().subscribe(() => {
+      this.dialogRef.afterClosed().subscribe((adminReason: string) => {
+        // Update the adminReason with the value from the modal
+        this.adminReason = adminReason;
         console.log('Discrepancy modal closed');
       });
     }
   }
+  
   
   
 }
