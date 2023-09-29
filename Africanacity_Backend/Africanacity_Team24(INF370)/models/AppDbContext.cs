@@ -90,6 +90,7 @@ namespace Africanacity_Team24_INF370_.models
         public DbSet<KitchenOrder> KitchenOrders { get; set; }
         public DbSet<Order_MenuItem> Order_MenuItems { get; set; }
         public DbSet<Order_Drink> Order_Drinks { get; set; }
+        public DbSet<MenuCategoryFoodType> MenuCategoryFoodTypes { get; set; }
 
         //Second option drink table
         public DbSet<OtherDrink> OtherDrinks { get; set; }
@@ -2124,16 +2125,22 @@ namespace Africanacity_Team24_INF370_.models
             .WithMany()
             .HasForeignKey(m => m.EventId);
 
-            //FOR TREE DIAGRAM
-            //modelBuilder.Entity<MenuItem_Category>()
-            //            .HasOne(mc => mc.MenuType)
-            //            .WithMany(mt => mt.MenuCategories)
-            //            .HasForeignKey(mc => mc.Menu_TypeId);
+            //MANY-TO-MANY relationships
+            
 
-            //modelBuilder.Entity<Food_Type>()
-            //    .HasOne(ft => ft.MenuType)
-            //    .WithMany(mt => mt.FoodTypes)
-            //    .HasForeignKey(ft => ft.Menu_TypeId);
+            modelBuilder.Entity<MenuCategoryFoodType>()
+            .HasKey(mcf => new { mcf.Menu_CategoryId, mcf.FoodTypeId });
+
+            modelBuilder.Entity<MenuCategoryFoodType>()
+                .HasOne(mcf => mcf.MenuItem_Category)
+                .WithMany(mc => mc.MenuCategoryFoodTypes)
+                .HasForeignKey(mcf => mcf.Menu_CategoryId);
+
+            modelBuilder.Entity<MenuCategoryFoodType>()
+                .HasOne(mcf => mcf.Food_Type)
+                .WithMany(ft => ft.MenuCategoryFoodTypes)
+                .HasForeignKey(mcf => mcf.FoodTypeId);
+
 
             //Many to many with MenuItem
             modelBuilder.Entity<MenuItem>()
@@ -2186,21 +2193,7 @@ namespace Africanacity_Team24_INF370_.models
 			     (tg => tg.HasOne<User_Role>().WithMany(),
 			      tg => tg.HasOne<Access>().WithMany());
 
-			// For the Entertainer_EntertainmentType M2M  payload (Uncomment code below and run migration to generate tables)
-			//modelBuilder.Entity<Entertainer>()
-			//	.HasMany(t => t.Entertainment_Types)
-			//	.WithMany(g => g.Entertainers)
-			//	.UsingEntity<Entertainer_EntertainmentType>
-			//	 (tg => tg.HasOne<Entertainment_Type>().WithMany(),
-			//	  tg => tg.HasOne<Entertainer>().WithMany());
-
-			// For the Entertainer_Schedule M2M payload (Uncomment code below and run migration to generate tables)
-			//modelBuilder.Entity<Schedule>()
-			//	.HasMany(t => t.Entertainers)
-			//	.WithMany(g => g.Schedules)
-			//	.UsingEntity<Entertainer_Schedule>
-			//	 (tg => tg.HasOne<Entertainer>().WithMany(),
-			//	  tg => tg.HasOne<Schedule>().WithMany());
+			
 
 			// For the Supplier_InventoryItem M2M payload (Uncomment code below and run migration to generate tables)
 			modelBuilder.Entity<Inventory_Item>()
@@ -2210,14 +2203,7 @@ namespace Africanacity_Team24_INF370_.models
 			 (tg => tg.HasOne<Supplier>().WithMany(),
 				  tg => tg.HasOne<Inventory_Item>().WithMany());
 
-            // For the Order_Drink M2M payload (Uncomment code below and run migration to generate tables)
-            //modelBuilder.Entity<Drink>()
-            //	.HasMany(t => t.Orders)
-            //	.WithMany(g => g.Drinks)
-            //	.UsingEntity<Order_Drink>
-            //	 (tg => tg.HasOne<Order>().WithMany(),
-            //	  tg => tg.HasOne<Drink>().WithMany());
-
+        
             // Configure the many-to-many relationship between KitchenOrder and MenuItem
             modelBuilder.Entity<Order_MenuItem>()
                 .HasKey(om => new { om.KitchenOrderId, om.MenuItemId });
@@ -2252,18 +2238,7 @@ namespace Africanacity_Team24_INF370_.models
                 .WithOne(omi => omi.MenuItem)
                 .HasForeignKey(omi => omi.MenuItemId);
 
-            //Event
-            // modelBuilder.Entity<Administrator>()
-
-                // .HasOne(sti => sti.Events)
-
-                //.WithMany()
-
-                //.HasForeignKey(sti => sti.AdministratorId);
-
-                // modelBuilder.Entity<Event>()
-
-                //.HasKey(sti => sti.EventId);
+           
         }
 	}
 }

@@ -43,7 +43,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                     p.Menu_CategoryId,
                     p.Name,
                     p.Description,
-                    MenuTypeName = p.Menu_Type.Name,
+                    MenuType = p.Menu_Type.Name,
                   
                 });
 

@@ -15,11 +15,9 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
 		[MaxLength(100)]
 		public string Description { get; set; } = string.Empty;
 
-        //TREE DIAGRAM
-        //public int Menu_TypeId { get; set; } // Foreign key to MenuType
-        //public Menu_Type MenuType { get; set; } // Navigation property to MenuType
+        // Many-to-Many relationship with MenuCategory
 
-        //public virtual ICollection<MenuItem> MenuItems { get; set; }	
+        public ICollection<MenuCategoryFoodType> MenuCategoryFoodTypes { get; set; }
 
-	}
+    }
 }

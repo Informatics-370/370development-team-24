@@ -107,15 +107,8 @@ export class DataService {
       return this.httpClient.delete<string>(`${this.apiUrl}MenuType/DeleteMenuType` + "/" + menu_TypeId, this.httpOptions);
     }
 
-    //get menu categories by menu type
-    getCategoriesForMenuType(menu_TypeId: Number): Observable<any>{
-      return this.httpClient.get(`${this.apiUrl}MenuType/GetMenuCategoriesForMenuType/${menu_TypeId}`);
-    }
-
-    //get food types by menu type
-    getFoodTypesForMenuType(menu_TypeId: Number): Observable<any>{
-      return this.httpClient.get(`${this.apiUrl}MenuType/GetFoodTypesForMenuType/${menu_TypeId}`);
-    }
+   
+   
   
   
   
@@ -157,6 +150,21 @@ export class DataService {
     GetMenuItemPrice(MenuItemId: number) {
       return this.httpClient.get<any>(`${this.apiUrl}MenuItems/GetMenuItemPrice/${MenuItemId}`);
     }
+
+     //get menu categories by menu type
+     getCategoriesByMenuType(Menu_TypeId: number): Observable<any>{
+      return this.httpClient.get(`${this.apiUrl}MenuItems/GetMenuCategoriesByMenuType/${Menu_TypeId}`);
+    }
+
+     //get food types by menu type
+     getFoodTypesByMenuCategories(Menu_CategoryId: Number): Observable<any>{
+      return this.httpClient.get(`${this.apiUrl}MenuItems/GetFoodTypesByMenuCategory/${Menu_CategoryId}`);
+    }
+
+    
+
+
+
     
   
   
@@ -193,8 +201,14 @@ export class DataService {
       return this.httpClient.get(`${this.apiUrl}FoodType/GetFoodType` + "/" + foodTypeId).pipe(map(result => result))
     }
   
-    AddFoodType(foodType : FoodType)
+    AddFoodType(foodType : any): Observable<any>
     {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+        })
+
+      };
       return this.httpClient.post(`${this.apiUrl}FoodType/AddFoodType`, foodType, this.httpOptions)
     }
   

@@ -36,8 +36,7 @@ export class AddMenuItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetAllMenuTypes()
-    this.GetAllFoodTypes()
-    this.GetAllMenuItemCategories()
+   
   }
 
 
@@ -51,25 +50,8 @@ GetAllMenuTypes(){
   });
 }
 
-//get foodtypes options
-GetAllFoodTypes(){
-  this.dataService.GetAllFoodTypes().subscribe(result => {
-    let foodTypesList:any[] = result
-    foodTypesList.forEach((element) => {
-      this.foodTypesData.push(element)
-    });
-  });
-}
 
-//get menu category options
-GetAllMenuItemCategories(){
-  this.dataService.GetAllMenuItemCategories().subscribe(result => {
-    let menuCategoryList:any[] = result
-    menuCategoryList.forEach((element) => {
-      this.menuItemCategoryData.push(element)
-    });
-  });
-}
+
 
 
 //submit form function

@@ -20,5 +20,9 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
 		public Menu_Type Menu_Type { get; set; }
 
 
+        //the many to many associations
+        // Navigation property for many-to-many relationship
+        public ICollection<MenuCategoryFoodType> MenuCategoryFoodTypes { get; set; }
+
     }
 }
