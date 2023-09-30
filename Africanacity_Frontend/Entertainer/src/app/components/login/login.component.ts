@@ -88,7 +88,7 @@ export class LoginComponent implements OnInit {
          next:(res)=>{
            this.toast.success({
              detail: 'Success',
-             summary: 'Reset Successful!',
+             summary: 'Reset email sent Successful!',
              duration: 3000,
            });
             this.resetPasswordEmail = '';

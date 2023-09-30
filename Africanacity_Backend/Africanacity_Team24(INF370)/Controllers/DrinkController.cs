@@ -183,7 +183,7 @@ namespace Africanacity_Team24_INF370_.Controllers
         // Edit drink type
         [HttpPut]
         [Route("EditDrink/{drinkId}")]
-        public async Task<ActionResult<DrinkViewModel>> EditDrink(int drinkId, DrinkViewModel dvm)
+        public async Task<ActionResult<OtherDrinkViewModel>> EditDrink(int drinkId, OtherDrinkViewModel dvm)
         {
             try
             {
