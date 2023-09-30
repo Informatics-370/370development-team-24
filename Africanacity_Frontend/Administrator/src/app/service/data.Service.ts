@@ -27,7 +27,7 @@ import { OtherDrink } from '../shared/other-drink';
 export class DataService {
   
 
-  apiUrl = 'https://localhost:49991/api/'
+  apiUrl = 'http://localhost:49991/api/'
 
   httpOptions ={
     headers: new HttpHeaders({
@@ -350,11 +350,11 @@ GetAllEvents(): Observable<any>
   .pipe(map(results => results))
 }
 
-GetAllScheduleStatus(): Observable<any>
-{
-  return this.httpClient.get(`${this.apiUrl}Schedule/GetAllScheduleStatus`)
-  .pipe(map(results => results))
-}
+// GetAllScheduleStatus(): Observable<any>
+// {
+//   return this.httpClient.get(`${this.apiUrl}Schedule/GetAllScheduleStatus`)
+//   .pipe(map(results => results))
+// }
 GetEvent(eventId: Number)
 {
   return this.httpClient.get(`${this.apiUrl}Event/GetEvent` + "/" + eventId).pipe(map(result => result))
@@ -429,4 +429,47 @@ DeleteEntertainmentType(entertainment_TypeId: Number)
   getOrderSummary(): KitchenOrder | null {
     return this.orderSummary;
   }
+  /////////////////////////////////////DISCOUNT//////////////////////////////
+  GetAllDiscountPercentages(): Observable<any>
+{
+  return this.httpClient.get(`${this.apiUrl}Discount/GetAllDiscountPercentages`)
+  .pipe(map(results => results))
+}
+
+GetADiscountPercentage(discountId: Number)
+{
+  return this.httpClient.get(`${this.apiUrl}Discount/GetADiscountPercentage` + "/" + discountId).pipe(map(result => result))
+}
+
+AddADiscountPercentage(Discount : Discount)
+{
+  return this.httpClient.post(`${this.apiUrl}Discount/AddADiscountPercentage`, Discount, this.httpOptions)
+}
+
+EditADiscountPercentage(discountId: Number, Discount: Discount)
+{
+  return this.httpClient.put(`${this.apiUrl}Discount/EditADiscountPercentage/${discountId}`, Discount, this.httpOptions)
+}
+
+DeleteADiscountPercentage(discountId: Number)
+{
+  return this.httpClient.delete<string>(`${this.apiUrl}Discount/DeleteADiscountPercentage` + "/" + discountId, this.httpOptions)
+}
+
+//////////////VAT///////////
+GetAllVatPercentages(): Observable<any>
+{
+  return this.httpClient.get(`${this.apiUrl}Vat/GetAllVatPercentages`)
+  .pipe(map(results => results))
+}
+
+GetAVatPercentage(vatId: Number)
+{
+  return this.httpClient.get(`${this.apiUrl}Vat/GetAVatPercentage` + "/" + vatId).pipe(map(result => result))
+}
+
+AddAVatPercentage(vat : VAT)
+{
+  return this.httpClient.post(`${this.apiUrl}Vat/AddAVatPercentage`, vat, this.httpOptions)
+}
 }

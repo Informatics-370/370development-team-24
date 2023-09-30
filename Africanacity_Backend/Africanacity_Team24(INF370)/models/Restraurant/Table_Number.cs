@@ -8,7 +8,7 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
 		[Key]
 		public int Table_NumberId { get; set; }
 		public string TableID { get; set; }
-		public List<Order> Orders { get; set; } = new List<Order>();
+		//public List<Order> Orders { get; set; } = new List<Order>();
 
 
 	}

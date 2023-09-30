@@ -2,7 +2,8 @@ import { Component, Inject, EventEmitter } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/service/data.Service';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Schedule } from 'src/app/shared/schedule';
 @Component({
   selector: 'app-event-details-dailog',
   templateUrl: './event-details-dailog.component.html',
@@ -13,32 +14,38 @@ export class EventDetailsDailogComponent {
   constructor(
     public dialogRef: MatDialogRef<EventDetailsDailogComponent>,
     private router: Router, private dataService: DataService,
+    private snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
   
 
   editEvent() {
     // Navigate to the EditScheduleComponent and pass the schedule's id as a parameter
-    this.router.navigate(['/edit-schedule', this.data.scheduleId]);
+    this.router.navigate(['/add-schedule']);
     this.dialogRef.close();
   }
   
   
-  deleteEvent() {
-    // Call the deleteEvent method from DataService to delete the event from the backend
-    this.dataService.RemoveSchedule(this.data.scheduleId).subscribe(
-      (result) => {
-        if (result === 'success') {
-          // Emit 'delete' as the result to indicate successful deletion
-          this.dialogRef.close('delete');
-        } else {
-          // Handle deletion failure
-        }
-      },
-      (error) => {
-        // Handle deletion error
-      }
-    );
+
+  deleteItemFromServer(): void{
+    this.deleteEvent;
+  }
+
+  deleteItem(): void {
+    const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete this slot?', 'Delete  Cancel',{
+      duration: 5000, // Display duration in milliseconds
+
+    });
+    confirmationSnackBar.onAction().subscribe(() => {
+      this.deleteItemFromServer();
+     window.location.reload();
+    })
+  }
+
+  deleteEvent(scheduleId: Number){
+    this.dataService.RemoveSchedule(scheduleId).subscribe(result => {
+      this.deleteItem();
+      });
   }
  
   closeDialog(): void {

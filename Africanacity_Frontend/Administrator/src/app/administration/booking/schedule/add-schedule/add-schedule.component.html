@@ -5,14 +5,13 @@
     </div>
 
     <div class="col-md-10 order-md-2">
-      <label></label>
-      <label></label>
       <div class="card">
         <div class="card-body">
           <h4 class="text-center mb-4">Add Event Schedule Slot</h4>
           <hr>
           <div class="container">
             <div class="row">
+              <!--Title-->
               <form [formGroup]="scheduleform" (ngSubmit)="onSubmit()">
                 <mat-form-field class="full-width">
                   <mat-label>Slot Title</mat-label>
@@ -20,7 +19,7 @@
                 </mat-form-field>
                 <br>
 
-
+                 <!--Date-->
                 <mat-form-field class="full-width">
                   <mat-label>Date</mat-label>
                   <input
@@ -34,7 +33,6 @@
                 </mat-form-field>
                 <br>
 
-
                 <!-- Start Time -->
                <mat-form-field class="full-width">
                 <mat-label>Start Time</mat-label>
@@ -47,7 +45,6 @@
               </mat-form-field>
               <br>
 
-              
                 <!-- End Time -->
             <mat-form-field class="full-width">
              <mat-label>End Time</mat-label>
@@ -58,7 +55,7 @@
                formControlName="end_Time"
              >
            </mat-form-field>
-           
+                 <!--Event Name-->
                 <mat-form-field class="full-width">
                   <mat-label>Event Name</mat-label>
                   <mat-select formControlName="event">
@@ -66,29 +63,19 @@
                   </mat-select>
                 </mat-form-field>
                 <br>
-
-                <mat-form-field class="full-width">
-                  <mat-label>Schedule Status</mat-label>
-                  <mat-select formControlName="scheduleStatus">
-                    <mat-option *ngFor="let status of statuses" [value]="status.schedule_StatusId">{{ status.name }}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <br>
-
               
-              
+                <!--Description-->
                 <mat-form-field class="full-width">
                   <mat-label>Description</mat-label>
                   <textarea
                     matInput
                     placeholder="Provide a description for the event slot"
                     formControlName="description"
-                    rows="3"
+                    rows="2"
                   ></textarea>
                 </mat-form-field>
                 <br>
 
-              
                 <div class="center-buttons">
                   <button mat-raised-button color="primary" type="submit">Add</button>
                   <button mat-raised-button color="warn" (click)="onCancel()">Discard</button>

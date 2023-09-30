@@ -30,6 +30,7 @@ namespace Africanacity_Team24_INF370_.models
         public DbSet<Employee_Role> Employee_Roles { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Gender> Genders { get; set; }
+
 		public DbSet<Password> Passwords { get; set; }
 		public DbSet<Title> Titles { get; set; }
 		public DbSet<User> Users { get; set; }
@@ -74,6 +75,8 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<MenuItem> MenuItems { get; set; }
 		public DbSet<MenuItem_Category> MenuItem_Categories { get; set; }
 		public DbSet<MenuItem_Price> MenuItem_Prices { get; set; }
+		//public DbSet<Order_Drink> Order_Drinks { get; set; }
+		//public DbSet<Order_MenuItem> Order_MenuItems { get; set; }
 		public DbSet<Order_Status> Order_Statuses { get; set; }
            
         public DbSet<OrderType> OrderTypes { get; set; }
@@ -606,6 +609,25 @@ namespace Africanacity_Team24_INF370_.models
 
 						});
 			
+		
+
+			//create seed data for menu type
+            //modelBuilder.Entity<Menu_Type>()
+             //             .HasData(
+             //             new
+            //              {
+            //                  Menu_TypeId = 1,
+             //                 Name = "Breakfast"
+
+
+			////create seed data for menu type
+   //         modelBuilder.Entity<Menu_Type>()
+   //                       .HasData(
+   //                       new
+   //                       {
+   //                           Menu_TypeId = 1,
+   //                           Name = "Breakfast"
+
 
             //******************************************************************************* Create Seed Data For The Employee Role Table:
             modelBuilder.Entity<Employee_Role>()
@@ -1215,12 +1237,12 @@ namespace Africanacity_Team24_INF370_.models
                                   {
                                       ScheduleId = 1,
                                       Title = "Music slot",
-                                      Date = "2023/06/25",
+                                      Date = "06/25/2023",
                                       Start_Time = "14:30",
                                       End_Time = "15:00",
                                       Description = "Musician can book performance",
                                       EventId = 1,
-                                      Schedule_StatusId = 1,
+                                    
                                   });
             modelBuilder.Entity<Schedule>()
                                 .HasData(
@@ -1228,12 +1250,11 @@ namespace Africanacity_Team24_INF370_.models
                                  {
                                      ScheduleId = 2,
                                      Title = "Dance slot ",
-                                     Date = "2023/08/02",
+                                     Date = "08/02/2023",
                                      Start_Time = "12:00",
                                      End_Time = "12:30",
                                      Description = "Contemporary Dance performance",
                                      EventId = 2,
-                                     Schedule_StatusId = 1,
                                  });
             modelBuilder.Entity<Schedule>()
                                 .HasData(
@@ -1241,12 +1262,12 @@ namespace Africanacity_Team24_INF370_.models
                                  {
                                      ScheduleId = 3,
                                      Title = "Poetry",
-                                     Date = "2023/07/22",
+                                     Date = "07/22/2023",
                                      Start_Time = "21:00",
                                      End_Time = "21:30",
                                      Description = "Poet recital",
                                      EventId = 3,
-                                     Schedule_StatusId = 2,
+                                  
                                  });
             modelBuilder.Entity<Schedule>()
                               .HasData(
@@ -1254,12 +1275,11 @@ namespace Africanacity_Team24_INF370_.models
                                {
                                    ScheduleId = 4,
                                    Title = "Contemp Dance",
-                                   Date = "2023/07/22",
+                                   Date = "07/22/2023",
                                    Start_Time = "17:00",
                                    End_Time = "17:45",
                                    Description = "Contemporary dance slot",
                                    EventId = 2,
-                                   Schedule_StatusId = 1,
                                });
             modelBuilder.Entity<Schedule>()
                               .HasData(
@@ -1267,47 +1287,14 @@ namespace Africanacity_Team24_INF370_.models
                                {
                                    ScheduleId = 5,
                                    Title = "Comedy",
-                                   Date = "2023/09/12",
+                                   Date = "09/12/2023",
                                    Start_Time = "13:00",
                                    End_Time = "13:20",
                                    Description = "Poet recital",
                                    EventId = 3,
-                                   Schedule_StatusId = 1,
-                               });
+                                 });
 
-            //************************************************************************Create Seed Data For the Schedule Status Entity:
-            modelBuilder.Entity<Schedule_Status>()
-                     .HasData(
-                      new
-                      {
-                          Schedule_StatusId = 1,
-                          Name = "Available",
-
-                      });
-            modelBuilder.Entity<Schedule_Status>()
-                     .HasData(
-                      new
-                      {
-                          Schedule_StatusId = 2,
-                          Name = "Booked",
-
-                      });
-            modelBuilder.Entity<Schedule_Status>()
-                    .HasData(
-                     new
-                     {
-                         Schedule_StatusId = 3,
-                         Name = "Pending",
-
-                     });
-            modelBuilder.Entity<Schedule_Status>()
-                    .HasData(
-                     new
-                     {
-                         Schedule_StatusId = 4,
-                         Name = "Cancelled",
-
-                     });
+       
 
             //******************************************************************* Create Seed Data For the Menu Category Table:
             modelBuilder.Entity<MenuItem_Category>()
@@ -1805,7 +1792,7 @@ namespace Africanacity_Team24_INF370_.models
                         .HasData(
                         new
                         {
-                            VatId = 1,
+                            vatId = 1,
                            
                             Amount = 0.10m,
                         });
@@ -1813,7 +1800,7 @@ namespace Africanacity_Team24_INF370_.models
                        .HasData(
                        new
                        {
-                           VatId = 2,
+                           vatId = 2,
                         
                            Amount = 0.15m,
                        });
@@ -1822,13 +1809,24 @@ namespace Africanacity_Team24_INF370_.models
                        .HasData(
                        new
                        {
-                           DiscountId = 1,
+                           discountId = 1,
                            Name = "Month end discount",
                            Description = "10% Discount",
                            Amount = 0.05m,
                            Start_Date = DateTime.Now,
                            End_Date = DateTime.Now.AddDays(10),
                        });
+            modelBuilder.Entity<Discount>()
+           .HasData(
+           new
+           {
+               discountId = 2,
+               Name = "Hungry weekend discount",
+               Description = "15% Discount",
+               Amount = 0.15m,
+               Start_Date = DateTime.Now,
+               End_Date = DateTime.Now.AddDays(10),
+           });
 
             modelBuilder.Entity<Inventory_Price>()
                        .HasData(

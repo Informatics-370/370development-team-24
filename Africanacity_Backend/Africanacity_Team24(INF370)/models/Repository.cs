@@ -95,16 +95,16 @@ namespace Africanacity_Team24_INF370_.models
             return await query.ToArrayAsync();
         }
         //HELP 
-        public async Task<Help[]> GetAllHelpAsync()
-        {
-            IQueryable<Help> query = _appDbContext.Helps;
-            return await query.ToArrayAsync();
-        }
-        public async Task<Help> GetHelpAsync(int helpId)
-        {
-            IQueryable<Help> query = _appDbContext.Helps.Where(h => h.HelpId == helpId);
-            return await query.FirstOrDefaultAsync();
-        }
+        //public async Task<Help[]> GetAllHelpAsync()
+        //{
+        //    IQueryable<Help> query = _appDbContext.Helps;
+        //    return await query.ToArrayAsync();
+        //}
+        //public async Task<Help> GetHelpAsync(int helpId)
+        //{
+        //    IQueryable<Help> query = _appDbContext.Helps.Where(h => h.HelpId == helpId);
+        //    return await query.FirstOrDefaultAsync();
+        //}
         
         // employee role
         public async Task<Employee_Role[]> GetAllEmployeeRolesAsync()
@@ -223,7 +223,7 @@ namespace Africanacity_Team24_INF370_.models
         //SCHEDULE 
         public async Task<Schedule[]> ScheduleDisplayAsync()
         {
-            IQueryable<Schedule> query = _appDbContext.Schedules.Include(e => e.Event).Include(e => e.Schedule_Status);
+            IQueryable<Schedule> query = _appDbContext.Schedules.Include(e => e.Event);
             return await query.ToArrayAsync();
         }
         public async Task<Schedule> GetScheduleAsync(int scheduleId)
@@ -231,11 +231,11 @@ namespace Africanacity_Team24_INF370_.models
             IQueryable<Schedule> query = _appDbContext.Schedules.Where(s => s.ScheduleId == scheduleId);
             return await query.FirstOrDefaultAsync();
         }
-        public async Task<Schedule_Status[]> GetAllScheduleStatusAsync()
-        {
-            IQueryable<Schedule_Status> query = _appDbContext.Schedule_Statuses;
-            return await query.ToArrayAsync();
-        }
+        //public async Task<Schedule_Status[]> GetAllScheduleStatusAsync()
+        //{
+        //    IQueryable<Schedule_Status> query = _appDbContext.Schedule_Statuses;
+        //    return await query.ToArrayAsync();
+        //}
         //EVENTS
         public async Task<Event[]> GetAllEventsAsync()
         {
@@ -629,16 +629,16 @@ namespace Africanacity_Team24_INF370_.models
         }
 
         //VAT
-        public async Task<VAT> GetVatItemAsync(int VatId)
+        public async Task<VAT> GetVatItemAsync(int vatId)
         {
-            IQueryable<VAT> query = _appDbContext.Vats.Where(c => c.VatId == VatId);
+            IQueryable<VAT> query = _appDbContext.Vats.Where(c => c.vatId == vatId);
             return await query.FirstOrDefaultAsync();
         }
 
         //DISCOUNT
-        public async Task<Discount> GetDiscountItemAsync(int DiscountId)
+        public async Task<Discount> GetDiscountItemAsync(int discountId)
         {
-            IQueryable<Discount> query = _appDbContext.Discounts.Where(c => c.DiscountId == DiscountId);
+            IQueryable<Discount> query = _appDbContext.Discounts.Where(c => c.discountId == discountId);
             return await query.FirstOrDefaultAsync();
         }
 
@@ -665,9 +665,9 @@ namespace Africanacity_Team24_INF370_.models
             IQueryable<VAT> query = _appDbContext.Vats;
             return await query.ToArrayAsync();
         }
-        public async Task<VAT> GetAVatPercentageAsync(int VatId)
+        public async Task<VAT> GetAVatPercentageAsync(int vatId)
         {
-            IQueryable<VAT> query = _appDbContext.Vats.Where(c => c.VatId == VatId);
+            IQueryable<VAT> query = _appDbContext.Vats.Where(c => c.vatId == vatId);
             return await query.FirstOrDefaultAsync();
         }
 
@@ -678,9 +678,9 @@ namespace Africanacity_Team24_INF370_.models
             IQueryable<Discount> query = _appDbContext.Discounts;
             return await query.ToArrayAsync();
         }
-        public async Task<Discount> GetADiscountPercentageAsync(int DiscountId)
+        public async Task<Discount> GetADiscountPercentageAsync(int discountId)
         {
-            IQueryable<Discount> query = _appDbContext.Discounts.Where(c => c.DiscountId == DiscountId);
+            IQueryable<Discount> query = _appDbContext.Discounts.Where(c => c.discountId == discountId);
             return await query.FirstOrDefaultAsync();
         }
 

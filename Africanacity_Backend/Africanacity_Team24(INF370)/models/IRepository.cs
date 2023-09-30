@@ -41,8 +41,8 @@ namespace Africanacity_Team24_INF370_.models
 
         //HELP
 
-        Task<Help[]> GetAllHelpAsync();
-        Task<Help> GetHelpAsync(int HelpId);
+        //Task<Help[]> GetAllHelpAsync();
+        //Task<Help> GetHelpAsync(int HelpId);
 
 
 
@@ -131,7 +131,7 @@ namespace Africanacity_Team24_INF370_.models
         //SCHEDULE
         Task<Schedule> GetScheduleAsync(int schedule_Id);
         Task<Schedule[]> ScheduleDisplayAsync();
-        Task<Schedule_Status[]> GetAllScheduleStatusAsync();
+       // Task<Schedule_Status[]> GetAllScheduleStatusAsync();
 
         //EVENTS
         Task<Event[]> GetAllEventsAsync();
@@ -179,11 +179,11 @@ namespace Africanacity_Team24_INF370_.models
 
         //VAT
         Task<VAT[]> GetAllVatPercentagesAsync();
-        Task<VAT> GetAVatPercentageAsync(int VatId);
+        Task<VAT> GetAVatPercentageAsync(int vatId);
 
         //DISCOUNT
         Task<Discount[]> GetAllDiscountPercentagesAsync();
-        Task<Discount> GetADiscountPercentageAsync(int VDiscountId);
+        Task<Discount> GetADiscountPercentageAsync(int discountId);
 
         //Ordered Menu Items
         Task<Order_MenuItem[]> GetAllOrderedMenuItemsAsync();
