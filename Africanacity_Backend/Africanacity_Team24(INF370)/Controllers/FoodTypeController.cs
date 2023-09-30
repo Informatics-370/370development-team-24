@@ -8,6 +8,11 @@ using Africanacity_Team24_INF370_.View_Models;
 using System.Data.Entity.Infrastructure;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
+using System;
+
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
@@ -48,17 +53,31 @@ namespace Africanacity_Team24_INF370_.Controllers
         {
             try
             {
-                var foodtypes = await _repository.GetFoodTypeAsync(foodTypeId);
-                if (foodtypes == null) return NotFound("Food type does not exist.");
-                return Ok(foodtypes);
+                var foodType = await _appDbContext.Food_Types
+                    .Include(ft => ft.MenuCategoryFoodTypes)
+                    .FirstOrDefaultAsync(f => f.FoodTypeId == foodTypeId);
+
+                if (foodType == null) return NotFound("Food type does not exist.");
+
+                var foodTypeViewModel = new FoodTypeViewModel
+                {
+                    Name = foodType.Name,
+                    Description = foodType.Description,
+                    MenuCategoryFoodTypeItems = foodType.MenuCategoryFoodTypes
+               .Select(mcf => new MenuCategoryFoodTypeViewModel
+               {
+                   Menu_CategoryId = mcf.Menu_CategoryId
+               })
+               .ToList()
+                };
+
+                return Ok(foodTypeViewModel);
             }
             catch (Exception)
             {
-                return StatusCode(500, "Enter some error message");
+                return StatusCode(500, "Internal Server Error");
             }
-
         }
-
         // Add food type
         [HttpPost]
         [Route("AddFoodType")]
@@ -104,17 +123,12 @@ namespace Africanacity_Team24_INF370_.Controllers
                 _appDbContext.SaveChanges();
                 return Ok(jsonString);
             }
-            catch (DbUpdateException ex)
+            catch (Exception ex)
             {
                 var innerExceptionMessage = ex.InnerException?.Message ?? "No inner exception message available";
                 return BadRequest($"Error: {ex.Message}. Inner Exception: {innerExceptionMessage}");
             }
-            catch (Exception ex)
-            {
-                
-                return BadRequest($"Error: {ex.Message}");
-            }
-
+            
         }
     
 

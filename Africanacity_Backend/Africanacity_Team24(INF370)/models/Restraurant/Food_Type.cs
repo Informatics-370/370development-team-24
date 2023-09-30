@@ -1,6 +1,7 @@
 ﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Core.Metadata.Edm;
+using System.Text.Json.Serialization;
 
 namespace Africanacity_Team24_INF370_.models.Restraurant
 {
@@ -17,6 +18,7 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
 
         // Many-to-Many relationship with MenuCategory
 
+        [JsonIgnore]
         public ICollection<MenuCategoryFoodType> MenuCategoryFoodTypes { get; set; }
 
     }

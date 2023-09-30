@@ -143,11 +143,14 @@ namespace Africanacity_Team24_INF370_.models
 			IQueryable<Food_Type> query = _appDbContext.Food_Types;
 			return await query.ToArrayAsync();
 		}
-		public async Task<Food_Type>GetFoodTypeAsync(int FoodTypeId)
-		{
-			IQueryable<Food_Type> query = _appDbContext.Food_Types.Where(f => f.FoodTypeId == FoodTypeId);
-			return await query.FirstOrDefaultAsync();
-		}
+        public async Task<Food_Type> GetFoodTypeAsync(int FoodTypeId)
+        {
+            IQueryable<Food_Type> query = _appDbContext.Food_Types
+                .Include(ft => ft.MenuCategoryFoodTypes) // Include the related MenuCategoryFoodTypes
+                .Where(f => f.FoodTypeId == FoodTypeId);
+
+            return await query.FirstOrDefaultAsync();
+        }
 
         //public async Task<List<MenuItem_Category>> GetMenuCategoriesForMenuTypeAsync(int Menu_TypeId)
         //{

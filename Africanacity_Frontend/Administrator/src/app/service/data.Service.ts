@@ -20,6 +20,7 @@ import { Discount } from '../shared/Discount';
 import { VAT } from '../shared/Vat';
 import { OtherDrink } from '../shared/other-drink';
 import { MenuTypeWithAssociations } from '../shared/menuTypeWithAssociations';
+import { FoodTypeViewModel } from '../shared/foodTypeViewModel';
 
 
 @Injectable({
@@ -219,9 +220,20 @@ export class DataService {
       return this.httpClient.post(`${this.apiUrl}FoodType/AddFoodType`, foodType, this.httpOptions)
     }
   
-    EditFoodType(foodTypeId: number, foodType: FoodType)
+    EditFoodType(foodTypeId: number, foodType: FoodType): Observable<any>
     {
-      return this.httpClient.put(`${this.apiUrl}FoodType/EditFoodType/${foodTypeId}`, foodType, this.httpOptions)
+      const foodTypeViewModel: FoodTypeViewModel = {
+        name: foodType.name,
+        description: foodType.description,
+        menuCategoryFoodTypeItems: foodType.menuCategoryFoodTypeItems.map(
+          (item) => ({
+            menu_CategoryId: item.menu_CategoryId,
+            // Add other properties as needed
+          })
+        ),
+        // Add other properties as needed
+      };
+      return this.httpClient.put(`${this.apiUrl}FoodType/EditFoodType/${foodTypeId}`, foodTypeViewModel, this.httpOptions)
     }
   
     DeleteFoodType(foodTypeId: number)
