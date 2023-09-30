@@ -5,46 +5,45 @@
     </div>
     <div class="col-md-10 order-md-1">
       <div>
-   <div class="container">
-    <h1 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px; font-weight: bolder;">Stock Take</h1>
-    <form [formGroup]="stockTakeForm" (ngSubmit)="createStockTake()">
-      <div class="form-group">
-        <label for="stockTakeDate">Stock Take Date:</label>
-        <input type="date" formControlName="stockTakeDate" class="form-control" [attr.readonly]="true">
-      </div>
-      
-    <div formArrayName="items">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Inventory Item</th>
-              <th>Quantity</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of items.controls; let i = index" [formGroupName]="i" class="item-group">
-              <td>
-                <select formControlName="inventory_ItemId" class="form-control">
-                  <option *ngFor="let inventoryItem of inventoryItems" [value]="inventoryItem.inventory_ItemId">
-                    {{ inventoryItem.itemName }}
-                  </option>
-                </select>
-              </td>
-              <td>
-                <input type="number" formControlName="quantity" class="form-control">
-              </td>
-              <td>
-                <button type="button" (click)="removeItem(i)" class="btn btn-danger">Remove</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <button type="button" (click)="addItem()" class="btn btn-secondary">Add Item</button>
-      <button type="submit" class="btn btn-primary">Create Stock Take</button>
-    </form>
-  </div>
+  <div class="container">
+  <h1 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px; font-weight: bolder;">Stock Take</h1>
+  <form [formGroup]="stockTakeForm" (ngSubmit)="createStockTake()">
+    <div class="form-group">
+      <label for="stockTakeDate">Stock Take Date:</label>
+      <input type="date" formControlName="stockTakeDate" class="form-control" [attr.readonly]="true">
+    </div>
+
+    <!-- Remove the formArrayName for items -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Inventory Item</th>
+          <th>Quantity</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Loop through all inventory items -->
+        <tr *ngFor="let inventoryItem of inventoryItems; let i = index" class="item-group">
+          <td>
+            <!-- Display the inventory item name -->
+            {{ inventoryItem.itemName }}
+          </td>
+          <td>
+            <!-- Add an input field for quantity -->
+            <!-- Inside your ngFor loop for inventory items -->
+            <input type="number" [formControlName]="i" class="form-control" [min]="0">
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <button type="button" (click)="addItem()" class="btn btn-secondary">Add Item</button> -->
+   <!-- Disable the button by default -->
+   <button type="submit" class="btn btn-primary" [disabled]="!allQuantityFieldsFilled">Create Stock Take</button>
+  </form>
+</div>
+
   
   
   

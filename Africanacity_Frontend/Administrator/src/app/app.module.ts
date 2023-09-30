@@ -168,6 +168,10 @@ import { HelpEditdrinktypeComponent } from './administration/Drink Type/create-d
 import { HelpAdddrinktypeComponent } from './administration/Drink Type/edit-drink-type/help-adddrinktype/help-adddrinktype.component';
 import { HelpViewDrinktypeComponent } from './administration/Drink Type/view-drink-type/help-view-drinktype/help-view-drinktype.component';
 import { LogoutConfirmationComponent } from './navbar/logout-confirmation/logout-confirmation.component';
+import { AppNotificationsComponent } from './administration/home/app-notifications/app-notifications.component';
+import { AppCalendarComponent } from './administration/home/app-calendar/app-calendar.component';
+import { AppTimeComponent } from './administration/home/app-time/app-time.component';
+import { AppTodoListComponent } from './administration/home/app-todo-list/app-todo-list.component';
 
 
 @NgModule({
@@ -346,7 +350,11 @@ import { LogoutConfirmationComponent } from './navbar/logout-confirmation/logout
     HelpEditdrinktypeComponent,
     HelpAdddrinktypeComponent,
     HelpViewDrinktypeComponent,
-    LogoutConfirmationComponent
+    LogoutConfirmationComponent,
+    AppNotificationsComponent,
+    AppCalendarComponent,
+    AppTimeComponent,
+    AppTodoListComponent
 
   ],
   imports: [

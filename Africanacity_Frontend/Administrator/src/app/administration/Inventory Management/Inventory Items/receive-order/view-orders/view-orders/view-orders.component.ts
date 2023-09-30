@@ -44,12 +44,13 @@ export class ViewOrdersComponent implements OnInit{
     const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
   
     this.filteredsupplieritems = this.supplieritems.filter(supplieritem => {
-      // const column2Value = supplieritem.inventoryItemName.toLowerCase() || supplieritem.inventoryItemName.toUpperCase();
-      // const column3Value = supplieritem.supplierName.toLowerCase();
+      const column2Value = supplieritem.inventoryItemName.toLowerCase(); // Assuming you want to filter by inventoryItemName
+      const column3Value = supplieritem.supplierName.toLowerCase();
   
-      // return column2Value.includes(filterValue) || column3Value.includes(filterValue);
+      return column2Value.includes(filterValue) || column3Value.includes(filterValue);
     });
   }
+  
 
 
 }

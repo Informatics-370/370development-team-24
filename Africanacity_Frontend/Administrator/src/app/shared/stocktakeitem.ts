@@ -1,9 +1,9 @@
 // stocktake-item.model.ts
 
-export interface StockTakeItem {
-    inventory_ItemId: number;
-    stockTakeQuantity: number;
-  }
+// export interface StockTakeItem {
+//     inventory_ItemId: number;
+//     stockTakeQuantity: number;
+//   }
 
   export interface StockTake {
     stockTakeId: number;
@@ -19,10 +19,6 @@ export interface StockTakeItem {
     stock_TakeId: number;
   }
   
-  // export interface StockTakeViewModel {
-  //   stockTakeDate: Date;
-  //   items: StockTakeItem[];
-  // }
-  
+
   
   
