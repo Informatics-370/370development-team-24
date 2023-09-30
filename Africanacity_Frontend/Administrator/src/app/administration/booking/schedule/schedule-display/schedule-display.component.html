@@ -6,8 +6,12 @@
     <div class="col-md-8 order-md-1">
       <label></label>
       <h3 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px; font-weight: bolder;">
-        View Schedule Calendar
+        View Schedule Calendar      
+        <button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help"  matTooltip="Help">
+        <mat-icon style="font-size: 24px;">help</mat-icon>
+      </button>
       </h3>
+
 
       <div class="row">
           <full-calendar
@@ -16,9 +20,7 @@
           ></full-calendar>
           
       </div>
-      <button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help"  matTooltip="Help">
-        <mat-icon style="font-size: 24px;">help</mat-icon>
-      </button>
+    
     </div>
   </div>
 </div>

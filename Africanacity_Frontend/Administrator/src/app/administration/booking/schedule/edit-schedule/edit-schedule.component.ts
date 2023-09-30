@@ -67,7 +67,7 @@ export class EditScheduleComponent implements OnInit {
     });
 
     this.GetEvents();
-    this.GetAllScheduleStatus();
+    //this.GetAllScheduleStatus();
     console.log(this.editSchedule)
    }
 
@@ -79,7 +79,7 @@ export class EditScheduleComponent implements OnInit {
     end_Time: ['', [Validators.required, this.noSpacesValidator]],
     event: [null, Validators.required],
     description:['',[Validators.required, this.noSpacesValidator]],
-    scheduleStatus:['',Validators.required],
+    //scheduleStatus:['',Validators.required],
   })
 
  //Method to retrieve the events from the backend that will be used for the event dropdown
@@ -92,16 +92,16 @@ export class EditScheduleComponent implements OnInit {
   })
  }
 
- GetAllScheduleStatus()
- {
-   this.dataService.GetAllScheduleStatus().subscribe(result => {
-     let schedulestatusList:any[] = result
-     schedulestatusList.forEach((element) => {
-       this.statuses.push(element)
+//  GetAllScheduleStatus()
+//  {
+//    this.dataService.GetAllScheduleStatus().subscribe(result => {
+//      let schedulestatusList:any[] = result
+//      schedulestatusList.forEach((element) => {
+//        this.statuses.push(element)
        
-     });
-   })
- }
+//      });
+//    })
+//  }
 
  updateSchedule() {
   let schedule = new Schedule();
@@ -110,7 +110,7 @@ export class EditScheduleComponent implements OnInit {
   schedule.start_Time = this. Updatescheduleform.value.start_Time; 
   schedule.end_Time = this. Updatescheduleform.value.end_Time;
   schedule.event = this. Updatescheduleform.value.event;
-  schedule.scheduleStatus = this. Updatescheduleform.value.scheduleStatus;
+  //schedule.scheduleStatus = this. Updatescheduleform.value.scheduleStatus;
   schedule.description = this. Updatescheduleform.value.description;
 
   this.dataService.EditSchedule(this.editSchedule.scheduleId, schedule).subscribe(

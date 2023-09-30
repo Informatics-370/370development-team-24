@@ -629,16 +629,16 @@ namespace Africanacity_Team24_INF370_.models
         }
 
         //VAT
-        public async Task<VAT> GetVatItemAsync(int VatId)
+        public async Task<VAT> GetVatItemAsync(int vatId)
         {
-            IQueryable<VAT> query = _appDbContext.Vats.Where(c => c.VatId == VatId);
+            IQueryable<VAT> query = _appDbContext.Vats.Where(c => c.vatId == vatId);
             return await query.FirstOrDefaultAsync();
         }
 
         //DISCOUNT
-        public async Task<Discount> GetDiscountItemAsync(int DiscountId)
+        public async Task<Discount> GetDiscountItemAsync(int discountId)
         {
-            IQueryable<Discount> query = _appDbContext.Discounts.Where(c => c.DiscountId == DiscountId);
+            IQueryable<Discount> query = _appDbContext.Discounts.Where(c => c.discountId == discountId);
             return await query.FirstOrDefaultAsync();
         }
 
@@ -665,9 +665,9 @@ namespace Africanacity_Team24_INF370_.models
             IQueryable<VAT> query = _appDbContext.Vats;
             return await query.ToArrayAsync();
         }
-        public async Task<VAT> GetAVatPercentageAsync(int VatId)
+        public async Task<VAT> GetAVatPercentageAsync(int vatId)
         {
-            IQueryable<VAT> query = _appDbContext.Vats.Where(c => c.VatId == VatId);
+            IQueryable<VAT> query = _appDbContext.Vats.Where(c => c.vatId == vatId);
             return await query.FirstOrDefaultAsync();
         }
 
@@ -678,9 +678,9 @@ namespace Africanacity_Team24_INF370_.models
             IQueryable<Discount> query = _appDbContext.Discounts;
             return await query.ToArrayAsync();
         }
-        public async Task<Discount> GetADiscountPercentageAsync(int DiscountId)
+        public async Task<Discount> GetADiscountPercentageAsync(int discountId)
         {
-            IQueryable<Discount> query = _appDbContext.Discounts.Where(c => c.DiscountId == DiscountId);
+            IQueryable<Discount> query = _appDbContext.Discounts.Where(c => c.discountId == discountId);
             return await query.FirstOrDefaultAsync();
         }
 

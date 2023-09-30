@@ -5,12 +5,12 @@
     </button>
   </div>
   <div mat-dialog-content>
-    <!--<p>Event: {{data.eventName}}</p>!-->
+    <!-- <p>Event: {{data.eventName}}</p> -->
     <p>Time: {{ data.startStr }} - {{ data.endStr }} </p>
   </div>
   <div mat-dialog-actions>
-    <button mat-button color="primary" (click)="editEvent()">EDIT</button>
-    <button mat-button color="warn" (click)="deleteEvent()">DELETE</button>
+    <button mat-button color="primary" (click)="editEvent()">ADD</button>
+    <button mat-button color="warn" (click)="deleteEvent(data.scheduleId)">DELETE</button>
   </div>
   
   

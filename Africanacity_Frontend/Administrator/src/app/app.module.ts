@@ -167,6 +167,12 @@ import { HelpViewdrinksComponent } from './administration/otherDrink/view-other-
 import { HelpEditdrinktypeComponent } from './administration/Drink Type/create-drink-type/help-editdrinktype/help-editdrinktype.component';
 import { HelpAdddrinktypeComponent } from './administration/Drink Type/edit-drink-type/help-adddrinktype/help-adddrinktype.component';
 import { HelpViewDrinktypeComponent } from './administration/Drink Type/view-drink-type/help-view-drinktype/help-view-drinktype.component';
+import { AddDiscountComponent } from './administration/Discount/add-discount/add-discount.component';
+import { EditDiscountComponent } from './administration/Discount/edit-discount/edit-discount.component';
+import { ViewDiscountsComponent } from './administration/Discount/view-discounts/view-discounts.component';
+import { HelpAddDiscountComponent } from './administration/Discount/add-discount/help-add-discount/help-add-discount.component';
+import { VatComponent } from './administration/Discount/vat/vat.component';
+import { AddVatComponent } from './administration/Discount/add-vat/add-vat.component';
 
 
 @NgModule({
@@ -344,7 +350,13 @@ import { HelpViewDrinktypeComponent } from './administration/Drink Type/view-dri
     HelpViewdrinksComponent,
     HelpEditdrinktypeComponent,
     HelpAdddrinktypeComponent,
-    HelpViewDrinktypeComponent
+    HelpViewDrinktypeComponent,
+    AddDiscountComponent,
+    EditDiscountComponent,
+    ViewDiscountsComponent,
+    HelpAddDiscountComponent,
+    VatComponent,
+    AddVatComponent
 
   ],
   imports: [
