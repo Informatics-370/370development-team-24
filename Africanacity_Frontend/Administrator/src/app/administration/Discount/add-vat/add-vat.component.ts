@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { DataService } from 'src/app/service/data.Service';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { VAT } from 'src/app/shared/Vat';
+import { HelpVatAddComponent } from './help-vat-add/help-vat-add.component';
 
 @Component({
   selector: 'app-add-vat',
@@ -20,7 +21,7 @@ export class AddVatComponent implements OnInit{
   }
 
   vatform : FormGroup = new FormGroup({
-    description: new FormControl('',[Validators.required]),
+    //description: new FormControl('',[Validators.required]),
     amount: new FormControl('',[Validators.required]),
     
   });
@@ -35,7 +36,7 @@ export class AddVatComponent implements OnInit{
     }
   
     let vatAmounts = new VAT();
-    vatAmounts.description = this.vatform.value.description;
+    //vatAmounts.description = this.vatform.value.description;
     vatAmounts.amount = this.vatform.value.amount;
 
   
@@ -59,14 +60,14 @@ export class AddVatComponent implements OnInit{
         return null;
       }
 
-    //  openHelpModal(field: string): void {
-    //      const dialogRef = this.dialog.open(HelpAddDiscountComponent, {
-    //        width: '500px',
-    //        data: { field } // Pass the field name to the modal
-    //      });
+      openHelpModal(field: string): void {
+          const dialogRef = this.dialog.open(HelpVatAddComponent, {
+            width: '500px',
+            data: { field } // Pass the field name to the modal
+          });
       
-    //      dialogRef.afterClosed().subscribe(result => {
-    //       // Handle modal close if needed
-    //     });
-    //  }
+          dialogRef.afterClosed().subscribe(result => {
+           // Handle modal close if needed
+         });
+      }
 }

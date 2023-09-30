@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { Discount } from 'src/app/shared/Discount';
-
+import { HelpViewdiscountsComponent } from './help-viewdiscounts/help-viewdiscounts.component';
 
 @Component({
   selector: 'app-view-discounts',
@@ -72,14 +72,14 @@ export class ViewDiscountsComponent implements OnInit {
         });
     }
 
-    // openHelpModal(field: string): void {
-    //   const dialogRef = this.dialog.open(HelpViewentertainmentComponent, {
-    //     width: '500px',
-    //     data: { field } // Pass the field name to the modal
-    //   });
+     openHelpModal(field: string): void {
+       const dialogRef = this.dialog.open(HelpViewdiscountsComponent, {
+         width: '500px',
+        data: { field } // Pass the field name to the modal
+       });
     
-    //   dialogRef.afterClosed().subscribe(result => {
-    //     // Handle modal close if needed
-    //   });
-    // }
+       dialogRef.afterClosed().subscribe(result => {
+         // Handle modal close if needed
+     });
+    }
 }

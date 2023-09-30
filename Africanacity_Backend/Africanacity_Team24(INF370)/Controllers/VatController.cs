@@ -38,7 +38,7 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
         [HttpGet]
-        [Route("GetAVatPercentage/{VatId}")]
+        [Route("GetAVatPercentage/{vatId}")]
         public async Task<IActionResult> GetAVatPercentageAsync(int vatId)
         {
             try

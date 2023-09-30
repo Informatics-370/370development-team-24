@@ -13,14 +13,14 @@
   <form [formGroup]="vatform" class="form-horizontal"  (ngSubmit)="onSubmit()">
    
   
-      <div class="form-group">
+      <!-- <div class="form-group">
         <span>
           <label class="col-sm-1" style="font-weight: bold;" for="description">Description:</label>
           <div class="col-sm-6">
             <input class="form-control"  placeholder="Enter Description" [required]="true" name="description" formControlName="description">
           </div>
         </span>
-      </div>
+      </div> -->
 
       <!-- <div class="form-group">
         <label class="col-sm-1" for="amount">Amount:</label>
@@ -46,9 +46,9 @@
         </div>
       <!-- </div> -->
     </form>
-    <!-- <button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help"  matTooltip="Help">
+    <button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help"  matTooltip="Help">
       <mat-icon style="font-size: 24px;">help</mat-icon>
-    </button> -->
+    </button> 
     </div>
    </div> 
     </div>

@@ -5,6 +5,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
+import { HelpEditdiscountComponent } from './help-editdiscount/help-editdiscount.component';
 
 
 @Component({
@@ -12,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './edit-discount.component.html',
   styleUrls: ['./edit-discount.component.css']
 })
+
 export class EditDiscountComponent implements OnInit{
   ngOnInit(): void {
     this.activated.params.subscribe(params =>{
@@ -20,8 +22,8 @@ export class EditDiscountComponent implements OnInit{
         this.updateDiscountForm.controls['name'].setValue(this.editDiscount.name);
         this.updateDiscountForm.controls['description'].setValue(this.editDiscount.description);
         this.updateDiscountForm.controls['amount'].setValue(this.editDiscount.amount);
-        this.updateDiscountForm.controls['start_date'].setValue(this.editDiscount.start_date);
-        this.updateDiscountForm.controls['end_date'].setValue(this.editDiscount.end_date);
+        //this.updateDiscountForm.controls['start_date'].setValue(this.editDiscount.start_date);
+        //this.updateDiscountForm.controls['end_date'].setValue(this.editDiscount.end_date);
 
       })
     })
@@ -39,8 +41,8 @@ export class EditDiscountComponent implements OnInit{
     name: new FormControl('',[Validators.required,this.noSpacesValidator]),
     description: new FormControl('',[Validators.required,this.noSpacesValidator]),
     amount: new FormControl('',[Validators.required]),
-    start_date: new FormControl('',[Validators.required]),
-    end_date: new FormControl('',[Validators.required])
+    //start_date: new FormControl('',[Validators.required]),
+    //end_date: new FormControl('',[Validators.required])
 
    })
 
@@ -52,6 +54,7 @@ export class EditDiscountComponent implements OnInit{
     let discountType = new Discount();
       discountType.name = this.updateDiscountForm.value.name;
       discountType.description= this.updateDiscountForm.value.description;
+      discountType.amount = this.updateDiscountForm.value.amount;
 
       this.dataService.EditADiscountPercentage(this.editDiscount.discountId,discountType).subscribe((response:any)=>{
         if (response) {
@@ -59,10 +62,12 @@ export class EditDiscountComponent implements OnInit{
           this.showSuccessMessage('Discount percentage updated successfully!');
         } else {
           // Handle error if needed
+          this.showSuccessMessage( discountType.name + 'Information cannot be updated!');
         }
       },
       (error) => {
         // Handle error if needed
+        this.showSuccessMessage( discountType.name +'s' +'' + 'Information cannot be updated!');
       }
       );
   }
@@ -75,16 +80,16 @@ export class EditDiscountComponent implements OnInit{
     });
   }
 
-  // openHelpModal(field: string): void {
-  //   const dialogRef = this.dialog.open(HelpEditentertainmentComponent, {
-  //     width: '500px',
-  //     data: { field } // Pass the field name to the modal
-  //   });
+   openHelpModal(field: string): void {
+     const dialogRef = this.dialog.open(HelpEditdiscountComponent, {
+       width: '500px',
+       data: { field } // Pass the field name to the modal
+     });
   
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     // Handle modal close if needed
-  //   });
-  // }
+     dialogRef.afterClosed().subscribe(result => {
+       // Handle modal close if needed
+     });
+   }
 
   
      // Custom validator to check for spaces

@@ -1226,7 +1226,7 @@ namespace Africanacity_Team24_INF370_.models
                                   {
                                       ScheduleId = 1,
                                       Title = "Music slot",
-                                      Date = "2023/06/25",
+                                      Date = "06/25/2023",
                                       Start_Time = "14:30",
                                       End_Time = "15:00",
                                       Description = "Musician can book performance",
@@ -1239,7 +1239,7 @@ namespace Africanacity_Team24_INF370_.models
                                  {
                                      ScheduleId = 2,
                                      Title = "Dance slot ",
-                                     Date = "2023/08/02",
+                                     Date = "08/02/2023",
                                      Start_Time = "12:00",
                                      End_Time = "12:30",
                                      Description = "Contemporary Dance performance",
@@ -1251,7 +1251,7 @@ namespace Africanacity_Team24_INF370_.models
                                  {
                                      ScheduleId = 3,
                                      Title = "Poetry",
-                                     Date = "2023/07/22",
+                                     Date = "07/22/2023",
                                      Start_Time = "21:00",
                                      End_Time = "21:30",
                                      Description = "Poet recital",
@@ -1264,7 +1264,7 @@ namespace Africanacity_Team24_INF370_.models
                                {
                                    ScheduleId = 4,
                                    Title = "Contemp Dance",
-                                   Date = "2023/07/22",
+                                   Date = "07/22/2023",
                                    Start_Time = "17:00",
                                    End_Time = "17:45",
                                    Description = "Contemporary dance slot",
@@ -1276,7 +1276,7 @@ namespace Africanacity_Team24_INF370_.models
                                {
                                    ScheduleId = 5,
                                    Title = "Comedy",
-                                   Date = "2023/09/12",
+                                   Date = "09/12/2023",
                                    Start_Time = "13:00",
                                    End_Time = "13:20",
                                    Description = "Poet recital",
@@ -1781,7 +1781,7 @@ namespace Africanacity_Team24_INF370_.models
                         .HasData(
                         new
                         {
-                            VatId = 1,
+                            vatId = 1,
                            
                             Amount = 0.10m,
                         });
@@ -1789,7 +1789,7 @@ namespace Africanacity_Team24_INF370_.models
                        .HasData(
                        new
                        {
-                           VatId = 2,
+                           vatId = 2,
                         
                            Amount = 0.15m,
                        });
@@ -1798,13 +1798,24 @@ namespace Africanacity_Team24_INF370_.models
                        .HasData(
                        new
                        {
-                           DiscountId = 1,
+                           discountId = 1,
                            Name = "Month end discount",
                            Description = "10% Discount",
                            Amount = 0.05m,
                            Start_Date = DateTime.Now,
                            End_Date = DateTime.Now.AddDays(10),
                        });
+            modelBuilder.Entity<Discount>()
+           .HasData(
+           new
+           {
+               discountId = 2,
+               Name = "Hungry weekend discount",
+               Description = "15% Discount",
+               Amount = 0.15m,
+               Start_Date = DateTime.Now,
+               End_Date = DateTime.Now.AddDays(10),
+           });
 
             //seed data for KitchenOrder
             //modelBuilder.Entity<KitchenOrder>()

@@ -74,16 +74,6 @@ export class AddScheduleComponent implements OnInit{
       });
     })
   }
-  // GetAllScheduleStatus()
-  // {
-  //   this.dataService.GetAllScheduleStatus().subscribe(result => {
-  //     let schedulestatusList:any[] = result
-  //     schedulestatusList.forEach((element) => {
-  //       this.statuses.push(element)
-        
-  //     });
-  //   })
-  // }
    
 
   onSubmit() {

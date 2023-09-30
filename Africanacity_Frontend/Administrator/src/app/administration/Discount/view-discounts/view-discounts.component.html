@@ -25,6 +25,8 @@
             <th scope="col">Amount</th>
             <th scope="col">Start Date</th>
             <th scope="col">End Date</th>
+            <th></th>
+            <th></th>
             </tr> 
     </thead> 
     <tbody> 
@@ -32,17 +34,18 @@
             <td>{{item.discountId}}</td>
             <td>{{item.name}}</td>
             <td>{{item.description}}</td>
-            <td>{{item.start_date}}</td>
+            <td>{{item.amount}}</td>
+            <td>{{item.start_date | date }}</td>
             <td>{{item.end_date}}</td>
             
             <td> <i class="fa fa-pencil" [routerLink]="['/edit-discount', item.discountId]" aria-hidden="true"></i></td>
-                  <td><i class="fa fa-trash"  (click)="DeleteADiscountPercentage(item.discountId)" aria-hidden="true"></i></td>
+             <td><i class="fa fa-trash"  (click)="DeleteADiscountPercentage(item.discountId)" aria-hidden="true"></i></td>
         </tr> 
     </tbody> 
 </table>
-<!-- <button style="margin-left: 1100x; margin-top: 50px;"  mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help"  matTooltip="Help">
+ <button style="margin-left: 1100x; margin-top: 50px;"  mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help"  matTooltip="Help">
     <mat-icon style="font-size: 24px;">help</mat-icon>
-  </button> -->
+  </button> 
     </div>
     </div>
 </div>

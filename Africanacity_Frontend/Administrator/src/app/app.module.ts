@@ -173,6 +173,10 @@ import { ViewDiscountsComponent } from './administration/Discount/view-discounts
 import { HelpAddDiscountComponent } from './administration/Discount/add-discount/help-add-discount/help-add-discount.component';
 import { VatComponent } from './administration/Discount/vat/vat.component';
 import { AddVatComponent } from './administration/Discount/add-vat/add-vat.component';
+import { HelpViewdiscountsComponent } from './administration/Discount/view-discounts/help-viewdiscounts/help-viewdiscounts.component';
+import { HelpEditdiscountComponent } from './administration/Discount/edit-discount/help-editdiscount/help-editdiscount.component';
+import { HelpVatAddComponent } from './administration/Discount/add-vat/help-vat-add/help-vat-add.component';
+import { HelpVatComponent } from './administration/Discount/vat/help-vat/help-vat.component';
 
 
 @NgModule({
@@ -356,7 +360,11 @@ import { AddVatComponent } from './administration/Discount/add-vat/add-vat.compo
     ViewDiscountsComponent,
     HelpAddDiscountComponent,
     VatComponent,
-    AddVatComponent
+    AddVatComponent,
+    HelpViewdiscountsComponent,
+    HelpEditdiscountComponent,
+    HelpVatAddComponent,
+    HelpVatComponent
 
   ],
   imports: [

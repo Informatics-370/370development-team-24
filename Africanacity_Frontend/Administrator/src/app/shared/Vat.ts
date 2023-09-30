@@ -1,5 +1,5 @@
 export class VAT {
     vatId!: number;
-    description!: string;
+    //description!: string;
     amount!: number;
 }

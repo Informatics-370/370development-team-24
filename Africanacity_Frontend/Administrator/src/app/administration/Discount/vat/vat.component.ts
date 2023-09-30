@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
+import { HelpVatComponent } from './help-vat/help-vat.component';
 
 @Component({
   selector: 'app-vat',
@@ -37,27 +38,27 @@ export class VatComponent implements OnInit{
       })
     }
 
-    applyFilter(event: Event) {
-      const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+    // applyFilter(event: Event) {
+    //   const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
     
-      this.filteredTypes = this.vatAmount.filter(vat => {
-        const column3Value = vat.description.toLowerCase();
+    //   this.filteredTypes = this.vatAmount.filter(vat => {
+    //     const column3Value = vat.description.toLowerCase();
     
-        return column3Value.includes(filterValue)
-      });
-    }
-
-
-
-    // openHelpModal(field: string): void {
-    //   const dialogRef = this.dialog.open(HelpViewentertainmentComponent, {
-    //     width: '500px',
-    //     data: { field } // Pass the field name to the modal
-    //   });
-    
-    //   dialogRef.afterClosed().subscribe(result => {
-    //     // Handle modal close if needed
+    //     return column3Value.includes(filterValue)
     //   });
     // }
+
+
+
+     openHelpModal(field: string): void {
+       const dialogRef = this.dialog.open(HelpVatComponent, {
+        width: '500px',
+         data: { field } // Pass the field name to the modal
+       });
+    
+       dialogRef.afterClosed().subscribe(result => {
+         // Handle modal close if needed
+       });
+     }
     
 }

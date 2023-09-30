@@ -179,11 +179,11 @@ namespace Africanacity_Team24_INF370_.models
 
         //VAT
         Task<VAT[]> GetAllVatPercentagesAsync();
-        Task<VAT> GetAVatPercentageAsync(int VatId);
+        Task<VAT> GetAVatPercentageAsync(int vatId);
 
         //DISCOUNT
         Task<Discount[]> GetAllDiscountPercentagesAsync();
-        Task<Discount> GetADiscountPercentageAsync(int VDiscountId);
+        Task<Discount> GetADiscountPercentageAsync(int discountId);
 
         //Ordered Menu Items
         Task<Order_MenuItem[]> GetAllOrderedMenuItemsAsync();

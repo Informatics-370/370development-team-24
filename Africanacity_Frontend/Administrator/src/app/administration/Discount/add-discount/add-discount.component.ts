@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { DataService } from 'src/app/service/data.Service';
 import { Discount } from 'src/app/shared/Discount';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -24,7 +24,7 @@ export class AddDiscountComponent implements OnInit{
     name: new FormControl('',[Validators.required]),
     description: new FormControl('',[Validators.required]),
     amount: new FormControl('',[Validators.required]),
-    start_date: new FormControl('',[Validators.required]),
+    start_date: new FormControl([new Date().toISOString().slice(0, 10)]),
     end_date: new FormControl('',[Validators.required])
     
   });
@@ -33,16 +33,33 @@ export class AddDiscountComponent implements OnInit{
     this.router.navigate(['/view-discounts'])
   }
 
+  // isControlInvalid(controlName: string): boolean {
+  //   const control = this.discountform.get(controlName);
+
+  //   if (!control) {
+  //     return false;
+  //   }
+  // }
+
   onSubmit() {
     if (this.discountform.invalid) {
+      this.showErrorMessage('Please fill in all required fields.');
+      // Highlight invalid controls
+      Object.keys(this.discountform.controls).forEach(controlName => {
+        if (this.discountform.controls[controlName].invalid) {
+          this.discountform.controls[controlName].markAsTouched();
+        }
+      });
       return;
     }
+    const currentDate = new Date();
+
   
     let discounts = new Discount();
     discounts.name= this.discountform.value.name;
     discounts.description = this.discountform.value.description;
     discounts.amount = this.discountform.value.amount;
-    discounts.start_date = this.discountform.value.start_date;
+    discounts.start_date = currentDate as Date; 
     discounts.end_date = this.discountform.value.end_date;
 
   
@@ -56,6 +73,14 @@ export class AddDiscountComponent implements OnInit{
       'X',
       { duration: 5000 }
     );
+  }
+
+  showErrorMessage(message: string): void {
+    const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(message, 'Ok', {
+      duration: 5000, // Duration in milliseconds
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom'
+    });
   }
 
        // Custom validator to check for spaces
@@ -75,5 +100,5 @@ export class AddDiscountComponent implements OnInit{
          dialogRef.afterClosed().subscribe(result => {
           // Handle modal close if needed
           });
-        }
+       }
 }

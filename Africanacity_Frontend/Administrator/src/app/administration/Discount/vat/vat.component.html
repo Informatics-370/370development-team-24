@@ -10,7 +10,7 @@
 
   <div class="input-group">
     <div class="search-bar">
-    <input type="text" class="form-control" (input)="applyFilter($event)" placeholder="Search Columns">
+    <input type="text" class="form-control" placeholder="Search Columns">
     </div>
   <div class="addButton">
     <i class="fa fa-plus-circle fa-3x" aria-hidden="true" [routerLink]="'/add-vat'" matTooltip="Add"></i>
@@ -21,23 +21,19 @@
         <tr> 
             <th scope="col"> </th>
             <th scope="col">Amount</th>
-            <th scope="col">Description</th>
             </tr> 
     </thead> 
     <tbody> 
         <tr *ngFor="let item of filteredTypes">
             <td>{{item.vatId}}</td>
             <td>{{item.amount}}</td>
-            <td>{{item.description}}</td>
             
-            <!-- <td> <i class="fa fa-pencil" [routerLink]="['/edit-discount', item.discountId]" aria-hidden="true"></i></td>
-             <td><i class="fa fa-trash"  (click)="DeleteADiscountPercentage(item.discountId)" aria-hidden="true"></i></td> -->
         </tr> 
     </tbody> 
 </table>
-<!-- <button style="margin-left: 1100x; margin-top: 50px;"  mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help"  matTooltip="Help">
+ <button style="margin-left: 1100x; margin-top: 50px;"  mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help"  matTooltip="Help">
     <mat-icon style="font-size: 24px;">help</mat-icon>
-  </button> -->
+  </button> 
     </div>
     </div>
 </div>
