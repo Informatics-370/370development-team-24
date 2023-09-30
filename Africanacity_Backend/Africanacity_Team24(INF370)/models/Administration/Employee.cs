@@ -33,5 +33,7 @@ namespace Africanacity_Team24_INF370_.models.Administration
         public int GenderId { get; set; }
 
         public Gender Gender { get; set; }
-    }
+
+		public int Salary { get; set; }
+	}
 }

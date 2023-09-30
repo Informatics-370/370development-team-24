@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
@@ -8,6 +8,7 @@ import { ViewHelpComponent } from './view-help/view-help.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LogoutConfirmationComponent } from '../navbar/logout-confirmation/logout-confirmation.component';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-view-profile',

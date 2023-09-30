@@ -5,10 +5,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Employee } from 'src/app/shared/employee';
 import { EmployeeService } from 'src/app/service/employee.service';
 import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
 import { saveAs } from 'file-saver'; // Import file-saver for saving the PDF
 import { HelpViewemployeesComponent } from './help-viewemployees/help-viewemployees.component';
 import { MatDialog } from '@angular/material/dialog';
+import * as XLSX from 'xlsx';
+
 
 @Component({
   selector: 'app-view-employees',
@@ -95,35 +96,64 @@ deleteItemFromServer(): void {
       this.deleteItem();
       });
     }
-    downloadPDF() {
-      const doc = new jsPDF();
-      doc.setFontSize(18);
-      doc.text('Employee Listing', 105, 15, { align: 'center' });
-      const headers = [['ID', 'Name', 'Surname', 'Role', 'Email', 'Phone Number', 'Address']];
-      
-      // Map the checklistItems to generate the data array
-      const data = this.employees.map(employee => [employee.employeeId, employee.firstName, employee.surname, employee.employeeRoleName, employee.email_Address, employee.phoneNumber, employee.physical_Address]);
+
+    downloadExcel() {
+      const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.filteredemployees);
     
-      doc.setFontSize(12);
+      // Set the column headers (optional)
+      const header = ['ID', 'Surname', 'First Name', 'Type', 'Cell', 'Email', 'Address','Salary R:','Employement Date', 'Gender'];
+      XLSX.utils.sheet_add_aoa(ws, [header], { origin: 'A1' });
     
-      // Generate the table using autoTable
-      // startY is the initial position for the table
-      autoTable(doc, {
-        head: headers,
-        body: data,
-        startY: 20,
-        // Other options for styling the table if needed
-      });
-      
-      // Convert the PDF blob to a Base64 string
-      const pdfBlob = doc.output('blob');
+      const wb: XLSX.WorkBook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Employee Listing');
     
-      // Create a file-saver Blob object
-      const file = new Blob([pdfBlob], { type: 'application/pdf' });
+      // Generate the Excel data as an array (instead of blob)
+      const excelData: any = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    
+      // Convert the Excel data to a Blob
+      const blob = new Blob([excelData], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
     
       // Save the Blob to a file
-      saveAs(file, 'employee_listing.pdf');
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Employee_listing.xlsx';
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
     }
+    
+    
+    // downloadPDF() {
+    //   const doc = new jsPDF();
+    //   doc.setFontSize(18);
+    //   doc.text('Employee Listing', 105, 15, { align: 'center' });
+    //   const headers = [['ID', 'Name', 'Surname', 'Role', 'Email', 'Phone Number', 'Address']];
+      
+    //   // Map the checklistItems to generate the data array
+    //   const data = this.employees.map(employee => [employee.employeeId, employee.firstName, employee.surname, employee.employeeRoleName, employee.email_Address, employee.phoneNumber, employee.physical_Address]);
+    
+    //   doc.setFontSize(12);
+    
+    //   // Generate the table using autoTable
+    //   // startY is the initial position for the table
+    //   autoTable(doc, {
+    //     head: headers,
+    //     body: data,
+    //     startY: 20,
+    //     // Other options for styling the table if needed
+    //   });
+      
+    //   // Convert the PDF blob to a Base64 string
+    //   const pdfBlob = doc.output('blob');
+    
+    //   // Create a file-saver Blob object
+    //   const file = new Blob([pdfBlob], { type: 'application/pdf' });
+    
+    //   // Save the Blob to a file
+    //   saveAs(file, 'employee_listing.pdf');
+    // }
+
     openHelpModal(field: string): void {
       const dialogRef = this.dialog.open(HelpViewemployeesComponent, {
         width: '500px',

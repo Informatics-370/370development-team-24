@@ -1,15 +1,11 @@
 import { SignupComponent } from './components/signup/signup.component';
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgToastModule } from 'ng-angular-popup';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { ResetComponent } from './components/reset/reset.component';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
@@ -19,7 +15,6 @@ import { PastBookingComponent } from './components/past-booking/past-booking.com
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { WelcomeComponent } from './General Home/about/welcome/welcome.component';
 import { AboutComponent } from './General Home/about/about.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './models/material.modules';
 import { EditBookingComponent } from './components/edit-booking/edit-booking.component';
 import { HelpComponent } from './components/help/help.component';
@@ -38,6 +33,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { DigitalComponent } from './General Home/digital/digital.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { MenuComponent } from './components/menu/menu.component';
+
 
 @NgModule({
   declarations: [
@@ -65,7 +69,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     PastHelpComponent,
     ResetHelpComponent,
     UpdateHelpComponent,
-    ViewHelpComponent
+    ViewHelpComponent,
+    DigitalComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
@@ -86,6 +92,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
+    ZXingScannerModule ,// Add this line
   ],
   providers: [{
     provide:HTTP_INTERCEPTORS,

@@ -22,8 +22,7 @@ function phoneNumberValidator(control: AbstractControl): { [key: string]: any } 
 
 function emailFormatValidator(control: AbstractControl): { [key: string]: any } | null {
   const email = control.value;
-  const emailPattern = /^[a-zA-Z0-9]+@gmail\.com$/;
-
+  const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,3}$/;
   if (!emailPattern.test(email)) {
     return { 'invalidEmailFormat': true };
   }

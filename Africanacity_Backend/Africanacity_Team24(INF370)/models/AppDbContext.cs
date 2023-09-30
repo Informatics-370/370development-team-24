@@ -137,8 +137,9 @@ namespace Africanacity_Team24_INF370_.models
                    Physical_Address = "404 Jacob Street",
                    PhoneNumber = "0847541236",
                    GenderId = 2,
-                   Employment_Date = DateTime.Now
-               });
+                   Employment_Date = DateTime.Now,
+				   Salary = 10000000
+			   });
            ;
             modelBuilder.Entity<Employee>()
                          .HasData(
@@ -152,9 +153,10 @@ namespace Africanacity_Team24_INF370_.models
                              Physical_Address = "132 Harriet Street",
                              PhoneNumber = "0842341236",
                              GenderId = 2,
-                             Employment_Date = DateTime.Now
+                             Employment_Date = DateTime.Now,
+							 Salary = 10000000
 
-                         });
+						 });
             modelBuilder.Entity<Employee>()
                          .HasData(
                          new
@@ -167,9 +169,10 @@ namespace Africanacity_Team24_INF370_.models
                              Physical_Address = "245 homelyn Street",
                              PhoneNumber = "0212378798",
                              GenderId = 1,
-                             Employment_Date = DateTime.Now
+                             Employment_Date = DateTime.Now,
+							 Salary = 10000000
 
-                         });
+						 });
             modelBuilder.Entity<Employee>()
                         .HasData(
                         new
@@ -182,9 +185,10 @@ namespace Africanacity_Team24_INF370_.models
                             Physical_Address = "254 Summer Street",
                             PhoneNumber = "0455783475",
                             GenderId = 2,
-                            Employment_Date = DateTime.Now
+                            Employment_Date = DateTime.Now,
+							Salary = 10000000
 
-                        });
+						});
             modelBuilder.Entity<Employee>()
                         .HasData(
                         new
@@ -197,9 +201,10 @@ namespace Africanacity_Team24_INF370_.models
                             Physical_Address = "567 Winter Street",
                             PhoneNumber = "0874567836",
                             GenderId = 3,
-                            Employment_Date = DateTime.Now
+                            Employment_Date = DateTime.Now,
+							Salary = 10000000
 
-                        });
+						});
             modelBuilder.Entity<Employee>()
                         .HasData(
                         new
@@ -212,9 +217,10 @@ namespace Africanacity_Team24_INF370_.models
                             Physical_Address = "345 Shallow  Street",
                             PhoneNumber = "0874562134",
                             GenderId = 1,
-                            Employment_Date = DateTime.Now
+                            Employment_Date = DateTime.Now,
+							Salary = 10000000
 
-                        });
+						});
             modelBuilder.Entity<Employee>()
                         .HasData(
                         new
@@ -227,9 +233,10 @@ namespace Africanacity_Team24_INF370_.models
                             Physical_Address = "243 Super Street ",
                             PhoneNumber = "0212378798",
                             GenderId = 2,
-                            Employment_Date = DateTime.Now
+                            Employment_Date = DateTime.Now,
+							Salary = 10000000
 
-                        });
+						});
             modelBuilder.Entity<Employee>()
                         .HasData(
                         new
@@ -242,9 +249,10 @@ namespace Africanacity_Team24_INF370_.models
                             Physical_Address = "987 Wall Street",
                             PhoneNumber = "0612346487",
                             GenderId = 3,
-                            Employment_Date = DateTime.Now
+                            Employment_Date = DateTime.Now,
+							Salary = 10000000
 
-                        });
+						});
             modelBuilder.Entity<Employee>()
                         .HasData(
                         new
@@ -257,7 +265,8 @@ namespace Africanacity_Team24_INF370_.models
                             Physical_Address = "967 Ballard Street",
                             PhoneNumber = "0874834576",
                             GenderId = 3,
-                            Employment_Date = DateTime.Now
+                            Employment_Date = DateTime.Now,
+                            Salary = 10000000
 
                         });
             modelBuilder.Entity<Employee>()
@@ -272,9 +281,10 @@ namespace Africanacity_Team24_INF370_.models
                             Physical_Address = "483 Alien Street",
                             PhoneNumber = "0923456789",
                             GenderId = 1,
-                            Employment_Date = DateTime.Now
+                            Employment_Date = DateTime.Now,
+							Salary = 10000000
 
-                        });
+						});
 
 			//********************************************************************************************************* Create Seed Data For the  Booking Table: **********************************************************************************
 
@@ -1871,136 +1881,6 @@ namespace Africanacity_Team24_INF370_.models
                            End_Date = DateTime.Now.AddDays(10),
                        });
 
-            //seed data for KitchenOrder
-            //modelBuilder.Entity<KitchenOrder>()
-            //           .HasData(
-            //           new
-            //           {
-            //               KitchenOrderId = 1,
-            //               TableNumber = "",
-            //               KitchenOrderNumber = "TAKE-0001",
-            //               OrderedMenuItems = "Toatsed beef panini sandwich, Mexican salad",
-            //               OrderedDrinks = "Frozen lemonade, Margarita",
-            //               Subtotal = 193.59m,
-            //               Discount = 0m,
-            //               VAT = 31.51m,
-            //               Total = 225.10m
-            //           });
-
-            //modelBuilder.Entity<KitchenOrder>()
-            //          .HasData(
-            //          new
-            //          {
-            //              KitchenOrderId = 2,
-            //              TableNumber = "Table 6",
-            //              KitchenOrderNumber = "SIT-0201",
-            //              OrderedMenuItems = "Chicken Feast",
-            //              OrderedDrinks = "Strawberry Daiquri, Frozen lemonade, Margarita, Blood Mary",
-            //              Subtotal = 373.54m,
-            //              Discount = 0m,
-            //              VAT = 60.81m,
-            //              Total = 434.35m
-            //          });
-            //modelBuilder.Entity<KitchenOrder>()
-            //         .HasData(
-            //         new
-            //         {
-            //             KitchenOrderId = 3,
-            //             TableNumber = "Table 2",
-            //             KitchenOrderNumber = "SIT-0202",
-            //             OrderedMenuItems = "Chicken Feast, Chilli cheese poppers",
-            //             OrderedDrinks = "Strawberry Daiquri, Frozen lemonade",
-            //             Subtotal = 280.23m,
-            //             Discount = 50m,
-            //             VAT = 45.62m,
-            //             Total = 275.85m
-            //         });
-            //modelBuilder.Entity<KitchenOrder>()
-            //         .HasData(
-            //         new
-            //         {
-            //             KitchenOrderId = 4,
-            //             TableNumber = "Table 1",
-            //             KitchenOrderNumber = "SIT-0203",
-            //             OrderedMenuItems = "Blueberry cheescake slice, Blueberry cheescake slice",
-            //             OrderedDrinks = "Blood Mary,Virgin Mojito",
-            //             Subtotal = 210.70m,
-            //             Discount = 21.07m,
-            //             VAT = 34.30m,
-            //             Total = 223.93m
-            //         });
-            //modelBuilder.Entity<KitchenOrder>()
-            //       .HasData(
-            //       new
-            //       {
-            //           KitchenOrderId = 5,
-            //           TableNumber = "Table 4",
-            //           KitchenOrderNumber = "SIT-0204",
-            //           OrderedMenuItems = "Blueberry cheescake slice, Blueberry cheescake slice",
-            //           OrderedDrinks = "Virgin Mojito",
-            //           Subtotal = 125.56m,
-            //           Discount = 12.56m,
-            //           VAT = 20.44m,
-            //           Total = 133.44m
-            //       });
-            //modelBuilder.Entity<KitchenOrder>()
-            //       .HasData(
-            //       new
-            //       {
-            //           KitchenOrderId = 6,
-            //           TableNumber = "",
-            //           KitchenOrderNumber = "TAKE-0002",
-            //           OrderedMenuItems = "English Breakfast",
-            //           OrderedDrinks = "Cappuccino",
-            //           Subtotal = 135.02m,
-            //           Discount = 0m,
-            //           VAT = 21.98m,
-            //           Total = 157m
-            //       });
-            //modelBuilder.Entity<KitchenOrder>()
-            //      .HasData(
-            //      new
-            //      {
-            //          KitchenOrderId = 7,
-            //          TableNumber = "Table 6",
-            //          KitchenOrderNumber = "SIT-0205",
-            //          OrderedMenuItems = "",
-            //          OrderedDrinks = "Strawberry Daiquri, Strawberry Daiquri, Blood Mary,Magarita,Strawberry Daiquri ",
-            //          Subtotal = 325.94m,
-            //          Discount = 0m,
-            //          VAT = 53.06m,
-            //          Total = 379m
-            //      });
-            //modelBuilder.Entity<KitchenOrder>()
-            //     .HasData(
-            //     new
-            //     {
-            //         KitchenOrderId = 8,
-            //         TableNumber = "",
-            //         KitchenOrderNumber = "TAKE-0003",
-            //         OrderedMenuItems = "The Braai feast",
-            //         OrderedDrinks = "Strawberry Daiquri, Strawberry Daiquri",
-            //         Subtotal = 301.43m,
-            //         Discount = 35.05m,
-            //         VAT = 49.07m,
-            //         Total = 315.45m
-            //     });
-            //modelBuilder.Entity<KitchenOrder>()
-            //    .HasData(
-            //    new
-            //    {
-            //        KitchenOrderId = 9,
-            //        TableNumber = "Table 5",
-            //        KitchenOrderNumber = "SIT-0206",
-            //        OrderedMenuItems = "The Braai feast, Mexican salad",
-            //        OrderedDrinks = "Virgin Mojito, Virgin Mojito",
-            //        Subtotal = 280.02m,
-            //        Discount = 32.56m,
-            //        VAT = 45.58m,
-            //        Total = 293.04m
-            //    });
-            //seed data for Inventory_Price
-
             modelBuilder.Entity<Inventory_Price>()
                        .HasData(
                        new
@@ -2108,71 +1988,80 @@ namespace Africanacity_Team24_INF370_.models
             modelBuilder.Entity<Schedule>()
                         .HasOne(m => m.Schedule_Status)
                         .WithMany()
-                        .HasForeignKey(m => m.Schedule_StatusId);
+                        .HasForeignKey(m => m.Schedule_StatusId)
+                        .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Schedule>()
+			modelBuilder.Entity<Schedule>()
             .HasOne(m => m.Event)
             .WithMany()
-            .HasForeignKey(m => m.EventId);
+            .HasForeignKey(m => m.EventId)
+			.OnDelete(DeleteBehavior.Restrict);
 
 
 
-            //Many to many with MenuItem
-            modelBuilder.Entity<MenuItem>()
+			//Many to many with MenuItem
+			modelBuilder.Entity<MenuItem>()
                         .HasOne(m => m.Menu_Type)
                         .WithMany()
-                        .HasForeignKey(m => m.Menu_TypeId);
+                        .HasForeignKey(m => m.Menu_TypeId)
+						 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<MenuItem>()
+			modelBuilder.Entity<MenuItem>()
             .HasOne(m => m.MenuItem_Category)
             .WithMany()
-            .HasForeignKey(m => m.Menu_CategoryId);
+            .HasForeignKey(m => m.Menu_CategoryId)
+			.OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<MenuItem>()
+			modelBuilder.Entity<MenuItem>()
             .HasOne(m => m.Food_Type)
             .WithMany()
-            .HasForeignKey(m => m.FoodTypeId);
+            .HasForeignKey(m => m.FoodTypeId)
+			 .OnDelete(DeleteBehavior.Restrict);
 
 
-            //one to many with Drink table
-            modelBuilder.Entity<Drink>()
+			//one to many with Drink table
+			modelBuilder.Entity<Drink>()
                         .HasOne(m => m.Drink_Type)
                         .WithMany()
-                        .HasForeignKey(m => m.Drink_TypeId);
+                        .HasForeignKey(m => m.Drink_TypeId)
+						 .OnDelete(DeleteBehavior.Restrict);
 
 
 
-            //One to many with other drink table 
-            modelBuilder.Entity<OtherDrink>()
+			//One to many with other drink table 
+			modelBuilder.Entity<OtherDrink>()
                        .HasOne(m => m.Drink_Type)
                        .WithMany()
-                       .HasForeignKey(m => m.Drink_TypeId);
+                       .HasForeignKey(m => m.Drink_TypeId)
+						.OnDelete(DeleteBehavior.Restrict);
 
 
 
             // For the Access_UserRole M2M payload (Uncomment code below and run migration to generate tables)
-            modelBuilder.Entity<Access>()
-			    .HasMany(t => t.User_Roles)
-			    .WithMany(g => g.Accesses)
-			    .UsingEntity<Access_UserRole>
-			     (tg => tg.HasOne<User_Role>().WithMany(),
-			      tg => tg.HasOne<Access>().WithMany());
+			modelBuilder.Entity<Access_UserRole>()
+	.HasKey(aur => new { aur.AccessId, aur.User_RoleId });
 
-			// For the Entertainer_EntertainmentType M2M  payload (Uncomment code below and run migration to generate tables)
-			//modelBuilder.Entity<Entertainer>()
-			//	.HasMany(t => t.Entertainment_Types)
-			//	.WithMany(g => g.Entertainers)
-			//	.UsingEntity<Entertainer_EntertainmentType>
-			//	 (tg => tg.HasOne<Entertainment_Type>().WithMany(),
-			//	  tg => tg.HasOne<Entertainer>().WithMany());
+			modelBuilder.Entity<Access_UserRole>()
+				.HasOne(aur => aur.Access)
+				.WithMany(a => a.Access_UserRoles)
+				.HasForeignKey(aur => aur.AccessId);
 
-			// For the Entertainer_Schedule M2M payload (Uncomment code below and run migration to generate tables)
-			//modelBuilder.Entity<Schedule>()
-			//	.HasMany(t => t.Entertainers)
-			//	.WithMany(g => g.Schedules)
-			//	.UsingEntity<Entertainer_Schedule>
-			//	 (tg => tg.HasOne<Entertainer>().WithMany(),
-			//	  tg => tg.HasOne<Schedule>().WithMany());
+			modelBuilder.Entity<Access_UserRole>()
+				.HasOne(aur => aur.User_Role)
+				.WithMany(ur => ur.Access_UserRoles)
+				.HasForeignKey(aur => aur.User_RoleId);
+
+			// Set the OnDelete behavior
+			modelBuilder.Entity<Access_UserRole>()
+				.HasOne(aur => aur.Access)
+				.WithMany(a => a.Access_UserRoles)
+				.OnDelete(DeleteBehavior.Restrict);
+
+			modelBuilder.Entity<Access_UserRole>()
+				.HasOne(aur => aur.User_Role)
+				.WithMany(ur => ur.Access_UserRoles)
+				.OnDelete(DeleteBehavior.Restrict);
+
 
 			// For the Supplier_InventoryItem M2M payload (Uncomment code below and run migration to generate tables)
 			modelBuilder.Entity<Inventory_Item>()
@@ -2182,60 +2071,84 @@ namespace Africanacity_Team24_INF370_.models
 			 (tg => tg.HasOne<Supplier>().WithMany(),
 				  tg => tg.HasOne<Inventory_Item>().WithMany());
 
-            // For the Order_Drink M2M payload (Uncomment code below and run migration to generate tables)
-            //modelBuilder.Entity<Drink>()
-            //	.HasMany(t => t.Orders)
-            //	.WithMany(g => g.Drinks)
-            //	.UsingEntity<Order_Drink>
-            //	 (tg => tg.HasOne<Order>().WithMany(),
-            //	  tg => tg.HasOne<Drink>().WithMany());
 
             // Configure the many-to-many relationship between KitchenOrder and MenuItem
             modelBuilder.Entity<Order_MenuItem>()
                 .HasKey(om => new { om.KitchenOrderId, om.MenuItemId });
+		
 
-            modelBuilder.Entity<Order_MenuItem>()
+			modelBuilder.Entity<Order_MenuItem>()
                 .HasOne(om => om.KitchenOrder)
                 .WithMany(ko => ko.OrderedMenuItems)
-                .HasForeignKey(om => om.KitchenOrderId);
+                .HasForeignKey(om => om.KitchenOrderId)
+				 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Order_MenuItem>()
+			modelBuilder.Entity<Order_MenuItem>()
                 .HasOne(om => om.MenuItem)
                 .WithMany()
-                .HasForeignKey(om => om.MenuItemId);
+                .HasForeignKey(om => om.MenuItemId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            // Configure the many-to-many relationship between KitchenOrder and OtherDrink
-            modelBuilder.Entity<Order_Drink>()
+			// Configure the many-to-many relationship between KitchenOrder and OtherDrink
+			modelBuilder.Entity<Order_Drink>()
                 .HasKey(od => new { od.KitchenOrderId, od.OtherDrinkId });
 
             modelBuilder.Entity<Order_Drink>()
                 .HasOne(od => od.KitchenOrder)
                 .WithMany(ko => ko.OrderedDrinks)
-                .HasForeignKey(od => od.KitchenOrderId);
+                .HasForeignKey(od => od.KitchenOrderId)
+				 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Order_Drink>()
+			modelBuilder.Entity<Order_Drink>()
                 .HasOne(od => od.OtherDrink)
                 .WithMany()
-                .HasForeignKey(od => od.OtherDrinkId);
+                .HasForeignKey(od => od.OtherDrinkId)
+				 .OnDelete(DeleteBehavior.Restrict);
 
-            // Configure the inverse relationship between MenuItem and OrderedMenuItems
-            modelBuilder.Entity<MenuItem>()
+			// Configure the inverse relationship between MenuItem and OrderedMenuItems
+			modelBuilder.Entity<MenuItem>()
                 .HasMany(mi => mi.OrderedMenuItems)
                 .WithOne(omi => omi.MenuItem)
-                .HasForeignKey(omi => omi.MenuItemId);
+                .HasForeignKey(omi => omi.MenuItemId)
+				 .OnDelete(DeleteBehavior.Restrict);
 
-            //Event
-            // modelBuilder.Entity<Administrator>()
+			modelBuilder.Entity<Entertainment_Type>()
+					.HasMany(et => et.Users)
+					.WithOne(u => u.Entertainment_Type)
+					.HasForeignKey(u => u.Entertainment_TypeId)
+					.OnDelete(DeleteBehavior.Restrict);
 
-                // .HasOne(sti => sti.Events)
+			modelBuilder.Entity<Entertainment_Type>()
+				.HasMany(et => et.Pending_Bookings)
+				.WithOne(pb => pb.EntertainmentType)
+				.HasForeignKey(pb => pb.Entertainment_TypeId)
+				.OnDelete(DeleteBehavior.Restrict);
 
-                //.WithMany()
+			modelBuilder.Entity<Employee_Role>()
+			  .HasMany(er => er.Employees)
+			  .WithOne(e => e.Employee_Role)
+			  .HasForeignKey(e => e.Employee_RoleId)
+			  .OnDelete(DeleteBehavior.Restrict);
 
-                //.HasForeignKey(sti => sti.AdministratorId);
+			modelBuilder.Entity<Supplier_Type>()
+			  .HasMany(st => st.Suppliers)
+			  .WithOne(s => s.Supplier_Type)
+			  .HasForeignKey(s => s.Supplier_TypeId)
+			  .OnDelete(DeleteBehavior.Restrict);
 
-                // modelBuilder.Entity<Event>()
+			modelBuilder.Entity<Event>()
+				.HasMany(e => e.Schedules)
+				.WithOne(s => s.Event)
+				.HasForeignKey(s => s.EventId)
+				.OnDelete(DeleteBehavior.Restrict);
 
-                //.HasKey(sti => sti.EventId);
-        }
+			modelBuilder.Entity<Inventory_Type>()
+				   .HasMany(it => it.Inventory_Items)
+				   .WithOne(ii => ii.Inventory_Type)
+				   .HasForeignKey(ii => ii.Inventory_TypeId)
+				   .OnDelete(DeleteBehavior.Restrict);
+
+			base.OnModelCreating(modelBuilder);
+		}
 	}
 }

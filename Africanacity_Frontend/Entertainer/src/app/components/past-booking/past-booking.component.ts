@@ -24,6 +24,7 @@ export class PastBookingComponent implements OnInit {
   filteredbookings: Booked[] =[]; 
   public role!:string;
   loading: boolean = true;
+  bookingActionLoading: boolean = false;
 
   public fullName : string = "";
   constructor(
@@ -100,22 +101,43 @@ export class PastBookingComponent implements OnInit {
 
   
   DeleteBooking(bookingId: number): void {
+    this.bookingActionLoading = true;
     const confirmed = confirm('Are you sure you want to delete the booking?');
     if (confirmed) {
-      this.book.DeleteBooking(bookingId) // Use bookingId here
-        .subscribe(
-          () => {
-            alert('Booking deletion request sent successfully!');
-            // Refresh the list of bookings after deletion
-            this.router.navigate(['home'])
-           
-            
-          },
-          (error) => {
+      this.book.DeleteBooking(bookingId) 
+      .subscribe(
+        (response: any) => {
+            if (response && response.message) {
+                alert(response.message);
+                this.router.navigate(['home'])
+                this.bookingActionLoading = false;
+            }
+ 
+        },
+        (error) => {
             console.error('Error deleting booking:', error);
             alert('An error occurred while sending the booking deletion request.');
-          }
-        );
+            this.router.navigate(['home'])
+            this.bookingActionLoading = false;
+        }
+    );
+    
+    // Use bookingId here
+        // .subscribe(
+        //   () => {
+        //     alert('Booking deletion request sent successfully!');
+        //     // Refresh the list of bookings after deletion
+        //     this.router.navigate(['home'])
+        //     this.bookingActionLoading = false;
+
+        //   },
+        //   (error) => {
+        //     console.error('Error deleting booking:', error);
+        //     alert('An error occurred while sending the booking deletion request.');
+        //     this.router.navigate(['home'])
+        //     this.bookingActionLoading = false;
+        //   }
+        // );
     }
   }
 

@@ -423,15 +423,14 @@ namespace Africanacity_Team24_INF370_.Controllers
 				// Send nicely formatted HTML email to africanacitymmino@gmail.com
 				await SendEmailAsync("africanacitymmino@gmail.com", "Booking Deletion Request", bookingDetails);
 
-				return Ok("Booking deletion request sent successfully");
+				return Ok(new { message = "Booking deletion request sent successfully" });
+
 			}
 			catch (Exception)
 			{
 				return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
 			}
 		}
-
-
 
 
 		//**************************************************************************** Manage Delete Booking *******************************************************************************

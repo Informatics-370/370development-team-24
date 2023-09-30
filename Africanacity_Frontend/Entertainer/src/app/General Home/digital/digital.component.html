@@ -1,0 +1,38 @@
+<nav id="nav">
+    <div class="nav-logo">
+        <div class="nav-heading">
+            <span href="#"><i >  <img src="../../assets/Nav_image/Africanacity.png" class="avatar" alt="" style="margin-top: 10%;"></i>MMINO Restaurant</span>
+        </div>
+        <div class="hamburger">
+            <a href="#"><i class="far fa-moon white "></i></a>
+            <a href="#"><i class="fas fa-bars "></i></a>
+        </div>
+    </div>
+    <ul class="nav-links">
+        <li><a routerLink="/welcome">HOME</a></li>
+        <li><a routerLink="/digital">DIGITAL MENU</a></li>
+        <li><a routerLink="/about">ABOUT</a></li>
+        <li><a routerLink="../login">LOGIN</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+  <div class="row">
+    <div style="margin-left: 15rem;">
+      <h1>Scan the QR Code to See the Menu</h1>
+      <div *ngIf="qrCodeData">
+        <a (click)="navigateToMenu()">
+          <img style="width: 20rem; height: 20rem; margin-top: 10rem; margin-left: 10rem; border-radius: 1rem;" [src]="qrCodeData" alt="QR Code">
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
+
+  
+
+  
+  

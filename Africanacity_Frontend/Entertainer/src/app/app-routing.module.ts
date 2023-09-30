@@ -1,6 +1,5 @@
 import { SignupComponent } from './components/signup/signup.component';
 import { LoginComponent } from './components/login/login.component';
-import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { ResetComponent } from './components/reset/reset.component';
@@ -25,6 +24,9 @@ import { PastHelpComponent } from './components/past-booking/past-help/past-help
 import { ResetHelpComponent } from './components/reset/reset-help/reset-help.component';
 import { UpdateHelpComponent } from './components/update-profile/update-help/update-help.component';
 import { ViewHelpComponent } from './components/view-profile/view-help/view-help.component';
+import { DigitalComponent } from './General Home/digital/digital.component';
+import { NgModule } from '@angular/core';
+import { MenuComponent } from './components/menu/menu.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'welcome', pathMatch:'full'},
@@ -39,6 +41,7 @@ const routes: Routes = [
   {path:'change-password',component:ChangePasswordComponent, canActivate:[AuthGuard]},
   {path:'about',component:AboutComponent},
   {path:'welcome',component:WelcomeComponent},
+  {path:'digital',component:DigitalComponent},
   {path:'past-booking', component: PastBookingComponent, canActivate:[AuthGuard]},
   {path:'edit-booking/:id', component:  EditBookingComponent, canActivate:[AuthGuard]},
   {path:'help', component:  HelpComponent, canActivate:[AuthGuard]},
@@ -51,7 +54,8 @@ const routes: Routes = [
   {path:'past-help', component:  PastHelpComponent, canActivate:[AuthGuard]},
   {path:'reset-help', component:  ResetHelpComponent, canActivate:[AuthGuard]},
   {path:'update-help', component:  UpdateHelpComponent, canActivate:[AuthGuard]},
-  {path:'view-help', component:  ViewHelpComponent, canActivate:[AuthGuard]}
+  {path:'view-help', component:  ViewHelpComponent, canActivate:[AuthGuard]},
+  { path: 'menu', component: MenuComponent }, // Add this route
 
 
 ];

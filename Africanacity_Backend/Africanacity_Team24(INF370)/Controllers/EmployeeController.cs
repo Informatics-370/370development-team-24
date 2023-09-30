@@ -55,6 +55,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 
                     e.Physical_Address,
 
+                    e.Salary,
+
                     e.Employment_Date,
 
                     GenderName = e.Gender.Name,
@@ -115,7 +117,8 @@ namespace Africanacity_Team24_INF370_.Controllers
                 Email_Address = evm.Email_Address,
                 PhoneNumber = evm.PhoneNumber,
                 Physical_Address = evm.Physical_Address,
-                Employment_Date = evm.Employment_Date
+                Employment_Date = evm.Employment_Date,
+                Salary = evm.Salary
             };
 
             try
@@ -150,8 +153,9 @@ namespace Africanacity_Team24_INF370_.Controllers
                 currentEmployee.GenderId = Convert.ToInt32(svm.Gender);
                 currentEmployee.PhoneNumber = svm.PhoneNumber;
                 currentEmployee.Physical_Address = svm.Physical_Address;
+				currentEmployee.Salary = svm.Salary;
 
-                if (await _Repository.SaveChangesAsync())
+				if (await _Repository.SaveChangesAsync())
                 {
                     return Ok(currentEmployee);
                 }

@@ -7,6 +7,16 @@ import { InventoryType } from 'src/app/shared/inventorytype';
 import { HelpAddinventorytypeComponent } from './help-addinventorytype/help-addinventorytype.component';
 import { MatDialog } from '@angular/material/dialog';
 
+function salaryNonNegativeValidator(control: FormControl): { [key: string]: any } | null {
+  const salary = control.value;
+  
+  if (salary !== null && (isNaN(salary) || salary <= 0)) {
+    return { 'invalidSalary': true };
+  }
+  
+  return null;
+}
+
 @Component({
   selector: 'app-add-inventorytypes',
   templateUrl: './add-inventorytypes.component.html',

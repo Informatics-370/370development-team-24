@@ -35,9 +35,9 @@
       <span>
         <label class="col-sm-1" style="font-weight: bold;" for="email_Address">Email Address:</label>
         <div class="col-sm-6">
-          <input class="form-control"  placeholder="xxxxx@gmail.com" [required]="true" name="email_Address" formControlName="email_Address">
+          <input class="form-control"  placeholder="Enter Email" [required]="true" name="email_Address" formControlName="email_Address">
           <div *ngIf="supplierForm.get('email_Address')?.hasError('invalidEmailFormat')" class="text-danger">
-            <div style="font-size: small;">*Email must have the above format.</div>
+            <div style="font-size: small;">*Invalid email</div>
           </div>
         </div>
       </span>

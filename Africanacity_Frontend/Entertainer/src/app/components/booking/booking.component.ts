@@ -1,8 +1,6 @@
 import { AuthService } from './../../services/auth.service';
 import { ApiService } from './../../services/api.service';
-import { Component, OnInit } from '@angular/core';
 import { UserStoreService } from 'src/app/services/user-store.service';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Entertainment } from 'src/app/models/Entertainment';
 import { BookingService } from 'src/app/services/Booking.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -14,6 +12,8 @@ import { DataService } from 'src/app/services/data.Service';
 import { BookingEvent } from 'src/app/models/bookingevent';
 import { BookingHelpComponent } from './booking-help/booking-help.component';
 import { LogoutConfirmationComponent } from '../navbar/logout-confirmation/logout-confirmation.component';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-booking',

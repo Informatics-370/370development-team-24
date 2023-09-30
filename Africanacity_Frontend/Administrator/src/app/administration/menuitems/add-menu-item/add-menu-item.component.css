@@ -39,6 +39,14 @@
     border-radius: 4px;
   }
   
+  .form-group .col-sm-4 input,
+  .form-group .col-sm-4 select {
+    width: 0.5rem;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
   /* Buttons styles */
   .form-group .col-sm-offset-1 .btn {
     margin-right: 20px;
@@ -59,8 +67,9 @@
     width: 200%
   }
   .input-group{
-    width: 200%;
+    width: 100%;
   }
+
   .buttons{
     margin-left: 0%;
   }

@@ -375,8 +375,6 @@ namespace Africanacity_Team24_INF370_.Controllers
 					});
 				}
 
-				// Handle entertainer password reset here
-				// ...
 			}
 
 			var tokenCode = user.ResetPasswordToken;

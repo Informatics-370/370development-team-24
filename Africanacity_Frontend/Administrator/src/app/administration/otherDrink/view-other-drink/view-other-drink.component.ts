@@ -22,7 +22,9 @@ export class ViewOtherDrinkComponent implements OnInit{
   dataSource = new MatTableDataSource <OtherDrink>();
   snackBar: any;
 
-  constructor(private dataService: DataService, private router: Router) { }
+  constructor(
+    private dataService: DataService, 
+    private router: Router) { }
   httpClient: any;
   apiUrl: any;
 
@@ -47,25 +49,40 @@ ngOnInit(): void {
 }
 
 
+deleteItem(): void {
+  const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete this item?', 'Cancel Delete', {duration: 5000,})
+  
+  confirmationSnackBar.onAction().subscribe(() => {
+    this.deleteItemFromServer();
+    window.location.reload();
+  });
+}
 
+deleteItemFromServer(): void {
+  this.DeleteDrink;
+}
 
+// GetAllDrinks()
+// {
+//   this.dataService.GetAllDrinks().subscribe(result => {
+//     let drinksList: any[] = result
+//     drinksList.forEach((element) => {
+//       this.drink.push(element)
+//     });
+//   })
+// }
 
-
-
+DeleteDrink(drinkId: number)
+{
+  this.dataService.DeleteDrink(drinkId).subscribe(result => {
+      this.deleteItem();
+    });
+  }
 
 editDrinkItem(otherDrinkId: number): void {
   
   this.router.navigate(['/edit-drink', otherDrinkId]);
 }
-
-
-
-
-
-
-
-
-
 
 
 }
