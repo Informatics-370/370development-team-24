@@ -39,14 +39,6 @@ namespace Africanacity_Team24_INF370_.models
 
         Task<IonicAppUser> CheckPasswordAsync(string Password);
 
-        //HELP
-
-        Task<Help[]> GetAllHelpAsync();
-        Task<Help> GetHelpAsync(int HelpId);
-
-
-
-
         // FOOD TYPE
         Task<Food_Type[]> GetAllFoodTypesAsync();
         Task<Food_Type> GetFoodTypeAsync(int FoodTypeId);
@@ -81,12 +73,6 @@ namespace Africanacity_Team24_INF370_.models
         Task<Drink> GetDrinkItemAsync(int DrinkId);
 
 
-        //OTHER DRINK
-        Task<OtherDrink[]> GetAllDrinkItemsAsync();
-
-        Task<OtherDrink> GetADrinkItemAsync(int OtherDrinkId);
-
-
         // DRINK ITEM TYPE
         Task<Drink_Type[]> GetAllDrinkTypesAsync();
         Task<Drink_Type> GetDrinkTypeAsync(int Drink_TypeId);
@@ -94,9 +80,10 @@ namespace Africanacity_Team24_INF370_.models
         // DRINK ITEM
         //Task<Drink[]> GetAllDrinksAsync();
         Task<Drink> GetDrinkAsync(int Drink_TypeId);
-        //DRINK ITEM PRICES
-        Task<OtherDrinkPrice[]> GetAllDrinkItemPricesAsync();
-        Task<OtherDrinkPrice> GetADrinkItemPriceAsync(int OtherDrinkPriceId);
+
+        // DRINK ITEM PRICE
+        Task<Drink_Price[]> GetAllDrinkItemPricesAsync();
+        Task<Drink_Price> GetDrinkItemPriceAsync(int DrinkId);
 
 
         // MENU ITEM CATEGORY
@@ -131,7 +118,6 @@ namespace Africanacity_Team24_INF370_.models
         //SCHEDULE
         Task<Schedule> GetScheduleAsync(int schedule_Id);
         Task<Schedule[]> ScheduleDisplayAsync();
-        Task<Schedule_Status[]> GetAllScheduleStatusAsync();
 
         //EVENTS
         Task<Event[]> GetAllEventsAsync();
@@ -143,9 +129,9 @@ namespace Africanacity_Team24_INF370_.models
         //TABLE NUMBER
         Task<Table_Number[]> GetAllTableNumbersAsync();
 
-        //Kitchen order
-        Task<KitchenOrder> SaveKitchenOrder(KitchenOrder kitchenOrder);
-        Task<KitchenOrder[]> GetAllKitchenOrdersAsync();
+        // Order
+        Task<Order> GetOrderByIdAsync(int OrderId);
+        Task<Order[]> GetAllOrdersAsync();
 
 
        
@@ -185,10 +171,7 @@ namespace Africanacity_Team24_INF370_.models
         Task<Discount[]> GetAllDiscountPercentagesAsync();
         Task<Discount> GetADiscountPercentageAsync(int VDiscountId);
 
-        //Ordered Menu Items
-        Task<Order_MenuItem[]> GetAllOrderedMenuItemsAsync();
-
-        //Ordered drinks Items
-        Task<Order_Drink[]> GetAllOrderedDrinksItemsAsync();
+        //Ordered Items
+        Task<OrderItem[]> GetAllOrderItemsAsync();
     }
 }

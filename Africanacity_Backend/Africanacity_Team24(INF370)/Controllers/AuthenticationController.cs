@@ -100,7 +100,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 		//************************************************************************* Register *******************************************************************
 		[HttpPost]
 		[Route("Register")]
-		public async Task<IActionResult> AddUser([FromBody] AdminInfor userObj)
+        public async Task<IActionResult> AddUser([FromBody] AdminInfor userObj)
 		{
 			if (userObj == null)
 				return BadRequest();
@@ -410,8 +410,8 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 		//*******************************************************************Change Password ******************************************************************
 		[HttpPost("ChangePassword")]
-		/*	[Authorize] */// Make sure the user is authenticated
-		public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordViewModel model)
+        /*	[Authorize] */// Make sure the user is authenticated
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordViewModel model)
 		{
 			try
 			{

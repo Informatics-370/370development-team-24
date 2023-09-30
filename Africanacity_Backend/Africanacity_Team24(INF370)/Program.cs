@@ -76,6 +76,17 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 .AddEntityFrameworkStores<AppDbContext>()
 .AddDefaultTokenProviders();
 
+// 2FA AUTH
+/*builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
+{
+    options.SignIn.RequireConfirmedEmail = true;
+    options.SignIn.RequireConfirmedAccount = true;
+    options.SignIn.RequireConfirmedPhoneNumber = false;
+
+    options.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
+})
+	.AddEntityFrameworkStores<AppDbContext>()
+	.AddDefaultTokenProviders();*/
 
 
 
@@ -138,6 +149,8 @@ app.UseHttpsRedirection();
 app.UseCors();
 app.UseAuthorization();
 app.UseAuthentication();
+
+//app.UseTwoFactorAuthentication();
 
 app.MapControllers();
 

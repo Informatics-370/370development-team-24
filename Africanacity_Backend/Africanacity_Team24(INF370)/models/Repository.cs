@@ -94,17 +94,7 @@ namespace Africanacity_Team24_INF370_.models
             IQueryable<Gender> query = _appDbContext.Genders;
             return await query.ToArrayAsync();
         }
-        //HELP 
-        public async Task<Help[]> GetAllHelpAsync()
-        {
-            IQueryable<Help> query = _appDbContext.Helps;
-            return await query.ToArrayAsync();
-        }
-        public async Task<Help> GetHelpAsync(int helpId)
-        {
-            IQueryable<Help> query = _appDbContext.Helps.Where(h => h.HelpId == helpId);
-            return await query.FirstOrDefaultAsync();
-        }
+       
         
         // employee role
         public async Task<Employee_Role[]> GetAllEmployeeRolesAsync()
@@ -195,18 +185,6 @@ namespace Africanacity_Team24_INF370_.models
 
         }
 
-        //DRINK ITEM PRICES
-        public async Task<OtherDrinkPrice[]> GetAllDrinkItemPricesAsync()
-        {
-            IQueryable<OtherDrinkPrice> query = _appDbContext.OtherDrinkPrices;
-            return await query.ToArrayAsync();
-        }
-        public async Task<OtherDrinkPrice> GetADrinkItemPriceAsync(int OtherDrinkPriceId)
-        {
-            IQueryable<OtherDrinkPrice> query = _appDbContext.OtherDrinkPrices.Where(c => c.OtherDrinkPriceId == OtherDrinkPriceId);
-            return await query.FirstOrDefaultAsync();
-        }
-
 
         //MENU ITEM CATEGORY
         public async Task<MenuItem_Category[]> GetAllMenuItemCategoriesAsync()
@@ -223,7 +201,7 @@ namespace Africanacity_Team24_INF370_.models
         //SCHEDULE 
         public async Task<Schedule[]> ScheduleDisplayAsync()
         {
-            IQueryable<Schedule> query = _appDbContext.Schedules.Include(e => e.Event).Include(e => e.Schedule_Status);
+            IQueryable<Schedule> query = _appDbContext.Schedules.Include(e => e.Event);
             return await query.ToArrayAsync();
         }
         public async Task<Schedule> GetScheduleAsync(int scheduleId)
@@ -231,11 +209,7 @@ namespace Africanacity_Team24_INF370_.models
             IQueryable<Schedule> query = _appDbContext.Schedules.Where(s => s.ScheduleId == scheduleId);
             return await query.FirstOrDefaultAsync();
         }
-        public async Task<Schedule_Status[]> GetAllScheduleStatusAsync()
-        {
-            IQueryable<Schedule_Status> query = _appDbContext.Schedule_Statuses;
-            return await query.ToArrayAsync();
-        }
+        
         //EVENTS
         public async Task<Event[]> GetAllEventsAsync()
         {
@@ -371,22 +345,6 @@ namespace Africanacity_Team24_INF370_.models
                 await _appDbContext.SaveChangesAsync();
             }
             return code;
-        }
-
-
-        //UNATI
-        //OtherDrink
-        public async Task<OtherDrink[]> GetAllDrinkItemsAsync()
-        {
-            IQueryable<OtherDrink> query = _appDbContext.OtherDrinks.Include(p => p.Drink_Type);
-
-            return await query.ToArrayAsync();
-        }
-
-        public async Task<OtherDrink> GetADrinkItemAsync(int OtherDrinkId)
-        {
-            IQueryable<OtherDrink> query = _appDbContext.OtherDrinks.Where(c => c.OtherDrinkId == OtherDrinkId).Include(p => p.Drink_Type);
-            return await query.FirstOrDefaultAsync();
         }
 
         //SUPPLIER
@@ -580,6 +538,20 @@ namespace Africanacity_Team24_INF370_.models
             return await query.FirstOrDefaultAsync();
         }
 
+        // Drink Item Prices
+
+        public async Task<Drink_Price[]> GetAllDrinkItemPricesAsync()
+        {
+            IQueryable<Drink_Price> query = _appDbContext.Drink_Prices;
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<Drink_Price> GetDrinkItemPriceAsync(int DrinkId)
+        {
+            IQueryable<Drink_Price> query = _appDbContext.Drink_Prices.Where(d => d.DrinkId == DrinkId);
+            return await query.FirstOrDefaultAsync();
+        }
+
 
         //public async Task<int> EditMenuItemPriceAsync(int MenuItem_PriceId, MenuItemPriceViewModel menuItemPriceViewModel)
         //{
@@ -613,19 +585,16 @@ namespace Africanacity_Team24_INF370_.models
 
 
         //////KITCHEN ORDER
-        public async Task<KitchenOrder> SaveKitchenOrder(KitchenOrder kitchenOrder)
+        public async Task<Order[]> GetAllOrdersAsync()
         {
-            // Add the KitchenOrder to the context and save changes to the database
-            _appDbContext.KitchenOrders.Add(kitchenOrder);
-            await _appDbContext.SaveChangesAsync();
-
-            return kitchenOrder;
+            IQueryable<Order> query = _appDbContext.Orders.Include(o => o.OrderItems);
+            return await query.ToArrayAsync();
         }
 
-        public async Task<KitchenOrder[]> GetAllKitchenOrdersAsync()
+        public async Task<Order> GetOrderByIdAsync(int OrderId)
         {
-            IQueryable<KitchenOrder> query = _appDbContext.KitchenOrders;
-            return await query.ToArrayAsync();
+            IQueryable<Order> query = _appDbContext.Orders.Where(o => o.OrderId == OrderId);
+            return await query.FirstOrDefaultAsync();
         }
 
         //VAT
@@ -684,19 +653,10 @@ namespace Africanacity_Team24_INF370_.models
             return await query.FirstOrDefaultAsync();
         }
 
-        //Get all ordered menu items 
-        public async Task<Order_MenuItem[]> GetAllOrderedMenuItemsAsync()
+        //Get all ordered items
+        public async Task<OrderItem[]> GetAllOrderItemsAsync()
         {
-            IQueryable<Order_MenuItem> query = _appDbContext.Order_MenuItems.Include(p => p.MenuItem).Include(p => p.KitchenOrder);
-
-            return await query.ToArrayAsync();
-        }
-
-        //Get all ordered drinks
-        public async Task<Order_Drink[]> GetAllOrderedDrinksItemsAsync()
-        {
-            IQueryable<Order_Drink> query = _appDbContext.Order_Drinks.Include(p => p.OtherDrink).Include(p => p.KitchenOrder);
-
+            IQueryable<OrderItem> query = _appDbContext.OrderItems;
             return await query.ToArrayAsync();
         }
     }

@@ -19,7 +19,6 @@ namespace Africanacity_Team24_INF370_.models.Booking
 		public int Schedule_StatusId { get; set; }
 
 		public Event Event { get; set; }
-		public Schedule_Status Schedule_Status { get; set; }
         public List<Entertainer> Entertainers { get; set; } = new List<Entertainer>();
 	}
 }

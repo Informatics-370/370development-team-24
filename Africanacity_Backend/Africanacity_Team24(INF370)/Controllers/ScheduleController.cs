@@ -42,8 +42,6 @@ namespace Africanacity_Team24_INF370_.Controllers
 
                     EventName = s.Event.Name,
 
-                    ScheduleStatus = s.Schedule_Status.Name,
-
                     s.IsActive,
 
                     s.IsDeleted,
@@ -76,20 +74,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support");
             }
         }
-        [HttpGet]
-        [Route("GetAllScheduleStatus")]
-        public async Task<IActionResult> GetAllScheduleStatus()
-        {
-            try
-            {
-                var results = await _Repository.GetAllScheduleStatusAsync();
-                return Ok(results);
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error.Contact Support");
-            }
-        }
+        
         [HttpPost]
         [Route("AddSchedule")]
         public async Task<IActionResult> AddSchedule([FromBody] ScheduleViewModel vm)

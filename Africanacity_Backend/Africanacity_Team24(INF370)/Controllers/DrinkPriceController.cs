@@ -43,7 +43,7 @@ namespace Africanacity_Team24_INF370_.Controllers
         {
             try
             {
-                var result = await _repository.GetADrinkItemPriceAsync(Drink_PriceId);
+                var result = await _repository.GetDrinkItemPriceAsync(Drink_PriceId);
 
                 if (result == null) return NotFound("Course does not exist");
 
