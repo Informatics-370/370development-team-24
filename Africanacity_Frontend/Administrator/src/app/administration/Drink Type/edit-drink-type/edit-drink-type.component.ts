@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { DataService } from 'src/app/service/data.Service';
 import { ActivatedRoute} from '@angular/router';
 import { DrinkType } from 'src/app/shared/Drink_Type';
+import { HelpAdddrinktypeComponent } from './help-adddrinktype/help-adddrinktype.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-edit-drink-type',
@@ -18,7 +20,7 @@ export class EditDrinkTypeComponent {
     name: new FormControl('',[Validators.required]),
   })
 
-  constructor(private dataService: DataService, private router: Router, private http: HttpClient, private activated:ActivatedRoute) {}
+  constructor(private dataService: DataService, private router: Router, private http: HttpClient, private activated:ActivatedRoute, private dialog: MatDialog) {}
 
   ngOnInit(): void {
 
@@ -33,7 +35,7 @@ export class EditDrinkTypeComponent {
   }
 
   cancel(){
-    this.router.navigate(['/drink-type'])
+    this.router.navigate(['/view-drink-type'])
   }
 
   UpdateDrinkType()
@@ -45,13 +47,23 @@ export class EditDrinkTypeComponent {
 
       if(response.statusCode == 200)
       {
-        this.router.navigate(['/drink-type'])
+        this.router.navigate(['/view-drink-type'])
         window.location.reload();
       }
       else
       {
         alert(response.message);
       }
+    });
+  }
+  openHelpModal(field: string): void {
+    const dialogRef = this.dialog.open(HelpAdddrinktypeComponent, {
+      width: '500px',
+      data: { field } // Pass the field name to the modal
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle modal close if needed
     });
   }
 }

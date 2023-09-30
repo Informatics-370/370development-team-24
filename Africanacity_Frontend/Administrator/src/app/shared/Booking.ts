@@ -10,4 +10,5 @@ export class Booking{
     eventname! : string;
     additional!: string;
     instagram!: string;
+   
   }

@@ -1,40 +1,49 @@
+
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2">
-            <app-navbar></app-navbar>
+      <div class="col-md-2">
+        <app-navbar></app-navbar>
+      </div>
+      <div class="col-md-10 order-md-2">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="text-center mb-4">Add Drink Type</h4>
+            <hr>
+            <div class="container">
+              <div class="row">
+  <form [formGroup]="AddDrinkTypeForm" class="form-horizontal"  (ngSubmit)="AddDrinkType()">
+
+    <div class="form-group">
+      <span>
+        <label class="tb col-sm-1" style="font-weight: bold;" for="name"> Drink Type Name:</label>
+        <div class="col-sm-6">
+          <input class="form-control"  placeholder="Enter Name" [required]="true" name="name" formControlName="name">
         </div>
-
-        <div class="col-md-10 order-md-1">
-            <!-- heading -->
-            <div>
-                <h1 class="heading">Create Drink Type</h1>
-            </div>  
-
-            <div class="container edit-form">
-                <div class="row">  
-                    <form [formGroup]="AddDrinkTypeForm" class="form-horizontal" (ngSubmit)="AddDrinkType()">
-                        <div class="form-group">
-                            <label class="col-sm-3 label" style="font-weight: bold;" for="name">Drink Type Name:</label>
-                            <div class="col-sm-4">
-                                <input class="form-control" id="name" placeholder="Enter Name" [required]="true" formControlName="name">
-                            </div>
-                        </div> <br />
-                        <div class="form-group">
-                            <label class="col-sm-3 label" style="font-weight: bold;" for="description">Drink Type Description:</label>
-                            <div class="col-sm-4">
-                                <input class="form-control" id="description" placeholder="Enter Description" [required]="true" formControlName="description">
-                            </div>
-                        </div> <br />
-
-                        <div class="form-group">
-                            <div class="col-sm-offset-1 col-sm-6">
-                                <button style="margin-right:1em;" type="submit" [disabled]="!AddDrinkTypeForm.valid" class="btn btn-sm btn-success">Confirm</button>
-                                <button type="button" class="btn btn-sm btn-danger" onclick="cancel()">Cancel</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div> 
-        </div>
+      </span>
     </div>
-</div>
+  
+   
+  
+      <!-- <div class="form-group"> -->
+        <div class="col-sm-offset-1 col-sm-6 center-buttons">
+        <div class="buttons">
+          <span>
+          <button style="margin-right:1em;" type="submit"  [disabled]="!AddDrinkTypeForm.valid" class="btn btn-sm btn-success">Add</button>
+          <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button>
+        </span>
+        </div>
+        </div>
+      <!-- </div> -->
+    </form>
+    <button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help"  matTooltip="Help">
+      <mat-icon style="font-size: 24px;">help</mat-icon>
+    </button>
+    </div>
+   </div> 
+    </div>
+    </div>
+  </div>
+  
+  
+  
+    

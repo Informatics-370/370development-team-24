@@ -16,7 +16,7 @@ import { HelpAddscheduleComponent } from './help-addschedule/help-addschedule.co
 @Component({
   selector: 'app-add-schedule',
   templateUrl: './add-schedule.component.html',
-  styleUrls: ['./add-schedule.component.css'],
+  styleUrls: ['./home.component.scss'],
 })
 
 export class AddScheduleComponent implements OnInit{

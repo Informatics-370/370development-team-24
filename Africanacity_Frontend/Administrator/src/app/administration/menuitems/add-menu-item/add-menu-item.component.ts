@@ -1,11 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/service/data.Service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MenuTypes } from 'src/app/shared/menu-types';
 import { FoodType } from 'src/app/shared/food-type';
 import { MenuItemCategory } from 'src/app/shared/menu-item-category';
+import { MatDialog } from '@angular/material/dialog';
+import { HelpAddmenuitemComponent } from './help-addmenuitem/help-addmenuitem.component';
+
+function salaryNonNegativeValidator(control: FormControl): { [key: string]: any } | null {
+  const salary = control.value;
+  
+  if (salary !== null && (isNaN(salary) || salary <= 0)) {
+    return { 'invalidSalary': true };
+  }
+  
+  return null;
+}
 
 @Component({
   selector: 'app-add-menu-item',
@@ -25,11 +37,11 @@ export class AddMenuItemComponent implements OnInit {
     menuType: ['', Validators.required],
     foodType: [null, Validators.required],
     menuCategory: [null, Validators.required],
-    amount: [null, Validators.required]
+    amount: [null, Validators.required, salaryNonNegativeValidator]
     
   })
 
-  constructor(private dataService: DataService, private fb: FormBuilder, private router: Router, private snackBar: MatSnackBar) { }
+  constructor(private dataService: DataService, private fb: FormBuilder, private router: Router, private snackBar: MatSnackBar, private dialog: MatDialog) { }
 
 
   ngOnInit(): void {
@@ -106,6 +118,17 @@ clearData(){
 cancel() {
   this.router.navigate(['/menuitems']);
 }
+openHelpModal(field: string): void {
+  const dialogRef = this.dialog.open(HelpAddmenuitemComponent, {
+    width: '500px',
+    data: { field } // Pass the field name to the modal
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    // Handle modal close if needed
+  });
+}
+
 
 
 

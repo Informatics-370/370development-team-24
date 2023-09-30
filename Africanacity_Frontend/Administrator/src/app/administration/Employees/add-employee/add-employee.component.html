@@ -35,6 +35,7 @@
       <label class="col-md-1" style="font-weight: bold;" for="gender">Gender:</label>
       <div class="col-md-6">
       <select class="form-control" id="gender" formControlName="gender" [ngClass]="{'invalid-control': isControlInvalid('gender')}">
+        <option value="" disabled selected>Select</option> <!-- Placeholder -->
         <option *ngFor="let item of gender" [value]="item.genderId">{{ item.name }}</option>
       </select>
     </div>
@@ -45,20 +46,19 @@
       <label class="col-md-1" style="font-weight: bold;" for="employeeRole">Employee Role</label>
       <div class="col-md-6">
       <select class="form-control" id="employeeRole" formControlName="employeeRole" [ngClass]="{'invalid-control': isControlInvalid('employeeRole')}">
+        <option value="" disabled selected>Select</option> <!-- Placeholder -->
         <option *ngFor="let item of employeeRole" [value]="item.employee_RoleId">{{ item.name }}</option>
       </select>
     </div>
     </div>
-    
-   
 
     <div class="form-group">
       <span>
         <label class="col-sm-1" style="font-weight: bold;" for="email_Address">Email Address:</label>
         <div class="col-sm-6">
-          <input class="form-control"  placeholder="xxxxx@gmail.com" [required]="true" name="email_Address" formControlName="email_Address" [ngClass]="{'invalid-control': isControlInvalid('email_Address')}" >
+          <input class="form-control"  placeholder="Enter Email" [required]="true" name="email_Address" formControlName="email_Address" [ngClass]="{'invalid-control': isControlInvalid('email_Address')}" >
           <div *ngIf="employeeForm.get('email_Address')?.hasError('invalidEmailFormat')" class="text-danger">
-            <div style="font-size: small;">*Email must have the above format.</div>
+            <div style="font-size: small;">*Invalid email.</div>
           </div>
         </div>
       </span>
@@ -92,6 +92,19 @@
       <div class="col-sm-6">
       <input type="date" formControlName="employment_Date" [attr.readonly]="true" class="form-control">
       </div>
+    </div>
+
+        
+    <div class="form-group">
+      <span>
+        <label class="col-sm-1" style="font-weight: bold;" for="salary">Salary:</label>
+        <div class="col-sm-6 input-group"> <!-- Add the 'input-group' class here -->
+          <div class="input-group-prepend"> <!-- Add this div for the currency symbol -->
+            <span style="height: 2.5rem;" class="input-group-text">R</span> <!-- Here, 'R' is the currency symbol -->
+          </div>
+          <input style="width: 10rem;" class="form-control" placeholder="Enter salary" [required]="true" name="salary" formControlName="salary">
+        </div>
+      </span>
     </div>
 
     <!-- <div class="form-group"> -->

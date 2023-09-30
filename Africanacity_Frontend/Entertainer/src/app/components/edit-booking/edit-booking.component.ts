@@ -28,7 +28,7 @@ export class EditBookingComponent implements OnInit {
   bookings: Booking[] = [];
   submittingBooking: boolean = false; // Flag to track submission state
   successMessage: string = '';
-
+  public isValidEmail!: boolean;
   updateBookingForm: FormGroup = new FormGroup({
     lastName: new FormControl(['', [Validators.required, this.noSpacesValidator]]),
     firstName: new FormControl(['', [Validators.required, this.noSpacesValidator]]),
@@ -93,6 +93,14 @@ export class EditBookingComponent implements OnInit {
       });
     });
 
+    const emailControl = this.updateBookingForm.get('email');
+
+    if (emailControl) {
+      emailControl.valueChanges.subscribe((value) => {
+        const pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,3}$/;
+        this.isValidEmail = pattern.test(value);
+      });
+   }
 
     this. GetAllEntertainment();
   }

@@ -9,13 +9,16 @@ import { FoodType } from 'src/app/shared/food-type';
 import { MenuItemCategory } from 'src/app/shared/menu-item-category';
 import {map, take } from 'rxjs/operators';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { HelpViewmenuitemsComponent } from './help-viewmenuitems/help-viewmenuitems.component';
 
 
 
 @Component({
   selector: 'app-menuitems',
   templateUrl: './menuitems.component.html',
-  styleUrls: ['./menuitems.component.css']
+  styleUrls: ['./menuitems.component.css'],
+  
 })
 export class MenuitemsComponent implements OnInit{
 
@@ -28,7 +31,8 @@ export class MenuitemsComponent implements OnInit{
   constructor(
     private dataService: DataService, 
     private router: Router,
-    private snackBar: MatSnackBar 
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
     ) { }
   httpClient: any;
   apiUrl: any;
@@ -78,6 +82,16 @@ editMenuItem(menuItemId: number): void {
       const column2Value = menu.name.toLowerCase() || menu.name.toUpperCase();
 
       return column2Value.includes(filterValue);
+    });
+  }
+  openHelpModal(field: string): void {
+    const dialogRef = this.dialog.open(HelpViewmenuitemsComponent, {
+      width: '500px',
+      data: { field } // Pass the field name to the modal
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle modal close if needed
     });
   }
 

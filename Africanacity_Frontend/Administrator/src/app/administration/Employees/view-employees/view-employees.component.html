@@ -4,16 +4,21 @@
             <app-navbar></app-navbar>
         </div>
     <div class="col-md-10 order-md-1">
+      <label></label>
     <h3 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px; font-weight: bolder;">Employee Listing </h3>
  
     <div class="input-group">
         <div class="search-bar">
         <input type="text" class="form-control" (input)="applyFilter($event)" placeholder="Search Columns">
         </div>
-      <div class="addButton">
+      <!-- <div class="addButton">
         <i class="fa fa-download fa-lg icon" aria-hidden="true" (click)="downloadPDF()" matTooltip="Download"></i>
     
-      </div> 
+      </div>  -->
+      <div class="addButton">
+        <i class="fa fa-download fa-lg icon" aria-hidden="true" (click)="downloadExcel()" matTooltip="Download as Excel"></i>
+      </div>
+      
         </div>
         <label></label>
 
@@ -29,6 +34,7 @@
                 <th scope="col">Cell</th>
                 <th scope="col">Address</th>
                 <th scope="col">Employment Date</th>
+                <th scope="col">Salary</th>
                 <th scope="col"></th>
                 <th scope="col"></th> 
         </thead>
@@ -43,6 +49,7 @@
                 <td>{{employee.phoneNumber}}</td>
                 <td>{{employee.physical_Address}}</td>
                 <td>{{employee.employment_Date | date}}</td>
+                <td>R {{employee.salary}}</td>
                 
                 
                   <td> <i class="fa fa-pencil" [routerLink]="['/edit-employee', employee.employeeId]" aria-hidden="true" matTooltip="Edit"></i></td>

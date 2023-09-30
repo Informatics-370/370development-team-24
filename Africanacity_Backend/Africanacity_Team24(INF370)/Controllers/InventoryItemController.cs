@@ -521,7 +521,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                     {
                         StockTakeItem = stockTakeItem,
                         Description = stockTakeItem.Description,
-                        //Reason = "Food went bad"
+                        AdminReason = "Food went bad"
                     };
 
                     _appDbContext.WriteOffs.Add(writeOff); // Save the write-off record

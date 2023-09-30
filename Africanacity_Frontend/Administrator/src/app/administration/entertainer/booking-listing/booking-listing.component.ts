@@ -18,7 +18,7 @@ export class BookingListingComponent {
   bookings: Booking[] = [];
   filteredbookings: Booking[] = [];
   loading: boolean = true;
-
+  bookingActionLoading: boolean = false;
 
   public users:any = [];
   public role!:string;
@@ -84,6 +84,7 @@ export class BookingListingComponent {
 
 
     DeleteBooking(bookingId: number): void {
+      this.bookingActionLoading = true; // Set loading to true before making the API call
       const confirmed = confirm('Are you sure you want to delete the booking?');
       if (confirmed) {
         this.book.DeleteBooking(bookingId).subscribe(
@@ -95,6 +96,7 @@ export class BookingListingComponent {
             this.snackBar.open('Booking deleted successfully!', 'Close', {
               duration: 3000,
             });
+            this.bookingActionLoading = false; // Set loading back to false after the API call is completed
           },
           (error) => {
             console.error('Error deleting booking:', error);
@@ -102,6 +104,7 @@ export class BookingListingComponent {
             this.snackBar.open('An error occurred while deleting the booking.', 'Close', {
               duration: 3000,
             });
+            this.bookingActionLoading = false; // Set loading back to false in case of an error
           }
         );
       }

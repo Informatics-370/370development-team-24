@@ -1,0 +1,51 @@
+/* Custom CSS styles go here */
+
+/* Styling for the table container */
+.mat-elevation-z8 {
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow-x: auto; /* Enable horizontal scrolling if necessary */
+  }
+  
+  /* Styling for the table headers */
+  .mat-header-cell {
+    background-color: #007bff; /* Header background color */
+    color: #fff; /* Header text color */
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 12px;
+    border: 1px solid #070707; /* Add border */
+  }
+  
+  /* Styling for the table cells */
+  .mat-cell {
+    padding: 8px; /* Add padding for cell content */
+    border: 1px solid #181616; /* Add border */
+  }
+  
+  /* Styling for the delete and edit buttons */
+  button.mat-stroked-button {
+    margin-right: 10px;
+  }
+  
+  /* Styling for the search and add container */
+  .search-and-add {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* Adjust spacing */
+  }
+  
+  /* Styling for the search bar */
+  .search-bar {
+    flex-grow: 1;
+    padding: 8px; /* Add padding for search input */
+    border: 1px solid #070707; /* Add border */
+    border-radius: 5px;
+    margin-right: 10px; /* Adjust spacing between search and add button */
+  }
+  
+  /* Styling for the add button */
+  .addButton {
+    margin-left: 10px; /* Adjust spacing between search and add button */
+  }
+  

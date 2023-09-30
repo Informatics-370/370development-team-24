@@ -50,6 +50,11 @@
   
   <!-- Forget Password Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="page-container">
+      <div *ngIf="submitting" class="loader-overlay">
+        <div class="loader"></div>
+        <div class="loading-message">Loading...</div>
+      </div>
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -77,4 +82,5 @@
       </div>
     </div>
   </div>
+</div>
   

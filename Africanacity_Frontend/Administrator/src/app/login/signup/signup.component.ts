@@ -19,9 +19,12 @@ export class SignupComponent implements OnInit {
   isHovering: boolean = false;
 
   public signUpForm!: FormGroup;
+  public isValidEmail!: boolean;
   type: string = 'password';
   isText: boolean = false;
-  eyeIcon:string = "fa-eye-slash"
+  eyeIcon:string = "fa-eye-slash";
+  public validEmail!: string;
+  submitting: boolean = false;
 
 
       firstName!:string;
@@ -55,6 +58,15 @@ export class SignupComponent implements OnInit {
       this.passwordHasUpperCase = /[A-Z]/.test(value);
       this.passwordHasDigit = /\d/.test(value);
   });
+
+  const emailControl = this.signUpForm.get('email');
+
+  if (emailControl) {
+    emailControl.valueChanges.subscribe((value) => {
+      const pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,3}$/;
+      this.isValidEmail = pattern.test(value);
+    });
+  }
   }
 
   hideShowPass(){
@@ -63,12 +75,28 @@ export class SignupComponent implements OnInit {
     this.isText ? this.type = 'text' : this.type = 'password'
   }
 
+  checkValidEmail() {
+    const emailControl = this.signUpForm.get('email');
+    if (emailControl) {
+      const value = emailControl.value;
+      const pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,3}$/;
+      this.isValidEmail = pattern.test(value);
+      console.log('isValidEmail:', this.isValidEmail); // Add this line for debugging
+    }
+  }
+  
+  
+
   onSubmit() {
       // Check if any of the input fields are only spaces or empty
   const formValues: { [key: string]: string } = this.signUpForm.value;
   const hasInvalidValues = Object.values(formValues).some(value => {
     return value.trim().length === 0;
   });
+  this.checkValidEmail(); // Call this first to set isValidEmail
+  console.log('isValidEmail:', this.isValidEmail); // Add this line for debugging
+
+  if (this.isValidEmail) {
 
   if (hasInvalidValues) {
     console.log('Cannot submit form with empty or spaces-only fields.');
@@ -76,6 +104,7 @@ export class SignupComponent implements OnInit {
   }
 
     if (this.signUpForm.valid) {
+      this.submitting = true; 
       // Save the user information to localStorage
       const userData = this.signUpForm.value;
       localStorage.setItem('user', JSON.stringify(userData));
@@ -94,15 +123,18 @@ export class SignupComponent implements OnInit {
           console.log(res.message);
           this.signUpForm.reset();
           this.router.navigate(['login']);
-          alert(res.message)
+          alert(res.message);
+          this.submitting = false
         }),
         error:(err=>{
-          alert(err?.error.message)
+          alert(err?.error.message);
+          this.submitting = false
         })
       })
     } else {
       ValidateForm.validateAllFormFields(this.signUpForm); 
     }
+  }
   }
 
   passwordMeetsRequirements(): boolean {

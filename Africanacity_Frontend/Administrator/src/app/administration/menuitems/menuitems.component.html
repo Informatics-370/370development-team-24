@@ -6,8 +6,9 @@
       </div>
   
      <div class="col-md-10 order-md-1">
+      <label></label>
           <!-- heading -->
-          <h3 class="heading">Menu Items</h3>
+          <h3 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-weight: bolder; font-size: 50px;">Menu Items</h3>
       
           <div class="input-group">
               <div class="search-bar">
@@ -19,6 +20,7 @@
                   <i type="button" class="fa fa-plus-circle fa-3x" [routerLink]="'/add-menu-item'"></i>
               </div>
           </div>
+          <label></label>
 
 
 <div class="mat-elevation-z8">
@@ -50,26 +52,24 @@
       <td mat-cell *matCellDef="let element"> {{element.menuCategoryName}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-stroked-button color="warn" (click)="deleteMenuItem(element.menuItemId)">
-          <mat-button>Delete</mat-button>
-        </button>
-      </td>
-    </ng-container>
     <ng-container matColumnDef="edit">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
-        <button mat-stroked-button color="primary"(click)="editMenuItem(element.menuItemId)">
-          <mat-button>Edit</mat-button>
-        </button>
+        <i class="fa fa-pencil" (click)="editMenuItem(element.menuItemId)" aria-hidden="true" matTooltip="Edit"></i>
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <i class="fa fa-trash"  (click)="deleteMenuItem(element.menuItemId)" aria-hidden="true" matTooltip="Delete"></i>
+      </td>
+    </ng-container>
+    
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row class="mat-row" *matRowDef="let row; columns: displayedColumns;"></tr>
-
-    
   </table>
 </div>  
+<button style="margin-left: 1100x; margin-top: 50px;"  mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help"  matTooltip="Help">
+  <mat-icon style="font-size: 24px;">help</mat-icon>
+</button>

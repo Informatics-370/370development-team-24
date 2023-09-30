@@ -19,35 +19,17 @@ namespace Africanacity_Team24_INF370_.Controllers
             _emailService = emailService;
             _appDbContext = context;
         }
-        //[HttpPost]
-        //[Route("SendEmailNotification")]
-        //public async Task<IActionResult> SendEmailNotification()
-        //{
-        //    int predefinedLevel = 5;
-
-        //    // Get the inventory item from the database based on the predefined level
-        //    var item = _appDbContext.Inventory_Items
-        //        .Where(item => item.Quantity < predefinedLevel)
-        //        .OrderBy(item => item.Quantity) // Order by quantity (ascending) to get the item with the lowest quantity first
-        //        .FirstOrDefault();
-
-        //    if (item != null)
-        //    {
-        //        await _emailService.CheckAndSendNotificationAsync(item.ItemName, item.Quantity, predefinedLevel);
-        //    }
-
-        //    return Ok(); // Return an HTTP 200 OK response
-        //}
-
         [HttpPost]
         [Route("SendEmailNotification")]
-        public async Task<IActionResult> SendEmailNotification(string itemName) // Pass the item name as a parameter
+        public async Task<IActionResult> SendEmailNotification()
         {
             int predefinedLevel = 5;
 
-            // Get the inventory item from the database based on the specified item name
+            // Get the inventory item from the database based on the predefined level
             var item = _appDbContext.Inventory_Items
-                .FirstOrDefault(item => item.ItemName == itemName); // No more Where or OrderBy
+                .Where(item => item.Quantity < predefinedLevel)
+                .OrderBy(item => item.Quantity) // Order by quantity (ascending) to get the item with the lowest quantity first
+                .FirstOrDefault();
 
             if (item != null)
             {
@@ -56,6 +38,24 @@ namespace Africanacity_Team24_INF370_.Controllers
 
             return Ok(); // Return an HTTP 200 OK response
         }
+
+        //[HttpPost]
+        //[Route("SendEmailNotification")]
+        //public async Task<IActionResult> SendEmailNotification(string itemName) // Pass the item name as a parameter
+        //{
+        //    int predefinedLevel = 5;
+
+        //    // Get the inventory item from the database based on the specified item name
+        //    var item = _appDbContext.Inventory_Items
+        //        .FirstOrDefault(item => item.ItemName == itemName); // No more Where or OrderBy
+
+        //    if (item != null)
+        //    {
+        //        await _emailService.CheckAndSendNotificationAsync(item.ItemName, item.Quantity, predefinedLevel);
+        //    }
+
+        //    return Ok(); // Return an HTTP 200 OK response
+        //}
 
 
         [HttpPost]

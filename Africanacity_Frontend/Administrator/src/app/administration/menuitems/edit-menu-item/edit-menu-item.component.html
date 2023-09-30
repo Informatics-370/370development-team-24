@@ -1,67 +1,18 @@
-<!-- <div class="container-fluid">
-  <div class="row">
-      <div class="col-md-2">
-          <app-navbar></app-navbar>
-      </div>
-
-<mat-card style="margin-left: 25%; margin-top: -70%;" >
-    <mat-card-header>
-      <h2>Edit Menu Item</h2>
-    </mat-card-header>
-  
-    <mat-card-content>
-      <form (ngSubmit)="saveMenuItem()" #editForm="ngForm">
-        <mat-form-field>
-          <input matInput placeholder="Name" [(ngModel)]="menuItem.name" name="name" required>
-        </mat-form-field><br>
-  
-        <mat-form-field>
-          <textarea matInput placeholder="Description" [(ngModel)]="menuItem.description" name="description" required></textarea>
-        </mat-form-field><br>
-  
-        <mat-form-field>
-          <mat-label>Menu Type</mat-label>
-          <mat-select [(ngModel)]="menuItem.menuTypeId" name="menuTypeId" required>
-            <mat-option *ngFor="let menuType of menuTypes" [value]="menuType.menu_TypeId">{{ menuType.name }}</mat-option>
-          </mat-select>
-        </mat-form-field><br>
-  
-        <mat-form-field>
-          <mat-label>Food Type</mat-label>
-          <mat-select [(ngModel)]="menuItem.foodTypeId" name="foodTypeId" required>
-            <mat-option *ngFor="let foodType of foodTypes" [value]="foodType.foodTypeId">{{ foodType.name }}</mat-option>
-          </mat-select>
-        </mat-form-field><br>
-  
-        <mat-form-field>
-          <mat-label>Menu Category</mat-label>
-          <mat-select [(ngModel)]="menuItem.menuCategoryId" name="menuCategoryId"required>
-            <mat-option *ngFor="let menuCategory of menuCategory" [value]="menuCategory.menu_CategoryId">{{ menuCategory.name }}</mat-option>
-          </mat-select>
-        </mat-form-field><br>
-  
-        <button mat-raised-button color="primary" type="submit">Save</button>
-      </form>
-    </mat-card-content>
-  </mat-card>
-  </div>
-  </div>
-   -->
-
-
-
-   <div class="container-fluid" >
+<div class="container-fluid">
     <div class="row">
       <div class="col-md-2">
         <app-navbar></app-navbar>
       </div>
-      <div class="col-md-10 order-md-2" >
-        <h4 style="text-align: center; font-family: 'Times New Roman', Times, serif; font-size: 50px;">Update Menu Item</h4>
-        <hr>
-        <div class="container" >
-          <div class="row">
-            <form [formGroup]="editMenuItemForm"     (submit)="editMenuItem()" enctype="multipart/form-data" >
-  
+      <div class="col-md-8 order-md-2">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="text-center mb-4">Update {{menuItem.name}}</h4>
+            <hr>
+            <div class="container">
+              <div class="row">
+                <form [formGroup]="editMenuItemForm" class="form-horizontal"  (ngSubmit)="editMenuItem()" enctype="multipart/form-data">
+
+                  
               <div class="form-group">
                 <label class="col-md-1" style="font-weight: bold;" for="name">Name:</label>
                 <div class="col-md-6">
@@ -70,24 +21,23 @@
                 </div>
               </div>
   
-              <div class="form-group">
-                <label class="col-md-1" style="font-weight: bold;" for="description">Description:</label>
-                <div class="col-md-6">
-                  <textarea class="form-control"  id="description" [(ngModel)]="menuItem.description" [required]="true" formControlName="description"
-                    ></textarea>
+                <div class="form-group">
+                  <label class="col-md-1" style="font-weight: bold;" for="description">Description:</label>
+                  <div class="col-md-6">
+                    <textarea class="form-control"  id="description" [(ngModel)]="menuItem.description" [required]="true" formControlName="description"
+                      ></textarea>
+                  </div>
                 </div>
-              </div>
-  
+                
               <div class="form-group">
                 <label class="col-md-1" style="font-weight: bold;" for="menuTypeName">Menu Type</label>
                 <div class="col-md-6">
                   <select class="form-control" id="menuTypeName"  [(ngModel)]="menuItem.menuTypeName"  [required]="true" formControlName="menuTypeName" >
                     <option *ngFor="let type of menuTypes" [value]="type.name">{{ type.name }}</option>
                   </select>
-            
                 </div>
               </div>
-  
+
               <div class="form-group">
                 <label class="col-md-1" style="font-weight: bold;" for="foodTypeName">Food Type</label>
                 <div class="col-md-6">
@@ -96,7 +46,7 @@
                   </select>
                 </div>
               </div>
-  
+
               <div class="form-group">
                 <label class="col-md-1" style="font-weight: bold;" for="menuCategoryName">Menu Category</label>
                 <div class="col-md-6">
@@ -105,32 +55,61 @@
                   </select>
                 </div>
               </div>
-  
+
               <div class="form-group">
+                <span>
+                  <label class="col-md-1" style="font-weight: bold;" for="amount">Price:</label>
+                  <div class="col-sm-4 input-group"> 
+                    <div class="input-group-prepend">
+                      <span style="height: 2.5rem;" class="input-group-text">R</span> 
+                    </div>
+                    <input  style="width: 2.5rem;" class="form-control" placeholder="Enter Menu Item Price" required name="amount" formControlName="amount">
+                  </div>
+                </span>
+              </div>
+
+              <!-- <div class="form-group">
                 <label class="col-md-1" style="font-weight: bold;" for="amount">Price:</label>
                 <div class="col-md-6">
                   <input class="form-control"  id="amount" name="amount" formControlName="amount">
                 </div>
-              </div>
-              <div class="form-group">
+              </div> -->
+  
+              <!-- <div class="form-group">
                 <div class="col-sm-offset-1 col-sm-6">
                   <button style="margin-right:1em;" type="button"
                     class="btn btn-sm btn-primary" (click)="loadMenuItem()">Load</button>
-                  <!-- <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button> -->
+
                 </div>
-              </div>
+              </div>  -->
               
-              <div class="form-group">
-                <div class="col-sm-offset-1 col-sm-6">
-                  <button style="margin-right:1em;" type="submit"
-                    class="btn btn-sm btn-success">Update</button>
-                  <!-- <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button> -->
-                </div>
-              </div>
-            </form>
-          </div>
+      <!-- <div class="form-group"> -->
+        <div class="col-sm-offset-1 col-sm-6 center-buttons">
+        <div class="buttons">
+          <span>
+            <button style="margin-right:1em;" type="button"
+                    class="btn btn-sm btn-primary" (click)="loadMenuItem()">Load</button>
+            <button style="margin-right:1em;" type="submit" [disabled]="!editMenuItemForm.valid" class="btn btn-sm btn-success">Confirm</button>
+            <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button>
+        </span>
         </div>
-      </div>
+        </div>
+      <!-- </div> -->
+    </form>
+    <button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help" matTooltip="Help">
+      <mat-icon>help</mat-icon>
+    </button>
+    </div>
+   </div> 
+    </div>
     </div>
   </div>
+  
+  
+  
+  
+  
    
+
+
+  

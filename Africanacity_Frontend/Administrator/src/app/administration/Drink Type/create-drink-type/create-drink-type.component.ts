@@ -8,6 +8,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'src/app/administration/menu-types/add-menu-type/confirmation-dialog/confirmation-dialog.component'
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar'
 import { DrinkType } from 'src/app/shared/Drink_Type';
+import { HelpEditdrinktypeComponent } from './help-editdrinktype/help-editdrinktype.component';
 
 @Component({
   selector: 'app-create-drink-type',
@@ -55,7 +56,7 @@ export class CreateDrinkTypeComponent {
 
   cancel()
   {
-    this.router.navigate(['/drink-type'])
+    this.router.navigate(['/view-drink-type'])
   }
 
   AddDrinkType()
@@ -64,7 +65,7 @@ export class CreateDrinkTypeComponent {
     drinkType.name = this.AddDrinkTypeForm.value.name;
 
     this.dataService.AddDrinkType(drinkType).subscribe((add:any) => {
-      this.router.navigate(['/drink-type'])
+      this.router.navigate(['/view-drink-type'])
     });
     this.showSuccessMessage('Drink Type added successfully!');
   }
@@ -82,4 +83,16 @@ export class CreateDrinkTypeComponent {
       this.toastContainer.clear();
     });
   }
+
+  openHelpModal(field: string): void {
+    const dialogRef = this.dialog.open(HelpEditdrinktypeComponent, {
+      width: '500px',
+      data: { field } // Pass the field name to the modal
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle modal close if needed
+    });
+  }
+
 }

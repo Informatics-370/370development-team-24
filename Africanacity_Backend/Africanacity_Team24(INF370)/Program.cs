@@ -138,7 +138,7 @@ app.UseHttpsRedirection();
 app.UseCors();
 app.UseAuthorization();
 app.UseAuthentication();
-
+app.UseStaticFiles();
 app.MapControllers();
 
 app.Run();

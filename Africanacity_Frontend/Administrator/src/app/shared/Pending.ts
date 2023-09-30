@@ -10,4 +10,5 @@ export class Pending{
     entertainmentTypeName!: string;
     eventname! : string;
     additional!: string;
+    // videoUrl!: string;
   }

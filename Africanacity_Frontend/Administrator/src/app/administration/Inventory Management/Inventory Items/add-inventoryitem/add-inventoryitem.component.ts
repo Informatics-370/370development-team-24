@@ -8,6 +8,16 @@ import { InventoryItem } from 'src/app/shared/inventoryitem';
 import { InventoryType } from 'src/app/shared/inventorytype';
 import { HelpAddinventoryComponent } from './help-addinventory/help-addinventory.component';
 
+function salaryNonNegativeValidator(control: FormControl): { [key: string]: any } | null {
+  const salary = control.value;
+  
+  if (salary !== null && (isNaN(salary) || salary <= 0)) {
+    return { 'invalidSalary': true };
+  }
+  
+  return null;
+}
+
 @Component({
   selector: 'app-add-inventoryitem',
   templateUrl: './add-inventoryitem.component.html',
@@ -23,7 +33,7 @@ export class AddInventoryitemComponent {
     itemName: new FormControl('', [Validators.required]),
     inventoryType: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
-    price: new FormControl('', [Validators.required]),
+    price: new FormControl('', [Validators.required, salaryNonNegativeValidator]),
     quantity: new FormControl(['', [Validators.required, Validators.min(1)]])
 
   });

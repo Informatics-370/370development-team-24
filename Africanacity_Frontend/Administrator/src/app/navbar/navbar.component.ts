@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../UserService/auth.service';
 import { UserStoreService } from '../UserService/user-store.service';
+import { MatDialog } from '@angular/material/dialog';
+import { LogoutConfirmationComponent } from './logout-confirmation/logout-confirmation.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-navbar',
@@ -16,9 +20,9 @@ export class NavbarComponent {
   selectedOption = '';
   public UserId!: number;
 
-  toggleDropdown(): void {
-    this.showDropdown = !this.showDropdown;
-  }
+  // toggleDropdown(): void {
+  //   this.showDropdown = !this.showDropdown;
+  // }
 
   selectOption(option: string): void {
     this.selectedOption = option;
@@ -29,8 +33,10 @@ export class NavbarComponent {
   constructor(
     private auth: AuthService,
     private router: Router,
-    private userStore: UserStoreService, )  
-  { }
+    private userStore: UserStoreService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar 
+    )     { }
 
   ngOnInit() {
 
@@ -60,9 +66,37 @@ export class NavbarComponent {
   window.location.href = url;
 }
 
-logout(){
-  this.auth.signOut();
+// logout(){
+//   this.auth.signOut();
+// }
+
+logout() {
+  const dialogRef = this.dialog.open(LogoutConfirmationComponent);
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result === true) {
+      // User confirmed the logout, perform the logout action
+      this.auth.signOut();
+      
+      // Display a success notification
+      this.snackBar.open('Logged out successfully', 'Close', {
+        duration: 3000, // Duration in milliseconds
+        panelClass: ['success-snackbar'], // Optional CSS classes for styling
+      });
+    }
+  });
 }
+
+
+
+employeeDropdownVisible = false; // Initial state
+
+  toggleDropdown(dropdownId: string): void {
+    if (dropdownId === 'employee-dropdown') {
+      this.employeeDropdownVisible = !this.employeeDropdownVisible;
+    }
+    // Add similar logic for other dropdowns if needed
+  }
 }
 
   

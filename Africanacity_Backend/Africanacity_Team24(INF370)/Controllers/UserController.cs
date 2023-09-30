@@ -361,11 +361,11 @@ namespace Africanacity_Team24_INF370_.Controllers
 			var newToken = resetPasswordDto.EmailToken.Replace(" ", "+");
 
 			// Check if the user exists in the Admins table
-			var user = await _authContext.Admins.FirstOrDefaultAsync(u => u.Email == resetPasswordDto.Email);
+			var user = await _authContext.Users.FirstOrDefaultAsync(u => u.Email == resetPasswordDto.Email);
 			if (user == null)
 			{
 				// User not found in the Admins table, let's check the Entertainers table
-				var admin = await _authContext.Users.FirstOrDefaultAsync(a => a.Email == resetPasswordDto.Email);
+				var admin = await _authContext.Admins.FirstOrDefaultAsync(a => a.Email == resetPasswordDto.Email);
 				if (admin == null)
 				{
 					return NotFound(new
@@ -375,8 +375,6 @@ namespace Africanacity_Team24_INF370_.Controllers
 					});
 				}
 
-				// Handle entertainer password reset here
-				// ...
 			}
 
 			var tokenCode = user.ResetPasswordToken;

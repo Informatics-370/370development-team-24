@@ -8,6 +8,8 @@ import { OtherDrink } from 'src/app/shared/other-drink';
 import { DrinkType } from 'src/app/shared/Drink_Type';
 import { OtherDrinkPrice } from 'src/app/shared/otherDrinkPrice';
 import { PriceService } from 'src/app/service/menuprice';
+import { MatDialog } from '@angular/material/dialog';
+import { HelpEditdrinkComponent } from './help-editdrink/help-editdrink.component';
 
 @Component({
   selector: 'app-edit-drink',
@@ -31,7 +33,8 @@ export class EditDrinkComponent {
     private router: Router,
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
-    private price: PriceService,) {}
+    private price: PriceService,
+    private dialog: MatDialog) {}
 
   ngOnInit(): void {
 
@@ -56,7 +59,7 @@ export class EditDrinkComponent {
   }
 
   cancel(){
-    this.router.navigate(['/drink'])
+    this.router.navigate(['/view-other-drink'])
   }
 
 
@@ -185,6 +188,17 @@ export class EditDrinkComponent {
     );
   
 
+}
+
+openHelpModal(field: string): void {
+  const dialogRef = this.dialog.open(HelpEditdrinkComponent, {
+    width: '500px',
+    data: { field } // Pass the field name to the modal
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    // Handle modal close if needed
+  });
 }
 
 }

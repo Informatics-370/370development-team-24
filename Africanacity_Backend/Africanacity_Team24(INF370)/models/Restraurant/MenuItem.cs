@@ -27,9 +27,7 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
 		public  Menu_Type Menu_Type { get; set; }
 		public MenuItem_Category MenuItem_Category { get; set; }
 		public Food_Type Food_Type{ get; set; }
-       
-
-        public List<Order> Orders { get; set; } = new List<Order>();
+      
 
         //public List<KitchenOrder> KitchenOrders { get; set; } = new List<KitchenOrder>();
         //collecting data of the menu item price table from the menu item form

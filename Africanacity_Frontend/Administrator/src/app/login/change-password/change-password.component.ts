@@ -25,7 +25,7 @@ export class ChangePasswordComponent implements OnInit {
   successMessage: string | null = null;
   errorMessage: string | null = null;
   public fullName : string = "";
-
+  submitting: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
@@ -55,6 +55,7 @@ export class ChangePasswordComponent implements OnInit {
  
 
   onSubmit() {
+    this.submitting = true; 
     if (this.changePasswordForm.invalid) {
       return;
     }
@@ -78,10 +79,12 @@ export class ChangePasswordComponent implements OnInit {
         this.submitted = false;
 
         this.router.navigate(['/login']); // Adjust the route as needed
+        this.submitting = false
       },
       (error) => {
         this.errorMessage = error.error.Message;
         this.successMessage = null;
+        this.submitting = false
       }
     );
   }

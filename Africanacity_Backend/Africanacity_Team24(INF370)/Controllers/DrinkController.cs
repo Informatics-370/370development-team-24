@@ -216,7 +216,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                 var existingDrink = await _repository.GetDrinkTypeAsync(drinkId);
 
                 // fix error message
-                if (existingDrink == null) return NotFound($"The food type does not exist");
+                if (existingDrink == null) return NotFound($"The drink does not exist");
 
                 _repository.Delete(existingDrink);
 

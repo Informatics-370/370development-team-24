@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
 import { PastHelpComponent } from './past-help/past-help.component';
 import { MatDialog } from '@angular/material/dialog';
+import { LogoutConfirmationComponent } from '../navbar/logout-confirmation/logout-confirmation.component';
 
 @Component({
   selector: 'app-past-booking',
@@ -23,6 +24,7 @@ export class PastBookingComponent implements OnInit {
   filteredbookings: Booked[] =[]; 
   public role!:string;
   loading: boolean = true;
+  bookingActionLoading: boolean = false;
 
   public fullName : string = "";
   constructor(
@@ -68,8 +70,21 @@ export class PastBookingComponent implements OnInit {
 
   }
 
-  logout(){
-    this.auth.signOut();
+  logout() {
+    const dialogRef = this.dialog.open(LogoutConfirmationComponent);
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        // User confirmed the logout, perform the logout action
+        this.auth.signOut();
+        
+        // Display a success notification
+        this.snackBar.open('Logged out successfully', 'Close', {
+          duration: 3000, // Duration in milliseconds
+          panelClass: ['success-snackbar'], // Optional CSS classes for styling
+        });
+      }
+    });
   }
  
   applyFilter(event: Event) {
@@ -84,47 +99,45 @@ export class PastBookingComponent implements OnInit {
     });
   }
 
-  // DeleteBooking(bookingId: number): void {
-  //   const confirmed = confirm('Are you sure you want to delete the booking?');
-  //   if (confirmed) {
-  //     this.book.DeleteBooking(bookingId).subscribe(
-  //       () => {
-  //         // // Remove the deleted booking from the list
-  //         // this.filteredbookings = this.filteredbookings.filter((booking) => booking.bookingId !== bookingId);
-  
-  //         // Display a success message
-  //         this.snackBar.open('Booking deletion request sent successfully', 'Close', {
-  //           duration: 3000,
-  //         });
-  //       },
-  //       (error) => {
-  //          console.error('Error deleting booking:', error);
-  //         // Display an error message
-  //         this.snackBar.open('An error occurred while sending the booking deletion request.', 'Close', {
-  //           duration: 3000,
-  //         });
-  //       }
-  //     );
-  //   }
-  // }
   
   DeleteBooking(bookingId: number): void {
+    this.bookingActionLoading = true;
     const confirmed = confirm('Are you sure you want to delete the booking?');
     if (confirmed) {
-      this.book.DeleteBooking(bookingId) // Use bookingId here
-        .subscribe(
-          () => {
-            alert('Booking deletion request sent successfully!');
-            // Refresh the list of bookings after deletion
-            this.router.navigate(['home'])
-           
-            
-          },
-          (error) => {
+      this.book.DeleteBooking(bookingId) 
+      .subscribe(
+        (response: any) => {
+            if (response && response.message) {
+                alert(response.message);
+                this.router.navigate(['home'])
+                this.bookingActionLoading = false;
+            }
+ 
+        },
+        (error) => {
             console.error('Error deleting booking:', error);
             alert('An error occurred while sending the booking deletion request.');
-          }
-        );
+            this.router.navigate(['home'])
+            this.bookingActionLoading = false;
+        }
+    );
+    
+    // Use bookingId here
+        // .subscribe(
+        //   () => {
+        //     alert('Booking deletion request sent successfully!');
+        //     // Refresh the list of bookings after deletion
+        //     this.router.navigate(['home'])
+        //     this.bookingActionLoading = false;
+
+        //   },
+        //   (error) => {
+        //     console.error('Error deleting booking:', error);
+        //     alert('An error occurred while sending the booking deletion request.');
+        //     this.router.navigate(['home'])
+        //     this.bookingActionLoading = false;
+        //   }
+        // );
     }
   }
 

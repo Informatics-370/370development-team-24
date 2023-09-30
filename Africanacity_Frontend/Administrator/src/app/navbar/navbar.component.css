@@ -1,38 +1,23 @@
-/* Add this CSS to your styles.css or component's style file */
-/* .side-navbar {
-  background-color: #333;
-  color: #fff;
-  padding: 20px;
-  width: 200px;
-  height: 1000px;
-} */
-/* .side-navbar {
-  background-color: #333;
-  color: #fff;
-  padding: 20px;
-  width: 200px;
-  height: 1000px;
- margin-left: 0px;
-  top: 0;
-  left: 0px; 
-} */
+/* Updated CSS for the sidebar navigation */
 .side-navbar {
   position: fixed;
   top: 0;
   left: 0;
   height: 100%;
-  width: 200px; /* Adjust width as needed */
-  background-color: #333; /* Set your desired background color */
-  
+  width: 200px;
+  background-color: #333;
   z-index: 1000;
-  color: #fff; /* Make sure the sidebar is above other content */
+  color: #fff;
 }
-
 
 .logo {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  padding: 10px 20px; /* Add some padding for better spacing */
+  background-color: #080808; /* Set a background color */
+  border-bottom: 2px solid #9740e9; /* Add a subtle border */
+  color: #fff;
 }
 
 .logo-image {
@@ -42,7 +27,7 @@
 }
 
 .logo-text {
-  font-size: 1.2rem;
+  font-size: 1.4rem; /* Increase font size for emphasis */
   font-weight: bold;
 }
 
@@ -54,6 +39,7 @@
 
 .nav-links li {
   margin-bottom: 10px;
+  position: relative;
 }
 
 .nav-links a {
@@ -69,10 +55,13 @@
 
 .dropdown {
   display: none;
-  background-color: #444;
+  background-color: #333;
   position: absolute;
   z-index: 1;
   width: 175px;
+  left: 100%;
+  top: 0;
+  border-left: 4px solid transparent;
 }
 
 .dropdown li {
@@ -88,6 +77,15 @@
 }
 
 .dropdown a:hover {
-  background-color: #555;
-} 
+  background-color: #434146;
+}
+h4 {
+  text-align: center;
+  margin: 20px 0; /* Adjust margin for spacing */
+  color: #fff; /* Set the text color to white */
+}
 
+.success-snackbar {
+  background-color: green;
+  color: white;
+}

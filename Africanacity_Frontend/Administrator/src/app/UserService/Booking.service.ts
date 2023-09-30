@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { forkJoin, map, mergeMap, Observable } from 'rxjs';
 import { Booking } from '../shared/Booking';
 
 @Injectable({
@@ -29,7 +29,7 @@ export class BookingService {
       return this.httpClient.get(`${this.apiUrl}Booking/ManageBookedListing`)
       .pipe(map(result => result))
     }
-
+  
     getBooks(){
       return this.httpClient.get(`${this.apiUrl}Booking/BookedListing`)
       .pipe(map(result => result))
@@ -68,6 +68,7 @@ export class BookingService {
       return this.httpClient.delete<string>(`${this.apiUrl}Booking/DeleteBooking` + "/" + bookingId, this.httpOptions)
     }
 
+
     ManageDeleteBooking(bookingId: Number)
     {
       return this.httpClient.delete<string>(`${this.apiUrl}Booking/ManageDeleteBooking` + "/" + bookingId, this.httpOptions)
@@ -77,5 +78,36 @@ export class BookingService {
      {
        return this.httpClient.put(`${this.apiUrl}Booking/EditBooking/${bookingId}`,booking, this.httpOptions)
      }
+
+       //Trail 
+    Trail(file:FormData){  
+    return this.httpClient.post(`${this.apiUrl}Booking/Trail`, file)
+    }
+
+  //*****************************************************************Trail*************************************** */
+    // getVideoUrl(demoFileName: string): string {
+    //   return `${this.apiUrl}Booking/GetVideo/${demoFileName}`;
+    // }
   
+    // getRequestBooks(): Observable<any[]> {
+    //   return this.httpClient.get<any[]>(`${this.apiUrl}Booking/ManageBookedListing`).pipe(
+    //     mergeMap(bookings => {
+    //       const requests = bookings.map(booking => {
+    //         return this.httpClient.get(this.getVideoUrl(booking.demo), { responseType: 'blob' }).pipe(
+    //           map(videoData => {
+    //             // Assuming the video URL is returned as 'videoUrl' in the API response.
+    //             return {
+    //               ...booking,
+    //               videoUrl: this.getVideoUrl(booking.demo),
+    //               videoBlob: videoData // Optionally, you can include the video blob if needed.
+    //             };
+    //           })
+    //         );
+    //       });
+  
+    //       // Combine all the requests into a single observable array.
+    //       return forkJoin(requests);
+    //     })
+    //   );
+    // }
 }

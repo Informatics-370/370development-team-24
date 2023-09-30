@@ -34,6 +34,7 @@
       <label class="col-md-1" style="font-weight: bold;" for="gender">Gender</label>
       <div class="col-md-6">
       <select class="form-control" id="gender" formControlName="gender">
+        <option value="" disabled selected>Select</option> <!-- Placeholder -->
         <option *ngFor="let item of genderData" [value]="item.genderId">{{ item.name }}</option>
       </select>
     </div>
@@ -43,6 +44,7 @@
       <label class="col-md-1" style="font-weight: bold;" for="employeeRole">Employee Role</label>
       <div class="col-md-6">
       <select class="form-control" id="employeeRole" formControlName="employeeRole">
+        <option value="" disabled selected>Select</option> <!-- Placeholder -->
         <option *ngFor="let item of employeeTypesData" [value]="item.employee_RoleId">{{ item.name }}</option>
       </select>
     </div>
@@ -76,6 +78,19 @@
         </div>
       </span>
     </div>
+
+    <div class="form-group">
+      <span>
+        <label class="col-sm-1" style="font-weight: bold;" for="salary">Salary:</label>
+        <div class="col-sm-6 input-group"> <!-- Add the 'input-group' class here -->
+          <div class="input-group-prepend"> <!-- Add this div for the currency symbol -->
+            <span style="height: 2.5rem;" class="input-group-text">R</span> <!-- Here, 'R' is the currency symbol -->
+          </div>
+          <input style="width: 10rem;" class="form-control" placeholder="Enter salary" [required]="true" name="salary" formControlName="salary">
+        </div>
+      </span>
+    </div>
+    
 
     <!-- <div class="form-group"> -->
       <div class="col-sm-offset-1 col-sm-6 center-buttons">

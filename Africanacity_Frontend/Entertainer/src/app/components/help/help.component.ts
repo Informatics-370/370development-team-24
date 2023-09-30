@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Booked } from 'src/app/models/Booked';
 import { Booking } from 'src/app/models/Booking';
@@ -6,6 +7,7 @@ import { BookingService } from 'src/app/services/Booking.service';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
+import { LogoutConfirmationComponent } from '../navbar/logout-confirmation/logout-confirmation.component';
 
 @Component({
   selector: 'app-gallery',
@@ -22,6 +24,8 @@ export class HelpComponent implements OnInit {
     private api : ApiService, 
     private auth: AuthService, 
     private userStore: UserStoreService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar 
   ) { }
 
   ngOnInit() {
@@ -43,8 +47,21 @@ export class HelpComponent implements OnInit {
     });
   }
 
-  logout(){
-    this.auth.signOut();
+  logout() {
+    const dialogRef = this.dialog.open(LogoutConfirmationComponent);
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        // User confirmed the logout, perform the logout action
+        this.auth.signOut();
+        
+        // Display a success notification
+        this.snackBar.open('Logged out successfully', 'Close', {
+          duration: 3000, // Duration in milliseconds
+          panelClass: ['success-snackbar'], // Optional CSS classes for styling
+        });
+      }
+    });
   }
 
   searchQuery: string = '';

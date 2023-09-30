@@ -6,10 +6,6 @@
   <img src="../../assets/Nav_image/Africanacity.png" alt="" width="40" height="40" class="d-inline-block align-text-top">
   Hello {{fullName}}<h6>
   </h6></a>
-<button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon"></span>
-</button>
-<input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
 <div class="navbar-nav">
     <div class="nav-item text-nowrap">
         <a style="background: red;
@@ -20,65 +16,97 @@
 </div>
 </header>
 
-<div class="container" style="margin-left: 20rem; width: auto;">
-  <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
-    <button style="margin-left: 63rem;" mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <app-navbar></app-navbar>
+    </div>
+    <div class="col-md-10 order-md-2">
+<div class="container" style="margin-left: 40rem; width: auto;">
+  <div class="card">
+    <div class="page-container">
+      <div *ngIf="submitting" class="loader-overlay">
+        <div class="loader"></div>
+        <div class="loading-message">Loading...</div>
+      </div>
+    <button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help" class="help-button">
       <mat-icon>help</mat-icon>
     </button>
-    <h2 class="pt-3 font-weight-bold" style="text-align: center;">
-      Update Profile
-    </h2>  
-    <!-- Your form controls here -->
-    <div class="form-group pt-3">
-      <div class="input-field" [class.error]="updateForm.controls['firstName'].dirty && updateForm.hasError('required','firstName')">
-        <span class="fa fa-user p-2"></span>
-        <input id="firstName" type="text" placeholder="First Name" formControlName="firstName">
+
+  <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="update-form">
+    <!-- <button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help" class="help-button">
+      <mat-icon>help</mat-icon>
+    </button> -->
+    <h2 class="form-title" style="font-family: 'Times New Roman', Times, serif;">Update Profile</h2>
+
+    <div class="form-group">
+      <div class="input-container">
+        <span class="fa fa-user input-icon"></span>
+        <input id="firstName" formControlName="firstName" type="text" placeholder="First Name" class="input-field">
       </div>
-    </div>
-    <div class="form-group pt-3">
-      <div class="input-field" [class.error]="updateForm.controls['lastName'].dirty && updateForm.hasError('required','lastName')">
-        <span class="fa fa-user p-2"></span>
-        <input id="lastName" type="text" placeholder="Last Name" formControlName="lastName">
-      </div>
-    </div>
-    <div class="form-group pt-3">
-      <div class="input-field" [class.error]="updateForm.controls['username'].dirty && updateForm.hasError('required','username')">
-        <span class="fa fa-user p-2"></span>
-        <input id="username" type="text" placeholder="Username" formControlName="username">
-      </div>
-    </div>
-    <div class="form-group pt-3">
-      <div class="input-field"
-        [class.error]="updateForm.controls['contactNumber'].dirty && (updateForm.hasError('required', 'contactNumber') || updateForm.hasError('noSpaces', 'contactNumber') || updateForm.hasError('pattern', 'contactNumber') || updateForm.hasError('allZeros', 'contactNumber'))">
-        <span class="fa fa-phone p-2"></span>
-        <input id="contactNumber" formControlName="contactNumber" type="text" placeholder="Contact Number">
-      </div>
-    </div>
-    <small *ngIf="updateForm.controls['contactNumber'].dirty && (updateForm.hasError('required', 'contactNumber') || updateForm.hasError('noSpaces', 'contactNumber') || updateForm.hasError('pattern', 'contactNumber') || updateForm.hasError('allZeros', 'contactNumber'))"
-      class="text-danger">
-      *{{ updateForm.hasError('noSpaces', 'contactNumber') ? 'Contact Number cannot be just spaces' :
-      updateForm.hasError('pattern', 'contactNumber') ? 'Invalid Contact Number' :
-      updateForm.hasError('allZeros', 'contactNumber') ? 'Invalid South African Number' : 'Contact Number is required' }}*
-    </small>
-    <div class="form-group pt-3">
-      <div class="input-field" [class.error]="updateForm.controls['email'].dirty && updateForm.hasError('required','email')">
-        <span class="fa fa-envelope p-2"></span>
-        <input  style="width: 100%;" id="email" type="text" placeholder="Email" formControlName="email">
-      </div>
-    </div> 
-    <div class="form-group pt-3">
-      <div class="input-field" [class.error]="updateForm.controls['physicalAddress'].dirty && updateForm.hasError('required','physicalAddress')">
-        <span class="fa fa-address-book-o p-2"></span>
-        <textarea  style="width: 100%;" id="physicalAddress" type="text" placeholder="Physical Address" formControlName="physicalAddress"></textarea>
-      </div>
+      <small class="text-danger" *ngIf="updateForm.controls['firstName'].dirty && updateForm.hasError('required', 'firstName')">*First Name is required*</small>
     </div>
 
     <div class="form-group">
-      <div class="col-sm-offset-1 col-sm-6">
-        <button  [disabled]="!updateForm.valid" style="margin-right:1em; width: 40%;" type="submit" class="btn btn-sm btn-light">Submit</button>
-        <button style="width: 40%;" type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button>
+      <div class="input-container">
+        <span class="fa fa-user input-icon"></span>
+        <input id="lastName" formControlName="lastName" type="text" placeholder="Last Name" class="input-field">
       </div>
+      <small class="text-danger" *ngIf="updateForm.controls['lastName'].dirty && updateForm.hasError('required', 'lastName')">*Last Name is required*</small>
+    </div>
+
+    <div class="form-group">
+      <div class="input-container">
+        <span class="fa fa-user input-icon"></span>
+        <input id="username" formControlName="username" type="text" placeholder="UserName" class="input-field">
+      </div>
+      <small class="text-danger" *ngIf="updateForm.controls['username'].dirty && updateForm.hasError('required', 'username')">*Username is required*</small>
+    </div>
+
+    <div class="form-group">
+      <div class="input-container">
+        <span class="fa fa-phone input-icon"></span>
+        <input id="contactNumber" formControlName="contactNumber" type="text" placeholder="Contact Number" class="input-field">
+      </div>
+      <small class="text-danger" *ngIf="updateForm.controls['contactNumber'].dirty && (updateForm.hasError('required', 'contactNumber') || updateForm.hasError('noSpaces', 'contactNumber') || updateForm.hasError('pattern', 'contactNumber') || updateForm.hasError('allZeros', 'contactNumber'))">
+        *{{ updateForm.hasError('noSpaces', 'contactNumber') ? 'Contact Number cannot be just spaces' :
+        updateForm.hasError('pattern', 'contactNumber') ? 'Invalid Contact Number' :
+        updateForm.hasError('allZeros', 'contactNumber') ? 'Invalid South African Number' : 'Contact Number is required' }}*
+      </small>
+    </div>
+
+    <div class="form-group">
+      <div class="input-container">
+        <span class="fa fa-address-book-o input-icon"></span>
+        <input id="physicalAddress" formControlName="physicalAddress" type="text" placeholder="Physical Address" class="input-field">
+      </div>
+      <small class="text-danger" *ngIf="updateForm.controls['physicalAddress'].dirty && updateForm.hasError('required', 'physicalAddress')">*Physical Address is required*</small>
+    </div>
+
+    <div class="form-group">
+      <div class="input-container">
+        <span class="fa fa-envelope input-icon"></span>
+        <input id="email" formControlName="email" type="text" placeholder="Email" class="input-field">
+      </div>
+      <!-- <small class="text-danger" *ngIf="updateForm.controls['email'].dirty && updateForm.hasError('required', 'email')">*Email is required*</small> -->
+      <small *ngIf="updateForm.controls['email'].dirty">
+        <div *ngIf="updateForm.controls['email'].hasError('required')" class="text-danger"> *Email is required*</div>
+        <div *ngIf="!isValidEmail" class="text-danger">*Email is invalid*</div>
+      </small>   
+    </div>
+
+    <div class="center-buttons">
+      <button type="submit" [disabled]="!updateForm.valid" class="btn btn-primary submit-button">Submit</button>
+      <button type="button" class="btn btn-danger cancel-button" (click)="cancel()">Cancel</button>
     </div>
   </form>
-  
+
+         </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+

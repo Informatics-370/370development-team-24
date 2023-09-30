@@ -6,6 +6,7 @@ import { MenuTypes } from 'src/app/shared/menu-types';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
+import { HelpAddmenutypeComponent } from './help-addmenutype/help-addmenutype.component';
 
 @Component({
   selector: 'app-add-menu-type',
@@ -33,7 +34,7 @@ export class AddMenuTypeComponent {
 
 //creating a form
    this.addMenuTypeForm = this.fb.group({
-     menu_typeId: [0, [Validators.required]],
+     //menu_typeId: [0, [Validators.required]],
      name: ['', [Validators.required]] 
    })
  }
@@ -64,6 +65,9 @@ export class AddMenuTypeComponent {
     exitAnimationDuration,
   });
 }*/
+cancel(){
+  this.router.navigate(['/menu-types'])
+}
  
  ngOnInit(): void {}
 
@@ -93,6 +97,17 @@ showSuccessMessage(message: string): void {
 
  
 }
+openHelpModal(field: string): void {
+  const dialogRef = this.dialog.open(HelpAddmenutypeComponent, {
+    width: '500px',
+    data: { field } // Pass the field name to the modal
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    // Handle modal close if needed
+  });
+}
+
 
 
 

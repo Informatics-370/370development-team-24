@@ -11,4 +11,5 @@
    gender!: number;
    genderName!: string;
    employment_Date!: Date;
+   salary! : string;
  }

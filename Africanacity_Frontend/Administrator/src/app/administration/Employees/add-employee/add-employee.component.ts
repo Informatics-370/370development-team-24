@@ -27,7 +27,7 @@ function phoneNumberValidator(control: AbstractControl): { [key: string]: any } 
 
 function emailFormatValidator(control: AbstractControl): { [key: string]: any } | null {
   const email = control.value;
-  const emailPattern = /^[a-zA-Z0-9]+@gmail\.com$/;
+  const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,3}$/;
 
   if (!emailPattern.test(email)) {
     return { 'invalidEmailFormat': true };
@@ -36,29 +36,22 @@ function emailFormatValidator(control: AbstractControl): { [key: string]: any } 
   return null;
 }
 
-// function noWhitespaceValidator(): ValidatorFn {
-//   return (control: AbstractControl): { [key: string]: boolean } | null => {
-//     if (control.value && /^\s+$/.test(control.value)) {
-//       return { 'whitespace': true };
-//     }
-//     return null;
-//   };
-// }
-
+function salaryNonNegativeValidator(control: FormControl): { [key: string]: any } | null {
+  const salary = control.value;
+  
+  if (salary !== null && (isNaN(salary) || salary <= 0)) {
+    return { 'invalidSalary': true };
+  }
+  
+  return null;
+}
 
 
 @Component({
   selector: 'app-add-employee',
   templateUrl: './add-employee.component.html',
   styleUrls: ['./add-employee.component.css'],
-//   template: `
-//   <input type="text" [(ngModel)]="email" name="email" placeholder="Email" required>
-//   <button (click)="checkEmail()">Check Email</button>
 
-//   <div *ngIf="message" class="message">
-//     {{ message }}
-//   </div>
-// `,
 styles: [`
 .message {
   padding: 10px;
@@ -76,7 +69,12 @@ export class AddEmployeeComponent implements OnInit {
   employeeRole: Employee_Role[] = [];
   gender: Gender[] = [];
 
-  constructor(private employeeservice: EmployeeService, private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar, dataService: DataService) { }
+  constructor(
+    private employeeservice: EmployeeService, 
+    private router: Router,
+    private dialog: MatDialog, 
+    private snackBar: MatSnackBar, 
+    private dataService: DataService) { }
 
      employeeForm: FormGroup = new FormGroup({
        surname: new FormControl('', [Validators.required]),
@@ -86,6 +84,7 @@ export class AddEmployeeComponent implements OnInit {
        phoneNumber: new FormControl('', [Validators.required, phoneNumberValidator]),
        employeeRole: new FormControl('',[Validators.required]),
        gender: new FormControl('',[Validators.required]),
+       salary: new FormControl('',[Validators.required, salaryNonNegativeValidator]),
        employment_Date: new FormControl([new Date().toISOString().slice(0, 10)])
     
      })
@@ -154,6 +153,7 @@ export class AddEmployeeComponent implements OnInit {
     employee.phoneNumber = this.employeeForm.value.phoneNumber;
     employee.employment_Date = currentDate as Date; 
     employee.gender = this.employeeForm.value.gender;
+    employee.salary = this.employeeForm.value.salary;
   
     this.employeeservice.AddEmployee(employee).subscribe(result => {
       this.router.navigate(['/view-employees'])
