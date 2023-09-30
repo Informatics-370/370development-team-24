@@ -142,11 +142,23 @@ export class MenuTypesComponent implements OnInit {
     this.filteredMenuTypes = this.menuTypes; // Initialize the filtered list
   }
 
-  GetAllMenuTypes() {
-    this.dataService.GetAllMenuTypes().subscribe((result) => {
-      this.menuTypes = result as MenuTypes[];
-    });
+  // GetAllMenuTypes() {
+  //   this.dataService.GetAllMenuTypes().subscribe((result) => {
+  //     this.menuTypes = result as MenuTypes[];
+  //   });
+  // }
+
+  GetAllMenuTypes()
+  {
+    this.dataService.GetAllMenuTypes().subscribe(result => {
+      let eventsList:any[] = result
+      eventsList.forEach((element) => {
+        this.menuTypes.push(element)
+        
+      });
+    })
   }
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.toLowerCase();

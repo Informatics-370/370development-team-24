@@ -101,7 +101,7 @@ deleteItemFromServer(): void {
       const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.filteredemployees);
     
       // Set the column headers (optional)
-      const header = ['ID', 'Surname', 'First Name', 'Type', 'Cell', 'Email', 'Address','Salary R:','Employement Date', 'Gender'];
+      const header = ['ID', 'Surname', 'First Name', 'Type', 'Cell', 'Email', 'Address','Employement Date', 'Gender' ,'Salary R:'];
       XLSX.utils.sheet_add_aoa(ws, [header], { origin: 'A1' });
     
       const wb: XLSX.WorkBook = XLSX.utils.book_new();

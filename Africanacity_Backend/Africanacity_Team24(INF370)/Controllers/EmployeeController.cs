@@ -55,11 +55,11 @@ namespace Africanacity_Team24_INF370_.Controllers
 
                     e.Physical_Address,
 
-                    e.Salary,
-
                     e.Employment_Date,
 
                     GenderName = e.Gender.Name,
+
+                    e.Salary
                 });
 
                 return Ok(employees);

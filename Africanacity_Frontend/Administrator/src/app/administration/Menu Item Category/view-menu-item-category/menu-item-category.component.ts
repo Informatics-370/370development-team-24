@@ -126,12 +126,24 @@ export class MenuItemCategoryComponent implements OnInit {
   ngOnInit(): void {
     this.GetAllMenuItemCategories();
     this.filteredMenuItemCategories = this.menuItemCategories; // Initialize the filtered list
+    console.log(this.filteredMenuItemCategories)
   }
 
-  GetAllMenuItemCategories() {
-    this.dataService.GetAllMenuItemCategories().subscribe((result) => {
-      this.menuItemCategories = result as MenuItemCategory[];
-    });
+  // GetAllMenuItemCategories() {
+  //   this.dataService.GetAllMenuItemCategories().subscribe((result) => {
+  //     this.menuItemCategories = result as MenuItemCategory[];
+  //   });
+  // }
+
+  GetAllMenuItemCategories()
+  {
+    this.dataService.GetAllMenuItemCategories().subscribe(result => {
+      let eventsList:any[] = result
+      eventsList.forEach((element) => {
+        this.menuItemCategories.push(element)
+        
+      });
+    })
   }
 
   applyFilter(event: Event) {

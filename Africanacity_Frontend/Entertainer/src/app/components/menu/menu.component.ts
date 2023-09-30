@@ -28,6 +28,7 @@ export class MenuComponent implements OnInit {
         this.menuData = data; // Set the menu data to display
       });
     });
+    
   }
 
   GetAllMenuItems() 
@@ -38,6 +39,7 @@ export class MenuComponent implements OnInit {
       this.menuItems.forEach(item => {
         this.menuService.GetMenuItemPrice(item.menuItem_Id).subscribe(priceResult => {
           this.menuItemsPrices[item.menuItem_Id] = priceResult.price;
+          console.log(this.getMenuItemPrice)
         });
       });
     });
