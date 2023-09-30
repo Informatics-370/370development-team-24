@@ -8,6 +8,7 @@ import { FoodType } from 'src/app/shared/food-type';
 import { MenuItemCategory } from 'src/app/shared/menu-item-category';
 import { MatDialog } from '@angular/material/dialog';
 import { HelpAddmenuitemComponent } from './help-addmenuitem/help-addmenuitem.component';
+import { MenuCategoryFoodType } from 'src/app/shared/menuCategoryFoodType';
 
 @Component({
   selector: 'app-add-menu-item',
@@ -17,16 +18,19 @@ import { HelpAddmenuitemComponent } from './help-addmenuitem/help-addmenuitem.co
 export class AddMenuItemComponent implements OnInit {
 
   formData = new FormData();
-  menuTypesData:MenuTypes[]=[]
-  foodTypesData:FoodType[]=[]
-  menuItemCategoryData:MenuItemCategory[]=[]
+  menuTypesData:MenuTypes[]=[];
+  foodTypesData:FoodType[]=[];
+  menuItemCategoryData:MenuItemCategory[]=[];
+  filteredMenuCategories: MenuItemCategory[] = [];
+  filteredFoodTypes: FoodType[] = [];
 
   productForm: FormGroup = this.fb.group({
     name: ['', Validators.required],
     description: ['', Validators.required],
-    menuType: ['', Validators.required],
-    foodType: [null, Validators.required],
-    menuCategory: [null, Validators.required],
+    menu_TypeId: ['', Validators.required],
+    menu_CategoryId: [null, Validators.required],
+    foodTypeId: [null, Validators.required],
+    
     amount: [null, Validators.required]
     
   })
@@ -36,6 +40,8 @@ export class AddMenuItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetAllMenuTypes()
+    this.GetAllMenuItemCategories()
+    this.GetAllFoodTypes()
    
   }
 
@@ -50,34 +56,90 @@ GetAllMenuTypes(){
   });
 }
 
+GetAllMenuItemCategories(){
+  this.dataService.GetAllMenuItemCategories().subscribe(result => {
+    let menuItemCategoryList:any[] = result
+    menuItemCategoryList.forEach((element) => {
+      this.menuItemCategoryData.push(element)
+    });
+  });
+}
 
+GetAllFoodTypes(){
+  this.dataService.GetAllFoodTypes().subscribe(result => {
+    let foodTypeList:any[] = result
+    foodTypeList.forEach((element) => {
+      this.foodTypesData.push(element)
+    });
+  });
+}
+
+//filter menu categories on selected menu type
+onMenuTypeChange() {
+  const menu_TypeId = this.productForm.get('menu_TypeId')?.value;
+
+  if (menu_TypeId) {
+    // Call the API to get filtered menu categories
+    this.dataService.getCategoriesByMenuType(menu_TypeId).subscribe(result => {
+      this.filteredMenuCategories = result;
+    });
+  } else {
+    // If no menu type is selected, clear the filtered menu categories
+    this.filteredMenuCategories = [];
+  }
+
+  // Reset the selected menu category and food type
+  this.productForm.get('menu_CategoryId')?.setValue(null);
+  this.filteredFoodTypes = [];
+}
+
+
+
+//filter food types on selected menu categories
+onMenuCategoryChange() {
+  const menu_CategoryId = this.productForm.get('menu_CategoryId')?.value;
+
+  if (menu_CategoryId) {
+    // Call the API to get filtered food types
+    this.dataService.getFoodTypesByMenuCategories(menu_CategoryId).subscribe(result => {
+      this.filteredFoodTypes = result;
+    });
+  } else {
+    // If no menu category is selected, clear the filtered food types
+    this.filteredFoodTypes = [];
+  }
+}
 
 
 
 //submit form function
 onSubmit() {
-  if(this.productForm.valid)
-  {
-    this.formData.append('name', this.productForm.get('name')!.value);
-    this.formData.append('description', this.productForm.get('description')!.value);
-    this.formData.append('menuType', this.productForm.get('menuType')!.value);
-    this.formData.append('foodType', this.productForm.get('foodType')!.value);
-    this.formData.append('menuCategory', this.productForm.get('menuCategory')!.value);
-    
-        // Add the price as well
-        const amount = this.productForm.get('amount')!.value;
-        this.formData.append('amount', amount.toString());
+  if (this.productForm.valid) {
+    const menuItemData = {
+      name: this.productForm.get('name')!.value,
+      description: this.productForm.get('description')!.value,
+      menu_TypeId: this.productForm.get('menu_TypeId')!.value,
+      menu_CategoryId: this.productForm.get('menu_CategoryId')!.value,
+      foodTypeId: this.productForm.get('foodTypeId')!.value,
+      amount: this.productForm.get('amount')!.value,
+    };
 
-    this.dataService.addMenuItem(this.formData, amount).subscribe(() => {
-      this.clearData()
-      this.router.navigateByUrl('menuitems').then((navigated: boolean) => {
-        if(navigated) {
-          this.snackBar.open(this.productForm.get('name')!.value + ` created successfully`, 'X', {duration: 5000});
-        }
-     });
-    });
+    this.dataService.addMenuItem(menuItemData).subscribe(
+      () => {
+        this.clearData();
+        this.router.navigateByUrl('menuitems').then((navigated: boolean) => {
+          if (navigated) {
+            this.snackBar.open(this.productForm.get('name')!.value + ` created successfully`, 'X', { duration: 5000 });
+          }
+        });
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 }
+
 
 clearData(){
   this.formData.delete("name");

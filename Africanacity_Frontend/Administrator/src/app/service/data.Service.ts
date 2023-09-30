@@ -127,9 +127,16 @@ export class DataService {
     }
 
     //add a new menu item
-  addMenuItem(file:FormData, amount: number){
-    return this.httpClient.post(`${this.apiUrl}MenuItems/AddMenuItem`, file)
-  }
+    addMenuItem(menuItemData: any) {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+        }),
+      };
+    
+      return this.httpClient.post(`${this.apiUrl}MenuItems/AddMenuItem`, menuItemData, httpOptions);
+    }
+    
 
   //edit menu item
   editMenuItem(MenuItemId: number, menuItem: MenuItem): Observable<MenuItem> {
@@ -235,14 +242,17 @@ export class DataService {
       //return this.httpClient.get(`${this.apiUrl}MenuItem_Category/GetMenuItemCategory` + "/" + Menu_CategoryId) //.pipe(map(result => result))
     }
   
-    AddMenuItemCategory(file: FormData)
-    {
-      return this.httpClient.post(`${this.apiUrl}MenuItem_Category/AddMenuItemCategory`, file)
+    AddMenuItemCategory(data: any, headers: HttpHeaders) {
+      const requestOptions = {
+        headers: headers, // Directly assign the headers here
+      };
+    
+      return this.httpClient.post(`${this.apiUrl}MenuItem_Category/AddMenuItemCategory`, data, requestOptions);
     }
   
-    EditMenuItemCategory(menu_CategoryId: number, menuItemCategory: MenuItemCategory)
+    EditMenuItemCategory(Menu_CategoryId: number, menuItemCategory: MenuItemCategory)
     {
-      return this.httpClient.put(`${this.apiUrl}MenuItem_Category/EditMenuItemCategory/${menu_CategoryId}`, menuItemCategory, this.httpOptions)
+      return this.httpClient.put(`${this.apiUrl}MenuItem_Category/EditMenuItemCategory/${Menu_CategoryId}`, menuItemCategory, this.httpOptions)
     }
   
     DeleteMenuItemCategory(menu_CategoryId: number)

@@ -32,9 +32,9 @@
       </div>
 
       <div class="form-group">
-        <label class="col-md-1" style="font-weight: bold;" for="menuType">Menu Type</label>
+        <label class="col-md-1" style="font-weight: bold;" for="menu_TypeId">Menu Type</label>
         <div class="col-md-6">
-          <select class="form-control" formControlName="menuType">
+          <select class="form-control" formControlName="menu_TypeId">
             <option value="" disabled selected>Select</option> <!-- Placeholder -->
             <option *ngFor="let item of menuTypesData" [value]="item.menu_TypeId">{{ item.name }}</option>
           </select>

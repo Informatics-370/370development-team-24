@@ -133,6 +133,19 @@ namespace Africanacity_Team24_INF370_.Controllers
                 existingFoodType.Name = ftvm.Name;
                 existingFoodType.Description = ftvm.Description;
 
+                // Update the associated menu categories
+                existingFoodType.MenuCategoryFoodTypes.Clear(); // Clear existing associations
+
+                foreach (var item in ftvm.MenuCategoryFoodTypeItems)
+                {
+                    var menuCategoryFoodType = new MenuCategoryFoodType
+                    {
+                        Menu_CategoryId = item.Menu_CategoryId,
+                    };
+
+                    existingFoodType.MenuCategoryFoodTypes.Add(menuCategoryFoodType);
+                }
+
                 if (await _repository.SaveChangesAsync())
                 {
                     return Ok(existingFoodType);

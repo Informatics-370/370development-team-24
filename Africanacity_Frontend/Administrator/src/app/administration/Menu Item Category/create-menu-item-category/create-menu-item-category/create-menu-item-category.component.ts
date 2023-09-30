@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { DataService } from 'src/app/service/data.Service';
@@ -37,7 +37,8 @@ export class CreateMenuItemCategoryComponent {
         MenuItemCategoryId: [0, [Validators.required]],
         name: ['',[Validators.required]],
         description: ['',[Validators.required]],
-        menuType: ['', Validators.required],
+        menu_TypeId: ['', Validators.required],
+       
       })
     }
 
@@ -75,24 +76,33 @@ export class CreateMenuItemCategoryComponent {
     this.router.navigate(['/menu-item-category'])
   }
 
-  AddMenuItemCategory()
-  {
-  if(this.AddMenuItemCategoryForm.valid)
-  {
-    this.formData.append('name', this.AddMenuItemCategoryForm.get('name')!.value);
-    this.formData.append('description', this.AddMenuItemCategoryForm.get('description')!.value);
-    this.formData.append('menuType', this.AddMenuItemCategoryForm.get('menuType')!.value);
-
-    this.dataService.AddMenuItemCategory(this.formData).subscribe(() => {
-     
-      this.router.navigateByUrl('menu-item-category').then((navigated: boolean) => {
-        if(navigated) {
-          this.snackBar.open(this.AddMenuItemCategoryForm.get('name')!.value + ` created successfully`, 'Ok', {duration: 5000});
-        }
-     });
-    });
+  AddMenuItemCategory() {
+    if (this.AddMenuItemCategoryForm.valid) {
+      const headers = new HttpHeaders().set('Content-Type', 'application/json');
+  
+      this.dataService
+        .AddMenuItemCategory(this.AddMenuItemCategoryForm.value, headers) // Pass headers directly
+        .subscribe(
+          () => {
+            this.router.navigateByUrl('menu-item-category').then((navigated: boolean) => {
+              if (navigated) {
+                this.snackBar.open(
+                  this.AddMenuItemCategoryForm.get('name')!.value + ` created successfully`,
+                  'Ok',
+                  { duration: 5000 }
+                );
+              }
+            });
+          },
+          (error) => {
+            console.error('Error adding menu item category:', error);
+            // Handle error appropriately, show a toast, etc.
+          }
+        );
+    }
   }
-}
+  
+  
   //success message
   showSuccessMessage(message: string): void {
     const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(message, 'Ok', {

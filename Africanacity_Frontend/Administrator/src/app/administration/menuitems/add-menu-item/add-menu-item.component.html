@@ -85,38 +85,40 @@
     </div>
 
     <div class="form-group">
-      <label class="col-md-1" style="font-weight: bold;" for="menuType">Menu Type</label>
-      <div class="col-md-6">
-        <select class="form-control" formControlName="menuType">
-          <option value="" disabled selected>Select</option> <!-- Placeholder -->
+      <label class="col-md-1" style="font-weight: bold;" for="menu_TypeId" >Menu Type</label>
+      <div class="col-sm-6">
+        <select class="form-control" formControlName="menu_TypeId" (change)="onMenuTypeChange()" >
+          
           <option *ngFor="let item of menuTypesData" [value]="item.menu_TypeId">{{ item.name }}</option>
         </select>
       </div>
     </div>
 
-    <div class="form-group">
-      <label class="col-md-1" style="font-weight: bold;" for="foodType">Food Type</label>
-      <div class="col-md-6">
-        <select class="form-control" formControlName="foodType">
-          <option value="" disabled selected>Select</option> <!-- Placeholder -->
-          <option *ngFor="let item of foodTypesData" [value]="item.foodTypeId">{{ item.name }}</option>
+       <div class="form-group">
+      <label class="col-md-1" style="font-weight: bold;" for="menu_CategoryId" >Menu Category</label>
+      <div class="col-sm-6">
+        <select class="form-control"  formControlName="menu_CategoryId"  (change)="onMenuCategoryChange()">
+          
+          <option *ngFor="let item of filteredMenuCategories" [value]="item.menu_CategoryId">{{ item.name }}</option>
         </select>
       </div>
     </div>
 
     <div class="form-group">
-      <label class="col-md-1" style="font-weight: bold;" for="menuCategory">Menu Category</label>
-      <div class="col-md-6">
-        <select class="form-control" id="menuCategory" formControlName="menuCategory">
-          <option value="" disabled selected>Select</option> <!-- Placeholder -->
-          <option *ngFor="let item of menuItemCategoryData" [value]="item.menu_CategoryId">{{ item.name }}</option>
+      <label class="col-md-1" style="font-weight: bold;" for="foodTypeId">Food Type</label>
+      <div class="col-sm-6">
+        <select class="form-control" formControlName="foodTypeId" >
+          
+          <option *ngFor="let item of filteredFoodTypes" [value]="item.foodTypeId">{{ item.name }}</option>
         </select>
       </div>
     </div>
+
+ 
 
     <div class="form-group">
       <label class="col-md-1" style="font-weight: bold;" for="amount">Price:</label>
-      <div class="col-md-6">
+      <div class="col-sm-6">
         <input class="form-control" placeholder="Enter Menu Item Price" required name="amount" formControlName="amount">
       </div>
     </div>

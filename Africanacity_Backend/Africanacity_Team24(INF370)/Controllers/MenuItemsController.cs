@@ -136,7 +136,7 @@ namespace Africanacity_Team24_INF370_.Controllers
         //adding a menu item
         [HttpPost]
         [Route("AddMenuItem")]
-        public async Task<IActionResult> AddMenuItem(MenuItemViewModel menuItemViewModel)//added (menuItemViewModel) instead of (IFormCollection formData) because testing tree diagram 
+        public async Task<IActionResult> AddMenuItem([FromBody] MenuItemViewModel menuItemViewModel)//added (menuItemViewModel) instead of (IFormCollection formData) because testing tree diagram 
         {
             // Implementation goes here
 

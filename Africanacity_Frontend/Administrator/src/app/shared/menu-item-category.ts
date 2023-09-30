@@ -8,4 +8,5 @@ export class MenuItemCategory{
     name!: string;
     description!: string;
     menuType!: string;
+    menu_TypeId!: number;
 }
