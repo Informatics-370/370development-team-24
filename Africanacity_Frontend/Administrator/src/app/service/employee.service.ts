@@ -14,7 +14,7 @@ export class EmployeeService {
   //   throw new Error('Method not implemented.');
   // }
 
-  apiUrl = 'https://localhost:49991/api/'
+  apiUrl = 'http://localhost:49991/api/'
   // private apiURL = 'http://localhost:49991/api/Employee';
   // private apiUrl = 'http://localhost:5000/api/email';
 

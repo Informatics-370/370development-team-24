@@ -77,7 +77,7 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<MenuItem> MenuItems { get; set; }
 		public DbSet<MenuItem_Category> MenuItem_Categories { get; set; }
 		public DbSet<MenuItem_Price> MenuItem_Prices { get; set; }
-		public DbSet<Order> Orders { get; set; }
+		public DbSet<KitchenOrder> Orders { get; set; }
 		//public DbSet<Order_Drink> Order_Drinks { get; set; }
 		//public DbSet<Order_MenuItem> Order_MenuItems { get; set; }
 		public DbSet<Order_Status> Order_Statuses { get; set; }

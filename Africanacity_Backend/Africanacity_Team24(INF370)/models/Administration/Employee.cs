@@ -24,7 +24,7 @@ namespace Africanacity_Team24_INF370_.models.Administration
 
 		public DateTime Employment_Date { get; set; }
 
-        public List<Order> Orders { get; set; } = new List<Order>();
+        public List<KitchenOrder> Orders { get; set; } = new List<KitchenOrder>();
 
 		public int Employee_RoleId { get; set; }
 
