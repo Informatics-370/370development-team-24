@@ -159,7 +159,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                     k.Order_Date,
                     k.TableNumber,
                     k.KitchenOrderNumber,
-                    Employee = k.Employees.FirstName,
+
                     k.Subtotal,
                     k.VAT,
                     k.Discount,
