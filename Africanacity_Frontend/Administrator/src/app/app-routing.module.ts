@@ -101,7 +101,7 @@ import { Help } from './shared/help';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent , canActivate:[AuthGuard]},
+  { path: 'home', component: HomeComponent },// canActivate:[AuthGuard]},
   { path: 'add-employee', component: AddEmployeeComponent, canActivate:[AuthGuard] }, // for add employee page
   { path: 'edit-employee/:id', component: EditEmployeeComponent, canActivate:[AuthGuard]},//Edit employee
   { path: 'view-employees', component: ViewEmployeesComponent, canActivate:[AuthGuard] }, // for view employees page
@@ -215,7 +215,6 @@ const routes: Routes = [
   {path:'change-password',component:ChangePasswordComponent, canActivate:[AuthGuard]},
   {path:'update-profile', component:UpdateProfileComponent, canActivate:[AuthGuard]},
   {path: 'navbar',component: NavbarComponent, canActivate:[AuthGuard]},
-  {path: 'home', component: HomeComponent, canActivate:[AuthGuard]}, 
   {path: 'menu', component: MenuComponent, canActivate:[AuthGuard]}, 
   {path: 'entertainer', component: EntertainerComponent, canActivate:[AuthGuard]}, 
   {path: 'booking-listing', component: BookingListingComponent, canActivate:[AuthGuard]}, 
@@ -302,7 +301,6 @@ const routes: Routes = [
   {path:'edit-entertainment-type/:id', component: EditEntertainmentTypeComponent, canActivate:[AuthGuard]},
   {path:'add-entertainment-type', component: AddEntertainmentTypeComponent, canActivate:[AuthGuard]},
   {path: 'navbar',component: NavbarComponent , canActivate:[AuthGuard]},
-  {path: 'home', component: HomeComponent , canActivate:[AuthGuard]}, // for home page
   {path:'view-suppliers', component: ViewSuppliersComponent , canActivate:[AuthGuard]}, // for View Suppliers
   {path: 'edit-supplier/:id', component: EditSupplierComponent , canActivate:[AuthGuard]},
   {path: 'add-supplier', component:AddSupplierComponent , canActivate:[AuthGuard]},
