@@ -28,8 +28,8 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(
 					include.AllowAnyHeader();
 					include.AllowAnyMethod();
 					include.AllowAnyOrigin();
-				
-                }));
+
+				}));
 builder.Services.AddControllers();
 
 
@@ -138,7 +138,7 @@ app.UseHttpsRedirection();
 app.UseCors();
 app.UseAuthorization();
 app.UseAuthentication();
-
+app.UseStaticFiles();
 app.MapControllers();
 
 app.Run();

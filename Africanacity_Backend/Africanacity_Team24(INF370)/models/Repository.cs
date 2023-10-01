@@ -95,16 +95,16 @@ namespace Africanacity_Team24_INF370_.models
             return await query.ToArrayAsync();
         }
         //HELP 
-        public async Task<Help[]> GetAllHelpAsync()
-        {
-            IQueryable<Help> query = _appDbContext.Helps;
-            return await query.ToArrayAsync();
-        }
-        public async Task<Help> GetHelpAsync(int helpId)
-        {
-            IQueryable<Help> query = _appDbContext.Helps.Where(h => h.HelpId == helpId);
-            return await query.FirstOrDefaultAsync();
-        }
+        //public async Task<Help[]> GetAllHelpAsync()
+        //{
+        //    IQueryable<Help> query = _appDbContext.Helps;
+        //    return await query.ToArrayAsync();
+        //}
+        //public async Task<Help> GetHelpAsync(int helpId)
+        //{
+        //    IQueryable<Help> query = _appDbContext.Helps.Where(h => h.HelpId == helpId);
+        //    return await query.FirstOrDefaultAsync();
+        //}
         
         // employee role
         public async Task<Employee_Role[]> GetAllEmployeeRolesAsync()
@@ -196,16 +196,16 @@ namespace Africanacity_Team24_INF370_.models
         }
 
         //DRINK ITEM PRICES
-        public async Task<OtherDrinkPrice[]> GetAllDrinkItemPricesAsync()
-        {
-            IQueryable<OtherDrinkPrice> query = _appDbContext.OtherDrinkPrices;
-            return await query.ToArrayAsync();
-        }
-        public async Task<OtherDrinkPrice> GetADrinkItemPriceAsync(int OtherDrinkPriceId)
-        {
-            IQueryable<OtherDrinkPrice> query = _appDbContext.OtherDrinkPrices.Where(c => c.OtherDrinkPriceId == OtherDrinkPriceId);
-            return await query.FirstOrDefaultAsync();
-        }
+        //public async Task<OtherDrinkPrice[]> GetAllDrinkItemPricesAsync()
+        //{
+        //    IQueryable<OtherDrinkPrice> query = _appDbContext.OtherDrinkPrices;
+        //    return await query.ToArrayAsync();
+        //}
+        //public async Task<OtherDrinkPrice> GetADrinkItemPriceAsync(int OtherDrinkPriceId)
+        //{
+        //    IQueryable<OtherDrinkPrice> query = _appDbContext.OtherDrinkPrices.Where(c => c.OtherDrinkPriceId == OtherDrinkPriceId);
+        //    return await query.FirstOrDefaultAsync();
+        //}
 
 
         //MENU ITEM CATEGORY
@@ -376,18 +376,18 @@ namespace Africanacity_Team24_INF370_.models
 
         //UNATI
         //OtherDrink
-        public async Task<OtherDrink[]> GetAllDrinkItemsAsync()
-        {
-            IQueryable<OtherDrink> query = _appDbContext.OtherDrinks.Include(p => p.Drink_Type);
+        //public async Task<OtherDrink[]> GetAllDrinkItemsAsync()
+        //{
+        //    IQueryable<OtherDrink> query = _appDbContext.OtherDrinks.Include(p => p.Drink_Type);
 
-            return await query.ToArrayAsync();
-        }
+        //    return await query.ToArrayAsync();
+        //}
 
-        public async Task<OtherDrink> GetADrinkItemAsync(int OtherDrinkId)
-        {
-            IQueryable<OtherDrink> query = _appDbContext.OtherDrinks.Where(c => c.OtherDrinkId == OtherDrinkId).Include(p => p.Drink_Type);
-            return await query.FirstOrDefaultAsync();
-        }
+        //public async Task<OtherDrink> GetADrinkItemAsync(int OtherDrinkId)
+        //{
+        //    IQueryable<OtherDrink> query = _appDbContext.OtherDrinks.Where(c => c.OtherDrinkId == OtherDrinkId).Include(p => p.Drink_Type);
+        //    return await query.FirstOrDefaultAsync();
+        //}
 
         //SUPPLIER
 
@@ -693,11 +693,11 @@ namespace Africanacity_Team24_INF370_.models
         }
 
         //Get all ordered drinks
-        public async Task<Order_Drink[]> GetAllOrderedDrinksItemsAsync()
-        {
-            IQueryable<Order_Drink> query = _appDbContext.Order_Drinks.Include(p => p.OtherDrink).Include(p => p.KitchenOrder);
+        //public async Task<Order_Drink[]> GetAllOrderedDrinksItemsAsync()
+        //{
+        //    IQueryable<Order_Drink> query = _appDbContext.Order_Drinks.Include(p => p.OtherDrink).Include(p => p.KitchenOrder);
 
-            return await query.ToArrayAsync();
-        }
+        //    return await query.ToArrayAsync();
+        //}
     }
 }

@@ -41,8 +41,8 @@ namespace Africanacity_Team24_INF370_.models
 
         //HELP
 
-        Task<Help[]> GetAllHelpAsync();
-        Task<Help> GetHelpAsync(int HelpId);
+        //Task<Help[]> GetAllHelpAsync();
+        //Task<Help> GetHelpAsync(int HelpId);
 
 
 
@@ -82,9 +82,9 @@ namespace Africanacity_Team24_INF370_.models
 
 
         //OTHER DRINK
-        Task<OtherDrink[]> GetAllDrinkItemsAsync();
+        //Task<OtherDrink[]> GetAllDrinkItemsAsync();
 
-        Task<OtherDrink> GetADrinkItemAsync(int OtherDrinkId);
+        //Task<OtherDrink> GetADrinkItemAsync(int OtherDrinkId);
 
 
         // DRINK ITEM TYPE
@@ -95,8 +95,8 @@ namespace Africanacity_Team24_INF370_.models
         //Task<Drink[]> GetAllDrinksAsync();
         Task<Drink> GetDrinkAsync(int Drink_TypeId);
         //DRINK ITEM PRICES
-        Task<OtherDrinkPrice[]> GetAllDrinkItemPricesAsync();
-        Task<OtherDrinkPrice> GetADrinkItemPriceAsync(int OtherDrinkPriceId);
+        //Task<OtherDrinkPrice[]> GetAllDrinkItemPricesAsync();
+        //Task<OtherDrinkPrice> GetADrinkItemPriceAsync(int OtherDrinkPriceId);
 
 
         // MENU ITEM CATEGORY
@@ -189,6 +189,6 @@ namespace Africanacity_Team24_INF370_.models
         Task<Order_MenuItem[]> GetAllOrderedMenuItemsAsync();
 
         //Ordered drinks Items
-        Task<Order_Drink[]> GetAllOrderedDrinksItemsAsync();
+        //Task<Order_Drink[]> GetAllOrderedDrinksItemsAsync();
     }
 }
