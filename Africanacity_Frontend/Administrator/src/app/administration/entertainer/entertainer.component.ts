@@ -34,7 +34,8 @@ export class EntertainerComponent {
             alert('Entertainer deleted successfully!');
             // Refresh the list of entertainers after deletion
             this.GetEntertainers();
-            this.ActionLoading = false; // Set loading back to false in case of an error
+            this.ActionLoading = false; 
+            location.reload()// Set loading back to false in case of an error
           },
           (error) => {
             console.error('Error deleting entertainer:', error);

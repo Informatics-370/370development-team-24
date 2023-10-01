@@ -27,12 +27,14 @@ import { ViewHelpComponent } from './components/view-profile/view-help/view-help
 import { DigitalComponent } from './General Home/digital/digital.component';
 import { NgModule } from '@angular/core';
 import { MenuComponent } from './components/menu/menu.component';
+import { OtpComponent } from './components/otp/otp.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'welcome', pathMatch:'full'},
   {path:'login', component:LoginComponent},
   {path:'signup', component:SignupComponent},
   {path:'reset', component:ResetComponent},
+  {path: 'otp', component:OtpComponent},
   {path:'navbar',component: NavbarComponent},
   {path:'update-profile', component:UpdateProfileComponent, canActivate:[AuthGuard]},
   {path:'booking/:id', component:BookingComponent, canActivate:[AuthGuard]},

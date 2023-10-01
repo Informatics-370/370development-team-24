@@ -215,7 +215,8 @@ export class MenuTypesComponent implements OnInit {
     });
   }
 
-  deleteMenuType(menu_TypeId: Number) {
+  deleteMenuType(menu_TypeId: Number | undefined ) {
+    if (menu_TypeId !== undefined) {
     this.dataService.deleteMenuType(menu_TypeId).subscribe(
       () => {
         // Deletion was successful
@@ -235,5 +236,6 @@ export class MenuTypesComponent implements OnInit {
         );
       }
     );
+    }
   }
 }

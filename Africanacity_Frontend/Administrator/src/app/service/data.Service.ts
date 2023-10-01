@@ -29,7 +29,7 @@ import { FoodTypeViewModel } from '../shared/foodTypeViewModel';
 export class DataService {
   
 
-  apiUrl = 'http://localhost:49991/api/'
+  apiUrl = 'https://localhost:49991/api/'
 
   httpOptions ={
     headers: new HttpHeaders({
@@ -303,9 +303,9 @@ export class DataService {
     return this.httpClient.post(`${this.apiUrl}DrinkType/AddDrinkType`, drinkType, this.httpOptions)
   }
 
-  EditDrinkType(drinkTypeId: number, drinkType: DrinkType)
+  EditDrinkType(Drink_TypeId: number, drinkType: DrinkType)
   {
-    return this.httpClient.put(`${this.apiUrl}DrinkType/EditDrinkType/${drinkTypeId}`, drinkType, this.httpOptions)
+    return this.httpClient.put(`${this.apiUrl}DrinkType/EditDrinkType/${Drink_TypeId}`, drinkType, this.httpOptions)
   }
 
   DeleteDrinkType(drinkTypeId: number)

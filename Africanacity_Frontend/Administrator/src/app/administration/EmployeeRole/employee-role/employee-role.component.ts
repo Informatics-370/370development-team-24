@@ -137,6 +137,9 @@ export class EmployeeRoleComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetAllEmployeeRoles();
+
+    this.filteredemployeeroles = this.employeeroles
+    console.log(this.filteredemployeeroles)
   }
 
   GetAllEmployeeRoles() {
@@ -149,13 +152,11 @@ export class EmployeeRoleComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
 
-    this.filteredemployeeroles = this.employeeroles.filter((EmployeeRole) => {
+    this.filteredemployeeroles = this.employeeroles.filter(EmployeeRole => {
       const column2Value = EmployeeRole.name.toLowerCase();
       const column3Value = EmployeeRole.description.toLowerCase();
 
-      return (
-        column2Value.includes(filterValue) || column3Value.includes(filterValue)
-      );
+      return column2Value.includes(filterValue) || column3Value.includes(filterValue);
     });
   }
 

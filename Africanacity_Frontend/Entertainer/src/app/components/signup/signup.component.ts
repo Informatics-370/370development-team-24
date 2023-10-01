@@ -37,7 +37,8 @@ export class SignupComponent implements OnInit {
     private fb : FormBuilder, 
     private auth: AuthService, 
     private router: Router,
-    private apiService: BookingService,
+    private bookService: BookingService,
+    private apiService: ApiService,
     private dialog: MatDialog 
     ) { }
 
@@ -108,10 +109,10 @@ export class SignupComponent implements OnInit {
     } else {
       ValidateForm.validateAllFormFields(this.signUpForm); 
     }
-  }
+  } 
 
   GetAllEntertainment(){
-    this.apiService.GetAllEntertainment().subscribe(result => {
+    this.bookService.GetAllEntertainment().subscribe(result => {
       let bookingList:any[] = result
      bookingList.forEach((element) => {
         this.entertainmentTypeData.push(element)

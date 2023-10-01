@@ -92,6 +92,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                 if (existingDrinkType == null) return NotFound($"The drink type does not exist");
 
                 existingDrinkType.Name = dtvm.Name;
+               
 
                 if (await _repository.SaveChangesAsync())
                 {

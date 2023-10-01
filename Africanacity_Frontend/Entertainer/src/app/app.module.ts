@@ -41,12 +41,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { MenuComponent } from './components/menu/menu.component';
-
+import { OtpComponent } from './components/otp/otp.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    OtpComponent,
     SignupComponent,
     NavbarComponent,
     ResetComponent,
@@ -103,3 +104,4 @@ import { MenuComponent } from './components/menu/menu.component';
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
+

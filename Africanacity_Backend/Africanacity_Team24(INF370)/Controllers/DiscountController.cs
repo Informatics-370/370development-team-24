@@ -61,9 +61,12 @@ namespace Africanacity_Team24_INF370_.Controllers
         [Route("AddADiscountPercentage")]
         public async Task<IActionResult> AddADiscountPercentage(DiscountViewModel dvm)
         {
-            var discountPercentage = new Discount { Name = dvm.Name, Description = dvm.Description, 
+            var discountPercentage = new Discount { 
+                Name = dvm.Name, 
+                Description = dvm.Description, 
                 Amount = dvm.Amount,
-            Start_Date = dvm.Start_Date, End_Date = dvm.End_Date};
+                Start_Date = dvm.Start_Date,
+                End_Date = dvm.End_Date};
 
             try
             {

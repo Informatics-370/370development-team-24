@@ -3,6 +3,6 @@ export class Discount {
     name!: string;
     description!: string;
     amount!: number;
-    start_date!: Date;
-    end_date!: Date;
+    start_Date!: Date;
+    end_Date!: Date;
 }

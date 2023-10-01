@@ -1941,12 +1941,7 @@ namespace Africanacity_Team24_INF370_.models
                          Date = DateTime.Now
 
                      });
-            //Many to many with Schedule
-            modelBuilder.Entity<Schedule>()
-                        .HasOne(m => m.Schedule_Status)
-                        .WithMany()
-                        .HasForeignKey(m => m.Schedule_StatusId)
-                        .OnDelete(DeleteBehavior.Restrict);
+
 
 			modelBuilder.Entity<Schedule>()
             .HasOne(m => m.Event)
@@ -1991,32 +1986,55 @@ namespace Africanacity_Team24_INF370_.models
 			 .OnDelete(DeleteBehavior.Restrict);
 
 
+			//Many to many with Schedule
+		
+			modelBuilder.Entity<Schedule>()
+			.HasOne(m => m.Event)
+			.WithMany()
+			.HasForeignKey(m => m.EventId)
+			.OnDelete(DeleteBehavior.Restrict);
+
+
+
+			//Many to many with MenuItem
+			modelBuilder.Entity<MenuItem>()
+						.HasOne(m => m.Menu_Type)
+						.WithMany()
+						.HasForeignKey(m => m.Menu_TypeId)
+						 .OnDelete(DeleteBehavior.Restrict);
+
+			modelBuilder.Entity<MenuItem>()
+			.HasOne(m => m.MenuItem_Category)
+			.WithMany()
+			.HasForeignKey(m => m.Menu_CategoryId)
+			.OnDelete(DeleteBehavior.Restrict);
+
+			modelBuilder.Entity<MenuItem>()
+			.HasOne(m => m.Food_Type)
+			.WithMany()
+			.HasForeignKey(m => m.FoodTypeId)
+			 .OnDelete(DeleteBehavior.Restrict);
+
+
 			//one to many with Drink table
 			modelBuilder.Entity<Drink>()
-                        .HasOne(m => m.Drink_Type)
-                        .WithMany()
-                        .HasForeignKey(m => m.Drink_TypeId)
+						.HasOne(m => m.Drink_Type)
+						.WithMany()
+						.HasForeignKey(m => m.Drink_TypeId)
 						 .OnDelete(DeleteBehavior.Restrict);
 
 
 
 			//One to many with other drink table 
 			modelBuilder.Entity<OtherDrink>()
-                       .HasOne(m => m.Drink_Type)
-                       .WithMany()
-                       .HasForeignKey(m => m.Drink_TypeId)
+					   .HasOne(m => m.Drink_Type)
+					   .WithMany()
+					   .HasForeignKey(m => m.Drink_TypeId)
 						.OnDelete(DeleteBehavior.Restrict);
 
 
-            //one to many between menu type and menu category
-            modelBuilder.Entity<MenuItem_Category>()
-                        .HasOne(m => m.Menu_Type)
-                        .WithMany()
-                        .HasForeignKey(m => m.Menu_TypeId);
 
-
-
-            // For the Access_UserRole M2M payload (Uncomment code below and run migration to generate tables)
+			// For the Access_UserRole M2M payload (Uncomment code below and run migration to generate tables)
 			modelBuilder.Entity<Access_UserRole>()
 	.HasKey(aur => new { aur.AccessId, aur.User_RoleId });
 
@@ -2041,7 +2059,6 @@ namespace Africanacity_Team24_INF370_.models
 				.WithMany(ur => ur.Access_UserRoles)
 				.OnDelete(DeleteBehavior.Restrict);
 
-			
 
 			// For the Supplier_InventoryItem M2M payload (Uncomment code below and run migration to generate tables)
 			modelBuilder.Entity<Inventory_Item>()
@@ -2051,47 +2068,85 @@ namespace Africanacity_Team24_INF370_.models
 			 (tg => tg.HasOne<Supplier>().WithMany(),
 				  tg => tg.HasOne<Inventory_Item>().WithMany());
 
-            // Configure the many-to-many relationship between KitchenOrder and MenuItem
-            modelBuilder.Entity<Order_MenuItem>()
-                .HasKey(om => new { om.KitchenOrderId, om.MenuItemId });
-		
+
+			// Configure the many-to-many relationship between KitchenOrder and MenuItem
+			modelBuilder.Entity<Order_MenuItem>()
+				.HasKey(om => new { om.KitchenOrderId, om.MenuItemId });
+
 
 			modelBuilder.Entity<Order_MenuItem>()
-                .HasOne(om => om.KitchenOrder)
-                .WithMany(ko => ko.OrderedMenuItems)
-                .HasForeignKey(om => om.KitchenOrderId)
+				.HasOne(om => om.KitchenOrder)
+				.WithMany(ko => ko.OrderedMenuItems)
+				.HasForeignKey(om => om.KitchenOrderId)
 				 .OnDelete(DeleteBehavior.Restrict);
 
 			modelBuilder.Entity<Order_MenuItem>()
-                .HasOne(om => om.MenuItem)
-                .WithMany()
-                .HasForeignKey(om => om.MenuItemId)
-                .OnDelete(DeleteBehavior.Restrict);
+				.HasOne(om => om.MenuItem)
+				.WithMany()
+				.HasForeignKey(om => om.MenuItemId)
+				.OnDelete(DeleteBehavior.Restrict);
 
 			// Configure the many-to-many relationship between KitchenOrder and OtherDrink
 			modelBuilder.Entity<Order_Drink>()
-                .HasKey(od => new { od.KitchenOrderId, od.OtherDrinkId });
+				.HasKey(od => new { od.KitchenOrderId, od.OtherDrinkId });
 
-            modelBuilder.Entity<Order_Drink>()
-                .HasOne(od => od.KitchenOrder)
-                .WithMany(ko => ko.OrderedDrinks)
-                .HasForeignKey(od => od.KitchenOrderId)
+			modelBuilder.Entity<Order_Drink>()
+				.HasOne(od => od.KitchenOrder)
+				.WithMany(ko => ko.OrderedDrinks)
+				.HasForeignKey(od => od.KitchenOrderId)
 				 .OnDelete(DeleteBehavior.Restrict);
 
 			modelBuilder.Entity<Order_Drink>()
-                .HasOne(od => od.OtherDrink)
-                .WithMany()
-                .HasForeignKey(od => od.OtherDrinkId)
+				.HasOne(od => od.OtherDrink)
+				.WithMany()
+				.HasForeignKey(od => od.OtherDrinkId)
 				 .OnDelete(DeleteBehavior.Restrict);
 
 			// Configure the inverse relationship between MenuItem and OrderedMenuItems
 			modelBuilder.Entity<MenuItem>()
-                .HasMany(mi => mi.OrderedMenuItems)
-                .WithOne(omi => omi.MenuItem)
-                .HasForeignKey(omi => omi.MenuItemId)
+				.HasMany(mi => mi.OrderedMenuItems)
+				.WithOne(omi => omi.MenuItem)
+				.HasForeignKey(omi => omi.MenuItemId)
 				 .OnDelete(DeleteBehavior.Restrict);
 
-           
-        }
+			modelBuilder.Entity<Entertainment_Type>()
+					.HasMany(et => et.Users)
+					.WithOne(u => u.Entertainment_Type)
+					.HasForeignKey(u => u.Entertainment_TypeId)
+					.OnDelete(DeleteBehavior.Restrict);
+
+			modelBuilder.Entity<Entertainment_Type>()
+				.HasMany(et => et.Pending_Bookings)
+				.WithOne(pb => pb.EntertainmentType)
+				.HasForeignKey(pb => pb.Entertainment_TypeId)
+				.OnDelete(DeleteBehavior.Restrict);
+
+			modelBuilder.Entity<Employee_Role>()
+			  .HasMany(er => er.Employees)
+			  .WithOne(e => e.Employee_Role)
+			  .HasForeignKey(e => e.Employee_RoleId)
+			  .OnDelete(DeleteBehavior.Restrict);
+
+			modelBuilder.Entity<Supplier_Type>()
+			  .HasMany(st => st.Suppliers)
+			  .WithOne(s => s.Supplier_Type)
+			  .HasForeignKey(s => s.Supplier_TypeId)
+			  .OnDelete(DeleteBehavior.Restrict);
+
+			modelBuilder.Entity<Event>()
+				.HasMany(e => e.Schedules)
+				.WithOne(s => s.Event)
+				.HasForeignKey(s => s.EventId)
+				.OnDelete(DeleteBehavior.Restrict);
+
+			modelBuilder.Entity<Inventory_Type>()
+				   .HasMany(it => it.Inventory_Items)
+				   .WithOne(ii => ii.Inventory_Type)
+				   .HasForeignKey(ii => ii.Inventory_TypeId)
+				   .OnDelete(DeleteBehavior.Restrict);
+
+			base.OnModelCreating(modelBuilder);
+
+		}
 	}
 }

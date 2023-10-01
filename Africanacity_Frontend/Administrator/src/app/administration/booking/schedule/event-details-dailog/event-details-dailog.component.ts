@@ -32,7 +32,7 @@ export class EventDetailsDailogComponent {
   }
 
   deleteItem(): void {
-    const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete this slot?', 'Delete  Cancel',{
+    const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete this slot?', 'Delete',{
       duration: 5000, // Display duration in milliseconds
 
     });

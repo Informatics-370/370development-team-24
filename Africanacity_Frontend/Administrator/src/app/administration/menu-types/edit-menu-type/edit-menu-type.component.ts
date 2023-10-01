@@ -78,7 +78,8 @@ export class EditMenuTypeComponent implements OnInit{
         (error) => {
           // Handle error
         }
-      );
+      )
+      
   
       this.showSuccessMessage('Menu Type edited successfully!');
     } else {

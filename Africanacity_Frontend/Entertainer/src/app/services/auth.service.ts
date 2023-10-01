@@ -6,6 +6,7 @@ import { TokenApiModel } from '../models/token-api.model';
 import { Observable } from 'rxjs';
 import { ResetPassword } from '../models/reset-password.model';
 import { UpdatePassword } from '../models/Update';
+import { User } from '../models/User';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,17 @@ export class AuthService {
 
   private baseUrl: string = 'https://localhost:49991/api/User/';
   private userPayload:any;
-  constructor(private http: HttpClient, private router: Router) {
+
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
+  
+  constructor(
+    private http: HttpClient, 
+    private router: Router
+    ) {
     this.userPayload = this.decodedToken();
    }
 
@@ -29,6 +40,9 @@ export class AuthService {
     return this.http.post<any>(`${this.baseUrl}ChangePassword`, request, { headers });
   }
   
+  ValidateOtp(user: User){
+    return this.http.post(`${this.baseUrl}Otp`, user, this.httpOptions)
+  }
   
   
   signUp(userObj: any) {

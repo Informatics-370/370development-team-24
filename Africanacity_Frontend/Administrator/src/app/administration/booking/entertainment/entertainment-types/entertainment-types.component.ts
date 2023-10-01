@@ -132,10 +132,18 @@ export class EntertainmentTypesComponent implements OnInit {
     this.filteredTypes = this.entertainments; // Initialize the filtered list
   }
 
-  GetEntertainmentTypes() {
-    this.dataService.GetEntertainmentTypes().subscribe((result) => {
-      this.entertainments = result as Entertainment_Type[];
-    });
+
+
+  
+  GetEntertainmentTypes()
+  {
+    this.dataService.GetEntertainmentTypes().subscribe(result => {
+      let eventsList:any[] = result
+      eventsList.forEach((element) => {
+        this.entertainments.push(element)
+        
+      });
+    })
   }
 
   applyFilter(event: Event) {

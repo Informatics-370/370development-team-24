@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { InventoryService } from 'src/app/service/inventory.service';
 import { InventoryItem } from 'src/app/shared/inventoryitem';
@@ -39,7 +39,7 @@ export class ViewInventoryitemsComponent implements OnInit {
   ) {}
 
   deleteItem(): void {
-    const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete this supplier?', 'Delete, Cancel',{
+    const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete this inventory item?', 'Delete ',{
       duration: 5000, // Display duration in milliseconds
 
     });
@@ -96,6 +96,8 @@ deleteItemFromServer(): void {
         this.inventoryservice.SendEmailNotification(inventoryItem, this.predefinedLevel).subscribe(
           () => {
             console.log('Notification sent successfully.');
+            this.showSuccessMessage('Email sent successfully');
+
           },
           (error: any) => {
             console.error('Failed to send notification:', error);
@@ -110,6 +112,7 @@ deleteItemFromServer(): void {
       () => {
         console.log('Inventory item updated successfully.'); // Success message or additional logic if needed
         this.updateInventoryItemInArray(inventoryItem); // Update the item in the array
+        this.showSuccessMessage('Email sent successfully');
       },
       (error: any) => {
         console.error('Failed to update inventory item:', error);
@@ -172,6 +175,15 @@ deleteItemFromServer(): void {
     
       dialogRef.afterClosed().subscribe(result => {
         // Handle modal close if needed
+      });
+    }
+
+
+    showSuccessMessage(message:string) : void {
+      const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(message, 'Ok', {
+        duration: 3000, // Duration in milliseconds
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom'
       });
     }
 }

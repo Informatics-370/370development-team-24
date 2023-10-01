@@ -15,6 +15,7 @@ namespace Africanacity_Team24_INF370_.models
 		public string? Token { get; set; }
 		public string? Role { get; set; }
 		public string? Email { get; set; }
+		public string? OTP { get; set; }
 
 		[DataType(DataType.PhoneNumber)]
 		[StringLength(10)]

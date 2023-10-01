@@ -16,10 +16,9 @@
                 
                     <i class="fa fa-filter" aria-hidden="true"></i>
                     <button (click)="filterBySupplierType('all')">All</button>
-                    <button (click)="filterBySupplierType('General')">General</button>
-                    <button (click)="filterBySupplierType('Alcohol')">Alcohol</button>
-                    <button (click)="filterBySupplierType('Bakery')">Bakery</button>
-                    <button (click)="filterBySupplierType('Meat and Poultry')">Meat and Poultry</button>
+                    <span *ngFor="let type of supplierType">
+                        <button (click)="filterBySupplierType(type.name)">{{ type.name }}</button>
+                    </span>
                 </div> <br /> <br />
             </div> <br />
             

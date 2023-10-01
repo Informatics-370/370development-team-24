@@ -59,8 +59,8 @@ export class AddDiscountComponent implements OnInit{
     discounts.name= this.discountform.value.name;
     discounts.description = this.discountform.value.description;
     discounts.amount = this.discountform.value.amount;
-    discounts.start_date = currentDate as Date; 
-    discounts.end_date = this.discountform.value.end_date;
+    discounts.start_Date = currentDate as Date; 
+    discounts.end_Date = this.discountform.value.end_date;
 
   
   

@@ -66,7 +66,7 @@ export class SupplierComponent implements OnInit {
     doc.text('Supplier Report', 105, 25, { align: 'center' });
   
     // Add logo to the top left corner of the first page
-    const logoImageUrl = 'assets/Pictures/Logo Black.png'; 
+    const logoImageUrl = '/assets/Pictures/Logo Black.png'; 
     const logoWidth = 10; 
     const logoHeight = 10; 
     doc.addImage(logoImageUrl, 'PNG', 100, 5, logoWidth, logoHeight);

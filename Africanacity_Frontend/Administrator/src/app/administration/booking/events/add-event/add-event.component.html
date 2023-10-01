@@ -33,7 +33,7 @@
                 </div>
 
                 <div>
-                  <input formControlName="image" type="file" id="image" #file placeholder="Choose event image" (change)="uploadFile(file.files)" style="display:none;"> Choose Image
+                  <input formControlName="image" type="file" id="image" #file placeholder="Choose event image" (change)="uploadFile(file.files)" style="display:none;"  accept="image/*"> Choose Image
                   <button color="primary" (click)="file.click()">Upload File</button>
                   <span *ngIf="fileNameUploaded.length > 0"> {{fileNameUploaded}}</span>
                 </div><br>

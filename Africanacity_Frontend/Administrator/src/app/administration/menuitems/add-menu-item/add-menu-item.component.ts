@@ -10,15 +10,18 @@ import { MatDialog } from '@angular/material/dialog';
 import { HelpAddmenuitemComponent } from './help-addmenuitem/help-addmenuitem.component';
 import { MenuCategoryFoodType } from 'src/app/shared/menuCategoryFoodType';
 
-function salaryNonNegativeValidator(control: FormControl): { [key: string]: any } | null {
-  const salary = control.value;
-  
-  if (salary !== null && (isNaN(salary) || salary <= 0)) {
-    return { 'invalidSalary': true };
-  }
-  
-  return null;
+function salaryNonNegativeValidator(control: FormControl): Promise<{ [key: string]: any } | null> {
+  return new Promise((resolve) => {
+    const amount = control.value;
+    
+    if (amount !== null && (isNaN(amount) || amount <= 0)) {
+      resolve({ 'invalidSalary': true });
+    } else {
+      resolve(null);
+    }
+  });
 }
+
 
 @Component({
   selector: 'app-add-menu-item',
