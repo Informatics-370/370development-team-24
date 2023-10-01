@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from 'src/app/service/data.Service';
-import { KitchenOrder } from 'src/app/shared/Kitchen_Order';
+import { Order } from 'src/app/shared/order';
 import { VAT } from 'src/app/shared/Vat';
 import { Discount } from 'src/app/shared/Discount';
 import { jsPDF } from 'jspdf';
@@ -16,7 +16,7 @@ import { UserStoreService } from 'src/app/UserService/user-store.service';
   styleUrls: ['./sales.component.css']
 })
 export class SalesComponent implements OnInit{
-  KitchenOrders: KitchenOrder[] = [];
+  Orders: Order[] = [];
   Vat: VAT[] = [];
   Discount: Discount[] = [];
   userName: string = "";
@@ -28,14 +28,14 @@ export class SalesComponent implements OnInit{
 
   ngOnInit() {
     this.GetAllKitchenOrders();
-    console.log("data", this.KitchenOrders)
+    console.log("data", this.Orders)
   }
 
   // Getting all kitchen orders
   GetAllKitchenOrders()
   {
     this.dataService.getAllKitchenOrders().subscribe(result => {
-      this.KitchenOrders = result;
+      this.Orders = result;
     })
   }
 
@@ -77,11 +77,11 @@ export class SalesComponent implements OnInit{
     const headers = ['', 'Order Date', 'Order Number', 'Subtotal', 'Vat', 'Discount', 'Unit Price', 'Total Product Price'];
         
     // Default: Display kitchen orders by Order Id
-    let ordersToDisplay = this.KitchenOrders;
+    let ordersToDisplay = this.Orders;
 
     const data = ordersToDisplay.map(order => [
       order.kitchenOrderId,
-      order.Order_Date,
+      order.orderDate,
       order.kitchenOrderNumber,
       order.Subtotal,
       order.Vat,
