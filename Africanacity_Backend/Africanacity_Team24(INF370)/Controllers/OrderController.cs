@@ -31,118 +31,118 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
         //Add kitchen order
-        [HttpPost]
-        [Route("AddKitchenOrder")]
-        public IActionResult AddKitchenOrder (KitchenOrderDto kitchenOrderDto)
-        {
-            try
-            {
-                var kitchenOrder = new KitchenOrder
-                {
-                    TableNumber = kitchenOrderDto.TableNumber,
-                    KitchenOrderNumber = kitchenOrderDto.KitchenOrderNumber,
-                    Subtotal = kitchenOrderDto.Subtotal,
-                    VAT = kitchenOrderDto.VAT,
-                    Discount = kitchenOrderDto.Discount,
-                    Total = kitchenOrderDto.Total,
-                    Order_Date = DateTime.Now,
-                    OrderedMenuItems = new List<Order_MenuItem>(),
-                    OrderedDrinks = new List<Order_Drink>()
+        //[HttpPost]
+        //[Route("AddKitchenOrder")]
+        //public IActionResult AddKitchenOrder (KitchenOrderDto kitchenOrderDto)
+        //{
+        //    try
+        //    {
+        //        var kitchenOrder = new KitchenOrder
+        //        {
+        //            TableNumber = kitchenOrderDto.TableNumber,
+        //            KitchenOrderNumber = kitchenOrderDto.KitchenOrderNumber,
+        //            Subtotal = kitchenOrderDto.Subtotal,
+        //            VAT = kitchenOrderDto.VAT,
+        //            Discount = kitchenOrderDto.Discount,
+        //            Total = kitchenOrderDto.Total,
+        //            Order_Date = DateTime.Now,
+        //            OrderedMenuItems = new List<Order_MenuItem>(),
+        //            //OrderedDrinks = new List<Order_Drink>()
 
-                };
+        //        };
 
-                foreach (var Item in kitchenOrderDto.orderMenuItemDtos )
-                {
-                    var menuItem = _appDbContext.MenuItems.FirstOrDefault(x => x.MenuItemId == Item.MenuItemId);
+        //        foreach (var Item in kitchenOrderDto.orderMenuItemDtos )
+        //        {
+        //            var menuItem = _appDbContext.MenuItems.FirstOrDefault(x => x.MenuItemId == Item.MenuItemId);
 
-                    if(menuItem != null)
-                    {
-                        var kitchenOrderMenuItem = new Order_MenuItem
-                        {
-                            MenuItemId = menuItem.MenuItemId,
-                            Quantity = Item.Quantity,
-                        };
-                        kitchenOrder.OrderedMenuItems.Add(kitchenOrderMenuItem);
+        //            if(menuItem != null)
+        //            {
+        //                var kitchenOrderMenuItem = new Order_MenuItem
+        //                {
+        //                    MenuItemId = menuItem.MenuItemId,
+        //                    Quantity = Item.Quantity,
+        //                };
+        //                kitchenOrder.OrderedMenuItems.Add(kitchenOrderMenuItem);
 
-                    }
+        //            }
                    
 
-                    ////fetch corresponding menu item from database
-                    //var menuItem = _appDbContext.MenuItems.FirstOrDefault(x => x.MenuItemId == kitchenOrderMenuItem.MenuItemId);
-                    //_appDbContext.Order_MenuItems.Add(kitchenOrderMenuItem);
-                }
+        //            ////fetch corresponding menu item from database
+        //            //var menuItem = _appDbContext.MenuItems.FirstOrDefault(x => x.MenuItemId == kitchenOrderMenuItem.MenuItemId);
+        //            //_appDbContext.Order_MenuItems.Add(kitchenOrderMenuItem);
+        //        }
 
 
-                // for my drinks order items 
-                foreach (var Item in kitchenOrderDto.orderDrinkDtos)
-                {
-                    var drinkItem = _appDbContext.OtherDrinks.FirstOrDefault(x => x.OtherDrinkId == Item.OtherDrinkId);
-                    if(drinkItem != null)
-                    {
-                        var kitchenOrderDrinkItem = new Order_Drink
-                        {
-                            OtherDrinkId = drinkItem.OtherDrinkId,
-                            Quantity = Item.Quantity,
-                        };
-                        kitchenOrder.OrderedDrinks.Add(kitchenOrderDrinkItem);
+        //        // for my drinks order items 
+        //        foreach (var Item in kitchenOrderDto.orderDrinkDtos)
+        //        {
+        //            var drinkItem = _appDbContext.OtherDrinks.FirstOrDefault(x => x.OtherDrinkId == Item.OtherDrinkId);
+        //            if(drinkItem != null)
+        //            {
+        //                //var kitchenOrderDrinkItem = new Order_Drink
+        //                //{
+        //                //    OtherDrinkId = drinkItem.OtherDrinkId,
+        //                //    Quantity = Item.Quantity,
+        //                //};
+        //                //kitchenOrder.OrderedDrinks.Add(kitchenOrderDrinkItem);
 
-                    }
+        //            }
                     
                     
 
-                    ////fetch corresponding menu item from database
-                    //var drinkItem = _appDbContext.OtherDrinks.FirstOrDefault(x => x.OtherDrinkId == kitchenOrderDrinkItem.OrderDrinkId);
-                    //_appDbContext.Order_Drinks.Add(kitchenOrderDrinkItem);
+        //            ////fetch corresponding menu item from database
+        //            //var drinkItem = _appDbContext.OtherDrinks.FirstOrDefault(x => x.OtherDrinkId == kitchenOrderDrinkItem.OrderDrinkId);
+        //            //_appDbContext.Order_Drinks.Add(kitchenOrderDrinkItem);
 
-                }
+        //        }
 
-                _appDbContext.KitchenOrders.Add(kitchenOrder);
-                _appDbContext.SaveChanges();
-                return Ok();
-            }
+        //        _appDbContext.KitchenOrders.Add(kitchenOrder);
+        //        _appDbContext.SaveChanges();
+        //        return Ok();
+        //    }
              
 
-            catch (Exception ex)
-            {
-                return BadRequest($"Cannot save : {ex.Message}");
-            }
-        }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest($"Cannot save : {ex.Message}");
+        //    }
+        //}
 
 
         //GET KITCHEN ORDER BY ID
-        [HttpGet]
-        [Route("GetKitchenOrderById/{KitchenOrderId}")]
-        public IActionResult GetKitchenOrderById(int KitchenOrderId)
-        {
-            try
-            {
-                // Create JsonSerializerOptions with ReferenceHandler.Preserve
+        //[HttpGet]
+        //[Route("GetKitchenOrderById/{KitchenOrderId}")]
+        //public IActionResult GetKitchenOrderById(int KitchenOrderId)
+        //{
+        //    try
+        //    {
+        //        // Create JsonSerializerOptions with ReferenceHandler.Preserve
                 
-                var kitchenOrder = _appDbContext.KitchenOrders
-                    .Include(o => o.OrderedMenuItems).ThenInclude(omi => omi.MenuItem) // Include related ordered menu items
-                    .Include(o => o.OrderedDrinks).ThenInclude(od => od.OtherDrink)// Include related ordered drinks
-                    .FirstOrDefault(o => o.KitchenOrderId == KitchenOrderId);
+        //        var kitchenOrder = _appDbContext.KitchenOrders
+        //            .Include(o => o.OrderedMenuItems).ThenInclude(omi => omi.MenuItem) // Include related ordered menu items
+        //            .Include(o => o.OrderedDrinks).ThenInclude(od => od.OtherDrink)// Include related ordered drinks
+        //            .FirstOrDefault(o => o.KitchenOrderId == KitchenOrderId);
 
-                if (kitchenOrder == null)
-                {
-                    return NotFound(); // Return a 404 Not Found response
-                }
+        //        if (kitchenOrder == null)
+        //        {
+        //            return NotFound(); // Return a 404 Not Found response
+        //        }
 
-                var jsonSettings = new JsonSerializerSettings
-                {
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                };
+        //        var jsonSettings = new JsonSerializerSettings
+        //        {
+        //            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+        //        };
 
-                var json = JsonConvert.SerializeObject(kitchenOrder, Formatting.Indented, jsonSettings);
+        //        var json = JsonConvert.SerializeObject(kitchenOrder, Formatting.Indented, jsonSettings);
 
-                return Ok(json); // Return a 200 OK response with the kitchen order
-            }
-            catch (Exception ex)
-            {
-                // Handle exceptions, log errors, and return an error response
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
+        //        return Ok(json); // Return a 200 OK response with the kitchen order
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Handle exceptions, log errors, and return an error response
+        //        return StatusCode(500, $"Internal server error: {ex.Message}");
+        //    }
+        //}
 
         // GET ALL KITCHEN ORDERS
         [HttpGet]
@@ -164,7 +164,7 @@ namespace Africanacity_Team24_INF370_.Controllers
                     k.VAT,
                     k.Discount,
                     k.Total,
-                    k.
+                   
                 });
 
 
@@ -215,38 +215,38 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 
         //GET ALL OPTION 2 - ORDER_DRIN
-        [HttpGet]
-        [Route("GetAllOrderedDrinksItems")]
-        public async Task<ActionResult> GetAllOrderedDrinksItems()
-        {
-            try
-            {
+        //[HttpGet]
+        //[Route("GetAllOrderedDrinksItems")]
+        //public async Task<ActionResult> GetAllOrderedDrinksItems()
+        //{
+        //    try
+        //    {
 
-                var results = await _repository.GetAllOrderedDrinksItemsAsync();
-
-
-                dynamic reconitems = results.Select(s => new
-                {
-                    s.OrderDrinkId,
-                    KitchenOrderNumber = s.KitchenOrder.KitchenOrderNumber,
-                    TableNumber = s.KitchenOrder.TableNumber,
-                    DrinkItemName = s.OtherDrink.Name,
-                    s.Quantity,
-
-                });
-
-                return Ok(reconitems);
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
-            }
-        }
+        //        var results = await _repository.GetAllOrderedDrinksItemsAsync();
 
 
+        //        dynamic reconitems = results.Select(s => new
+        //        {
+        //            s.OrderDrinkId,
+        //            KitchenOrderNumber = s.KitchenOrder.KitchenOrderNumber,
+        //            TableNumber = s.KitchenOrder.TableNumber,
+        //            DrinkItemName = s.OtherDrink.Name,
+        //            s.Quantity,
+
+        //        });
+
+        //        return Ok(reconitems);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+        //    }
+        //}
 
 
-        private decimal CalculateSubtotal(List<MenuItem> orderedMenuItems, List<OtherDrink> orderedDrinks)
+
+
+        private decimal CalculateSubtotal(List<MenuItem> orderedMenuItems/* List<OtherDrink> orderedDrinks*/)
         {
             // Implement your subtotal calculation logic here based on the ordered items and drinks in orderDto
             decimal subtotal = 0;
@@ -260,14 +260,14 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
 
             // Add up the prices of ordered drinks
-            foreach (var drink in orderedDrinks)
-            {
-                // Fetch the price of the drink (you may need to query your database for this)
-                decimal drinkPrice = GetDrinkPriceById(drink.OtherDrinkId); // Implement this method
+            //foreach (var drink in orderedDrinks)
+            //{
+            //    // Fetch the price of the drink (you may need to query your database for this)
+            //    decimal drinkPrice = GetDrinkPriceById(drink.OtherDrinkId); // Implement this method
 
-                subtotal += drinkPrice;
+            //    subtotal += drinkPrice;
 
-            }
+            //}
 
             return subtotal;
         }
@@ -345,18 +345,18 @@ namespace Africanacity_Team24_INF370_.Controllers
             return 0; // Handle the case where the price is not found.
         }
 
-        private decimal GetDrinkPriceById(int drinkId)
-        {
-            var drinkPrice = _appDbContext.OtherDrinkPrices
-                .FirstOrDefault(p => p.OtherDrinkId == drinkId);
+        //private decimal GetDrinkPriceById(int drinkId)
+        //{
+        //    var drinkPrice = _appDbContext.OtherDrinkPrices
+        //        .FirstOrDefault(p => p.OtherDrinkId == drinkId);
 
-            if (drinkPrice != null)
-            {
-                return drinkPrice.Amount;
-            }
+        //    if (drinkPrice != null)
+        //    {
+        //        return drinkPrice.Amount;
+        //    }
 
-            return 0; // Handle the case where the price is not found.
-        }
+        //    return 0; // Handle the case where the price is not found.
+        //}
 
         [HttpGet]
         [Route("GetDiscountItem/{DiscountId}")]
@@ -402,43 +402,43 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
         //Edit 
-        [HttpPut]
-        [Route("EditKitchenOrder/{kitchenOrderId}")]
-        public IActionResult EditKitchenOrder(int kitchenOrderId, KitchenOrderEditDto kitchenOrderEditDto)
-        {
-            try
-            {
-                var existingOrder = _appDbContext.KitchenOrders
-                    .Include(o => o.OrderedMenuItems)
-                    .Include(o => o.OrderedDrinks)
-                    .FirstOrDefault(o => o.KitchenOrderId == kitchenOrderId);
+        //[HttpPut]
+        //[Route("EditKitchenOrder/{kitchenOrderId}")]
+        //public IActionResult EditKitchenOrder(int kitchenOrderId, KitchenOrderEditDto kitchenOrderEditDto)
+        //{
+        //    try
+        //    {
+        //        var existingOrder = _appDbContext.KitchenOrders
+        //            .Include(o => o.OrderedMenuItems)
+        //            .Include(o => o.OrderedDrinks)
+        //            .FirstOrDefault(o => o.KitchenOrderId == kitchenOrderId);
 
-                if (existingOrder == null)
-                {
-                    return NotFound(); // Return a 404 Not Found response if the order doesn't exist
-                }
+        //        if (existingOrder == null)
+        //        {
+        //            return NotFound(); // Return a 404 Not Found response if the order doesn't exist
+        //        }
 
-                // Update properties of the existing order with values from kitchenOrderEditDto
-                existingOrder.Subtotal = kitchenOrderEditDto.Subtotal;
-                existingOrder.VAT = kitchenOrderEditDto.VAT;
-                existingOrder.Discount = kitchenOrderEditDto.Discount;
-                existingOrder.Total = kitchenOrderEditDto.Total;
+        //        // Update properties of the existing order with values from kitchenOrderEditDto
+        //        existingOrder.Subtotal = kitchenOrderEditDto.Subtotal;
+        //        existingOrder.VAT = kitchenOrderEditDto.VAT;
+        //        existingOrder.Discount = kitchenOrderEditDto.Discount;
+        //        existingOrder.Total = kitchenOrderEditDto.Total;
 
-                // Handle adding/removing menu items and drinks
-                UpdateMenuOrderedItems(existingOrder.OrderedMenuItems, kitchenOrderEditDto.OrderedItems);
-                UpdateDrinkOrderedItems(existingOrder.OrderedDrinks, kitchenOrderEditDto.OrderedDrinks);
+        //        // Handle adding/removing menu items and drinks
+        //        UpdateMenuOrderedItems(existingOrder.OrderedMenuItems, kitchenOrderEditDto.OrderedItems);
+        //        //UpdateDrinkOrderedItems(existingOrder.OrderedDrinks, kitchenOrderEditDto.OrderedDrinks);
 
-                // Save changes to the database
-                _appDbContext.SaveChanges();
+        //        // Save changes to the database
+        //        _appDbContext.SaveChanges();
 
-                return Ok(); // Return a 200 OK response indicating success
-            }
-            catch (Exception ex)
-            {
-                // Handle exceptions, log errors, and return an error response
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
+        //        return Ok(); // Return a 200 OK response indicating success
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Handle exceptions, log errors, and return an error response
+        //        return StatusCode(500, $"Internal server error: {ex.Message}");
+        //    }
+        //}
 
         // Helper method to update ordered items
         private void UpdateMenuOrderedItems(ICollection<Order_MenuItem> existingItems, List<BothOrderItemEditDto> updatedItems)
@@ -470,34 +470,34 @@ namespace Africanacity_Team24_INF370_.Controllers
             // Handle adding new items here if IsAdded is true in updatedItems
         }
 
-        private void UpdateDrinkOrderedItems(ICollection<Order_Drink> existingItems, List<BothOrderItemEditDto> updatedItems)
-        {
-            // Iterate through the updated items
-            foreach (var updatedItem in updatedItems)
-            {
-                if (updatedItem.IsRemoved)
-                {
-                    // Remove the item if IsRemoved is true
-                    var existingItem = existingItems.FirstOrDefault(item => item.OrderDrinkId == updatedItem.BothOrderItemId);
-                    if (existingItem != null)
-                    {
-                        existingItems.Remove(existingItem);
-                    }
-                }
-                else
-                {
-                    // Update quantity and description for existing items
-                    var existingItem = existingItems.FirstOrDefault(item => item.OrderDrinkId == updatedItem.BothOrderItemId);
-                    if (existingItem != null)
-                    {
-                        existingItem.Quantity = updatedItem.Quantity;
-                        // You can update the description here if needed
-                    }
-                }
-            }
+        //private void UpdateDrinkOrderedItems(ICollection<Order_Drink> existingItems, List<BothOrderItemEditDto> updatedItems)
+        //{
+        //    // Iterate through the updated items
+        //    foreach (var updatedItem in updatedItems)
+        //    {
+        //        if (updatedItem.IsRemoved)
+        //        {
+        //            // Remove the item if IsRemoved is true
+        //            var existingItem = existingItems.FirstOrDefault(item => item.OrderDrinkId == updatedItem.BothOrderItemId);
+        //            if (existingItem != null)
+        //            {
+        //                existingItems.Remove(existingItem);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            // Update quantity and description for existing items
+        //            var existingItem = existingItems.FirstOrDefault(item => item.OrderDrinkId == updatedItem.BothOrderItemId);
+        //            if (existingItem != null)
+        //            {
+        //                existingItem.Quantity = updatedItem.Quantity;
+        //                // You can update the description here if needed
+        //            }
+        //        }
+        //    }
 
-            // Handle adding new items here if IsAdded is true in updatedItems
-        }
+        //    // Handle adding new items here if IsAdded is true in updatedItems
+        //}
 
 
 

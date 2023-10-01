@@ -31,6 +31,8 @@ namespace Africanacity_Team24_INF370_.models
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Gender> Genders { get; set; }
 
+  //      public DbSet<Help> Helps { get; set; }
+		//public DbSet<Help_Category> Help_Categories{ get; set; }
 		public DbSet<Password> Passwords { get; set; }
 		public DbSet<Title> Titles { get; set; }
 		public DbSet<User> Users { get; set; }
@@ -81,6 +83,7 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<Order_Status> Order_Statuses { get; set; }
            
         public DbSet<OrderType> OrderTypes { get; set; }
+		//public DbSet<Payment> Payments { get; set; }
 		public DbSet<Payment_Method> Payment_Methods { get; set; }
 		public DbSet<Table_Number> Table_Numbers { get; set; }
 
@@ -88,10 +91,11 @@ namespace Africanacity_Team24_INF370_.models
         public DbSet<Order_MenuItem> Order_MenuItems { get; set; }
         public DbSet<Order_Drink> Order_Drinks { get; set; }
         public DbSet<MenuCategoryFoodType> MenuCategoryFoodTypes { get; set; }
+        //public DbSet<Order_Drink> Order_Drinks { get; set; }
 
         //Second option drink table
-        public DbSet<OtherDrink> OtherDrinks { get; set; }
-        public DbSet<OtherDrinkPrice> OtherDrinkPrices { get; set; }
+        //public DbSet<OtherDrink> OtherDrinks { get; set; }
+        //public DbSet<OtherDrinkPrice> OtherDrinkPrices { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 
@@ -611,25 +615,6 @@ namespace Africanacity_Team24_INF370_.models
 
 						});
 			
-		
-
-			//create seed data for menu type
-            //modelBuilder.Entity<Menu_Type>()
-             //             .HasData(
-             //             new
-            //              {
-            //                  Menu_TypeId = 1,
-             //                 Name = "Breakfast"
-
-
-			////create seed data for menu type
-   //         modelBuilder.Entity<Menu_Type>()
-   //                       .HasData(
-   //                       new
-   //                       {
-   //                           Menu_TypeId = 1,
-   //                           Name = "Breakfast"
-
 
             //******************************************************************************* Create Seed Data For The Employee Role Table:
             modelBuilder.Entity<Employee_Role>()
@@ -1612,59 +1597,59 @@ namespace Africanacity_Team24_INF370_.models
 
 
             //dummy data for other drink
-            modelBuilder.Entity<OtherDrink>()
-                        .HasData(
-                        new
-                        {
-                            OtherDrinkId = 1,
-                            Name = "Margarita",
-                            Description = "Vodka, pineapple juice and lemon syrup",
-                            Drink_TypeId = 1,
-                        });
-            modelBuilder.Entity<OtherDrink>()
-                        .HasData(
-                        new
-                        {
-                            OtherDrinkId = 2,
-                            Name = "Frozen Lemonade",
-                            Description = "Crushed ice lemonade juice ",
-                            Drink_TypeId = 2,
-                        });
-            modelBuilder.Entity<OtherDrink>()
-                       .HasData(
-                       new
-                       {
-                           OtherDrinkId = 3,
-                           Name = "Strawberry Diaquri ",
-                           Description = "Crushed ice, strawberry lemonade, vodka, strawberry syrup",
-                           Drink_TypeId = 1,
-                       });
+            //modelBuilder.Entity<OtherDrink>()
+            //            .HasData(
+            //            new
+            //            {
+            //                OtherDrinkId = 1,
+            //                Name = "Margarita",
+            //                Description = "Vodka, pineapple juice and lemon syrup",
+            //                Drink_TypeId = 1,
+            //            });
+            //modelBuilder.Entity<OtherDrink>()
+            //            .HasData(
+            //            new
+            //            {
+            //                OtherDrinkId = 2,
+            //                Name = "Frozen Lemonade",
+            //                Description = "Crushed ice lemonade juice ",
+            //                Drink_TypeId = 2,
+            //            });
+            //modelBuilder.Entity<OtherDrink>()
+            //           .HasData(
+            //           new
+            //           {
+            //               OtherDrinkId = 3,
+            //               Name = "Strawberry Diaquri ",
+            //               Description = "Crushed ice, strawberry lemonade, vodka, strawberry syrup",
+            //               Drink_TypeId = 1,
+            //           });
 
             //seed data for the otherdrink price table
-            modelBuilder.Entity<OtherDrinkPrice>()
-                       .HasData(
-                       new
-                       {
-                           OtherDrinkPriceId = 1,
-                           OtherDrinkId = 1,
-                           Amount = 69m
-                       }); 
-            modelBuilder.Entity<OtherDrinkPrice>()
-                        .HasData(
-                        new
-                        {
-                            OtherDrinkPriceId = 2,
-                            OtherDrinkId = 2,
-                            Amount = 60m
-                        });
-            modelBuilder.Entity<OtherDrinkPrice>()
-                       .HasData(
-                       new
-                       {
-                           OtherDrinkPriceId = 3,
-                           OtherDrinkId = 3,
-                           Amount = 75m
-                       });
+            //modelBuilder.Entity<OtherDrinkPrice>()
+            //           .HasData(
+            //           new
+            //           {
+            //               OtherDrinkPriceId = 1,
+            //               OtherDrinkId = 1,
+            //               Amount = 69m
+            //           }); 
+            //modelBuilder.Entity<OtherDrinkPrice>()
+            //            .HasData(
+            //            new
+            //            {
+            //                OtherDrinkPriceId = 2,
+            //                OtherDrinkId = 2,
+            //                Amount = 60m
+            //            });
+            //modelBuilder.Entity<OtherDrinkPrice>()
+            //           .HasData(
+            //           new
+            //           {
+            //               OtherDrinkPriceId = 3,
+            //               OtherDrinkId = 3,
+            //               Amount = 75m
+            //           });
 
             //create seed data drink prices 
             modelBuilder.Entity<Drink_Price>()
@@ -2023,6 +2008,11 @@ namespace Africanacity_Team24_INF370_.models
 						.WithMany()
 						.HasForeignKey(m => m.Drink_TypeId)
 						 .OnDelete(DeleteBehavior.Restrict);
+            //One to many with other drink table 
+            //modelBuilder.Entity<OtherDrink>()
+            //           .HasOne(m => m.Drink_Type)
+            //           .WithMany()
+            //           .HasForeignKey(m => m.Drink_TypeId);
 
 
 
@@ -2096,6 +2086,20 @@ namespace Africanacity_Team24_INF370_.models
 				.WithMany(ko => ko.OrderedDrinks)
 				.HasForeignKey(od => od.KitchenOrderId)
 				 .OnDelete(DeleteBehavior.Restrict);
+                 
+            // Configure the many-to-many relationship between KitchenOrder and OtherDrink
+            //modelBuilder.Entity<Order_Drink>()
+            //    .HasKey(od => new { od.KitchenOrderId, od.OtherDrinkId });
+
+            //modelBuilder.Entity<Order_Drink>()
+            //    .HasOne(od => od.KitchenOrder)
+            //    .WithMany(ko => ko.OrderedDrinks)
+            //    .HasForeignKey(od => od.KitchenOrderId);
+
+            //modelBuilder.Entity<Order_Drink>()
+            //    .HasOne(od => od.OtherDrink)
+            //    .WithMany()
+            //    .HasForeignKey(od => od.OtherDrinkId);
 
 			modelBuilder.Entity<Order_Drink>()
 				.HasOne(od => od.OtherDrink)

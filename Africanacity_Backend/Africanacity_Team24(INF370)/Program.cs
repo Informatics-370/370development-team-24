@@ -28,8 +28,8 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(
 					include.AllowAnyHeader();
 					include.AllowAnyMethod();
 					include.AllowAnyOrigin();
-				
-                }));
+
+				}));
 builder.Services.AddControllers();
 
 
