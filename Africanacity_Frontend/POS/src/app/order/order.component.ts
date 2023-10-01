@@ -100,11 +100,17 @@ export class OrderComponent  implements OnInit {
       console.log('Prices of drinks', this.drinkPrices)
     });
 
-      // Fetch VAT and Discount values from the DataService
-      this.fetchVatById(1); // Replace 1 with the actual VAT ID you want to fetch
-      this.fetchDiscountById(1);
+    this.mainService.GetAllMenuTypes().subscribe((types: MenuType[]) => {
+    this.menuType = types;
+  });
 
-   
+  this.mainService.GetAllDrinkTypes().subscribe((types: DrinkType[]) => {
+    this.drinkType = types;
+  });
+
+  // Fetch VAT and Discount values from the DataService
+  this.fetchVatById(1); // Replace 1 with the actual VAT ID you want to fetch
+  this.fetchDiscountById(1);
 
 
 
@@ -119,10 +125,9 @@ export class OrderComponent  implements OnInit {
       this.filteredMenuItems = this.menuItems;
     } else {
       this.filteredMenuItems = this.menuItems.filter(
-        (item) => item.menu_TypeId=== menuType
+        (item) => item.menu_TypeId === menuType
       );
     }
-    
   }
 
 
@@ -137,6 +142,7 @@ export class OrderComponent  implements OnInit {
       );
     }
   }
+  
 
     // Filter items based on menu type or drink type
     filterItems(typeId: number, isDrink: boolean): void {
