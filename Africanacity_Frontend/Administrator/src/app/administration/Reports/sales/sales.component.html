@@ -11,10 +11,10 @@
                 <br> <br>
 
                 <div class="table-container">
-                    <ng-container *ngFor="let order of KitchenOrders">
+                    <ng-container *ngFor="let order of Orders">
                         <h2>{{ order.kitchenOrderNumber }}</h2>
                         <table class="table table-striped tabe-hover outlined-table">
-                            <tr> <th scope="col">Date: </th> <td>{{ order.Order_Date}}</td></tr>
+                            <tr> <th scope="col">Date: </th> <td>{{ order.orderDate}}</td></tr>
                             <tr> <th scope="col">Subtotal: </th> <td>{{ order.Subtotal}}</td></tr>
                             <tr> <th scope="col">Vat: </th> <td>{{ order.Vat}}</td></tr>
                             <tr> <th scope="col">Discount: </th> <td>{{ order.Discount}}</td></tr>

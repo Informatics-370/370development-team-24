@@ -15,6 +15,8 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
 
 		public Drink_Type Drink_Type { get; set; }
 	
+		
+		public List<KitchenOrder> Orders { get; set; } = new List<KitchenOrder>();
 
 	}
 }

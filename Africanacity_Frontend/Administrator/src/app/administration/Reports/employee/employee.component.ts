@@ -33,7 +33,7 @@ export class EmployeeComponent implements OnInit {
     responsive: true,
   };
 
-  barChartLabels: string[] = [];
+  barChartLabels: any[] = [];
   barChartData: ChartDataset[] = [
     {
       data: [], // Array of employee counts
@@ -47,7 +47,7 @@ export class EmployeeComponent implements OnInit {
   pieChartOptions: ChartOptions = {
     responsive: true,
   }
-  pieChartLabels: string[] = [];
+  pieChartLabels: any[] = [];
   pieChartData: ChartDataset[] = [
     {
       data: [], // Array of employee counts

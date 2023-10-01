@@ -35,6 +35,7 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
         [JsonIgnore]
         public Food_Type Food_Type { get; set; } // navigation property to Food Type
          public int FoodTypeId { get; set; } //tree diagram fk to FoodType table
+        public List<KitchenOrder> Orders { get; set; } = new List<KitchenOrder>();
 
         public virtual ICollection<MenuItem_Price> MenuItem_Prices { get; set; }
 		public virtual ICollection<KitchenOrder> KitchenOrders { get; set; }

@@ -30,32 +30,9 @@ namespace Africanacity_Team24_INF370_.Controllers
             
         }
 
-
-        //Get all table numbers
-
-        [HttpGet]
-        [Route("GetAllTableNumbers")]
-        public async Task<IActionResult> GetAllTableNumbers()
-        {
-            try
-            {
-                var results = await _repository.GetAllTableNumbersAsync();
-                return Ok(results);
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Internal Server Error. Please contact support.");
-            }
-        }
-
-
-        
-
-
         //Add kitchen order
         [HttpPost]
         [Route("AddKitchenOrder")]
-
         public IActionResult AddKitchenOrder (KitchenOrderDto kitchenOrderDto)
         {
             try
@@ -167,25 +144,28 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
         }
 
-
-
-
-
-
-        //GET ALL KITCHEN ORDERS
+        // GET ALL KITCHEN ORDERS
         [HttpGet]
         [Route("GetAllKitchenOrders")]
-        public IActionResult GetAllKitchenOrders()
+        public async Task<IActionResult> GetAllKitchenOrders()
         {
             try
             {
+                var results = await _repository.GetAllKitchenOrdersAsync();
 
-
-                // Retrieve all kitchen orders including related ordered menu items and drinks
-                var kitchenOrders = _appDbContext.KitchenOrders
-                    .Include(o => o.OrderedMenuItems).ThenInclude(omi => omi.MenuItem)
-                    .Include(o => o.OrderedDrinks).ThenInclude(od => od.OtherDrink)
-                    .ToList();
+                dynamic kitchenOrders = results.Select(k => new
+                {
+                    k.KitchenOrderId,
+                    k.Order_Date,
+                    k.TableNumber,
+                    k.KitchenOrderNumber,
+                    Employee = k.Employees.FirstName,
+                    k.Subtotal,
+                    k.VAT,
+                    k.Discount,
+                    k.Total,
+                    k.
+                });
 
 
                 var jsonSettings = new JsonSerializerSettings
@@ -204,7 +184,7 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
         }
 
-        //GET ALL OPTION 2 - ORDER_MENUITEM
+        // GET ALL OPTION 2 - ORDER_MENUITEM
         [HttpGet]
         [Route("GetAllOrderedMenuItems")]
         public async Task<ActionResult> GetAllOrderedMenuItems()
@@ -335,6 +315,21 @@ namespace Africanacity_Team24_INF370_.Controllers
             return $"ORDER-{DateTime.UtcNow:yyyyMMddHHmmss}-{Guid.NewGuid()}";
         }
 
+        //Get all table numbers
+        [HttpGet]
+        [Route("GetAllTableNumbers")]
+        public async Task<IActionResult> GetAllTableNumbers()
+        {
+            try
+            {
+                var results = await _repository.GetAllTableNumbersAsync();
+                return Ok(results);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
 
         //get MenuItem Price
         private decimal GetMenuItemPriceById(int menuItemId)
@@ -385,6 +380,25 @@ namespace Africanacity_Team24_INF370_.Controllers
             }
 
 
+        }
+
+        // GET EMPLOYEES BY ID
+        [HttpGet]
+        [Route("GetEmployee/{employeeId}")]
+        public async Task<IActionResult> GetEmployeeAsync(int employeeId)
+        {
+            try
+            {
+                var result = await _repository.GetEmployeeAsync(employeeId);
+
+                if (result == null) return NotFound("Employee does not exist. You need to create an employee first");
+
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support");
+            }
         }
 
         //Edit 
