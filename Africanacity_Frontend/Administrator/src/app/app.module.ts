@@ -14,7 +14,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { SignupComponent } from './login/signup/signup.component';
 import { UpdateProfileComponent } from './login/update-profile/update-profile.component';
 import { ViewProfileComponent } from './login/view-profile/view-profile.component';
-import { NgToastModule } from 'ng-angular-popup';
+// import { NgToastModule } from 'ng-angular-popup';
 import { ManageBookingComponent } from './administration/entertainer/manage-booking/manage-booking.component';
 import { BookingListingComponent } from './administration/entertainer/booking-listing/booking-listing.component';
 import { AddEmployeeRoleComponent } from './administration/EmployeeRole/add-employee-role/add-employee-role.component';
@@ -284,8 +284,8 @@ import { HelpVatComponent } from './administration/Discount/vat/help-vat/help-va
    InventoryReconciliationComponent, 
     SalesComponent, 
     ScheduleComponent,
-    ResetComponent,
-    LoginComponent,
+    // ResetComponent,
+    // LoginComponent,
     ChangePasswordComponent,
     ViewProfileComponent,
     SignupComponent,
@@ -377,13 +377,14 @@ import { HelpVatComponent } from './administration/Discount/vat/help-vat/help-va
     HelpVatComponent
 
   ],
-  imports: [
+
+  imports:[
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    NgToastModule,
+    // NgToastModule,
     BrowserAnimationsModule,
     MaterialModule,
     BrowserModule,

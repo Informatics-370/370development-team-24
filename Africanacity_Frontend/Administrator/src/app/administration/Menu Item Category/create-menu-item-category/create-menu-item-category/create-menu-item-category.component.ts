@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { DataService } from 'src/app/service/data.Service';
@@ -8,6 +8,9 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'src/app/administration/menu-types/add-menu-type/confirmation-dialog/confirmation-dialog.component'
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { HelpAddmenuitemcategoryComponent } from '../help-addmenuitemcategory/help-addmenuitemcategory.component';
+import { MenuTypes } from 'src/app/shared/menu-types';
+
+
 
 @Component({
   selector: 'app-create-menu-item-category',
@@ -17,6 +20,9 @@ import { HelpAddmenuitemcategoryComponent } from '../help-addmenuitemcategory/he
 export class CreateMenuItemCategoryComponent {
   MenuItemCategoryId: number = 0;
   AddMenuItemCategoryForm: FormGroup;
+  menuTypesData: MenuTypes[]=[];
+  formData = new FormData();
+
   @ViewChild('toastContainer', { read: ViewContainerRef})
   toastContainer!: ViewContainerRef;
 
@@ -31,6 +37,8 @@ export class CreateMenuItemCategoryComponent {
         MenuItemCategoryId: [0, [Validators.required]],
         name: ['',[Validators.required]],
         description: ['',[Validators.required]],
+        menu_TypeId: ['', Validators.required],
+       
       })
     }
 
@@ -50,25 +58,51 @@ export class CreateMenuItemCategoryComponent {
       })
     }
 
-  ngOnInit(): void {  }
+    //get menutypes options
+    GetAllMenuTypes(){
+        this.dataService.GetAllMenuTypes().subscribe(result => {
+        let menuTypesList:any[] = result
+        menuTypesList.forEach((element) => {
+        this.menuTypesData.push(element)
+      });
+    });
+  }
+
+  ngOnInit(): void { 
+    this.GetAllMenuTypes()
+   }
 
   cancel(){
     this.router.navigate(['/menu-item-category'])
   }
 
-  AddMenuItemCategory()
-  {
-    let menuItemCategory = new MenuItemCategory();
-    menuItemCategory.name = this.AddMenuItemCategoryForm.value.name;
-    menuItemCategory.description = this.AddMenuItemCategoryForm.value.description;
-    
-    this.dataService.AddMenuItemCategory(menuItemCategory).subscribe((add:any) => {
-      this.router.navigate(['/menu-item-category'])
+  AddMenuItemCategory() {
+    if (this.AddMenuItemCategoryForm.valid) {
+      const headers = new HttpHeaders().set('Content-Type', 'application/json');
   
-    });
-    this.showSuccessMessage('Menu Item Category added successfully!')
+      this.dataService
+        .AddMenuItemCategory(this.AddMenuItemCategoryForm.value, headers) // Pass headers directly
+        .subscribe(
+          () => {
+            this.router.navigateByUrl('menu-item-category').then((navigated: boolean) => {
+              if (navigated) {
+                this.snackBar.open(
+                  this.AddMenuItemCategoryForm.get('name')!.value + ` created successfully`,
+                  'Ok',
+                  { duration: 5000 }
+                );
+              }
+            });
+          },
+          (error) => {
+            console.error('Error adding menu item category:', error);
+            // Handle error appropriately, show a toast, etc.
+          }
+        );
+    }
   }
-
+  
+  
   //success message
   showSuccessMessage(message: string): void {
     const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(message, 'Ok', {

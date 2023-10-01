@@ -143,11 +143,27 @@ namespace Africanacity_Team24_INF370_.models
 			IQueryable<Food_Type> query = _appDbContext.Food_Types;
 			return await query.ToArrayAsync();
 		}
-		public async Task<Food_Type>GetFoodTypeAsync(int FoodTypeId)
-		{
-			IQueryable<Food_Type> query = _appDbContext.Food_Types.Where(f => f.FoodTypeId == FoodTypeId);
-			return await query.FirstOrDefaultAsync();
-		}
+        public async Task<Food_Type> GetFoodTypeAsync(int FoodTypeId)
+        {
+            IQueryable<Food_Type> query = _appDbContext.Food_Types
+                .Include(ft => ft.MenuCategoryFoodTypes) // Include the related MenuCategoryFoodTypes
+                .Where(f => f.FoodTypeId == FoodTypeId);
+
+            return await query.FirstOrDefaultAsync();
+        }
+
+        //public async Task<List<MenuItem_Category>> GetMenuCategoriesForMenuTypeAsync(int Menu_TypeId)
+        //{
+        //    IQueryable<MenuItem_Category> query = _appDbContext.MenuItem_Categories.Where(f => f.Menu_TypeId == Menu_TypeId);
+        //    return await query.ToListAsync();
+        //}
+
+        //public async Task<List<Food_Type>> GetFoodTypesForMenuTypeAsync(int Menu_TypeId)
+        //{
+        //    IQueryable<Food_Type> query = _appDbContext.Food_Types.Where(f => f.Menu_TypeId== Menu_TypeId );
+        //    return await query.ToListAsync();
+        //}
+
 
 
 
@@ -211,12 +227,12 @@ namespace Africanacity_Team24_INF370_.models
         //MENU ITEM CATEGORY
         public async Task<MenuItem_Category[]> GetAllMenuItemCategoriesAsync()
         {
-            IQueryable<MenuItem_Category> query = _appDbContext.MenuItem_Categories;
+            IQueryable<MenuItem_Category> query = _appDbContext.MenuItem_Categories.Include(p => p.Menu_Type);
             return await query.ToArrayAsync();
         }
         public async Task<MenuItem_Category> GetMenuItemCategoryAsync(int Menu_CategoryId)
         {
-            IQueryable<MenuItem_Category> query = _appDbContext.MenuItem_Categories.Where(m => m.Menu_CategoryId == Menu_CategoryId);
+            IQueryable<MenuItem_Category> query = _appDbContext.MenuItem_Categories.Where(m => m.Menu_CategoryId == Menu_CategoryId).Include( p => p.Menu_Type);
             return await query.FirstOrDefaultAsync();
         }
 

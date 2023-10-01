@@ -5,6 +5,14 @@ using Africanacity_Team24_INF370_.models;
 using System.Reflection.Metadata.Ecma335;
 using Africanacity_Team24_INF370_.models.Restraurant;
 using Africanacity_Team24_INF370_.View_Models;
+using System.Data.Entity.Infrastructure;
+using System.Text.Json.Serialization;
+using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
+using System;
+
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
@@ -13,10 +21,12 @@ namespace Africanacity_Team24_INF370_.Controllers
     public class FoodTypeController : ControllerBase
     {
         private readonly IRepository _repository;
+        private readonly AppDbContext _appDbContext;
 
-        public FoodTypeController(IRepository repository)
+        public FoodTypeController(IRepository repository, AppDbContext appDbContext)
         {
             _repository = repository;
+            _appDbContext = appDbContext;
         }
 
         // getting a list of all the food types
@@ -43,37 +53,84 @@ namespace Africanacity_Team24_INF370_.Controllers
         {
             try
             {
-                var foodtypes = await _repository.GetFoodTypeAsync(foodTypeId);
-                if (foodtypes == null) return NotFound("Food type does not exist.");
-                return Ok(foodtypes);
+                var foodType = await _appDbContext.Food_Types
+                    .Include(ft => ft.MenuCategoryFoodTypes)
+                    .FirstOrDefaultAsync(f => f.FoodTypeId == foodTypeId);
+
+                if (foodType == null) return NotFound("Food type does not exist.");
+
+                var foodTypeViewModel = new FoodTypeViewModel
+                {
+                    Name = foodType.Name,
+                    Description = foodType.Description,
+                    MenuCategoryFoodTypeItems = foodType.MenuCategoryFoodTypes
+               .Select(mcf => new MenuCategoryFoodTypeViewModel
+               {
+                   Menu_CategoryId = mcf.Menu_CategoryId
+               })
+               .ToList()
+                };
+
+                return Ok(foodTypeViewModel);
             }
             catch (Exception)
             {
-                return StatusCode(500, "Enter some error message");
+                return StatusCode(500, "Internal Server Error");
             }
-
         }
-
         // Add food type
         [HttpPost]
         [Route("AddFoodType")]
         public async Task<IActionResult> AddFoodType(FoodTypeViewModel ftvm)
         {
-            var foodType = new Food_Type { Name = ftvm.Name, Description = ftvm.Description };
 
+            //tree diagram
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             try
             {
-                _repository.Add(foodType);
-                await _repository.SaveChangesAsync();
-            }
-            catch (Exception) 
-            {
-                // fix error message
-                return BadRequest("Invalid Transaction");
-            }
+                var foodType = new Food_Type
+                {
+                    Name = ftvm.Name,
+                    Description = ftvm.Description,
+                    MenuCategoryFoodTypes = new List<MenuCategoryFoodType>()
 
-            return Ok(foodType);
+
+                };
+
+                foreach (var item in ftvm.MenuCategoryFoodTypeItems)
+                {
+                    var menuCategoryFoodType = new MenuCategoryFoodType
+                    {
+                        Menu_CategoryId = item.Menu_CategoryId,
+                    };
+
+                    var menuCategoryId = _appDbContext.MenuItem_Categories.FirstOrDefault(i => i.Menu_CategoryId == menuCategoryFoodType.Menu_CategoryId);
+                    foodType.MenuCategoryFoodTypes.Add(menuCategoryFoodType); //add the menuCategoryFoodTypeItem to the associative table
+                }
+
+                var options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    // other options...
+                };
+
+                var jsonString = JsonSerializer.Serialize(foodType, options);  
+
+                _appDbContext.Food_Types.Add(foodType);
+                _appDbContext.SaveChanges();
+                return Ok(jsonString);
+            }
+            catch (Exception ex)
+            {
+                var innerExceptionMessage = ex.InnerException?.Message ?? "No inner exception message available";
+                return BadRequest($"Error: {ex.Message}. Inner Exception: {innerExceptionMessage}");
+            }
+            
         }
+    
 
         // Edit food type
         [HttpPut]
@@ -89,6 +146,19 @@ namespace Africanacity_Team24_INF370_.Controllers
 
                 existingFoodType.Name = ftvm.Name;
                 existingFoodType.Description = ftvm.Description;
+
+                // Update the associated menu categories
+                existingFoodType.MenuCategoryFoodTypes.Clear(); // Clear existing associations
+
+                foreach (var item in ftvm.MenuCategoryFoodTypeItems)
+                {
+                    var menuCategoryFoodType = new MenuCategoryFoodType
+                    {
+                        Menu_CategoryId = item.Menu_CategoryId,
+                    };
+
+                    existingFoodType.MenuCategoryFoodTypes.Add(menuCategoryFoodType);
+                }
 
                 if (await _repository.SaveChangesAsync())
                 {

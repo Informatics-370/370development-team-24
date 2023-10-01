@@ -159,6 +159,14 @@ export class MenuTypesComponent implements OnInit {
     })
   }
 
+  //Delete menu type
+  // deleteMenuType(menu_TypeId: number | undefined) {
+  //   if (menu_TypeId !== undefined) {
+  //     this.dataService.deleteMenuType(menu_TypeId).subscribe(result => {
+  //       this.deleteItem();
+  //     });
+  //   }
+  // }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.toLowerCase();

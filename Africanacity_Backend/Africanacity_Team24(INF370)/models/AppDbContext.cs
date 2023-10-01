@@ -86,6 +86,7 @@ namespace Africanacity_Team24_INF370_.models
         public DbSet<KitchenOrder> KitchenOrders { get; set; }
         public DbSet<Order_MenuItem> Order_MenuItems { get; set; }
         public DbSet<Order_Drink> Order_Drinks { get; set; }
+        public DbSet<MenuCategoryFoodType> MenuCategoryFoodTypes { get; set; }
 
         //Second option drink table
         public DbSet<OtherDrink> OtherDrinks { get; set; }
@@ -688,7 +689,8 @@ namespace Africanacity_Team24_INF370_.models
                            {
                                FoodTypeId = 1,
                                Name = "Chicken",
-                               Description = "Meals consisting of chicken"
+                               Description = "Meals consisting of chicken",
+                               //Menu_TypeId = 2,
 
                            });
 
@@ -699,6 +701,7 @@ namespace Africanacity_Team24_INF370_.models
                     FoodTypeId = 2,
                     Name = "Beef",
                     Description = "Meals consisting of beef",
+                    //Menu_TypeId = 2,
                 });
 
             modelBuilder.Entity<Food_Type>()
@@ -707,7 +710,8 @@ namespace Africanacity_Team24_INF370_.models
                 {
                     FoodTypeId = 3,
                     Name = "Vegetarian",
-                    Description = "Meals suitable for vegetarians"
+                    Description = "Meals suitable for vegetarians",
+                   //Menu_TypeId = 1,
 
                 });
 
@@ -717,7 +721,8 @@ namespace Africanacity_Team24_INF370_.models
                 {
                     FoodTypeId = 4,
                     Name = "Vegan",
-                    Description = "Meals suitable for Vegans"
+                    Description = "Meals suitable for Vegans",
+                    //Menu_TypeId = 1,
 
                 });
 
@@ -1303,7 +1308,8 @@ namespace Africanacity_Team24_INF370_.models
                            {
                                Menu_CategoryId = 1,
                                Name = "Breakfast",
-                               Description = "Meals between 7am to 12pm"
+                               Description = "Meals between 7am to 12pm",
+                               Menu_TypeId = 1,
 
                            });
 
@@ -1313,7 +1319,8 @@ namespace Africanacity_Team24_INF370_.models
                  {
                      Menu_CategoryId = 2,
                      Name = "Starter",
-                     Description = "Appetisers"
+                     Description = "Appetisers",
+                     Menu_TypeId = 2,
 
                  });
 
@@ -1324,6 +1331,7 @@ namespace Africanacity_Team24_INF370_.models
                               Menu_CategoryId = 3,
                               Name = "Main",
                               Description = "Big and Filling meals",
+                              Menu_TypeId =2,
 
                           });
 
@@ -1333,7 +1341,8 @@ namespace Africanacity_Team24_INF370_.models
                           {
                               Menu_CategoryId = 4,
                               Name = "Dessert",
-                              Description = "Special things for those with a sweet tooth"
+                              Description = "Special things for those with a sweet tooth",
+                              Menu_TypeId = 2,
 
                           });
 
@@ -1343,7 +1352,8 @@ namespace Africanacity_Team24_INF370_.models
                           {
                               Menu_CategoryId = 5,
                               Name = "Light Meals",
-                              Description = "For those hungry but not hungry"
+                              Description = "For those hungry but not hungry",
+                              Menu_TypeId = 2,
 
                           });
 
@@ -1944,6 +1954,21 @@ namespace Africanacity_Team24_INF370_.models
             .HasForeignKey(m => m.EventId)
 			.OnDelete(DeleteBehavior.Restrict);
 
+            //MANY-TO-MANY relationships
+            
+
+            modelBuilder.Entity<MenuCategoryFoodType>()
+            .HasKey(mcf => new { mcf.Menu_CategoryId, mcf.FoodTypeId });
+
+            modelBuilder.Entity<MenuCategoryFoodType>()
+                .HasOne(mcf => mcf.MenuItem_Category)
+                .WithMany(mc => mc.MenuCategoryFoodTypes)
+                .HasForeignKey(mcf => mcf.Menu_CategoryId);
+
+            modelBuilder.Entity<MenuCategoryFoodType>()
+                .HasOne(mcf => mcf.Food_Type)
+                .WithMany(ft => ft.MenuCategoryFoodTypes)
+                .HasForeignKey(mcf => mcf.FoodTypeId);
 
 
 			//Many to many with MenuItem
@@ -1983,6 +2008,13 @@ namespace Africanacity_Team24_INF370_.models
 						.OnDelete(DeleteBehavior.Restrict);
 
 
+            //one to many between menu type and menu category
+            modelBuilder.Entity<MenuItem_Category>()
+                        .HasOne(m => m.Menu_Type)
+                        .WithMany()
+                        .HasForeignKey(m => m.Menu_TypeId);
+
+
 
             // For the Access_UserRole M2M payload (Uncomment code below and run migration to generate tables)
 			modelBuilder.Entity<Access_UserRole>()
@@ -2009,6 +2041,7 @@ namespace Africanacity_Team24_INF370_.models
 				.WithMany(ur => ur.Access_UserRoles)
 				.OnDelete(DeleteBehavior.Restrict);
 
+			
 
 			// For the Supplier_InventoryItem M2M payload (Uncomment code below and run migration to generate tables)
 			modelBuilder.Entity<Inventory_Item>()
@@ -2017,7 +2050,6 @@ namespace Africanacity_Team24_INF370_.models
 				.UsingEntity<Supplier_InventoryItem>
 			 (tg => tg.HasOne<Supplier>().WithMany(),
 				  tg => tg.HasOne<Inventory_Item>().WithMany());
-
 
             // Configure the many-to-many relationship between KitchenOrder and MenuItem
             modelBuilder.Entity<Order_MenuItem>()
@@ -2059,43 +2091,7 @@ namespace Africanacity_Team24_INF370_.models
                 .HasForeignKey(omi => omi.MenuItemId)
 				 .OnDelete(DeleteBehavior.Restrict);
 
-			modelBuilder.Entity<Entertainment_Type>()
-					.HasMany(et => et.Users)
-					.WithOne(u => u.Entertainment_Type)
-					.HasForeignKey(u => u.Entertainment_TypeId)
-					.OnDelete(DeleteBehavior.Restrict);
-
-			modelBuilder.Entity<Entertainment_Type>()
-				.HasMany(et => et.Pending_Bookings)
-				.WithOne(pb => pb.EntertainmentType)
-				.HasForeignKey(pb => pb.Entertainment_TypeId)
-				.OnDelete(DeleteBehavior.Restrict);
-
-			modelBuilder.Entity<Employee_Role>()
-			  .HasMany(er => er.Employees)
-			  .WithOne(e => e.Employee_Role)
-			  .HasForeignKey(e => e.Employee_RoleId)
-			  .OnDelete(DeleteBehavior.Restrict);
-
-			modelBuilder.Entity<Supplier_Type>()
-			  .HasMany(st => st.Suppliers)
-			  .WithOne(s => s.Supplier_Type)
-			  .HasForeignKey(s => s.Supplier_TypeId)
-			  .OnDelete(DeleteBehavior.Restrict);
-
-			modelBuilder.Entity<Event>()
-				.HasMany(e => e.Schedules)
-				.WithOne(s => s.Event)
-				.HasForeignKey(s => s.EventId)
-				.OnDelete(DeleteBehavior.Restrict);
-
-			modelBuilder.Entity<Inventory_Type>()
-				   .HasMany(it => it.Inventory_Items)
-				   .WithOne(ii => ii.Inventory_Type)
-				   .HasForeignKey(ii => ii.Inventory_TypeId)
-				   .OnDelete(DeleteBehavior.Restrict);
-
-			base.OnModelCreating(modelBuilder);
-		}
+           
+        }
 	}
 }

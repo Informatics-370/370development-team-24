@@ -30,6 +30,36 @@
           </div>
         </span>
       </div>
+
+         <!-- Display existing menu categories -->
+         <div *ngFor="let menuCategoryFoodTypeItem of menuCategoryFoodTypeItems?.controls; let i = index" [formGroupName]="i">
+          <div class="form-group">
+            <label class="col-sm-1" style="font-weight: bold;">Menu Category:</label>
+            <div class="col-sm-6">
+              <!-- Display the selected menu category name -->
+              <select formControlName="menu_CategoryId" class="form-control" >
+                <option  [value]="getMenuCategoryName(menuCategoryFoodTypeItem.value.menu_CategoryId)" >
+                  {{ getMenuCategoryName(menuCategoryFoodTypeItem.value.menu_CategoryId) }}
+                </option>
+                <!-- Include other options if needed -->
+              </select>
+            </div>
+          </div>
+        </div>
+
+
+
+   <!-- Dropdown for adding or changing menu categories -->
+   <div class="form-group">
+    <label class="col-sm-1" style="font-weight: bold;">Select Menu Category:</label>
+    <div class="col-sm-6">
+      <select formControlName="menu_CategoryId" class="form-control">
+        <option *ngFor="let category of menuCategories" [value]="category.menu_CategoryId">
+          {{ category.name }}
+        </option>
+      </select>
+    </div>
+  </div>
   
       <!-- <div class="form-group"> -->
         <div class="col-sm-offset-1 col-sm-6 center-buttons">

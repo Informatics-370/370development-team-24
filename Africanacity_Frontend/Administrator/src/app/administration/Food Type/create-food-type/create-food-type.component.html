@@ -29,6 +29,24 @@
           </div>
         </span>
       </div>
+      <!-- Add a section to select Menu Categories -->
+      
+      <div class="form-group" formArrayName="menuCategoryFoodTypeItems">
+        <div *ngFor="let menuCategoryFoodTypeItem of menuCategoryFoodTypeItems.controls; let i = index" [formGroupName]="i" class="item-group">
+        <span>
+          <label class="col-sm-1" style="font-weight: bold;">Select Menu Categories:</label>
+          <div class="col-sm-6">
+            <select formControlName="menu_CategoryId" class="form-control">
+            <option *ngFor="let category of menuCategories"  [value]="category.menu_CategoryId" >
+              
+              {{ category.name }}
+            </option>
+            </select>
+          </div>
+        </span>
+      </div>
+    </div>
+
   
       <!-- <div class="form-group"> -->
         <div class="col-sm-offset-1 col-sm-6 center-buttons">
@@ -40,6 +58,7 @@
         </div>
         </div>
       <!-- </div> -->
+      <button type="button" (click)="addItem()" class="btn btn-secondary">Add Menu Category</button>
     </form>
     <button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help"  matTooltip="Help">
       <mat-icon style="font-size: 24px;">help</mat-icon>

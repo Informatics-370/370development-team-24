@@ -1,6 +1,6 @@
 .small-input {
-    width:50px ; /* You can adjust the width to your preference */
-    margin-left: 100px;
+    //width:50px ; /* You can adjust the width to your preference */
+    margin-left: 20px;
  
     align-items:baseline;
   }
@@ -58,11 +58,39 @@
   }
 
   .price{
-    max-width: 100px;
+    
+    margin-left: auto; 
   }
 
   #orderSummary{
     margin-top: 71px;
   }
+
+  .price-row {
+    --ion-justify-content: space-between;
+    margin-right: -55%;
+  }
+  
+  .price {
+    text-align: right;
+    
+  }
+
+
+  
+  .align-right {
+    text-align: right;
+  }
+  
+  .price {
+    text-align: right;
+  }
+  
+  
+
+  
+  
+
+
 
  

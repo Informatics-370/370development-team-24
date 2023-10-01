@@ -18,15 +18,28 @@
     <ion-row>
       <ion-col size="3">
         <!-- Side Navigation Bar for Menu Items -->
+        
         <ion-list class="ion-list" style="font-family: Arial, Helvetica, sans-serif;">
-          <ion-item button (click)="filterMenuItems(1)">Breakfast</ion-item>
-          <ion-item button (click)="filterMenuItems(2)">All Day</ion-item>
-          <ion-item button (click)="filterDrinkItems(1)">Alcohol</ion-item>
-          <ion-item button (click)="filterDrinkItems(2)">Non-alcohol</ion-item>
-
+          <h2>Menu Types</h2>
+          <!-- Create filter options for each MenuType -->
+          <ion-item *ngFor="let type of menuType" button (click)="filterMenuItems(type.menu_TypeId)">
+            {{ type.name }}
+          </ion-item>
+      
           <!-- Add more menu types as needed -->
         </ion-list>
+       
+        <ion-list class="ion-list" style="font-family: Arial, Helvetica, sans-serif;">
+          <h2>Drink Types</h2>
+          <!-- Create filter options for each DrinkType -->
+          <ion-item *ngFor="let type of drinkType" button (click)="filterDrinkItems(type.drink_TypeId)">
+            {{ type.name }}
+          </ion-item>
+      
+          <!-- Add more drink types as needed -->
+        </ion-list>
       </ion-col>
+
 
       <ion-col size="4">
         <!-- Menu Item Listing -->
@@ -62,49 +75,137 @@
    
 
       <ion-col size="5" class="ion-card" id="orderSummary">
+        <ion-list>
         <!-- Order Summary for Menu Items -->
-        <h2 class="heading2">Order Summary </h2>
-        <ion-item>
-          <p *ngIf="tableNumber">Table Number: {{ tableNumber }}</p>
-          
-        </ion-item>
-        <ion-item>
-          <p>Kitchen Order Number: {{ kitchenOrderNumber }}</p>
-        </ion-item>
-        
         <ion-list>
-          <ion-item *ngFor="let orderedItem of orderedItems">
-           
-            <p>{{ orderedItem.name}}  <span class="span" style="margin-left: 20px;">{{ getSelectedMenuItemPrice(orderedItem.menuItemId) | currency: '       R' }}</span> </p> <br>
-            <ion-input type="number" [(ngModel)]="orderedItem.quantity" (ionChange)="updateSubtotalAndTotals()" class="small-input" style="margin-right: -10px"></ion-input>
+          <!-- Order Summary for Menu Items -->
+          <h2 class="heading2">Order Summary </h2>
+        
+          <!-- Table Number -->
+          <ion-item *ngIf="tableNumber">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="8">
+                  <p class="order-info">Table Number:</p>
+                </ion-col>
+                <ion-col size="4" class="align-right">
+                  <p class="order-info">{{ tableNumber }}</p>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+        
+          <!-- Kitchen Order Number -->
+          <ion-item>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="8">
+                  <p>Kitchen Order Number:</p>
+                </ion-col>
+                <ion-col size="4" class="align-right">
+                  <p >{{ kitchenOrderNumber }}</p>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+        
+          <!-- Ordered Menu Items -->
+          <ion-item *ngFor="let orderedItem of orderedItems" class="order-item">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="4">
+                  <p >{{ orderedItem.name }}</p>
+                </ion-col>
+                <ion-col size="2" class="price">
+                  <p class="order-info">{{ getSelectedMenuItemPrice(orderedItem.menuItemId) | currency: 'R ' }}</p>
+                </ion-col>
+                <ion-col size="2">
+                  <ion-input type="number" [(ngModel)]="orderedItem.quantity" (ionChange)="updateSubtotalAndTotals()" class="small-input"></ion-input>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+        
+          <!-- Ordered Drinks -->
+          <ion-item *ngFor="let orderedDrink of orderedDrinks" class="order-item">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="2">
+                  <p >{{ orderedDrink.name }}</p>
+                </ion-col>
+                <ion-col size="2" class="price">
+                  <p class="order-info">{{ getSelectedDrinkItemPrice(orderedDrink.otherDrinkId) | currency: 'R ' }}</p>
+                </ion-col>
+                <ion-col size="2">
+                  <ion-input type="number" [(ngModel)]="orderedDrink.quantity" (ionChange)="updateSubtotalAndTotals()" class="small-input"></ion-input>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
           </ion-item>
         </ion-list>
-        <ion-list>
-          <ion-item *ngFor="let orderedDrink of orderedDrinks">
-            <p>{{ orderedDrink.name }}  <span class="span" style="margin-left: 20px;">{{ getSelectedDrinkItemPrice(orderedDrink.otherDrinkId) | currency: 'R ' }} </span> </p> 
-            <ion-input type="number" [(ngModel)]="orderedDrink.quantity" (ionChange)="updateSubtotalAndTotals()" class="small-input" style="margin-right: -10px;"></ion-input>
-          </ion-item>
-        </ion-list>
-        <ion-item>
-          <p><b>Subtotal:</b> {{ subtotal | currency:'R ' }}</p>
-        </ion-item>
-        <ion-item>
-          <p><b>Total VAT:</b> {{ totalVat | currency:'R ' }}</p>
-        </ion-item>
         
-        <ion-item>
-          <p><b>Total Discount:</b> {{ totalDiscount | currency:'R ' }}</p>
-        </ion-item>
+        <ion-row class="price-row">
+          <ion-col size="6">
+            <ion-item>
+              <p><b>Subtotal:</b></p>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item class="price">
+              <p>{{ subtotal | currency:'R ' }}</p>
+            </ion-item>
+          </ion-col>
+        </ion-row>
         
-        <ion-item>
-          <p><b>Final Total:</b> {{ finalTotal | currency:'R ' }}</p>
-        </ion-item>
+        <ion-row class="price-row">
+          <ion-col size="6">
+            <ion-item>
+              <p><b>Total VAT:</b></p>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item class="price">
+              <p>{{ totalVat | currency:'R ' }}</p>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        
+        <ion-row class="price-row">
+          <ion-col size="6">
+            <ion-item>
+              <p><b>Total Discount:</b></p>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item class="price">
+              <p>{{ totalDiscount | currency:'R ' }}</p>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        
+        <ion-row class="price-row">
+          <ion-col size="6">
+            <ion-item>
+              <p><b>Final Total:</b></p>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item class="price">
+              <p>{{ finalTotal | currency:'R ' }}</p>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        
+        
+        
+        
     
        
         
-
+        <ion-item>
         <ion-button id="present-alert" fill="clear" expand="full" (click)="submitOrder()" class="ion-button" style="color: black;">Submit Order</ion-button>
-       
+      </ion-item>
+      </ion-list>
       </ion-col>
     </ion-row>
   </ion-grid>
