@@ -1,7 +1,7 @@
-export interface Order {
+export interface KitchenOrder {
     kitchenOrderId: number;
     kitchenOrderNumber: number;
-    orderDate: Date;
+    Order_Date: number;
     Subtotal: number;
     Vat: number;
     Discount: number;
