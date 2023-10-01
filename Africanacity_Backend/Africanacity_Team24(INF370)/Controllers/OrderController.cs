@@ -23,6 +23,10 @@ namespace Africanacity_Team24_INF370_.Controllers
             _appDbContext = appDbContext;
         }
 
+        //Add kitchen order
+        [HttpPost]
+        [Route("AddKitchenOrder")]
+        public IActionResult AddKitchenOrder (KitchenOrderDto kitchenOrderDto)
         // GET ALL ORDERS
         /*[HttpGet]
         [Route("GetAllOrders")]
@@ -108,7 +112,37 @@ namespace Africanacity_Team24_INF370_.Controllers
                         MenuItems = otvm.MenuItems,
                         MenuItemQuantity = otvm.MenuItemQuantity,
                     };
+                return Ok(json); // Return a 200 OK response with the kitchen order
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions, log errors, and return an error response
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
 
+        // GET ALL KITCHEN ORDERS
+        [HttpGet]
+        [Route("GetAllKitchenOrders")]
+        public async Task<IActionResult> GetAllKitchenOrders()
+        {
+            try
+            {
+                var results = await _repository.GetAllKitchenOrdersAsync();
+
+                dynamic kitchenOrders = results.Select(k => new
+                {
+                    k.KitchenOrderId,
+                    k.Order_Date,
+                    k.TableNumber,
+                    k.KitchenOrderNumber,
+                    Employee = k.Employees.FirstName,
+                    k.Subtotal,
+                    k.VAT,
+                    k.Discount,
+                    k.Total,
+                    k.
+                });
                     decimal orderItemSubtotal = CalculateOrderItemSubtotal(otvm);
 
                     orderItem.SubTotal = orderItemSubtotal;
@@ -120,6 +154,13 @@ namespace Africanacity_Team24_INF370_.Controllers
                     order.OrderItems.Add(orderItem);
                 }
 
+        // GET ALL OPTION 2 - ORDER_MENUITEM
+        [HttpGet]
+        [Route("GetAllOrderedMenuItems")]
+        public async Task<ActionResult> GetAllOrderedMenuItems()
+        {
+            try
+            {
                 order.Subtotal = total;
                 order.Total = total; // ADD VAT
 
@@ -183,9 +224,37 @@ namespace Africanacity_Team24_INF370_.Controllers
 
                 order.Total = total;
 
-                await _appDbContext.SaveChangesAsync();
+        private string GenerateKitchenOrderNumber()
+        {
+            // Implement your kitchen order number generation logic here
+            // This can be a unique identifier based on your business requirements
+            // For example, a combination of date and a unique counter
+            return $"ORDER-{DateTime.UtcNow:yyyyMMddHHmmss}-{Guid.NewGuid()}";
+        }
+
+        //Get all table numbers
+        [HttpGet]
+        [Route("GetAllTableNumbers")]
+        public async Task<IActionResult> GetAllTableNumbers()
+        {
+            try
+            {
+                var results = await _repository.GetAllTableNumbersAsync();
+                return Ok(results);
             }
             catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+
+        //get MenuItem Price
+        private decimal GetMenuItemPriceById(int menuItemId)
+        {
+            var menuItemPrice = _appDbContext.MenuItem_Prices
+                .FirstOrDefault(p => p.MenuItemId == menuItemId);
+
+            if (menuItemPrice != null)
             {
                 return BadRequest("Invalid transaction");
             }
@@ -219,6 +288,8 @@ namespace Africanacity_Team24_INF370_.Controllers
             {
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
+
+
         }
 
         // GET EMPLOYEE BY ID

@@ -15,7 +15,7 @@ import { Entertainment_Type } from '../shared/entertainmentType';
 import { DrinkType } from '../shared/Drink_Type';
 import { Drink } from '../shared/Drink';
 import { EventInput } from '@fullcalendar/core';
-import { KitchenOrder } from '../shared/Kitchen_Order';
+import { Order } from '../shared/order';
 import { Discount } from '../shared/Discount';
 import { VAT } from '../shared/Vat';
 import { OtherDrink } from '../shared/other-drink';
@@ -300,7 +300,7 @@ export class DataService {
       return this.httpClient.get(`${this.apiUrl}OtherDrink/DrinkItemListing`)
       .pipe(map(result => result));
     }
- private orderSummary: KitchenOrder | null = null;
+ private orderSummary: Order | null = null;
 
  GetDrinkItemById(otherDrinkId: number): Observable<any>{
   return this.httpClient.get(`${this.apiUrl}OtherDrink/GetDrinkItem/${otherDrinkId}`);
@@ -408,8 +408,8 @@ DeleteEntertainmentType(entertainment_TypeId: Number)
 }
 
   //get all kitchen orders
-  getAllKitchenOrders(): Observable<KitchenOrder[]> {
-  return this.httpClient.get<KitchenOrder[]>(`${this.apiUrl}Order/GetAllKitchenOrders`);
+  getAllKitchenOrders(): Observable<Order[]> {
+  return this.httpClient.get<Order[]>(`${this.apiUrl}Order/GetAllKitchenOrders`);
   }
 
   //get Vat by Id
@@ -422,11 +422,11 @@ DeleteEntertainmentType(entertainment_TypeId: Number)
     return this.httpClient.get(`${this.apiUrl}Order/GetDiscountItem/${discountId}`);
   }
 
-  setOrderSummary(orderSummary: KitchenOrder) {
+  setOrderSummary(orderSummary: Order) {
     this.orderSummary = orderSummary;
   }
 
-  getOrderSummary(): KitchenOrder | null {
+  getOrderSummary(): Order | null {
     return this.orderSummary;
   }
 }
