@@ -14,7 +14,7 @@ namespace Africanacity_Team24_INF370_.View_Models
         public decimal Total { get; set; }
         public int Employee { get; set; }
         public List<OrderMenuItemDto> orderMenuItemDtos { get; set; }
-        public List<OrderDrinkDto> orderDrinkDtos { get; set;}
+        //public List<OrderDrinkDto> orderDrinkDtos { get; set;}
      
     }
 }

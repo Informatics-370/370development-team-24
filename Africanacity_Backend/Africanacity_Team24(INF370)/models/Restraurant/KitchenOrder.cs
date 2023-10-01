@@ -18,7 +18,7 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
         public decimal Total { get; set; }
         public Employee Employees { get; set; }
         public ICollection<Order_MenuItem> OrderedMenuItems { get; set; }
-        public ICollection<Order_Drink> OrderedDrinks { get; set; }
+        //public ICollection<Order_Drink> OrderedDrinks { get; set; }
 
     }
 }
