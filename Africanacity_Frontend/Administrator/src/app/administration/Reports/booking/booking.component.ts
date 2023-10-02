@@ -27,9 +27,23 @@ export class BookingComponent {
   // Bar chart
   barChartOptions: ChartOptions = {
     responsive: true,
+    scales: {
+      y: {
+        beginAtZero: true,
+        suggestedMin: 0,
+        suggestedMax: 500, // Set the maximum Y-axis value as per your requirement
+        grace: '10%', // Optional, adjust this value as needed
+        ticks: {
+          stepSize: 50, // Set the step size to 50
+        },
+      },
+    },
   };
 
+
   barChartLabels: string[] = [];
+
+  
   barChartData: ChartDataset[] = [
     {
       data: [], // Array of inventory types
@@ -46,8 +60,8 @@ export class BookingComponent {
   pieChartLabels: string[] = [];
   pieChartData: ChartDataset[] = [
     {
-      data: [], // Array of employee counts
-      label: 'Number of Employees'
+      data: [], // Array of inventory counts
+      label: 'Number of Inventory'
     }
   ];
   pieChartType: ChartType = 'pie';
@@ -112,6 +126,7 @@ export class BookingComponent {
   
       // Update the chart data and labels for the bar chart
       this.barChartLabels = itemNames;
+      console.log("itemPrices", itemPrices);
       this.barChartData[0].data = itemPrices;
   
       // Generate the bar chart
@@ -150,6 +165,7 @@ export class BookingComponent {
     this.pieChartData[0].data = this.inventoryItems.map(item => this.inventoryPrices[item.inventory_ItemId]);
   }
 
+  
   downloadPDF() {
     const doc = new jsPDF();
     doc.setFontSize(18);
