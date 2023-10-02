@@ -39,14 +39,6 @@ namespace Africanacity_Team24_INF370_.models
 
         Task<IonicAppUser> CheckPasswordAsync(string Password);
 
-        //HELP
-
-        //Task<Help[]> GetAllHelpAsync();
-        //Task<Help> GetHelpAsync(int HelpId);
-
-
-
-
         // FOOD TYPE
         Task<Food_Type[]> GetAllFoodTypesAsync();
         Task<Food_Type> GetFoodTypeAsync(int FoodTypeId);
@@ -84,9 +76,9 @@ namespace Africanacity_Team24_INF370_.models
 
 
         //OTHER DRINK
-        //Task<OtherDrink[]> GetAllDrinkItemsAsync();
+        Task<OtherDrink[]> GetAllDrinkItemsAsync();
 
-        //Task<OtherDrink> GetADrinkItemAsync(int OtherDrinkId);
+        Task<OtherDrink> GetADrinkItemAsync(int OtherDrinkId);
 
 
         // DRINK ITEM TYPE
@@ -97,8 +89,8 @@ namespace Africanacity_Team24_INF370_.models
         //Task<Drink[]> GetAllDrinksAsync();
         Task<Drink> GetDrinkAsync(int Drink_TypeId);
         //DRINK ITEM PRICES
-        //Task<OtherDrinkPrice[]> GetAllDrinkItemPricesAsync();
-        //Task<OtherDrinkPrice> GetADrinkItemPriceAsync(int OtherDrinkPriceId);
+        Task<OtherDrinkPrice[]> GetAllDrinkItemPricesAsync();
+        Task<OtherDrinkPrice> GetADrinkItemPriceAsync(int OtherDrinkPriceId);
 
 
         // MENU ITEM CATEGORY
@@ -133,7 +125,6 @@ namespace Africanacity_Team24_INF370_.models
         //SCHEDULE
         Task<Schedule> GetScheduleAsync(int schedule_Id);
         Task<Schedule[]> ScheduleDisplayAsync();
-       // Task<Schedule_Status[]> GetAllScheduleStatusAsync();
 
         //EVENTS
         Task<Event[]> GetAllEventsAsync();
@@ -149,15 +140,9 @@ namespace Africanacity_Team24_INF370_.models
         Task<KitchenOrder> SaveKitchenOrder(KitchenOrder kitchenOrder);
         Task<KitchenOrder[]> GetAllKitchenOrdersAsync();
 
-
-       
-
         //DISCOUNT
         Task<Discount> GetDiscountItemAsync(int DiscountId);
-        
-
-
-    
+       
 		// Entertainer
 		Task<User[]> ViewProfileAsync();
 		Task<User> ViewProfileAsync(int UserId);
@@ -191,6 +176,6 @@ namespace Africanacity_Team24_INF370_.models
         Task<Order_MenuItem[]> GetAllOrderedMenuItemsAsync();
 
         //Ordered drinks Items
-        //Task<Order_Drink[]> GetAllOrderedDrinksItemsAsync();
+        Task<Order_Drink[]> GetAllOrderedDrinksItemsAsync();
     }
 }

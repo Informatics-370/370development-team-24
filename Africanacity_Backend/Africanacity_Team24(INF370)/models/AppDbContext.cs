@@ -78,9 +78,10 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<MenuItem_Category> MenuItem_Categories { get; set; }
 		public DbSet<MenuItem_Price> MenuItem_Prices { get; set; }
 		public DbSet<KitchenOrder> Orders { get; set; }
-		//public DbSet<Order_Drink> Order_Drinks { get; set; }
-		//public DbSet<Order_MenuItem> Order_MenuItems { get; set; }
-		public DbSet<Order_Status> Order_Statuses { get; set; }
+
+        public DbSet<Order_Drink> Order_Drinks { get; set; }
+        public DbSet<Order_MenuItem> Order_MenuItems { get; set; }
+        public DbSet<Order_Status> Order_Statuses { get; set; }
            
         public DbSet<OrderType> OrderTypes { get; set; }
 		//public DbSet<Payment> Payments { get; set; }
@@ -88,16 +89,16 @@ namespace Africanacity_Team24_INF370_.models
 		public DbSet<Table_Number> Table_Numbers { get; set; }
 
         public DbSet<KitchenOrder> KitchenOrders { get; set; }
-        public DbSet<Order_MenuItem> Order_MenuItems { get; set; }
-        public DbSet<Order_Drink> Order_Drinks { get; set; }
+        //public DbSet<Order_MenuItem> Order_MenuItems { get; set; }
+        //public DbSet<Order_Drink> Order_Drinks { get; set; }
         public DbSet<MenuCategoryFoodType> MenuCategoryFoodTypes { get; set; }
         //public DbSet<Order_Drink> Order_Drinks { get; set; }
 
         //Second option drink table
-        //public DbSet<OtherDrink> OtherDrinks { get; set; }
-        //public DbSet<OtherDrinkPrice> OtherDrinkPrices { get; set; }
+        public DbSet<OtherDrink> OtherDrinks { get; set; }
+        public DbSet<OtherDrinkPrice> OtherDrinkPrices { get; set; }
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 		{
 
@@ -1597,59 +1598,59 @@ namespace Africanacity_Team24_INF370_.models
 
 
             //dummy data for other drink
-            //modelBuilder.Entity<OtherDrink>()
-            //            .HasData(
-            //            new
-            //            {
-            //                OtherDrinkId = 1,
-            //                Name = "Margarita",
-            //                Description = "Vodka, pineapple juice and lemon syrup",
-            //                Drink_TypeId = 1,
-            //            });
-            //modelBuilder.Entity<OtherDrink>()
-            //            .HasData(
-            //            new
-            //            {
-            //                OtherDrinkId = 2,
-            //                Name = "Frozen Lemonade",
-            //                Description = "Crushed ice lemonade juice ",
-            //                Drink_TypeId = 2,
-            //            });
-            //modelBuilder.Entity<OtherDrink>()
-            //           .HasData(
-            //           new
-            //           {
-            //               OtherDrinkId = 3,
-            //               Name = "Strawberry Diaquri ",
-            //               Description = "Crushed ice, strawberry lemonade, vodka, strawberry syrup",
-            //               Drink_TypeId = 1,
-            //           });
+            modelBuilder.Entity<OtherDrink>()
+                        .HasData(
+                        new
+                        {
+                            OtherDrinkId = 1,
+                            Name = "Margarita",
+                            Description = "Vodka, pineapple juice and lemon syrup",
+                            Drink_TypeId = 1,
+                        });
+            modelBuilder.Entity<OtherDrink>()
+                        .HasData(
+                        new
+                        {
+                            OtherDrinkId = 2,
+                            Name = "Frozen Lemonade",
+                            Description = "Crushed ice lemonade juice ",
+                            Drink_TypeId = 2,
+                        });
+            modelBuilder.Entity<OtherDrink>()
+                       .HasData(
+                       new
+                       {
+                           OtherDrinkId = 3,
+                           Name = "Strawberry Diaquri ",
+                           Description = "Crushed ice, strawberry lemonade, vodka, strawberry syrup",
+                           Drink_TypeId = 1,
+                       });
 
             //seed data for the otherdrink price table
-            //modelBuilder.Entity<OtherDrinkPrice>()
-            //           .HasData(
-            //           new
-            //           {
-            //               OtherDrinkPriceId = 1,
-            //               OtherDrinkId = 1,
-            //               Amount = 69m
-            //           }); 
-            //modelBuilder.Entity<OtherDrinkPrice>()
-            //            .HasData(
-            //            new
-            //            {
-            //                OtherDrinkPriceId = 2,
-            //                OtherDrinkId = 2,
-            //                Amount = 60m
-            //            });
-            //modelBuilder.Entity<OtherDrinkPrice>()
-            //           .HasData(
-            //           new
-            //           {
-            //               OtherDrinkPriceId = 3,
-            //               OtherDrinkId = 3,
-            //               Amount = 75m
-            //           });
+            modelBuilder.Entity<OtherDrinkPrice>()
+                       .HasData(
+                       new
+                       {
+                           OtherDrinkPriceId = 1,
+                           OtherDrinkId = 1,
+                           Amount = 69m
+                       });
+            modelBuilder.Entity<OtherDrinkPrice>()
+                        .HasData(
+                        new
+                        {
+                            OtherDrinkPriceId = 2,
+                            OtherDrinkId = 2,
+                            Amount = 60m
+                        });
+            modelBuilder.Entity<OtherDrinkPrice>()
+                       .HasData(
+                       new
+                       {
+                           OtherDrinkPriceId = 3,
+                           OtherDrinkId = 3,
+                           Amount = 75m
+                       });
 
             //create seed data drink prices 
             modelBuilder.Entity<Drink_Price>()

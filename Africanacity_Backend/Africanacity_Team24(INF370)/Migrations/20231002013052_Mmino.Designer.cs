@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Africanacity_Team24_INF370_.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231001232822_Mmino")]
+    [Migration("20231002013052_Mmino")]
     partial class Mmino
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -192,18 +192,18 @@ namespace Africanacity_Team24_INF370_.Migrations
                             discountId = 1,
                             Amount = 0.05m,
                             Description = "10% Discount",
-                            End_Date = new DateTime(2023, 10, 12, 1, 28, 20, 873, DateTimeKind.Local).AddTicks(9668),
+                            End_Date = new DateTime(2023, 10, 12, 3, 30, 50, 560, DateTimeKind.Local).AddTicks(4833),
                             Name = "Month end discount",
-                            Start_Date = new DateTime(2023, 10, 2, 1, 28, 20, 873, DateTimeKind.Local).AddTicks(9668)
+                            Start_Date = new DateTime(2023, 10, 2, 3, 30, 50, 560, DateTimeKind.Local).AddTicks(4831)
                         },
                         new
                         {
                             discountId = 2,
                             Amount = 0.15m,
                             Description = "15% Discount",
-                            End_Date = new DateTime(2023, 10, 12, 1, 28, 20, 873, DateTimeKind.Local).AddTicks(9682),
+                            End_Date = new DateTime(2023, 10, 12, 3, 30, 50, 560, DateTimeKind.Local).AddTicks(4851),
                             Name = "Hungry weekend discount",
-                            Start_Date = new DateTime(2023, 10, 2, 1, 28, 20, 873, DateTimeKind.Local).AddTicks(9682)
+                            Start_Date = new DateTime(2023, 10, 2, 3, 30, 50, 560, DateTimeKind.Local).AddTicks(4850)
                         });
                 });
 
@@ -263,7 +263,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                             EmployeeId = 1,
                             Email_Address = "VanessaJames@gmail.com",
                             Employee_RoleId = 1,
-                            Employment_Date = new DateTime(2023, 10, 2, 1, 28, 20, 873, DateTimeKind.Local).AddTicks(8701),
+                            Employment_Date = new DateTime(2023, 10, 2, 3, 30, 50, 560, DateTimeKind.Local).AddTicks(3473),
                             FirstName = "Vanessa",
                             GenderId = 2,
                             PhoneNumber = "0847541236",
@@ -276,7 +276,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                             EmployeeId = 2,
                             Email_Address = "SerenaWilliams@gmail.com",
                             Employee_RoleId = 2,
-                            Employment_Date = new DateTime(2023, 10, 2, 1, 28, 20, 873, DateTimeKind.Local).AddTicks(8719),
+                            Employment_Date = new DateTime(2023, 10, 2, 3, 30, 50, 560, DateTimeKind.Local).AddTicks(3502),
                             FirstName = "Serena",
                             GenderId = 2,
                             PhoneNumber = "0842341236",
@@ -289,7 +289,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                             EmployeeId = 3,
                             Email_Address = "EdrisElba@gmail.com",
                             Employee_RoleId = 1,
-                            Employment_Date = new DateTime(2023, 10, 2, 1, 28, 20, 873, DateTimeKind.Local).AddTicks(8730),
+                            Employment_Date = new DateTime(2023, 10, 2, 3, 30, 50, 560, DateTimeKind.Local).AddTicks(3511),
                             FirstName = "Edris",
                             GenderId = 1,
                             PhoneNumber = "0212378798",
@@ -302,7 +302,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                             EmployeeId = 4,
                             Email_Address = "NyongoLupita@gmail.com",
                             Employee_RoleId = 2,
-                            Employment_Date = new DateTime(2023, 10, 2, 1, 28, 20, 873, DateTimeKind.Local).AddTicks(8736),
+                            Employment_Date = new DateTime(2023, 10, 2, 3, 30, 50, 560, DateTimeKind.Local).AddTicks(3520),
                             FirstName = "Lupita",
                             GenderId = 2,
                             PhoneNumber = "0455783475",
@@ -315,7 +315,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                             EmployeeId = 5,
                             Email_Address = "MicheaJackson@gmail.com",
                             Employee_RoleId = 2,
-                            Employment_Date = new DateTime(2023, 10, 2, 1, 28, 20, 873, DateTimeKind.Local).AddTicks(8743),
+                            Employment_Date = new DateTime(2023, 10, 2, 3, 30, 50, 560, DateTimeKind.Local).AddTicks(3529),
                             FirstName = "Micheal",
                             GenderId = 3,
                             PhoneNumber = "0874567836",
@@ -328,7 +328,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                             EmployeeId = 6,
                             Email_Address = "TaehyungKim@gmial.com",
                             Employee_RoleId = 1,
-                            Employment_Date = new DateTime(2023, 10, 2, 1, 28, 20, 873, DateTimeKind.Local).AddTicks(8752),
+                            Employment_Date = new DateTime(2023, 10, 2, 3, 30, 50, 560, DateTimeKind.Local).AddTicks(3543),
                             FirstName = "Taehyung",
                             GenderId = 1,
                             PhoneNumber = "0874562134",
@@ -341,7 +341,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                             EmployeeId = 7,
                             Email_Address = "ZendayaColeman@gmail.com",
                             Employee_RoleId = 1,
-                            Employment_Date = new DateTime(2023, 10, 2, 1, 28, 20, 873, DateTimeKind.Local).AddTicks(8759),
+                            Employment_Date = new DateTime(2023, 10, 2, 3, 30, 50, 560, DateTimeKind.Local).AddTicks(3552),
                             FirstName = "Zendaya",
                             GenderId = 2,
                             PhoneNumber = "0212378798",
@@ -354,7 +354,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                             EmployeeId = 8,
                             Email_Address = "RogerFederal@gmail.com",
                             Employee_RoleId = 1,
-                            Employment_Date = new DateTime(2023, 10, 2, 1, 28, 20, 873, DateTimeKind.Local).AddTicks(8765),
+                            Employment_Date = new DateTime(2023, 10, 2, 3, 30, 50, 560, DateTimeKind.Local).AddTicks(3560),
                             FirstName = "Roger",
                             GenderId = 3,
                             PhoneNumber = "0612346487",
@@ -367,7 +367,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                             EmployeeId = 9,
                             Email_Address = "JenniferLOpez@gmail.com",
                             Employee_RoleId = 2,
-                            Employment_Date = new DateTime(2023, 10, 2, 1, 28, 20, 873, DateTimeKind.Local).AddTicks(8771),
+                            Employment_Date = new DateTime(2023, 10, 2, 3, 30, 50, 560, DateTimeKind.Local).AddTicks(3569),
                             FirstName = "Jennifer",
                             GenderId = 3,
                             PhoneNumber = "0874834576",
@@ -380,7 +380,7 @@ namespace Africanacity_Team24_INF370_.Migrations
                             EmployeeId = 10,
                             Email_Address = "ChadwickBoseman@gmail.com",
                             Employee_RoleId = 2,
-                            Employment_Date = new DateTime(2023, 10, 2, 1, 28, 20, 873, DateTimeKind.Local).AddTicks(8779),
+                            Employment_Date = new DateTime(2023, 10, 2, 3, 30, 50, 560, DateTimeKind.Local).AddTicks(3579),
                             FirstName = "Chadwick",
                             GenderId = 1,
                             PhoneNumber = "0923456789",
@@ -1293,70 +1293,70 @@ namespace Africanacity_Team24_INF370_.Migrations
                         new
                         {
                             InventoryPrice_Id = 1,
-                            Date = new DateTime(2023, 10, 2, 1, 28, 20, 873, DateTimeKind.Local).AddTicks(9692),
+                            Date = new DateTime(2023, 10, 2, 3, 30, 50, 560, DateTimeKind.Local).AddTicks(4864),
                             Inventory_ItemId = 1,
                             Price = 25m
                         },
                         new
                         {
                             InventoryPrice_Id = 2,
-                            Date = new DateTime(2023, 10, 2, 1, 28, 20, 873, DateTimeKind.Local).AddTicks(9701),
+                            Date = new DateTime(2023, 10, 2, 3, 30, 50, 560, DateTimeKind.Local).AddTicks(4879),
                             Inventory_ItemId = 2,
                             Price = 250m
                         },
                         new
                         {
                             InventoryPrice_Id = 3,
-                            Date = new DateTime(2023, 10, 2, 1, 28, 20, 873, DateTimeKind.Local).AddTicks(9707),
+                            Date = new DateTime(2023, 10, 2, 3, 30, 50, 560, DateTimeKind.Local).AddTicks(4888),
                             Inventory_ItemId = 3,
                             Price = 200m
                         },
                         new
                         {
                             InventoryPrice_Id = 4,
-                            Date = new DateTime(2023, 10, 2, 1, 28, 20, 873, DateTimeKind.Local).AddTicks(9714),
+                            Date = new DateTime(2023, 10, 2, 3, 30, 50, 560, DateTimeKind.Local).AddTicks(4897),
                             Inventory_ItemId = 4,
                             Price = 38m
                         },
                         new
                         {
                             InventoryPrice_Id = 5,
-                            Date = new DateTime(2023, 10, 2, 1, 28, 20, 873, DateTimeKind.Local).AddTicks(9721),
+                            Date = new DateTime(2023, 10, 2, 3, 30, 50, 560, DateTimeKind.Local).AddTicks(4906),
                             Inventory_ItemId = 5,
                             Price = 45m
                         },
                         new
                         {
                             InventoryPrice_Id = 6,
-                            Date = new DateTime(2023, 10, 2, 1, 28, 20, 873, DateTimeKind.Local).AddTicks(9728),
+                            Date = new DateTime(2023, 10, 2, 3, 30, 50, 560, DateTimeKind.Local).AddTicks(4915),
                             Inventory_ItemId = 6,
                             Price = 75m
                         },
                         new
                         {
                             InventoryPrice_Id = 7,
-                            Date = new DateTime(2023, 10, 2, 1, 28, 20, 873, DateTimeKind.Local).AddTicks(9735),
+                            Date = new DateTime(2023, 10, 2, 3, 30, 50, 560, DateTimeKind.Local).AddTicks(4923),
                             Inventory_ItemId = 7,
                             Price = 100m
                         },
                         new
                         {
                             InventoryPrice_Id = 8,
-                            Date = new DateTime(2023, 10, 2, 1, 28, 20, 873, DateTimeKind.Local).AddTicks(9741),
+                            Date = new DateTime(2023, 10, 2, 3, 30, 50, 560, DateTimeKind.Local).AddTicks(4931),
                             Inventory_ItemId = 8,
                             Price = 40m
                         },
                         new
                         {
                             InventoryPrice_Id = 9,
-                            Date = new DateTime(2023, 10, 2, 1, 28, 20, 873, DateTimeKind.Local).AddTicks(9747),
+                            Date = new DateTime(2023, 10, 2, 3, 30, 50, 560, DateTimeKind.Local).AddTicks(4939),
                             Inventory_ItemId = 9,
                             Price = 28m
                         },
                         new
                         {
                             InventoryPrice_Id = 10,
-                            Date = new DateTime(2023, 10, 2, 1, 28, 20, 873, DateTimeKind.Local).AddTicks(9755),
+                            Date = new DateTime(2023, 10, 2, 3, 30, 50, 560, DateTimeKind.Local).AddTicks(4948),
                             Inventory_ItemId = 10,
                             Price = 35m
                         });
@@ -2451,7 +2451,30 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     b.HasIndex("Drink_TypeId");
 
-                    b.ToTable("OtherDrink");
+                    b.ToTable("OtherDrinks");
+
+                    b.HasData(
+                        new
+                        {
+                            OtherDrinkId = 1,
+                            Description = "Vodka, pineapple juice and lemon syrup",
+                            Drink_TypeId = 1,
+                            Name = "Margarita"
+                        },
+                        new
+                        {
+                            OtherDrinkId = 2,
+                            Description = "Crushed ice lemonade juice ",
+                            Drink_TypeId = 2,
+                            Name = "Frozen Lemonade"
+                        },
+                        new
+                        {
+                            OtherDrinkId = 3,
+                            Description = "Crushed ice, strawberry lemonade, vodka, strawberry syrup",
+                            Drink_TypeId = 1,
+                            Name = "Strawberry Diaquri "
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.OtherDrinkPrice", b =>
@@ -2472,7 +2495,27 @@ namespace Africanacity_Team24_INF370_.Migrations
 
                     b.HasIndex("OtherDrinkId");
 
-                    b.ToTable("OtherDrinkPrice");
+                    b.ToTable("OtherDrinkPrices");
+
+                    b.HasData(
+                        new
+                        {
+                            OtherDrinkPriceId = 1,
+                            Amount = 69m,
+                            OtherDrinkId = 1
+                        },
+                        new
+                        {
+                            OtherDrinkPriceId = 2,
+                            Amount = 60m,
+                            OtherDrinkId = 2
+                        },
+                        new
+                        {
+                            OtherDrinkPriceId = 3,
+                            Amount = 75m,
+                            OtherDrinkId = 3
+                        });
                 });
 
             modelBuilder.Entity("Africanacity_Team24_INF370_.models.Restraurant.Payment_Method", b =>
@@ -2622,9 +2665,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                             Password = "Vanessa123",
                             PhysicalAddress = "404 Jacob Street",
                             RefreshToken = "",
-                            RefreshTokenExpiryTime = new DateTime(2023, 10, 1, 23, 28, 20, 873, DateTimeKind.Utc).AddTicks(8893),
+                            RefreshTokenExpiryTime = new DateTime(2023, 10, 2, 1, 30, 50, 560, DateTimeKind.Utc).AddTicks(3751),
                             ResetPasswordToken = "",
-                            ResetPasswordTokenExpiry = new DateTime(2023, 10, 1, 23, 28, 20, 873, DateTimeKind.Utc).AddTicks(8893),
+                            ResetPasswordTokenExpiry = new DateTime(2023, 10, 2, 1, 30, 50, 560, DateTimeKind.Utc).AddTicks(3752),
                             Role = "User",
                             Username = "Vanessa"
                         },
@@ -2639,9 +2682,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                             Password = "Serena.123",
                             PhysicalAddress = "404 Williams Street",
                             RefreshToken = "",
-                            RefreshTokenExpiryTime = new DateTime(2023, 10, 1, 23, 28, 20, 873, DateTimeKind.Utc).AddTicks(8905),
+                            RefreshTokenExpiryTime = new DateTime(2023, 10, 2, 1, 30, 50, 560, DateTimeKind.Utc).AddTicks(3767),
                             ResetPasswordToken = "",
-                            ResetPasswordTokenExpiry = new DateTime(2023, 10, 1, 23, 28, 20, 873, DateTimeKind.Utc).AddTicks(8906),
+                            ResetPasswordTokenExpiry = new DateTime(2023, 10, 2, 1, 30, 50, 560, DateTimeKind.Utc).AddTicks(3767),
                             Role = "User",
                             Username = "Serena"
                         },
@@ -2656,9 +2699,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                             Password = "Venus.123",
                             PhysicalAddress = "100 Venus Street",
                             RefreshToken = "",
-                            RefreshTokenExpiryTime = new DateTime(2023, 10, 1, 23, 28, 20, 873, DateTimeKind.Utc).AddTicks(8913),
+                            RefreshTokenExpiryTime = new DateTime(2023, 10, 2, 1, 30, 50, 560, DateTimeKind.Utc).AddTicks(3776),
                             ResetPasswordToken = "",
-                            ResetPasswordTokenExpiry = new DateTime(2023, 10, 1, 23, 28, 20, 873, DateTimeKind.Utc).AddTicks(8913),
+                            ResetPasswordTokenExpiry = new DateTime(2023, 10, 2, 1, 30, 50, 560, DateTimeKind.Utc).AddTicks(3777),
                             Role = "User",
                             Username = "Venus"
                         },
@@ -2673,9 +2716,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                             Password = "Beast.123",
                             PhysicalAddress = "808 Beast Street",
                             RefreshToken = "",
-                            RefreshTokenExpiryTime = new DateTime(2023, 10, 1, 23, 28, 20, 873, DateTimeKind.Utc).AddTicks(8920),
+                            RefreshTokenExpiryTime = new DateTime(2023, 10, 2, 1, 30, 50, 560, DateTimeKind.Utc).AddTicks(3785),
                             ResetPasswordToken = "",
-                            ResetPasswordTokenExpiry = new DateTime(2023, 10, 1, 23, 28, 20, 873, DateTimeKind.Utc).AddTicks(8920),
+                            ResetPasswordTokenExpiry = new DateTime(2023, 10, 2, 1, 30, 50, 560, DateTimeKind.Utc).AddTicks(3785),
                             Role = "User",
                             Username = "Bee"
                         },
@@ -2690,9 +2733,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                             Password = "Danger.123",
                             PhysicalAddress = "500 Danger Street",
                             RefreshToken = "",
-                            RefreshTokenExpiryTime = new DateTime(2023, 10, 1, 23, 28, 20, 873, DateTimeKind.Utc).AddTicks(8927),
+                            RefreshTokenExpiryTime = new DateTime(2023, 10, 2, 1, 30, 50, 560, DateTimeKind.Utc).AddTicks(3794),
                             ResetPasswordToken = "",
-                            ResetPasswordTokenExpiry = new DateTime(2023, 10, 1, 23, 28, 20, 873, DateTimeKind.Utc).AddTicks(8927),
+                            ResetPasswordTokenExpiry = new DateTime(2023, 10, 2, 1, 30, 50, 560, DateTimeKind.Utc).AddTicks(3794),
                             Role = "User",
                             Username = "KidDanger"
                         },
@@ -2707,9 +2750,9 @@ namespace Africanacity_Team24_INF370_.Migrations
                             Password = "Adult.123",
                             PhysicalAddress = "404 Adult Street",
                             RefreshToken = "",
-                            RefreshTokenExpiryTime = new DateTime(2023, 10, 1, 23, 28, 20, 873, DateTimeKind.Utc).AddTicks(8939),
+                            RefreshTokenExpiryTime = new DateTime(2023, 10, 2, 1, 30, 50, 560, DateTimeKind.Utc).AddTicks(3820),
                             ResetPasswordToken = "",
-                            ResetPasswordTokenExpiry = new DateTime(2023, 10, 1, 23, 28, 20, 873, DateTimeKind.Utc).AddTicks(8940),
+                            ResetPasswordTokenExpiry = new DateTime(2023, 10, 2, 1, 30, 50, 560, DateTimeKind.Utc).AddTicks(3820),
                             Role = "User",
                             Username = "AdultDanger"
                         });

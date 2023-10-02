@@ -1,1 +1,39 @@
-<p>booking works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <app-navbar></app-navbar>
+        </div>
+
+        <div class="col-md-10 order-md-1">
+            <!-- heading -->
+            <div class="row">
+                <h1 class="heading">Inventory Report</h1>
+                <span style="display: block; width: 700px;" class="col-md-6 order-md-1 card">
+                    <canvas baseChart
+                        [datasets]="barChartData"
+                        [labels]="barChartLabels"
+                        [options]="barChartOptions"
+                        [legend]="barChartLegend"
+                        [type]="barChartType">
+                    </canvas>
+                </span>
+                <span class="col-md-1 order-md-1"></span>
+                <span style="display: block; height: 400px;" class="col-md-4 order-md-1 card">
+                    <canvas id="pie" 
+                        baseChart
+                        [datasets]="pieChartData"
+                        [labels]="pieChartLabels"
+                        [type]="pieChartType">
+                    </canvas> 
+                </span>
+            </div>  
+                <br> <br> 
+                <div>
+                    <button class="addButton" style="width: 150px">
+                        <i class="fa fa-download fa-lg icon" aria-hidden="true" (click)="downloadPDF()"> Download</i>                
+                    </button>
+                </div>
+
+                            
+        </div>
+    </div>
