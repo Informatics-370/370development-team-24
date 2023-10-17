@@ -13,5 +13,7 @@ namespace Africanacity_Team24_INF370_.View_Models
         public decimal Discount { get; set; }
         public decimal Total { get; set; }
 
+        public List<BothOrderItemEditDto> OrderedItems { get; set; } // List of changes to order items
+        public List<BothOrderItemEditDto> OrderedDrinks { get; set; } // List of changes to drink items
     }
 }

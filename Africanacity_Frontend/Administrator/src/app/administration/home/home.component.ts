@@ -7,12 +7,17 @@ import { AuthService } from 'src/app/UserService/auth.service';
 import { UserStoreService } from 'src/app/UserService/user-store.service';
 import { DataService } from 'src/app/service/data.Service';
 import { EmployeeService } from 'src/app/service/employee.service';
+import { InventoryService } from 'src/app/service/inventory.service';
 import { Employee } from 'src/app/shared/employee';
 import { Employee_Role } from 'src/app/shared/EmployeeRole';
 import { Gender } from 'src/app/shared/gender';
-import { jsPDF } from 'jspdf';
-import 'jspdf-autotable';
-import { saveAs } from 'file-saver';
+import { StockTakeRecon } from 'src/app/shared/stocktake';
+import { StockTake, StockTakeItem } from 'src/app/shared/stocktakeitem';
+import { InventoryItem } from 'src/app/shared/inventoryitem';
+import { Order } from 'src/app/shared/order';
+import { VAT } from 'src/app/shared/Vat';
+import { Discount } from 'src/app/shared/Discount';
+
 
 interface Accumulator {
   [roleName: string]: {
@@ -32,7 +37,23 @@ export class HomeComponent implements OnInit {
   employees: Employee[] = [];
   employeeRoles: Employee_Role[] = [];
   genders: Gender[] = [];
-  
+
+  // INVENTORY RECON
+  reconItems: StockTakeRecon[] = [];
+  stockTakeItems: StockTakeItem [] = [];
+  inventoryItems: InventoryItem [] = [];
+
+  // SALES
+  Orders: Order[] = [];
+  Vat: VAT[] = [];
+  Discount: Discount[] = [];
+
+  currentDate: Date = new Date();
+  startDate: Date = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() - 1, this.currentDate.getDate() + 1);
+  endDate: Date = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate());
+
+  orderCount = this.Orders.filter(item => item.orderDate >= this.startDate && item.orderDate <= this.endDate);
+
   // Bar chart
   barChartOptions: ChartOptions = {
     responsive: true,
@@ -48,12 +69,21 @@ export class HomeComponent implements OnInit {
   barChartLegend = true;
   barChartType: ChartType = 'bar';
 
+  // Line chart
+  lineChartData: ChartDataset[] = [];
+  lineChartLabels: string[] = [];
+  lineChartOptions: ChartOptions = { responsive: true,};
+  lineChartLegend = true;
+  lineChartType: ChartType = 'line';
+  lineChartPlugins = [];
+
   constructor( private http: HttpClient,
     private auth: AuthService,
     private api : ApiService, 
     private userStore: UserStoreService,
     private dataService: DataService, 
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private inventoryService: InventoryService
     ) { }
 
   ngOnInit(): void {
@@ -67,7 +97,15 @@ export class HomeComponent implements OnInit {
     this.fetchData()
     this.GetAllGenders()
 
-    console.log("data", this.fetchData())
+    console.log("employees", this.fetchData())
+
+    // INVENTORY RECON
+    this.GetAllReconItems()
+    console.log('recon', this.reconItems)
+
+    // SALES
+    this.GetAllOrders()
+    console.log("sale", this.Orders)
   }
  
   logout(){
@@ -140,5 +178,37 @@ export class HomeComponent implements OnInit {
     }
     return color;
   }
+
+  // INVENTORY RECON
+  loadChartData() {
+    this.lineChartData = [
+      {
+        data: this.reconItems.map(item => item.quantityDifference),
+        label: 'Quantity Difference',
+        fill: false,
+      },
+    ];
+  
+    this.lineChartLabels = this.reconItems.map(item => item.inventoryItemName);
+  }
+  
+  GetAllReconItems()
+  {
+    this.inventoryService.GetAllReconItems().subscribe(result => {
+      let reconList:any[] = result;
+      this.reconItems = reconList;
+        
+      this.loadChartData();
+    });
+  }
+
+  // ORDERS
+  GetAllOrders()
+  {
+    this.dataService.getAllKitchenOrders().subscribe(result => {
+      this.Orders = result;
+    })
+  }
+
 
 }
