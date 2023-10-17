@@ -38,8 +38,8 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
         public List<KitchenOrder> Orders { get; set; } = new List<KitchenOrder>();
 
         public virtual ICollection<MenuItem_Price> MenuItem_Prices { get; set; }
-		public virtual ICollection<KitchenOrder> KitchenOrders { get; set; }
-		public virtual ICollection<Order_MenuItem> OrderedMenuItems { get; set; }
+		//public virtual ICollection<Order> Orders { get; set; }
+		//public virtual ICollection<Order_MenuItem> OrderedMenuItems { get; set; }
 
 
 
