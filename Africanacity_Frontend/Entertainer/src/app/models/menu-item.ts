@@ -1,19 +1,15 @@
+
 export class MenuItem {
-    menuItemId!: number;
-    name!:String;
-    description!: String;
-    foodTypeId!:number;//new property for name
-    menuTypeId!:number;//new property for name
-    menuCategoryId!:number;//new property for name
-    isDeleted!:false;
-   
+    menuItem_Id!: number;
+    name!:string;
+    description!: string;
+    foodTypeName!:string;//new property for name
+    menuTypeName!:string;//new property for name
+    menuCategoryName!:string;//new property for name
+    menuItemsPrices: { [menuItem_Id: number]: number } = {};
+    price!:number;
+    // foodTypeId: number;
+    // menu_TypeId: number;
+    // menuItemCategory_Id: number;
 }
 
-/*export class MenuItem
-{
-    menuItem_Id!: number;
-    name!: string;
-    description!: string;
-    foodType!: string;
-    category!: string;
-}*/

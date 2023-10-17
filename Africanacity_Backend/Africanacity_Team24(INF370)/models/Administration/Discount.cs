@@ -6,7 +6,7 @@ namespace Africanacity_Team24_INF370_.models.Administration
     public class Discount
 	{
 		[Key]
-		public int DiscountId { get; set; }
+		public int discountId { get; set; }
 
 		[MaxLength(50)]
 		public string Name { get; set; } = string.Empty;

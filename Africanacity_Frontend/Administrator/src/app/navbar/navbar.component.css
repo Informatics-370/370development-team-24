@@ -84,3 +84,8 @@ h4 {
   margin: 20px 0; /* Adjust margin for spacing */
   color: #fff; /* Set the text color to white */
 }
+
+.success-snackbar {
+  background-color: green;
+  color: white;
+}

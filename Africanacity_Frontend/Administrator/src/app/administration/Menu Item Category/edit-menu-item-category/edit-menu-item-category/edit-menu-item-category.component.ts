@@ -8,6 +8,7 @@ import { MenuItemCategory } from 'src/app/shared/menu-item-category';
 import { ActivatedRoute} from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { HelpEditmenucategoryComponent } from '../help-editmenucategory/help-editmenucategory.component';
+import { MenuTypes } from 'src/app/shared/menu-types';
 
 @Component({
   selector: 'app-edit-menu-item-category',
@@ -16,10 +17,13 @@ import { HelpEditmenucategoryComponent } from '../help-editmenucategory/help-edi
 })
 export class EditMenuItemCategoryComponent {
   editMenuItemCategory: MenuItemCategory = new MenuItemCategory();
+  // Add a property to store menu types
+  menuTypesData: MenuTypes[] = [];
 
   updateMenuItemCategoryForm: FormGroup = new FormGroup({
     name: new FormControl('',[Validators.required]),
     description: new FormControl('',[Validators.required]),
+    menu_TypeId: new FormControl('',[Validators.required]),
   })
 
   constructor(private dataService: DataService, private router: Router, private http: HttpClient, private activated:ActivatedRoute, private dialog: MatDialog) {}
@@ -32,9 +36,11 @@ export class EditMenuItemCategoryComponent {
 
         this.updateMenuItemCategoryForm.controls['name'].setValue(this.editMenuItemCategory.name);
         this.updateMenuItemCategoryForm.controls['description'].setValue(this.editMenuItemCategory.description);
+        this.updateMenuItemCategoryForm.controls['menu_TypeId'].setValue(this.editMenuItemCategory.menu_TypeId);
       })
  
     })
+    this.GetAllMenuTypes()
   }
 
   // ngOnInit() {
@@ -43,6 +49,15 @@ export class EditMenuItemCategoryComponent {
   //     this.editFoodType = data;
   //   });
   // }
+
+  GetAllMenuTypes(){
+    this.dataService.GetAllMenuTypes().subscribe(result => {
+    let menuTypesList:any[] = result
+    menuTypesList.forEach((element) => {
+    this.menuTypesData.push(element)
+  });
+});
+}
 
 
 
@@ -55,10 +70,10 @@ export class EditMenuItemCategoryComponent {
     let menuItemCategory = new MenuItemCategory();
     menuItemCategory.name = this.updateMenuItemCategoryForm.value.name;
     menuItemCategory.description = this.updateMenuItemCategoryForm.value.description;
+    menuItemCategory.menu_TypeId = this.updateMenuItemCategoryForm.value.menu_TypeId;
     
     this.dataService.EditMenuItemCategory(this.editMenuItemCategory.menu_CategoryId, menuItemCategory).subscribe((response:any) => {
-
-      if(response)
+        if(response)
       {
         this.router.navigate(['/menu-item-category'])
    

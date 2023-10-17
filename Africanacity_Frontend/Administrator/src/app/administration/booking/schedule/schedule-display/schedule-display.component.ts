@@ -133,7 +133,7 @@ formatEventsForCalendar(): EventInput[] {
     if(schedule){
 
       const bookingEvent = this.bookingevents.find(event => event.name === schedule.eventName);
-      console.log('event name', schedule);
+      //console.log('event name', schedule);
       const dialogRef = this.dialog.open(EventDetailsDailogComponent,{
         data: {
           title:info.event.title,

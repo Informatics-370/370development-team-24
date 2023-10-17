@@ -6,6 +6,8 @@ import { DataService } from 'src/app/services/data.Service';
 import { UserStoreService } from 'src/app/services/user-store.service';
 import { HomeHelpComponent } from './home-help/home-help.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { LogoutConfirmationComponent } from '../navbar/logout-confirmation/logout-confirmation.component';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +23,8 @@ export class HomeComponent implements OnInit {
     private api : ApiService, 
    private userStore: UserStoreService,
    private dataService:DataService ,
-   private dialog: MatDialog 
+   private dialog: MatDialog,
+   private snackBar: MatSnackBar 
     ) { }
 
   ngOnInit(): void {
@@ -45,9 +48,23 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  logout(){
-    this.auth.signOut();
+  logout() {
+    const dialogRef = this.dialog.open(LogoutConfirmationComponent);
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        // User confirmed the logout, perform the logout action
+        this.auth.signOut();
+        
+        // Display a success notification
+        this.snackBar.open('Logged out successfully', 'Close', {
+          duration: 3000, // Duration in milliseconds
+          panelClass: ['success-snackbar'], // Optional CSS classes for styling
+        });
+      }
+    });
   }
+
   openHelpModal(field: string): void {
     const dialogRef = this.dialog.open(HomeHelpComponent, {
       width: '500px',

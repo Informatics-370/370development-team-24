@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/service/data.Service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { MenuTypes } from 'src/app/shared/menu-types';
@@ -207,6 +207,15 @@ import { HelpEditmenuitemComponent } from './help-editmenuitem/help-editmenuitem
 
 // }
 
+function salaryNonNegativeValidator(control: FormControl): { [key: string]: any } | null {
+  const salary = control.value;
+  
+  if (salary !== null && (isNaN(salary) || salary <= 0)) {
+    return { 'invalidSalary': true };
+  }
+  
+  return null;
+}
 
 @Component({
   selector: 'app-edit-menu-item',
@@ -257,7 +266,7 @@ export class EditMenuItemComponent implements OnInit {
       menuTypeName: [''],
       foodTypeName: [''],
       menuCategoryName: [''],
-      amount: [0] // Provide a default value (e.g., 0)
+      amount: [0, salaryNonNegativeValidator] // Provide a default value (e.g., 0)
     });
     
   }

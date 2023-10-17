@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
   public isValidEmail! : boolean;
   public countdown: number = 900; // 15 minutes in seconds
   public isTimerActive: boolean = false;
+  submitting: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -82,16 +83,18 @@ export class LoginComponent implements OnInit {
  
    Send(){
      if(this.checkValidEmail(this.resetPasswordEmail)){ 
+      this.submitting = true; 
  
        this.resetPassword.sendResetPasswordLink(this.resetPasswordEmail)
        .subscribe({
          next:(res)=>{
            this.toast.success({
              detail: 'Success',
-             summary: 'Reset Successful!',
+             summary: 'Reset email successful sent!',
              duration: 3000,
            });
             this.resetPasswordEmail = '';
+            this.submitting = false; 
 
           // Start the countdown timer
           this.startTimer();
@@ -111,6 +114,7 @@ export class LoginComponent implements OnInit {
              summary: 'Something went wrong, invalid email address',
              duration: 3000,
            });
+           this.submitting = false; 
          }
        })
      }

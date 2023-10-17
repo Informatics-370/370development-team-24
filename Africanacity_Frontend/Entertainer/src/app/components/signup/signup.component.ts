@@ -19,13 +19,13 @@ export class SignupComponent implements OnInit {
   passwordHasUpperCase: boolean = false;
   passwordHasDigit: boolean = false;
   isHovering: boolean = false;
-  
+  public isValidEmail!: boolean;
   public signUpForm!: FormGroup;
   type: string = 'password';
   isText: boolean = false;
   eyeIcon:string = "fa-eye-slash";
   entertainmentTypeData:Entertainment[]=[]
-
+  submitting: boolean = false;
       firstName!:string;
       lastName!:string;
       username!:string;
@@ -37,7 +37,8 @@ export class SignupComponent implements OnInit {
     private fb : FormBuilder, 
     private auth: AuthService, 
     private router: Router,
-    private apiService: BookingService,
+    private bookService: BookingService,
+    private apiService: ApiService,
     private dialog: MatDialog 
     ) { }
 
@@ -57,6 +58,15 @@ export class SignupComponent implements OnInit {
       this.passwordHasUpperCase = /[A-Z]/.test(value);
       this.passwordHasDigit = /\d/.test(value);
   });
+
+  const emailControl = this.signUpForm.get('email');
+
+  if (emailControl) {
+    emailControl.valueChanges.subscribe((value) => {
+      const pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,3}$/;
+      this.isValidEmail = pattern.test(value);
+    });
+ }
     this.GetAllEntertainment();
     console.log(this.GetAllEntertainment)
   }
@@ -69,6 +79,7 @@ export class SignupComponent implements OnInit {
 
   onSubmit() {
     if (this.signUpForm.valid) {
+      this.submitting = true; 
       // Save the user information to localStorage
       const userData = this.signUpForm.value;
       localStorage.setItem('user', JSON.stringify(userData));
@@ -87,19 +98,21 @@ export class SignupComponent implements OnInit {
           console.log(res.message);
           this.signUpForm.reset();
           this.router.navigate(['login']);
-          alert(res.message)
+          alert(res.message);
+          this.submitting = false
         }),
         error:(err=>{
-          alert(err?.error.message)
+          alert(err?.error.message);
+          this.submitting = false
         })
       })
     } else {
       ValidateForm.validateAllFormFields(this.signUpForm); 
     }
-  }
+  } 
 
   GetAllEntertainment(){
-    this.apiService.GetAllEntertainment().subscribe(result => {
+    this.bookService.GetAllEntertainment().subscribe(result => {
       let bookingList:any[] = result
      bookingList.forEach((element) => {
         this.entertainmentTypeData.push(element)

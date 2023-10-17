@@ -15,15 +15,18 @@
       <button style="margin-top: -0.8rem;" mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help">
         <mat-icon>help</mat-icon>
       </button>  
-  
     </div> 
       </div>
-
-      <div class="loader-container" *ngIf="loading">
+      <div class="ploader-container" *ngIf="loading">
         <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-        <p class="loading-message">Loading...</p>
+        <p class="ploading-message">Loading...</p>
+      </div>
+      <div *ngIf="bookingActionLoading" class="loader-container">
+        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+        <p class="loading-message">Processing...</p>
       </div>
          <div *ngIf="!loading">
+          <div *ngIf="!bookingActionLoading">
           <table class="table table-striped table-hover table-container outlined-table">
               <thead class="tableColor">
                   <tr>
@@ -40,7 +43,6 @@
               </thead>
               <tbody>
                   <tr *ngFor="let booking of filteredbookings">
-                      <!-- <td>{{booking.pending_BookingId}}</td> -->
                       <td>{{booking.eventname}}</td>
                       <td>
                         <div class="image-container">
@@ -73,6 +75,11 @@
                                               <source [src]="'data:video/ogg;base64,' + booking.demo" type="video/ogg" /> 
                                               Your browser does not support the video tag.
                                           </video>
+                                          <!-- <video class="vdemo" controls style="width: 100px; height: 100px;"  (error)="handleVideoError($event)">
+                                            <source [src]="booking.videoUrl" type="video/mp4" />
+                                            Your browser does not support the video tag.
+                                        </video> -->
+                                        
                                            <!-- Close button within the popup -->
                                            <label class="close-button" for="video-popup-{{booking.pending_BookingId}}">&times;</label>
                                         </div>
@@ -90,7 +97,7 @@
                   </tr>
               </tbody>
           </table>
-        </div>
-      
+    </div>
+</div>
 
     

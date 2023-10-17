@@ -14,34 +14,18 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class ViewInventorytypesComponent {
 
-  inventorytypes: InventoryType[] = []
+  inventorytypes: InventoryType[] = [];
   filteredInventoryTypes: InventoryType[] = [];
+  deletionSuccess = false;
   
-  constructor(private inventoryservice: InventoryService, private snackBar: MatSnackBar, private httpClient: HttpClient, private router: Router, private dialog: MatDialog
+  constructor(
+    private inventoryservice: InventoryService, 
+    private snackBar: MatSnackBar, 
+    private httpClient: HttpClient, 
+    private router: Router, 
+    private dialog: MatDialog
     ){}
 
-  deleteItem(): void {
-    const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete this inventory type?', 'Delete, Cancel',{
-      duration: 5000, // Display duration in milliseconds
-
-    });
-
-    
-    //  cancel(){
-    //    this.router.navigate(['/home'])
-    //  }
-  
-
-    confirmationSnackBar.onAction().subscribe(() => {
-      // Perform the deletion action here
-      this.deleteItemFromServer();
-      window.location.reload();
-    });
-  }
-
-deleteItemFromServer(): void {
-  this.DeleteInventoryType;
-}
 
   ngOnInit(): void {
     this.GetAllInventoryTypes()
@@ -74,12 +58,83 @@ deleteItemFromServer(): void {
     });
   }
 
+  deleteItem(inventory_TypeId: number): void {
+    const confirmationSnackBar = this.snackBar.open(
+      'Are you sure you want to delete the Inventory Type?',
+      'Cancel Delete',
+      { duration: 5000 }
+    );
 
-  DeleteInventoryType(inventory_TypeId: Number){
-    this.inventoryservice.DeleteInventoryType(inventory_TypeId).subscribe(result => {
-      this.deleteItem();
-      });
-    }
+    confirmationSnackBar.onAction().subscribe(() => {
+      this.deleteItemFromServer(inventory_TypeId); // Proceed with deletion if "Cancel Delete" is not clicked
+    });
+  }
+
+  deleteItemFromServer(employee_RoleId: number): void {
+    // Display another confirmation before the actual deletion
+    const confirmDeletionSnackBar = this.snackBar.open(
+      'Confirm deletion?',
+      'Delete',
+      { duration: 5000 }
+    );
+
+    confirmDeletionSnackBar.onAction().subscribe(() => {
+      // User confirmed deletion, proceed with the actual deletion
+      this.DeleteInventoryType(employee_RoleId);
+    });
+  }
+
+  DeleteInventoryType(inventory_TypeId: number) {
+    this.inventoryservice.DeleteInventoryType(inventory_TypeId).subscribe(
+      () => {
+        // Deletion was successful
+        this.deletionSuccess = true;
+        this.snackBar.open('Inventory type deleted successfully.', '', {
+          duration: 5000,
+        });
+        window.location.reload();
+      },
+      (error) => {
+        // Deletion failed
+        this.deletionSuccess = false;
+        this.snackBar.open(
+          'Cannot delete inventory type because it is linked to an inventory.',
+          '',
+          { duration: 5000 }
+        );
+      }
+    );
+  }
+//   deleteItem(): void {
+//     const confirmationSnackBar = this.snackBar.open('Are you sure you want to delete this inventory type?', 'Delete, Cancel',{
+//       duration: 5000, // Display duration in milliseconds
+
+//     });
+
+    
+//     //  cancel(){
+//     //    this.router.navigate(['/home'])
+//     //  }
+  
+
+//     confirmationSnackBar.onAction().subscribe(() => {
+//       // Perform the deletion action here
+//       this.deleteItemFromServer();
+//       window.location.reload();
+//     });
+//   }
+
+// deleteItemFromServer(): void {
+//   this.DeleteInventoryType;
+// }
+
+//   DeleteInventoryType(inventory_TypeId: Number){
+//     this.inventoryservice.DeleteInventoryType(inventory_TypeId).subscribe(result => {
+//       this.deleteItem();
+//       });
+//     }
+
+
     openHelpModal(field: string): void {
       const dialogRef = this.dialog.open(HelpViewinventorytypeComponent, {
         width: '500px',

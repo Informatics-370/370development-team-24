@@ -11,12 +11,14 @@
           <hr>
           <div class="container">
             <div class="row">
+              <!--Title-->
               <form [formGroup]="Updatescheduleform" (ngSubmit)="updateSchedule()">
                 <mat-form-field class="full-width">
                   <mat-label>Slot Title</mat-label>
                   <input matInput placeholder="Provide the slot title" formControlName="title">
                 </mat-form-field>
-                
+
+                <!--Date-->
                 <mat-form-field class="full-width">
                   <mat-label>Date</mat-label>
                   <input
@@ -50,7 +52,8 @@
                     formControlName="end_Time"
                   >
                 </mat-form-field>
-              
+
+                <!--Event Name-->
                 <mat-form-field class="full-width">
                   <mat-label>Event Name</mat-label>
                   <mat-select formControlName="event">
@@ -58,14 +61,14 @@
                   </mat-select>
                 </mat-form-field>
 
-                <mat-form-field class="full-width">
+                <!-- <mat-form-field class="full-width">
                   <mat-label>Schedule Status</mat-label>
                   <mat-select formControlName="scheduleStatus">
                     <mat-option *ngFor="let status of statuses" [value]="status.schedule_StatusId">{{ status.name }}</mat-option>
                   </mat-select>
-                </mat-form-field>
+                </mat-form-field> -->
               
-              
+                <!--Description-->
                 <mat-form-field class="full-width">
                   <mat-label>Description</mat-label>
                   <textarea

@@ -19,6 +19,8 @@ import { Order } from '../shared/order';
 import { Discount } from '../shared/Discount';
 import { VAT } from '../shared/Vat';
 import { OtherDrink } from '../shared/other-drink';
+import { MenuTypeWithAssociations } from '../shared/menuTypeWithAssociations';
+import { FoodTypeViewModel } from '../shared/foodTypeViewModel';
 
 
 @Injectable({
@@ -75,11 +77,12 @@ export class DataService {
     }
     /***************Menu Types************/
   
-    //Create menu type
-    AddMenuType(menuType: MenuTypes){
+     //Create menu type
+     AddMenuType(menuType: MenuTypes){
       return this.httpClient.post(`${this.apiUrl}MenuType/AddMenuType`,menuType);
     }
-  
+
+
     GetAllMenuTypes(): Observable<any>{
       return this.httpClient.get(`${this.apiUrl}MenuType/GetAllMenuTypes`)
       .pipe(map(result => result));
@@ -104,6 +107,10 @@ export class DataService {
     deleteMenuType(menu_TypeId: Number){
       return this.httpClient.delete<string>(`${this.apiUrl}MenuType/DeleteMenuType` + "/" + menu_TypeId, this.httpOptions);
     }
+
+   
+   
+  
   
   
   
@@ -121,9 +128,16 @@ export class DataService {
     }
 
     //add a new menu item
-  addMenuItem(file:FormData, amount: number){
-    return this.httpClient.post(`${this.apiUrl}MenuItems/AddMenuItem`, file)
-  }
+    addMenuItem(menuItemData: any) {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+        }),
+      };
+    
+      return this.httpClient.post(`${this.apiUrl}MenuItems/AddMenuItem`, menuItemData, httpOptions);
+    }
+    
 
   //edit menu item
   editMenuItem(MenuItemId: number, menuItem: MenuItem): Observable<MenuItem> {
@@ -137,7 +151,6 @@ export class DataService {
 
 
   
-    /*Delete Menu type*/
     deleteMenuItem(menu_ItemId: Number){
       return this.httpClient.delete<string>(`${this.apiUrl}MenuItems/DeleteMenuItem` + "/" + menu_ItemId, this.httpOptions)
     }
@@ -145,6 +158,21 @@ export class DataService {
     GetMenuItemPrice(MenuItemId: number) {
       return this.httpClient.get<any>(`${this.apiUrl}MenuItems/GetMenuItemPrice/${MenuItemId}`);
     }
+
+     //get menu categories by menu type
+     getCategoriesByMenuType(Menu_TypeId: number): Observable<any>{
+      return this.httpClient.get(`${this.apiUrl}MenuItems/GetMenuCategoriesByMenuType/${Menu_TypeId}`);
+    }
+
+     //get food types by menu type
+     getFoodTypesByMenuCategories(Menu_CategoryId: Number): Observable<any>{
+      return this.httpClient.get(`${this.apiUrl}MenuItems/GetFoodTypesByMenuCategory/${Menu_CategoryId}`);
+    }
+
+    
+
+
+
     
   
   
@@ -181,22 +209,41 @@ export class DataService {
       return this.httpClient.get(`${this.apiUrl}FoodType/GetFoodType` + "/" + foodTypeId).pipe(map(result => result))
     }
   
-    AddFoodType(foodType : FoodType)
+    AddFoodType(foodType : any): Observable<any>
     {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+        })
+
+      };
       return this.httpClient.post(`${this.apiUrl}FoodType/AddFoodType`, foodType, this.httpOptions)
     }
   
-    EditFoodType(foodTypeId: number, foodType: FoodType)
+    EditFoodType(foodTypeId: number, foodType: FoodType): Observable<any>
     {
-      return this.httpClient.put(`${this.apiUrl}FoodType/EditFoodType/${foodTypeId}`, foodType, this.httpOptions)
+      const foodTypeViewModel: FoodTypeViewModel = {
+        name: foodType.name,
+        description: foodType.description,
+        menuCategoryFoodTypeItems: foodType.menuCategoryFoodTypeItems.map(
+          (item) => ({
+            menu_CategoryId: item.menu_CategoryId,
+            // Add other properties as needed
+          })
+        ),
+        // Add other properties as needed
+      };
+      return this.httpClient.put(`${this.apiUrl}FoodType/EditFoodType/${foodTypeId}`, foodTypeViewModel, this.httpOptions)
     }
   
     DeleteFoodType(foodTypeId: number)
     {
       return this.httpClient.delete<string>(`${this.apiUrl}FoodType/DeleteFoodType` + "/" + foodTypeId, this.httpOptions)
     }
+
+
   
-    // menu item category
+    //**************************************menu item category***************************************///
     GetAllMenuItemCategories(): Observable<any>{
       return this.httpClient.get(`${this.apiUrl}MenuItem_Category/GetAllMenuItemCategories`).pipe(map(result => result)) 
     }
@@ -207,14 +254,17 @@ export class DataService {
       //return this.httpClient.get(`${this.apiUrl}MenuItem_Category/GetMenuItemCategory` + "/" + Menu_CategoryId) //.pipe(map(result => result))
     }
   
-    AddMenuItemCategory(menuItemCategory : MenuItemCategory)
-    {
-      return this.httpClient.post(`${this.apiUrl}MenuItem_Category/AddMenuItemCategory`, menuItemCategory, this.httpOptions)
+    AddMenuItemCategory(data: any, headers: HttpHeaders) {
+      const requestOptions = {
+        headers: headers, // Directly assign the headers here
+      };
+    
+      return this.httpClient.post(`${this.apiUrl}MenuItem_Category/AddMenuItemCategory`, data, requestOptions);
     }
   
-    EditMenuItemCategory(menu_CategoryId: number, menuItemCategory: MenuItemCategory)
+    EditMenuItemCategory(Menu_CategoryId: number, menuItemCategory: MenuItemCategory)
     {
-      return this.httpClient.put(`${this.apiUrl}MenuItem_Category/EditMenuItemCategory/${menu_CategoryId}`, menuItemCategory, this.httpOptions)
+      return this.httpClient.put(`${this.apiUrl}MenuItem_Category/EditMenuItemCategory/${Menu_CategoryId}`, menuItemCategory, this.httpOptions)
     }
   
     DeleteMenuItemCategory(menu_CategoryId: number)
@@ -253,9 +303,9 @@ export class DataService {
     return this.httpClient.post(`${this.apiUrl}DrinkType/AddDrinkType`, drinkType, this.httpOptions)
   }
 
-  EditDrinkType(drinkTypeId: number, drinkType: DrinkType)
+  EditDrinkType(Drink_TypeId: number, drinkType: DrinkType)
   {
-    return this.httpClient.put(`${this.apiUrl}DrinkType/EditDrinkType/${drinkTypeId}`, drinkType, this.httpOptions)
+    return this.httpClient.put(`${this.apiUrl}DrinkType/EditDrinkType/${Drink_TypeId}`, drinkType, this.httpOptions)
   }
 
   DeleteDrinkType(drinkTypeId: number)
@@ -350,11 +400,11 @@ GetAllEvents(): Observable<any>
   .pipe(map(results => results))
 }
 
-GetAllScheduleStatus(): Observable<any>
-{
-  return this.httpClient.get(`${this.apiUrl}Schedule/GetAllScheduleStatus`)
-  .pipe(map(results => results))
-}
+// GetAllScheduleStatus(): Observable<any>
+// {
+//   return this.httpClient.get(`${this.apiUrl}Schedule/GetAllScheduleStatus`)
+//   .pipe(map(results => results))
+// }
 GetEvent(eventId: Number)
 {
   return this.httpClient.get(`${this.apiUrl}Event/GetEvent` + "/" + eventId).pipe(map(result => result))
@@ -429,4 +479,47 @@ DeleteEntertainmentType(entertainment_TypeId: Number)
   getOrderSummary(): Order | null {
     return this.orderSummary;
   }
+  /////////////////////////////////////DISCOUNT//////////////////////////////
+  GetAllDiscountPercentages(): Observable<any>
+{
+  return this.httpClient.get(`${this.apiUrl}Discount/GetAllDiscountPercentages`)
+  .pipe(map(results => results))
+}
+
+GetADiscountPercentage(discountId: Number)
+{
+  return this.httpClient.get(`${this.apiUrl}Discount/GetADiscountPercentage` + "/" + discountId).pipe(map(result => result))
+}
+
+AddADiscountPercentage(Discount : Discount)
+{
+  return this.httpClient.post(`${this.apiUrl}Discount/AddADiscountPercentage`, Discount, this.httpOptions)
+}
+
+EditADiscountPercentage(discountId: Number, Discount: Discount)
+{
+  return this.httpClient.put(`${this.apiUrl}Discount/EditADiscountPercentage/${discountId}`, Discount, this.httpOptions)
+}
+
+DeleteADiscountPercentage(discountId: Number)
+{
+  return this.httpClient.delete<string>(`${this.apiUrl}Discount/DeleteADiscountPercentage` + "/" + discountId, this.httpOptions)
+}
+
+//////////////VAT///////////
+GetAllVatPercentages(): Observable<any>
+{
+  return this.httpClient.get(`${this.apiUrl}Vat/GetAllVatPercentages`)
+  .pipe(map(results => results))
+}
+
+GetAVatPercentage(vatId: Number)
+{
+  return this.httpClient.get(`${this.apiUrl}Vat/GetAVatPercentage` + "/" + vatId).pipe(map(result => result))
+}
+
+AddAVatPercentage(vat : VAT)
+{
+  return this.httpClient.post(`${this.apiUrl}Vat/AddAVatPercentage`, vat, this.httpOptions)
+}
 }

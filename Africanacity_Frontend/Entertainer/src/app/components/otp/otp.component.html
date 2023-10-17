@@ -1,0 +1,42 @@
+<!-- <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 mt-4">
+        <div class="card smaller-card">
+          <div class="page-container">
+
+          </div>
+          <div class="card-body">
+       
+            <h2 class="card-title text-center">Enter One-Time Pin</h2>
+            <form [formGroup]="otpFormGroup">
+              <div class="form-group">
+                <label for="otp">OTP</label>
+                <input type="text" formControlName="otp" class="form-control" placeholder="Enter the 4 digit valid OTP" />
+              </div>
+
+              <!-- Replace this button with your custom button
+              <button type="button" (click)="SubmitOtp()" class="btn btn-primary btn-block">Confirm</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="container">
+    <h2>Enter OTP</h2>
+    <form [formGroup]="otpForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="otp">OTP</label>
+        <input
+          type="text"
+          id="otp"
+          formControlName="otp"
+          class="form-control"
+          placeholder="Enter OTP"
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">Verify OTP</button>
+    </form>
+  </div>
+  

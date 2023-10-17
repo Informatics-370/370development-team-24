@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/service/data.Service';
 import { FoodType } from 'src/app/shared/food-type';
@@ -9,6 +9,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'src/app/administration/menu-types/add-menu-type/confirmation-dialog/confirmation-dialog.component'
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar'
 import { HelpAddfoodtypeComponent } from './help-addfoodtype/help-addfoodtype.component';
+import { MenuItemCategory } from 'src/app/shared/menu-item-category';
 
 @Component({
   selector: 'app-create-food-type',
@@ -20,6 +21,8 @@ export class CreateFoodTypeComponent {
   toastContainer!: ViewContainerRef;
   FoodTypeId!: number;
   AddFoodTypeForm!: FormGroup;
+  menuCategories: MenuItemCategory[] = [];
+  menuCategoryFoodTypeItems!: FormArray;
 
   constructor(private dataService: DataService, 
     private route: ActivatedRoute, 
@@ -29,14 +32,16 @@ export class CreateFoodTypeComponent {
     private fb: FormBuilder) 
   {
 
-    //creating a form
-    {
+    //creating a form {
         this.AddFoodTypeForm = this.fb.group({
         name: ['', [Validators.required]],
-        description: ['', [Validators.required]] 
-      })
+        description: ['', [Validators.required]],
+        menuCategoryFoodTypeItems: this.fb.array([]),
+        //selectedMenuCategories: ['', [Validators.required]]
+      });
+      this.menuCategoryFoodTypeItems = this.AddFoodTypeForm.get('menuCategoryFoodTypeItems') as FormArray;
     }
-  }
+  
     //confirmation dialog method
     openDialog():void{
       const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
@@ -52,7 +57,12 @@ export class CreateFoodTypeComponent {
     })
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Fetch the list of MenuCategories when the component initializes
+    this.dataService.GetAllMenuItemCategories().subscribe((categories) => {
+      this.menuCategories = categories;
+    });
+  }
 
   cancel()
   {
@@ -61,14 +71,35 @@ export class CreateFoodTypeComponent {
 
   AddFoodType()
   {
-    let foodType = new FoodType();
-    foodType.name = this.AddFoodTypeForm.value.name;
-    foodType.description = this.AddFoodTypeForm.value.description;
+    if (this.AddFoodTypeForm.invalid){
+      return;
+    }
+  
+    // Construct the foodTypeData object with the selected menu categories
+    const foodTypeData = {
+      name: this.AddFoodTypeForm.value.name,
+      description: this.AddFoodTypeForm.value.description,
+      menuCategoryFoodTypeItems: this.AddFoodTypeForm.value.menuCategoryFoodTypeItems.map((item: any) => ({
+        menu_CategoryId: item.menu_CategoryId,
+        
+      }))
+    };
+    console.log ('Food Type data sent to API:', foodTypeData);
 
-    this.dataService.AddFoodType(foodType).subscribe((add:any) => {
+    this.dataService.AddFoodType(foodTypeData).subscribe((add:any) => {
       this.router.navigate(['/food-type'])
     });
     this.showSuccessMessage('Food Type added successfully!');
+  }
+
+  //add another
+  addItem(): void {
+    const itemControl = this.fb.group({
+      menu_CategoryId: ['', Validators.required],
+      
+    });
+
+    this.menuCategoryFoodTypeItems.push(itemControl);
   }
 
   // success message

@@ -21,6 +21,8 @@ export class EntertainerComponent {
   public UserId!: number;
   entertainers: Profile[] = [];
   filteredentertainers: Profile[] = [];
+  loading: boolean = true;
+  ActionLoading: boolean = false;
 
  
   deleteEntertainer(entertainerId: number): void {
@@ -32,10 +34,13 @@ export class EntertainerComponent {
             alert('Entertainer deleted successfully!');
             // Refresh the list of entertainers after deletion
             this.GetEntertainers();
+            this.ActionLoading = false; 
+            location.reload()// Set loading back to false in case of an error
           },
           (error) => {
             console.error('Error deleting entertainer:', error);
             alert('An error occurred while deleting the entertainer.');
+            this.ActionLoading = false; // Set loading back to false in case of an error
           }
         );
     }
@@ -53,7 +58,8 @@ export class EntertainerComponent {
 
   ngOnInit() {
 
-    this.GetEntertainers()
+    this.GetEntertainers();
+    this.loading = false; // Hide the loader in case of error as well
     console.log(this.entertainers)
 
     this.filteredentertainers= this.entertainers
@@ -85,7 +91,7 @@ export class EntertainerComponent {
       let entertainerList:any[] = result
       entertainerList.forEach((element) => {
         this.entertainers.push(element)
-        
+        this.loading = false; // Hide the loader in case of error as well
       });
     })
   }

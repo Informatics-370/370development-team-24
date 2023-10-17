@@ -1,8 +1,6 @@
 import { AuthService } from './../../services/auth.service';
 import { ApiService } from './../../services/api.service';
-import { Component, OnInit } from '@angular/core';
 import { UserStoreService } from 'src/app/services/user-store.service';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Entertainment } from 'src/app/models/Entertainment';
 import { BookingService } from 'src/app/services/Booking.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,6 +11,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { DataService } from 'src/app/services/data.Service';
 import { BookingEvent } from 'src/app/models/bookingevent';
 import { BookingHelpComponent } from './booking-help/booking-help.component';
+import { LogoutConfirmationComponent } from '../navbar/logout-confirmation/logout-confirmation.component';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-booking',
@@ -23,7 +24,7 @@ export class BookingComponent implements OnInit {
 
   entertainmentTypeData:Entertainment[]=[]
   toastContainer: any;
-
+  public isValidEmail!: boolean;
   public users:any = [];
   bookingevents: BookingEvent[]=[];
   editBooking: BookingEvent = new BookingEvent();
@@ -56,7 +57,8 @@ export class BookingComponent implements OnInit {
    private route: ActivatedRoute,
    private userStore: UserStoreService,
    private dataService:DataService,
-   private dialog: MatDialog ) {
+   private dialog: MatDialog,
+    ) {
 
     this.bookingForm.controls['eventname'].disable();
    }
@@ -88,6 +90,15 @@ export class BookingComponent implements OnInit {
         this.bookingForm.controls['eventname'].setValue(this.editBooking.name);
       });
     });
+
+    const emailControl = this.bookingForm.get('email');
+
+    if (emailControl) {
+      emailControl.valueChanges.subscribe((value) => {
+        const pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,3}$/;
+        this.isValidEmail = pattern.test(value);
+      });
+   }
 
     this.GetAllEvents()
   }
@@ -173,9 +184,22 @@ cancel() {
    this.formData.delete("eventname");
  }
 
-  logout(){
-    this.auth.signOut();
-  }
+ logout() {
+  const dialogRef = this.dialog.open(LogoutConfirmationComponent);
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result === true) {
+      // User confirmed the logout, perform the logout action
+      this.auth.signOut();
+      
+      // Display a success notification
+      this.snackBar.open('Logged out successfully', 'Close', {
+        duration: 3000, // Duration in milliseconds
+        panelClass: ['success-snackbar'], // Optional CSS classes for styling
+      });
+    }
+  });
+}
 
      // Custom validator to check for spaces
      noSpacesValidator(control: AbstractControl): { [key: string]: boolean } | null {
@@ -206,6 +230,31 @@ cancel() {
             // Handle modal close if needed
           });
         }
+
+        
+        validateFile(event: any) {
+          const inputElement = event.target as HTMLInputElement;
+          const allowedTypes = ['image/jpeg', 'image/png', 'video/mp4', 'video/webm', 'video/ogg'];
+          const file = inputElement.files?.[0]; // Use optional chaining to safely access files
+        
+          if (file && allowedTypes.includes(file.type)) {
+            // Valid file type, proceed with upload or processing
+            this.uploadFile(file);
+          } else {
+            // Invalid file type, show an error message to the user
+            alert('Invalid file type. Please select a valid image or video file.');
+            // Optionally, you can clear the file input if needed
+            inputElement.value = '';
+          }
+        }
+        
+        selectedFile: File | null = null;
+        onFileSelected(event: any) {
+          this.selectedFile = event.target.files[0] as File;
+          this.formData.delete('file'); // Remove previous file if any
+          this.formData.append('file', this.selectedFile);
+        }
+      
 
 }
 

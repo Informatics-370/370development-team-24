@@ -74,7 +74,8 @@ namespace Africanacity_Team24_INF370_.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support");
             }
         }
-        
+
+       
         [HttpPost]
         [Route("AddSchedule")]
         public async Task<IActionResult> AddSchedule([FromBody] ScheduleViewModel vm)
@@ -91,7 +92,6 @@ namespace Africanacity_Team24_INF370_.Controllers
                 Start_Time = vm.Start_Time,
                 End_Time = vm.End_Time,
                 EventId = Convert.ToInt32(vm.Event),
-                Schedule_StatusId = Convert.ToInt32(vm.ScheduleStatus),
                 Description = vm.Description,
             };
 
@@ -123,7 +123,6 @@ namespace Africanacity_Team24_INF370_.Controllers
                     existingSchedule.Start_Time = viewModel.Start_Time;
                     existingSchedule.End_Time = viewModel.End_Time;
                     existingSchedule.EventId = viewModel.Event;
-                    existingSchedule.Schedule_StatusId = viewModel.ScheduleStatus;
                     existingSchedule.Description = viewModel.Description;
 
                     if (await _Repository.SaveChangesAsync())

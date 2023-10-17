@@ -1,0 +1,11 @@
+<div>
+    <h2>To-Do List</h2>
+    <!-- Display a list of to-do items with checkboxes -->
+    <ul>
+      <li *ngFor="let todo of todos">
+        <input type="checkbox" [(ngModel)]="todo.completed"> {{ todo.text }}
+      </li>
+    </ul>
+    <input type="text" [(ngModel)]="newTodo" (keyup.enter)="addTodo()">
+  </div>
+  

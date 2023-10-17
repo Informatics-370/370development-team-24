@@ -8,7 +8,7 @@ namespace Africanacity_Team24_INF370_.ViewModel
 {
 	public class UserViewModel
 	{
-		public string UserName { get; set; }
+		public string Username { get; set; }
 		public string otp { get; set; }
 	}
 }

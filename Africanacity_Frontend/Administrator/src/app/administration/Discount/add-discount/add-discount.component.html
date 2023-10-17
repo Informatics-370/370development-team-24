@@ -1,0 +1,77 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2">
+        <app-navbar></app-navbar>
+      </div>
+      <div class="col-md-10 order-md-2">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="text-center mb-4">Create Discount Percentage</h4>
+            <hr>
+            <div class="container">
+              <div class="row">
+  <form [formGroup]="discountform" class="form-horizontal"  (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <span>
+        <label class="tb col-sm-1" style="font-weight: bold;" for="name">Discount Name:</label>
+        <div class="col-sm-6">
+          <input class="form-control"  placeholder="Enter Name" [required]="true" name="name" formControlName="name">
+        </div>
+      </span>
+    </div>
+  
+      <div class="form-group">
+        <span>
+          <label class="col-sm-1" style="font-weight: bold;" for="description">Description:</label>
+          <div class="col-sm-6">
+            <input class="form-control"  placeholder="Enter Description" [required]="true" name="description" formControlName="description">
+          </div>
+        </span>
+      </div>
+
+      <!-- <div class="form-group">
+        <label class="col-sm-1" for="amount">Amount:</label>
+        <div class="col-sm-6">
+             <input type="number" formControlName="amount" min="0" max="100" step="1" [required]="true" value="0" class="form-control" [attr.readonly]="true">
+        </div>
+      </div> -->
+      <div class="form-group">
+        <label class="col-md-1" style="font-weight: bold;" for="amount">Amount:</label>
+        <div class="col-md-6">
+          <input class="form-control" placeholder="Enter Discount amount" required name="amount" formControlName="amount">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="start_date">Start Date:</label>
+        <div class="col-sm-6">
+        <input type="date" formControlName="start_date" [attr.readonly]="true"  [required]="true"  class="form-control">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="end_date">End Date:</label>
+        <div class="col-sm-6">
+        <input type="date" formControlName="end_date"  [required]="true"  class="form-control">
+        </div>
+      </div>
+  
+      <!-- <div class="form-group"> -->
+        <div class="col-sm-offset-1 col-sm-6 center-buttons">
+        <div class="buttons">
+          <span>
+          <button style="margin-right:1em;" type="submit" class="btn btn-sm btn-success">Add</button>
+          <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button>
+        </span>
+        </div>
+        </div>
+      <!-- </div> -->
+    </form>
+    <button mat-icon-button (click)="openHelpModal('itemName')" aria-label="Help"  matTooltip="Help">
+      <mat-icon style="font-size: 24px;">help</mat-icon>
+    </button>
+    </div>
+   </div> 
+    </div>
+    </div>
+  </div>

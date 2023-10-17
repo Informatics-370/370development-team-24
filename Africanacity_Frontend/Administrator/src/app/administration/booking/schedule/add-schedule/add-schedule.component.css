@@ -1,4 +1,66 @@
+/* Add this CSS to your styles.css or component's style file */
+.container-fluid {
+    padding: 20px;
+  }
+  
+  .card {
+    width: 40%; /* Adjust the width as needed */
+    margin: 0 auto;
+    box-shadow: 0 4px 20px rgba(7, 7, 7, 0.1);
+    border-color: black;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  h4 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 32px;
+    font-weight: bold;
+  }
+  
+  /* Form styles */
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    font-weight: bold;
+    width: 200px;
+  }
+  
+  /* Adjust the input fields to make them consistent */
+  .form-group .col-sm-6 input,
+  .form-group .col-sm-6 select {
+    width: 200%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Buttons styles */
+  .form-group .col-sm-offset-1 .btn {
+    margin-right: 20px;
+  }
+  
+  .btn-success {
+    background-color: #28a745;
+    color: #fff;
+  }
+  
+  .btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+  }
 
+
+  .form-control{
+    width: 200%
+  }
+  .buttons{
+    margin-left: 0%;
+  }
   
   
   

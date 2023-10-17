@@ -17,7 +17,6 @@ namespace Africanacity_Team24_INF370_.View_Models
         public int Event { get; set; }
         public  string Description { get; set; }
 
-        public int ScheduleStatus { get; set; }
 
        
     }

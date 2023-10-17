@@ -126,7 +126,7 @@ return this.httpClient.post(url, body);
   }
 
   //get drink types
-  GetAllDrinkTypes() {
+  GetAllDrinkTypes() : Observable<any>{
     return this.httpClient.get(`${this.apiUrl}DrinkType/GetAllDrinkTypes`)
     .pipe(map(result => result))
   }

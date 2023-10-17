@@ -26,6 +26,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Net;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
@@ -37,15 +38,44 @@ namespace Africanacity_Team24_INF370_.Controllers
 		private readonly AppDbContext _authContext;
 		private readonly IEmailService _emailService;
 		private readonly IRepository _repository;
+		private static Dictionary<string, TwoFactorCode> _twoFactorCodeDictionary
+		 = new Dictionary<string, TwoFactorCode>();
+		private readonly SMS_OTP _twilioSmsService;
 
-		public UserController(AppDbContext context, IRepository repository, IConfiguration configuration, IEmailService emailService)
+		public UserController(SMS_OTP twilioSmsService, AppDbContext context, IRepository repository, IConfiguration configuration, IEmailService emailService)
 		{
 			_authContext = context;
 			_configuration = configuration;
 			_emailService = emailService;
 			_repository = repository;
+			_twilioSmsService = twilioSmsService;
+		}
+		//******************************************************** SMS OTP **************************************************
+
+		[HttpPost("SendOtpSms")]
+		public IActionResult SendOtpSms([FromBody] OtpRequestModel otpRequest)
+		{
+			// Generate OTP logic here
+			string otp = GenerateOtp();
+
+			// Save the OTP or associate it with the user as needed
+
+			// Send the OTP via SMS
+			_twilioSmsService.SendOTP(otpRequest.PhoneNumber, otp);
+
+			return Ok(new { Message = "OTP sent successfully" });
 		}
 
+
+		private string GenerateOtp()
+		{
+			// Generate and return a random OTP (e.g., a 6-digit number)
+			Random random = new Random();
+			int otp = random.Next(100000, 999999);
+			return otp.ToString();
+		}
+
+		//******************************************************** END ********************************************************
 		private async Task SendEmailAsync(string recipientEmail, string subject, string body)
 		{
 			var smtpClient = new SmtpClient("smtp.gmail.com")
@@ -100,8 +130,6 @@ namespace Africanacity_Team24_INF370_.Controllers
 			});
 		}
 
-
-
 		//**************************************************************************** Register *******************************************************************************
 		[HttpPost]
 		[Route("Register")]
@@ -136,20 +164,56 @@ namespace Africanacity_Team24_INF370_.Controllers
 				RefreshTokenExpiryTime = DateTime.UtcNow, // Set as needed
 				ResetPasswordToken = "",
 				ResetPasswordTokenExpiry = DateTime.UtcNow, // Set as needed
-				Entertainment_TypeId = entertainerViewModel.EntertainmentType
+				Entertainment_TypeId = entertainerViewModel.EntertainmentType,
+				OTP = GenerateOtp()
 			};
 
 			await _authContext.AddAsync(newUser);
 			await _authContext.SaveChangesAsync();
+
 			// Send registration confirmation email
 			await SendRegistrationConfirmationEmail(newUser.Email, newUser.FirstName);
 
+			// Call SendOtpSms asynchronously and await its completion
+			 SendOtpSms(new OtpRequestModel { PhoneNumber = newUser.ContactNumber });
 
 			return Ok(new
 			{
 				Status = 200,
 				Message = "Entertainer added successfully!"
 			});
+		}
+
+
+
+		[HttpPost("ResendOtp")]
+		public async Task<IActionResult> ResendOtp([FromBody] OtpRequestModel resendOtpRequest)
+		{
+			// Check if the user with the provided email or phone number exists
+			var user = await _authContext.Users.FirstOrDefaultAsync(u =>
+				 u.ContactNumber == resendOtpRequest.PhoneNumber);
+
+			if (user == null)
+				return NotFound(new { Message = "User not found!" });
+
+			// Generate a new OTP and save it
+			string newOtp = GenerateOtp();
+			user.OTP = newOtp;
+			await _authContext.SaveChangesAsync();
+
+			// Send the new OTP to the user
+			if (!string.IsNullOrEmpty(user.Email))
+			{
+				// Send OTP via email
+				await SendEmailAsync(user.Email, "OTP Verification", $"Your new OTP is: {newOtp}");
+			}
+			else if (!string.IsNullOrEmpty(user.ContactNumber))
+			{
+				// Send OTP via SMS
+				_twilioSmsService.SendOTP(user.ContactNumber, newOtp);
+			}
+
+			return Ok(new { Message = "New OTP sent successfully" });
 		}
 
 
@@ -361,11 +425,11 @@ namespace Africanacity_Team24_INF370_.Controllers
 			var newToken = resetPasswordDto.EmailToken.Replace(" ", "+");
 
 			// Check if the user exists in the Admins table
-			var user = await _authContext.Admins.FirstOrDefaultAsync(u => u.Email == resetPasswordDto.Email);
+			var user = await _authContext.Users.FirstOrDefaultAsync(u => u.Email == resetPasswordDto.Email);
 			if (user == null)
 			{
 				// User not found in the Admins table, let's check the Entertainers table
-				var admin = await _authContext.Users.FirstOrDefaultAsync(a => a.Email == resetPasswordDto.Email);
+				var admin = await _authContext.Admins.FirstOrDefaultAsync(a => a.Email == resetPasswordDto.Email);
 				if (admin == null)
 				{
 					return NotFound(new
@@ -375,8 +439,6 @@ namespace Africanacity_Team24_INF370_.Controllers
 					});
 				}
 
-				// Handle entertainer password reset here
-				// ...
 			}
 
 			var tokenCode = user.ResetPasswordToken;
@@ -561,6 +623,61 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 				// Return a generic error message to the client
 				return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "An error occurred while processing your request." });
+			}
+		}
+
+		[HttpPost("Otp")]
+		public IActionResult VerifyOtp([FromBody] OtpModel otpVerification)
+		{
+			try
+			{
+				// You should store the OTP associated with the user in your database
+				// and retrieve it based on the user's phone number.
+				string storedOtp = GetStoredOtp(otpVerification.Otp);
+
+				// Compare the stored OTP with the OTP entered by the user
+				if (string.Equals(storedOtp, otpVerification.Otp, StringComparison.Ordinal))
+				{
+					// OTP is valid
+					return Ok(new { Message = "OTP verified successfully" });
+				}
+				else
+				{
+					// Invalid OTP
+					return BadRequest(new { Message = "Invalid OTP" });
+				}
+			}
+			catch (Exception ex)
+			{
+				// Handle exceptions here
+				return StatusCode(500, new { Message = "An error occurred while verifying OTP" });
+			}
+		}
+
+
+		private string GetStoredOtp(string phoneNumber)
+		{
+			try
+			{
+				// Query your database to retrieve the stored OTP based on the user's phone number
+				var userOtp = _authContext.Users.FirstOrDefault(u => u.ContactNumber == "+27665903505");
+
+				if (userOtp != null)
+				{
+					// If a matching record is found, return the OTP
+					return userOtp.OTP;
+				}
+				else
+				{
+					// If no matching record is found, return null or an empty string to indicate that the OTP is not found.
+					return null;
+				}
+			}
+			catch (Exception ex)
+			{
+				// Handle exceptions here (e.g., log the error)
+				// You can return an error message or throw an exception if needed.
+				return null; // or throw ex; depending on your error handling strategy
 			}
 		}
 

@@ -124,7 +124,7 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 //	options.MaxRequestBodySize = int.MaxValue; // Set the maximum request body size
 //});
 
-
+builder.Services.AddScoped<SMS_OTP>();
 var app = builder.Build();
 
 

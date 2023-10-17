@@ -24,7 +24,7 @@ export class AddScheduleComponent implements OnInit{
   formData = new FormData();
   bookingevents: BookingEvent[] = []; //events array 
   schedules: Schedule[] = [];
-  statuses:Schedule_Status[] = []; //Push to schedule array
+  //statuses:Schedule_Status[] = []; //Push to schedule array
   minDate: Date;
   maxDate: Date;
   
@@ -53,14 +53,14 @@ export class AddScheduleComponent implements OnInit{
       end_Time: ['', Validators.required],
       event: [null, Validators.required],
       description:['',[Validators.required,this.noSpacesValidator]],
-      scheduleStatus:['',Validators.required],
+      //scheduleStatus:['',Validators.required],
     })
 
     ngOnInit(): void {
       this.GetAllEvents();
       this.dateAdapter.setLocale('en'); // Set your preferred 
     
-      this.GetAllScheduleStatus();
+      //this.GetAllScheduleStatus();
     }
  
     //Method to retrieve the events from the backend that will be used for the event dropdown
@@ -70,16 +70,6 @@ export class AddScheduleComponent implements OnInit{
       let eventsList:any[] = result
       eventsList.forEach((element) => {
         this.bookingevents.push(element)
-        
-      });
-    })
-  }
-  GetAllScheduleStatus()
-  {
-    this.dataService.GetAllScheduleStatus().subscribe(result => {
-      let schedulestatusList:any[] = result
-      schedulestatusList.forEach((element) => {
-        this.statuses.push(element)
         
       });
     })
@@ -94,7 +84,7 @@ export class AddScheduleComponent implements OnInit{
         const end_Time = this.scheduleform.get('end_Time')!.value;
         const event = this.scheduleform.get('event')!.value;
         const description = this.scheduleform.get('description')!.value;
-        const scheduleStatus = this.scheduleform.get('scheduleStatus')!.value;
+        //const scheduleStatus = this.scheduleform.get('scheduleStatus')!.value;
         
         
 
@@ -106,7 +96,7 @@ export class AddScheduleComponent implements OnInit{
         schedule.end_Time = end_Time;
         schedule.event = event;
         schedule.description = description;
-        schedule.scheduleStatus = scheduleStatus;
+        //schedule.scheduleStatus = scheduleStatus;
         
         // Send the data to the backend
         this.dataService.AddSchedule(schedule).subscribe(

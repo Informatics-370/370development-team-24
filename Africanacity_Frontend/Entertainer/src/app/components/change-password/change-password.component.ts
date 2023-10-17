@@ -13,6 +13,8 @@ import { ResetPasswordService } from 'src/app/services/reset-password.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
 import { ChangeHelpComponent } from './change-help/change-help.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { LogoutConfirmationComponent } from '../navbar/logout-confirmation/logout-confirmation.component';
 
 @Component({
   selector: 'app-change-password',
@@ -26,14 +28,15 @@ export class ChangePasswordComponent implements OnInit {
   successMessage: string | null = null;
   errorMessage: string | null = null;
   public fullName : string = "";
-
+  submitting: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private auth: AuthService,
     private userStore: UserStoreService,
     private router: Router,
-    private dialog: MatDialog // Replace with your actual AuthService
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar  
   ) {}
 
   ngOnInit() {
@@ -56,6 +59,7 @@ export class ChangePasswordComponent implements OnInit {
  
 
   onSubmit() {
+    this.submitting = true; 
     if (this.changePasswordForm.invalid) {
       return;
     }
@@ -79,10 +83,12 @@ export class ChangePasswordComponent implements OnInit {
         this.submitted = false;
 
         this.router.navigate(['/login']); // Adjust the route as needed
+        this.submitting = false; 
       },
       (error) => {
         this.errorMessage = error.error.Message;
         this.successMessage = null;
+        this.submitting = false; 
       }
     );
   }
@@ -142,10 +148,23 @@ export class ChangePasswordComponent implements OnInit {
     }
   }
   
-
-  logout(){
-    this.auth.signOut();
+  logout() {
+    const dialogRef = this.dialog.open(LogoutConfirmationComponent);
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        // User confirmed the logout, perform the logout action
+        this.auth.signOut();
+        
+        // Display a success notification
+        this.snackBar.open('Logged out successfully', 'Close', {
+          duration: 3000, // Duration in milliseconds
+          panelClass: ['success-snackbar'], // Optional CSS classes for styling
+        });
+      }
+    });
   }
+  
   cancel(){
     this.router.navigate(['/view-profile'])
   }

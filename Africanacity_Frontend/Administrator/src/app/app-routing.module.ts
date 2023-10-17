@@ -97,7 +97,13 @@ import { EventDetailsDailogComponent } from './administration/booking/schedule/e
 import { ViewOtherDrinkComponent } from './administration/otherDrink/view-other-drink/view-other-drink.component';
 import { CreateOtherDrinkComponent } from './administration/otherDrink/create-other-drink/create-other-drink.component';
 import { Help } from './shared/help';
-
+////Discounts
+import { ViewDiscountsComponent } from './administration/Discount/view-discounts/view-discounts.component';
+import { AddDiscountComponent } from './administration/Discount/add-discount/add-discount.component';
+import { EditDiscountComponent } from './administration/Discount/edit-discount/edit-discount.component';
+///VAT
+import { VatComponent } from './administration/Discount/vat/vat.component';
+import { AddVatComponent } from './administration/Discount/add-vat/add-vat.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -332,6 +338,13 @@ const routes: Routes = [
   {path: 'stock-take', component:StockTakeComponent , canActivate:[AuthGuard]},
   {path: 'stock-take-list', component:StockTakeListComponent , canActivate:[AuthGuard]},
   {path: 'write-off-stock', component:WriteOffStockComponent , canActivate:[AuthGuard]},
+  //Discounts
+  {path: 'view-discounts', component:ViewDiscountsComponent , canActivate:[AuthGuard]},
+  {path: 'add-discount', component:AddDiscountComponent , canActivate:[AuthGuard]},
+  {path: 'edit-discount/:id', component:EditDiscountComponent , canActivate:[AuthGuard]},
+  //VAT
+  {path: 'vat', component:VatComponent , canActivate:[AuthGuard]},
+  {path: 'add-vat', component:AddVatComponent , canActivate:[AuthGuard]},
 // for schedule
   {path:'sign-help', component: SignHelpComponent, canActivate:[AuthGuard]},
   {path:'change-help', component:  ChangeHelpComponent, canActivate:[AuthGuard]},

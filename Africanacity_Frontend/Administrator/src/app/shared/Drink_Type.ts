@@ -1,5 +1,5 @@
 export class DrinkType {
-    drinkTypeId!: number;
+    drink_TypeId!: number;
     name!: string;
     drinkTypeName: any;
 }

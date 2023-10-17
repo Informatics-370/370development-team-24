@@ -52,7 +52,7 @@ export class EditMenuTypeComponent implements OnInit{
 
 
   /*after submission of edit*/
-  editMenuType()
+  /*editMenuType()
   {
     let menuType = new MenuTypes();
     menuType.name = this.editMenuTypeForm.value.name;
@@ -64,7 +64,30 @@ export class EditMenuTypeComponent implements OnInit{
    });
    this.showSuccessMessage('Menu Type edited successfully!');
 
+  }*/
+
+  editMenuType() {
+    if (this.MenuTypes?.menu_TypeId !== undefined) { // Check if menu_TypeId is defined
+      const menuType = new MenuTypes();
+      menuType.name = this.editMenuTypeForm.value.name;
+  
+      this.dataService.EditMenuType(this.MenuTypes.menu_TypeId, menuType).subscribe(
+        (edit: any) => {
+          this.router.navigate(['/menu-types']);
+        },
+        (error) => {
+          // Handle error
+        }
+      )
+      
+  
+      this.showSuccessMessage('Menu Type edited successfully!');
+    } else {
+      // Handle the case where menu_TypeId is undefined
+      // You may want to display an error message or take appropriate action
+    }
   }
+  
 
   showSuccessMessage(message: string): void {
     const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(message, 'Ok', {

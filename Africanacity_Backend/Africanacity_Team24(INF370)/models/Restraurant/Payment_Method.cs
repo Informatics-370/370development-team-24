@@ -11,7 +11,8 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
 		[MaxLength(50)]
 		public string Name { get; set; } = string.Empty;
 
-		public List<Order> Orders { get; set; } = new List<Order>();
-		public List<Payment> Payment_Methods { get; set; } = new List<Payment>();
+		//public List<Order> Orders { get; set; } = new List<Order>();
+		public List<KitchenOrder> Orders { get; set; } = new List<KitchenOrder>();
+		//public List<Payment> Payment_Methods { get; set; } = new List<Payment>();
 	}
 }

@@ -1,5 +1,5 @@
-.side-navbar {
-  background-color: #292b2c; /* Dark background color */
+/* .side-navbar {
+  background-color: #292b2c; /* Dark background color 
   color: white;
   height: 100%;
   width: 240px;
@@ -31,7 +31,7 @@
 }
 
 .side-navbar .nav-link i {
-  margin-right: 10px; /* Add space between icon and text */
+  margin-right: 10px; /* Add space between icon and text
 }
 
 .side-navbar .nav-link:hover {
@@ -40,7 +40,7 @@
 
 .side-navbar .dropdown-menu {
   display: none;
-  background-color: #292b2c; /* Dark background color for dropdown */
+  background-color: #292b2c; /* Dark background color for dropdown
 }
 
 .side-navbar .dropdown-menu li {
@@ -56,19 +56,107 @@
   left: 0;
 }
 
-/* Custom separator style */
+/* Custom separator style 
 .nav-separator {
   text-align: left;
   margin-left: 0;
   margin-top: -10px;
   border-width: 1px;
   border-color: #555;
-  width: 80%; /* Adjust the width as needed */
+  width: 80%; /* Adjust the width as needed 
   margin-left: auto;
   margin-right: auto;
 }
 
-/* Keep the text white in dropdown */
+/* Keep the text white in dropdown 
 .side-navbar .white-link {
   color: white;
+} */
+
+/* Updated CSS for the sidebar navigation */
+.side-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 200px;
+  background-color: #333;
+  z-index: 1000;
+  color: #fff;
 }
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px 20px; /* Add some padding for better spacing */
+  background-color: #080808; /* Set a background color */
+  border-bottom: 2px solid #9740e9; /* Add a subtle border */
+  color: #fff;
+}
+
+.logo-image {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.logo-text {
+  font-size: 1.4rem; /* Increase font size for emphasis */
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-links li {
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 5px 10px;
+}
+
+.nav-links a:hover {
+  background-color: #555;
+}
+
+.dropdown {
+  display: none;
+  background-color: #333;
+  position: absolute;
+  z-index: 1;
+  width: 175px;
+  left: 100%;
+  top: 0;
+  border-left: 4px solid transparent;
+}
+
+.dropdown li {
+  margin-bottom: 0;
+}
+
+.nav-links li:hover .dropdown {
+  display: block;
+}
+
+.dropdown a {
+  padding: 5px 20px;
+}
+
+.dropdown a:hover {
+  background-color: #434146;
+}
+h4 {
+  text-align: center;
+  margin: 20px 0; /* Adjust margin for spacing */
+  color: #fff; /* Set the text color to white */
+}
+

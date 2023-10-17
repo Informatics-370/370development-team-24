@@ -30,6 +30,5 @@ namespace Africanacity_Team24_INF370_.models.Administration
 		public List<Event> Events { get; set; } = new List<Event>();
 
 		public List<Schedule> Schedules { get; set; } = new List<Schedule>();
-		public List<Help> Helps { get; set; } = new List<Help>();
 	}
 }

@@ -105,32 +105,67 @@ export class ReceiveOrderComponent implements OnInit {
     }
   
     const currentDate = new Date();
-
+  
     let receiveorder = new Supplier_Inventory();
-    receiveorder.inventoryItemName = this.receiveOrderForm.value.inventoryItemName; 
+    receiveorder.inventoryItemName = this.receiveOrderForm.value.inventoryItemName;
     receiveorder.supplierNames = this.receiveOrderForm.value.supplierNames;
     receiveorder.ordered_Date = this.receiveOrderForm.value.ordered_Date;
-    receiveorder.received_Date = currentDate as Date; // Explicit type assertion
+    receiveorder.received_Date = currentDate as Date;
     receiveorder.ordered_Quantity = this.receiveOrderForm.value.ordered_Quantity;
+  
+    const inventoryItemToUpdate = this.inventoryItems.find(item => item.itemName === receiveorder.inventoryItemName);
+  
+    if (inventoryItemToUpdate) {
+      inventoryItemToUpdate.quantity += receiveorder.ordered_Quantity;
+  
+      // Call the updateQuantityOnServer method to update the quantity on the server
+      this.updateQuantityOnServer(inventoryItemToUpdate);
+    }
+  
     this.inventoryservice.AddReceivedOrder(receiveorder).subscribe(
       (result) => {
-        //this.inventoryservice.removeFromChecklist(this.editInventory);
-        this.router.navigate(['/view-orders'])
+        // Navigation to the checklist screen upon success
+        this.router.navigate(['/checklist']);
+  
+        // Display a success message
+        this.snackBar.open(
+          this.receiveOrderForm.get('inventoryItemName')!.value + ` created successfully`,
+          'X',
+          { duration: 5000 }
+        );
+  
+        // Reload the page (you might consider removing this)
+        setTimeout(() => {
+          window.location.reload();
+        }, 0);
       },
       (error) => {
         console.error('Error in AddReceivedOrder:', error);
       }
     );
+  }
   
-    this.snackBar.open(
-      this.receiveOrderForm.get('inventoryItemName')!.value + ` created successfully`,
-      'X',
-      { duration: 5000 }
+
+  onCancel() {
+    this.router.navigate(['/checklist']);
+  }
+
+  updateQuantityOnServer(inventoryItem: InventoryItem) {
+    this.inventoryservice.UpdateInventoryItem(inventoryItem.inventory_ItemId, inventoryItem).subscribe(
+      () => {
+        console.log('Inventory item updated successfully.');
+        this.updateInventoryItemInArray(inventoryItem);
+      },
+      (error: any) => {
+        console.error('Failed to update inventory item:', error);
+      }
     );
   }
 
-  onCancel() {
-
-    this.router.navigate(['/checklist']);
+  updateInventoryItemInArray(updatedItem: InventoryItem) {
+    const index = this.inventoryItems.findIndex((item) => item.inventory_ItemId === updatedItem.inventory_ItemId);
+    if (index !== -1) {
+      this.inventoryItems[index] = { ...updatedItem };
+    }
   }
 }

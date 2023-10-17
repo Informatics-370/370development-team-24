@@ -5,6 +5,7 @@ using Africanacity_Team24_INF370_.models;
 using System.Reflection.Metadata.Ecma335;
 using Africanacity_Team24_INF370_.models.Restraurant;
 using Africanacity_Team24_INF370_.View_Models;
+using Africanacity_Team24_INF370_.models.Administration;
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
@@ -37,14 +38,14 @@ namespace Africanacity_Team24_INF370_.Controllers
         }
 
         [HttpGet]
-        [Route("GetAVatPercentage/{VatId}")]
-        public async Task<IActionResult> GetAVatPercentageAsync(int VatId)
+        [Route("GetAVatPercentage/{vatId}")]
+        public async Task<IActionResult> GetAVatPercentageAsync(int vatId)
         {
             try
             {
-                var result = await _repository.GetAVatPercentageAsync(VatId);
+                var result = await _repository.GetAVatPercentageAsync(vatId);
 
-                if (result == null) return NotFound("Course does not exist");
+                if (result == null) return NotFound("VAT does not exist");
 
                 return Ok(result);
             }
@@ -53,7 +54,28 @@ namespace Africanacity_Team24_INF370_.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support");
             }
         }
+        //Create VAT Amount
+        [HttpPost]
+        [Route("AddAVatPercentage")]
+        public async Task<IActionResult> AddAVatPercentage(VatViewModel vm)
+        {
+            var vatPercentage = new VAT
+            {
+                Amount = vm.Amount,
+            };
 
+            try
+            {
+                _repository.Add(vatPercentage);
+                await _repository.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return BadRequest("Invalid operation");
+            }
+
+            return Ok(vatPercentage);
+        }
 
 
 

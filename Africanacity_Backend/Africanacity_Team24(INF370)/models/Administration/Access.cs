@@ -13,7 +13,7 @@ namespace Africanacity_Team24_INF370_.models.Administration
 
 		[MaxLength(100)]
 		public string Description { get; set; } = string.Empty;
-		public List<User_Role> User_Roles { get; set; } = new List<User_Role>();
+		public ICollection<Access_UserRole> Access_UserRoles { get; set; }
 
 	}
 }

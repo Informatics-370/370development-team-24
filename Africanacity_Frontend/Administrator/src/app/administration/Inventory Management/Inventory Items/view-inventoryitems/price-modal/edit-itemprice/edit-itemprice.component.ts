@@ -48,12 +48,14 @@ export class EditItempriceComponent {
       this.inventoryservice.EditInventoryPrice(this.editItemPrice.inventoryPrice_Id, itemprice)
         .subscribe((response: any) => {
           if (response.statusCode == 200) {
-            this.router.navigate(['/selected-inventorytype']);
-            window.location.reload();
+         
+
           }
           // Add your else logic here if needed
     
           this.showSuccessMessage('Price Information updated successfully!');
+          this.router.navigate(['/selected-inventorytype']);
+          
         });
     }
   showSuccessMessage(message: string): void {

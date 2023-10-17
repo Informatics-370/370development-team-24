@@ -1,5 +1,7 @@
 ﻿using Africanacity_Team24_INF370_.models.Administration.Admin;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.Core.Metadata.Edm;
+using System.Text.Json.Serialization;
 
 namespace Africanacity_Team24_INF370_.models.Restraurant
 {
@@ -14,7 +16,10 @@ namespace Africanacity_Team24_INF370_.models.Restraurant
 		[MaxLength(100)]
 		public string Description { get; set; } = string.Empty;
 
-		public virtual ICollection<MenuItem> MenuItems { get; set; }	
+        // Many-to-Many relationship with MenuCategory
 
-	}
+        [JsonIgnore]
+        public ICollection<MenuCategoryFoodType> MenuCategoryFoodTypes { get; set; }
+
+    }
 }

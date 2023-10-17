@@ -8,6 +8,8 @@ using Microsoft.Extensions.Logging; // Import the logging namespace
 using System.Net.Mail;
 using System.Net;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace Africanacity_Team24_INF370_.Controllers
 {
@@ -17,11 +19,93 @@ namespace Africanacity_Team24_INF370_.Controllers
 	{
 		private readonly IRepository _repository;
 		private readonly ILogger<BookingController> _logger;
-		public BookingController(IRepository repository, ILogger<BookingController> logger)
+		private readonly IWebHostEnvironment _environment;
+		public BookingController(IRepository repository, ILogger<BookingController> logger, IWebHostEnvironment environment)
 		{
 			_repository = repository;
 			_logger = logger;
+			_environment = environment;
 		}
+
+		//************************ Dummy 2
+
+		[HttpPost, DisableRequestSizeLimit]
+		[Route("Trail")]
+		public async Task<IActionResult> Upload([FromForm] IFormCollection formData)
+		{
+			try
+			{
+				var formFile = formData.Files.First();
+
+				if (formFile.Length > 0)
+				{
+					// Generate a unique file name
+					var fileName = Guid.NewGuid().ToString() + Path.GetExtension(formFile.FileName);
+
+					// Combine the file path with the wwwroot/videos directory
+					var filePath = Path.Combine("wwwroot/videos", fileName);
+
+					// Save the uploaded file to the specified path
+					using (var fileStream = new FileStream(filePath, FileMode.Create))
+					{
+						await formFile.CopyToAsync(fileStream);
+					}
+
+					var book = new Pending_Booking
+					{
+						FirstName = formData["firstName"],
+						Instagram = formData["Instagram"],
+						LastName = formData["lastName"],
+						Email = formData["email"],
+						Entertainment_TypeId = Convert.ToInt32(formData["entertainmenttype"]),
+						Eventname = formData["Eventname"],
+						Additional = formData["Additional"],
+						Demo = fileName, // Store the file name in the 'Demo' property
+						ContactNumber = formData["contactNumber"]
+					};
+
+					// Save the booking to your repository
+					_repository.Add(book);
+					await _repository.SaveChangesAsync();
+
+					return Ok();
+				}
+				else
+				{
+					return BadRequest("No file uploaded.");
+				}
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, $"Internal server error: {ex}");
+			}
+		}
+
+		[HttpGet]
+		[Route("GetVideo/{videoFileName}")]
+		public async Task<IActionResult> GetVideoAsync(string videoFileName)
+		{
+			try
+			{
+				var videoFilePath = Path.Combine("wwwroot/videos", videoFileName);
+
+				if (System.IO.File.Exists(videoFilePath))
+				{
+					var stream = System.IO.File.OpenRead(videoFilePath);
+					return File(stream, "video/mp4"); // Adjust the content type based on the video format.
+				}
+				else
+				{
+					return NotFound();
+				}
+			}
+			catch (Exception)
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+			}
+		}
+
+
 
 		//**************************************************************************** Edit Booking email *******************************************************************************
 		private async Task SendBookingUpdateNotificationEmail(string recipientEmail, string recipientName, string bookingEvent)
@@ -339,15 +423,14 @@ namespace Africanacity_Team24_INF370_.Controllers
 				// Send nicely formatted HTML email to africanacitymmino@gmail.com
 				await SendEmailAsync("africanacitymmino@gmail.com", "Booking Deletion Request", bookingDetails);
 
-				return Ok("Booking deletion request sent successfully");
+				return Ok(new { message = "Booking deletion request sent successfully" });
+
 			}
 			catch (Exception)
 			{
 				return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
 			}
 		}
-
-
 
 
 		//**************************************************************************** Manage Delete Booking *******************************************************************************

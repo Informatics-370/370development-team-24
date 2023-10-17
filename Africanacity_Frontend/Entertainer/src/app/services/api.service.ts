@@ -69,6 +69,22 @@ export class ApiService {
     return this.http.put(`${this.baseUrl}/EditUser/${UserId}`,user, this.httpOptions)
   }
 
+  sendOtpSms(phoneNumber: string): Observable<any> {
+    const url = `${this.baseUrl}/SendOtpSms`;
+    const body = { phoneNumber };
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post(url, body, { headers });
+  }
+
+  // Method to verify OTP
+  verifyOTP(otp: string): Observable<any> {
+    const url = `${this.baseUrl}/Otp`;
+    const body = { otp };
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post(url, body, { headers });
+  }
   
     // changePassword(oldPassword: string, newPassword: string): Observable<any> {  
     //   const token = localStorage.getItem('token');

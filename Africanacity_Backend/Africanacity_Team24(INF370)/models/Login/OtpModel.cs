@@ -9,11 +9,7 @@ namespace Africanacity_Team24_INF370_.models.Login
 	public class OtpModel
 	{
 
-		[Required]
-		 [DataType(DataType.EmailAddress)]
-		public string userName { get; set; }
-
-		[Required]
-		public string otp { get; set; }
+		public string PhoneNumber { get; set; }
+        public string Otp { get; set; }
 	}
 }

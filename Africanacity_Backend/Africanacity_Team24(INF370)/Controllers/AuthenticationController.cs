@@ -172,7 +172,7 @@ namespace Africanacity_Team24_INF370_.Controllers
 
 		//**************************************************************************** Username validation *******************************************************************************
 		private Task<bool> CheckUsernameExistAsync(string? username)
-			=> _authContext.Users.AnyAsync(x => x.Username == username);
+			=> _authContext.Admins.AnyAsync(x => x.Username == username);
 
 
 		//**************************************************************************** Password validation *******************************************************************************

@@ -13,7 +13,7 @@
               <form [formGroup]="eventsForm" class="form-horizontal" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
                <div class="form-group">
                  <label class=" col-md-1" style="font-weight: bold;" for="name">Event Title:</label>
-                  <div class="col-md-6">
+                  <div class="col-sm-6">
                     <input class="form-control" placeholder="Enter event title" [required]="true" name="name" formControlName="name">
                   </div>
                 </div>
@@ -27,13 +27,13 @@
 
                 <div class="form-group">
                    <label class=" col-md-1" style="font-weight: bold;" for="date">Event Date:</label>
-                   <div class="col-md-6">
+                   <div class="col-sm-6">
                      <input class="form-control" placeholder="Enter event date" [required]="true" name="date" formControlName="date">
                     </div>
                 </div>
 
                 <div>
-                  <input formControlName="image" type="file" id="image" #file placeholder="Choose event image" (change)="uploadFile(file.files)" style="display:none;"> Choose Image
+                  <input formControlName="image" type="file" id="image" #file placeholder="Choose event image" (change)="uploadFile(file.files)" style="display:none;"  accept="image/*"> Choose Image
                   <button color="primary" (click)="file.click()">Upload File</button>
                   <span *ngIf="fileNameUploaded.length > 0"> {{fileNameUploaded}}</span>
                 </div><br>

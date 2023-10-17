@@ -9,6 +9,16 @@ import { EmployeeService } from 'src/app/service/employee.service';
 import { Gender } from 'src/app/shared/gender';
 import { HelpEditemployeeComponent } from './help-editemployee/help-editemployee.component';
 
+function salaryNonNegativeValidator(control: FormControl): { [key: string]: any } | null {
+  const salary = control.value;
+  
+  if (salary !== null && (isNaN(salary) || salary <= 0)) {
+    return { 'invalidSalary': true };
+  }
+  
+  return null;
+}
+
 
 @Component({
   selector: 'app-edit-employee',
@@ -29,7 +39,7 @@ export class EditEmployeeComponent implements OnInit {
     phoneNumber: new FormControl('', [Validators.required]),
     physical_Address: new FormControl('', [Validators.required]),
     gender: new FormControl('', [Validators.required]),
-    
+    salary: new FormControl('', [Validators.required, salaryNonNegativeValidator]),
   });
 
   constructor(
@@ -50,7 +60,7 @@ export class EditEmployeeComponent implements OnInit {
         this.updateEmployeeForm.controls['email_Address'].setValue(this.editEmployee.email_Address);
         this.updateEmployeeForm.controls['phoneNumber'].setValue(this.editEmployee.phoneNumber);
         this.updateEmployeeForm.controls['physical_Address'].setValue(this.editEmployee.physical_Address);
-
+        this.updateEmployeeForm.controls['salary'].setValue(this.editEmployee.salary);
         // Find the selected Supplier Type in the supplierTypesData array
         const selectedType = this.employeeTypesData.find(type => type.name === this.editEmployee.employeeRoleName);
         if (selectedType) {
@@ -99,7 +109,7 @@ export class EditEmployeeComponent implements OnInit {
     employee.phoneNumber = this.updateEmployeeForm.value.phoneNumber;
     employee.physical_Address = this.updateEmployeeForm.value.physical_Address;
     employee.gender = this.updateEmployeeForm.value.gender;
-
+    employee.salary = this.updateEmployeeForm.value.salary;
     this.employeeservice.EditEmployee(this.editEmployee.employeeId, employee).subscribe(
       (response: any) => {
         if (response) {
