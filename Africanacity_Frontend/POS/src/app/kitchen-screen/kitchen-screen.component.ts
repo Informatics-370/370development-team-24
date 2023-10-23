@@ -10,6 +10,7 @@ import { EditKitchenOrderComponent } from '../edit-kitchen-order/edit-kitchen-or
 import { Router, ActivatedRoute } from '@angular/router';
 import { IonToast } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-kitchen-screen',
@@ -27,7 +28,6 @@ export class KitchenScreenComponent  implements OnInit {
   }
   completionToast: HTMLIonToastElement | undefined;
 
-  //kitchenOrders: KitchenOrder[] = [];
   filteredKitchenOrders: KitchenOrder [] = [];
   kitchenOrders: KitchenOrderView [] = [];
 
@@ -36,26 +36,20 @@ export class KitchenScreenComponent  implements OnInit {
 
   orderedDrinkItems: OrderedDrinkItem [] = [];
   filteredOrderedDrinkItems: OrderedDrinkItem [] = [];
-
-  //for edit purposes
-
-  // Create a property to store the selected order for editing
   selectedOrder!: KitchenOrderView;
-  // Create a boolean flag to control the visibility of the edit form
   isEditFormVisible: boolean = false;
-
-  
   orderData: KitchenOrderView | undefined;
 
   //completed orders
-  completedOrders: any[] = [];
-  dataLoaded = false; // Add a flag to track whether data has been loaded
+  completedOrders: KitchenOrderView[] = [];
+  
   
   constructor(private mainService: MainService,
     private modalController: ModalController, 
     private router: Router,
     private route: ActivatedRoute,
-    public toastController: ToastController) { 
+    public toastController: ToastController,
+    private navCtrl: NavController) { 
       
     }
 
@@ -63,29 +57,9 @@ export class KitchenScreenComponent  implements OnInit {
      // Fetch all kitchen orders when the component is initialized
      this.mainService.getAllKitchenOrders().subscribe((orders: KitchenOrderView[]) => {
       this.kitchenOrders = orders;
-      this.dataLoaded = true;
 
       
     });
-    const KitchenOrderId = 1; 
-    this.mainService.getKitchenOrderById(KitchenOrderId).subscribe((order: KitchenOrderView) => {
-      this.orderData = order; // Assign the fetched order data to orderData
-    });
-  
-
-
-       // Fetch all kitchen orders when the component is initialized
-   this.mainService.GetAllOrderedMenuItems().subscribe((result: any) => {
-    this.orderedMenuItems = result;
-    this.filteredOrderedMenuItems = this.orderedMenuItems;
-    console.log('Menu Items orders: ', this.filteredOrderedMenuItems)
-  });
-
-  this.mainService.GetAllOrderedDrinksItems().subscribe((result: any) => {
-    this.orderedDrinkItems = result;
-    this.filteredOrderedDrinkItems = this.orderedDrinkItems;
-    console.log('Drink orders: ', this.filteredOrderedDrinkItems)
-  });
 
   }
 
@@ -126,8 +100,8 @@ async showCompletionNotification(orderData: KitchenOrderView) {
 }
 
 //remove card
-markOrderAsComplete(order: any) {
-  if (this.dataLoaded) {
+markOrderAsComplete(order: KitchenOrderView) {
+  
     // Find the index of the order in the kitchenOrders array
     const index = this.kitchenOrders.indexOf(order);
 
@@ -136,9 +110,12 @@ markOrderAsComplete(order: any) {
       // Remove the order from the kitchenOrders array
       this.kitchenOrders.splice(index, 1);
 
-      // Add the order to the completedOrders array
-      this.completedOrders.push(order);
+      this.mainService.addCompletedOrder(order);
+      
+      // Navigate to the view-kitchen-orders page with the completed order as a parameter
+  this.router.navigate(['/view-kitchen-orders'], { state: { completedOrder: order } });
+
     }
-  }
+  
 }
 }

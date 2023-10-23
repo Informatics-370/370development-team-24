@@ -14,6 +14,7 @@ import { DrinkPrice } from '../shared/drink-price';
 import { KitchenOrder} from '../shared/kitchen-order';
 import { SignUp } from '../shared/sign-up';
 import{ map} from 'rxjs/operators';
+import { KitchenOrderView } from '../shared/kitchen-order-view';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,8 @@ import{ map} from 'rxjs/operators';
 export class MainService {
   private orderSummary: KitchenOrder | null = null;
   private notificationSubject = new Subject<string>();
-  public notification$ = this.notificationSubject.asObservable()
+  public notification$ = this.notificationSubject.asObservable();
+  private completedOrders: KitchenOrderView [] =[];
   
   
 
@@ -220,6 +222,7 @@ return this.httpClient.post(url, body);
 }
 
 
+
   // Method to get a specific kitchen order by ID
   getKitchenOrderById(kitchenOrderId: number): Observable<any> {
     return this.httpClient.get(`${this.apiUrl}Order/GetKitchenOrderById/${kitchenOrderId}`);
@@ -230,6 +233,13 @@ return this.httpClient.post(url, body);
     return this.httpClient.put(`${this.apiUrl}Order/EditKitchenOrder`, kitchenOrder);
   }
 
+  addCompletedOrder(order: KitchenOrderView) {
+    this.completedOrders.push(order);
+  }
+
+  getCompletedOrders() {
+    return this.completedOrders;
+  }
 
   //get all kitchen orders
   getAllKitchenOrders(): Observable<any> {

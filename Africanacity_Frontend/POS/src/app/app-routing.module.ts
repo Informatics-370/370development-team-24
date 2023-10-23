@@ -9,7 +9,7 @@ import { KitchenScreenComponent } from './kitchen-screen/kitchen-screen.componen
 import { NotificationComponent } from './notification/notification.component';
 import { PaymentComponent } from './payment/payment.component';
 import { Component } from 'ionicons/dist/types/stencil-public-runtime';
-import { PrintReceiptComponent } from './print-receipt/print-receipt.component';
+
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ViewKitchenOrdersComponent } from './view-kitchen-orders/view-kitchen-orders.component';
 import { EditKitchenOrderComponent } from './edit-kitchen-order/edit-kitchen-order.component';

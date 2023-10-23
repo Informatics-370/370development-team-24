@@ -24,7 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotificationService } from './service/notification.service';
 import { CommonModule } from '@angular/common';
 import { PaymentComponent } from './payment/payment.component';
-import { PrintReceiptComponent } from './print-receipt/print-receipt.component';
+
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { CustomAlertComponent } from './success-custom-alert/custom-alert.component';
 import { EditKitchenOrderComponent } from './edit-kitchen-order/edit-kitchen-order.component';
@@ -45,7 +45,7 @@ import { AddItemComponent } from './add-item/add-item.component';
   KitchenScreenComponent,
   NotificationComponent,
   PaymentComponent,
-  PrintReceiptComponent,
+ 
   SignUpComponent,
   CustomAlertComponent,
   EditKitchenOrderComponent,

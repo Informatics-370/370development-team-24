@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { OrderService } from '../service/order.service';
 import { KitchenOrder } from '../shared/kitchen-order';
 import { ModalController } from '@ionic/angular';
-import { PrintReceiptComponent } from '../print-receipt/print-receipt.component';
+
 //import jsPDF from 'jspdf';
 //import autoTable from 'jspdf-autotable';
 //import { saveAs } from 'file-saver'; // Import file-saver for saving the PDF
