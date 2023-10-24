@@ -17,8 +17,7 @@ export class AppComponent {
                         event.urlAfterRedirects.includes('/order') || 
                         event.urlAfterRedirects.includes('/kitchen-screen') ||
                         event.urlAfterRedirects.includes('/view-kitchen-orders') ||
-                        event.urlAfterRedirects.includes('/add-item')||
-                        event.urlAfterRedirects.includes('/custom-alert')
+                        event.urlAfterRedirects.includes('/add-item')
                      
 
                       /* if (event.urlAfterRedirects === '/edit-kitchen-order') {

@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Payment
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-radio-group [(ngModel)]="selectedPaymentMethod">
+      <ion-list-header>
+        Payment Method
+      </ion-list-header>
+
+      <ion-item>
+        <ion-label>Cash</ion-label>
+        <ion-radio slot="start" value="Cash"> Cash</ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Card</ion-label>
+        <ion-radio slot="start" value="Card">Card</ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+  <ion-button expand="full" (click)="onPaymentSelection()">Ok</ion-button>
+</ion-content>

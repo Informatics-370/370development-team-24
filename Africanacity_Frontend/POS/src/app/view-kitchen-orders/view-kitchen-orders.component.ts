@@ -11,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Option2OrderService } from '../service/option2-order.service';
 import { AddKitchenOrderComponent } from '../add-kitchen-order/add-kitchen-order.component';
 import { CustomAlertComponent } from '../success-custom-alert/custom-alert.component';
-//service for the edit process
+import { PaymentModalComponent } from '../payment-modal/payment-modal.component';
 
 
 @Component({
@@ -61,26 +61,25 @@ export class ViewKitchenOrdersComponent  implements OnInit {
     }
     
 
-  // Function to open the edit form for a specific order
-  editOrder(order: KitchenOrderView) {
-    console.log("edit button clicked! for order:", order)
-    this.router.navigate(['/edit-kitchen-order/:KitchenOrderId', { KitchenOrderId: order.KitchenOrderId }]);
-  }
-  async showPaymentModal(order: any) {
-    console.log('Opening payment modal');
-    const modal = await this.modalController.create({
-      component: CustomAlertComponent,
-      componentProps: {
-        order: order, // Pass the order data to the modal
-      },
-    });
-    modal.onDidDismiss().then((data) => {
-      console.log('Modal dismissed with data:', data);
-    });
-  
+ 
 
-    return await modal.present();
-  }
+
+    async showPaymentModal(order: any) {
+      console.log('Opening payment modal');
+      try {
+        const modal = await this.modalController.create({
+          component: PaymentModalComponent,
+          componentProps: {
+            order: order, // Pass the order data to the modal
+          }
+        });
+       
+        await modal.present();
+      } catch (error) {
+        console.error('Error opening payment modal:', error);
+      }
+    }
+    
 
 
 

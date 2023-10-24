@@ -1,34 +1,4 @@
-<!--ion-header>
-  <ion-toolbar>
-    <ion-title>Submitted Orders</ion-title>
-  </ion-toolbar>
-</ion-header>
-<ion-content>
-  <ion-card class="ion-card" *ngFor="let order of filteredOrderedMenuItems">
-    <ion-card-header>
-      <ion-card-title>{{ order.kitchenOrderNumber}}</ion-card-title>
-    </ion-card-header>
 
-    <ion-card-content>
-      
-      <p>ORDER NO:{{ order.kitchenOrderNumber}}</p>
-      <p>TABLE: {{order.tableNumber}}</p>
-    </ion-card-content>
-  </ion-card>
-  <ion-card class="ion-card" *ngFor="let order of filteredOrderedDrinkItems">
-    <ion-card-header>
-      <ion-card-title>{{ order.kitchenOrderNumber}}</ion-card-title>
-    </ion-card-header>
-
-    <ion-card-content>
-    
-      <p>ORDER NO:{{ order.kitchenOrderNumber}}</p>
-      <p>TABLE: {{order.tableNumber}}</p>
-    </ion-card-content>
-  </ion-card>
-</ion-content-->
-
-<!--Second option/ works -->
 <ion-header>
   <ion-toolbar>
     <ion-title>
@@ -53,45 +23,7 @@
   </ion-card>
 </ion-content>
 
-<!--Third option for inline editing-->
-<!-- view-kitchen-orders.component.html -->
 
-<!--ion-card *ngFor="let order of kitchenOrders">
-  <h3>Order Number: {{ order.KitchenOrderNumber }}</h3>
-  <p>{{ order.TableNumber }}</p>
-  
- 
-  <ion-list>
-   
-    <ion-item *ngFor="let omi of order.OrderedMenuItems; let i = index">
-      <ion-label>{{ omi.MenuItem.Name }}</ion-label>
-      <ion-input [(ngModel)]="omi.Quantity" name="quantity-{{ i }}" type="number"></ion-input>
-      <ion-button (click)="editMenuItem(order, omi)">Edit</ion-button>
-      <ion-button (click)="removeMenuItem(order, i)">Remove</ion-button>
-      <ion-button (click)="addMenuItemToOrder(order)">Add Item</ion-button>
-    </ion-item>
-  
-    
-    <ion-item *ngFor="let od of order.OrderedDrinks; let i = index">
-      <ion-label>{{ od.OtherDrink.Name }}</ion-label>
-      <ion-input [(ngModel)]="od.Quantity" name="drink-quantity-{{ i }}" type="number"></ion-input>
-      <ion-button (click)="editDrinkItem(order, od)">Edit</ion-button>
-      <ion-button (click)="removeDrinkItem(order, i)">Remove</ion-button>
-      <ion-button (click)="addDrinkItemToOrder(order)">Add Item</ion-button>
-    </ion-item>
-  </ion-list>
-  
-
-
-
-  <p>Subtotal: {{ order.Subtotal }}</p>
-  <p>VAT: {{ order.VAT }}</p>
-  <p>Discount: {{ order.Discount }}</p>
-  <p>Total: {{ order.Total }}</p>
-
-
-  <ion-button [routerLink]="['/edit-kitchen-order', order.KitchenOrderId]">Edit Order</ion-button>
-</ion-card-->
 
 
 

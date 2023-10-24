@@ -7,7 +7,7 @@ import { OrderComponent } from './order/order.component';
 import { TableComponent } from './table/table.component';
 import { KitchenScreenComponent } from './kitchen-screen/kitchen-screen.component';
 import { NotificationComponent } from './notification/notification.component';
-import { PaymentComponent } from './payment/payment.component';
+
 import { Component } from 'ionicons/dist/types/stencil-public-runtime';
 
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -32,7 +32,7 @@ const routes: Routes = [
   {path: 'update-kitchen-order/:KitchenOrderId', component: UpdateKitchenOrderComponent},
   {path:'add-item', component:AddItemComponent},
   {path: 'notification', component: NotificationComponent},
-  {path: 'payment/:kitchenOrderNumber', component:PaymentComponent},
+
   {path: 'sign-up', component:SignUpComponent},
   {path: 'login', redirectTo: '/login', pathMatch:'full'},
   {path: '**', redirectTo: '/login', pathMatch:'full'},

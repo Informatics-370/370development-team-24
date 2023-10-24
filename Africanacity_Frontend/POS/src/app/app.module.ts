@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { IonicModule, IonicRouteStrategy, ModalController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,7 +23,7 @@ import { RegisterComponent } from './register/register.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotificationService } from './service/notification.service';
 import { CommonModule } from '@angular/common';
-import { PaymentComponent } from './payment/payment.component';
+
 
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { CustomAlertComponent } from './success-custom-alert/custom-alert.component';
@@ -32,7 +32,7 @@ import { ViewKitchenOrdersComponent } from './view-kitchen-orders/view-kitchen-o
 import { AddKitchenOrderComponent } from './add-kitchen-order/add-kitchen-order.component';
 import { UpdateKitchenOrderComponent } from './update-kitchen-order/update-kitchen-order.component';
 import { AddItemComponent } from './add-item/add-item.component';
-
+import { PaymentModalComponent } from './payment-modal/payment-modal.component';
 
 
 @NgModule({
@@ -44,15 +44,14 @@ import { AddItemComponent } from './add-item/add-item.component';
   TableComponent,
   KitchenScreenComponent,
   NotificationComponent,
-  PaymentComponent,
- 
   SignUpComponent,
   CustomAlertComponent,
   EditKitchenOrderComponent,
   ViewKitchenOrdersComponent,
   AddKitchenOrderComponent,
   UpdateKitchenOrderComponent,
-  AddItemComponent],
+  AddItemComponent,
+  PaymentModalComponent,],
 
  
 
@@ -68,8 +67,9 @@ import { AddItemComponent } from './add-item/add-item.component';
   HttpClientModule,
   BrowserAnimationsModule,
   CommonModule,
+  
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, NotificationService, AlertController],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, NotificationService, AlertController, ModalController],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
