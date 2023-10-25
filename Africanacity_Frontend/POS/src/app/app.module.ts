@@ -51,7 +51,7 @@ import { PaymentModalComponent } from './payment-modal/payment-modal.component';
   AddKitchenOrderComponent,
   UpdateKitchenOrderComponent,
   AddItemComponent,
-  PaymentModalComponent,],
+  PaymentModalComponent],
 
  
 
@@ -69,7 +69,7 @@ import { PaymentModalComponent } from './payment-modal/payment-modal.component';
   CommonModule,
   
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, NotificationService, AlertController, ModalController],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, NotificationService, AlertController],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

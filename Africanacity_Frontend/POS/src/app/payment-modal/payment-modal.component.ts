@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-payment-modal',
@@ -10,10 +11,11 @@ export class PaymentModalComponent  implements OnInit {
   @Input() order:any;
   selectedPaymentMethod!: string;
 
-  constructor(private modalController: ModalController) { }
+  constructor(private modalController: ModalController, private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit() {
     console.log('Received order prop:', this.order);
+    this.changeDetectorRef.detectChanges();
   }
 
   onPaymentSelection() {

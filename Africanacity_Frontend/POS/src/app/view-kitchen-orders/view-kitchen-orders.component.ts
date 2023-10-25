@@ -12,7 +12,7 @@ import { Option2OrderService } from '../service/option2-order.service';
 import { AddKitchenOrderComponent } from '../add-kitchen-order/add-kitchen-order.component';
 import { CustomAlertComponent } from '../success-custom-alert/custom-alert.component';
 import { PaymentModalComponent } from '../payment-modal/payment-modal.component';
-
+import { ActionSheetController } from '@ionic/angular';
 
 @Component({
   selector: 'app-view-kitchen-orders',
@@ -40,29 +40,27 @@ export class ViewKitchenOrdersComponent  implements OnInit {
 
   completedOrders: KitchenOrderView[] = [];
   public progress = 0;
+  canDismiss = false;
+  
   
 
   constructor(private mainService: MainService,
     private modalController: ModalController, 
     private router: Router,
     private route: ActivatedRoute,
-    private option2OrderService: Option2OrderService) {
+    private option2OrderService: Option2OrderService,
+    private actionSheetCtrl: ActionSheetController) {
       setInterval(() => {
         this.progress += 0.01;
-  
-        // Reset the progress bar when it reaches 100%
-        // to continuously show the demo
        
       }, 50);
      }
 
      ngOnInit() {
       this.completedOrders = this.mainService.getCompletedOrders();
+      
     }
     
-
- 
-
 
     async showPaymentModal(order: any) {
       console.log('Opening payment modal');
@@ -70,11 +68,10 @@ export class ViewKitchenOrdersComponent  implements OnInit {
         const modal = await this.modalController.create({
           component: PaymentModalComponent,
           componentProps: {
-            order: order, // Pass the order data to the modal
+            order: order// Pass the order data to the modal
           }
         });
-       
-        await modal.present();
+         modal.present();
       } catch (error) {
         console.error('Error opening payment modal:', error);
       }
