@@ -1,0 +1,26 @@
+<h4 style="text-align: center;">Edit Help</h4>
+<hr>
+<div class="container">
+<div class="row">  
+<form [formGroup]="helpForm" class="form-horizontal"  (ngSubmit)="updateHelp()">
+    <div class="form-group">
+        <label class=" col-sm-1" for="name">Question:</label>
+        <div class="col-sm-6">
+          <input class="form-control" id="name" placeholder="Enter Question" [required]="true" formControlName="name">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-1" for="description">Answer:</label>
+        <div class="col-sm-6">
+          <input class="form-control" id="description" placeholder="Enter Answer" [required]="true" formControlName="description">
+        </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-1 col-sm-6">
+        <button style="margin-right:1em;" type="submit" [disabled]="!helpForm.valid" class="btn btn-sm btn-success">Confirm</button>
+        <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button>
+      </div>
+    </div>
+  </form>
+  </div>
+</div> 
